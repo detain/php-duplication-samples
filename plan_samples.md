@@ -1279,9 +1279,10 @@ realization of the north-star goal.**
 - **Tool versions captured.** `bench/run-testsets.php` records each tool's version + invocation
   flags into every report (so `phpcpd 6.0.3 --min-tokens=70` is pinned, not assumed). A profile is
   only meaningful against a stated version.
-- **Golden baseline committed.** Integration commits a baseline snapshot
-  (`bench/results/baseline/…`) so a future tool upgrade (or a corpus change) can be **diffed**:
-  "phpcpd 7 now passes `st_reorder` — new capability" or "corpus edit regressed L2 scoring — bug".
+- **Golden baseline written.** Integration *writes* a baseline snapshot to
+  `bench/results/baseline/…` (a human commits it later — no agent runs git, §18.1) so a future tool
+  upgrade (or a corpus change) can be **diffed**: "phpcpd 7 now passes `st_reorder` — new
+  capability" or "corpus edit regressed L2 scoring — bug".
 - **Determinism.** Because generation is deterministic (D4) and tolerances are declared per set,
   re-scoring the same tree with the same tool version reproduces the same profile bit-for-bit.
 
@@ -1297,7 +1298,7 @@ Optional Phase 7+ material — valuable, but everything in §9 stands without it
    hostnames/paths/business strings; rename to neutral domains), re-emit as deterministic
    fixtures inside `L10_adversarial/adv_generated/*/src/`, plant known clones, and hand-build
    ground truth for the planted clones plus `non_duplicates` entries for the boilerplate
-   preambles every compiled template shares. The sanitized copies are committed (the live log
+   preambles every compiled template shares. The sanitized copies are kept in the repo (the live log
    dir is only a source, never referenced at runtime).
 2. **Existing `samples/` back-fill (stretch):** generate `expected.json` files for the
    existing 3-file categories (their duplication is whole-file-ish and coarse), giving the
@@ -1351,7 +1352,12 @@ exists (R1 ✓, with declared exceptions only *upward*: 6–8 files in `adv_many
 
 ## 16. Phased Milestones
 
-Each phase ends with `gen/verify.php` green, a benchmark smoke run, and a commit.
+This table is the **schedule** for building the whole corpus; the **driver** that executes it to
+completion — extend-Foundation → fan-out-in-waves → gate → next phase, until every family is
+built — is the completion loop in [§18.10](#1810-driving-to-completion--the-full-corpus-all-levels-all-sets).
+
+Each phase ends with `gen/verify.php` green, a benchmark smoke run, and a **checkpoint report**
+(no git commit — version control is the human's, §18.1).
 
 | Phase | Deliverable | Details |
 |---|---|---|
@@ -1396,9 +1402,9 @@ Defaults chosen so work can proceed; flag if any should change:
    curated levels (L6–L8) are the only real cost. (This supersedes the earlier plan's "100+
    sets" target; the combined corpus is ~540 sets and can double without redesign.)
 6. **Line-number convention:** 1-based, inclusive, matching `bench/score.php`.
-7. **Committed generated output:** the rendered `testsets/` tree is committed (not just
+7. **Checked-in generated output:** the rendered `testsets/` tree is kept in the repo (not just
    recipes), because the corpus must be usable without running the generator; the determinism
-   check keeps tree ↔ recipes honest.
+   check keeps tree ↔ recipes honest. (Agents write the files; a human commits them — §18.1.)
 8. **The old `samples/` back-fill** (§14.2) is out of scope for P0–P8.
 
 ---
@@ -1415,9 +1421,11 @@ of work. It is written to be copied verbatim into `testsets/ORCHESTRATION.md`
 
 1. **Live directory, in place.** All agents operate directly on
    `/home/sites/php-duplication-samples`. **No git worktrees, no branches, no isolation.**
-   (Concretely: when spawning via the Agent tool, `isolation` is left at its default — OFF;
-   never pass `isolation: "worktree"`.) Because everyone shares one tree, the file-scope rules
-   in §18.6 are what prevent collisions — they are mandatory, not advisory.
+   (Concretely: spawn subagents in the repo's working directory — do not create a worktree or
+   switch branches for them. On Claude Code that means leaving the Agent tool's `isolation` at its
+   default/OFF; on **opencode** and other runtimes, subagents already share the working directory,
+   so just don't switch branches. Runtime specifics: §18.9.1.) Because everyone shares one tree,
+   the file-scope rules in §18.6 are what prevent collisions — they are mandatory, not advisory.
 2. **No git, ever.** No agent runs *any* `git` subcommand — not `add`, `commit`, `branch`,
    `worktree`, `checkout`, `switch`, `stash`, `reset`, `rm`, `push`, or `tag`. Version control is
    the human's job, performed later, by hand. An agent that believes it needs git must **stop and
@@ -1479,9 +1487,14 @@ transforms, AST transforms, and hand-written variant-selectors):
 | 9 | `L06-cf_guard_nested-001` | L6 | Variant-selector CF-03 (control-flow rewrite; behavior-verified) |
 | 10 | `L07-api_map_loop-001` | L7 | Variant-selector API-01 (idiom substitution; behavior-verified) |
 
-L8 semantic and L9/L10 sets are intentionally **not** in the starter batch — they need the
-richest seed/variant substrate and the LLM-judge harness, so they come in a later wave once the
-engine is proven. Adding a second wave is just "10 more Set-Builder tasks" against the same DAG.
+L8 semantic and L9/L10 sets are intentionally **not** in this first wave — they need the richest
+seed/variant substrate and the LLM-judge harness, so they come in later waves once the engine is
+proven. Adding another wave is just "10 more Set-Builder tasks" against the same DAG.
+
+**This 10-set batch is Wave 1 (the pilot), not the finish line.** A full run continues wave after
+wave until *every* set implied by §9 (all families, ≥5 sets each) and §15 (~540 sets) is DONE. The
+completion loop that drives all waves to the end is **§18.10**; do not stop after Wave 1 unless
+explicitly told to.
 
 ### 18.4 Concurrency model
 
@@ -1608,10 +1621,105 @@ OUTPUT:      <what to return to the orchestrator: paths touched, verify/bench re
 3. When all chains report DONE (or BLOCKED), run the **Integration** task.
 4. Read the Integration report + `bench/results/testsets-matrix.md`; decide the next wave.
 
-This maps directly onto either the **Agent tool** (spawn each role as a subagent; keep ≤10
-builder chains live) or a **Workflow** script (`pipeline(setList, build, reviewFixLoop)` with the
-concurrency cap and per-stage `phase`s; Foundation/Integration as pre/post gates). In both cases
-`isolation` stays OFF and no role is granted git.
+This is **runtime-agnostic** — it needs only "a primary agent that can spawn role-scoped
+subagents." It maps onto Claude Code's **Agent tool** (spawn each role as a subagent; keep ≤10
+builder chains live) or its **Workflow** script (`pipeline(setList, build, reviewFixLoop)` with the
+concurrency cap and per-stage gates), onto **opencode** subagents (§18.9.1), or onto any
+comparable harness. Whatever the runtime: subagents share the one working tree, and no role is
+granted git.
+
+### 18.9.1 Running on opencode (or any non-Anthropic runtime)
+
+The plan assumes only a subagent mechanism; it does **not** depend on the Anthropic-specific
+`Workflow` tool (there is no equivalent in opencode — the primary agent orchestrates directly).
+Concrete opencode mapping:
+
+- **Materialize the §20 role prompts as opencode agent definitions.** Create one subagent per role
+  under `.opencode/agent/` (`foundation.md`, `set-builder.md`, `reviewer.md`, `fixer.md`,
+  `integration.md`), each with `mode: subagent`, a capable model, and — critically — a **restricted
+  tool/permission set** (§20.0). This turns the guard-rails from prose into config.
+- **Enforce the non-negotiables via opencode `permission` config, not just the prompt.** In
+  `opencode.json` (or per-agent frontmatter) deny git and out-of-scope writes, e.g.
+  `"permission": { "bash": { "git *": "deny", "*": "ask" }, "edit": "allow", "webfetch": "deny" }`.
+  Denying `git *` at the config layer makes the no-git rule (§18.1) impossible to violate even if a
+  prompt is imperfect. Scope the set-builder/reviewer/fixer agents so they cannot edit shared
+  substrate. (Reviewers: `edit: deny` except their `REVIEW.md`.)
+- **Surface the five non-negotiables (§18.1) in `AGENTS.md` at the repo root.** opencode auto-loads
+  `AGENTS.md` into every agent's context (its analogue of `CLAUDE.md`), so the live-dir + no-git +
+  scope rules apply to *every* agent, primary and sub, without repeating them per prompt. Keep the
+  full playbook in `testsets/ORCHESTRATION.md` (§19) and let `AGENTS.md` point to it.
+- **Parallelism is best-effort.** If your opencode setup runs subagents sequentially rather than
+  10-wide, that is fine — process the 10 chains one at a time. The concurrency cap (§18.4) is an
+  *upper bound* for correctness/collision-safety, not a requirement; sequential execution changes
+  only wall-clock, never the result (determinism holds either way).
+- **Model choice.** Foundation (writing the deterministic generator + php-parser transforms),
+  Set-Builders, and Reviewers are demanding — use a strong coding model for those roles; a cheaper
+  model is fine for the mechanical Fixer if desired.
+- **Everything else is portable:** PHP, `nikic/php-parser` (dev-only Composer dep), `php -l`, node
+  for jscpd, and the JSON schemas are provider-agnostic and unchanged.
+
+### 18.10 Driving to completion — the full corpus, all levels, all sets
+
+Wave 1 (§18.3) is a 10-set pilot that proves the engine end-to-end. A **full run does not stop
+there** — it continues until the entire corpus defined by §9 and §15 exists and passes. This
+section is the outer loop the orchestrator runs to get there.
+
+**Goal state ("the whole plan is complete") — all of:**
+- Every family in §9 (all 11 levels, ~108 families) has **≥5 sets, each DONE** (Reviewer PASS).
+- `testsets/manifest.json` totals match §15 (≈108 families / ≈540 sets / ≈2,755 files) — or the
+  agreed target if the per-family count was raised from the R2 floor of 5.
+- Whole-tree `gen/verify.php` is green and `gen/build.php --check` is byte-clean.
+- Per-tool **Capability Profile** reports (§13.4) and all matrices (§13) are generated.
+- Documentation Definition of Done (§19) is satisfied.
+
+**Why it runs phase-by-phase, not one giant fan-out.** Later levels need substrate that must exist
+before their sets can be built: L4/L5 need AST transforms, L6–L8 need **hand-authored variant
+bodies + equivalence tests**, L8 needs the LLM-judge rationale corpus, L10 needs adversarial
+scaffolds + sanitized Smarty fixtures (§14). So Foundation is **extended once per phase**, then
+that phase's sets fan out. This is exactly the P0–P8 ladder in §16 — §16 is the *schedule*, this
+loop is the *driver*.
+
+**The completion loop:**
+
+```
+for phase in [P1, P2, P3, P4, P5, P6, P7]:          # P0 = initial Foundation (Wave 1 gate)
+    1. EXTEND FOUNDATION for this phase              # add the transforms/seeds/variants/
+       (foundation agent) → review → must pass       #   scaffolds/distractors the phase needs
+    2. ENUMERATE this phase's sets from §9/§15        # every family's ≥5 sets for the phase's levels
+    3. FAN OUT in waves of ≤10 concurrent chains:     # §18.4 cap; queue the rest
+         each set: Builder → Reviewer → (Fixer → Reviewer)* → DONE   # §18.5, max 5 rounds
+       keep launching waves until this phase's set list is exhausted
+    4. PHASE GATE: whole-subtree gen/verify.php green # BLOCKED sets are recorded, not skipped over
+    5. CHECKPOINT: report phase status, then continue automatically (unless told to pause)
+run P8 INTEGRATION once, over the whole tree         # manifest + aggregate GT + reports +
+                                                     #   capability profiles + docs + samples.json
+assert goal state (above) holds; list any BLOCKED sets
+```
+
+**Rules that hold across the entire run:**
+- **≤10 concurrent chains at all times** (§18.4) — a "wave" is just the next ≤10 sets off the
+  phase's queue; when one finishes, the next queued set starts.
+- **Every set is reviewed** (§18.5); no phase advances with un-reviewed sets. BLOCKED sets
+  (5 rounds exhausted) are logged in `BLOCKED.md`, surfaced, and do **not** block *other* sets or
+  later phases — they are collected and reported at the end for human follow-up.
+- **One Set-Builder per family per wave** (recipe-file rule, §18.6). A family's 5 sets can be built
+  across sequential waves (same recipe file, one writer at a time) or given per-set recipe files if
+  you want them concurrent — the builder is told which.
+- **Hand-authored content is real work, not generation.** For L6–L8 the Set-Builder (or a
+  dedicated seed-variant author task) writes the variant bodies and the `equivalence_test.php`, and
+  the Reviewer confirms behavioral equivalence actually passes. For L10 it authors adversarial
+  fixtures and sanitizes Smarty templates (§14). Budget models/time accordingly (P4/P5/P7 dominate,
+  §16).
+- **Idempotent & resumable.** Because generation is deterministic and every set is
+  independent, a run can stop and resume: on restart, skip sets whose directory exists and whose
+  Reviewer verdict is PASS; rebuild/finish the rest. The orchestrator should track a simple
+  progress ledger (done / in-review / blocked / pending) so a resumed session knows what remains.
+- **No git, ever** (§18.1) — completion means the full tree exists **uncommitted** in the working
+  directory for human review; the orchestrator never commits, not even between phases.
+
+**Definition of "done driving":** the goal state holds, Integration has produced the capability
+profiles, and a final report lists total sets built, any BLOCKED sets with reasons, and the
+headline capability matrix. Only then does the orchestrator stop.
 
 ---
 
@@ -1678,6 +1786,12 @@ For any agent, assemble its prompt from four parts, in order:
 
 Keep the four parts labeled so the agent can tell contract from guidance. Everything here is
 written to be pasted verbatim.
+
+**On opencode (§18.9.1):** instead of pasting parts 1–3 into each spawn call, persist them as
+subagent definitions under `.opencode/agent/<role>.md` (role prompt + shared block as the system
+prompt; the allow/deny scope as the agent's tool/permission config). The primary agent then only
+supplies part 4 (the target set id + the specific §excerpts) at invocation time. Same content,
+enforced by config rather than by prose.
 
 ### 20.1 Foundation agent — prompt content
 
