@@ -1,0 +1,91 @@
+{
+    "schema_version": 1,
+    "set_id": "L01-ex_multi_cluster-005",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-1",
+            "granularity": "function",
+            "normalized_by": [
+                "whitespace",
+                "comments"
+            ],
+            "token_hash": "6078001114eb0c6d",
+            "normalized_hash": "cddfeac031011166",
+            "members": [
+                {
+                    "file": "src/BillServA.php",
+                    "start_line": 7,
+                    "end_line": 31,
+                    "symbol": "computeTotals",
+                    "pristine": true
+                },
+                {
+                    "file": "src/BillServB.php",
+                    "start_line": 17,
+                    "end_line": 41,
+                    "symbol": "computeTotals",
+                    "pristine": true
+                },
+                {
+                    "file": "src/BillServC.php",
+                    "start_line": 18,
+                    "end_line": 42,
+                    "symbol": "computeTotals",
+                    "pristine": true
+                },
+                {
+                    "file": "src/GrantServA.php",
+                    "start_line": 9,
+                    "end_line": 33,
+                    "symbol": "computeTotals",
+                    "pristine": true
+                },
+                {
+                    "file": "src/GrantServB.php",
+                    "start_line": 18,
+                    "end_line": 42,
+                    "symbol": "computeTotals",
+                    "pristine": true
+                },
+                {
+                    "file": "src/GrantServC.php",
+                    "start_line": 24,
+                    "end_line": 48,
+                    "symbol": "computeTotals",
+                    "pristine": true
+                }
+            ],
+            "detection_expectation": {
+                "text_based": true,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": true,
+                "semantic": true
+            },
+            "notes": "Two clusters: invoice_totals and access_guard variant. 3 carriers each."
+        }
+    ],
+    "non_duplicates": [
+        {
+            "file": "src/BillDistractor.php",
+            "start_line": 12,
+            "end_line": 28,
+            "reason": "near-miss: similar billing vocabulary but different logic",
+            "trap": true
+        },
+        {
+            "file": "src/GrantDistractor.php",
+            "start_line": 12,
+            "end_line": 27,
+            "reason": "near-miss: similar grant vocabulary but different logic",
+            "trap": true
+        }
+    ],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.6,
+        "min_members_for_credit": 2
+    }
+}

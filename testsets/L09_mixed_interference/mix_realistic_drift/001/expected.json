@@ -1,0 +1,66 @@
+{
+    "schema_version": 1,
+    "set_id": "L09-mix_realistic_drift-001",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-3",
+            "granularity": "method",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers",
+                "case_convention",
+                "literals"
+            ],
+            "token_hash": "f1e5708cf467f899",
+            "normalized_hash": "6cf973102e1cd959",
+            "members": [
+                {
+                    "file": "src/OriginalInvoiceCalc.php",
+                    "start_line": 9,
+                    "end_line": 33,
+                    "symbol": "computeTotals",
+                    "pristine": true
+                },
+                {
+                    "file": "src/BugfixInvoiceCalc.php",
+                    "start_line": 18,
+                    "end_line": 43,
+                    "symbol": "computeTotals",
+                    "pristine": false
+                },
+                {
+                    "file": "src/MaintenanceInvoiceCalc.php",
+                    "start_line": 24,
+                    "end_line": 52,
+                    "symbol": "computeTotals",
+                    "pristine": false
+                }
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": true,
+                "semantic": true
+            },
+            "notes": "Realistic maintenance scenario: pristine original vs bugfix variant vs reformatted+renamed+feature variant. Tests detection after 18 months of independent maintenance."
+        }
+    ],
+    "non_duplicates": [
+        {
+            "file": "src/MarginSummarizer.php",
+            "start_line": 12,
+            "end_line": 28,
+            "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total",
+            "trap": true
+        }
+    ],
+    "scoring": {
+        "line_tolerance": 4,
+        "member_jaccard_min": 0.35,
+        "min_members_for_credit": 2
+    }
+}

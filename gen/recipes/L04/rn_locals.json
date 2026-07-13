@@ -28,6 +28,106 @@
             "cleans": [
                 {"file": "HeaderSchemaDetector.php", "namespace": "Acme\\Import\\Schema", "class": "HeaderSchemaDetector", "source": "clean_parsing"}
             ]
+        },
+        {
+            "set_id": "L04-rn_locals-002",
+            "title": "CSV row parser with local variables renamed",
+            "description": "The same CSV row-parsing method in three importer classes. Carrier A is pristine; carrier B renames one local variable; carrier C renames every local variable consistently. Structure and layout are byte-identical — only identifiers differ (Type-2), so identifier-canonicalizing token tools, AST, metric and semantic detectors should still match all three.",
+            "seed": "csv_import",
+            "mount": "method",
+            "clone_symbol": "parseRow",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments", "identifiers"],
+            "rng_seed": 104002,
+            "notes": "Only local variables are renamed (RN-01); parameters, calls, literals and layout are untouched, so the single axis is identifier renaming. Pristine (A) vs fully-renamed (C) is the discriminating pair.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "CustomerRowReader.php", "namespace": "Acme\\Import\\Customers", "class": "CustomerRowReader", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": []},
+                {"file": "VendorRowReader.php", "namespace": "Acme\\Import\\Vendors", "class": "VendorRowReader", "scaffold": "method_alpha", "group": "A", "pristine": false, "transforms": [{"code": "RN-01", "params": {"renames": {"value": "token"}}}]},
+                {"file": "ProductRowReader.php", "namespace": "Acme\\Import\\Products", "class": "ProductRowReader", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "RN-01", "params": {"renames": {"record": "row", "columns": "cells", "column": "cell", "value": "token", "normalized": "cleaned"}}}]}
+            ],
+            "distractors": [
+                {"file": "RowWidthProfiler.php", "namespace": "Acme\\Import\\Profiling", "class": "RowWidthProfiler", "source": "nearmiss_csv", "reason": "near-miss: same CSV vocabulary and foreach-over-columns shape, but builds a column-width histogram — a different result"}
+            ],
+            "cleans": [
+                {"file": "HeaderSchemaDetector.php", "namespace": "Acme\\Import\\Schema", "class": "HeaderSchemaDetector", "source": "clean_parsing"}
+            ]
+        },
+        {
+            "set_id": "L04-rn_locals-003",
+            "title": "CSV row parser with local variables renamed",
+            "description": "The same CSV row-parsing method in three importer classes. Carrier A is pristine; carrier B renames one local variable; carrier C renames every local variable consistently. Structure and layout are byte-identical — only identifiers differ (Type-2), so identifier-canonicalizing token tools, AST, metric and semantic detectors should still match all three.",
+            "seed": "csv_import",
+            "mount": "method",
+            "clone_symbol": "parseRow",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments", "identifiers"],
+            "rng_seed": 104003,
+            "notes": "Only local variables are renamed (RN-01); parameters, calls, literals and layout are untouched, so the single axis is identifier renaming. Pristine (A) vs fully-renamed (C) is the discriminating pair.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "CustomerRowReader.php", "namespace": "Acme\\Import\\Customers", "class": "CustomerRowReader", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": []},
+                {"file": "VendorRowReader.php", "namespace": "Acme\\Import\\Vendors", "class": "VendorRowReader", "scaffold": "method_alpha", "group": "A", "pristine": false, "transforms": [{"code": "RN-01", "params": {"renames": {"value": "token"}}}]},
+                {"file": "ProductRowReader.php", "namespace": "Acme\\Import\\Products", "class": "ProductRowReader", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "RN-01", "params": {"renames": {"record": "row", "columns": "cells", "column": "cell", "value": "token", "normalized": "cleaned"}}}]}
+            ],
+            "distractors": [
+                {"file": "RowWidthProfiler.php", "namespace": "Acme\\Import\\Profiling", "class": "RowWidthProfiler", "source": "nearmiss_csv", "reason": "near-miss: same CSV vocabulary and foreach-over-columns shape, but builds a column-width histogram — a different result"}
+            ],
+            "cleans": [
+                {"file": "HeaderSchemaDetector.php", "namespace": "Acme\\Import\\Schema", "class": "HeaderSchemaDetector", "source": "clean_parsing"}
+            ]
+        },
+        {
+            "set_id": "L04-rn_locals-004",
+            "title": "CSV row parser with local variables renamed",
+            "description": "The same CSV row-parsing method in three importer classes. Carrier A is pristine; carrier B renames one local variable; carrier C renames every local variable consistently. Structure and layout are byte-identical — only identifiers differ (Type-2), so identifier-canonicalizing token tools, AST, metric and semantic detectors should still match all three.",
+            "seed": "csv_import",
+            "mount": "method",
+            "clone_symbol": "parseRow",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments", "identifiers"],
+            "rng_seed": 104004,
+            "notes": "Only local variables are renamed (RN-01); parameters, calls, literals and layout are untouched, so the single axis is identifier renaming. Pristine (A) vs fully-renamed (C) is the discriminating pair.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "CustomerRowReader.php", "namespace": "Acme\\Import\\Customers", "class": "CustomerRowReader", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": []},
+                {"file": "VendorRowReader.php", "namespace": "Acme\\Import\\Vendors", "class": "VendorRowReader", "scaffold": "method_alpha", "group": "A", "pristine": false, "transforms": [{"code": "RN-01", "params": {"renames": {"value": "token"}}}]},
+                {"file": "ProductRowReader.php", "namespace": "Acme\\Import\\Products", "class": "ProductRowReader", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "RN-01", "params": {"renames": {"record": "row", "columns": "cells", "column": "cell", "value": "token", "normalized": "cleaned"}}}]}
+            ],
+            "distractors": [
+                {"file": "RowWidthProfiler.php", "namespace": "Acme\\Import\\Profiling", "class": "RowWidthProfiler", "source": "nearmiss_csv", "reason": "near-miss: same CSV vocabulary and foreach-over-columns shape, but builds a column-width histogram — a different result"}
+            ],
+            "cleans": [
+                {"file": "HeaderSchemaDetector.php", "namespace": "Acme\\Import\\Schema", "class": "HeaderSchemaDetector", "source": "clean_parsing"}
+            ]
+        },
+        {
+            "set_id": "L04-rn_locals-005",
+            "title": "CSV row parser with local variables renamed",
+            "description": "The same CSV row-parsing method in three importer classes. Carrier A is pristine; carrier B renames one local variable; carrier C renames every local variable consistently. Structure and layout are byte-identical — only identifiers differ (Type-2), so identifier-canonicalizing token tools, AST, metric and semantic detectors should still match all three.",
+            "seed": "csv_import",
+            "mount": "method",
+            "clone_symbol": "parseRow",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments", "identifiers"],
+            "rng_seed": 104005,
+            "notes": "Only local variables are renamed (RN-01); parameters, calls, literals and layout are untouched, so the single axis is identifier renaming. Pristine (A) vs fully-renamed (C) is the discriminating pair.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "CustomerRowReader.php", "namespace": "Acme\\Import\\Customers", "class": "CustomerRowReader", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": []},
+                {"file": "VendorRowReader.php", "namespace": "Acme\\Import\\Vendors", "class": "VendorRowReader", "scaffold": "method_alpha", "group": "A", "pristine": false, "transforms": [{"code": "RN-01", "params": {"renames": {"value": "token"}}}]},
+                {"file": "ProductRowReader.php", "namespace": "Acme\\Import\\Products", "class": "ProductRowReader", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "RN-01", "params": {"renames": {"record": "row", "columns": "cells", "column": "cell", "value": "token", "normalized": "cleaned"}}}]}
+            ],
+            "distractors": [
+                {"file": "RowWidthProfiler.php", "namespace": "Acme\\Import\\Profiling", "class": "RowWidthProfiler", "source": "nearmiss_csv", "reason": "near-miss: same CSV vocabulary and foreach-over-columns shape, but builds a column-width histogram — a different result"}
+            ],
+            "cleans": [
+                {"file": "HeaderSchemaDetector.php", "namespace": "Acme\\Import\\Schema", "class": "HeaderSchemaDetector", "source": "clean_parsing"}
+            ]
         }
     ]
 }

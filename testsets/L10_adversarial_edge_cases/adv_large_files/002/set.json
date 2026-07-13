@@ -1,0 +1,63 @@
+{
+    "schema_version": 1,
+    "set_id": "L10-adv_large_files-002",
+    "level": 10,
+    "level_name": "adversarial_edge_cases",
+    "family": "adv_large_files",
+    "title": "Large file with clone at top position (line ~50 in 1200-line file)",
+    "description": "Clone at top of large file tests whether position affects detection in large files.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "invoice_totals",
+    "difficulty_band": "expert",
+    "files": [
+        {
+            "path": "src/InvoiceServiceA.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 39
+        },
+        {
+            "path": "src/InvoiceServiceB.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 44
+        },
+        {
+            "path": "src/InvoiceServiceC.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 43
+        },
+        {
+            "path": "src/Validator.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 28
+        },
+        {
+            "path": "src/SchemaMapper.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 22
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-1",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [],
+    "difficulty": {
+        "score": 82,
+        "requires": []
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L10/adv_large_files.json",
+        "version": "1.0.0",
+        "rng_seed": 110802
+    }
+}

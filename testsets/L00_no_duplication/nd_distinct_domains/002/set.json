@@ -1,0 +1,63 @@
+{
+    "schema_version": 1,
+    "set_id": "L00-nd_distinct_domains-002",
+    "level": 0,
+    "level_name": "no_duplication",
+    "family": "nd_distinct_domains",
+    "title": "Five unrelated single-responsibility services (variant 2)",
+    "description": "User timezone resolver, Invoice PDF generator, Config version migrator, Cache tag invalidator, and Webhook signature verifier — five utterly unrelated files from distinct domains.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": null,
+    "difficulty_band": "baseline",
+    "files": [
+        {
+            "path": "src/TimezoneResolver.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 23
+        },
+        {
+            "path": "src/InvoicePdfGenerator.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 23
+        },
+        {
+            "path": "src/ConfigMigrator.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 22
+        },
+        {
+            "path": "src/CacheInvalidator.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 24
+        },
+        {
+            "path": "src/WebhookVerifier.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 23
+        }
+    ],
+    "duplication": {
+        "present": false,
+        "clone_type": "none",
+        "granularity": null,
+        "clusters": 0,
+        "instances": 0
+    },
+    "interference": [],
+    "difficulty": {
+        "score": 0,
+        "requires": []
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L00_no_duplication/nd_distinct_domains.json",
+        "version": "1.0.0",
+        "rng_seed": 100100
+    }
+}

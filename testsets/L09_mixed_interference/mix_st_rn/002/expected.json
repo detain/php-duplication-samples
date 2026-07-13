@@ -1,0 +1,66 @@
+{
+    "schema_version": 1,
+    "set_id": "L09-mix_st_rn-002",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-3",
+            "granularity": "method",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers",
+                "case_convention",
+                "literals"
+            ],
+            "token_hash": "e2c6d2de09404029",
+            "normalized_hash": "d5da572207f4bce3",
+            "members": [
+                {
+                    "file": "src/PristineInvoiceCalc.php",
+                    "start_line": 9,
+                    "end_line": 33,
+                    "symbol": "computeTotals",
+                    "pristine": false
+                },
+                {
+                    "file": "src/SnakeCaseCalc.php",
+                    "start_line": 18,
+                    "end_line": 42,
+                    "symbol": "computeTotals",
+                    "pristine": false
+                },
+                {
+                    "file": "src/TrimmedCaseCalc.php",
+                    "start_line": 24,
+                    "end_line": 48,
+                    "symbol": "computeTotals",
+                    "pristine": false
+                }
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": true,
+                "semantic": true
+            },
+            "notes": "Combines RN-05 (case_convention) across all carriers with ST-04 (delete_stmt) applied to carrier C. The delete removes a non-essential statement but the core logic remains. This tests whether token overlap detection survives rename + statement-level edits."
+        }
+    ],
+    "non_duplicates": [
+        {
+            "file": "src/MarginSummarizer.php",
+            "start_line": 12,
+            "end_line": 28,
+            "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total",
+            "trap": true
+        }
+    ],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.5,
+        "min_members_for_credit": 2
+    }
+}

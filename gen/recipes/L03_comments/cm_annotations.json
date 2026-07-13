@@ -1,0 +1,148 @@
+{
+    "level": 3,
+    "level_name": "comments_variation",
+    "level_dir": "L03_comments",
+    "family": "cm_annotations",
+    "sets": [
+        {
+            "set_id": "L03-cm_annotations-001",
+            "title": "PHPDoc annotation with array parameters on invoice totals",
+            "description": "Clone pair differs by PHPDoc annotation with array parameter documentation. Text-based detection identifies the annotation tokens while AST-based detection ignores comments.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "function",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 104001,
+            "notes": "CM-10 PHPDoc annotation addition with array params and return type.",
+            "detection_expectation": {
+                "text_based": true,
+                "token_based": true,
+                "ast_based": false,
+                "metric_based": false,
+                "semantic": false
+            },
+            "role_composition": {"carrier": 2, "distractor": 1, "clean": 1},
+            "carriers": [
+                {"file": "LedgerPostingService.php", "namespace": "Acme\\Ledger\\Posting", "class": "LedgerPostingService", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PriceBookService.php", "namespace": "Acme\\Ledger\\Pricing", "class": "PriceBookService", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "CM-10", "params": {"params": ["array $items List of items", "float $taxRate Tax rate"], "returns": "@return array computed totals"}}]}
+            ],
+            "distractor": {"variant": "pristine"},
+            "clean": 1,
+            "interference": ["CM-10"]
+        },
+        {
+            "set_id": "L03-cm_annotations-002",
+            "title": "PHPDoc annotation with float parameters on invoice totals",
+            "description": "Clone pair differs by PHPDoc annotation with float parameter documentation. Text-based detection identifies the annotation tokens while AST-based detection ignores comments.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "function",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 104002,
+            "notes": "CM-10 PHPDoc annotation with float params and return type.",
+            "detection_expectation": {
+                "text_based": true,
+                "token_based": true,
+                "ast_based": false,
+                "metric_based": false,
+                "semantic": false
+            },
+            "role_composition": {"carrier": 2, "distractor": 1, "clean": 1},
+            "carriers": [
+                {"file": "LedgerPostingService.php", "namespace": "Acme\\Ledger\\Posting", "class": "LedgerPostingService", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PriceBookService.php", "namespace": "Acme\\Ledger\\Pricing", "class": "PriceBookService", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "CM-10", "params": {"params": ["float $subtotal Subtotal amount", "float $discount Discount amount"], "returns": "@return float total"}}]}
+            ],
+            "distractor": {"variant": "pristine"},
+            "clean": 1,
+            "interference": ["CM-10"]
+        },
+        {
+            "set_id": "L03-cm_annotations-003",
+            "title": "PHPDoc annotation on access authorization method",
+            "description": "Clone pair differs by PHPDoc annotation with user ID and resource parameter documentation on the access authorization method. Text-based detection identifies annotation tokens.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "function",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 104003,
+            "notes": "CM-10 PHPDoc annotation on access control method.",
+            "detection_expectation": {
+                "text_based": true,
+                "token_based": true,
+                "ast_based": false,
+                "metric_based": false,
+                "semantic": false
+            },
+            "role_composition": {"carrier": 2, "distractor": 1, "clean": 1},
+            "carriers": [
+                {"file": "AccessServiceBase.php", "namespace": "Acme\\Security\\Access", "class": "AccessServiceBase", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "AccessServiceDecorated.php", "namespace": "Acme\\Security\\Decorated", "class": "AccessServiceDecorated", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "CM-10", "params": {"params": ["int $userId User identifier", "string $resource Resource name"], "returns": "@return bool access granted"}}]}
+            ],
+            "distractor": {"variant": "pristine"},
+            "clean": 1,
+            "interference": ["CM-10"]
+        },
+        {
+            "set_id": "L03-cm_annotations-004",
+            "title": "PHPDoc annotation with line items parameters on invoice totals",
+            "description": "Clone pair differs by PHPDoc annotation with line items and tax rate documentation. Text-based detection identifies the annotation tokens.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "function",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 104004,
+            "notes": "CM-10 PHPDoc annotation with line items and tax rate params.",
+            "detection_expectation": {
+                "text_based": true,
+                "token_based": true,
+                "ast_based": false,
+                "metric_based": false,
+                "semantic": false
+            },
+            "role_composition": {"carrier": 2, "distractor": 1, "clean": 1},
+            "carriers": [
+                {"file": "LedgerPostingService.php", "namespace": "Acme\\Ledger\\Posting", "class": "LedgerPostingService", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PriceBookService.php", "namespace": "Acme\\Ledger\\Pricing", "class": "PriceBookService", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "CM-10", "params": {"params": ["array $lineItems Line items with qty and price", "float $taxRate Tax rate as decimal"], "returns": "@return array{invoice details}"}}]}
+            ],
+            "distractor": {"variant": "pristine"},
+            "clean": 1,
+            "interference": ["CM-10"]
+        },
+        {
+            "set_id": "L03-cm_annotations-005",
+            "title": "PHPDoc annotation with currency parameter on invoice totals",
+            "description": "Clone pair differs by PHPDoc annotation with currency parameter documentation. Text-based detection identifies the annotation tokens.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "function",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 104005,
+            "notes": "CM-10 PHPDoc annotation with currency param and void return.",
+            "detection_expectation": {
+                "text_based": true,
+                "token_based": true,
+                "ast_based": false,
+                "metric_based": false,
+                "semantic": false
+            },
+            "role_composition": {"carrier": 2, "distractor": 1, "clean": 1},
+            "carriers": [
+                {"file": "LedgerPostingService.php", "namespace": "Acme\\Ledger\\Posting", "class": "LedgerPostingService", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PriceBookService.php", "namespace": "Acme\\Ledger\\Pricing", "class": "PriceBookService", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "CM-10", "params": {"params": ["string $currency Currency code"], "returns": "@return void"}}]}
+            ],
+            "distractor": {"variant": "pristine"},
+            "clean": 1,
+            "interference": ["CM-10"]
+        }
+    ]
+}

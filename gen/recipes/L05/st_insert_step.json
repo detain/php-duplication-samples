@@ -1,0 +1,138 @@
+{
+    "level": 5,
+    "level_name": "statement_edits",
+    "level_dir": "L05_statement_edits",
+    "family": "st_insert_step",
+    "sets": [
+        {
+            "set_id": "L05-st_insert_step-001",
+            "title": "Invoice totals with a genuinely new functional step inserted",
+            "description": "The same computeTotals method in three billing classes. Carrier A is pristine; carrier B inserts a functional step (e.g., trim, validate) inside the method; carrier C inserts a different functional step. The inserted code is syntactically valid and makes semantic sense in context (Type-3 statement insertion).",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "edit_budget": 20,
+            "rng_seed": 105601,
+            "notes": "ST-03 (insert_functional) inserts a genuinely new small step (trim, normalize, validate, cast) inside the clone body. Unlike dead-code insertion, these steps are semantically meaningful.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineInvoiceCalc.php", "namespace": "Acme\\Billing\\Pristine", "class": "PristineInvoiceCalc", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "StepInvoiceCalc.php", "namespace": "Acme\\Billing\\Step", "class": "StepInvoiceCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-03", "params": {"step": "trim", "after": 2}}]},
+                {"file": "StepperInvoiceCalc.php", "namespace": "Acme\\Billing\\Stepper", "class": "StepperInvoiceCalc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-03", "params": {"step": "validate", "after": 3}}]}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total — a different result"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L05-st_insert_step-002",
+            "title": "Invoice totals with a genuinely new functional step inserted",
+            "description": "The same computeTotals method in three billing classes. Carrier A is pristine; carrier B inserts a functional step; carrier C inserts a different functional step. The inserted code is syntactically valid and makes semantic sense in context (Type-3 statement insertion).",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "edit_budget": 20,
+            "rng_seed": 105602,
+            "notes": "Set 2 of 5. ST-03 (insert_functional) variant with normalize step.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineInvoiceCalc.php", "namespace": "Acme\\Billing\\Pristine", "class": "PristineInvoiceCalc", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "StepInvoiceCalc.php", "namespace": "Acme\\Billing\\Step", "class": "StepInvoiceCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-03", "params": {"step": "normalize", "after": 1}}]},
+                {"file": "StepperInvoiceCalc.php", "namespace": "Acme\\Billing\\Stepper", "class": "StepperInvoiceCalc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-03", "params": {"step": "cast", "after": 4}}]}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total — a different result"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L05-st_insert_step-003",
+            "title": "Invoice totals with a genuinely new functional step inserted",
+            "description": "The same computeTotals method in three billing classes. Carrier A is pristine; carrier B inserts a functional step; carrier C inserts a different functional step. The inserted code is syntactically valid and makes semantic sense in context (Type-3 statement insertion).",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "edit_budget": 20,
+            "rng_seed": 105603,
+            "notes": "Set 3 of 5. ST-03 (insert_functional) variant with abs step.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineInvoiceCalc.php", "namespace": "Acme\\Billing\\Pristine", "class": "PristineInvoiceCalc", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "StepInvoiceCalc.php", "namespace": "Acme\\Billing\\Step", "class": "StepInvoiceCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-03", "params": {"step": "abs", "after": 3}}]},
+                {"file": "StepperInvoiceCalc.php", "namespace": "Acme\\Billing\\Stepper", "class": "StepperInvoiceCalc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-03", "params": {"step": "trim", "after": 5}}]}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total — a different result"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L05-st_insert_step-004",
+            "title": "Invoice totals with a genuinely new functional step inserted",
+            "description": "The same computeTotals method in three billing classes. Carrier A is pristine; carrier B inserts a functional step; carrier C inserts a different functional step. The inserted code is syntactically valid and makes semantic sense in context (Type-3 statement insertion).",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "edit_budget": 20,
+            "rng_seed": 105604,
+            "notes": "Set 4 of 5. ST-03 (insert_functional) variant with cast step.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineInvoiceCalc.php", "namespace": "Acme\\Billing\\Pristine", "class": "PristineInvoiceCalc", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "StepInvoiceCalc.php", "namespace": "Acme\\Billing\\Step", "class": "StepInvoiceCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-03", "params": {"step": "cast", "after": 1}}]},
+                {"file": "StepperInvoiceCalc.php", "namespace": "Acme\\Billing\\Stepper", "class": "StepperInvoiceCalc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-03", "params": {"step": "normalize", "after": 2}}]}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total — a different result"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L05-st_insert_step-005",
+            "title": "Invoice totals with a genuinely new functional step inserted",
+            "description": "The same computeTotals method in three billing classes. Carrier A is pristine; carrier B inserts a functional step; carrier C inserts a different functional step. The inserted code is syntactically valid and makes semantic sense in context (Type-3 statement insertion).",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "edit_budget": 20,
+            "rng_seed": 105605,
+            "notes": "Set 5 of 5. ST-03 (insert_functional) variant with validate step.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineInvoiceCalc.php", "namespace": "Acme\\Billing\\Pristine", "class": "PristineInvoiceCalc", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "StepInvoiceCalc.php", "namespace": "Acme\\Billing\\Step", "class": "StepInvoiceCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-03", "params": {"step": "validate", "after": 4}}]},
+                {"file": "StepperInvoiceCalc.php", "namespace": "Acme\\Billing\\Stepper", "class": "StepperInvoiceCalc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-03", "params": {"step": "abs", "after": 1}}]}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total — a different result"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        }
+    ]
+}

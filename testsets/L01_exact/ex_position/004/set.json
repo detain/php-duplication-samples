@@ -1,0 +1,63 @@
+{
+    "schema_version": 1,
+    "set_id": "L01-ex_position-004",
+    "level": 1,
+    "level_name": "exact",
+    "family": "ex_position",
+    "title": "Access guard clone at different positions in security services",
+    "description": "Authorization method clone appearing at different positions (top/middle/bottom) in security service methods.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "access_guard",
+    "difficulty_band": "trivial",
+    "files": [
+        {
+            "path": "src/SecurityServiceTop.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 33
+        },
+        {
+            "path": "src/AccessServiceMiddle.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 38
+        },
+        {
+            "path": "src/PermissionServiceBottom.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 37
+        },
+        {
+            "path": "src/AuditLogger.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 29
+        },
+        {
+            "path": "src/SessionManager.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 27
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-1",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [],
+    "difficulty": {
+        "score": 5,
+        "requires": []
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L01_exact/ex_position.json",
+        "version": "1.0.0",
+        "rng_seed": 101404
+    }
+}

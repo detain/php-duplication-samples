@@ -1,0 +1,63 @@
+{
+    "schema_version": 1,
+    "set_id": "L01-ex_method-004",
+    "level": 1,
+    "level_name": "exact",
+    "family": "ex_method",
+    "title": "Byte-identical authorize method variant in security classes",
+    "description": "Second set of authorize method clones inside different security class skeletons.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "access_guard",
+    "difficulty_band": "trivial",
+    "files": [
+        {
+            "path": "src/RoleBasedAccessService.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 33
+        },
+        {
+            "path": "src/ClaimBasedAccessService.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 38
+        },
+        {
+            "path": "src/PolicyBasedAccessService.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 37
+        },
+        {
+            "path": "src/SecurityAuditService.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 29
+        },
+        {
+            "path": "src/EncryptionService.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 27
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-1",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [],
+    "difficulty": {
+        "score": 5,
+        "requires": []
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L01_exact/ex_method.json",
+        "version": "1.0.0",
+        "rng_seed": 101104
+    }
+}

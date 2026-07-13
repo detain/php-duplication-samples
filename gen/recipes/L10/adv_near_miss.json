@@ -29,6 +29,110 @@
             "cleans": [
                 {"file": "InvoiceParser.php", "namespace": "Acme\\Billing\\Parsing", "class": "InvoiceParser", "source": "clean_billing"}
             ]
+        },
+        {
+            "set_id": "L10-adv_near_miss-002",
+            "title": "Near-miss with RN-05 case convention drift",
+            "description": "High token overlap with case convention changes. Token tools WOULD pair these but semantic analysis reveals different computations.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["controlflow", "identifiers"],
+            "rng_seed": 110002,
+            "notes": "CP-10 + RN-05: Case convention drift creates high token overlap with different semantics.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": true},
+            "carriers": [
+                {"file": "InvoiceCalculatorA.php", "namespace": "Acme\\Billing\\CalcA", "class": "InvoiceCalculatorA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "InvoiceCalculatorB.php", "namespace": "Acme\\Billing\\CalcB", "class": "InvoiceCalculatorB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-05"}]},
+                {"file": "InvoiceCalculatorC.php", "namespace": "Acme\\Billing\\CalcC", "class": "InvoiceCalculatorC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "RN-05"}, {"code": "LT-01"}]}
+            ],
+            "distractors": [
+                {"file": "TrustScorer.php", "namespace": "Acme\\Billing\\Scoring", "class": "TrustScorer", "source": "nearmiss_invoice", "reason": "Near-miss: same invoice vocabulary but computes different result"}
+            ],
+            "cleans": [
+                {"file": "InvoiceParser.php", "namespace": "Acme\\Billing\\Parsing", "class": "InvoiceParser", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L10-adv_near_miss-003",
+            "title": "Near-miss with LT-02 regex string variation",
+            "description": "High token overlap with regex string patterns. Token tools WOULD pair these but regex logic differs semantically.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["controlflow", "identifiers"],
+            "rng_seed": 110003,
+            "notes": "CP-10 + LT-02: Regex variation creates semantic difference despite high token overlap.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.55, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": true},
+            "carriers": [
+                {"file": "InvoiceCalculatorA.php", "namespace": "Acme\\Billing\\CalcA", "class": "InvoiceCalculatorA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "InvoiceCalculatorB.php", "namespace": "Acme\\Billing\\CalcB", "class": "InvoiceCalculatorB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-02"}]},
+                {"file": "InvoiceCalculatorC.php", "namespace": "Acme\\Billing\\CalcC", "class": "InvoiceCalculatorC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "LT-02"}, {"code": "CM-03"}]}
+            ],
+            "distractors": [
+                {"file": "TrustScorer.php", "namespace": "Acme\\Billing\\Scoring", "class": "TrustScorer", "source": "nearmiss_invoice", "reason": "Near-miss: same invoice vocabulary but different regex pattern"}
+            ],
+            "cleans": [
+                {"file": "InvoiceParser.php", "namespace": "Acme\\Billing\\Parsing", "class": "InvoiceParser", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L10-adv_near_miss-004",
+            "title": "Near-miss with WS-03 blank line variation",
+            "description": "High token overlap with blank line insertion. Token tools WOULD pair these but computation differs.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["controlflow", "identifiers"],
+            "rng_seed": 110004,
+            "notes": "CP-10 + WS-03: Blank line variation creates semantic difference.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": true},
+            "carriers": [
+                {"file": "InvoiceCalculatorA.php", "namespace": "Acme\\Billing\\CalcA", "class": "InvoiceCalculatorA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "InvoiceCalculatorB.php", "namespace": "Acme\\Billing\\CalcB", "class": "InvoiceCalculatorB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "WS-03"}]},
+                {"file": "InvoiceCalculatorC.php", "namespace": "Acme\\Billing\\CalcC", "class": "InvoiceCalculatorC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "WS-03"}, {"code": "LT-01"}]}
+            ],
+            "distractors": [
+                {"file": "TrustScorer.php", "namespace": "Acme\\Billing\\Scoring", "class": "TrustScorer", "source": "nearmiss_invoice", "reason": "Near-miss: same invoice vocabulary but different result due to whitespace"}
+            ],
+            "cleans": [
+                {"file": "InvoiceParser.php", "namespace": "Acme\\Billing\\Parsing", "class": "InvoiceParser", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L10-adv_near_miss-005",
+            "title": "Near-miss with access_guard seed variation",
+            "description": "High token overlap using access_guard seed with compound transforms. Tests FP rate for auth code.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["controlflow", "identifiers"],
+            "rng_seed": 110005,
+            "notes": "CP-10: Uses access_guard seed to test FP rate in auth code domain.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.55, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": true},
+            "carriers": [
+                {"file": "AccessCheckerA.php", "namespace": "Acme\\Security\\CheckA", "class": "AccessCheckerA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "AccessCheckerB.php", "namespace": "Acme\\Security\\CheckB", "class": "AccessCheckerB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-02"}]},
+                {"file": "AccessCheckerC.php", "namespace": "Acme\\Security\\CheckC", "class": "AccessCheckerC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "LT-02"}, {"code": "CM-03"}]}
+            ],
+            "distractors": [
+                {"file": "RateLimiter.php", "namespace": "Acme\\Security\\Limit", "class": "RateLimiter", "source": "nearmiss_access", "reason": "Near-miss: same access vocabulary but different authorization logic"}
+            ],
+            "cleans": [
+                {"file": "AuthProvider.php", "namespace": "Acme\\Security\\Auth", "class": "AuthProvider", "source": "clean_auth"}
+            ]
         }
     ]
 }

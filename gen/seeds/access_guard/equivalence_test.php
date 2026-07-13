@@ -49,6 +49,9 @@ $variants = [
     'auth_sem_state'    => $dir . '/variants/sem_state_machine.php',
     'auth_sem_config'   => $dir . '/variants/sem_config_driven.php',
     'auth_sem_order'    => $dir . '/variants/sem_normalization_order.php',
+    'auth_table_driven' => $dir . '/variants/api_table_driven.php',
+    'auth_data_shape'   => $dir . '/variants/api_data_shape.php',
+    'auth_datetime'     => $dir . '/variants/api_datetime.php',
 ];
 foreach ($variants as $fn => $file) {
     loadAs($file, $fn);

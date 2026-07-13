@@ -1,0 +1,88 @@
+{
+    "schema_version": 1,
+    "set_id": "L02-ws_blank_inside-002",
+    "level": 2,
+    "level_name": "whitespace_variation",
+    "family": "ws_blank_inside",
+    "title": "Invoice-totals method with blank lines inserted between statements",
+    "description": "The same invoice-totalling method in three service classes. Carrier A is pristine; carrier B has one blank line inserted between statements inside the clone; carrier C has two-line gaps at two interior points. The token stream is identical after whitespace normalization, so token/AST/metric tools should still match all three; a raw-line matcher will not.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "invoice_totals",
+    "difficulty_band": "easy",
+    "files": [
+        {
+            "path": "src/LedgerPostingService.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 39
+        },
+        {
+            "path": "src/PriceBookService.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 44
+        },
+        {
+            "path": "src/SettlementService.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 43
+        },
+        {
+            "path": "src/MarginReporter.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 30
+        },
+        {
+            "path": "src/TaxRateRepository.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-1",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "WS-03",
+            "name": "blank_inside",
+            "params": {
+                "blank_lines": 1,
+                "points": 1
+            },
+            "applied_to": [
+                "src/PriceBookService.php"
+            ]
+        },
+        {
+            "code": "WS-03",
+            "name": "blank_inside",
+            "params": {
+                "blank_lines": 2,
+                "points": 2
+            },
+            "applied_to": [
+                "src/SettlementService.php"
+            ]
+        }
+    ],
+    "difficulty": {
+        "score": 13,
+        "requires": [
+            "whitespace_normalization"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L02/ws_blank_inside.json",
+        "version": "1.0.0",
+        "rng_seed": 102002
+    }
+}

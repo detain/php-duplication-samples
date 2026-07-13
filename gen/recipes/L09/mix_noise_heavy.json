@@ -1,0 +1,138 @@
+{
+    "level": 9,
+    "level_name": "mixed_interference",
+    "level_dir": "L09_mixed_interference",
+    "family": "mix_noise_heavy",
+    "sets": [
+        {
+            "set_id": "L09-mix_noise_heavy-001",
+            "title": "Invoice totals with heavy whitespace noise",
+            "description": "Same computeTotals method. Pristine clone with heavy WS noise stacked. Multiple whitespace transforms applied to same carriers.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments", "identifiers", "case_convention"],
+            "rng_seed": 109601,
+            "notes": "Heavy noise via multiple WS transforms on same carriers. Takes an exact clone and adds heavy whitespace noise.",
+            "scoring": {"line_tolerance": 3, "member_jaccard_min": 0.5, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineInvoiceCalc.php", "namespace": "Acme\\Billing\\Pristine", "class": "PristineInvoiceCalc", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "NoisyCalc.php", "namespace": "Acme\\Billing\\Noisy", "class": "NoisyCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "WS-03", "params": {"blank_lines": 2}}, {"code": "WS-06", "params": {"occurrence": 1}}]},
+                {"file": "NoisierCalc.php", "namespace": "Acme\\Billing\\Noisy", "class": "NoisierCalc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "WS-03", "params": {"blank_lines": 3}}, {"code": "WS-06", "params": {"occurrence": 2}}]}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L09-mix_noise_heavy-002",
+            "title": "Access guard with heavy whitespace noise",
+            "description": "Same authorize method. Pristine clone with stacked whitespace transforms.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments", "identifiers", "case_convention"],
+            "rng_seed": 109602,
+            "notes": "Heavy noise via whitespace transforms (WS-03, WS-06). Type-1 clone still detectable.",
+            "scoring": {"line_tolerance": 3, "member_jaccard_min": 0.5, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineAccessPolicy.php", "namespace": "Acme\\Access\\Pristine", "class": "PristineAccessPolicy", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "NoisyAccessPolicy.php", "namespace": "Acme\\Access\\Noisy", "class": "NoisyAccessPolicy", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "WS-03", "params": {"blank_lines": 2}}]},
+                {"file": "NoisierAccessPolicy.php", "namespace": "Acme\\Access\\Noisy", "class": "NoisierAccessPolicy", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "WS-06", "params": {"occurrence": 1}}]}
+            ],
+            "distractors": [
+                {"file": "TrustScorer.php", "namespace": "Acme\\Access\\Scoring", "class": "TrustScorer", "source": "nearmiss_access", "reason": "near-miss: same auth vocabulary but computes numeric trust score instead of boolean decision"}
+            ],
+            "cleans": [
+                {"file": "RoleHierarchy.php", "namespace": "Acme\\Access\\Roles", "class": "RoleHierarchy", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L09-mix_noise_heavy-003",
+            "title": "Invoice totals with uniform heavy whitespace noise",
+            "description": "Same computeTotals method. All carriers receive identical heavy whitespace noise (WS-03 + WS-06). Tests normalization under uniform heavy interference.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments", "identifiers", "case_convention"],
+            "rng_seed": 109603,
+            "notes": "All carriers use identical heavy whitespace transforms. Maximum noise but uniform across all clones.",
+            "scoring": {"line_tolerance": 3, "member_jaccard_min": 0.5, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineInvoiceCalc.php", "namespace": "Acme\\Billing\\Pristine", "class": "PristineInvoiceCalc", "scaffold": "method_alpha", "group": "A", "pristine": false, "transforms": [{"code": "WS-03", "params": {"blank_lines": 2}}, {"code": "WS-06", "params": {"occurrence": 1}}]},
+                {"file": "NoisyCalc.php", "namespace": "Acme\\Billing\\Noisy", "class": "NoisyCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "WS-03", "params": {"blank_lines": 2}}, {"code": "WS-06", "params": {"occurrence": 1}}]},
+                {"file": "NoisierCalc.php", "namespace": "Acme\\Billing\\Noisy", "class": "NoisierCalc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "WS-03", "params": {"blank_lines": 2}}, {"code": "WS-06", "params": {"occurrence": 1}}]}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L09-mix_noise_heavy-004",
+            "title": "Access guard with maximum whitespace variety",
+            "description": "Same authorize method. Each carrier gets different combinations of whitespace transforms.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments", "identifiers", "case_convention"],
+            "rng_seed": 109604,
+            "notes": "Maximum variety in whitespace noise application. Each carrier gets a different subset of whitespace transforms.",
+            "scoring": {"line_tolerance": 3, "member_jaccard_min": 0.5, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineAccessPolicy.php", "namespace": "Acme\\Access\\Pristine", "class": "PristineAccessPolicy", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "NoisyAccessPolicy.php", "namespace": "Acme\\Access\\Noisy", "class": "NoisyAccessPolicy", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "WS-03", "params": {"blank_lines": 3}}]},
+                {"file": "NoisierAccessPolicy.php", "namespace": "Acme\\Access\\Noisy", "class": "NoisierAccessPolicy", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "WS-06", "params": {"occurrence": 1}}]}
+            ],
+            "distractors": [
+                {"file": "TrustScorer.php", "namespace": "Acme\\Access\\Scoring", "class": "TrustScorer", "source": "nearmiss_access", "reason": "near-miss: same auth vocabulary but computes numeric trust score instead of boolean decision"}
+            ],
+            "cleans": [
+                {"file": "RoleHierarchy.php", "namespace": "Acme\\Access\\Roles", "class": "RoleHierarchy", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L09-mix_noise_heavy-005",
+            "title": "Invoice totals with extreme whitespace stacking",
+            "description": "Same computeTotals method. Maximum whitespace combination using WS-03 (multiple blank lines) and WS-06 (multiple occurrences).",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments", "identifiers", "case_convention"],
+            "rng_seed": 109605,
+            "notes": "Extreme whitespace noise via stacking WS-03 (multiple blank lines) and WS-06 (multiple occurrences). Tests detector resilience under maximum type-1 interference.",
+            "scoring": {"line_tolerance": 4, "member_jaccard_min": 0.4, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineInvoiceCalc.php", "namespace": "Acme\\Billing\\Pristine", "class": "PristineInvoiceCalc", "scaffold": "method_alpha", "group": "A", "pristine": false, "transforms": [{"code": "WS-03", "params": {"blank_lines": 3}}, {"code": "WS-06", "params": {"occurrence": 2}}]},
+                {"file": "ExtremeNoiseCalc.php", "namespace": "Acme\\Billing\\Extreme", "class": "ExtremeNoiseCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "WS-03", "params": {"blank_lines": 4}}, {"code": "WS-06", "params": {"occurrence": 1}}]},
+                {"file": "MoreExtremeCalc.php", "namespace": "Acme\\Billing\\Extreme", "class": "MoreExtremeCalc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "WS-03", "params": {"blank_lines": 2}}, {"code": "WS-06", "params": {"occurrence": 2}}]}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        }
+    ]
+}

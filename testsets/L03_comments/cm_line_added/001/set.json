@@ -1,0 +1,64 @@
+{
+    "schema_version": 1,
+    "set_id": "L03-cm_line_added-001",
+    "level": 3,
+    "level_name": "comments_variation",
+    "family": "cm_line_added",
+    "title": "Two line comments on invoice totals method",
+    "description": "Clone pair differs by two line comments added before the method body. Text-based detection identifies the comment tokens while AST-based detection remains unaffected.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "invoice_totals",
+    "difficulty_band": "easy",
+    "files": [
+        {
+            "path": "src/LedgerPostingService.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 39
+        },
+        {
+            "path": "src/PriceBookService.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 46
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-1",
+        "granularity": "function",
+        "clusters": 1,
+        "instances": 2
+    },
+    "interference": [
+        {
+            "code": "CM-01",
+            "name": "line_comment_add",
+            "params": {
+                "count": 2,
+                "style": "//"
+            },
+            "applied_to": [
+                "src/PriceBookService.php"
+            ]
+        }
+    ],
+    "difficulty": {
+        "score": 17,
+        "requires": [
+            "comment_stripping"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L03_comments/cm_line_added.json",
+        "version": "1.0.0",
+        "rng_seed": 103101
+    },
+    "role_composition": {
+        "carrier": 2,
+        "distractor": 1,
+        "clean": 1
+    }
+}

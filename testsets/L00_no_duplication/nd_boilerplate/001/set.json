@@ -1,0 +1,63 @@
+{
+    "schema_version": 1,
+    "set_id": "L00-nd_boilerplate-001",
+    "level": 0,
+    "level_name": "no_duplication",
+    "family": "nd_boilerplate",
+    "title": "Five DTOs with different fields (getter/setter ceremony)",
+    "description": "TaxRateDTO, UserRoleDTO, CsvSchemaDTO, PayPeriodDTO, and ThrottleWindowDTO — five data-transfer objects each with different fields and associated getter/setter/utility methods. Same boilerplate shape but no shared implementation.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": null,
+    "difficulty_band": "baseline",
+    "files": [
+        {
+            "path": "src/TaxRateDTO.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        },
+        {
+            "path": "src/UserRoleDTO.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 27
+        },
+        {
+            "path": "src/CsvSchemaDTO.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 22
+        },
+        {
+            "path": "src/PayPeriodDTO.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 23
+        },
+        {
+            "path": "src/ThrottleWindowDTO.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 24
+        }
+    ],
+    "duplication": {
+        "present": false,
+        "clone_type": "none",
+        "granularity": null,
+        "clusters": 0,
+        "instances": 0
+    },
+    "interference": [],
+    "difficulty": {
+        "score": 0,
+        "requires": []
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L00_no_duplication/nd_boilerplate.json",
+        "version": "1.0.0",
+        "rng_seed": 100002
+    }
+}

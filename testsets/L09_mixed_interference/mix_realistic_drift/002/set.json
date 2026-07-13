@@ -1,0 +1,120 @@
+{
+    "schema_version": 1,
+    "set_id": "L09-mix_realistic_drift-002",
+    "level": 9,
+    "level_name": "mixed_interference",
+    "family": "mix_realistic_drift",
+    "title": "Invoice totals: staggered maintenance events",
+    "description": "Member A: pristine. Member B: after 6 months gets bugfix logging. Member C: after 12 months gets full reformat + rename + dead code injection.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "invoice_totals",
+    "difficulty_band": "expert",
+    "files": [
+        {
+            "path": "src/OriginalInvoiceCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 39
+        },
+        {
+            "path": "src/SixMonthCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 45
+        },
+        {
+            "path": "src/TwelveMonthCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 51
+        },
+        {
+            "path": "src/MarginSummarizer.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 30
+        },
+        {
+            "path": "src/TaxRateRepository.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-3",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "ST-01",
+            "name": "insert_logging",
+            "params": {
+                "lines": 2
+            },
+            "applied_to": [
+                "src/SixMonthCalc.php"
+            ]
+        },
+        {
+            "code": "RN-05",
+            "name": "case_convention",
+            "params": {
+                "direction": "camel_to_snake"
+            },
+            "applied_to": [
+                "src/TwelveMonthCalc.php"
+            ]
+        },
+        {
+            "code": "CM-03",
+            "name": "docblock",
+            "params": {
+                "style": "standard"
+            },
+            "applied_to": [
+                "src/TwelveMonthCalc.php"
+            ]
+        },
+        {
+            "code": "WS-06",
+            "name": "line_wrap",
+            "params": {
+                "occurrence": 1
+            },
+            "applied_to": [
+                "src/TwelveMonthCalc.php"
+            ]
+        },
+        {
+            "code": "ST-02",
+            "name": "insert_dead",
+            "params": {
+                "count": 2
+            },
+            "applied_to": [
+                "src/TwelveMonthCalc.php"
+            ]
+        }
+    ],
+    "difficulty": {
+        "score": 100,
+        "requires": [
+            "ast_canonicalization",
+            "identifier_canonicalization",
+            "comment_stripping",
+            "whitespace_normalization",
+            "deadcode_elimination"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L09/mix_realistic_drift.json",
+        "version": "1.0.0",
+        "rng_seed": 109802
+    }
+}

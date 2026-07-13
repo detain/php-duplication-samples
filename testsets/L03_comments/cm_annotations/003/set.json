@@ -1,0 +1,67 @@
+{
+    "schema_version": 1,
+    "set_id": "L03-cm_annotations-003",
+    "level": 3,
+    "level_name": "comments_variation",
+    "family": "cm_annotations",
+    "title": "PHPDoc annotation on access authorization method",
+    "description": "Clone pair differs by PHPDoc annotation with user ID and resource parameter documentation on the access authorization method. Text-based detection identifies annotation tokens.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "access_guard",
+    "difficulty_band": "easy",
+    "files": [
+        {
+            "path": "src/AccessServiceBase.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 33
+        },
+        {
+            "path": "src/AccessServiceDecorated.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 43
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-1",
+        "granularity": "function",
+        "clusters": 1,
+        "instances": 2
+    },
+    "interference": [
+        {
+            "code": "CM-10",
+            "name": "annotation_docblock",
+            "params": {
+                "params": [
+                    "int $userId User identifier",
+                    "string $resource Resource name"
+                ],
+                "returns": "@return bool access granted"
+            },
+            "applied_to": [
+                "src/AccessServiceDecorated.php"
+            ]
+        }
+    ],
+    "difficulty": {
+        "score": 18,
+        "requires": [
+            "comment_stripping"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L03_comments/cm_annotations.json",
+        "version": "1.0.0",
+        "rng_seed": 104003
+    },
+    "role_composition": {
+        "carrier": 2,
+        "distractor": 1,
+        "clean": 1
+    }
+}

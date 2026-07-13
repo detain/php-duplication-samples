@@ -1,0 +1,138 @@
+{
+    "level": 5,
+    "level_name": "statement_edits",
+    "level_dir": "L05_statement_edits",
+    "family": "st_param_reorder",
+    "sets": [
+        {
+            "set_id": "L05-st_param_reorder-001",
+            "title": "Access guard with parameters reordered in function signature",
+            "description": "The same authorize method in three access classes. Carrier A is pristine; carrier B reorders the $user and $resource parameters; carrier C also reorders but with a different signature. Method parameter order differs (Type-3).",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "edit_budget": 15,
+            "rng_seed": 105801,
+            "notes": "ST-08 (param_reorder) reorders function parameters. The authorize method takes ($user, $resource); one carrier reorders to ($resource, $user). All call sites within the body are updated accordingly.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineAccessGuard.php", "namespace": "Acme\\Auth\\Pristine", "class": "PristineAccessGuard", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "ReorderedAccessGuard.php", "namespace": "Acme\\Auth\\Reordered", "class": "ReorderedAccessGuard", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-08", "params": {"order": ["resource", "user"]}}]},
+                {"file": "MoreReorderedAccessGuard.php", "namespace": "Acme\\Auth\\MoreReordered", "class": "MoreReorderedAccessGuard", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-08", "params": {"order": ["resource", "user"]}}]}
+            ],
+            "distractors": [
+                {"file": "TokenChecker.php", "namespace": "Acme\\Auth\\Token", "class": "TokenChecker", "source": "nearmiss_access", "reason": "near-miss: similar guard clause structure but checks session tokens instead of user/resource — a different authorization path"}
+            ],
+            "cleans": [
+                {"file": "ConfigLoader.php", "namespace": "Acme\\Auth\\Config", "class": "ConfigLoader", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L05-st_param_reorder-002",
+            "title": "Access guard with parameters reordered in function signature",
+            "description": "The same authorize method in three access classes. Carrier A is pristine; carrier B reorders the $user and $resource parameters; carrier C also reorders. Method parameter order differs (Type-3).",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "edit_budget": 15,
+            "rng_seed": 105802,
+            "notes": "Set 2 of 5. ST-08 (param_reorder) variant.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineAccessGuard.php", "namespace": "Acme\\Auth\\Pristine", "class": "PristineAccessGuard", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "ReorderedAccessGuard.php", "namespace": "Acme\\Auth\\Reordered", "class": "ReorderedAccessGuard", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-08", "params": {"order": ["resource", "user"]}}]},
+                {"file": "MoreReorderedAccessGuard.php", "namespace": "Acme\\Auth\\MoreReordered", "class": "MoreReorderedAccessGuard", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-08", "params": {"order": ["resource", "user"]}}]}
+            ],
+            "distractors": [
+                {"file": "TokenChecker.php", "namespace": "Acme\\Auth\\Token", "class": "TokenChecker", "source": "nearmiss_access", "reason": "near-miss: similar guard clause structure but checks session tokens instead of user/resource — a different authorization path"}
+            ],
+            "cleans": [
+                {"file": "ConfigLoader.php", "namespace": "Acme\\Auth\\Config", "class": "ConfigLoader", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L05-st_param_reorder-003",
+            "title": "Access guard with parameters reordered in function signature",
+            "description": "The same authorize method in three access classes. Carrier A is pristine; carrier B reorders the $user and $resource parameters; carrier C also reorders. Method parameter order differs (Type-3).",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "edit_budget": 15,
+            "rng_seed": 105803,
+            "notes": "Set 3 of 5. ST-08 (param_reorder) variant.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineAccessGuard.php", "namespace": "Acme\\Auth\\Pristine", "class": "PristineAccessGuard", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "ReorderedAccessGuard.php", "namespace": "Acme\\Auth\\Reordered", "class": "ReorderedAccessGuard", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-08", "params": {"order": ["resource", "user"]}}]},
+                {"file": "MoreReorderedAccessGuard.php", "namespace": "Acme\\Auth\\MoreReordered", "class": "MoreReorderedAccessGuard", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-08", "params": {"order": ["resource", "user"]}}]}
+            ],
+            "distractors": [
+                {"file": "TokenChecker.php", "namespace": "Acme\\Auth\\Token", "class": "TokenChecker", "source": "nearmiss_access", "reason": "near-miss: similar guard clause structure but checks session tokens instead of user/resource — a different authorization path"}
+            ],
+            "cleans": [
+                {"file": "ConfigLoader.php", "namespace": "Acme\\Auth\\Config", "class": "ConfigLoader", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L05-st_param_reorder-004",
+            "title": "Access guard with parameters reordered in function signature",
+            "description": "The same authorize method in three access classes. Carrier A is pristine; carrier B reorders the $user and $resource parameters; carrier C also reorders. Method parameter order differs (Type-3).",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "edit_budget": 15,
+            "rng_seed": 105804,
+            "notes": "Set 4 of 5. ST-08 (param_reorder) variant.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineAccessGuard.php", "namespace": "Acme\\Auth\\Pristine", "class": "PristineAccessGuard", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "ReorderedAccessGuard.php", "namespace": "Acme\\Auth\\Reordered", "class": "ReorderedAccessGuard", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-08", "params": {"order": ["resource", "user"]}}]},
+                {"file": "MoreReorderedAccessGuard.php", "namespace": "Acme\\Auth\\MoreReordered", "class": "MoreReorderedAccessGuard", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-08", "params": {"order": ["resource", "user"]}}]}
+            ],
+            "distractors": [
+                {"file": "TokenChecker.php", "namespace": "Acme\\Auth\\Token", "class": "TokenChecker", "source": "nearmiss_access", "reason": "near-miss: similar guard clause structure but checks session tokens instead of user/resource — a different authorization path"}
+            ],
+            "cleans": [
+                {"file": "ConfigLoader.php", "namespace": "Acme\\Auth\\Config", "class": "ConfigLoader", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L05-st_param_reorder-005",
+            "title": "Access guard with parameters reordered in function signature",
+            "description": "The same authorize method in three access classes. Carrier A is pristine; carrier B reorders the $user and $resource parameters; carrier C also reorders. Method parameter order differs (Type-3).",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "edit_budget": 15,
+            "rng_seed": 105805,
+            "notes": "Set 5 of 5. ST-08 (param_reorder) variant.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineAccessGuard.php", "namespace": "Acme\\Auth\\Pristine", "class": "PristineAccessGuard", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "ReorderedAccessGuard.php", "namespace": "Acme\\Auth\\Reordered", "class": "ReorderedAccessGuard", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-08", "params": {"order": ["resource", "user"]}}]},
+                {"file": "MoreReorderedAccessGuard.php", "namespace": "Acme\\Auth\\MoreReordered", "class": "MoreReorderedAccessGuard", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-08", "params": {"order": ["resource", "user"]}}]}
+            ],
+            "distractors": [
+                {"file": "TokenChecker.php", "namespace": "Acme\\Auth\\Token", "class": "TokenChecker", "source": "nearmiss_access", "reason": "near-miss: similar guard clause structure but checks session tokens instead of user/resource — a different authorization path"}
+            ],
+            "cleans": [
+                {"file": "ConfigLoader.php", "namespace": "Acme\\Auth\\Config", "class": "ConfigLoader", "source": "clean_auth"}
+            ]
+        }
+    ]
+}

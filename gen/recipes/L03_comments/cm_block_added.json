@@ -1,0 +1,148 @@
+{
+    "level": 3,
+    "level_name": "comments_variation",
+    "level_dir": "L03_comments",
+    "family": "cm_block_added",
+    "sets": [
+        {
+            "set_id": "L03-cm_block_added-001",
+            "title": "Three-line block comment on invoice totals method",
+            "description": "Clone pair differs by a three-line block comment addition. Text-based detection identifies the comment tokens while AST-based detection remains unaffected.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "function",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 103201,
+            "notes": "CM-02 block comment addition (3 lines).",
+            "detection_expectation": {
+                "text_based": true,
+                "token_based": true,
+                "ast_based": false,
+                "metric_based": false,
+                "semantic": false
+            },
+            "role_composition": {"carrier": 2, "distractor": 1, "clean": 1},
+            "carriers": [
+                {"file": "LedgerPostingService.php", "namespace": "Acme\\Ledger\\Posting", "class": "LedgerPostingService", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PriceBookService.php", "namespace": "Acme\\Ledger\\Pricing", "class": "PriceBookService", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "CM-02", "params": {"lines": 3}}]}
+            ],
+            "distractor": {"variant": "pristine"},
+            "clean": 1,
+            "interference": ["CM-02"]
+        },
+        {
+            "set_id": "L03-cm_block_added-002",
+            "title": "Four-line block comment on invoice totals method",
+            "description": "Clone pair differs by a four-line block comment addition. Text-based detection identifies the comment tokens.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "function",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 103202,
+            "notes": "CM-02 block comment addition (4 lines).",
+            "detection_expectation": {
+                "text_based": true,
+                "token_based": true,
+                "ast_based": false,
+                "metric_based": false,
+                "semantic": false
+            },
+            "role_composition": {"carrier": 2, "distractor": 1, "clean": 1},
+            "carriers": [
+                {"file": "LedgerPostingService.php", "namespace": "Acme\\Ledger\\Posting", "class": "LedgerPostingService", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PriceBookService.php", "namespace": "Acme\\Ledger\\Pricing", "class": "PriceBookService", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "CM-02", "params": {"lines": 4}}]}
+            ],
+            "distractor": {"variant": "pristine"},
+            "clean": 1,
+            "interference": ["CM-02"]
+        },
+        {
+            "set_id": "L03-cm_block_added-003",
+            "title": "Five-line block comment on access authorization method",
+            "description": "Clone pair differs by a five-line block comment addition on the access authorization method. Text-based detection identifies the comment tokens.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "function",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 103203,
+            "notes": "CM-02 block comment addition (5 lines) on access control method.",
+            "detection_expectation": {
+                "text_based": true,
+                "token_based": true,
+                "ast_based": false,
+                "metric_based": false,
+                "semantic": false
+            },
+            "role_composition": {"carrier": 2, "distractor": 1, "clean": 1},
+            "carriers": [
+                {"file": "AccessServiceBase.php", "namespace": "Acme\\Security\\Access", "class": "AccessServiceBase", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "AccessServiceDecorated.php", "namespace": "Acme\\Security\\Decorated", "class": "AccessServiceDecorated", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "CM-02", "params": {"lines": 5}}]}
+            ],
+            "distractor": {"variant": "pristine"},
+            "clean": 1,
+            "interference": ["CM-02"]
+        },
+        {
+            "set_id": "L03-cm_block_added-004",
+            "title": "Two-line block comment on invoice totals method",
+            "description": "Clone pair differs by a two-line block comment addition. Text-based detection identifies the comment tokens.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "function",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 103204,
+            "notes": "CM-02 block comment addition (2 lines).",
+            "detection_expectation": {
+                "text_based": true,
+                "token_based": true,
+                "ast_based": false,
+                "metric_based": false,
+                "semantic": false
+            },
+            "role_composition": {"carrier": 2, "distractor": 1, "clean": 1},
+            "carriers": [
+                {"file": "LedgerPostingService.php", "namespace": "Acme\\Ledger\\Posting", "class": "LedgerPostingService", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PriceBookService.php", "namespace": "Acme\\Ledger\\Pricing", "class": "PriceBookService", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "CM-02", "params": {"lines": 2}}]}
+            ],
+            "distractor": {"variant": "pristine"},
+            "clean": 1,
+            "interference": ["CM-02"]
+        },
+        {
+            "set_id": "L03-cm_block_added-005",
+            "title": "Three-line block comment variation on invoice totals",
+            "description": "Clone pair differs by another three-line block comment variation. Text-based detection identifies the comment tokens.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "function",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 103205,
+            "notes": "CM-02 block comment addition (3 lines) variation.",
+            "detection_expectation": {
+                "text_based": true,
+                "token_based": true,
+                "ast_based": false,
+                "metric_based": false,
+                "semantic": false
+            },
+            "role_composition": {"carrier": 2, "distractor": 1, "clean": 1},
+            "carriers": [
+                {"file": "LedgerPostingService.php", "namespace": "Acme\\Ledger\\Posting", "class": "LedgerPostingService", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PriceBookService.php", "namespace": "Acme\\Ledger\\Pricing", "class": "PriceBookService", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "CM-02", "params": {"lines": 3}}]}
+            ],
+            "distractor": {"variant": "pristine"},
+            "clean": 1,
+            "interference": ["CM-02"]
+        }
+    ]
+}

@@ -1,0 +1,91 @@
+{
+    "schema_version": 1,
+    "set_id": "L01-ex_multi_cluster-004",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-1",
+            "granularity": "function",
+            "normalized_by": [
+                "whitespace",
+                "comments"
+            ],
+            "token_hash": "6078001114eb0c6d",
+            "normalized_hash": "cddfeac031011166",
+            "members": [
+                {
+                    "file": "src/Cluster1A.php",
+                    "start_line": 7,
+                    "end_line": 31,
+                    "symbol": "computeTotals",
+                    "pristine": true
+                },
+                {
+                    "file": "src/Cluster1B.php",
+                    "start_line": 17,
+                    "end_line": 41,
+                    "symbol": "computeTotals",
+                    "pristine": true
+                },
+                {
+                    "file": "src/Cluster2A.php",
+                    "start_line": 9,
+                    "end_line": 33,
+                    "symbol": "computeTotals",
+                    "pristine": true
+                },
+                {
+                    "file": "src/Cluster2B.php",
+                    "start_line": 18,
+                    "end_line": 42,
+                    "symbol": "computeTotals",
+                    "pristine": true
+                },
+                {
+                    "file": "src/Cluster3A.php",
+                    "start_line": 18,
+                    "end_line": 42,
+                    "symbol": "computeTotals",
+                    "pristine": true
+                },
+                {
+                    "file": "src/Cluster3B.php",
+                    "start_line": 24,
+                    "end_line": 48,
+                    "symbol": "computeTotals",
+                    "pristine": true
+                }
+            ],
+            "detection_expectation": {
+                "text_based": true,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": true,
+                "semantic": true
+            },
+            "notes": "Three clusters with 2 carriers each (6 total). invoice_totals, access_guard, csv_import."
+        }
+    ],
+    "non_duplicates": [
+        {
+            "file": "src/Distractor1.php",
+            "start_line": 12,
+            "end_line": 28,
+            "reason": "near-miss: similar vocabulary but different logic",
+            "trap": true
+        },
+        {
+            "file": "src/Distractor2.php",
+            "start_line": 12,
+            "end_line": 27,
+            "reason": "near-miss: similar vocabulary but different logic",
+            "trap": true
+        }
+    ],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.6,
+        "min_members_for_credit": 2
+    }
+}

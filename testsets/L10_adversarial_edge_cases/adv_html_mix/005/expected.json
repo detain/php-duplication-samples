@@ -1,0 +1,64 @@
+{
+    "schema_version": 1,
+    "set_id": "L10-adv_html_mix-005",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-3",
+            "granularity": "method",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers"
+            ],
+            "token_hash": "5cd8e7841ecf7c41",
+            "normalized_hash": "89e09fba7eb77dcb",
+            "members": [
+                {
+                    "file": "src/AccessTemplateA.php",
+                    "start_line": 9,
+                    "end_line": 27,
+                    "symbol": "authorize",
+                    "pristine": true
+                },
+                {
+                    "file": "src/AccessTemplateB.php",
+                    "start_line": 18,
+                    "end_line": 37,
+                    "symbol": "authorize",
+                    "pristine": false
+                },
+                {
+                    "file": "src/AccessTemplateC.php",
+                    "start_line": 25,
+                    "end_line": 44,
+                    "symbol": "authorize",
+                    "pristine": false
+                }
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": false,
+                "semantic": false
+            },
+            "notes": "CP-08 + ST-01: Logging insertion in template context. Infrastructure gap for template generation applies."
+        }
+    ],
+    "non_duplicates": [
+        {
+            "file": "src/RateLimiter.php",
+            "start_line": 12,
+            "end_line": 27,
+            "reason": "Near-miss: same access control vocabulary but different logic",
+            "trap": true
+        }
+    ],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.6,
+        "min_members_for_credit": 2
+    }
+}

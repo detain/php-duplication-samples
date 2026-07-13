@@ -1,0 +1,66 @@
+{
+    "schema_version": 1,
+    "set_id": "L09-mix_4plus-003",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-3",
+            "granularity": "method",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers",
+                "case_convention",
+                "literals"
+            ],
+            "token_hash": "4a2dbd905287e75a",
+            "normalized_hash": "4a2dbd905287e75a",
+            "members": [
+                {
+                    "file": "src/PristineAccessPolicy.php",
+                    "start_line": 9,
+                    "end_line": 29,
+                    "symbol": "authorize",
+                    "pristine": false
+                },
+                {
+                    "file": "src/ThreeAxisPolicy.php",
+                    "start_line": 18,
+                    "end_line": 39,
+                    "symbol": "authorize",
+                    "pristine": false
+                },
+                {
+                    "file": "src/FourAxisPolicy.php",
+                    "start_line": 24,
+                    "end_line": 45,
+                    "symbol": "authorize",
+                    "pristine": false
+                }
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": true,
+                "semantic": true
+            },
+            "notes": "4-axis interference on access_guard. ST-01 (insert_logging) adds statements making it type-3. Token-based detection should still work."
+        }
+    ],
+    "non_duplicates": [
+        {
+            "file": "src/TrustScorer.php",
+            "start_line": 12,
+            "end_line": 27,
+            "reason": "near-miss: same auth vocabulary but computes numeric trust score instead of boolean decision",
+            "trap": true
+        }
+    ],
+    "scoring": {
+        "line_tolerance": 3,
+        "member_jaccard_min": 0.4,
+        "min_members_for_credit": 2
+    }
+}

@@ -31,6 +31,8 @@ loadAs($dir . '/variants/api_map_loop.php', 'inv_map');
 loadAs($dir . '/variants/api_strings.php', 'inv_strings');
 loadAs($dir . '/variants/api_regex_string.php', 'inv_regex_string');
 loadAs($dir . '/variants/api_recursion.php', 'inv_recursion');
+loadAs($dir . '/variants/api_builtins.php', 'inv_builtins');
+loadAs($dir . '/variants/api_serialization.php', 'inv_serialization');
 
 $cases = [
     [[], 0.07, 0.0],
@@ -40,7 +42,7 @@ $cases = [
     [[['qty' => 0, 'unitPrice' => 42.0]], 0.0, 0.5],
 ];
 
-$variants = ['inv_map', 'inv_strings', 'inv_regex_string', 'inv_recursion'];
+$variants = ['inv_map', 'inv_strings', 'inv_regex_string', 'inv_recursion', 'inv_builtins', 'inv_serialization'];
 $failures = 0;
 
 foreach ($cases as $i => [$items, $rate, $discount]) {

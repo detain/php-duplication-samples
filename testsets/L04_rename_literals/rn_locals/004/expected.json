@@ -1,0 +1,64 @@
+{
+    "schema_version": 1,
+    "set_id": "L04-rn_locals-004",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-2",
+            "granularity": "method",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers"
+            ],
+            "token_hash": "4ffb959f327d1b8c",
+            "normalized_hash": "59494e1d597e623b",
+            "members": [
+                {
+                    "file": "src/CustomerRowReader.php",
+                    "start_line": 18,
+                    "end_line": 40,
+                    "symbol": "parseRow",
+                    "pristine": true
+                },
+                {
+                    "file": "src/VendorRowReader.php",
+                    "start_line": 9,
+                    "end_line": 31,
+                    "symbol": "parseRow",
+                    "pristine": false
+                },
+                {
+                    "file": "src/ProductRowReader.php",
+                    "start_line": 24,
+                    "end_line": 46,
+                    "symbol": "parseRow",
+                    "pristine": false
+                }
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": true,
+                "semantic": true
+            },
+            "notes": "Only local variables are renamed (RN-01); parameters, calls, literals and layout are untouched, so the single axis is identifier renaming. Pristine (A) vs fully-renamed (C) is the discriminating pair."
+        }
+    ],
+    "non_duplicates": [
+        {
+            "file": "src/RowWidthProfiler.php",
+            "start_line": 12,
+            "end_line": 26,
+            "reason": "near-miss: same CSV vocabulary and foreach-over-columns shape, but builds a column-width histogram — a different result",
+            "trap": true
+        }
+    ],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.6,
+        "min_members_for_credit": 2
+    }
+}

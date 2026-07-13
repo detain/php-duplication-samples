@@ -1,0 +1,148 @@
+{
+    "level": 3,
+    "level_name": "comments_variation",
+    "level_dir": "L03_comments",
+    "family": "cm_inline_trailing",
+    "sets": [
+        {
+            "set_id": "L03-cm_inline_trailing-001",
+            "title": "Two inline trailing comments on invoice totals",
+            "description": "Clone pair differs by two inline trailing double-slash comments. Text-based detection identifies the comment tokens while AST-based detection remains unaffected.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "function",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 103401,
+            "notes": "CM-04 inline trailing comment addition (2x // style).",
+            "detection_expectation": {
+                "text_based": true,
+                "token_based": true,
+                "ast_based": false,
+                "metric_based": false,
+                "semantic": false
+            },
+            "role_composition": {"carrier": 2, "distractor": 1, "clean": 1},
+            "carriers": [
+                {"file": "LedgerPostingService.php", "namespace": "Acme\\Ledger\\Posting", "class": "LedgerPostingService", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PriceBookService.php", "namespace": "Acme\\Ledger\\Pricing", "class": "PriceBookService", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "CM-04", "params": {"count": 2, "style": "//"}}]}
+            ],
+            "distractor": {"variant": "pristine"},
+            "clean": 1,
+            "interference": ["CM-04"]
+        },
+        {
+            "set_id": "L03-cm_inline_trailing-002",
+            "title": "Three inline trailing comments on invoice totals",
+            "description": "Clone pair differs by three inline trailing double-slash comments. Text-based detection identifies the comment tokens.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "function",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 103402,
+            "notes": "CM-04 inline trailing comment addition (3x // style).",
+            "detection_expectation": {
+                "text_based": true,
+                "token_based": true,
+                "ast_based": false,
+                "metric_based": false,
+                "semantic": false
+            },
+            "role_composition": {"carrier": 2, "distractor": 1, "clean": 1},
+            "carriers": [
+                {"file": "LedgerPostingService.php", "namespace": "Acme\\Ledger\\Posting", "class": "LedgerPostingService", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PriceBookService.php", "namespace": "Acme\\Ledger\\Pricing", "class": "PriceBookService", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "CM-04", "params": {"count": 3, "style": "//"}}]}
+            ],
+            "distractor": {"variant": "pristine"},
+            "clean": 1,
+            "interference": ["CM-04"]
+        },
+        {
+            "set_id": "L03-cm_inline_trailing-003",
+            "title": "Inline trailing comments on access authorization method",
+            "description": "Clone pair differs by inline trailing hash-style comments on the access authorization method. Text-based detection identifies the comment tokens.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "function",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 103403,
+            "notes": "CM-04 inline trailing comment on access control method (# style).",
+            "detection_expectation": {
+                "text_based": true,
+                "token_based": true,
+                "ast_based": false,
+                "metric_based": false,
+                "semantic": false
+            },
+            "role_composition": {"carrier": 2, "distractor": 1, "clean": 1},
+            "carriers": [
+                {"file": "AccessServiceBase.php", "namespace": "Acme\\Security\\Access", "class": "AccessServiceBase", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "AccessServiceDecorated.php", "namespace": "Acme\\Security\\Decorated", "class": "AccessServiceDecorated", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "CM-04", "params": {"count": 2, "style": "#"}}]}
+            ],
+            "distractor": {"variant": "pristine"},
+            "clean": 1,
+            "interference": ["CM-04"]
+        },
+        {
+            "set_id": "L03-cm_inline_trailing-004",
+            "title": "Single inline trailing comment on invoice totals",
+            "description": "Clone pair differs by a single inline trailing double-slash comment. Text-based detection identifies the comment tokens.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "function",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 103404,
+            "notes": "CM-04 inline trailing comment addition (1x // style).",
+            "detection_expectation": {
+                "text_based": true,
+                "token_based": true,
+                "ast_based": false,
+                "metric_based": false,
+                "semantic": false
+            },
+            "role_composition": {"carrier": 2, "distractor": 1, "clean": 1},
+            "carriers": [
+                {"file": "LedgerPostingService.php", "namespace": "Acme\\Ledger\\Posting", "class": "LedgerPostingService", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PriceBookService.php", "namespace": "Acme\\Ledger\\Pricing", "class": "PriceBookService", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "CM-04", "params": {"count": 1, "style": "//"}}]}
+            ],
+            "distractor": {"variant": "pristine"},
+            "clean": 1,
+            "interference": ["CM-04"]
+        },
+        {
+            "set_id": "L03-cm_inline_trailing-005",
+            "title": "Four inline trailing comments on invoice totals",
+            "description": "Clone pair differs by four inline trailing double-slash comments. Text-based detection identifies the comment tokens.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "function",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 103405,
+            "notes": "CM-04 inline trailing comment addition (4x // style).",
+            "detection_expectation": {
+                "text_based": true,
+                "token_based": true,
+                "ast_based": false,
+                "metric_based": false,
+                "semantic": false
+            },
+            "role_composition": {"carrier": 2, "distractor": 1, "clean": 1},
+            "carriers": [
+                {"file": "LedgerPostingService.php", "namespace": "Acme\\Ledger\\Posting", "class": "LedgerPostingService", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PriceBookService.php", "namespace": "Acme\\Ledger\\Pricing", "class": "PriceBookService", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "CM-04", "params": {"count": 4, "style": "//"}}]}
+            ],
+            "distractor": {"variant": "pristine"},
+            "clean": 1,
+            "interference": ["CM-04"]
+        }
+    ]
+}

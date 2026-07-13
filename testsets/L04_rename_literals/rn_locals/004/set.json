@@ -1,0 +1,94 @@
+{
+    "schema_version": 1,
+    "set_id": "L04-rn_locals-004",
+    "level": 4,
+    "level_name": "rename_literals",
+    "family": "rn_locals",
+    "title": "CSV row parser with local variables renamed",
+    "description": "The same CSV row-parsing method in three importer classes. Carrier A is pristine; carrier B renames one local variable; carrier C renames every local variable consistently. Structure and layout are byte-identical — only identifiers differ (Type-2), so identifier-canonicalizing token tools, AST, metric and semantic detectors should still match all three.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "csv_import",
+    "difficulty_band": "medium",
+    "files": [
+        {
+            "path": "src/CustomerRowReader.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 42
+        },
+        {
+            "path": "src/VendorRowReader.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 37
+        },
+        {
+            "path": "src/ProductRowReader.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 41
+        },
+        {
+            "path": "src/RowWidthProfiler.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 28
+        },
+        {
+            "path": "src/HeaderSchemaDetector.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 22
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-2",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "RN-01",
+            "name": "local_vars",
+            "params": {
+                "renames": {
+                    "value": "token"
+                }
+            },
+            "applied_to": [
+                "src/VendorRowReader.php"
+            ]
+        },
+        {
+            "code": "RN-01",
+            "name": "local_vars",
+            "params": {
+                "renames": {
+                    "record": "row",
+                    "columns": "cells",
+                    "column": "cell",
+                    "value": "token",
+                    "normalized": "cleaned"
+                }
+            },
+            "applied_to": [
+                "src/ProductRowReader.php"
+            ]
+        }
+    ],
+    "difficulty": {
+        "score": 36,
+        "requires": [
+            "identifier_canonicalization"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L04/rn_locals.json",
+        "version": "1.0.0",
+        "rng_seed": 104004
+    }
+}

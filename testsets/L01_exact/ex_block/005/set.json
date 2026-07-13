@@ -1,0 +1,63 @@
+{
+    "schema_version": 1,
+    "set_id": "L01-ex_block-005",
+    "level": 1,
+    "level_name": "exact",
+    "family": "ex_block",
+    "title": "Byte-identical guard block inside three larger security functions",
+    "description": "Second set: An authorization guard block embedded inside three larger security functions.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "access_guard",
+    "difficulty_band": "trivial",
+    "files": [
+        {
+            "path": "src/SecurityGate.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 30
+        },
+        {
+            "path": "src/AccessGate.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 35
+        },
+        {
+            "path": "src/PermissionGate.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 31
+        },
+        {
+            "path": "src/SecurityLogger.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 29
+        },
+        {
+            "path": "src/KeyManager.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 27
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-1",
+        "granularity": "function",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [],
+    "difficulty": {
+        "score": 5,
+        "requires": []
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L01_exact/ex_block.json",
+        "version": "1.0.0",
+        "rng_seed": 101205
+    }
+}

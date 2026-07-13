@@ -6,7 +6,7 @@
             "id": "c1",
             "group_id": "A",
             "clone_type": "type-1",
-            "granularity": "method",
+            "granularity": "function",
             "normalized_by": [
                 "whitespace",
                 "comments"
@@ -27,34 +27,19 @@
                     "end_line": 43,
                     "symbol": "computeTotals",
                     "pristine": false
-                },
-                {
-                    "file": "src/SettlementService.php",
-                    "start_line": 32,
-                    "end_line": 56,
-                    "symbol": "computeTotals",
-                    "pristine": false
                 }
             ],
             "detection_expectation": {
-                "text_based": false,
+                "text_based": true,
                 "token_based": true,
-                "ast_based": true,
-                "metric_based": true,
-                "semantic": true
+                "ast_based": false,
+                "metric_based": false,
+                "semantic": false
             },
-            "notes": "CM-03 (docblock) applied to the cloned symbol. Carrier A pristine vs Carrier C full docblock is the discriminating pair — after comment stripping, token streams are identical. Text-based matchers will flag all three as duplicates; token-based with comment normalization should also detect all three; raw text-based without comment handling will find only A≈B."
+            "notes": "CM-03 docblock addition - comment-only variation that text-based detectors can find."
         }
     ],
-    "non_duplicates": [
-        {
-            "file": "src/MarginReporter.php",
-            "start_line": 12,
-            "end_line": 28,
-            "reason": "near-miss: same invoice vocabulary and foreach shape, but computes revenue/cost margins and a ratio — a different result",
-            "trap": true
-        }
-    ],
+    "non_duplicates": [],
     "scoring": {
         "line_tolerance": 2,
         "member_jaccard_min": 0.6,

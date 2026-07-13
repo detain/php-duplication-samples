@@ -45,7 +45,7 @@
                 "metric_based": true,
                 "semantic": true
             },
-            "notes": "ST-01 (insert_logging) inserts error_log() calls at statement boundaries. Carrier A is pristine. Carrier B inserts 1 log line (after first statement). Carrier C inserts log lines after multiple statements for log-per-step coverage. The inserted lines differ across carriers but all share the same underlying computeTotals logic. Gap-tolerant token and AST matchers succeed; strict token matchers fail due to inserted statements."
+            "notes": "ST-01 (insert_logging) inserts error_log() calls at statement boundaries. Carrier A is pristine. Carrier B inserts 1 log line (after first statement). Carrier C inserts log lines after multiple statements for log-per-step coverage."
         }
     ],
     "non_duplicates": [

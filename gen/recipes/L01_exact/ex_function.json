@@ -1,0 +1,108 @@
+{
+    "level": 1,
+    "level_name": "exact",
+    "level_dir": "L01_exact",
+    "family": "ex_function",
+    "sets": [
+        {
+            "set_id": "L01-ex_function-002",
+            "title": "Byte-identical CSV row parser function in three utility files",
+            "description": "A CSV row parsing function is duplicated byte-for-byte across three helper files. Each file has different surrounding utility functions.",
+            "seed": "csv_import",
+            "mount": "function",
+            "clone_symbol": "parseRow",
+            "granularity": "function",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 101002,
+            "notes": "Byte-for-byte identical function body across all three carriers; surrounding functions differ.",
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "DataMapper.php", "namespace": "Acme\\Data\\Import", "class": "DataMapper", "scaffold": "fn_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "RowParser.php", "namespace": "Acme\\Data\\Processing", "class": "RowParser", "scaffold": "fn_beta", "group": "A", "pristine": true, "transforms": []},
+                {"file": "FileIngester.php", "namespace": "Acme\\Data\\Ingestion", "class": "FileIngester", "scaffold": "fn_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "XmlConverter.php", "namespace": "Acme\\Data\\Transforms", "class": "XmlConverter", "source": "nearmiss_csv", "reason": "near-miss: similar parsing vocabulary but processes XML instead of CSV"}
+            ],
+            "cleans": [
+                {"file": "ConfigLoader.php", "namespace": "Acme\\Data\\Config", "class": "ConfigLoader", "source": "clean_parsing"}
+            ]
+        },
+        {
+            "set_id": "L01-ex_function-003",
+            "title": "Byte-identical access guard function in three security modules",
+            "description": "An access authorization function is duplicated byte-for-byte across three security modules. Each module has different surrounding helper functions.",
+            "seed": "access_guard",
+            "mount": "function",
+            "clone_symbol": "authorize",
+            "granularity": "function",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 101003,
+            "notes": "Exact authorization function clone across three security modules; surrounding functions differ.",
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "ResourceGuard.php", "namespace": "Acme\\Security\\Resources", "class": "ResourceGuard", "scaffold": "fn_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PermissionChecker.php", "namespace": "Acme\\Security\\Permissions", "class": "PermissionChecker", "scaffold": "fn_beta", "group": "A", "pristine": true, "transforms": []},
+                {"file": "EntitlementVerifier.php", "namespace": "Acme\\Security\\Entitlements", "class": "EntitlementVerifier", "scaffold": "fn_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "AuditLogger.php", "namespace": "Acme\\Security\\Audit", "class": "AuditLogger", "source": "nearmiss_access", "reason": "near-miss: similar authorization vocabulary but logs instead of deciding"}
+            ],
+            "cleans": [
+                {"file": "SessionManager.php", "namespace": "Acme\\Security\\Sessions", "class": "SessionManager", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L01-ex_function-004",
+            "title": "Byte-identical invoice-totals function variant in billing modules",
+            "description": "A second invoice-totalling function set with different surrounding context. Each file has unique helper functions that differentiate the carriers.",
+            "seed": "invoice_totals",
+            "mount": "function",
+            "clone_symbol": "computeTotals",
+            "granularity": "function",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 101004,
+            "notes": "Second variant of exact invoice-totals clone with different surrounding context.",
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "BillCalculator.php", "namespace": "Acme\\Finance\\Billing", "class": "BillCalculator", "scaffold": "fn_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "AmountAdder.php", "namespace": "Acme\\Finance\\Accounting", "class": "AmountAdder", "scaffold": "fn_beta", "group": "A", "pristine": true, "transforms": []},
+                {"file": "TotalComputer.php", "namespace": "Acme\\Finance\\Computation", "class": "TotalComputer", "scaffold": "fn_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "CurrencyConverter.php", "namespace": "Acme\\Finance\\Currency", "class": "CurrencyConverter", "source": "nearmiss_invoice", "reason": "near-miss: similar billing vocabulary but converts currency instead of summing"}
+            ],
+            "cleans": [
+                {"file": "LedgerEntry.php", "namespace": "Acme\\Finance\\Ledger", "class": "LedgerEntry", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L01-ex_function-005",
+            "title": "Byte-identical CSV import function variant in data modules",
+            "description": "A second CSV import function set with different surrounding context. Each file has unique helper functions.",
+            "seed": "csv_import",
+            "mount": "function",
+            "clone_symbol": "parseRow",
+            "granularity": "function",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 101005,
+            "notes": "Second variant of exact CSV parseRow clone with different surrounding context.",
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "SpreadSheetParser.php", "namespace": "Acme\\Sheets\\Parsing", "class": "SpreadSheetParser", "scaffold": "fn_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "DelimitedReader.php", "namespace": "Acme\\Sheets\\Reading", "class": "DelimitedReader", "scaffold": "fn_beta", "group": "A", "pristine": true, "transforms": []},
+                {"file": "CellExtractor.php", "namespace": "Acme\\Sheets\\Extraction", "class": "CellExtractor", "scaffold": "fn_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "JsonDecoder.php", "namespace": "Acme\\Sheets\\Decoding", "class": "JsonDecoder", "source": "nearmiss_csv", "reason": "near-miss: similar parsing vocabulary but decodes JSON instead"}
+            ],
+            "cleans": [
+                {"file": "SheetFormatter.php", "namespace": "Acme\\Sheets\\Formatting", "class": "SheetFormatter", "source": "clean_parsing"}
+            ]
+        }
+    ]
+}

@@ -1,0 +1,63 @@
+{
+    "schema_version": 1,
+    "set_id": "L00-nd_size_spread-003",
+    "level": 0,
+    "level_name": "no_duplication",
+    "family": "nd_size_spread",
+    "title": "Mix of different size files (variant 3)",
+    "description": "LiteChecker, VolumeProcessor, PocketFormatter, TrimReporter, and HugeAggregator — files of varying code density and line count.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": null,
+    "difficulty_band": "baseline",
+    "files": [
+        {
+            "path": "src/LiteChecker.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 22
+        },
+        {
+            "path": "src/VolumeProcessor.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        },
+        {
+            "path": "src/PocketFormatter.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 23
+        },
+        {
+            "path": "src/TrimReporter.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 22
+        },
+        {
+            "path": "src/HugeAggregator.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 23
+        }
+    ],
+    "duplication": {
+        "present": false,
+        "clone_type": "none",
+        "granularity": null,
+        "clusters": 0,
+        "instances": 0
+    },
+    "interference": [],
+    "difficulty": {
+        "score": 0,
+        "requires": []
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L00_no_duplication/nd_size_spread.json",
+        "version": "1.0.0",
+        "rng_seed": 100205
+    }
+}

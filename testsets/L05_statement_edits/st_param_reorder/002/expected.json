@@ -1,0 +1,65 @@
+{
+    "schema_version": 1,
+    "set_id": "L05-st_param_reorder-002",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-3",
+            "granularity": "method",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers",
+                "literals"
+            ],
+            "token_hash": "5cd8e7841ecf7c41",
+            "normalized_hash": "a3a4fbc9a09986cf",
+            "members": [
+                {
+                    "file": "src/PristineAccessGuard.php",
+                    "start_line": 9,
+                    "end_line": 27,
+                    "symbol": "authorize",
+                    "pristine": true
+                },
+                {
+                    "file": "src/ReorderedAccessGuard.php",
+                    "start_line": 18,
+                    "end_line": 36,
+                    "symbol": "authorize",
+                    "pristine": false
+                },
+                {
+                    "file": "src/MoreReorderedAccessGuard.php",
+                    "start_line": 24,
+                    "end_line": 42,
+                    "symbol": "authorize",
+                    "pristine": false
+                }
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": true,
+                "semantic": true
+            },
+            "notes": "Set 2 of 5. ST-08 (param_reorder) variant."
+        }
+    ],
+    "non_duplicates": [
+        {
+            "file": "src/TokenChecker.php",
+            "start_line": 12,
+            "end_line": 27,
+            "reason": "near-miss: similar guard clause structure but checks session tokens instead of user/resource — a different authorization path",
+            "trap": true
+        }
+    ],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.6,
+        "min_members_for_credit": 2
+    }
+}

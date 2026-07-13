@@ -1,0 +1,89 @@
+{
+    "schema_version": 1,
+    "set_id": "L04-ns_imports-001",
+    "level": 4,
+    "level_name": "rename_literals",
+    "family": "ns_imports",
+    "title": "Invoice totals with namespace import style changed",
+    "description": "The same invoice computation method in three calculator classes. Carrier A uses fully-qualified class names; carrier B uses use statements with short names; carrier C uses aliased imports. Type-2: same code with different namespace reference styles.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "invoice_totals",
+    "difficulty_band": "medium",
+    "files": [
+        {
+            "path": "src/PristineCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 39
+        },
+        {
+            "path": "src/UseShortCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 44
+        },
+        {
+            "path": "src/AliasedCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 43
+        },
+        {
+            "path": "src/LineItemProfiler.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 30
+        },
+        {
+            "path": "src/TaxRateRepository.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-2",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "NS-01",
+            "name": "imports",
+            "params": {
+                "mode": "use_short",
+                "target_class": "Acme\\Config\\TaxConfig"
+            },
+            "applied_to": [
+                "src/UseShortCalc.php"
+            ]
+        },
+        {
+            "code": "NS-01",
+            "name": "imports",
+            "params": {
+                "mode": "use_alias",
+                "target_class": "Acme\\Config\\TaxConfig",
+                "alias": "Tax"
+            },
+            "applied_to": [
+                "src/AliasedCalc.php"
+            ]
+        }
+    ],
+    "difficulty": {
+        "score": 36,
+        "requires": [
+            "identifier_canonicalization"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L04/ns_imports.json",
+        "version": "1.0.0",
+        "rng_seed": 104901
+    }
+}

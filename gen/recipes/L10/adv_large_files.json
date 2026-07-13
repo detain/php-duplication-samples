@@ -1,0 +1,138 @@
+{
+    "level": 10,
+    "level_name": "adversarial_edge_cases",
+    "level_dir": "L10_adversarial_edge_cases",
+    "family": "adv_large_files",
+    "sets": [
+        {
+            "set_id": "L10-adv_large_files-001",
+            "title": "Clone buried in 1200-line carrier file (mid-file position)",
+            "description": "Tests whether large file size (1000+ lines) causes detectors to miss or misreport clones. Clone is placed at line ~800 in a 1200-line file. Infrastructure gap: SetBuilder does not support role_composition with large_file scaffold and custom line counts.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 110801,
+            "notes": "CP-05: Large file (1200 lines). Infrastructure gap: SetBuilder does not support role_composition: {scaffold: 'large_file', line_count: 1200}. This set uses standard method_alpha scaffold (40-60 lines). True large-file testing requires SetBuilder enhancement with large_file scaffold or post-build padding.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.9, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true, "metric_based": false, "semantic": false},
+            "carriers": [
+                {"file": "InvoiceServiceA.php", "namespace": "Acme\\Billing\\ServiceA", "class": "InvoiceServiceA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "InvoiceServiceB.php", "namespace": "Acme\\Billing\\ServiceB", "class": "InvoiceServiceB", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": []},
+                {"file": "InvoiceServiceC.php", "namespace": "Acme\\Billing\\ServiceC", "class": "InvoiceServiceC", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "Validator.php", "namespace": "Acme\\Billing\\Validate", "class": "Validator", "source": "clean_billing", "reason": "Clean distractor - unrelated billing logic"}
+            ],
+            "cleans": [
+                {"file": "SchemaMapper.php", "namespace": "Acme\\Billing\\Schema", "class": "SchemaMapper", "source": "clean_parsing"}
+            ]
+        },
+        {
+            "set_id": "L10-adv_large_files-002",
+            "title": "Large file with clone at top position (line ~50 in 1200-line file)",
+            "description": "Clone at top of large file tests whether position affects detection in large files.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 110802,
+            "notes": "CP-05: Large file variant. Infrastructure gap for large_file scaffold applies. Using standard placement at top of standard-sized carrier.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.9, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true, "metric_based": false, "semantic": false},
+            "carriers": [
+                {"file": "InvoiceServiceA.php", "namespace": "Acme\\Billing\\ServiceA", "class": "InvoiceServiceA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "InvoiceServiceB.php", "namespace": "Acme\\Billing\\ServiceB", "class": "InvoiceServiceB", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": []},
+                {"file": "InvoiceServiceC.php", "namespace": "Acme\\Billing\\ServiceC", "class": "InvoiceServiceC", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "Validator.php", "namespace": "Acme\\Billing\\Validate", "class": "Validator", "source": "clean_billing", "reason": "Clean distractor - unrelated billing logic"}
+            ],
+            "cleans": [
+                {"file": "SchemaMapper.php", "namespace": "Acme\\Billing\\Schema", "class": "SchemaMapper", "source": "clean_parsing"}
+            ]
+        },
+        {
+            "set_id": "L10-adv_large_files-003",
+            "title": "Large file with LT-01 numeric literal variation",
+            "description": "Large file context with numeric literal differences between clone members.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments", "identifiers"],
+            "rng_seed": 110803,
+            "notes": "CP-05 + LT-01: Large file with numeric variation. Infrastructure gap for large_file scaffold applies.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.75, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": false},
+            "carriers": [
+                {"file": "InvoiceServiceA.php", "namespace": "Acme\\Billing\\ServiceA", "class": "InvoiceServiceA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "InvoiceServiceB.php", "namespace": "Acme\\Billing\\ServiceB", "class": "InvoiceServiceB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-01"}]},
+                {"file": "InvoiceServiceC.php", "namespace": "Acme\\Billing\\ServiceC", "class": "InvoiceServiceC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "LT-01"}, {"code": "CM-03"}]}
+            ],
+            "distractors": [
+                {"file": "Validator.php", "namespace": "Acme\\Billing\\Validate", "class": "Validator", "source": "clean_billing", "reason": "Clean distractor - unrelated billing logic"}
+            ],
+            "cleans": [
+                {"file": "SchemaMapper.php", "namespace": "Acme\\Billing\\Schema", "class": "SchemaMapper", "source": "clean_parsing"}
+            ]
+        },
+        {
+            "set_id": "L10-adv_large_files-004",
+            "title": "Large file with RN-01 local variable renaming",
+            "description": "Large file context with identifier renaming to test normalization in large files.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments", "identifiers"],
+            "rng_seed": 110804,
+            "notes": "CP-05 + RN-01: Large file with identifier renaming. Infrastructure gap for large_file scaffold applies.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.75, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": false},
+            "carriers": [
+                {"file": "InvoiceServiceA.php", "namespace": "Acme\\Billing\\ServiceA", "class": "InvoiceServiceA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "InvoiceServiceB.php", "namespace": "Acme\\Billing\\ServiceB", "class": "InvoiceServiceB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-01"}]},
+                {"file": "InvoiceServiceC.php", "namespace": "Acme\\Billing\\ServiceC", "class": "InvoiceServiceC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "RN-01"}, {"code": "CM-03"}]}
+            ],
+            "distractors": [
+                {"file": "Validator.php", "namespace": "Acme\\Billing\\Validate", "class": "Validator", "source": "clean_billing", "reason": "Clean distractor - unrelated billing logic"}
+            ],
+            "cleans": [
+                {"file": "SchemaMapper.php", "namespace": "Acme\\Billing\\Schema", "class": "SchemaMapper", "source": "clean_parsing"}
+            ]
+        },
+        {
+            "set_id": "L10-adv_large_files-005",
+            "title": "Large file with access_guard seed and ST-01 logging insertion",
+            "description": "Uses access_guard seed with logging insertion in large file context.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers"],
+            "rng_seed": 110805,
+            "notes": "CP-05 + ST-01: Large file with logging insertion. CF-05 (early_return) is a selector transform requiring variant param - not usable directly. Using ST-01 (insert_logging) as alternative.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.65, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": false},
+            "carriers": [
+                {"file": "AccessServiceA.php", "namespace": "Acme\\Security\\ServiceA", "class": "AccessServiceA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "AccessServiceB.php", "namespace": "Acme\\Security\\ServiceB", "class": "AccessServiceB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-01"}]},
+                {"file": "AccessServiceC.php", "namespace": "Acme\\Security\\ServiceC", "class": "AccessServiceC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-01"}, {"code": "LT-02"}]}
+            ],
+            "distractors": [
+                {"file": "RateLimiter.php", "namespace": "Acme\\Security\\Limit", "class": "RateLimiter", "source": "nearmiss_access", "reason": "Near-miss: same access control vocabulary but different logic"}
+            ],
+            "cleans": [
+                {"file": "AuthProvider.php", "namespace": "Acme\\Security\\Auth", "class": "AuthProvider", "source": "clean_auth"}
+            ]
+        }
+    ]
+}

@@ -1,0 +1,109 @@
+{
+    "schema_version": 1,
+    "set_id": "L09-mix_realistic_drift-001",
+    "level": 9,
+    "level_name": "mixed_interference",
+    "family": "mix_realistic_drift",
+    "title": "Invoice totals: 18 months of maintenance drift",
+    "description": "Member A: pristine. Member B: gets a bugfix + logging (ST-01). Member C: gets reformatted + renamed + a feature (WS-06 + RN-05 + ST-02). Tests how maintenance divergence accumulates.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "invoice_totals",
+    "difficulty_band": "expert",
+    "files": [
+        {
+            "path": "src/OriginalInvoiceCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 39
+        },
+        {
+            "path": "src/BugfixInvoiceCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 45
+        },
+        {
+            "path": "src/MaintenanceInvoiceCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 47
+        },
+        {
+            "path": "src/MarginSummarizer.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 30
+        },
+        {
+            "path": "src/TaxRateRepository.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-3",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "ST-01",
+            "name": "insert_logging",
+            "params": {
+                "lines": 1
+            },
+            "applied_to": [
+                "src/BugfixInvoiceCalc.php"
+            ]
+        },
+        {
+            "code": "WS-06",
+            "name": "line_wrap",
+            "params": {
+                "occurrence": 1
+            },
+            "applied_to": [
+                "src/MaintenanceInvoiceCalc.php"
+            ]
+        },
+        {
+            "code": "RN-05",
+            "name": "case_convention",
+            "params": {
+                "direction": "snake_to_camel"
+            },
+            "applied_to": [
+                "src/MaintenanceInvoiceCalc.php"
+            ]
+        },
+        {
+            "code": "ST-02",
+            "name": "insert_dead",
+            "params": {
+                "count": 1
+            },
+            "applied_to": [
+                "src/MaintenanceInvoiceCalc.php"
+            ]
+        }
+    ],
+    "difficulty": {
+        "score": 100,
+        "requires": [
+            "ast_canonicalization",
+            "whitespace_normalization",
+            "identifier_canonicalization",
+            "deadcode_elimination"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L09/mix_realistic_drift.json",
+        "version": "1.0.0",
+        "rng_seed": 109801
+    }
+}

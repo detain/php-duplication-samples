@@ -29,6 +29,110 @@
             "cleans": [
                 {"file": "InvoiceParser.php", "namespace": "Acme\\Billing\\Parsing", "class": "InvoiceParser", "source": "clean_billing"}
             ]
+        },
+        {
+            "set_id": "L10-adv_overlap-002",
+            "title": "Overlap with RN-05 case convention drift",
+            "description": "Overlapping clone clusters with case convention changes. Tests whether detectors correctly identify the topology.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["controlflow", "identifiers"],
+            "rng_seed": 110302,
+            "notes": "CP-02 + RN-05: Overlapping clusters with case convention drift.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": true},
+            "carriers": [
+                {"file": "InvoiceCalculatorA.php", "namespace": "Acme\\Billing\\CalcA", "class": "InvoiceCalculatorA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "InvoiceCalculatorB.php", "namespace": "Acme\\Billing\\CalcB", "class": "InvoiceCalculatorB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-05"}]},
+                {"file": "InvoiceCalculatorC.php", "namespace": "Acme\\Billing\\CalcC", "class": "InvoiceCalculatorC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "RN-05"}, {"code": "LT-01"}]}
+            ],
+            "distractors": [
+                {"file": "TrustScorer.php", "namespace": "Acme\\Billing\\Scoring", "class": "TrustScorer", "source": "nearmiss_invoice", "reason": "Near-miss: same invoice vocabulary but computes different result"}
+            ],
+            "cleans": [
+                {"file": "InvoiceParser.php", "namespace": "Acme\\Billing\\Parsing", "class": "InvoiceParser", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L10-adv_overlap-003",
+            "title": "Overlap with LT-02 regex string variation",
+            "description": "Overlapping clone clusters with regex string patterns. Tests topology detection with regex variation.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["controlflow", "identifiers"],
+            "rng_seed": 110303,
+            "notes": "CP-02 + LT-02: Overlapping clusters with regex variation.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.55, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": true},
+            "carriers": [
+                {"file": "InvoiceCalculatorA.php", "namespace": "Acme\\Billing\\CalcA", "class": "InvoiceCalculatorA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "InvoiceCalculatorB.php", "namespace": "Acme\\Billing\\CalcB", "class": "InvoiceCalculatorB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-02"}]},
+                {"file": "InvoiceCalculatorC.php", "namespace": "Acme\\Billing\\CalcC", "class": "InvoiceCalculatorC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "LT-02"}, {"code": "CM-03"}]}
+            ],
+            "distractors": [
+                {"file": "TrustScorer.php", "namespace": "Acme\\Billing\\Scoring", "class": "TrustScorer", "source": "nearmiss_invoice", "reason": "Near-miss: same invoice vocabulary but different regex pattern"}
+            ],
+            "cleans": [
+                {"file": "InvoiceParser.php", "namespace": "Acme\\Billing\\Parsing", "class": "InvoiceParser", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L10-adv_overlap-004",
+            "title": "Overlap with WS-03 blank line variation",
+            "description": "Overlapping clone clusters with blank line insertion. Tests topology with whitespace variation.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["controlflow", "identifiers"],
+            "rng_seed": 110304,
+            "notes": "CP-02 + WS-03: Overlapping clusters with blank line variation.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": true},
+            "carriers": [
+                {"file": "InvoiceCalculatorA.php", "namespace": "Acme\\Billing\\CalcA", "class": "InvoiceCalculatorA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "InvoiceCalculatorB.php", "namespace": "Acme\\Billing\\CalcB", "class": "InvoiceCalculatorB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "WS-03"}]},
+                {"file": "InvoiceCalculatorC.php", "namespace": "Acme\\Billing\\CalcC", "class": "InvoiceCalculatorC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "WS-03"}, {"code": "LT-01"}]}
+            ],
+            "distractors": [
+                {"file": "TrustScorer.php", "namespace": "Acme\\Billing\\Scoring", "class": "TrustScorer", "source": "nearmiss_invoice", "reason": "Near-miss: same invoice vocabulary but different result"}
+            ],
+            "cleans": [
+                {"file": "InvoiceParser.php", "namespace": "Acme\\Billing\\Parsing", "class": "InvoiceParser", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L10-adv_overlap-005",
+            "title": "Overlap with access_guard seed variation",
+            "description": "Overlapping clone clusters using access_guard seed with compound transforms.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["controlflow", "identifiers"],
+            "rng_seed": 110305,
+            "notes": "CP-02: Uses access_guard seed to test overlapping topology in auth code.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.55, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": true},
+            "carriers": [
+                {"file": "AccessCheckerA.php", "namespace": "Acme\\Security\\CheckA", "class": "AccessCheckerA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "AccessCheckerB.php", "namespace": "Acme\\Security\\CheckB", "class": "AccessCheckerB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-02"}]},
+                {"file": "AccessCheckerC.php", "namespace": "Acme\\Security\\CheckC", "class": "AccessCheckerC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "LT-02"}, {"code": "CM-03"}]}
+            ],
+            "distractors": [
+                {"file": "RateLimiter.php", "namespace": "Acme\\Security\\Limit", "class": "RateLimiter", "source": "nearmiss_access", "reason": "Near-miss: same access vocabulary but different authorization logic"}
+            ],
+            "cleans": [
+                {"file": "AuthProvider.php", "namespace": "Acme\\Security\\Auth", "class": "AuthProvider", "source": "clean_auth"}
+            ]
         }
     ]
 }

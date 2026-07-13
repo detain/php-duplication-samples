@@ -1,0 +1,138 @@
+{
+    "level": 10,
+    "level_name": "adversarial_edge_cases",
+    "level_dir": "L10_adversarial_edge_cases",
+    "family": "adv_genealogy",
+    "sets": [
+        {
+            "set_id": "L10-adv_genealogy-001",
+            "title": "Drift chain A(pristine) → B(A+WS-03) → C(B+RN-05) → D(C+CM-03)",
+            "description": "Pairwise similarity decays along the chain: A↔B highly similar, B↔C less similar, C↔D least similar. Tests whether detectors correctly cluster all 4 as one family despite drift. Infrastructure gap: SetBuilder does not support drift chain topology.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments", "identifiers"],
+            "rng_seed": 111001,
+            "notes": "CP-07: Genealogy drift chain A→B→C→D. Infrastructure gap: SetBuilder does not support genealogical drift topology with per-member drift metadata. This set uses 3 carriers with standard transforms as a proxy. True genealogy requires SetBuilder enhancement with drift-chain member roles or manual post-processing.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": true},
+            "carriers": [
+                {"file": "InvoiceCalculatorA.php", "namespace": "Acme\\Billing\\CalcA", "class": "InvoiceCalculatorA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": [], "drift_generation": 0},
+                {"file": "InvoiceCalculatorB.php", "namespace": "Acme\\Billing\\CalcB", "class": "InvoiceCalculatorB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "WS-03"}], "drift_generation": 1},
+                {"file": "InvoiceCalculatorC.php", "namespace": "Acme\\Billing\\CalcC", "class": "InvoiceCalculatorC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "WS-03"}, {"code": "RN-05"}], "drift_generation": 2}
+            ],
+            "distractors": [
+                {"file": "TrustScorer.php", "namespace": "Acme\\Billing\\Scoring", "class": "TrustScorer", "source": "nearmiss_invoice", "reason": "Near-miss: same invoice vocabulary but different computation - adds premium support fee"}
+            ],
+            "cleans": [
+                {"file": "InvoiceParser.php", "namespace": "Acme\\Billing\\Parsing", "class": "InvoiceParser", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L10-adv_genealogy-002",
+            "title": "Genealogy with RN-01 local vars rename cascade",
+            "description": "Genealogy chain with local variable renaming cascade: A→B adds RN-01, B→C adds another RN-01, C→D adds CM-03.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments", "identifiers"],
+            "rng_seed": 111002,
+            "notes": "CP-07 + RN-01: Genealogy with rename cascade. Infrastructure gap for drift chain applies.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": false},
+            "carriers": [
+                {"file": "InvoiceCalculatorA.php", "namespace": "Acme\\Billing\\CalcA", "class": "InvoiceCalculatorA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": [], "drift_generation": 0},
+                {"file": "InvoiceCalculatorB.php", "namespace": "Acme\\Billing\\CalcB", "class": "InvoiceCalculatorB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-01"}], "drift_generation": 1},
+                {"file": "InvoiceCalculatorC.php", "namespace": "Acme\\Billing\\CalcC", "class": "InvoiceCalculatorC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "RN-01"}, {"code": "RN-05"}], "drift_generation": 2}
+            ],
+            "distractors": [
+                {"file": "TrustScorer.php", "namespace": "Acme\\Billing\\Scoring", "class": "TrustScorer", "source": "nearmiss_invoice", "reason": "Near-miss: same invoice vocabulary but different computation"}
+            ],
+            "cleans": [
+                {"file": "InvoiceParser.php", "namespace": "Acme\\Billing\\Parsing", "class": "InvoiceParser", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L10-adv_genealogy-003",
+            "title": "Genealogy with LT-01 numeric drift cascade",
+            "description": "Genealogy chain with numeric literal drift: A→B changes thresholds, B→C changes rates, C→D adds comment.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments", "identifiers"],
+            "rng_seed": 111003,
+            "notes": "CP-07 + LT-01: Genealogy with numeric drift cascade. Infrastructure gap for drift chain applies.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.65, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": false},
+            "carriers": [
+                {"file": "InvoiceCalculatorA.php", "namespace": "Acme\\Billing\\CalcA", "class": "InvoiceCalculatorA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": [], "drift_generation": 0},
+                {"file": "InvoiceCalculatorB.php", "namespace": "Acme\\Billing\\CalcB", "class": "InvoiceCalculatorB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-01"}], "drift_generation": 1},
+                {"file": "InvoiceCalculatorC.php", "namespace": "Acme\\Billing\\CalcC", "class": "InvoiceCalculatorC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "LT-01"}, {"code": "LT-02"}], "drift_generation": 2}
+            ],
+            "distractors": [
+                {"file": "TrustScorer.php", "namespace": "Acme\\Billing\\Scoring", "class": "TrustScorer", "source": "nearmiss_invoice", "reason": "Near-miss: same invoice vocabulary but different computation"}
+            ],
+            "cleans": [
+                {"file": "InvoiceParser.php", "namespace": "Acme\\Billing\\Parsing", "class": "InvoiceParser", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L10-adv_genealogy-004",
+            "title": "Genealogy with ST-01 logging insertion evolution",
+            "description": "Genealogy chain showing statement insertion evolution: logging calls added across generations.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers"],
+            "rng_seed": 111004,
+            "notes": "CP-07 + ST-01: Genealogy with logging insertion cascade. Infrastructure gap for drift chain applies. CF-04 (loop_form) is a selector transform requiring variant param - not usable directly.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": false},
+            "carriers": [
+                {"file": "InvoiceCalculatorA.php", "namespace": "Acme\\Billing\\CalcA", "class": "InvoiceCalculatorA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": [], "drift_generation": 0},
+                {"file": "InvoiceCalculatorB.php", "namespace": "Acme\\Billing\\CalcB", "class": "InvoiceCalculatorB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-01"}], "drift_generation": 1},
+                {"file": "InvoiceCalculatorC.php", "namespace": "Acme\\Billing\\CalcC", "class": "InvoiceCalculatorC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-01"}, {"code": "CM-03"}], "drift_generation": 2}
+            ],
+            "distractors": [
+                {"file": "TrustScorer.php", "namespace": "Acme\\Billing\\Scoring", "class": "TrustScorer", "source": "nearmiss_invoice", "reason": "Near-miss: same invoice vocabulary but different computation"}
+            ],
+            "cleans": [
+                {"file": "InvoiceParser.php", "namespace": "Acme\\Billing\\Parsing", "class": "InvoiceParser", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L10-adv_genealogy-005",
+            "title": "Genealogy with access_guard seed and ST-01 logging drift",
+            "description": "Uses access_guard seed with logging insertion as the drift mechanism across generations.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers"],
+            "rng_seed": 111005,
+            "notes": "CP-07 + ST-01: Genealogy with logging drift using access_guard seed. Infrastructure gap for drift chain applies.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": false},
+            "carriers": [
+                {"file": "AccessCheckerA.php", "namespace": "Acme\\Security\\CheckA", "class": "AccessCheckerA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": [], "drift_generation": 0},
+                {"file": "AccessCheckerB.php", "namespace": "Acme\\Security\\CheckB", "class": "AccessCheckerB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-01"}], "drift_generation": 1},
+                {"file": "AccessCheckerC.php", "namespace": "Acme\\Security\\CheckC", "class": "AccessCheckerC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-01"}, {"code": "CM-03"}], "drift_generation": 2}
+            ],
+            "distractors": [
+                {"file": "RateLimiter.php", "namespace": "Acme\\Security\\Limit", "class": "RateLimiter", "source": "nearmiss_access", "reason": "Near-miss: same access control vocabulary but different logic"}
+            ],
+            "cleans": [
+                {"file": "AuthProvider.php", "namespace": "Acme\\Security\\Auth", "class": "AuthProvider", "source": "clean_auth"}
+            ]
+        }
+    ]
+}

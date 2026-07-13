@@ -1,0 +1,82 @@
+{
+    "schema_version": 1,
+    "set_id": "L07-api_serialization-001",
+    "level": 7,
+    "level_name": "api_idioms",
+    "family": "api_serialization",
+    "title": "Invoice totalling: manual array literal vs json_encode serialization",
+    "description": "The same invoice line-item totalling computation written in two genuinely different idioms: carrier A uses direct array literal construction; carrier B uses json_encode/json_decode for result construction. All compute equivalent numeric results.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "invoice_totals",
+    "difficulty_band": "expert",
+    "files": [
+        {
+            "path": "src/InvoiceComputeStandard.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 39
+        },
+        {
+            "path": "src/InvoiceComputeSerialization.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 55
+        },
+        {
+            "path": "src/MarginSummarizer.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 30
+        },
+        {
+            "path": "src/InvoiceLineFormatter.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 28
+        },
+        {
+            "path": "src/TaxRateRepository.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-4",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 2
+    },
+    "interference": [
+        {
+            "code": "API-08",
+            "name": "serialization",
+            "params": {
+                "variant": "api_serialization"
+            },
+            "applied_to": [
+                "src/InvoiceComputeSerialization.php"
+            ]
+        }
+    ],
+    "difficulty": {
+        "score": 88,
+        "requires": [
+            "api_abstraction",
+            "ast_canonicalization"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L07/api_serialization.json",
+        "version": "1.0.0",
+        "rng_seed": 107801
+    },
+    "role_composition": {
+        "carrier": 2,
+        "distractor": 1,
+        "clean": 1
+    }
+}

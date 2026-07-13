@@ -1,0 +1,100 @@
+{
+    "schema_version": 1,
+    "set_id": "L04-lt_numbers-004",
+    "level": 4,
+    "level_name": "rename_literals",
+    "family": "lt_numbers",
+    "title": "Invoice total calculator with numeric literal thresholds modified",
+    "description": "The same invoice line-item totalling method in three calculator classes. Carrier A is pristine; carrier B changes 1-2 numeric literals (threshold 100→150); carrier C changes every numeric literal (threshold 100→200, shipping 9.99→12.99). Structure and layout are byte-identical — only numeric literals differ (Type-2), so identifier-canonicalizing token tools, AST, metric and semantic detectors should still match all three.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "invoice_totals",
+    "difficulty_band": "medium",
+    "files": [
+        {
+            "path": "src/CustomerInvoiceCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 44
+        },
+        {
+            "path": "src/VendorInvoiceCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 39
+        },
+        {
+            "path": "src/ProductInvoiceCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 43
+        },
+        {
+            "path": "src/LineItemProfiler.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 30
+        },
+        {
+            "path": "src/TaxRateDetector.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-2",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "LT-01",
+            "name": "numeric",
+            "params": {
+                "replacements": [
+                    {
+                        "find": "100.0",
+                        "replace": "150.0"
+                    }
+                ]
+            },
+            "applied_to": [
+                "src/VendorInvoiceCalc.php"
+            ]
+        },
+        {
+            "code": "LT-01",
+            "name": "numeric",
+            "params": {
+                "replacements": [
+                    {
+                        "find": "100.0",
+                        "replace": "200.0"
+                    },
+                    {
+                        "find": "9.99",
+                        "replace": "12.99"
+                    }
+                ]
+            },
+            "applied_to": [
+                "src/ProductInvoiceCalc.php"
+            ]
+        }
+    ],
+    "difficulty": {
+        "score": 36,
+        "requires": [
+            "literal_abstraction"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L04/lt_numbers.json",
+        "version": "1.0.0",
+        "rng_seed": 104204
+    }
+}

@@ -5,7 +5,7 @@
     "level_name": "statement_edits",
     "family": "st_insert_logging",
     "title": "Invoice totals computation with logging inserted at varying density",
-    "description": "The same computeTotals method in three billing classes. Carrier A is pristine; carrier B inserts a single log line after the first statement; carrier C inserts log lines after multiple interior statements (log-per-step). All share the same structure and logic — only log calls differ (Type-3 statement insertion). Gap-tolerant AST and semantic detectors should match all three; strict token matchers fail because of the inserted statements.",
+    "description": "The same computeTotals method in three billing classes. Carrier A is pristine; carrier B inserts a single log line after the first statement; carrier C inserts log lines after multiple interior statements (log-per-step). All share the same structure and logic — only log calls differ (Type-3 statement insertion).",
     "language": "php",
     "min_php": "8.1",
     "seed": "invoice_totals",

@@ -4,8 +4,8 @@
     "level": 3,
     "level_name": "comments_variation",
     "family": "cm_docblock",
-    "title": "Invoice-totals method with docblock interference on the cloned symbol",
-    "description": "The same invoice-totalling computeTotals method in three service classes under the cm_docblock family. Carrier A has no docblock (pristine). Carrier B has a minimal /** */ docblock with a one-line summary. Carrier C has a full multi-line docblock with @param and @return tags. After comment stripping, all three produce identical token streams — this is a Type-1 clone designed to test comment-stripping detectors. A near-miss distractor shares invoice vocabulary and foreach shape but computes a different result (revenue/cost margin ratio).",
+    "title": "Docblock comment variation on invoice totals method",
+    "description": "Clone pair differs by presence of a minimal docblock comment on the cloned method. Text-based detection should identify the token difference while AST-based detection remains unaffected by comments.",
     "language": "php",
     "min_php": "8.1",
     "seed": "invoice_totals",
@@ -22,32 +22,14 @@
             "role": "carrier",
             "duplicate_group": "A",
             "sloc": 45
-        },
-        {
-            "path": "src/SettlementService.php",
-            "role": "carrier",
-            "duplicate_group": "A",
-            "sloc": 51
-        },
-        {
-            "path": "src/MarginReporter.php",
-            "role": "distractor",
-            "duplicate_group": null,
-            "sloc": 30
-        },
-        {
-            "path": "src/TaxRateRepository.php",
-            "role": "clean",
-            "duplicate_group": null,
-            "sloc": 28
         }
     ],
     "duplication": {
         "present": true,
         "clone_type": "type-1",
-        "granularity": "method",
+        "granularity": "function",
         "clusters": 1,
-        "instances": 3
+        "instances": 2
     },
     "interference": [
         {
@@ -60,23 +42,6 @@
             "applied_to": [
                 "src/PriceBookService.php"
             ]
-        },
-        {
-            "code": "CM-03",
-            "name": "docblock",
-            "params": {
-                "style": "full",
-                "summary": "Compute invoice totals including subtotal, tax, discount and shipping.",
-                "tags": [
-                    "@param array $lineItems List of line items with qty and unitPrice.",
-                    "@param float $taxRate Tax rate as a decimal (e.g. 0.08 for 8%).",
-                    "@param float $discountRate Discount rate as a decimal (e.g. 0.05 for 5%).",
-                    "@return array{invoice details} Computed subtotal, discount, tax, shipping and grand total."
-                ]
-            },
-            "applied_to": [
-                "src/SettlementService.php"
-            ]
         }
     ],
     "difficulty": {
@@ -87,8 +52,13 @@
     },
     "generator": {
         "tool": "gen/build.php",
-        "recipe": "gen/recipes/L03/cm_docblock.json",
+        "recipe": "gen/recipes/L03_comments/cm_docblock.json",
         "version": "1.0.0",
         "rng_seed": 103001
+    },
+    "role_composition": {
+        "carrier": 2,
+        "distractor": 1,
+        "clean": 1
     }
 }

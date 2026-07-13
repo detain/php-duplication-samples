@@ -1,0 +1,84 @@
+{
+    "schema_version": 1,
+    "set_id": "L10-adv_large_files-005",
+    "level": 10,
+    "level_name": "adversarial_edge_cases",
+    "family": "adv_large_files",
+    "title": "Large file with access_guard seed and ST-01 logging insertion",
+    "description": "Uses access_guard seed with logging insertion in large file context.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "access_guard",
+    "difficulty_band": "expert",
+    "files": [
+        {
+            "path": "src/AccessServiceA.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 33
+        },
+        {
+            "path": "src/AccessServiceB.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 39
+        },
+        {
+            "path": "src/AccessServiceC.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 38
+        },
+        {
+            "path": "src/RateLimiter.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 29
+        },
+        {
+            "path": "src/AuthProvider.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 27
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-3",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "ST-01",
+            "name": "insert_logging",
+            "params": {},
+            "applied_to": [
+                "src/AccessServiceB.php",
+                "src/AccessServiceC.php"
+            ]
+        },
+        {
+            "code": "LT-02",
+            "name": "string",
+            "params": {},
+            "applied_to": [
+                "src/AccessServiceC.php"
+            ]
+        }
+    ],
+    "difficulty": {
+        "score": 97,
+        "requires": [
+            "ast_canonicalization",
+            "literal_abstraction"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L10/adv_large_files.json",
+        "version": "1.0.0",
+        "rng_seed": 110805
+    }
+}

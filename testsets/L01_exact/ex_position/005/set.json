@@ -1,0 +1,63 @@
+{
+    "schema_version": 1,
+    "set_id": "L01-ex_position-005",
+    "level": 1,
+    "level_name": "exact",
+    "family": "ex_position",
+    "title": "CSV parseRow clone at different positions in import services",
+    "description": "CSV parsing method clone appearing at different positions in data import service methods.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "csv_import",
+    "difficulty_band": "trivial",
+    "files": [
+        {
+            "path": "src/ImportServiceTop.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 37
+        },
+        {
+            "path": "src/ParserServiceMiddle.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 42
+        },
+        {
+            "path": "src/FileServiceBottom.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 41
+        },
+        {
+            "path": "src/DataTransformer.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 28
+        },
+        {
+            "path": "src/SchemaValidator.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 22
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-1",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [],
+    "difficulty": {
+        "score": 5,
+        "requires": []
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L01_exact/ex_position.json",
+        "version": "1.0.0",
+        "rng_seed": 101405
+    }
+}

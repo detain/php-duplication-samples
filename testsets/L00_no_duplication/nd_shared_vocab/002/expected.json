@@ -1,0 +1,11 @@
+{
+    "schema_version": 1,
+    "set_id": "L00-nd_shared_vocab-002",
+    "clusters": [],
+    "non_duplicates": [],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.6,
+        "min_members_for_credit": 2
+    }
+}

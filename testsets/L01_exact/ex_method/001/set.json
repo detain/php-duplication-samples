@@ -1,0 +1,63 @@
+{
+    "schema_version": 1,
+    "set_id": "L01-ex_method-001",
+    "level": 1,
+    "level_name": "exact",
+    "family": "ex_method",
+    "title": "Byte-identical authorize method in three differing service classes",
+    "description": "The same authorize method is placed inside three different service class skeletons. Each class has different name, different surrounding methods, and different purpose, but the cloned method body is byte-for-byte identical.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "access_guard",
+    "difficulty_band": "trivial",
+    "files": [
+        {
+            "path": "src/ResourceAuthorizationService.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 33
+        },
+        {
+            "path": "src/AccessControlService.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 38
+        },
+        {
+            "path": "src/PermissionGrantService.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 37
+        },
+        {
+            "path": "src/AuditTrailService.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 29
+        },
+        {
+            "path": "src/TokenValidationService.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 27
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-1",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [],
+    "difficulty": {
+        "score": 5,
+        "requires": []
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L01_exact/ex_method.json",
+        "version": "1.0.0",
+        "rng_seed": 101101
+    }
+}

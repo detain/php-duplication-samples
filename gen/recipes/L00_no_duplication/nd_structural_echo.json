@@ -1,0 +1,93 @@
+{
+    "level": 0,
+    "level_name": "no_duplication",
+    "level_dir": "L00_no_duplication",
+    "family": "nd_structural_echo",
+    "sets": [
+        {
+            "set_id": "L00-nd_structural_echo-001",
+            "title": "Five services with same class shape but different bodies",
+            "description": "AuthzService, CacheService, DnsService, ImageService, and SitemapService — all final classes with constructor injection and three public methods, but each implementation is entirely different.",
+            "seed": null,
+            "rng_seed": 100003,
+            "carriers": [],
+            "distractors": [],
+            "cleans": [
+                {"file": "AuthzService.php", "namespace": "Acme\\Security\\Services", "class": "AuthzService", "source": "clean_auth"},
+                {"file": "CacheService.php", "namespace": "Acme\\Cache\\Services", "class": "CacheService", "source": "nd_ratelimit"},
+                {"file": "DnsService.php", "namespace": "Acme\\Network\\Services", "class": "DnsService", "source": "nd_dns"},
+                {"file": "ImageService.php", "namespace": "Acme\\Media\\Services", "class": "ImageService", "source": "nd_image"},
+                {"file": "SitemapService.php", "namespace": "Acme\\Seo\\Services", "class": "SitemapService", "source": "nd_sitemap"}
+            ],
+            "traps": []
+        },
+        {
+            "set_id": "L00-nd_structural_echo-002",
+            "title": "Five services with same class shape (variant 2)",
+            "description": "RoleService, ThrottleService, NamingService, ThumbnailService, and UrlService — structural siblings with identical shape but distinct implementations.",
+            "seed": null,
+            "rng_seed": 100103,
+            "carriers": [],
+            "distractors": [],
+            "cleans": [
+                {"file": "RoleService.php", "namespace": "Acme\\Access\\Services", "class": "RoleService", "source": "clean_auth"},
+                {"file": "ThrottleService.php", "namespace": "Acme\\Api\\Services", "class": "ThrottleService", "source": "nd_ratelimit"},
+                {"file": "NamingService.php", "namespace": "Acme\\Registry\\Services", "class": "NamingService", "source": "nd_dns"},
+                {"file": "ThumbnailService.php", "namespace": "Acme\\Assets\\Services", "class": "ThumbnailService", "source": "nd_image"},
+                {"file": "UrlService.php", "namespace": "Acme\\Links\\Services", "class": "UrlService", "source": "nd_sitemap"}
+            ],
+            "traps": []
+        },
+        {
+            "set_id": "L00-nd_structural_echo-003",
+            "title": "Five services with same class shape (variant 3)",
+            "description": "PermissionService, RateService, ZoneService, ScaleService, and EntryService — five service classes echoing the same structure across different business domains.",
+            "seed": null,
+            "rng_seed": 100203,
+            "carriers": [],
+            "distractors": [],
+            "cleans": [
+                {"file": "PermissionService.php", "namespace": "Acme\\Authz\\Services", "class": "PermissionService", "source": "clean_auth"},
+                {"file": "RateService.php", "namespace": "Acme\\Rating\\Services", "class": "RateService", "source": "nd_ratelimit"},
+                {"file": "ZoneService.php", "namespace": "Acme\\Zones\\Services", "class": "ZoneService", "source": "nd_dns"},
+                {"file": "ScaleService.php", "namespace": "Acme\\Transform\\Services", "class": "ScaleService", "source": "nd_image"},
+                {"file": "EntryService.php", "namespace": "Acme\\Pages\\Services", "class": "EntryService", "source": "nd_sitemap"}
+            ],
+            "traps": []
+        },
+        {
+            "set_id": "L00-nd_structural_echo-004",
+            "title": "Five services with same class shape (variant 4)",
+            "description": "InheritanceService, QuotaService, RecordService, FitService, and UrlsetService — service classes with shared structural signature but unrelated logic.",
+            "seed": null,
+            "rng_seed": 100303,
+            "carriers": [],
+            "distractors": [],
+            "cleans": [
+                {"file": "InheritanceService.php", "namespace": "Acme\\Roles\\Services", "class": "InheritanceService", "source": "clean_auth"},
+                {"file": "QuotaService.php", "namespace": "Acme\\Limits\\Services", "class": "QuotaService", "source": "nd_ratelimit"},
+                {"file": "RecordService.php", "namespace": "Acme\\Records\\Services", "class": "RecordService", "source": "nd_dns"},
+                {"file": "FitService.php", "namespace": "Acme\\Geometry\\Services", "class": "FitService", "source": "nd_image"},
+                {"file": "UrlsetService.php", "namespace": "Acme\\Sitemaps\\Services", "class": "UrlsetService", "source": "nd_sitemap"}
+            ],
+            "traps": []
+        },
+        {
+            "set_id": "L00-nd_structural_echo-005",
+            "title": "Five services with same class shape (variant 5)",
+            "description": "HierarchyService, BudgetService, LookupService, AspectService, and DocumentService — five structurally isomorphic service classes.",
+            "seed": null,
+            "rng_seed": 100403,
+            "carriers": [],
+            "distractors": [],
+            "cleans": [
+                {"file": "HierarchyService.php", "namespace": "Acme\\Trees\\Services", "class": "HierarchyService", "source": "clean_auth"},
+                {"file": "BudgetService.php", "namespace": "Acme\\Spending\\Services", "class": "BudgetService", "source": "nd_ratelimit"},
+                {"file": "LookupService.php", "namespace": "Acme\\Search\\Services", "class": "LookupService", "source": "nd_dns"},
+                {"file": "AspectService.php", "namespace": "Acme\\Ratio\\Services", "class": "AspectService", "source": "nd_image"},
+                {"file": "DocumentService.php", "namespace": "Acme\\Xml\\Services", "class": "DocumentService", "source": "nd_sitemap"}
+            ],
+            "traps": []
+        }
+    ]
+}

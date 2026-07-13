@@ -1,0 +1,64 @@
+{
+    "schema_version": 1,
+    "set_id": "L04-rn_classes-004",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-2",
+            "granularity": "method",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers"
+            ],
+            "token_hash": "f1e5708cf467f899",
+            "normalized_hash": "653f9a74aa6b1cb6",
+            "members": [
+                {
+                    "file": "src/PristineCalc.php",
+                    "start_line": 9,
+                    "end_line": 33,
+                    "symbol": "computeTotals",
+                    "pristine": true
+                },
+                {
+                    "file": "src/RenamedCalc.php",
+                    "start_line": 18,
+                    "end_line": 42,
+                    "symbol": "computeTotals",
+                    "pristine": false
+                },
+                {
+                    "file": "src/FullyRenamedCalc.php",
+                    "start_line": 24,
+                    "end_line": 48,
+                    "symbol": "computeTotals",
+                    "pristine": false
+                }
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": true,
+                "semantic": true
+            },
+            "notes": "RN-04 (classes) renames the class declaration and any 'new ClassName()' instantiations. Since invoice_totals method is placed into scaffold-generated classes, the class name is controlled by the scaffold. Set 004 of 5."
+        }
+    ],
+    "non_duplicates": [
+        {
+            "file": "src/LineItemProfiler.php",
+            "start_line": 12,
+            "end_line": 28,
+            "reason": "near-miss: same invoice-domain vocabulary and foreach-over-items shape, but computes a histogram of line item prices — a different result",
+            "trap": true
+        }
+    ],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.6,
+        "min_members_for_credit": 2
+    }
+}

@@ -95,6 +95,6 @@
         "tool": "gen/build.php",
         "recipe": "gen/recipes/L04/lt_numbers.json",
         "version": "1.0.0",
-        "rng_seed": 104002
+        "rng_seed": 104201
     }
 }

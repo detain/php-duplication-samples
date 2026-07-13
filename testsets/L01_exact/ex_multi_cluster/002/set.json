@@ -1,0 +1,98 @@
+{
+    "schema_version": 1,
+    "set_id": "L01-ex_multi_cluster-002",
+    "level": 1,
+    "level_name": "exact",
+    "family": "ex_multi_cluster",
+    "title": "Two independent exact clone clusters - csv_import and invoice_totals",
+    "description": "Second set with Cluster A using csv_import and Cluster B using invoice_totals.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "csv_import",
+    "difficulty_band": "trivial",
+    "files": [
+        {
+            "path": "src/CsvImportA.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 34
+        },
+        {
+            "path": "src/CsvImportB.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 39
+        },
+        {
+            "path": "src/CsvImportC.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 35
+        },
+        {
+            "path": "src/TotalsCalcA.php",
+            "role": "carrier",
+            "duplicate_group": "B",
+            "sloc": 37
+        },
+        {
+            "path": "src/TotalsCalcB.php",
+            "role": "carrier",
+            "duplicate_group": "B",
+            "sloc": 42
+        },
+        {
+            "path": "src/TotalsCalcC.php",
+            "role": "carrier",
+            "duplicate_group": "B",
+            "sloc": 41
+        },
+        {
+            "path": "src/CsvDistractor.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 28
+        },
+        {
+            "path": "src/TotalsDistractor.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 30
+        },
+        {
+            "path": "src/ImportClean.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 22
+        },
+        {
+            "path": "src/FinanceClean.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-1",
+        "granularity": "function",
+        "clusters": 1,
+        "instances": 6
+    },
+    "interference": [],
+    "difficulty": {
+        "score": 5,
+        "requires": []
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L01_exact/ex_multi_cluster.json",
+        "version": "1.0.0",
+        "rng_seed": 101602
+    },
+    "role_composition": {
+        "carrier": 6,
+        "distractor": 2,
+        "clean": 2
+    }
+}

@@ -1,0 +1,83 @@
+{
+    "schema_version": 1,
+    "set_id": "L10-adv_same_file-003",
+    "level": 10,
+    "level_name": "adversarial_edge_cases",
+    "family": "adv_same_file",
+    "title": "Same-file clone with RN-05 case convention drift",
+    "description": "Uses snake_case to camelCase rename to test whether case convention changes affect intra-file clone detection.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "invoice_totals",
+    "difficulty_band": "expert",
+    "files": [
+        {
+            "path": "src/InvoiceCalculatorA.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 39
+        },
+        {
+            "path": "src/InvoiceCalculatorB.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 44
+        },
+        {
+            "path": "src/InvoiceCalculatorC.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 44
+        },
+        {
+            "path": "src/TrustScorer.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 30
+        },
+        {
+            "path": "src/InvoiceParser.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-2",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "RN-05",
+            "name": "case_convention",
+            "params": {},
+            "applied_to": [
+                "src/InvoiceCalculatorB.php"
+            ]
+        },
+        {
+            "code": "CM-03",
+            "name": "docblock",
+            "params": {},
+            "applied_to": [
+                "src/InvoiceCalculatorC.php"
+            ]
+        }
+    ],
+    "difficulty": {
+        "score": 91,
+        "requires": [
+            "identifier_canonicalization",
+            "comment_stripping"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L10/adv_same_file.json",
+        "version": "1.0.0",
+        "rng_seed": 110403
+    }
+}

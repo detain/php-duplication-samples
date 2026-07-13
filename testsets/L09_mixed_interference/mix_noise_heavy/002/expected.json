@@ -1,0 +1,65 @@
+{
+    "schema_version": 1,
+    "set_id": "L09-mix_noise_heavy-002",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-1",
+            "granularity": "method",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers",
+                "case_convention"
+            ],
+            "token_hash": "5cd8e7841ecf7c41",
+            "normalized_hash": "89e09fba7eb77dcb",
+            "members": [
+                {
+                    "file": "src/PristineAccessPolicy.php",
+                    "start_line": 9,
+                    "end_line": 27,
+                    "symbol": "authorize",
+                    "pristine": true
+                },
+                {
+                    "file": "src/NoisyAccessPolicy.php",
+                    "start_line": 18,
+                    "end_line": 38,
+                    "symbol": "authorize",
+                    "pristine": false
+                },
+                {
+                    "file": "src/NoisierAccessPolicy.php",
+                    "start_line": 24,
+                    "end_line": 42,
+                    "symbol": "authorize",
+                    "pristine": false
+                }
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": true,
+                "semantic": true
+            },
+            "notes": "Heavy noise via whitespace transforms (WS-03, WS-06). Type-1 clone still detectable."
+        }
+    ],
+    "non_duplicates": [
+        {
+            "file": "src/TrustScorer.php",
+            "start_line": 12,
+            "end_line": 27,
+            "reason": "near-miss: same auth vocabulary but computes numeric trust score instead of boolean decision",
+            "trap": true
+        }
+    ],
+    "scoring": {
+        "line_tolerance": 3,
+        "member_jaccard_min": 0.5,
+        "min_members_for_credit": 2
+    }
+}

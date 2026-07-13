@@ -1,0 +1,86 @@
+{
+    "schema_version": 1,
+    "set_id": "L04-rn_functions-003",
+    "level": 4,
+    "level_name": "rename_literals",
+    "family": "rn_functions",
+    "title": "Invoice totals calculator with function name and call sites renamed",
+    "description": "The same computeTotals function in three calculator classes. Carrier A is pristine; carrier B renames the function to a shorter name; carrier C renames to a different name. The function definition and any internal call sites are renamed consistently (Type-2).",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "invoice_totals",
+    "difficulty_band": "medium",
+    "files": [
+        {
+            "path": "src/PristineCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 39
+        },
+        {
+            "path": "src/RenamedCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 44
+        },
+        {
+            "path": "src/FullyRenamedCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 43
+        },
+        {
+            "path": "src/LineItemProfiler.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 30
+        },
+        {
+            "path": "src/TaxRateRepository.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-2",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "RN-03",
+            "name": "functions",
+            "params": {
+                "rename": "calculateTotal"
+            },
+            "applied_to": [
+                "src/RenamedCalc.php"
+            ]
+        },
+        {
+            "code": "RN-03",
+            "name": "functions",
+            "params": {
+                "rename": "computeTotal"
+            },
+            "applied_to": [
+                "src/FullyRenamedCalc.php"
+            ]
+        }
+    ],
+    "difficulty": {
+        "score": 37,
+        "requires": [
+            "identifier_canonicalization"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L04/rn_functions.json",
+        "version": "1.0.0",
+        "rng_seed": 104503
+    }
+}

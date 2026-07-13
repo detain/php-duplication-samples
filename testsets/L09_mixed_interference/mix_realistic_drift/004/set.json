@@ -1,0 +1,141 @@
+{
+    "schema_version": 1,
+    "set_id": "L09-mix_realistic_drift-004",
+    "level": 9,
+    "level_name": "mixed_interference",
+    "family": "mix_realistic_drift",
+    "title": "Invoice totals: parallel maintenance with different priorities",
+    "description": "All three start from same code. Team A does minimal bugfixes. Team B adds logging. Team C does full refactor.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "invoice_totals",
+    "difficulty_band": "expert",
+    "files": [
+        {
+            "path": "src/TeamAInvoiceCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 39
+        },
+        {
+            "path": "src/TeamBInvoiceCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 48
+        },
+        {
+            "path": "src/TeamCInvoiceCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 50
+        },
+        {
+            "path": "src/MarginSummarizer.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 30
+        },
+        {
+            "path": "src/TaxRateRepository.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-3",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "CM-03",
+            "name": "docblock",
+            "params": {
+                "style": "minimal"
+            },
+            "applied_to": [
+                "src/TeamAInvoiceCalc.php"
+            ]
+        },
+        {
+            "code": "ST-04",
+            "name": "delete_stmt",
+            "params": {
+                "count": 1
+            },
+            "applied_to": [
+                "src/TeamAInvoiceCalc.php"
+            ]
+        },
+        {
+            "code": "ST-01",
+            "name": "insert_logging",
+            "params": {
+                "lines": 2
+            },
+            "applied_to": [
+                "src/TeamBInvoiceCalc.php"
+            ]
+        },
+        {
+            "code": "CM-03",
+            "name": "docblock",
+            "params": {
+                "style": "standard"
+            },
+            "applied_to": [
+                "src/TeamBInvoiceCalc.php",
+                "src/TeamCInvoiceCalc.php"
+            ]
+        },
+        {
+            "code": "RN-05",
+            "name": "case_convention",
+            "params": {
+                "direction": "snake_to_camel"
+            },
+            "applied_to": [
+                "src/TeamCInvoiceCalc.php"
+            ]
+        },
+        {
+            "code": "WS-06",
+            "name": "line_wrap",
+            "params": {
+                "occurrence": 1
+            },
+            "applied_to": [
+                "src/TeamCInvoiceCalc.php"
+            ]
+        },
+        {
+            "code": "ST-02",
+            "name": "insert_dead",
+            "params": {
+                "count": 1
+            },
+            "applied_to": [
+                "src/TeamCInvoiceCalc.php"
+            ]
+        }
+    ],
+    "difficulty": {
+        "score": 100,
+        "requires": [
+            "comment_stripping",
+            "ast_canonicalization",
+            "identifier_canonicalization",
+            "whitespace_normalization",
+            "deadcode_elimination"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L09/mix_realistic_drift.json",
+        "version": "1.0.0",
+        "rng_seed": 109804
+    }
+}

@@ -1,0 +1,133 @@
+{
+    "level": 4,
+    "level_name": "rename_literals",
+    "level_dir": "L04_rename_literals",
+    "family": "rn_classes",
+    "sets": [
+        {
+            "set_id": "L04-rn_classes-001",
+            "title": "Invoice calculator with class name and property names renamed",
+            "description": "The same invoice calculation class is duplicated across three namespaces. Carrier A is pristine; carrier B renames the class; carrier C renames class and property names. Type declarations and instantiations are updated consistently (Type-2).",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments", "identifiers"],
+            "rng_seed": 104601,
+            "notes": "RN-04 (classes) renames the class declaration and any 'new ClassName()' instantiations. Since invoice_totals method is placed into scaffold-generated classes, the class name is controlled by the scaffold. Set 001 of 5.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineCalc.php", "namespace": "Acme\\Billing\\Pristine", "class": "PristineCalc", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "RenamedCalc.php", "namespace": "Acme\\Billing\\Renamed", "class": "RenamedCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-04", "params": {"rename": "InvoiceCalc"}}]},
+                {"file": "FullyRenamedCalc.php", "namespace": "Acme\\Billing\\FullyRenamed", "class": "FullyRenamedCalc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "RN-04", "params": {"rename": "BillCalculator"}}]}
+            ],
+            "distractors": [
+                {"file": "LineItemProfiler.php", "namespace": "Acme\\Billing\\Profiling", "class": "LineItemProfiler", "source": "nearmiss_invoice", "reason": "near-miss: same invoice-domain vocabulary and foreach-over-items shape, but computes a histogram of line item prices — a different result"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L04-rn_classes-002",
+            "title": "Invoice calculator with class name and property names renamed",
+            "description": "The same invoice calculation class is duplicated across three namespaces. Carrier A is pristine; carrier B renames the class; carrier C renames class and property names. Type declarations and instantiations are updated consistently (Type-2).",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments", "identifiers"],
+            "rng_seed": 104602,
+            "notes": "RN-04 (classes) renames the class declaration and any 'new ClassName()' instantiations. Since invoice_totals method is placed into scaffold-generated classes, the class name is controlled by the scaffold. Set 002 of 5.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineCalc.php", "namespace": "Acme\\Billing\\Pristine", "class": "PristineCalc", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "RenamedCalc.php", "namespace": "Acme\\Billing\\Renamed", "class": "RenamedCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-04", "params": {"rename": "InvoiceCalc"}}]},
+                {"file": "FullyRenamedCalc.php", "namespace": "Acme\\Billing\\FullyRenamed", "class": "FullyRenamedCalc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "RN-04", "params": {"rename": "BillCalculator"}}]}
+            ],
+            "distractors": [
+                {"file": "LineItemProfiler.php", "namespace": "Acme\\Billing\\Profiling", "class": "LineItemProfiler", "source": "nearmiss_invoice", "reason": "near-miss: same invoice-domain vocabulary and foreach-over-items shape, but computes a histogram of line item prices — a different result"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L04-rn_classes-003",
+            "title": "Invoice calculator with class name and property names renamed",
+            "description": "The same invoice calculation class is duplicated across three namespaces. Carrier A is pristine; carrier B renames the class; carrier C renames class and property names. Type declarations and instantiations are updated consistently (Type-2).",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments", "identifiers"],
+            "rng_seed": 104603,
+            "notes": "RN-04 (classes) renames the class declaration and any 'new ClassName()' instantiations. Since invoice_totals method is placed into scaffold-generated classes, the class name is controlled by the scaffold. Set 003 of 5.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineCalc.php", "namespace": "Acme\\Billing\\Pristine", "class": "PristineCalc", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "RenamedCalc.php", "namespace": "Acme\\Billing\\Renamed", "class": "RenamedCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-04", "params": {"rename": "InvoiceCalc"}}]},
+                {"file": "FullyRenamedCalc.php", "namespace": "Acme\\Billing\\FullyRenamed", "class": "FullyRenamedCalc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "RN-04", "params": {"rename": "BillCalculator"}}]}
+            ],
+            "distractors": [
+                {"file": "LineItemProfiler.php", "namespace": "Acme\\Billing\\Profiling", "class": "LineItemProfiler", "source": "nearmiss_invoice", "reason": "near-miss: same invoice-domain vocabulary and foreach-over-items shape, but computes a histogram of line item prices — a different result"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L04-rn_classes-004",
+            "title": "Invoice calculator with class name and property names renamed",
+            "description": "The same invoice calculation class is duplicated across three namespaces. Carrier A is pristine; carrier B renames the class; carrier C renames class and property names. Type declarations and instantiations are updated consistently (Type-2).",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments", "identifiers"],
+            "rng_seed": 104604,
+            "notes": "RN-04 (classes) renames the class declaration and any 'new ClassName()' instantiations. Since invoice_totals method is placed into scaffold-generated classes, the class name is controlled by the scaffold. Set 004 of 5.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineCalc.php", "namespace": "Acme\\Billing\\Pristine", "class": "PristineCalc", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "RenamedCalc.php", "namespace": "Acme\\Billing\\Renamed", "class": "RenamedCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-04", "params": {"rename": "InvoiceCalc"}}]},
+                {"file": "FullyRenamedCalc.php", "namespace": "Acme\\Billing\\FullyRenamed", "class": "FullyRenamedCalc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "RN-04", "params": {"rename": "BillCalculator"}}]}
+            ],
+            "distractors": [
+                {"file": "LineItemProfiler.php", "namespace": "Acme\\Billing\\Profiling", "class": "LineItemProfiler", "source": "nearmiss_invoice", "reason": "near-miss: same invoice-domain vocabulary and foreach-over-items shape, but computes a histogram of line item prices — a different result"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L04-rn_classes-005",
+            "title": "Invoice calculator with class name and property names renamed",
+            "description": "The same invoice calculation class is duplicated across three namespaces. Carrier A is pristine; carrier B renames the class; carrier C renames class and property names. Type declarations and instantiations are updated consistently (Type-2).",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments", "identifiers"],
+            "rng_seed": 104605,
+            "notes": "RN-04 (classes) renames the class declaration and any 'new ClassName()' instantiations. Since invoice_totals method is placed into scaffold-generated classes, the class name is controlled by the scaffold. Set 005 of 5.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineCalc.php", "namespace": "Acme\\Billing\\Pristine", "class": "PristineCalc", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "RenamedCalc.php", "namespace": "Acme\\Billing\\Renamed", "class": "RenamedCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-04", "params": {"rename": "InvoiceCalc"}}]},
+                {"file": "FullyRenamedCalc.php", "namespace": "Acme\\Billing\\FullyRenamed", "class": "FullyRenamedCalc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "RN-04", "params": {"rename": "BillCalculator"}}]}
+            ],
+            "distractors": [
+                {"file": "LineItemProfiler.php", "namespace": "Acme\\Billing\\Profiling", "class": "LineItemProfiler", "source": "nearmiss_invoice", "reason": "near-miss: same invoice-domain vocabulary and foreach-over-items shape, but computes a histogram of line item prices — a different result"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        }
+    ]
+}

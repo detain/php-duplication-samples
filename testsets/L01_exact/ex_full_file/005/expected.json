@@ -1,0 +1,63 @@
+{
+    "schema_version": 1,
+    "set_id": "L01-ex_full_file-005",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-1",
+            "granularity": "class",
+            "normalized_by": [
+                "whitespace",
+                "comments"
+            ],
+            "token_hash": "5cd8e7841ecf7c41",
+            "normalized_hash": "d62b3b768faecc30",
+            "members": [
+                {
+                    "file": "src/SecurityEnforcer.php",
+                    "start_line": 9,
+                    "end_line": 27,
+                    "symbol": "authorize",
+                    "pristine": true
+                },
+                {
+                    "file": "src/AccessEnforcer.php",
+                    "start_line": 18,
+                    "end_line": 36,
+                    "symbol": "authorize",
+                    "pristine": true
+                },
+                {
+                    "file": "src/PermissionEnforcer.php",
+                    "start_line": 24,
+                    "end_line": 42,
+                    "symbol": "authorize",
+                    "pristine": true
+                }
+            ],
+            "detection_expectation": {
+                "text_based": true,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": true,
+                "semantic": true
+            },
+            "notes": "Second variant of full file security class clones."
+        }
+    ],
+    "non_duplicates": [
+        {
+            "file": "src/SecurityMonitor.php",
+            "start_line": 12,
+            "end_line": 27,
+            "reason": "near-miss: similar security class but monitors instead of enforcing",
+            "trap": true
+        }
+    ],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.6,
+        "min_members_for_credit": 2
+    }
+}

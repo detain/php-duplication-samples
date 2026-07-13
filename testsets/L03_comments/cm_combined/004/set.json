@@ -1,0 +1,66 @@
+{
+    "schema_version": 1,
+    "set_id": "L03-cm_combined-004",
+    "level": 3,
+    "level_name": "comments_variation",
+    "family": "cm_combined",
+    "title": "Combined comment transform CM-03+CM-10 on invoice totals",
+    "description": "Clone pair differs by a combination of docblock and PHPDoc annotations. Text-based detection identifies the accumulated comment tokens.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "invoice_totals",
+    "difficulty_band": "easy",
+    "files": [
+        {
+            "path": "src/LedgerPostingService.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 39
+        },
+        {
+            "path": "src/PriceBookService.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 44
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-1",
+        "granularity": "function",
+        "clusters": 1,
+        "instances": 2
+    },
+    "interference": [
+        {
+            "code": "CM-11",
+            "name": "combined",
+            "params": {
+                "styles": [
+                    "CM-03",
+                    "CM-10"
+                ]
+            },
+            "applied_to": [
+                "src/PriceBookService.php"
+            ]
+        }
+    ],
+    "difficulty": {
+        "score": 20,
+        "requires": [
+            "comment_stripping"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L03_comments/cm_combined.json",
+        "version": "1.0.0",
+        "rng_seed": 104104
+    },
+    "role_composition": {
+        "carrier": 2,
+        "distractor": 1,
+        "clean": 1
+    }
+}

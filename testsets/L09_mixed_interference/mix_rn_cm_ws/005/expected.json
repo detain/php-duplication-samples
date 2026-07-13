@@ -1,0 +1,66 @@
+{
+    "schema_version": 1,
+    "set_id": "L09-mix_rn_cm_ws-005",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-2",
+            "granularity": "method",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers",
+                "case_convention",
+                "literals"
+            ],
+            "token_hash": "e2c6d2de09404029",
+            "normalized_hash": "d5da572207f4bce3",
+            "members": [
+                {
+                    "file": "src/PristineInvoiceCalc.php",
+                    "start_line": 12,
+                    "end_line": 39,
+                    "symbol": "computeTotals",
+                    "pristine": false
+                },
+                {
+                    "file": "src/FullMixCalc.php",
+                    "start_line": 19,
+                    "end_line": 46,
+                    "symbol": "computeTotals",
+                    "pristine": false
+                },
+                {
+                    "file": "src/FullMixAltCalc.php",
+                    "start_line": 27,
+                    "end_line": 54,
+                    "symbol": "computeTotals",
+                    "pristine": false
+                }
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": true,
+                "semantic": true
+            },
+            "notes": "Maximum variation in the 3-axis combination while still being type-2 detectable. Different case conventions and whitespace params per carrier."
+        }
+    ],
+    "non_duplicates": [
+        {
+            "file": "src/MarginSummarizer.php",
+            "start_line": 12,
+            "end_line": 28,
+            "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total",
+            "trap": true
+        }
+    ],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.6,
+        "min_members_for_credit": 2
+    }
+}

@@ -1,0 +1,66 @@
+{
+    "schema_version": 1,
+    "set_id": "L09-mix_realistic_drift-003",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-3",
+            "granularity": "method",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers",
+                "case_convention",
+                "literals"
+            ],
+            "token_hash": "5cd8e7841ecf7c41",
+            "normalized_hash": "a3a4fbc9a09986cf",
+            "members": [
+                {
+                    "file": "src/OriginalAccessPolicy.php",
+                    "start_line": 9,
+                    "end_line": 27,
+                    "symbol": "authorize",
+                    "pristine": true
+                },
+                {
+                    "file": "src/BugfixAccessPolicy.php",
+                    "start_line": 21,
+                    "end_line": 40,
+                    "symbol": "authorize",
+                    "pristine": false
+                },
+                {
+                    "file": "src/ReworkAccessPolicy.php",
+                    "start_line": 24,
+                    "end_line": 43,
+                    "symbol": "authorize",
+                    "pristine": false
+                }
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": true,
+                "semantic": true
+            },
+            "notes": "Realistic maintenance scenario on access guard. Different evolution paths for each carrier."
+        }
+    ],
+    "non_duplicates": [
+        {
+            "file": "src/TrustScorer.php",
+            "start_line": 12,
+            "end_line": 27,
+            "reason": "near-miss: same auth vocabulary but computes numeric trust score instead of boolean decision",
+            "trap": true
+        }
+    ],
+    "scoring": {
+        "line_tolerance": 4,
+        "member_jaccard_min": 0.35,
+        "min_members_for_credit": 2
+    }
+}

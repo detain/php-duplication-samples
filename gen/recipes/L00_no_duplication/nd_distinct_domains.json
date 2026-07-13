@@ -1,0 +1,96 @@
+{
+    "level": 0,
+    "level_name": "no_duplication",
+    "level_dir": "L00_no_duplication",
+    "family": "nd_distinct_domains",
+    "sets": [
+        {
+            "set_id": "L00-nd_distinct_domains-001",
+            "title": "Five unrelated single-responsibility services",
+            "description": "Payroll calendar, DNS record parser, image thumbnailer, rate limiter, and sitemap builder — five utterly unrelated files with no duplicated region. A perfect detector reports zero clusters; this measures the false-positive floor.",
+            "seed": null,
+            "rng_seed": 100000,
+            "carriers": [],
+            "distractors": [],
+            "cleans": [
+                {"file": "PayrollCalendar.php", "namespace": "Acme\\People\\Payroll", "class": "PayrollCalendar", "source": "nd_payroll"},
+                {"file": "DnsRecordParser.php", "namespace": "Acme\\Net\\Naming", "class": "DnsRecordParser", "source": "nd_dns"},
+                {"file": "ImageThumbnailer.php", "namespace": "Acme\\Media\\Imaging", "class": "ImageThumbnailer", "source": "nd_image"},
+                {"file": "RequestThrottle.php", "namespace": "Acme\\Http\\Throttle", "class": "RequestThrottle", "source": "nd_ratelimit"},
+                {"file": "SitemapBuilder.php", "namespace": "Acme\\Seo\\Sitemaps", "class": "SitemapBuilder", "source": "nd_sitemap"}
+            ],
+            "traps": [
+                {"file": "PayrollCalendar.php", "region": "class_header", "known_tool_fp": true, "reason": "deliberate false-positive bait: the declare(strict_types=1) + namespace + final-class declaration scaffold is byte-identical across all five files. It is the only shape shared between any two files here and a low-threshold token/line detector may be tempted to pair it, but it is ubiquitous PHP boilerplate, not a duplicated implementation."},
+                {"file": "DnsRecordParser.php", "region": "class_header", "known_tool_fp": true, "reason": "deliberate false-positive bait: same class-declaration scaffold shared verbatim with every other file. A detector pairing this header would be reporting shared boilerplate, not a real clone."}
+            ]
+        },
+        {
+            "set_id": "L00-nd_distinct_domains-002",
+            "title": "Five unrelated single-responsibility services (variant 2)",
+            "description": "User timezone resolver, Invoice PDF generator, Config version migrator, Cache tag invalidator, and Webhook signature verifier — five utterly unrelated files from distinct domains.",
+            "seed": null,
+            "rng_seed": 100100,
+            "carriers": [],
+            "distractors": [],
+            "cleans": [
+                {"file": "TimezoneResolver.php", "namespace": "Acme\\Users\\Timezone", "class": "TimezoneResolver", "source": "nd_payroll"},
+                {"file": "InvoicePdfGenerator.php", "namespace": "Acme\\Billing\\Pdf", "class": "InvoicePdfGenerator", "source": "nd_dns"},
+                {"file": "ConfigMigrator.php", "namespace": "Acme\\Config\\Migration", "class": "ConfigMigrator", "source": "nd_image"},
+                {"file": "CacheInvalidator.php", "namespace": "Acme\\Cache\\Tags", "class": "CacheInvalidator", "source": "nd_ratelimit"},
+                {"file": "WebhookVerifier.php", "namespace": "Acme\\Integrations\\Webhooks", "class": "WebhookVerifier", "source": "nd_sitemap"}
+            ],
+            "traps": []
+        },
+        {
+            "set_id": "L00-nd_distinct_domains-003",
+            "title": "Five unrelated single-responsibility services (variant 3)",
+            "description": "Event store appender, Query builder interceptor, Session flash manager, Permission evaluator, and Template engine adapter — five distinct domain files.",
+            "seed": null,
+            "rng_seed": 100200,
+            "carriers": [],
+            "distractors": [],
+            "cleans": [
+                {"file": "EventStore.php", "namespace": "Acme\\Events\\Store", "class": "EventStore", "source": "nd_payroll"},
+                {"file": "QueryInterceptor.php", "namespace": "Acme\\Database\\Intercept", "class": "QueryInterceptor", "source": "nd_dns"},
+                {"file": "FlashManager.php", "namespace": "Acme\\Session\\Flash", "class": "FlashManager", "source": "nd_image"},
+                {"file": "PermissionEvaluator.php", "namespace": "Acme\\Authz\\Permissions", "class": "PermissionEvaluator", "source": "nd_ratelimit"},
+                {"file": "TemplateAdapter.php", "namespace": "Acme\\Templating\\Adapter", "class": "TemplateAdapter", "source": "nd_sitemap"}
+            ],
+            "traps": []
+        },
+        {
+            "set_id": "L00-nd_distinct_domains-004",
+            "title": "Five unrelated single-responsibility services (variant 4)",
+            "description": "Metrics collector, Feature flag decider, Search query parser, Notification dispatcher, and CSV row transformer — five distinct domain utilities.",
+            "seed": null,
+            "rng_seed": 100300,
+            "carriers": [],
+            "distractors": [],
+            "cleans": [
+                {"file": "MetricsCollector.php", "namespace": "Acme\\Observability\\Metrics", "class": "MetricsCollector", "source": "nd_payroll"},
+                {"file": "FeatureDecider.php", "namespace": "Acme\\Features\\Toggle", "class": "FeatureDecider", "source": "nd_dns"},
+                {"file": "SearchQueryParser.php", "namespace": "Acme\\Search\\Query", "class": "SearchQueryParser", "source": "nd_image"},
+                {"file": "NotificationDispatcher.php", "namespace": "Acme\\Notifications\\Core", "class": "NotificationDispatcher", "source": "nd_ratelimit"},
+                {"file": "CsvTransformer.php", "namespace": "Acme\\Data\\Csv", "class": "CsvTransformer", "source": "nd_sitemap"}
+            ],
+            "traps": []
+        },
+        {
+            "set_id": "L00-nd_distinct_domains-005",
+            "title": "Five unrelated single-responsibility services (variant 5)",
+            "description": "Rate schedule calculator, DNS health checker, ImageEXIF extractor, Token bucket ratelimiter, and XML sitemap indexer — five distinct domain services.",
+            "seed": null,
+            "rng_seed": 100400,
+            "carriers": [],
+            "distractors": [],
+            "cleans": [
+                {"file": "RateScheduleCalc.php", "namespace": "Acme\\Scheduling\\Rates", "class": "RateScheduleCalc", "source": "nd_payroll"},
+                {"file": "DnsHealthCheck.php", "namespace": "Acme\\Infrastructure\\Dns", "class": "DnsHealthCheck", "source": "nd_dns"},
+                {"file": "ExifExtractor.php", "namespace": "Acme\\Media\\Metadata", "class": "ExifExtractor", "source": "nd_image"},
+                {"file": "TokenBucket.php", "namespace": "Acme\\Concurrency\\Tokens", "class": "TokenBucket", "source": "nd_ratelimit"},
+                {"file": "XmlIndexer.php", "namespace": "Acme\\Seo\\Indexing", "class": "XmlIndexer", "source": "nd_sitemap"}
+            ],
+            "traps": []
+        }
+    ]
+}

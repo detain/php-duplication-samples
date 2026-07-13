@@ -1,0 +1,63 @@
+{
+    "schema_version": 1,
+    "set_id": "L01-ex_full_file-003",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-1",
+            "granularity": "class",
+            "normalized_by": [
+                "whitespace",
+                "comments"
+            ],
+            "token_hash": "4ffb959f327d1b8c",
+            "normalized_hash": "5b90f04603edd0fc",
+            "members": [
+                {
+                    "file": "src/CsvDataImporter.php",
+                    "start_line": 9,
+                    "end_line": 31,
+                    "symbol": "parseRow",
+                    "pristine": true
+                },
+                {
+                    "file": "src/DelimitedImporter.php",
+                    "start_line": 18,
+                    "end_line": 40,
+                    "symbol": "parseRow",
+                    "pristine": true
+                },
+                {
+                    "file": "src/SpreadSheetImporter.php",
+                    "start_line": 24,
+                    "end_line": 46,
+                    "symbol": "parseRow",
+                    "pristine": true
+                }
+            ],
+            "detection_expectation": {
+                "text_based": true,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": true,
+                "semantic": true
+            },
+            "notes": "Full file clone for CSV import classes with naming differences only."
+        }
+    ],
+    "non_duplicates": [
+        {
+            "file": "src/XmlDataImporter.php",
+            "start_line": 12,
+            "end_line": 26,
+            "reason": "near-miss: similar import class but handles XML",
+            "trap": true
+        }
+    ],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.6,
+        "min_members_for_credit": 2
+    }
+}

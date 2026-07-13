@@ -1,0 +1,143 @@
+{
+    "level": 9,
+    "level_name": "mixed_interference",
+    "level_dir": "L09_mixed_interference",
+    "family": "mix_4plus",
+    "sets": [
+        {
+            "set_id": "L09-mix_4plus-001",
+            "title": "Invoice totals with 4-axis interference (RN + WS + ST-01)",
+            "description": "The same computeTotals method. Carrier A applies RN-05; carrier B applies RN-05 + WS-03; carrier C applies RN-05 + WS-06 + ST-01 (logging injection).",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "case_convention", "literals"],
+            "edit_budget": 15,
+            "rng_seed": 109701,
+            "notes": "4-axis interference combining rename (RN-05), whitespace (WS-03, WS-06), and statement-level (ST-01 logging). ST-01 adds statements rather than deleting, making it safer than ST-04.",
+            "scoring": {"line_tolerance": 3, "member_jaccard_min": 0.4, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineInvoiceCalc.php", "namespace": "Acme\\Billing\\Pristine", "class": "PristineInvoiceCalc", "scaffold": "method_alpha", "group": "A", "pristine": false, "transforms": [{"code": "RN-05", "params": {"direction": "camel_to_snake"}}]},
+                {"file": "RenamedBlankCalc.php", "namespace": "Acme\\Billing\\Renamed", "class": "RenamedBlankCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-05", "params": {"direction": "snake_to_camel"}}, {"code": "WS-03", "params": {"blank_lines": 2}}]},
+                {"file": "FourAxisCalc.php", "namespace": "Acme\\Billing\\FourAxis", "class": "FourAxisCalc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "RN-05", "params": {"direction": "camel_to_snake"}}, {"code": "WS-06", "params": {"occurrence": 1}}, {"code": "ST-01", "params": {"lines": 1}}]}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L09-mix_4plus-002",
+            "title": "Invoice totals with 4-axis varying interference",
+            "description": "Same computeTotals method. Each carrier uses a different 4-axis combination (RN + WS + ST-01 with varying params).",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "case_convention", "literals"],
+            "edit_budget": 15,
+            "rng_seed": 109702,
+            "notes": "Varied 4-axis interference. Each carrier gets a different combination of RN-05 direction and ST-01 line count.",
+            "scoring": {"line_tolerance": 3, "member_jaccard_min": 0.4, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineInvoiceCalc.php", "namespace": "Acme\\Billing\\Pristine", "class": "PristineInvoiceCalc", "scaffold": "method_alpha", "group": "A", "pristine": false, "transforms": [{"code": "RN-05", "params": {"direction": "camel_to_snake"}}, {"code": "WS-03", "params": {"blank_lines": 2}}, {"code": "ST-01", "params": {"lines": 1}}]},
+                {"file": "FourAxisCalc.php", "namespace": "Acme\\Billing\\FourAxis", "class": "FourAxisCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-05", "params": {"direction": "snake_to_camel"}}, {"code": "WS-06", "params": {"occurrence": 1}}, {"code": "ST-01", "params": {"lines": 2}}]},
+                {"file": "FourAxisAltCalc.php", "namespace": "Acme\\Billing\\FourAxis", "class": "FourAxisAltCalc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "RN-05", "params": {"direction": "camel_to_snake"}}, {"code": "WS-03", "params": {"blank_lines": 3}}, {"code": "ST-01", "params": {"lines": 1}}]}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L09-mix_4plus-003",
+            "title": "Access guard with 4-axis interference",
+            "description": "Same authorize method. Carrier A applies RN-05 + WS-03; carrier B adds WS-06; carrier C adds ST-01 logging (4 axes total).",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "case_convention", "literals"],
+            "edit_budget": 15,
+            "rng_seed": 109703,
+            "notes": "4-axis interference on access_guard. ST-01 (insert_logging) adds statements making it type-3. Token-based detection should still work.",
+            "scoring": {"line_tolerance": 3, "member_jaccard_min": 0.4, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineAccessPolicy.php", "namespace": "Acme\\Access\\Pristine", "class": "PristineAccessPolicy", "scaffold": "method_alpha", "group": "A", "pristine": false, "transforms": [{"code": "RN-05", "params": {"direction": "camel_to_snake"}}, {"code": "WS-03", "params": {"blank_lines": 2}}]},
+                {"file": "ThreeAxisPolicy.php", "namespace": "Acme\\Access\\ThreeAxis", "class": "ThreeAxisPolicy", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-05", "params": {"direction": "snake_to_camel"}}, {"code": "WS-03", "params": {"blank_lines": 3}}, {"code": "WS-06", "params": {"occurrence": 1}}]},
+                {"file": "FourAxisPolicy.php", "namespace": "Acme\\Access\\FourAxis", "class": "FourAxisPolicy", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "RN-05", "params": {"direction": "camel_to_snake"}}, {"code": "WS-03", "params": {"blank_lines": 2}}, {"code": "WS-06", "params": {"occurrence": 1}}, {"code": "ST-01", "params": {"lines": 2}}]}
+            ],
+            "distractors": [
+                {"file": "TrustScorer.php", "namespace": "Acme\\Access\\Scoring", "class": "TrustScorer", "source": "nearmiss_access", "reason": "near-miss: same auth vocabulary but computes numeric trust score instead of boolean decision"}
+            ],
+            "cleans": [
+                {"file": "RoleHierarchy.php", "namespace": "Acme\\Access\\Roles", "class": "RoleHierarchy", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L09-mix_4plus-004",
+            "title": "Invoice totals with uniform 4-axis",
+            "description": "Same computeTotals method. All carriers apply same 4-axis combination (RN-05 + WS-03 + WS-06 + ST-01).",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "case_convention", "literals"],
+            "edit_budget": 15,
+            "rng_seed": 109704,
+            "notes": "All carriers use identical 4-axis interference (RN + WS-03 + WS-06 + ST-01). Maximum interference but uniform across all clones.",
+            "scoring": {"line_tolerance": 3, "member_jaccard_min": 0.4, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineInvoiceCalc.php", "namespace": "Acme\\Billing\\Pristine", "class": "PristineInvoiceCalc", "scaffold": "method_alpha", "group": "A", "pristine": false, "transforms": [{"code": "RN-05", "params": {"direction": "camel_to_snake"}}, {"code": "WS-03", "params": {"blank_lines": 2}}, {"code": "WS-06", "params": {"occurrence": 1}}, {"code": "ST-01", "params": {"lines": 1}}]},
+                {"file": "FourAxisCalc.php", "namespace": "Acme\\Billing\\FourAxis", "class": "FourAxisCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-05", "params": {"direction": "camel_to_snake"}}, {"code": "WS-03", "params": {"blank_lines": 2}}, {"code": "WS-06", "params": {"occurrence": 1}}, {"code": "ST-01", "params": {"lines": 1}}]},
+                {"file": "FourAxisAltCalc.php", "namespace": "Acme\\Billing\\FourAxis", "class": "FourAxisAltCalc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "RN-05", "params": {"direction": "camel_to_snake"}}, {"code": "WS-03", "params": {"blank_lines": 2}}, {"code": "WS-06", "params": {"occurrence": 1}}, {"code": "ST-01", "params": {"lines": 1}}]}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L09-mix_4plus-005",
+            "title": "Invoice totals with ALL transforms stacked (maximum interference)",
+            "description": "Same computeTotals method. Set 005 gets all transforms stacked: RN-05 + WS-03 + WS-06 + ST-01. Maximum 4-axis interference.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "case_convention", "literals"],
+            "edit_budget": 20,
+            "rng_seed": 109705,
+            "notes": "Maximum interference - all 4 axes at maximum intensity. RN-05 (case_convention) + WS-03 (blank_inside) + WS-06 (line_wrap) + ST-01 (insert_logging). Uses ST-01 instead of ST-04 to avoid deletion issues.",
+            "scoring": {"line_tolerance": 4, "member_jaccard_min": 0.35, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineInvoiceCalc.php", "namespace": "Acme\\Billing\\Pristine", "class": "PristineInvoiceCalc", "scaffold": "method_alpha", "group": "A", "pristine": false, "transforms": [{"code": "RN-05", "params": {"direction": "camel_to_snake"}}, {"code": "WS-03", "params": {"blank_lines": 3}}, {"code": "WS-06", "params": {"occurrence": 1}}, {"code": "ST-01", "params": {"lines": 2}}]},
+                {"file": "FullStackCalc.php", "namespace": "Acme\\Billing\\FullStack", "class": "FullStackCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-05", "params": {"direction": "snake_to_camel"}}, {"code": "WS-03", "params": {"blank_lines": 2}}, {"code": "WS-06", "params": {"occurrence": 2}}, {"code": "ST-01", "params": {"lines": 1}}]},
+                {"file": "FullStackAltCalc.php", "namespace": "Acme\\Billing\\FullStack", "class": "FullStackAltCalc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "RN-05", "params": {"direction": "camel_to_snake"}}, {"code": "WS-03", "params": {"blank_lines": 4}}, {"code": "WS-06", "params": {"occurrence": 1}}, {"code": "ST-01", "params": {"lines": 2}}]}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        }
+    ]
+}

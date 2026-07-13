@@ -1,0 +1,143 @@
+{
+    "level": 9,
+    "level_name": "mixed_interference",
+    "level_dir": "L09_mixed_interference",
+    "family": "mix_realistic_drift",
+    "sets": [
+        {
+            "set_id": "L09-mix_realistic_drift-001",
+            "title": "Invoice totals: 18 months of maintenance drift",
+            "description": "Member A: pristine. Member B: gets a bugfix + logging (ST-01). Member C: gets reformatted + renamed + a feature (WS-06 + RN-05 + ST-02). Tests how maintenance divergence accumulates.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "case_convention", "literals"],
+            "edit_budget": 15,
+            "rng_seed": 109801,
+            "notes": "Realistic maintenance scenario: pristine original vs bugfix variant vs reformatted+renamed+feature variant. Tests detection after 18 months of independent maintenance.",
+            "scoring": {"line_tolerance": 4, "member_jaccard_min": 0.35, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "OriginalInvoiceCalc.php", "namespace": "Acme\\Billing\\Original", "class": "OriginalInvoiceCalc", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "BugfixInvoiceCalc.php", "namespace": "Acme\\Billing\\Bugfix", "class": "BugfixInvoiceCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-01", "params": {"lines": 1}}]},
+                {"file": "MaintenanceInvoiceCalc.php", "namespace": "Acme\\Billing\\Maintenance", "class": "MaintenanceInvoiceCalc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "WS-06", "params": {"occurrence": 1}}, {"code": "RN-05", "params": {"direction": "snake_to_camel"}}, {"code": "ST-02", "params": {"count": 1}}]}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L09-mix_realistic_drift-002",
+            "title": "Invoice totals: staggered maintenance events",
+            "description": "Member A: pristine. Member B: after 6 months gets bugfix logging. Member C: after 12 months gets full reformat + rename + dead code injection.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "case_convention", "literals"],
+            "edit_budget": 15,
+            "rng_seed": 109802,
+            "notes": "Staggered maintenance scenario. Each member evolves differently over time, simulating different development teams.",
+            "scoring": {"line_tolerance": 4, "member_jaccard_min": 0.35, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "OriginalInvoiceCalc.php", "namespace": "Acme\\Billing\\Original", "class": "OriginalInvoiceCalc", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "SixMonthCalc.php", "namespace": "Acme\\Billing\\SixMonth", "class": "SixMonthCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-01", "params": {"lines": 2}}]},
+                {"file": "TwelveMonthCalc.php", "namespace": "Acme\\Billing\\TwelveMonth", "class": "TwelveMonthCalc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "RN-05", "params": {"direction": "camel_to_snake"}}, {"code": "CM-03", "params": {"style": "standard"}}, {"code": "WS-06", "params": {"occurrence": 1}}, {"code": "ST-02", "params": {"count": 2}}]}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L09-mix_realistic_drift-003",
+            "title": "Access guard: maintenance divergence",
+            "description": "Member A: pristine. Member B: gets bugfix + docblock. Member C: gets full rework with rename + reformat + new feature.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "case_convention", "literals"],
+            "edit_budget": 15,
+            "rng_seed": 109803,
+            "notes": "Realistic maintenance scenario on access guard. Different evolution paths for each carrier.",
+            "scoring": {"line_tolerance": 4, "member_jaccard_min": 0.35, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "OriginalAccessPolicy.php", "namespace": "Acme\\Access\\Original", "class": "OriginalAccessPolicy", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "BugfixAccessPolicy.php", "namespace": "Acme\\Access\\Bugfix", "class": "BugfixAccessPolicy", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-01", "params": {"lines": 1}}, {"code": "CM-03", "params": {"style": "standard"}}]},
+                {"file": "ReworkAccessPolicy.php", "namespace": "Acme\\Access\\Rework", "class": "ReworkAccessPolicy", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "RN-05", "params": {"direction": "snake_to_camel"}}, {"code": "WS-06", "params": {"occurrence": 1}}, {"code": "ST-02", "params": {"count": 1}}]}
+            ],
+            "distractors": [
+                {"file": "TrustScorer.php", "namespace": "Acme\\Access\\Scoring", "class": "TrustScorer", "source": "nearmiss_access", "reason": "near-miss: same auth vocabulary but computes numeric trust score instead of boolean decision"}
+            ],
+            "cleans": [
+                {"file": "RoleHierarchy.php", "namespace": "Acme\\Access\\Roles", "class": "RoleHierarchy", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L09-mix_realistic_drift-004",
+            "title": "Invoice totals: parallel maintenance with different priorities",
+            "description": "All three start from same code. Team A does minimal bugfixes. Team B adds logging. Team C does full refactor.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "case_convention", "literals"],
+            "edit_budget": 15,
+            "rng_seed": 109804,
+            "notes": "Parallel maintenance scenario. All start pristine, then diverge based on team priorities.",
+            "scoring": {"line_tolerance": 4, "member_jaccard_min": 0.35, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "TeamAInvoiceCalc.php", "namespace": "Acme\\Billing\\TeamA", "class": "TeamAInvoiceCalc", "scaffold": "method_alpha", "group": "A", "pristine": false, "transforms": [{"code": "CM-03", "params": {"style": "minimal"}}, {"code": "ST-04", "params": {"count": 1}}]},
+                {"file": "TeamBInvoiceCalc.php", "namespace": "Acme\\Billing\\TeamB", "class": "TeamBInvoiceCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-01", "params": {"lines": 2}}, {"code": "CM-03", "params": {"style": "standard"}}]},
+                {"file": "TeamCInvoiceCalc.php", "namespace": "Acme\\Billing\\TeamC", "class": "TeamCInvoiceCalc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "RN-05", "params": {"direction": "snake_to_camel"}}, {"code": "CM-03", "params": {"style": "standard"}}, {"code": "WS-06", "params": {"occurrence": 1}}, {"code": "ST-02", "params": {"count": 1}}]}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L09-mix_realistic_drift-005",
+            "title": "Invoice totals: maximum divergence after 18 months",
+            "description": "All three carriers now look very different due to accumulated maintenance: A gets minor fixes, B gets logging + docblock, C gets full rename + reformat + feature injection.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "case_convention", "literals"],
+            "edit_budget": 20,
+            "rng_seed": 109805,
+            "notes": "Maximum divergence scenario. After 18 months, each carrier has evolved significantly. A has minor fixes, B has logging/docblock, C has full rebrand.",
+            "scoring": {"line_tolerance": 5, "member_jaccard_min": 0.3, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "OriginalInvoiceCalc.php", "namespace": "Acme\\Billing\\Original", "class": "OriginalInvoiceCalc", "scaffold": "method_alpha", "group": "A", "pristine": false, "transforms": [{"code": "CM-03", "params": {"style": "minimal"}}, {"code": "ST-04", "params": {"count": 1}}]},
+                {"file": "LoggingInvoiceCalc.php", "namespace": "Acme\\Billing\\Logging", "class": "LoggingInvoiceCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-01", "params": {"lines": 3}}, {"code": "CM-03", "params": {"style": "standard"}}]},
+                {"file": "RefactoredInvoiceCalc.php", "namespace": "Acme\\Billing\\Refactored", "class": "RefactoredInvoiceCalc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "RN-05", "params": {"direction": "camel_to_snake"}}, {"code": "CM-03", "params": {"style": "minimal"}}, {"code": "WS-06", "params": {"occurrence": 2}}, {"code": "ST-02", "params": {"count": 2}}, {"code": "ST-01", "params": {"lines": 1}}]}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        }
+    ]
+}

@@ -1,0 +1,63 @@
+{
+    "schema_version": 1,
+    "set_id": "L01-ex_function-003",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-1",
+            "granularity": "function",
+            "normalized_by": [
+                "whitespace",
+                "comments"
+            ],
+            "token_hash": "f262d16d9ea9e138",
+            "normalized_hash": "3f80d5e6ceb3e1fb",
+            "members": [
+                {
+                    "file": "src/ResourceGuard.php",
+                    "start_line": 7,
+                    "end_line": 25,
+                    "symbol": "authorize",
+                    "pristine": true
+                },
+                {
+                    "file": "src/PermissionChecker.php",
+                    "start_line": 17,
+                    "end_line": 35,
+                    "symbol": "authorize",
+                    "pristine": true
+                },
+                {
+                    "file": "src/EntitlementVerifier.php",
+                    "start_line": 18,
+                    "end_line": 36,
+                    "symbol": "authorize",
+                    "pristine": true
+                }
+            ],
+            "detection_expectation": {
+                "text_based": true,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": true,
+                "semantic": true
+            },
+            "notes": "Exact authorization function clone across three security modules; surrounding functions differ."
+        }
+    ],
+    "non_duplicates": [
+        {
+            "file": "src/AuditLogger.php",
+            "start_line": 12,
+            "end_line": 27,
+            "reason": "near-miss: similar authorization vocabulary but logs instead of deciding",
+            "trap": true
+        }
+    ],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.6,
+        "min_members_for_credit": 2
+    }
+}

@@ -1,0 +1,133 @@
+{
+    "level": 1,
+    "level_name": "exact",
+    "level_dir": "L01_exact",
+    "family": "ex_block",
+    "sets": [
+        {
+            "set_id": "L01-ex_block-001",
+            "title": "Byte-identical statement block inside three larger functions",
+            "description": "A statement block (the clone) is embedded inside three different larger functions. The surrounding function logic differs, but the core block being duplicated is byte-for-byte identical.",
+            "seed": "invoice_totals",
+            "mount": "function",
+            "clone_symbol": "computeTotals",
+            "granularity": "function",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 101201,
+            "notes": "Exact block clone embedded inside larger functions with different surrounding logic.",
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "InvoiceProcessor.php", "namespace": "Acme\\Billing\\Processing", "class": "InvoiceProcessor", "scaffold": "fn_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "QuoteProcessor.php", "namespace": "Acme\\Billing\\Quotes", "class": "QuoteProcessor", "scaffold": "fn_beta", "group": "A", "pristine": true, "transforms": []},
+                {"file": "OrderProcessor.php", "namespace": "Acme\\Billing\\Orders", "class": "OrderProcessor", "scaffold": "fn_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "ReportGenerator.php", "namespace": "Acme\\Billing\\Reports", "class": "ReportGenerator", "source": "nearmiss_invoice", "reason": "near-miss: similar billing vocabulary but generates reports"}
+            ],
+            "cleans": [
+                {"file": "ConfigReader.php", "namespace": "Acme\\Billing\\Config", "class": "ConfigReader", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L01-ex_block-002",
+            "title": "Byte-identical authorization block inside three larger methods",
+            "description": "An authorization check block embedded inside three different larger methods. The surrounding method logic differs but the authorization block clone is identical.",
+            "seed": "access_guard",
+            "mount": "function",
+            "clone_symbol": "authorize",
+            "granularity": "function",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 101202,
+            "notes": "Exact block clone of authorization logic inside larger methods.",
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "ResourceManager.php", "namespace": "Acme\\Auth\\Resources", "class": "ResourceManager", "scaffold": "fn_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "AccessManager.php", "namespace": "Acme\\Auth\\Access", "class": "AccessManager", "scaffold": "fn_beta", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PermissionManager.php", "namespace": "Acme\\Auth\\Permissions", "class": "PermissionManager", "scaffold": "fn_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "AuditLogger.php", "namespace": "Acme\\Auth\\Audit", "class": "AuditLogger", "source": "nearmiss_access", "reason": "near-miss: similar auth vocabulary but logs instead of authorizing"}
+            ],
+            "cleans": [
+                {"file": "SessionHandler.php", "namespace": "Acme\\Auth\\Sessions", "class": "SessionHandler", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L01-ex_block-003",
+            "title": "Byte-identical parsing block inside three larger import functions",
+            "description": "A row parsing block embedded inside three different larger import functions. The surrounding function logic differs but the parsing block clone is identical.",
+            "seed": "csv_import",
+            "mount": "function",
+            "clone_symbol": "parseRow",
+            "granularity": "function",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 101203,
+            "notes": "Exact block clone of CSV parsing logic inside larger import functions.",
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "BatchImporter.php", "namespace": "Acme\\Import\\Batch", "class": "BatchImporter", "scaffold": "fn_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "StreamImporter.php", "namespace": "Acme\\Import\\Stream", "class": "StreamImporter", "scaffold": "fn_beta", "group": "A", "pristine": true, "transforms": []},
+                {"file": "FileImporter.php", "namespace": "Acme\\Import\\Files", "class": "FileImporter", "scaffold": "fn_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "DataTransformer.php", "namespace": "Acme\\Import\\Transform", "class": "DataTransformer", "source": "nearmiss_csv", "reason": "near-miss: similar parsing vocabulary but transforms data differently"}
+            ],
+            "cleans": [
+                {"file": "SchemaValidator.php", "namespace": "Acme\\Import\\Validation", "class": "SchemaValidator", "source": "clean_parsing"}
+            ]
+        },
+        {
+            "set_id": "L01-ex_block-004",
+            "title": "Byte-identical totals block inside three larger billing functions",
+            "description": "Second set: A totals calculation block embedded inside three larger billing functions.",
+            "seed": "invoice_totals",
+            "mount": "function",
+            "clone_symbol": "computeTotals",
+            "granularity": "function",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 101204,
+            "notes": "Second variant of exact totals block inside larger billing functions.",
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "BillGenerator.php", "namespace": "Acme\\Finance\\Billing", "class": "BillGenerator", "scaffold": "fn_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "AmountAdder.php", "namespace": "Acme\\Finance\\Accounting", "class": "AmountAdder", "scaffold": "fn_beta", "group": "A", "pristine": true, "transforms": []},
+                {"file": "TotalCalculator.php", "namespace": "Acme\\Finance\\Calculation", "class": "TotalCalculator", "scaffold": "fn_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "CurrencyConverter.php", "namespace": "Acme\\Finance\\Currency", "class": "CurrencyConverter", "source": "nearmiss_invoice", "reason": "near-miss: similar finance vocabulary but converts currencies"}
+            ],
+            "cleans": [
+                {"file": "LedgerPoster.php", "namespace": "Acme\\Finance\\Ledger", "class": "LedgerPoster", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L01-ex_block-005",
+            "title": "Byte-identical guard block inside three larger security functions",
+            "description": "Second set: An authorization guard block embedded inside three larger security functions.",
+            "seed": "access_guard",
+            "mount": "function",
+            "clone_symbol": "authorize",
+            "granularity": "function",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 101205,
+            "notes": "Second variant of exact authorization guard block inside larger security functions.",
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "SecurityGate.php", "namespace": "Acme\\Security\\Gates", "class": "SecurityGate", "scaffold": "fn_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "AccessGate.php", "namespace": "Acme\\Security\\Access", "class": "AccessGate", "scaffold": "fn_beta", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PermissionGate.php", "namespace": "Acme\\Security\\Permissions", "class": "PermissionGate", "scaffold": "fn_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "SecurityLogger.php", "namespace": "Acme\\Security\\Logging", "class": "SecurityLogger", "source": "nearmiss_access", "reason": "near-miss: similar security vocabulary but logs events"}
+            ],
+            "cleans": [
+                {"file": "KeyManager.php", "namespace": "Acme\\Security\\Keys", "class": "KeyManager", "source": "clean_auth"}
+            ]
+        }
+    ]
+}

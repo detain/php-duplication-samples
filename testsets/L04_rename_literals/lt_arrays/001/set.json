@@ -1,0 +1,100 @@
+{
+    "schema_version": 1,
+    "set_id": "L04-lt_arrays-001",
+    "level": 4,
+    "level_name": "rename_literals",
+    "family": "lt_arrays",
+    "title": "Invoice totals with array literal contents modified",
+    "description": "The same invoice computation method in three calculator classes. Carrier A is pristine; carrier B changes one array element value; carrier C changes all array element values. The array structure (keys, shape) remains identical — only values differ (Type-2).",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "invoice_totals",
+    "difficulty_band": "medium",
+    "files": [
+        {
+            "path": "src/PristineCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 39
+        },
+        {
+            "path": "src/ModifiedCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 44
+        },
+        {
+            "path": "src/FullyModifiedCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 43
+        },
+        {
+            "path": "src/LineItemProfiler.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 30
+        },
+        {
+            "path": "src/TaxRateRepository.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-2",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "LT-03",
+            "name": "array_values",
+            "params": {
+                "replacements": [
+                    {
+                        "find": "'items'",
+                        "replace": "'itemCount'"
+                    }
+                ]
+            },
+            "applied_to": [
+                "src/ModifiedCalc.php"
+            ]
+        },
+        {
+            "code": "LT-03",
+            "name": "array_values",
+            "params": {
+                "replacements": [
+                    {
+                        "find": "'items'",
+                        "replace": "'itemCount'"
+                    },
+                    {
+                        "find": "'subtotal'",
+                        "replace": "'sub_total'"
+                    }
+                ]
+            },
+            "applied_to": [
+                "src/FullyModifiedCalc.php"
+            ]
+        }
+    ],
+    "difficulty": {
+        "score": 36,
+        "requires": [
+            "literal_abstraction"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L04/lt_arrays.json",
+        "version": "1.0.0",
+        "rng_seed": 104701
+    }
+}

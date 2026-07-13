@@ -1,0 +1,93 @@
+{
+    "level": 0,
+    "level_name": "no_duplication",
+    "level_dir": "L00_no_duplication",
+    "family": "nd_size_spread",
+    "sets": [
+        {
+            "set_id": "L00-nd_size_spread-001",
+            "title": "Mix of 15-line and 300-line files with no duplicates",
+            "description": "TinyValidator (15 lines), ChunkProcessor (300 lines equivalent via multiple methods), MicroFormatter (15 lines), CompactReporter (15 lines), and DenseCalculator (300 lines equivalent) — files of dramatically different sizes with no duplicated code.",
+            "seed": null,
+            "rng_seed": 100005,
+            "carriers": [],
+            "distractors": [],
+            "cleans": [
+                {"file": "TinyValidator.php", "namespace": "Acme\\Validation\\Tiny", "class": "TinyValidator", "source": "clean_parsing"},
+                {"file": "ChunkProcessor.php", "namespace": "Acme\\Processing\\Chunk", "class": "ChunkProcessor", "source": "clean_billing"},
+                {"file": "MicroFormatter.php", "namespace": "Acme\\Format\\Micro", "class": "MicroFormatter", "source": "nd_dns"},
+                {"file": "CompactReporter.php", "namespace": "Acme\\Reporting\\Compact", "class": "CompactReporter", "source": "nd_image"},
+                {"file": "DenseCalculator.php", "namespace": "Acme\\Calc\\Dense", "class": "DenseCalculator", "source": "nd_sitemap"}
+            ],
+            "traps": []
+        },
+        {
+            "set_id": "L00-nd_size_spread-002",
+            "title": "Mix of different size files (variant 2)",
+            "description": "MiniValidator, BulkChunker, NanoFormatter, SleekReporter, and MassiveCalculator — files spanning small utility to large service implementations.",
+            "seed": null,
+            "rng_seed": 100105,
+            "carriers": [],
+            "distractors": [],
+            "cleans": [
+                {"file": "MiniValidator.php", "namespace": "Acme\\Check\\Mini", "class": "MiniValidator", "source": "clean_parsing"},
+                {"file": "BulkChunker.php", "namespace": "Acme\\Batch\\Chunk", "class": "BulkChunker", "source": "clean_billing"},
+                {"file": "NanoFormatter.php", "namespace": "Acme\\Display\\Nano", "class": "NanoFormatter", "source": "nd_dns"},
+                {"file": "SleekReporter.php", "namespace": "Acme\\Output\\Sleek", "class": "SleekReporter", "source": "nd_image"},
+                {"file": "MassiveCalculator.php", "namespace": "Acme\\Math\\Massive", "class": "MassiveCalculator", "source": "nd_sitemap"}
+            ],
+            "traps": []
+        },
+        {
+            "set_id": "L00-nd_size_spread-003",
+            "title": "Mix of different size files (variant 3)",
+            "description": "LiteChecker, VolumeProcessor, PocketFormatter, TrimReporter, and HugeAggregator — files of varying code density and line count.",
+            "seed": null,
+            "rng_seed": 100205,
+            "carriers": [],
+            "distractors": [],
+            "cleans": [
+                {"file": "LiteChecker.php", "namespace": "Acme\\Verify\\Lite", "class": "LiteChecker", "source": "clean_parsing"},
+                {"file": "VolumeProcessor.php", "namespace": "Acme\\Bulk\\Volume", "class": "VolumeProcessor", "source": "clean_billing"},
+                {"file": "PocketFormatter.php", "namespace": "Acme\\Render\\Pocket", "class": "PocketFormatter", "source": "nd_dns"},
+                {"file": "TrimReporter.php", "namespace": "Acme\\Summarize\\Trim", "class": "TrimReporter", "source": "nd_image"},
+                {"file": "HugeAggregator.php", "namespace": "Acme\\Collect\\Huge", "class": "HugeAggregator", "source": "nd_sitemap"}
+            ],
+            "traps": []
+        },
+        {
+            "set_id": "L00-nd_size_spread-004",
+            "title": "Mix of different size files (variant 4)",
+            "description": "MinorValidator, StreamChunker, PiccoFormatter, BriefReporter, and EpicCalculator — files ranging from minimal to expansive implementations.",
+            "seed": null,
+            "rng_seed": 100305,
+            "carriers": [],
+            "distractors": [],
+            "cleans": [
+                {"file": "MinorValidator.php", "namespace": "Acme\\Simple\\Validator", "class": "MinorValidator", "source": "clean_parsing"},
+                {"file": "StreamChunker.php", "namespace": "Acme\\Stream\\Chunker", "class": "StreamChunker", "source": "clean_billing"},
+                {"file": "PiccoFormatter.php", "namespace": "Acme\\Tiny\\Formatter", "class": "PiccoFormatter", "source": "nd_dns"},
+                {"file": "BriefReporter.php", "namespace": "Acme\\Short\\Reporter", "class": "BriefReporter", "source": "nd_image"},
+                {"file": "EpicCalculator.php", "namespace": "Acme\\Large\\Calculator", "class": "EpicCalculator", "source": "nd_sitemap"}
+            ],
+            "traps": []
+        },
+        {
+            "set_id": "L00-nd_size_spread-005",
+            "title": "Mix of different size files (variant 5)",
+            "description": "BasicVerifier, MassProcessor, TinyRenderer, CondensedReporter, and GiantMath — files spanning minimal to massive code volume.",
+            "seed": null,
+            "rng_seed": 100405,
+            "carriers": [],
+            "distractors": [],
+            "cleans": [
+                {"file": "BasicVerifier.php", "namespace": "Acme\\Core\\Verifier", "class": "BasicVerifier", "source": "clean_parsing"},
+                {"file": "MassProcessor.php", "namespace": "Acme\\Heavy\\Processor", "class": "MassProcessor", "source": "clean_billing"},
+                {"file": "TinyRenderer.php", "namespace": "Acme\\Lite\\Renderer", "class": "TinyRenderer", "source": "nd_dns"},
+                {"file": "CondensedReporter.php", "namespace": "Acme\\Packed\\Reporter", "class": "CondensedReporter", "source": "nd_image"},
+                {"file": "GiantMath.php", "namespace": "Acme\\Big\\Math", "class": "GiantMath", "source": "nd_sitemap"}
+            ],
+            "traps": []
+        }
+    ]
+}

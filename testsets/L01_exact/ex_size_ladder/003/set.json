@@ -1,0 +1,63 @@
+{
+    "schema_version": 1,
+    "set_id": "L01-ex_size_ladder-003",
+    "level": 1,
+    "level_name": "exact",
+    "family": "ex_size_ladder",
+    "title": "12-line exact clone",
+    "description": "Exact duplication set with a 12-line clone. Third size in the ladder series.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "invoice_totals",
+    "difficulty_band": "trivial",
+    "files": [
+        {
+            "path": "src/MediumInvoiceA.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 36
+        },
+        {
+            "path": "src/MediumInvoiceB.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 41
+        },
+        {
+            "path": "src/MediumInvoiceC.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 37
+        },
+        {
+            "path": "src/MediumDistractor.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 30
+        },
+        {
+            "path": "src/MediumClean.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-1",
+        "granularity": "function",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [],
+    "difficulty": {
+        "score": 5,
+        "requires": []
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L01_exact/ex_size_ladder.json",
+        "version": "1.0.0",
+        "rng_seed": 101503
+    }
+}

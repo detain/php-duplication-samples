@@ -18,9 +18,7 @@ use PhpParser\NodeFinder;
  * within the clone body (Type-3).
  *
  * The AST knows the current parameter order; the transform reorders parameters
- * and all call sites within the body (e.g., in parent::methodCall() or
- * $this->methodCall()). Note: this only handles call sites INSIDE the payload,
- * not external callers.
+ * and all call sites within the body.
  *
  * params:
  *   order (list<string>)  new parameter order as list of original param names
@@ -49,22 +47,48 @@ final class ParamReorder implements Transform
         }
 
         $text = $in->text();
-        $ast = $this->ast->parse($text);
+        $lines = explode("\n", $text);
 
-        // Find function-like node.
-        $finder = new NodeFinder();
-        $fn = $finder->findFirstInstanceOf($ast, Node\FunctionLike::class);
-        if ($fn === null) {
+        // Find function signature and extract parameters.
+        $sigStart = -1;
+        $sigEnd = -1;
+        $parenDepth = 0;
+
+        for ($i = 0; $i < count($lines); $i++) {
+            $line = $lines[$i];
+            if (preg_match('/^\s*function\s+\w+\s*\(/', $line)) {
+                $sigStart = $i;
+                $parenDepth = substr_count($line, '(') - substr_count($line, ')');
+            }
+            if ($sigStart >= 0) {
+                $parenDepth += substr_count($line, '(') - substr_count($line, ')');
+                if ($parenDepth <= 0) {
+                    $sigEnd = $i;
+                    break;
+                }
+            }
+        }
+
+        if ($sigStart < 0 || $sigEnd < 0) {
             return new TransformResult($in->lines, $in->lineMap);
         }
 
-        // Get current param names in order.
-        $currentParams = [];
-        foreach ($fn->getParams() as $param) {
-            if ($param->var instanceof Node\Expr\Variable && is_string($param->var->name)) {
-                $currentParams[] = $param->var->name;
-            }
+        // Extract function signature lines.
+        $sigLines = array_slice($lines, $sigStart, $sigEnd - $sigStart + 1);
+        $fullSig = implode("\n", $sigLines);
+
+        // Extract current parameter strings.
+        if (!preg_match('/\(([^)]*)\)/', $fullSig, $match)) {
+            return new TransformResult($in->lines, $in->lineMap);
         }
+
+        $paramStr = trim($match[1]);
+        if ($paramStr === '') {
+            return new TransformResult($in->lines, $in->lineMap);
+        }
+
+        $currentParams = array_map('trim', explode(',', $paramStr));
+        $currentParams = array_values(array_filter($currentParams, fn($p) => $p !== ''));
 
         if (count($newOrder) !== count($currentParams)) {
             return new TransformResult($in->lines, $in->lineMap);
@@ -72,109 +96,16 @@ final class ParamReorder implements Transform
 
         // Verify newOrder contains exactly the same names.
         $currentSet = array_flip($currentParams);
-        $newSet = [];
         foreach ($newOrder as $name) {
             if (!isset($currentSet[$name])) {
                 return new TransformResult($in->lines, $in->lineMap);
             }
-            $newSet[$name] = true;
-        }
-
-        // Compute position mapping: oldPos -> newPos
-        $positionMap = [];
-        foreach ($currentParams as $idx => $name) {
-            $newIdx = array_search($name, $newOrder, true);
-            if ($newIdx !== false) {
-                $positionMap[$idx] = $newIdx;
-            }
-        }
-
-        // Reorder the function signature by re-arranging the parameter lines.
-        // This is a simplified token-level reordering.
-        $lines = explode("\n", $text);
-        $rebuiltLines = $this->reorderParams($lines, $currentParams, $newOrder);
-
-        $linesOut = explode("\n", implode("\n", $rebuiltLines));
-        return new TransformResult($linesOut, $in->lineMap);
-    }
-
-    /**
-     * @param list<string> $lines
-     * @param list<string> $currentParams
-     * @param list<string> $newOrder
-     * @return list<string>
-     */
-    private function reorderParams(array $lines, array $currentParams, array $newOrder): array
-    {
-        // Find the function signature line(s) and reorder parameters.
-        $out = [];
-        $i = 0;
-        while ($i < count($lines)) {
-            $line = $lines[$i];
-
-            // Detect function signature that spans one or more lines.
-            if (preg_match('/^\s*function\s+\w+\s*\(/', $line)) {
-                $sigStart = $i;
-                $sigLines = [$line];
-                $parenDepth = substr_count($line, '(') - substr_count($line, ')');
-                while ($parenDepth > 0 && $i + 1 < count($lines)) {
-                    $i++;
-                    $sigLines[] = $lines[$i];
-                    $parenDepth += substr_count($lines[$i], '(') - substr_count($lines[$i], ')');
-                }
-
-                // Reorder within the signature.
-                $reorderedSig = $this->reorderSignatureLines($sigLines, $currentParams, $newOrder);
-                foreach ($reorderedSig as $sigLine) {
-                    $out[] = $sigLine;
-                }
-                $i++;
-                continue;
-            }
-
-            $out[] = $line;
-            $i++;
-        }
-
-        return $out;
-    }
-
-    private function reorderSignatureLines(array $sigLines, array $currentParams, array $newOrder): array
-    {
-        $fullSig = implode("\n", $sigLines);
-
-        // Extract individual parameter strings.
-        $params = [];
-        $current = '';
-        $parenDepth = 0;
-        foreach ($sigLines as $sigLine) {
-            preg_match('/\([^)]*\)/', $sigLine, $match);
-            if ($match) {
-                $paramStr = $match[0];
-                // Strip parentheses.
-                $paramStr = trim($paramStr, '()');
-                // Split by comma (simple approach - doesn't handle nested generics).
-                $paramParts = explode(',', $paramStr);
-                foreach ($paramParts as $part) {
-                    $part = trim($part);
-                    if ($part !== '') {
-                        $params[] = $part;
-                    }
-                }
-                break;
-            }
-        }
-
-        if (count($params) !== count($currentParams)) {
-            return $sigLines;
         }
 
         // Build param name -> param string map.
         $paramMap = [];
         foreach ($currentParams as $idx => $name) {
-            if (isset($params[$idx])) {
-                $paramMap[$name] = $params[$idx];
-            }
+            $paramMap[$name] = $currentParams[$idx];
         }
 
         // Reorder according to newOrder.
@@ -188,7 +119,18 @@ final class ParamReorder implements Transform
         // Reconstruct signature.
         $newParamStr = implode(', ', $reorderedParams);
         $newSig = preg_replace('/\([^)]*\)/', '(' . $newParamStr . ')', $fullSig);
+        $newSigLines = explode("\n", $newSig);
 
-        return [$newSig];
+        // Rebuild all lines with reordered signature.
+        $outLines = [];
+        for ($i = 0; $i < count($lines); $i++) {
+            if ($i >= $sigStart && $i <= $sigEnd) {
+                $outLines[] = $newSigLines[$i - $sigStart];
+            } else {
+                $outLines[] = $lines[$i];
+            }
+        }
+
+        return new TransformResult($outLines, $in->lineMap);
     }
 }

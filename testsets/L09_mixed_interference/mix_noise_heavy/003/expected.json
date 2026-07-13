@@ -1,0 +1,65 @@
+{
+    "schema_version": 1,
+    "set_id": "L09-mix_noise_heavy-003",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-1",
+            "granularity": "method",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers",
+                "case_convention"
+            ],
+            "token_hash": "e2c6d2de09404029",
+            "normalized_hash": "d5da572207f4bce3",
+            "members": [
+                {
+                    "file": "src/PristineInvoiceCalc.php",
+                    "start_line": 9,
+                    "end_line": 38,
+                    "symbol": "computeTotals",
+                    "pristine": false
+                },
+                {
+                    "file": "src/NoisyCalc.php",
+                    "start_line": 18,
+                    "end_line": 47,
+                    "symbol": "computeTotals",
+                    "pristine": false
+                },
+                {
+                    "file": "src/NoisierCalc.php",
+                    "start_line": 24,
+                    "end_line": 53,
+                    "symbol": "computeTotals",
+                    "pristine": false
+                }
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": true,
+                "semantic": true
+            },
+            "notes": "All carriers use identical heavy whitespace transforms. Maximum noise but uniform across all clones."
+        }
+    ],
+    "non_duplicates": [
+        {
+            "file": "src/MarginSummarizer.php",
+            "start_line": 12,
+            "end_line": 28,
+            "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total",
+            "trap": true
+        }
+    ],
+    "scoring": {
+        "line_tolerance": 3,
+        "member_jaccard_min": 0.5,
+        "min_members_for_credit": 2
+    }
+}

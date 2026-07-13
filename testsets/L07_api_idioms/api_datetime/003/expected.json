@@ -1,0 +1,66 @@
+{
+    "schema_version": 1,
+    "set_id": "L07-api_datetime-003",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-4",
+            "granularity": "method",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers",
+                "literals",
+                "controlflow"
+            ],
+            "token_hash": "5cd8e7841ecf7c41",
+            "normalized_hash": "a3a4fbc9a09986cf",
+            "members": [
+                {
+                    "file": "src/AccessControlStandard.php",
+                    "start_line": 9,
+                    "end_line": 27,
+                    "symbol": "authorize",
+                    "pristine": true
+                },
+                {
+                    "file": "src/AccessControlDatetime.php",
+                    "start_line": 18,
+                    "end_line": 58,
+                    "symbol": "authorize",
+                    "pristine": false
+                }
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": false,
+                "semantic": true
+            },
+            "notes": "Set 003 of 5. API-09 (api_datetime) variant uses DateTimeImmutable for any time-based checks instead of strtotime."
+        }
+    ],
+    "non_duplicates": [
+        {
+            "file": "src/RoleHierarchyChecker.php",
+            "start_line": 12,
+            "end_line": 27,
+            "reason": "near-miss: same authorization domain vocabulary but computes hierarchical role inheritance",
+            "trap": true
+        },
+        {
+            "file": "src/PayrollAccessLogger.php",
+            "start_line": 12,
+            "end_line": 26,
+            "reason": "near-miss: same authorization vocabulary but logs access attempts to payroll systems — a different concern (audit logging) not authorization decisions",
+            "trap": true
+        }
+    ],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.6,
+        "min_members_for_credit": 2
+    }
+}

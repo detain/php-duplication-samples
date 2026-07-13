@@ -1,0 +1,413 @@
+{
+    "level": 7,
+    "level_name": "api_idioms",
+    "level_dir": "L07_api_idioms",
+    "family": "api_datetime",
+    "sets": [
+        {
+            "set_id": "L07-api_datetime-001",
+            "title": "Authorization: strtotime style vs DateTimeImmutable idioms",
+            "description": "The same authorization decision expressed in two genuinely different datetime-handling idioms: carrier A uses strtotime for any time-based operations; carrier B uses DateTimeImmutable objects. Both compute identical authorization decisions for all input combinations.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-4",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers",
+                "literals",
+                "controlflow"
+            ],
+            "rng_seed": 107901,
+            "notes": "Set 001 of 5. API-09 (api_datetime) variant uses DateTimeImmutable for any time-based checks instead of strtotime. The DateTimeImmutable OOP style vs procedural strtotime difference means token-based detectors will struggle to find shared token sequences.",
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": false,
+                "semantic": true
+            },
+            "role_composition": {"carrier": 2, "distractor": 1, "clean": 1},
+            "requires": [
+                "api_abstraction",
+                "ast_canonicalization"
+            ],
+            "carriers": [
+                {
+                    "file": "AccessControlStandard.php",
+                    "namespace": "Acme\\Security\\Access",
+                    "class": "AccessControlStandard",
+                    "scaffold": "method_alpha",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                },
+                {
+                    "file": "AccessControlDatetime.php",
+                    "namespace": "Acme\\Security\\Access",
+                    "class": "AccessControlDatetime",
+                    "scaffold": "method_beta",
+                    "group": "A",
+                    "pristine": false,
+                    "variant": "api_datetime",
+                    "transforms": [
+                        {
+                            "code": "API-09",
+                            "variant": "api_datetime"
+                        }
+                    ]
+                }
+            ],
+            "distractors": [
+                {
+                    "file": "RoleHierarchyChecker.php",
+                    "namespace": "Acme\\Security\\Auth",
+                    "class": "RoleHierarchyChecker",
+                    "source": "nearmiss_access",
+                    "reason": "near-miss: same authorization domain vocabulary but computes hierarchical role inheritance"
+                },
+                {
+                    "file": "PayrollAccessLogger.php",
+                    "namespace": "Acme\\Security\\Audit",
+                    "class": "PayrollAccessLogger",
+                    "source": "nearmiss_csv",
+                    "reason": "near-miss: same authorization vocabulary but logs access attempts to payroll systems — a different concern (audit logging) not authorization decisions"
+                }
+            ],
+            "cleans": [
+                {
+                    "file": "SessionValidator.php",
+                    "namespace": "Acme\\Security\\Session",
+                    "class": "SessionValidator",
+                    "source": "clean_auth"
+                }
+            ]
+        },
+        {
+            "set_id": "L07-api_datetime-002",
+            "title": "Authorization: strtotime style vs DateTimeImmutable idioms",
+            "description": "The same authorization decision expressed in two genuinely different datetime-handling idioms: carrier A uses strtotime for any time-based operations; carrier B uses DateTimeImmutable objects. Both compute identical authorization decisions for all input combinations.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-4",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers",
+                "literals",
+                "controlflow"
+            ],
+            "rng_seed": 107902,
+            "notes": "Set 002 of 5. API-09 (api_datetime) variant uses DateTimeImmutable for any time-based checks instead of strtotime.",
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": false,
+                "semantic": true
+            },
+            "role_composition": {"carrier": 2, "distractor": 1, "clean": 1},
+            "requires": [
+                "api_abstraction",
+                "ast_canonicalization"
+            ],
+            "carriers": [
+                {
+                    "file": "AccessControlStandard.php",
+                    "namespace": "Acme\\Security\\Access",
+                    "class": "AccessControlStandard",
+                    "scaffold": "method_alpha",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                },
+                {
+                    "file": "AccessControlDatetime.php",
+                    "namespace": "Acme\\Security\\Access",
+                    "class": "AccessControlDatetime",
+                    "scaffold": "method_beta",
+                    "group": "A",
+                    "pristine": false,
+                    "variant": "api_datetime",
+                    "transforms": [
+                        {
+                            "code": "API-09",
+                            "variant": "api_datetime"
+                        }
+                    ]
+                }
+            ],
+            "distractors": [
+                {
+                    "file": "RoleHierarchyChecker.php",
+                    "namespace": "Acme\\Security\\Auth",
+                    "class": "RoleHierarchyChecker",
+                    "source": "nearmiss_access",
+                    "reason": "near-miss: same authorization domain vocabulary but computes hierarchical role inheritance"
+                },
+                {
+                    "file": "PayrollAccessLogger.php",
+                    "namespace": "Acme\\Security\\Audit",
+                    "class": "PayrollAccessLogger",
+                    "source": "nearmiss_csv",
+                    "reason": "near-miss: same authorization vocabulary but logs access attempts to payroll systems — a different concern (audit logging) not authorization decisions"
+                }
+            ],
+            "cleans": [
+                {
+                    "file": "SessionValidator.php",
+                    "namespace": "Acme\\Security\\Session",
+                    "class": "SessionValidator",
+                    "source": "clean_auth"
+                }
+            ]
+        },
+        {
+            "set_id": "L07-api_datetime-003",
+            "title": "Authorization: strtotime style vs DateTimeImmutable idioms",
+            "description": "The same authorization decision expressed in two genuinely different datetime-handling idioms: carrier A uses strtotime for any time-based operations; carrier B uses DateTimeImmutable objects. Both compute identical authorization decisions for all input combinations.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-4",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers",
+                "literals",
+                "controlflow"
+            ],
+            "rng_seed": 107903,
+            "notes": "Set 003 of 5. API-09 (api_datetime) variant uses DateTimeImmutable for any time-based checks instead of strtotime.",
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": false,
+                "semantic": true
+            },
+            "role_composition": {"carrier": 2, "distractor": 1, "clean": 1},
+            "requires": [
+                "api_abstraction",
+                "ast_canonicalization"
+            ],
+            "carriers": [
+                {
+                    "file": "AccessControlStandard.php",
+                    "namespace": "Acme\\Security\\Access",
+                    "class": "AccessControlStandard",
+                    "scaffold": "method_alpha",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                },
+                {
+                    "file": "AccessControlDatetime.php",
+                    "namespace": "Acme\\Security\\Access",
+                    "class": "AccessControlDatetime",
+                    "scaffold": "method_beta",
+                    "group": "A",
+                    "pristine": false,
+                    "variant": "api_datetime",
+                    "transforms": [
+                        {
+                            "code": "API-09",
+                            "variant": "api_datetime"
+                        }
+                    ]
+                }
+            ],
+            "distractors": [
+                {
+                    "file": "RoleHierarchyChecker.php",
+                    "namespace": "Acme\\Security\\Auth",
+                    "class": "RoleHierarchyChecker",
+                    "source": "nearmiss_access",
+                    "reason": "near-miss: same authorization domain vocabulary but computes hierarchical role inheritance"
+                },
+                {
+                    "file": "PayrollAccessLogger.php",
+                    "namespace": "Acme\\Security\\Audit",
+                    "class": "PayrollAccessLogger",
+                    "source": "nearmiss_csv",
+                    "reason": "near-miss: same authorization vocabulary but logs access attempts to payroll systems — a different concern (audit logging) not authorization decisions"
+                }
+            ],
+            "cleans": [
+                {
+                    "file": "SessionValidator.php",
+                    "namespace": "Acme\\Security\\Session",
+                    "class": "SessionValidator",
+                    "source": "clean_auth"
+                }
+            ]
+        },
+        {
+            "set_id": "L07-api_datetime-004",
+            "title": "Authorization: strtotime style vs DateTimeImmutable idioms",
+            "description": "The same authorization decision expressed in two genuinely different datetime-handling idioms: carrier A uses strtotime for any time-based operations; carrier B uses DateTimeImmutable objects. Both compute identical authorization decisions for all input combinations.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-4",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers",
+                "literals",
+                "controlflow"
+            ],
+            "rng_seed": 107904,
+            "notes": "Set 004 of 5. API-09 (api_datetime) variant uses DateTimeImmutable for any time-based checks instead of strtotime.",
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": false,
+                "semantic": true
+            },
+            "role_composition": {"carrier": 2, "distractor": 1, "clean": 1},
+            "requires": [
+                "api_abstraction",
+                "ast_canonicalization"
+            ],
+            "carriers": [
+                {
+                    "file": "AccessControlStandard.php",
+                    "namespace": "Acme\\Security\\Access",
+                    "class": "AccessControlStandard",
+                    "scaffold": "method_alpha",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                },
+                {
+                    "file": "AccessControlDatetime.php",
+                    "namespace": "Acme\\Security\\Access",
+                    "class": "AccessControlDatetime",
+                    "scaffold": "method_beta",
+                    "group": "A",
+                    "pristine": false,
+                    "variant": "api_datetime",
+                    "transforms": [
+                        {
+                            "code": "API-09",
+                            "variant": "api_datetime"
+                        }
+                    ]
+                }
+            ],
+            "distractors": [
+                {
+                    "file": "RoleHierarchyChecker.php",
+                    "namespace": "Acme\\Security\\Auth",
+                    "class": "RoleHierarchyChecker",
+                    "source": "nearmiss_access",
+                    "reason": "near-miss: same authorization domain vocabulary but computes hierarchical role inheritance"
+                },
+                {
+                    "file": "PayrollAccessLogger.php",
+                    "namespace": "Acme\\Security\\Audit",
+                    "class": "PayrollAccessLogger",
+                    "source": "nearmiss_csv",
+                    "reason": "near-miss: same authorization vocabulary but logs access attempts to payroll systems — a different concern (audit logging) not authorization decisions"
+                }
+            ],
+            "cleans": [
+                {
+                    "file": "SessionValidator.php",
+                    "namespace": "Acme\\Security\\Session",
+                    "class": "SessionValidator",
+                    "source": "clean_auth"
+                }
+            ]
+        },
+        {
+            "set_id": "L07-api_datetime-005",
+            "title": "Authorization: strtotime style vs DateTimeImmutable idioms",
+            "description": "The same authorization decision expressed in two genuinely different datetime-handling idioms: carrier A uses strtotime for any time-based operations; carrier B uses DateTimeImmutable objects. Both compute identical authorization decisions for all input combinations.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-4",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers",
+                "literals",
+                "controlflow"
+            ],
+            "rng_seed": 107905,
+            "notes": "Set 005 of 5. API-09 (api_datetime) variant uses DateTimeImmutable for any time-based checks instead of strtotime.",
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": false,
+                "semantic": true
+            },
+            "role_composition": {"carrier": 2, "distractor": 1, "clean": 1},
+            "requires": [
+                "api_abstraction",
+                "ast_canonicalization"
+            ],
+            "carriers": [
+                {
+                    "file": "AccessControlStandard.php",
+                    "namespace": "Acme\\Security\\Access",
+                    "class": "AccessControlStandard",
+                    "scaffold": "method_alpha",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                },
+                {
+                    "file": "AccessControlDatetime.php",
+                    "namespace": "Acme\\Security\\Access",
+                    "class": "AccessControlDatetime",
+                    "scaffold": "method_beta",
+                    "group": "A",
+                    "pristine": false,
+                    "variant": "api_datetime",
+                    "transforms": [
+                        {
+                            "code": "API-09",
+                            "variant": "api_datetime"
+                        }
+                    ]
+                }
+            ],
+            "distractors": [
+                {
+                    "file": "RoleHierarchyChecker.php",
+                    "namespace": "Acme\\Security\\Auth",
+                    "class": "RoleHierarchyChecker",
+                    "source": "nearmiss_access",
+                    "reason": "near-miss: same authorization domain vocabulary but computes hierarchical role inheritance"
+                },
+                {
+                    "file": "PayrollAccessLogger.php",
+                    "namespace": "Acme\\Security\\Audit",
+                    "class": "PayrollAccessLogger",
+                    "source": "nearmiss_csv",
+                    "reason": "near-miss: same authorization vocabulary but logs access attempts to payroll systems — a different concern (audit logging) not authorization decisions"
+                }
+            ],
+            "cleans": [
+                {
+                    "file": "SessionValidator.php",
+                    "namespace": "Acme\\Security\\Session",
+                    "class": "SessionValidator",
+                    "source": "clean_auth"
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,66 @@
+{
+    "schema_version": 1,
+    "set_id": "L09-mix_4plus-001",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-3",
+            "granularity": "method",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers",
+                "case_convention",
+                "literals"
+            ],
+            "token_hash": "e2c6d2de09404029",
+            "normalized_hash": "d5da572207f4bce3",
+            "members": [
+                {
+                    "file": "src/PristineInvoiceCalc.php",
+                    "start_line": 9,
+                    "end_line": 33,
+                    "symbol": "computeTotals",
+                    "pristine": false
+                },
+                {
+                    "file": "src/RenamedBlankCalc.php",
+                    "start_line": 18,
+                    "end_line": 44,
+                    "symbol": "computeTotals",
+                    "pristine": false
+                },
+                {
+                    "file": "src/FourAxisCalc.php",
+                    "start_line": 24,
+                    "end_line": 52,
+                    "symbol": "computeTotals",
+                    "pristine": false
+                }
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": true,
+                "semantic": true
+            },
+            "notes": "4-axis interference combining rename (RN-05), whitespace (WS-03, WS-06), and statement-level (ST-01 logging). ST-01 adds statements rather than deleting, making it safer than ST-04."
+        }
+    ],
+    "non_duplicates": [
+        {
+            "file": "src/MarginSummarizer.php",
+            "start_line": 12,
+            "end_line": 28,
+            "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total",
+            "trap": true
+        }
+    ],
+    "scoring": {
+        "line_tolerance": 3,
+        "member_jaccard_min": 0.4,
+        "min_members_for_credit": 2
+    }
+}

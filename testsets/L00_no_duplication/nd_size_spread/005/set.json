@@ -1,0 +1,63 @@
+{
+    "schema_version": 1,
+    "set_id": "L00-nd_size_spread-005",
+    "level": 0,
+    "level_name": "no_duplication",
+    "family": "nd_size_spread",
+    "title": "Mix of different size files (variant 5)",
+    "description": "BasicVerifier, MassProcessor, TinyRenderer, CondensedReporter, and GiantMath — files spanning minimal to massive code volume.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": null,
+    "difficulty_band": "baseline",
+    "files": [
+        {
+            "path": "src/BasicVerifier.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 22
+        },
+        {
+            "path": "src/MassProcessor.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        },
+        {
+            "path": "src/TinyRenderer.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 23
+        },
+        {
+            "path": "src/CondensedReporter.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 22
+        },
+        {
+            "path": "src/GiantMath.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 23
+        }
+    ],
+    "duplication": {
+        "present": false,
+        "clone_type": "none",
+        "granularity": null,
+        "clusters": 0,
+        "instances": 0
+    },
+    "interference": [],
+    "difficulty": {
+        "score": 0,
+        "requires": []
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L00_no_duplication/nd_size_spread.json",
+        "version": "1.0.0",
+        "rng_seed": 100405
+    }
+}

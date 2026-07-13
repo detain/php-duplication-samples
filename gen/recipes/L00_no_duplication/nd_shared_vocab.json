@@ -1,0 +1,93 @@
+{
+    "level": 0,
+    "level_name": "no_duplication",
+    "level_dir": "L00_no_duplication",
+    "family": "nd_shared_vocab",
+    "sets": [
+        {
+            "set_id": "L00-nd_shared_vocab-001",
+            "title": "Five processors reusing same identifier names but different logic",
+            "description": "TaxProcessor, AuthProcessor, CsvProcessor, PayrollProcessor, and ThrottleProcessor — five processor classes that use common identifier names (process, validate, transform, calculate, execute) but each computes a different result.",
+            "seed": null,
+            "rng_seed": 100004,
+            "carriers": [],
+            "distractors": [],
+            "cleans": [
+                {"file": "TaxProcessor.php", "namespace": "Acme\\Billing\\Processors", "class": "TaxProcessor", "source": "clean_billing"},
+                {"file": "AuthProcessor.php", "namespace": "Acme\\Auth\\Processors", "class": "AuthProcessor", "source": "clean_auth"},
+                {"file": "CsvProcessor.php", "namespace": "Acme\\Data\\Processors", "class": "CsvProcessor", "source": "clean_parsing"},
+                {"file": "PayrollProcessor.php", "namespace": "Acme\\Payroll\\Processors", "class": "PayrollProcessor", "source": "nd_payroll"},
+                {"file": "ThrottleProcessor.php", "namespace": "Acme\\Http\\Processors", "class": "ThrottleProcessor", "source": "nd_ratelimit"}
+            ],
+            "traps": []
+        },
+        {
+            "set_id": "L00-nd_shared_vocab-002",
+            "title": "Five processors (variant 2)",
+            "description": "RateProcessor, RoleProcessor, SchemaProcessor, PeriodProcessor, and WindowProcessor — processors sharing common method vocabulary but computing domain-specific results.",
+            "seed": null,
+            "rng_seed": 100104,
+            "carriers": [],
+            "distractors": [],
+            "cleans": [
+                {"file": "RateProcessor.php", "namespace": "Acme\\Pricing\\Processors", "class": "RateProcessor", "source": "clean_billing"},
+                {"file": "RoleProcessor.php", "namespace": "Acme\\Users\\Processors", "class": "RoleProcessor", "source": "clean_auth"},
+                {"file": "SchemaProcessor.php", "namespace": "Acme\\Config\\Processors", "class": "SchemaProcessor", "source": "clean_parsing"},
+                {"file": "PeriodProcessor.php", "namespace": "Acme\\Scheduling\\Processors", "class": "PeriodProcessor", "source": "nd_payroll"},
+                {"file": "WindowProcessor.php", "namespace": "Acme\\Tracking\\Processors", "class": "WindowProcessor", "source": "nd_ratelimit"}
+            ],
+            "traps": []
+        },
+        {
+            "set_id": "L00-nd_shared_vocab-003",
+            "title": "Five processors (variant 3)",
+            "description": "FeeProcessor, AccessProcessor, HeaderProcessor, FrequencyProcessor, and QuotaProcessor — five processors with overlapping identifier names but structurally distinct implementations.",
+            "seed": null,
+            "rng_seed": 100204,
+            "carriers": [],
+            "distractors": [],
+            "cleans": [
+                {"file": "FeeProcessor.php", "namespace": "Acme\\Finance\\Processors", "class": "FeeProcessor", "source": "clean_billing"},
+                {"file": "AccessProcessor.php", "namespace": "Acme\\Security\\Processors", "class": "AccessProcessor", "source": "clean_auth"},
+                {"file": "HeaderProcessor.php", "namespace": "Acme\\Http\\Processors", "class": "HeaderProcessor", "source": "clean_parsing"},
+                {"file": "FrequencyProcessor.php", "namespace": "Acme\\Recurrence\\Processors", "class": "FrequencyProcessor", "source": "nd_payroll"},
+                {"file": "QuotaProcessor.php", "namespace": "Acme\\Allocation\\Processors", "class": "QuotaProcessor", "source": "nd_ratelimit"}
+            ],
+            "traps": []
+        },
+        {
+            "set_id": "L00-nd_shared_vocab-004",
+            "title": "Five processors (variant 4)",
+            "description": "ChargeProcessor, PermissionProcessor, ColumnProcessor, DaycountProcessor, and BucketProcessor — processors that reuse common identifier names across different domains.",
+            "seed": null,
+            "rng_seed": 100304,
+            "carriers": [],
+            "distractors": [],
+            "cleans": [
+                {"file": "ChargeProcessor.php", "namespace": "Acme\\Billing\\Processors", "class": "ChargeProcessor", "source": "clean_billing"},
+                {"file": "PermissionProcessor.php", "namespace": "Acme\\Rbac\\Processors", "class": "PermissionProcessor", "source": "clean_auth"},
+                {"file": "ColumnProcessor.php", "namespace": "Acme\\Import\\Processors", "class": "ColumnProcessor", "source": "clean_parsing"},
+                {"file": "DaycountProcessor.php", "namespace": "Acme\\Calendar\\Processors", "class": "DaycountProcessor", "source": "nd_payroll"},
+                {"file": "BucketProcessor.php", "namespace": "Acme\\Metering\\Processors", "class": "BucketProcessor", "source": "nd_ratelimit"}
+            ],
+            "traps": []
+        },
+        {
+            "set_id": "L00-nd_shared_vocab-005",
+            "title": "Five processors (variant 5)",
+            "description": "AmountProcessor, GroupProcessor, RowProcessor, IntervalProcessor, and TokenProcessor — five processor classes with shared vocabulary but divergent implementations.",
+            "seed": null,
+            "rng_seed": 100404,
+            "carriers": [],
+            "distractors": [],
+            "cleans": [
+                {"file": "AmountProcessor.php", "namespace": "Acme\\Currency\\Processors", "class": "AmountProcessor", "source": "clean_billing"},
+                {"file": "GroupProcessor.php", "namespace": "Acme\\Teams\\Processors", "class": "GroupProcessor", "source": "clean_auth"},
+                {"file": "RowProcessor.php", "namespace": "Acme\\Tables\\Processors", "class": "RowProcessor", "source": "clean_parsing"},
+                {"file": "IntervalProcessor.php", "namespace": "Acme\\Time\\Processors", "class": "IntervalProcessor", "source": "nd_payroll"},
+                {"file": "TokenProcessor.php", "namespace": "Acme\\Auth\\Processors", "class": "TokenProcessor", "source": "nd_ratelimit"}
+            ],
+            "traps": []
+        }
+    ]
+}

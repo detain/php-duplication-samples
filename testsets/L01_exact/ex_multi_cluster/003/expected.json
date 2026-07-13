@@ -1,0 +1,91 @@
+{
+    "schema_version": 1,
+    "set_id": "L01-ex_multi_cluster-003",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-1",
+            "granularity": "function",
+            "normalized_by": [
+                "whitespace",
+                "comments"
+            ],
+            "token_hash": "f262d16d9ea9e138",
+            "normalized_hash": "3f80d5e6ceb3e1fb",
+            "members": [
+                {
+                    "file": "src/SecAuthA.php",
+                    "start_line": 9,
+                    "end_line": 27,
+                    "symbol": "authorize",
+                    "pristine": true
+                },
+                {
+                    "file": "src/SecAuthB.php",
+                    "start_line": 18,
+                    "end_line": 36,
+                    "symbol": "authorize",
+                    "pristine": true
+                },
+                {
+                    "file": "src/SecAuthC.php",
+                    "start_line": 24,
+                    "end_line": 42,
+                    "symbol": "authorize",
+                    "pristine": true
+                },
+                {
+                    "file": "src/DataParseA.php",
+                    "start_line": 7,
+                    "end_line": 25,
+                    "symbol": "authorize",
+                    "pristine": true
+                },
+                {
+                    "file": "src/DataParseB.php",
+                    "start_line": 17,
+                    "end_line": 35,
+                    "symbol": "authorize",
+                    "pristine": true
+                },
+                {
+                    "file": "src/DataParseC.php",
+                    "start_line": 18,
+                    "end_line": 36,
+                    "symbol": "authorize",
+                    "pristine": true
+                }
+            ],
+            "detection_expectation": {
+                "text_based": true,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": true,
+                "semantic": true
+            },
+            "notes": "Two clusters: access_guard and csv_import. 3 carriers each."
+        }
+    ],
+    "non_duplicates": [
+        {
+            "file": "src/SecDistractor.php",
+            "start_line": 12,
+            "end_line": 27,
+            "reason": "near-miss: similar auth vocabulary but different logic",
+            "trap": true
+        },
+        {
+            "file": "src/DataDistractor.php",
+            "start_line": 12,
+            "end_line": 26,
+            "reason": "near-miss: similar parse vocabulary but different logic",
+            "trap": true
+        }
+    ],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.6,
+        "min_members_for_credit": 2
+    }
+}

@@ -1,0 +1,148 @@
+{
+    "level": 3,
+    "level_name": "comments_variation",
+    "level_dir": "L03_comments",
+    "family": "cm_mid_statement",
+    "sets": [
+        {
+            "set_id": "L03-cm_mid_statement-001",
+            "title": "Mid-statement double-slash comment on invoice totals",
+            "description": "Clone pair differs by a mid-statement double-slash comment. Text-based detection identifies the comment tokens while AST-based detection remains unaffected.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "function",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 103801,
+            "notes": "CM-08 mid-statement comment addition (// style).",
+            "detection_expectation": {
+                "text_based": true,
+                "token_based": true,
+                "ast_based": false,
+                "metric_based": false,
+                "semantic": false
+            },
+            "role_composition": {"carrier": 2, "distractor": 1, "clean": 1},
+            "carriers": [
+                {"file": "LedgerPostingService.php", "namespace": "Acme\\Ledger\\Posting", "class": "LedgerPostingService", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PriceBookService.php", "namespace": "Acme\\Ledger\\Pricing", "class": "PriceBookService", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "CM-08", "params": {"style": "//"}}]}
+            ],
+            "distractor": {"variant": "pristine"},
+            "clean": 1,
+            "interference": ["CM-08"]
+        },
+        {
+            "set_id": "L03-cm_mid_statement-002",
+            "title": "Mid-statement block comment on invoice totals",
+            "description": "Clone pair differs by a mid-statement block comment. Text-based detection identifies the comment tokens while AST-based detection remains unaffected.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "function",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 103802,
+            "notes": "CM-08 mid-statement comment addition (/* */ style).",
+            "detection_expectation": {
+                "text_based": true,
+                "token_based": true,
+                "ast_based": false,
+                "metric_based": false,
+                "semantic": false
+            },
+            "role_composition": {"carrier": 2, "distractor": 1, "clean": 1},
+            "carriers": [
+                {"file": "LedgerPostingService.php", "namespace": "Acme\\Ledger\\Posting", "class": "LedgerPostingService", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PriceBookService.php", "namespace": "Acme\\Ledger\\Pricing", "class": "PriceBookService", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "CM-08", "params": {"style": "/* */"}}]}
+            ],
+            "distractor": {"variant": "pristine"},
+            "clean": 1,
+            "interference": ["CM-08"]
+        },
+        {
+            "set_id": "L03-cm_mid_statement-003",
+            "title": "Mid-statement comment on access authorization method",
+            "description": "Clone pair differs by a mid-statement double-slash comment on the access authorization method. Text-based detection identifies the comment tokens.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "function",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 103803,
+            "notes": "CM-08 mid-statement comment on access control method.",
+            "detection_expectation": {
+                "text_based": true,
+                "token_based": true,
+                "ast_based": false,
+                "metric_based": false,
+                "semantic": false
+            },
+            "role_composition": {"carrier": 2, "distractor": 1, "clean": 1},
+            "carriers": [
+                {"file": "AccessServiceBase.php", "namespace": "Acme\\Security\\Access", "class": "AccessServiceBase", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "AccessServiceDecorated.php", "namespace": "Acme\\Security\\Decorated", "class": "AccessServiceDecorated", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "CM-08", "params": {"style": "//"}}]}
+            ],
+            "distractor": {"variant": "pristine"},
+            "clean": 1,
+            "interference": ["CM-08"]
+        },
+        {
+            "set_id": "L03-cm_mid_statement-004",
+            "title": "Mid-statement double-slash comment variation on invoice totals",
+            "description": "Clone pair differs by another mid-statement double-slash comment variation. Text-based detection identifies the comment tokens.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "function",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 103804,
+            "notes": "CM-08 mid-statement comment addition (// style) variation.",
+            "detection_expectation": {
+                "text_based": true,
+                "token_based": true,
+                "ast_based": false,
+                "metric_based": false,
+                "semantic": false
+            },
+            "role_composition": {"carrier": 2, "distractor": 1, "clean": 1},
+            "carriers": [
+                {"file": "LedgerPostingService.php", "namespace": "Acme\\Ledger\\Posting", "class": "LedgerPostingService", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PriceBookService.php", "namespace": "Acme\\Ledger\\Pricing", "class": "PriceBookService", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "CM-08", "params": {"style": "//"}}]}
+            ],
+            "distractor": {"variant": "pristine"},
+            "clean": 1,
+            "interference": ["CM-08"]
+        },
+        {
+            "set_id": "L03-cm_mid_statement-005",
+            "title": "Mid-statement block comment variation on invoice totals",
+            "description": "Clone pair differs by another mid-statement block comment variation. Text-based detection identifies the comment tokens.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "function",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 103805,
+            "notes": "CM-08 mid-statement comment addition (/* */ style) variation.",
+            "detection_expectation": {
+                "text_based": true,
+                "token_based": true,
+                "ast_based": false,
+                "metric_based": false,
+                "semantic": false
+            },
+            "role_composition": {"carrier": 2, "distractor": 1, "clean": 1},
+            "carriers": [
+                {"file": "LedgerPostingService.php", "namespace": "Acme\\Ledger\\Posting", "class": "LedgerPostingService", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PriceBookService.php", "namespace": "Acme\\Ledger\\Pricing", "class": "PriceBookService", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "CM-08", "params": {"style": "/* */"}}]}
+            ],
+            "distractor": {"variant": "pristine"},
+            "clean": 1,
+            "interference": ["CM-08"]
+        }
+    ]
+}

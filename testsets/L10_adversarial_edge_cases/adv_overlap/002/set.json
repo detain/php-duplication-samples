@@ -1,0 +1,84 @@
+{
+    "schema_version": 1,
+    "set_id": "L10-adv_overlap-002",
+    "level": 10,
+    "level_name": "adversarial_edge_cases",
+    "family": "adv_overlap",
+    "title": "Overlap with RN-05 case convention drift",
+    "description": "Overlapping clone clusters with case convention changes. Tests whether detectors correctly identify the topology.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "invoice_totals",
+    "difficulty_band": "expert",
+    "files": [
+        {
+            "path": "src/InvoiceCalculatorA.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 39
+        },
+        {
+            "path": "src/InvoiceCalculatorB.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 44
+        },
+        {
+            "path": "src/InvoiceCalculatorC.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 43
+        },
+        {
+            "path": "src/TrustScorer.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 30
+        },
+        {
+            "path": "src/InvoiceParser.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-3",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "RN-05",
+            "name": "case_convention",
+            "params": {},
+            "applied_to": [
+                "src/InvoiceCalculatorB.php",
+                "src/InvoiceCalculatorC.php"
+            ]
+        },
+        {
+            "code": "LT-01",
+            "name": "numeric",
+            "params": {},
+            "applied_to": [
+                "src/InvoiceCalculatorC.php"
+            ]
+        }
+    ],
+    "difficulty": {
+        "score": 94,
+        "requires": [
+            "identifier_canonicalization",
+            "literal_abstraction"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L10/adv_overlap.json",
+        "version": "1.0.0",
+        "rng_seed": 110302
+    }
+}

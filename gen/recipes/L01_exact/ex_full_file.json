@@ -1,0 +1,133 @@
+{
+    "level": 1,
+    "level_name": "exact",
+    "level_dir": "L01_exact",
+    "family": "ex_full_file",
+    "sets": [
+        {
+            "set_id": "L01-ex_full_file-001",
+            "title": "Entire file is identical except class/function names across three carriers",
+            "description": "Three carrier files are structurally identical except for the class name and function names. The entire file content is duplicated with only naming differences.",
+            "seed": "invoice_totals",
+            "mount": "class",
+            "clone_symbol": "computeTotals",
+            "granularity": "class",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 101301,
+            "notes": "Full file clone with only class/function name changes across carriers.",
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "InvoiceCalculator.php", "namespace": "Acme\\Billing\\Invoices", "class": "InvoiceCalculator", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "QuoteCalculator.php", "namespace": "Acme\\Billing\\Quotes", "class": "QuoteCalculator", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": []},
+                {"file": "OrderCalculator.php", "namespace": "Acme\\Billing\\Orders", "class": "OrderCalculator", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "MarginCalculator.php", "namespace": "Acme\\Billing\\Reports", "class": "MarginCalculator", "source": "nearmiss_invoice", "reason": "near-miss: similar billing class but computes margins instead of totals"}
+            ],
+            "cleans": [
+                {"file": "TaxRateStore.php", "namespace": "Acme\\Billing\\Catalog", "class": "TaxRateStore", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L01-ex_full_file-002",
+            "title": "Entire file clone for authorization classes",
+            "description": "Three authorization-related files are structurally identical except for class name and method names.",
+            "seed": "access_guard",
+            "mount": "class",
+            "clone_symbol": "authorize",
+            "granularity": "class",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 101302,
+            "notes": "Full file clone for authorization classes with naming differences only.",
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "ResourceAuthorizer.php", "namespace": "Acme\\Auth\\Resources", "class": "ResourceAuthorizer", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "AccessAuthorizer.php", "namespace": "Acme\\Auth\\Access", "class": "AccessAuthorizer", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PermissionAuthorizer.php", "namespace": "Acme\\Auth\\Permissions", "class": "PermissionAuthorizer", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "AuditAuthorizer.php", "namespace": "Acme\\Auth\\Audit", "class": "AuditAuthorizer", "source": "nearmiss_access", "reason": "near-miss: similar auth class but performs auditing"}
+            ],
+            "cleans": [
+                {"file": "TokenValidator.php", "namespace": "Acme\\Auth\\Tokens", "class": "TokenValidator", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L01-ex_full_file-003",
+            "title": "Entire file clone for CSV import classes",
+            "description": "Three CSV import files are structurally identical except for class name and method names.",
+            "seed": "csv_import",
+            "mount": "class",
+            "clone_symbol": "parseRow",
+            "granularity": "class",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 101303,
+            "notes": "Full file clone for CSV import classes with naming differences only.",
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "CsvDataImporter.php", "namespace": "Acme\\Import\\Csv", "class": "CsvDataImporter", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "DelimitedImporter.php", "namespace": "Acme\\Import\\Delimited", "class": "DelimitedImporter", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": []},
+                {"file": "SpreadSheetImporter.php", "namespace": "Acme\\Import\\Sheets", "class": "SpreadSheetImporter", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "XmlDataImporter.php", "namespace": "Acme\\Import\\Xml", "class": "XmlDataImporter", "source": "nearmiss_csv", "reason": "near-miss: similar import class but handles XML"}
+            ],
+            "cleans": [
+                {"file": "DataValidator.php", "namespace": "Acme\\Import\\Validation", "class": "DataValidator", "source": "clean_parsing"}
+            ]
+        },
+        {
+            "set_id": "L01-ex_full_file-004",
+            "title": "Second full-file clone set for billing classes",
+            "description": "Second set of billing-related files that are structurally identical except for naming.",
+            "seed": "invoice_totals",
+            "mount": "class",
+            "clone_symbol": "computeTotals",
+            "granularity": "class",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 101304,
+            "notes": "Second variant of full file billing class clones.",
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "BillAdder.php", "namespace": "Acme\\Finance\\Bills", "class": "BillAdder", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "AmountSummer.php", "namespace": "Acme\\Finance\\Amounts", "class": "AmountSummer", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": []},
+                {"file": "TotalAggregator.php", "namespace": "Acme\\Finance\\Aggregation", "class": "TotalAggregator", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "CurrencyAdder.php", "namespace": "Acme\\Finance\\Currency", "class": "CurrencyAdder", "source": "nearmiss_invoice", "reason": "near-miss: similar finance class but handles currency conversion"}
+            ],
+            "cleans": [
+                {"file": "AccountBook.php", "namespace": "Acme\\Finance\\Books", "class": "AccountBook", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L01-ex_full_file-005",
+            "title": "Second full-file clone set for security classes",
+            "description": "Second set of security-related files that are structurally identical except for naming.",
+            "seed": "access_guard",
+            "mount": "class",
+            "clone_symbol": "authorize",
+            "granularity": "class",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 101305,
+            "notes": "Second variant of full file security class clones.",
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "SecurityEnforcer.php", "namespace": "Acme\\Security\\Enforce", "class": "SecurityEnforcer", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "AccessEnforcer.php", "namespace": "Acme\\Security\\Enforce", "class": "AccessEnforcer", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PermissionEnforcer.php", "namespace": "Acme\\Security\\Enforce", "class": "PermissionEnforcer", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "SecurityMonitor.php", "namespace": "Acme\\Security\\Monitor", "class": "SecurityMonitor", "source": "nearmiss_access", "reason": "near-miss: similar security class but monitors instead of enforcing"}
+            ],
+            "cleans": [
+                {"file": "EncryptionManager.php", "namespace": "Acme\\Security\\Crypto", "class": "EncryptionManager", "source": "clean_auth"}
+            ]
+        }
+    ]
+}

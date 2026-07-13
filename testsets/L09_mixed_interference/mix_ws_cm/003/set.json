@@ -1,0 +1,86 @@
+{
+    "schema_version": 1,
+    "set_id": "L09-mix_ws_cm-003",
+    "level": 9,
+    "level_name": "mixed_interference",
+    "family": "mix_ws_cm",
+    "title": "Invoice totals with mixed whitespace styles",
+    "description": "Same computeTotals method. Carrier A is pristine; carrier B applies WS-03 blank_inside; carrier C applies WS-06 line_wrap. Both are type-1 transforms.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "invoice_totals",
+    "difficulty_band": "expert",
+    "files": [
+        {
+            "path": "src/PristineInvoiceCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 39
+        },
+        {
+            "path": "src/BlankInsideCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 44
+        },
+        {
+            "path": "src/LineWrapCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 46
+        },
+        {
+            "path": "src/MarginSummarizer.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 30
+        },
+        {
+            "path": "src/TaxRateRepository.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-1",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "WS-03",
+            "name": "blank_inside",
+            "params": {
+                "blank_lines": 2
+            },
+            "applied_to": [
+                "src/BlankInsideCalc.php"
+            ]
+        },
+        {
+            "code": "WS-06",
+            "name": "line_wrap",
+            "params": {
+                "occurrence": 1
+            },
+            "applied_to": [
+                "src/LineWrapCalc.php"
+            ]
+        }
+    ],
+    "difficulty": {
+        "score": 85,
+        "requires": [
+            "whitespace_normalization"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L09/mix_ws_cm.json",
+        "version": "1.0.0",
+        "rng_seed": 109403
+    }
+}

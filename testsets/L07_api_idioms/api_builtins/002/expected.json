@@ -1,0 +1,66 @@
+{
+    "schema_version": 1,
+    "set_id": "L07-api_builtins-002",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-4",
+            "granularity": "method",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers",
+                "literals",
+                "controlflow"
+            ],
+            "token_hash": "f1e5708cf467f899",
+            "normalized_hash": "88b44d89704ac03f",
+            "members": [
+                {
+                    "file": "src/InvoiceComputeStandard.php",
+                    "start_line": 9,
+                    "end_line": 33,
+                    "symbol": "computeTotals",
+                    "pristine": true
+                },
+                {
+                    "file": "src/InvoiceComputeBuiltins.php",
+                    "start_line": 18,
+                    "end_line": 45,
+                    "symbol": "computeTotals",
+                    "pristine": false
+                },
+                {
+                    "file": "src/InvoiceComputeAlternative.php",
+                    "start_line": 24,
+                    "end_line": 50,
+                    "symbol": "computeTotals",
+                    "pristine": false
+                }
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": false,
+                "semantic": true
+            },
+            "notes": "Set 002 of 5. API-06 (api_builtins) variant uses array_sum/array_column instead of foreach loop for summation."
+        }
+    ],
+    "non_duplicates": [
+        {
+            "file": "src/MarginSummarizer.php",
+            "start_line": 12,
+            "end_line": 28,
+            "reason": "near-miss: same invoice-domain vocabulary but computes revenue/cost/margin summary with different arithmetic",
+            "trap": true
+        }
+    ],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.6,
+        "min_members_for_credit": 2
+    }
+}

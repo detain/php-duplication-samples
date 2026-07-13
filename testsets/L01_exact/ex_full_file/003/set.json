@@ -1,0 +1,63 @@
+{
+    "schema_version": 1,
+    "set_id": "L01-ex_full_file-003",
+    "level": 1,
+    "level_name": "exact",
+    "family": "ex_full_file",
+    "title": "Entire file clone for CSV import classes",
+    "description": "Three CSV import files are structurally identical except for class name and method names.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "csv_import",
+    "difficulty_band": "trivial",
+    "files": [
+        {
+            "path": "src/CsvDataImporter.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 37
+        },
+        {
+            "path": "src/DelimitedImporter.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 42
+        },
+        {
+            "path": "src/SpreadSheetImporter.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 41
+        },
+        {
+            "path": "src/XmlDataImporter.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 28
+        },
+        {
+            "path": "src/DataValidator.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 22
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-1",
+        "granularity": "class",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [],
+    "difficulty": {
+        "score": 5,
+        "requires": []
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L01_exact/ex_full_file.json",
+        "version": "1.0.0",
+        "rng_seed": 101303
+    }
+}

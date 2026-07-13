@@ -1,0 +1,81 @@
+{
+    "schema_version": 1,
+    "set_id": "L05-st_param_reorder-002",
+    "level": 5,
+    "level_name": "statement_edits",
+    "family": "st_param_reorder",
+    "title": "Access guard with parameters reordered in function signature",
+    "description": "The same authorize method in three access classes. Carrier A is pristine; carrier B reorders the $user and $resource parameters; carrier C also reorders. Method parameter order differs (Type-3).",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "access_guard",
+    "difficulty_band": "hard",
+    "files": [
+        {
+            "path": "src/PristineAccessGuard.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 33
+        },
+        {
+            "path": "src/ReorderedAccessGuard.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 38
+        },
+        {
+            "path": "src/MoreReorderedAccessGuard.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 37
+        },
+        {
+            "path": "src/TokenChecker.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 29
+        },
+        {
+            "path": "src/ConfigLoader.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 27
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-3",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "ST-08",
+            "name": "param_reorder",
+            "params": {
+                "order": [
+                    "resource",
+                    "user"
+                ]
+            },
+            "applied_to": [
+                "src/ReorderedAccessGuard.php",
+                "src/MoreReorderedAccessGuard.php"
+            ]
+        }
+    ],
+    "difficulty": {
+        "score": 55,
+        "requires": [
+            "ast_canonicalization",
+            "commutative_reordering"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L05/st_param_reorder.json",
+        "version": "1.0.0",
+        "rng_seed": 105802
+    }
+}

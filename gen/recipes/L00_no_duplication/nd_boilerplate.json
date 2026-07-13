@@ -1,0 +1,93 @@
+{
+    "level": 0,
+    "level_name": "no_duplication",
+    "level_dir": "L00_no_duplication",
+    "family": "nd_boilerplate",
+    "sets": [
+        {
+            "set_id": "L00-nd_boilerplate-001",
+            "title": "Five DTOs with different fields (getter/setter ceremony)",
+            "description": "TaxRateDTO, UserRoleDTO, CsvSchemaDTO, PayPeriodDTO, and ThrottleWindowDTO — five data-transfer objects each with different fields and associated getter/setter/utility methods. Same boilerplate shape but no shared implementation.",
+            "seed": null,
+            "rng_seed": 100002,
+            "carriers": [],
+            "distractors": [],
+            "cleans": [
+                {"file": "TaxRateDTO.php", "namespace": "Acme\\Billing\\Dto", "class": "TaxRateDTO", "source": "clean_billing"},
+                {"file": "UserRoleDTO.php", "namespace": "Acme\\Auth\\Dto", "class": "UserRoleDTO", "source": "clean_auth"},
+                {"file": "CsvSchemaDTO.php", "namespace": "Acme\\Data\\Dto", "class": "CsvSchemaDTO", "source": "clean_parsing"},
+                {"file": "PayPeriodDTO.php", "namespace": "Acme\\Payroll\\Dto", "class": "PayPeriodDTO", "source": "nd_payroll"},
+                {"file": "ThrottleWindowDTO.php", "namespace": "Acme\\Http\\Dto", "class": "ThrottleWindowDTO", "source": "nd_ratelimit"}
+            ],
+            "traps": []
+        },
+        {
+            "set_id": "L00-nd_boilerplate-002",
+            "title": "Five DTOs (variant 2)",
+            "description": "RegionTaxDTO, RolePermissionDTO, HeaderSchemaDTO, FrequencyPeriodDTO, and LimitWindowDTO — DTOs with domain-specific fields and methods.",
+            "seed": null,
+            "rng_seed": 100102,
+            "carriers": [],
+            "distractors": [],
+            "cleans": [
+                {"file": "RegionTaxDTO.php", "namespace": "Acme\\Tax\\Dto", "class": "RegionTaxDTO", "source": "clean_billing"},
+                {"file": "RolePermissionDTO.php", "namespace": "Acme\\Permissions\\Dto", "class": "RolePermissionDTO", "source": "clean_auth"},
+                {"file": "HeaderSchemaDTO.php", "namespace": "Acme\\Schema\\Dto", "class": "HeaderSchemaDTO", "source": "clean_parsing"},
+                {"file": "FrequencyPeriodDTO.php", "namespace": "Acme\\Schedule\\Dto", "class": "FrequencyPeriodDTO", "source": "nd_payroll"},
+                {"file": "LimitWindowDTO.php", "namespace": "Acme\\Limiting\\Dto", "class": "LimitWindowDTO", "source": "nd_ratelimit"}
+            ],
+            "traps": []
+        },
+        {
+            "set_id": "L00-nd_boilerplate-003",
+            "title": "Five DTOs (variant 3)",
+            "description": "JurisdictionTaxDTO, AccessRoleDTO, ColumnMapDTO, PayFrequencyDTO, and RateLimitDTO — DTOs each carrying different domain data.",
+            "seed": null,
+            "rng_seed": 100202,
+            "carriers": [],
+            "distractors": [],
+            "cleans": [
+                {"file": "JurisdictionTaxDTO.php", "namespace": "Acme\\Jurisdiction\\Dto", "class": "JurisdictionTaxDTO", "source": "clean_billing"},
+                {"file": "AccessRoleDTO.php", "namespace": "Acme\\Access\\Dto", "class": "AccessRoleDTO", "source": "clean_auth"},
+                {"file": "ColumnMapDTO.php", "namespace": "Acme\\Mapping\\Dto", "class": "ColumnMapDTO", "source": "clean_parsing"},
+                {"file": "PayFrequencyDTO.php", "namespace": "Acme\\Compensation\\Dto", "class": "PayFrequencyDTO", "source": "nd_payroll"},
+                {"file": "RateLimitDTO.php", "namespace": "Acme\\Throttle\\Dto", "class": "RateLimitDTO", "source": "nd_ratelimit"}
+            ],
+            "traps": []
+        },
+        {
+            "set_id": "L00-nd_boilerplate-004",
+            "title": "Five DTOs (variant 4)",
+            "description": "LocalTaxDTO, InheritanceRoleDTO, CsvHeaderDTO, BiweeklyPeriodDTO, and QuotaWindowDTO — data transfer objects with distinct field compositions.",
+            "seed": null,
+            "rng_seed": 100302,
+            "carriers": [],
+            "distractors": [],
+            "cleans": [
+                {"file": "LocalTaxDTO.php", "namespace": "Acme\\Local\\Dto", "class": "LocalTaxDTO", "source": "clean_billing"},
+                {"file": "InheritanceRoleDTO.php", "namespace": "Acme\\Hierarchy\\Dto", "class": "InheritanceRoleDTO", "source": "clean_auth"},
+                {"file": "CsvHeaderDTO.php", "namespace": "Acme\\Import\\Dto", "class": "CsvHeaderDTO", "source": "clean_parsing"},
+                {"file": "BiweeklyPeriodDTO.php", "namespace": "Acme\\Timekeeping\\Dto", "class": "BiweeklyPeriodDTO", "source": "nd_payroll"},
+                {"file": "QuotaWindowDTO.php", "namespace": "Acme\\Quota\\Dto", "class": "QuotaWindowDTO", "source": "nd_ratelimit"}
+            ],
+            "traps": []
+        },
+        {
+            "set_id": "L00-nd_boilerplate-005",
+            "title": "Five DTOs (variant 5)",
+            "description": "StateTaxDTO, RoleHierarchyDTO, DelimiterSchemaDTO, SemimonthlyPeriodDTO, and CapacityWindowDTO — DTOs with different fields but same object-oriented ceremony.",
+            "seed": null,
+            "rng_seed": 100402,
+            "carriers": [],
+            "distractors": [],
+            "cleans": [
+                {"file": "StateTaxDTO.php", "namespace": "Acme\\State\\Dto", "class": "StateTaxDTO", "source": "clean_billing"},
+                {"file": "RoleHierarchyDTO.php", "namespace": "Acme\\Rbac\\Dto", "class": "RoleHierarchyDTO", "source": "clean_auth"},
+                {"file": "DelimiterSchemaDTO.php", "namespace": "Acme\\Parser\\Dto", "class": "DelimiterSchemaDTO", "source": "clean_parsing"},
+                {"file": "SemimonthlyPeriodDTO.php", "namespace": "Acme\\Pay\\Dto", "class": "SemimonthlyPeriodDTO", "source": "nd_payroll"},
+                {"file": "CapacityWindowDTO.php", "namespace": "Acme\\Capacity\\Dto", "class": "CapacityWindowDTO", "source": "nd_ratelimit"}
+            ],
+            "traps": []
+        }
+    ]
+}

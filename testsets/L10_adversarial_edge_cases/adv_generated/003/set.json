@@ -1,0 +1,84 @@
+{
+    "schema_version": 1,
+    "set_id": "L10-adv_generated-003",
+    "level": 10,
+    "level_name": "adversarial_edge_cases",
+    "family": "adv_generated",
+    "title": "Generated code with RN-05 case convention drift",
+    "description": "Generated-style code with snake_case to camelCase identifier drift.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "invoice_totals",
+    "difficulty_band": "expert",
+    "files": [
+        {
+            "path": "src/CompiledInvoiceA.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 39
+        },
+        {
+            "path": "src/CompiledInvoiceB.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 44
+        },
+        {
+            "path": "src/CompiledInvoiceC.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 44
+        },
+        {
+            "path": "src/TrustScorer.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 30
+        },
+        {
+            "path": "src/InvoiceParser.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-2",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "RN-05",
+            "name": "case_convention",
+            "params": {},
+            "applied_to": [
+                "src/CompiledInvoiceB.php",
+                "src/CompiledInvoiceC.php"
+            ]
+        },
+        {
+            "code": "CM-03",
+            "name": "docblock",
+            "params": {},
+            "applied_to": [
+                "src/CompiledInvoiceC.php"
+            ]
+        }
+    ],
+    "difficulty": {
+        "score": 91,
+        "requires": [
+            "identifier_canonicalization",
+            "comment_stripping"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L10/adv_generated.json",
+        "version": "1.0.0",
+        "rng_seed": 110603
+    }
+}

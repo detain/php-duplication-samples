@@ -1,0 +1,138 @@
+{
+    "level": 10,
+    "level_name": "adversarial_edge_cases",
+    "level_dir": "L10_adversarial_edge_cases",
+    "family": "adv_encoding",
+    "sets": [
+        {
+            "set_id": "L10-adv_encoding-001",
+            "title": "Unicode BOM prefix on carrier files",
+            "description": "Tests whether encoding anomalies (UTF-8 BOM) confuse clone detection. BOM adds 3 bytes at file start that can shift line numbering and token streams. Infrastructure gap: SetBuilder does not yet support BOM insertion. Uses standard carriers with note.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 110701,
+            "notes": "CP-ENC-01: BOM encoding variation. Infrastructure gap: SetBuilder does not support ENC-01 BOM insertion transform. This set documents the gap. True BOM testing requires a post-build encoding step or SetBuilder enhancement with ENC-01 transform.",
+            "scoring": {"line_tolerance": 1, "member_jaccard_min": 0.9, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true, "metric_based": false, "semantic": false},
+            "carriers": [
+                {"file": "TotalsCalculatorA.php", "namespace": "Acme\\Billing\\TotalsA", "class": "TotalsCalculatorA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "TotalsCalculatorB.php", "namespace": "Acme\\Billing\\TotalsB", "class": "TotalsCalculatorB", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": []},
+                {"file": "TotalsCalculatorC.php", "namespace": "Acme\\Billing\\TotalsC", "class": "TotalsCalculatorC", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "Validator.php", "namespace": "Acme\\Billing\\Validate", "class": "Validator", "source": "clean_billing", "reason": "Clean distractor - unrelated billing logic"}
+            ],
+            "cleans": [
+                {"file": "SchemaMapper.php", "namespace": "Acme\\Billing\\Schema", "class": "SchemaMapper", "source": "clean_parsing"}
+            ]
+        },
+        {
+            "set_id": "L10-adv_encoding-002",
+            "title": "Non-breaking space (NBSP) in indentation",
+            "description": "Tests whether non-breaking space characters (U+00A0) used as indentation confuse tokenizers. NBSP looks like space but is a different character code. Infrastructure gap: SetBuilder does not support ENC-02 NBSP transform.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 110702,
+            "notes": "CP-ENC-02: NBSP indentation. Infrastructure gap: SetBuilder does not support ENC-02 NBSP insertion. NBSP is valid PHP indentation but trips up most tokenizers. True NBSP testing requires post-build encoding step. NOTE: token_based:true because pristine type-1 carriers share identical tokens at the whitespace/comment-normalized level - a tokenizer would pair them.",
+            "scoring": {"line_tolerance": 1, "member_jaccard_min": 0.9, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": false, "metric_based": false, "semantic": false},
+            "carriers": [
+                {"file": "TotalsCalculatorA.php", "namespace": "Acme\\Billing\\TotalsA", "class": "TotalsCalculatorA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "TotalsCalculatorB.php", "namespace": "Acme\\Billing\\TotalsB", "class": "TotalsCalculatorB", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": []},
+                {"file": "TotalsCalculatorC.php", "namespace": "Acme\\Billing\\TotalsC", "class": "TotalsCalculatorC", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "Validator.php", "namespace": "Acme\\Billing\\Validate", "class": "Validator", "source": "clean_billing", "reason": "Clean distractor - unrelated billing logic"}
+            ],
+            "cleans": [
+                {"file": "SchemaMapper.php", "namespace": "Acme\\Billing\\Schema", "class": "SchemaMapper", "source": "clean_parsing"}
+            ]
+        },
+        {
+            "set_id": "L10-adv_encoding-003",
+            "title": "Unicode identifiers ($日本語 variable names)",
+            "description": "Tests whether multibyte identifiers confuse clone detection. PHP allows unicode identifiers per RFC 6537. Infrastructure gap: SetBuilder seed payloads use ASCII identifiers only. Note: if seed doesn't support unicode vars, this set documents the gap.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments", "identifiers"],
+            "rng_seed": 110703,
+            "notes": "CP-ENC-03: Unicode identifiers. Infrastructure gap: SetBuilder seeds use ASCII identifiers. The invoice_totals seed payload does not contain unicode variable names, so this set cannot test unicode identifier clones without a new unicode-aware seed. Documented gap.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.7, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": false},
+            "carriers": [
+                {"file": "TotalsCalculatorA.php", "namespace": "Acme\\Billing\\TotalsA", "class": "TotalsCalculatorA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "TotalsCalculatorB.php", "namespace": "Acme\\Billing\\TotalsB", "class": "TotalsCalculatorB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-01"}]},
+                {"file": "TotalsCalculatorC.php", "namespace": "Acme\\Billing\\TotalsC", "class": "TotalsCalculatorC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "LT-02"}]}
+            ],
+            "distractors": [
+                {"file": "Validator.php", "namespace": "Acme\\Billing\\Validate", "class": "Validator", "source": "clean_billing", "reason": "Clean distractor - unrelated billing logic"}
+            ],
+            "cleans": [
+                {"file": "SchemaMapper.php", "namespace": "Acme\\Billing\\Schema", "class": "SchemaMapper", "source": "clean_parsing"}
+            ]
+        },
+        {
+            "set_id": "L10-adv_encoding-004",
+            "title": "Mixed EOL styles (CRLF vs LF within same file)",
+            "description": "Tests whether mixed line ending styles confuse clone detection. Infrastructure gap: SetBuilder does not support ENC-04 mixed-EOL transform.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 110704,
+            "notes": "CP-ENC-04: Mixed EOL (CRLF/LF). Infrastructure gap: SetBuilder does not support ENC-04 mixed-EOL insertion. This requires a post-build file encoding step. Note that UTF-8 text EOL normalization should handle this, but raw byte-level tools may differ.",
+            "scoring": {"line_tolerance": 1, "member_jaccard_min": 0.9, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": false},
+            "carriers": [
+                {"file": "TotalsCalculatorA.php", "namespace": "Acme\\Billing\\TotalsA", "class": "TotalsCalculatorA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "TotalsCalculatorB.php", "namespace": "Acme\\Billing\\TotalsB", "class": "TotalsCalculatorB", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": []},
+                {"file": "TotalsCalculatorC.php", "namespace": "Acme\\Billing\\TotalsC", "class": "TotalsCalculatorC", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "Validator.php", "namespace": "Acme\\Billing\\Validate", "class": "Validator", "source": "clean_billing", "reason": "Clean distractor - unrelated billing logic"}
+            ],
+            "cleans": [
+                {"file": "SchemaMapper.php", "namespace": "Acme\\Billing\\Schema", "class": "SchemaMapper", "source": "clean_parsing"}
+            ]
+        },
+        {
+            "set_id": "L10-adv_encoding-005",
+            "title": "Compound encoding anomalies (BOM + WS-10 newline style)",
+            "description": "Tests compound encoding issues: BOM prefix combined with CRLF line endings vs LF. Infrastructure gap: SetBuilder does not support ENC transforms.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 110705,
+            "notes": "CP-ENC-01+04: Compound encoding anomalies. Infrastructure gap: ENC transforms (ENC-01 BOM, ENC-04 CRLF) not implemented. Using WS-03 as proxy for whitespace variation. True compound encoding testing requires post-build file processing.",
+            "scoring": {"line_tolerance": 1, "member_jaccard_min": 0.85, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": false},
+            "carriers": [
+                {"file": "TotalsCalculatorA.php", "namespace": "Acme\\Billing\\TotalsA", "class": "TotalsCalculatorA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "TotalsCalculatorB.php", "namespace": "Acme\\Billing\\TotalsB", "class": "TotalsCalculatorB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "WS-03"}]},
+                {"file": "TotalsCalculatorC.php", "namespace": "Acme\\Billing\\TotalsC", "class": "TotalsCalculatorC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "WS-03"}, {"code": "CM-03"}]}
+            ],
+            "distractors": [
+                {"file": "Validator.php", "namespace": "Acme\\Billing\\Validate", "class": "Validator", "source": "clean_billing", "reason": "Clean distractor - unrelated billing logic"}
+            ],
+            "cleans": [
+                {"file": "SchemaMapper.php", "namespace": "Acme\\Billing\\Schema", "class": "SchemaMapper", "source": "clean_parsing"}
+            ]
+        }
+    ]
+}

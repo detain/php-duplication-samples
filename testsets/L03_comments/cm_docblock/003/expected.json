@@ -1,0 +1,48 @@
+{
+    "schema_version": 1,
+    "set_id": "L03-cm_docblock-003",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-1",
+            "granularity": "function",
+            "normalized_by": [
+                "whitespace",
+                "comments"
+            ],
+            "token_hash": "5cd8e7841ecf7c41",
+            "normalized_hash": "d62b3b768faecc30",
+            "members": [
+                {
+                    "file": "src/AccessServiceBase.php",
+                    "start_line": 9,
+                    "end_line": 27,
+                    "symbol": "authorize",
+                    "pristine": true
+                },
+                {
+                    "file": "src/AccessServiceDecorated.php",
+                    "start_line": 19,
+                    "end_line": 37,
+                    "symbol": "authorize",
+                    "pristine": false
+                }
+            ],
+            "detection_expectation": {
+                "text_based": true,
+                "token_based": true,
+                "ast_based": false,
+                "metric_based": false,
+                "semantic": false
+            },
+            "notes": "CM-03 docblock on access control method."
+        }
+    ],
+    "non_duplicates": [],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.6,
+        "min_members_for_credit": 2
+    }
+}

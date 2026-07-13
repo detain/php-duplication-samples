@@ -1,0 +1,133 @@
+{
+    "level": 4,
+    "level_name": "rename_literals",
+    "level_dir": "L04_rename_literals",
+    "family": "lt_arrays",
+    "sets": [
+        {
+            "set_id": "L04-lt_arrays-001",
+            "title": "Invoice totals with array literal contents modified",
+            "description": "The same invoice computation method in three calculator classes. Carrier A is pristine; carrier B changes one array element value; carrier C changes all array element values. The array structure (keys, shape) remains identical — only values differ (Type-2).",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "rng_seed": 104701,
+            "notes": "LT-03 (array_values) changes values within array literals. The invoice_totals return array has string keys; carrier B/C variants change the values while keeping structure identical. Set 001 of 5.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineCalc.php", "namespace": "Acme\\Billing\\Pristine", "class": "PristineCalc", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "ModifiedCalc.php", "namespace": "Acme\\Billing\\Modified", "class": "ModifiedCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-03", "params": {"replacements": [{"find": "'items'", "replace": "'itemCount'"}]}}]},
+                {"file": "FullyModifiedCalc.php", "namespace": "Acme\\Billing\\FullyModified", "class": "FullyModifiedCalc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "LT-03", "params": {"replacements": [{"find": "'items'", "replace": "'itemCount'"}, {"find": "'subtotal'", "replace": "'sub_total'"}]}}]}
+            ],
+            "distractors": [
+                {"file": "LineItemProfiler.php", "namespace": "Acme\\Billing\\Profiling", "class": "LineItemProfiler", "source": "nearmiss_invoice", "reason": "near-miss: same invoice-domain vocabulary and foreach-over-items shape, but computes a histogram of line item prices — a different result"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L04-lt_arrays-002",
+            "title": "Invoice totals with array literal contents modified",
+            "description": "The same invoice computation method in three calculator classes. Carrier A is pristine; carrier B changes one array element value; carrier C changes all array element values. The array structure (keys, shape) remains identical — only values differ (Type-2).",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "rng_seed": 104702,
+            "notes": "LT-03 (array_values) changes values within array literals. The invoice_totals return array has string keys; carrier B/C variants change the values while keeping structure identical. Set 002 of 5.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineCalc.php", "namespace": "Acme\\Billing\\Pristine", "class": "PristineCalc", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "ModifiedCalc.php", "namespace": "Acme\\Billing\\Modified", "class": "ModifiedCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-03", "params": {"replacements": [{"find": "'items'", "replace": "'itemCount'"}]}}]},
+                {"file": "FullyModifiedCalc.php", "namespace": "Acme\\Billing\\FullyModified", "class": "FullyModifiedCalc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "LT-03", "params": {"replacements": [{"find": "'items'", "replace": "'itemCount'"}, {"find": "'subtotal'", "replace": "'sub_total'"}]}}]}
+            ],
+            "distractors": [
+                {"file": "LineItemProfiler.php", "namespace": "Acme\\Billing\\Profiling", "class": "LineItemProfiler", "source": "nearmiss_invoice", "reason": "near-miss: same invoice-domain vocabulary and foreach-over-items shape, but computes a histogram of line item prices — a different result"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L04-lt_arrays-003",
+            "title": "Invoice totals with array literal contents modified",
+            "description": "The same invoice computation method in three calculator classes. Carrier A is pristine; carrier B changes one array element value; carrier C changes all array element values. The array structure (keys, shape) remains identical — only values differ (Type-2).",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "rng_seed": 104703,
+            "notes": "LT-03 (array_values) changes values within array literals. The invoice_totals return array has string keys; carrier B/C variants change the values while keeping structure identical. Set 003 of 5.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineCalc.php", "namespace": "Acme\\Billing\\Pristine", "class": "PristineCalc", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "ModifiedCalc.php", "namespace": "Acme\\Billing\\Modified", "class": "ModifiedCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-03", "params": {"replacements": [{"find": "'items'", "replace": "'itemCount'"}]}}]},
+                {"file": "FullyModifiedCalc.php", "namespace": "Acme\\Billing\\FullyModified", "class": "FullyModifiedCalc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "LT-03", "params": {"replacements": [{"find": "'items'", "replace": "'itemCount'"}, {"find": "'subtotal'", "replace": "'sub_total'"}]}}]}
+            ],
+            "distractors": [
+                {"file": "LineItemProfiler.php", "namespace": "Acme\\Billing\\Profiling", "class": "LineItemProfiler", "source": "nearmiss_invoice", "reason": "near-miss: same invoice-domain vocabulary and foreach-over-items shape, but computes a histogram of line item prices — a different result"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L04-lt_arrays-004",
+            "title": "Invoice totals with array literal contents modified",
+            "description": "The same invoice computation method in three calculator classes. Carrier A is pristine; carrier B changes one array element value; carrier C changes all array element values. The array structure (keys, shape) remains identical — only values differ (Type-2).",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "rng_seed": 104704,
+            "notes": "LT-03 (array_values) changes values within array literals. The invoice_totals return array has string keys; carrier B/C variants change the values while keeping structure identical. Set 004 of 5.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineCalc.php", "namespace": "Acme\\Billing\\Pristine", "class": "PristineCalc", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "ModifiedCalc.php", "namespace": "Acme\\Billing\\Modified", "class": "ModifiedCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-03", "params": {"replacements": [{"find": "'items'", "replace": "'itemCount'"}]}}]},
+                {"file": "FullyModifiedCalc.php", "namespace": "Acme\\Billing\\FullyModified", "class": "FullyModifiedCalc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "LT-03", "params": {"replacements": [{"find": "'items'", "replace": "'itemCount'"}, {"find": "'subtotal'", "replace": "'sub_total'"}]}}]}
+            ],
+            "distractors": [
+                {"file": "LineItemProfiler.php", "namespace": "Acme\\Billing\\Profiling", "class": "LineItemProfiler", "source": "nearmiss_invoice", "reason": "near-miss: same invoice-domain vocabulary and foreach-over-items shape, but computes a histogram of line item prices — a different result"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L04-lt_arrays-005",
+            "title": "Invoice totals with array literal contents modified",
+            "description": "The same invoice computation method in three calculator classes. Carrier A is pristine; carrier B changes one array element value; carrier C changes all array element values. The array structure (keys, shape) remains identical — only values differ (Type-2).",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "rng_seed": 104705,
+            "notes": "LT-03 (array_values) changes values within array literals. The invoice_totals return array has string keys; carrier B/C variants change the values while keeping structure identical. Set 005 of 5.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineCalc.php", "namespace": "Acme\\Billing\\Pristine", "class": "PristineCalc", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "ModifiedCalc.php", "namespace": "Acme\\Billing\\Modified", "class": "ModifiedCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-03", "params": {"replacements": [{"find": "'items'", "replace": "'itemCount'"}]}}]},
+                {"file": "FullyModifiedCalc.php", "namespace": "Acme\\Billing\\FullyModified", "class": "FullyModifiedCalc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "LT-03", "params": {"replacements": [{"find": "'items'", "replace": "'itemCount'"}, {"find": "'subtotal'", "replace": "'sub_total'"}]}}]}
+            ],
+            "distractors": [
+                {"file": "LineItemProfiler.php", "namespace": "Acme\\Billing\\Profiling", "class": "LineItemProfiler", "source": "nearmiss_invoice", "reason": "near-miss: same invoice-domain vocabulary and foreach-over-items shape, but computes a histogram of line item prices — a different result"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        }
+    ]
+}

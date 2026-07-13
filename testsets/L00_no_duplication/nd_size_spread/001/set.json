@@ -1,0 +1,63 @@
+{
+    "schema_version": 1,
+    "set_id": "L00-nd_size_spread-001",
+    "level": 0,
+    "level_name": "no_duplication",
+    "family": "nd_size_spread",
+    "title": "Mix of 15-line and 300-line files with no duplicates",
+    "description": "TinyValidator (15 lines), ChunkProcessor (300 lines equivalent via multiple methods), MicroFormatter (15 lines), CompactReporter (15 lines), and DenseCalculator (300 lines equivalent) — files of dramatically different sizes with no duplicated code.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": null,
+    "difficulty_band": "baseline",
+    "files": [
+        {
+            "path": "src/TinyValidator.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 22
+        },
+        {
+            "path": "src/ChunkProcessor.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        },
+        {
+            "path": "src/MicroFormatter.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 23
+        },
+        {
+            "path": "src/CompactReporter.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 22
+        },
+        {
+            "path": "src/DenseCalculator.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 23
+        }
+    ],
+    "duplication": {
+        "present": false,
+        "clone_type": "none",
+        "granularity": null,
+        "clusters": 0,
+        "instances": 0
+    },
+    "interference": [],
+    "difficulty": {
+        "score": 0,
+        "requires": []
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L00_no_duplication/nd_size_spread.json",
+        "version": "1.0.0",
+        "rng_seed": 100005
+    }
+}

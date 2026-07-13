@@ -1,0 +1,64 @@
+{
+    "schema_version": 1,
+    "set_id": "L10-adv_html_mix-002",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-3",
+            "granularity": "method",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers"
+            ],
+            "token_hash": "f1e5708cf467f899",
+            "normalized_hash": "653f9a74aa6b1cb6",
+            "members": [
+                {
+                    "file": "src/InvoiceTemplateA.php",
+                    "start_line": 9,
+                    "end_line": 33,
+                    "symbol": "computeTotals",
+                    "pristine": true
+                },
+                {
+                    "file": "src/InvoiceTemplateB.php",
+                    "start_line": 18,
+                    "end_line": 43,
+                    "symbol": "computeTotals",
+                    "pristine": false
+                },
+                {
+                    "file": "src/InvoiceTemplateC.php",
+                    "start_line": 25,
+                    "end_line": 50,
+                    "symbol": "computeTotals",
+                    "pristine": false
+                }
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": false,
+                "semantic": false
+            },
+            "notes": "CP-08 + ST-01: Logging insertion in template context. CF-01 (if_ternary) is a selector transform requiring variant param - not usable directly. Using ST-01 (insert_logging) as alternative statement-level transform."
+        }
+    ],
+    "non_duplicates": [
+        {
+            "file": "src/TrustScorer.php",
+            "start_line": 12,
+            "end_line": 28,
+            "reason": "Near-miss: same invoice vocabulary but different computation",
+            "trap": true
+        }
+    ],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.6,
+        "min_members_for_credit": 2
+    }
+}

@@ -1,0 +1,64 @@
+{
+    "schema_version": 1,
+    "set_id": "L03-cm_inline_trailing-003",
+    "level": 3,
+    "level_name": "comments_variation",
+    "family": "cm_inline_trailing",
+    "title": "Inline trailing comments on access authorization method",
+    "description": "Clone pair differs by inline trailing hash-style comments on the access authorization method. Text-based detection identifies the comment tokens.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "access_guard",
+    "difficulty_band": "easy",
+    "files": [
+        {
+            "path": "src/AccessServiceBase.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 33
+        },
+        {
+            "path": "src/AccessServiceDecorated.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 40
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-1",
+        "granularity": "function",
+        "clusters": 1,
+        "instances": 2
+    },
+    "interference": [
+        {
+            "code": "CM-04",
+            "name": "inline_trailing",
+            "params": {
+                "count": 2,
+                "style": "#"
+            },
+            "applied_to": [
+                "src/AccessServiceDecorated.php"
+            ]
+        }
+    ],
+    "difficulty": {
+        "score": 17,
+        "requires": [
+            "comment_stripping"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L03_comments/cm_inline_trailing.json",
+        "version": "1.0.0",
+        "rng_seed": 103403
+    },
+    "role_composition": {
+        "carrier": 2,
+        "distractor": 1,
+        "clean": 1
+    }
+}

@@ -4,19 +4,14 @@ declare(strict_types=1);
 
 namespace Gen\Transforms\Lt;
 
-use Gen\Lib\AstAnalyzer;
 use Gen\Lib\PhpTokens;
 use Gen\Lib\Rng;
 use Gen\Transforms\Transform;
 use Gen\Transforms\TransformInput;
 use Gen\Transforms\TransformResult;
-use PhpParser\Node;
-use PhpParser\NodeFinder;
-use PhpParser\ParserFactory;
 
 /**
- * LT-04 const_vs_literal — replace a literal with a class constant reference,
- * or vice versa (Type-2).
+ * LT-04 const_indirection — replace literal values with constants or vice versa (Type-2).
  *
  * This transform toggles between using a literal value and referencing a class
  * constant. For example: 100 -> SomeClass::MAX_ITEMS or SomeClass::MAX_ITEMS -> 100.
@@ -29,10 +24,6 @@ use PhpParser\ParserFactory;
  */
 final class ConstIndirection implements Transform
 {
-    public function __construct()
-    {
-    }
-
     public function code(): string
     {
         return 'LT-04';
@@ -40,7 +31,7 @@ final class ConstIndirection implements Transform
 
     public function name(): string
     {
-        return 'const_vs_literal';
+        return 'const_indirection';
     }
 
     public function apply(TransformInput $in, array $params, Rng $rng): TransformResult

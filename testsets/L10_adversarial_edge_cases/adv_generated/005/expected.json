@@ -1,0 +1,64 @@
+{
+    "schema_version": 1,
+    "set_id": "L10-adv_generated-005",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-2",
+            "granularity": "method",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers"
+            ],
+            "token_hash": "5cd8e7841ecf7c41",
+            "normalized_hash": "89e09fba7eb77dcb",
+            "members": [
+                {
+                    "file": "src/CompiledAccessA.php",
+                    "start_line": 9,
+                    "end_line": 27,
+                    "symbol": "authorize",
+                    "pristine": true
+                },
+                {
+                    "file": "src/CompiledAccessB.php",
+                    "start_line": 19,
+                    "end_line": 38,
+                    "symbol": "authorize",
+                    "pristine": false
+                },
+                {
+                    "file": "src/CompiledAccessC.php",
+                    "start_line": 25,
+                    "end_line": 44,
+                    "symbol": "authorize",
+                    "pristine": false
+                }
+            ],
+            "detection_expectation": {
+                "text_based": true,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": false,
+                "semantic": false
+            },
+            "notes": "CP-09: Uses access_guard with compound transforms to simulate generated-code noise patterns."
+        }
+    ],
+    "non_duplicates": [
+        {
+            "file": "src/RateLimiter.php",
+            "start_line": 12,
+            "end_line": 27,
+            "reason": "Near-miss: same access control vocabulary but different logic",
+            "trap": true
+        }
+    ],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.7,
+        "min_members_for_credit": 2
+    }
+}

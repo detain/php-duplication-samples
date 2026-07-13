@@ -1,0 +1,133 @@
+{
+    "level": 1,
+    "level_name": "exact",
+    "level_dir": "L01_exact",
+    "family": "ex_size_ladder",
+    "sets": [
+        {
+            "set_id": "L01-ex_size_ladder-001",
+            "title": "3-line exact clone",
+            "description": "Exact duplication set with a 3-line clone. The smallest size in the ladder series.",
+            "seed": "invoice_totals",
+            "mount": "function",
+            "clone_symbol": "computeTotals",
+            "granularity": "function",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 101501,
+            "notes": "3-line exact clone - smallest size in ladder.",
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "TinyInvoiceA.php", "namespace": "Acme\\Billing\\Invoices", "class": "TinyInvoiceA", "scaffold": "fn_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "TinyInvoiceB.php", "namespace": "Acme\\Billing\\Quotes", "class": "TinyInvoiceB", "scaffold": "fn_beta", "group": "A", "pristine": true, "transforms": []},
+                {"file": "TinyInvoiceC.php", "namespace": "Acme\\Billing\\Orders", "class": "TinyInvoiceC", "scaffold": "fn_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "TinyDistractor.php", "namespace": "Acme\\Billing\\Reports", "class": "TinyDistractor", "source": "nearmiss_invoice", "reason": "near-miss: similar vocabulary but different logic"}
+            ],
+            "cleans": [
+                {"file": "TinyClean.php", "namespace": "Acme\\Billing\\Config", "class": "TinyClean", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L01-ex_size_ladder-002",
+            "title": "6-line exact clone",
+            "description": "Exact duplication set with a 6-line clone. Second size in the ladder series.",
+            "seed": "invoice_totals",
+            "mount": "function",
+            "clone_symbol": "computeTotals",
+            "granularity": "function",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 101502,
+            "notes": "6-line exact clone - second size in ladder.",
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "SmallInvoiceA.php", "namespace": "Acme\\Billing\\Invoices", "class": "SmallInvoiceA", "scaffold": "fn_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "SmallInvoiceB.php", "namespace": "Acme\\Billing\\Quotes", "class": "SmallInvoiceB", "scaffold": "fn_beta", "group": "A", "pristine": true, "transforms": []},
+                {"file": "SmallInvoiceC.php", "namespace": "Acme\\Billing\\Orders", "class": "SmallInvoiceC", "scaffold": "fn_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "SmallDistractor.php", "namespace": "Acme\\Billing\\Reports", "class": "SmallDistractor", "source": "nearmiss_invoice", "reason": "near-miss: similar vocabulary but different logic"}
+            ],
+            "cleans": [
+                {"file": "SmallClean.php", "namespace": "Acme\\Billing\\Config", "class": "SmallClean", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L01-ex_size_ladder-003",
+            "title": "12-line exact clone",
+            "description": "Exact duplication set with a 12-line clone. Third size in the ladder series.",
+            "seed": "invoice_totals",
+            "mount": "function",
+            "clone_symbol": "computeTotals",
+            "granularity": "function",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 101503,
+            "notes": "12-line exact clone - third size in ladder.",
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "MediumInvoiceA.php", "namespace": "Acme\\Billing\\Invoices", "class": "MediumInvoiceA", "scaffold": "fn_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "MediumInvoiceB.php", "namespace": "Acme\\Billing\\Quotes", "class": "MediumInvoiceB", "scaffold": "fn_beta", "group": "A", "pristine": true, "transforms": []},
+                {"file": "MediumInvoiceC.php", "namespace": "Acme\\Billing\\Orders", "class": "MediumInvoiceC", "scaffold": "fn_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "MediumDistractor.php", "namespace": "Acme\\Billing\\Reports", "class": "MediumDistractor", "source": "nearmiss_invoice", "reason": "near-miss: similar vocabulary but different logic"}
+            ],
+            "cleans": [
+                {"file": "MediumClean.php", "namespace": "Acme\\Billing\\Config", "class": "MediumClean", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L01-ex_size_ladder-004",
+            "title": "25-line exact clone",
+            "description": "Exact duplication set with a 25-line clone. Fourth size in the ladder series.",
+            "seed": "invoice_totals",
+            "mount": "function",
+            "clone_symbol": "computeTotals",
+            "granularity": "function",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 101504,
+            "notes": "25-line exact clone - fourth size in ladder.",
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "LargeInvoiceA.php", "namespace": "Acme\\Billing\\Invoices", "class": "LargeInvoiceA", "scaffold": "fn_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "LargeInvoiceB.php", "namespace": "Acme\\Billing\\Quotes", "class": "LargeInvoiceB", "scaffold": "fn_beta", "group": "A", "pristine": true, "transforms": []},
+                {"file": "LargeInvoiceC.php", "namespace": "Acme\\Billing\\Orders", "class": "LargeInvoiceC", "scaffold": "fn_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "LargeDistractor.php", "namespace": "Acme\\Billing\\Reports", "class": "LargeDistractor", "source": "nearmiss_invoice", "reason": "near-miss: similar vocabulary but different logic"}
+            ],
+            "cleans": [
+                {"file": "LargeClean.php", "namespace": "Acme\\Billing\\Config", "class": "LargeClean", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L01-ex_size_ladder-005",
+            "title": "50-line exact clone",
+            "description": "Exact duplication set with a 50-line clone. Largest size in the ladder series.",
+            "seed": "invoice_totals",
+            "mount": "function",
+            "clone_symbol": "computeTotals",
+            "granularity": "function",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 101505,
+            "notes": "50-line exact clone - largest size in ladder.",
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "XLargeInvoiceA.php", "namespace": "Acme\\Billing\\Invoices", "class": "XLargeInvoiceA", "scaffold": "fn_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "XLargeInvoiceB.php", "namespace": "Acme\\Billing\\Quotes", "class": "XLargeInvoiceB", "scaffold": "fn_beta", "group": "A", "pristine": true, "transforms": []},
+                {"file": "XLargeInvoiceC.php", "namespace": "Acme\\Billing\\Orders", "class": "XLargeInvoiceC", "scaffold": "fn_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "XLargeDistractor.php", "namespace": "Acme\\Billing\\Reports", "class": "XLargeDistractor", "source": "nearmiss_invoice", "reason": "near-miss: similar vocabulary but different logic"}
+            ],
+            "cleans": [
+                {"file": "XLargeClean.php", "namespace": "Acme\\Billing\\Config", "class": "XLargeClean", "source": "clean_billing"}
+            ]
+        }
+    ]
+}

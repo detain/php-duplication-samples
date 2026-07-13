@@ -1,0 +1,86 @@
+{
+    "schema_version": 1,
+    "set_id": "L10-adv_html_mix-001",
+    "level": 10,
+    "level_name": "adversarial_edge_cases",
+    "family": "adv_html_mix",
+    "title": "Clones in mixed HTML/PHP template files (heredoc)",
+    "description": "Clones spanning across PHP and HTML sections using heredoc syntax. Infrastructure gap: SetBuilder does not yet support template/heredoc generation. Uses standard method-based carriers as proxy.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "invoice_totals",
+    "difficulty_band": "expert",
+    "files": [
+        {
+            "path": "src/InvoiceTemplateA.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 39
+        },
+        {
+            "path": "src/InvoiceTemplateB.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 44
+        },
+        {
+            "path": "src/InvoiceTemplateC.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 45
+        },
+        {
+            "path": "src/TrustScorer.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 30
+        },
+        {
+            "path": "src/InvoiceParser.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-3",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "LT-01",
+            "name": "numeric",
+            "params": {
+                "variant": "api_strings"
+            },
+            "applied_to": [
+                "src/InvoiceTemplateB.php"
+            ]
+        },
+        {
+            "code": "LT-04",
+            "name": "const_vs_literal",
+            "params": {
+                "variant": "api_map_loop"
+            },
+            "applied_to": [
+                "src/InvoiceTemplateC.php"
+            ]
+        }
+    ],
+    "difficulty": {
+        "score": 95,
+        "requires": [
+            "literal_abstraction"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L10/adv_html_mix.json",
+        "version": "1.0.0",
+        "rng_seed": 110501
+    }
+}

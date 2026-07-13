@@ -1,0 +1,63 @@
+{
+    "schema_version": 1,
+    "set_id": "L03-cm_block_added-001",
+    "level": 3,
+    "level_name": "comments_variation",
+    "family": "cm_block_added",
+    "title": "Three-line block comment on invoice totals method",
+    "description": "Clone pair differs by a three-line block comment addition. Text-based detection identifies the comment tokens while AST-based detection remains unaffected.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "invoice_totals",
+    "difficulty_band": "easy",
+    "files": [
+        {
+            "path": "src/LedgerPostingService.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 39
+        },
+        {
+            "path": "src/PriceBookService.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 47
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-1",
+        "granularity": "function",
+        "clusters": 1,
+        "instances": 2
+    },
+    "interference": [
+        {
+            "code": "CM-02",
+            "name": "block_comment_add",
+            "params": {
+                "lines": 3
+            },
+            "applied_to": [
+                "src/PriceBookService.php"
+            ]
+        }
+    ],
+    "difficulty": {
+        "score": 18,
+        "requires": [
+            "comment_stripping"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L03_comments/cm_block_added.json",
+        "version": "1.0.0",
+        "rng_seed": 103201
+    },
+    "role_composition": {
+        "carrier": 2,
+        "distractor": 1,
+        "clean": 1
+    }
+}

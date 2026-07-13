@@ -1,0 +1,63 @@
+{
+    "schema_version": 1,
+    "set_id": "L01-ex_block-003",
+    "level": 1,
+    "level_name": "exact",
+    "family": "ex_block",
+    "title": "Byte-identical parsing block inside three larger import functions",
+    "description": "A row parsing block embedded inside three different larger import functions. The surrounding function logic differs but the parsing block clone is identical.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "csv_import",
+    "difficulty_band": "trivial",
+    "files": [
+        {
+            "path": "src/BatchImporter.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 34
+        },
+        {
+            "path": "src/StreamImporter.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 39
+        },
+        {
+            "path": "src/FileImporter.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 35
+        },
+        {
+            "path": "src/DataTransformer.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 28
+        },
+        {
+            "path": "src/SchemaValidator.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 22
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-1",
+        "granularity": "function",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [],
+    "difficulty": {
+        "score": 5,
+        "requires": []
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L01_exact/ex_block.json",
+        "version": "1.0.0",
+        "rng_seed": 101203
+    }
+}

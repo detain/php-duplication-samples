@@ -1,0 +1,92 @@
+{
+    "schema_version": 1,
+    "set_id": "L07-api_builtins-002",
+    "level": 7,
+    "level_name": "api_idioms",
+    "family": "api_builtins",
+    "title": "Invoice totalling: foreach loop vs array_sum built-in",
+    "description": "The same invoice line-item totalling computation written in three genuinely different idioms: carrier A uses the pristine foreach with manual accumulation; carrier B uses array_sum and array_column built-ins; carrier C uses array_reduce functional style. All compute equivalent results with different token sequences.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "invoice_totals",
+    "difficulty_band": "expert",
+    "files": [
+        {
+            "path": "src/InvoiceComputeStandard.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 39
+        },
+        {
+            "path": "src/InvoiceComputeBuiltins.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 43
+        },
+        {
+            "path": "src/InvoiceComputeAlternative.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 45
+        },
+        {
+            "path": "src/MarginSummarizer.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 30
+        },
+        {
+            "path": "src/TaxRateRepository.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-4",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "API-06",
+            "name": "builtin_vs_manual",
+            "params": {
+                "variant": "api_builtins"
+            },
+            "applied_to": [
+                "src/InvoiceComputeBuiltins.php"
+            ]
+        },
+        {
+            "code": "API-01",
+            "name": "map_vs_loop",
+            "params": {
+                "variant": "api_map_loop"
+            },
+            "applied_to": [
+                "src/InvoiceComputeAlternative.php"
+            ]
+        }
+    ],
+    "difficulty": {
+        "score": 100,
+        "requires": [
+            "api_abstraction",
+            "ast_canonicalization"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L07/api_builtins.json",
+        "version": "1.0.0",
+        "rng_seed": 107602
+    },
+    "role_composition": {
+        "carrier": 3,
+        "distractor": 1,
+        "clean": 1
+    }
+}

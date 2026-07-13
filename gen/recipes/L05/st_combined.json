@@ -1,0 +1,138 @@
+{
+    "level": 5,
+    "level_name": "statement_edits",
+    "level_dir": "L05_statement_edits",
+    "family": "st_combined",
+    "sets": [
+        {
+            "set_id": "L05-st_combined-001",
+            "title": "Invoice totals with multiple statement transforms combined",
+            "description": "The same computeTotals method in three billing classes. Carrier A is pristine; carrier B combines logging insertion (ST-01) + dead-code insertion (ST-02); carrier C combines all three: logging (ST-01) + dead-code (ST-02) + expression tweaks (ST-09). Multiple transforms stacked on one carrier (Type-3).",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "edit_budget": 30,
+            "rng_seed": 105901,
+            "notes": "st_combined applies ST-01 (insert_logging) + ST-02 (insert_dead) + ST-09 (expr_tweak) in combination. Carrier B gets 2 transforms, Carrier C gets all 3.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineInvoiceCalc.php", "namespace": "Acme\\Billing\\Pristine", "class": "PristineInvoiceCalc", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "ComboInvoiceCalc.php", "namespace": "Acme\\Billing\\Combo", "class": "ComboInvoiceCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-01", "params": {"after": [1], "message": "start", "call": "error_log"}}, {"code": "ST-02", "params": {"count": 1, "after": [2]}}]},
+                {"file": "FullComboInvoiceCalc.php", "namespace": "Acme\\Billing\\FullCombo", "class": "FullComboInvoiceCalc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-01", "params": {"after": [1, 4], "message": "step", "call": "error_log"}}, {"code": "ST-02", "params": {"count": 1, "after": [2]}}, {"code": "ST-09", "params": {"tweaks": [{"op": ">=", "find": ">=", "replace": ">"}]}}]}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total — a different result"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L05-st_combined-002",
+            "title": "Invoice totals with multiple statement transforms combined",
+            "description": "The same computeTotals method in three billing classes. Carrier A is pristine; carrier B combines logging insertion (ST-01) + dead-code insertion (ST-02); carrier C combines all three: logging (ST-01) + dead-code (ST-02) + expression tweaks (ST-09). Multiple transforms stacked on one carrier (Type-3).",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "edit_budget": 30,
+            "rng_seed": 105902,
+            "notes": "Set 2 of 5. st_combined variant.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineInvoiceCalc.php", "namespace": "Acme\\Billing\\Pristine", "class": "PristineInvoiceCalc", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "ComboInvoiceCalc.php", "namespace": "Acme\\Billing\\Combo", "class": "ComboInvoiceCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-02", "params": {"count": 1, "after": [1]}}, {"code": "ST-01", "params": {"after": [3], "message": "log", "call": "error_log"}}]},
+                {"file": "FullComboInvoiceCalc.php", "namespace": "Acme\\Billing\\FullCombo", "class": "FullComboInvoiceCalc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-02", "params": {"count": 2, "after": [1, 3]}}, {"code": "ST-01", "params": {"after": [2, 5], "message": "trace", "call": "error_log"}}, {"code": "ST-09", "params": {"tweaks": [{"op": "+1", "find": "+ 1", "replace": "+ 2"}]}}]}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total — a different result"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L05-st_combined-003",
+            "title": "Invoice totals with multiple statement transforms combined",
+            "description": "The same computeTotals method in three billing classes. Carrier A is pristine; carrier B combines logging insertion (ST-01) + dead-code insertion (ST-02); carrier C combines all three: logging (ST-01) + dead-code (ST-02) + expression tweaks (ST-09). Multiple transforms stacked on one carrier (Type-3).",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "edit_budget": 30,
+            "rng_seed": 105903,
+            "notes": "Set 3 of 5. st_combined variant.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineInvoiceCalc.php", "namespace": "Acme\\Billing\\Pristine", "class": "PristineInvoiceCalc", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "ComboInvoiceCalc.php", "namespace": "Acme\\Billing\\Combo", "class": "ComboInvoiceCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-01", "params": {"after": [2], "message": "mid", "call": "error_log"}}, {"code": "ST-02", "params": {"count": 2, "after": [1, 4]}}]},
+                {"file": "FullComboInvoiceCalc.php", "namespace": "Acme\\Billing\\FullCombo", "class": "FullComboInvoiceCalc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-01", "params": {"after": [1, 3, 6], "message": "check", "call": "error_log"}}, {"code": "ST-02", "params": {"count": 1, "after": [2]}}, {"code": "ST-09", "params": {"tweaks": [{"op": ">=", "find": ">=", "replace": ">"}, {"op": "+1", "find": "+ 1", "replace": "+ 2"}]}}]}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total — a different result"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L05-st_combined-004",
+            "title": "Invoice totals with multiple statement transforms combined",
+            "description": "The same computeTotals method in three billing classes. Carrier A is pristine; carrier B combines logging insertion (ST-01) + dead-code insertion (ST-02); carrier C combines all three: logging (ST-01) + dead-code (ST-02) + expression tweaks (ST-09). Multiple transforms stacked on one carrier (Type-3).",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "edit_budget": 30,
+            "rng_seed": 105904,
+            "notes": "Set 4 of 5. st_combined variant.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineInvoiceCalc.php", "namespace": "Acme\\Billing\\Pristine", "class": "PristineInvoiceCalc", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "ComboInvoiceCalc.php", "namespace": "Acme\\Billing\\Combo", "class": "ComboInvoiceCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-02", "params": {"count": 1, "after": [3]}}, {"code": "ST-01", "params": {"after": [1], "message": "begin", "call": "error_log"}}]},
+                {"file": "FullComboInvoiceCalc.php", "namespace": "Acme\\Billing\\FullCombo", "class": "FullComboInvoiceCalc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-02", "params": {"count": 2, "after": [2, 5]}}, {"code": "ST-01", "params": {"after": [1, 4], "message": "info", "call": "error_log"}}, {"code": "ST-09", "params": {"tweaks": [{"op": ">=", "find": ">=", "replace": ">"}]}}]}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total — a different result"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L05-st_combined-005",
+            "title": "Invoice totals with multiple statement transforms combined",
+            "description": "The same computeTotals method in three billing classes. Carrier A is pristine; carrier B combines logging insertion (ST-01) + dead-code insertion (ST-02); carrier C combines all three: logging (ST-01) + dead-code (ST-02) + expression tweaks (ST-09). Multiple transforms stacked on one carrier (Type-3).",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "edit_budget": 30,
+            "rng_seed": 105905,
+            "notes": "Set 5 of 5. st_combined variant.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineInvoiceCalc.php", "namespace": "Acme\\Billing\\Pristine", "class": "PristineInvoiceCalc", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "ComboInvoiceCalc.php", "namespace": "Acme\\Billing\\Combo", "class": "ComboInvoiceCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-01", "params": {"after": [4], "message": "done", "call": "error_log"}}, {"code": "ST-02", "params": {"count": 1, "after": [1]}}]},
+                {"file": "FullComboInvoiceCalc.php", "namespace": "Acme\\Billing\\FullCombo", "class": "FullComboInvoiceCalc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-01", "params": {"after": [1, 5, 7], "message": "progress", "call": "error_log"}}, {"code": "ST-02", "params": {"count": 1, "after": [3]}}, {"code": "ST-09", "params": {"tweaks": [{"op": "+1", "find": "+ 1", "replace": "+ 2"}]}}]}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total — a different result"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        }
+    ]
+}

@@ -1,0 +1,111 @@
+{
+    "schema_version": 1,
+    "set_id": "L10-adv_many_files-005",
+    "level": 10,
+    "level_name": "adversarial_edge_cases",
+    "family": "adv_many_files",
+    "title": "Many files with access_guard seed and compound transforms",
+    "description": "Uses access_guard seed with compound transforms to test detection scaling.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "access_guard",
+    "difficulty_band": "expert",
+    "files": [
+        {
+            "path": "src/AccessCheckerA.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 33
+        },
+        {
+            "path": "src/AccessCheckerB.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 39
+        },
+        {
+            "path": "src/AccessCheckerC.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 38
+        },
+        {
+            "path": "src/RateLimiter.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 29
+        },
+        {
+            "path": "src/AuthProvider.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 27
+        },
+        {
+            "path": "src/SessionManager.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 22
+        },
+        {
+            "path": "src/TokenStore.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-2",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "LT-02",
+            "name": "string",
+            "params": {},
+            "applied_to": [
+                "src/AccessCheckerB.php",
+                "src/AccessCheckerC.php"
+            ]
+        },
+        {
+            "code": "CM-03",
+            "name": "docblock",
+            "params": {},
+            "applied_to": [
+                "src/AccessCheckerB.php",
+                "src/AccessCheckerC.php"
+            ]
+        },
+        {
+            "code": "RN-01",
+            "name": "local_vars",
+            "params": {},
+            "applied_to": [
+                "src/AccessCheckerC.php"
+            ]
+        }
+    ],
+    "difficulty": {
+        "score": 97,
+        "requires": [
+            "literal_abstraction",
+            "comment_stripping",
+            "identifier_canonicalization"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L10/adv_many_files.json",
+        "version": "1.0.0",
+        "rng_seed": 110905
+    },
+    "role_composition": {
+        "carrier": 3,
+        "distractor": 2,
+        "clean": 2
+    }
+}

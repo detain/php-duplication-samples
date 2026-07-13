@@ -1,0 +1,133 @@
+{
+    "level": 1,
+    "level_name": "exact",
+    "level_dir": "L01_exact",
+    "family": "ex_position",
+    "sets": [
+        {
+            "set_id": "L01-ex_position-001",
+            "title": "Same clone at different positions: top of method body",
+            "description": "Three carriers where the identical clone appears at the top of the method body. The surrounding code before and after differs.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 101401,
+            "notes": "Exact clone at top position of method body in all three carriers.",
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "InvoiceServiceTop.php", "namespace": "Acme\\Billing\\Invoices", "class": "InvoiceServiceTop", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "QuoteServiceTop.php", "namespace": "Acme\\Billing\\Quotes", "class": "QuoteServiceTop", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": []},
+                {"file": "OrderServiceTop.php", "namespace": "Acme\\Billing\\Orders", "class": "OrderServiceTop", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "MarginReporter.php", "namespace": "Acme\\Billing\\Reports", "class": "MarginReporter", "source": "nearmiss_invoice", "reason": "near-miss: similar billing vocabulary but computes margins"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Catalog", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L01-ex_position-002",
+            "title": "Same clone at different positions: middle of method body",
+            "description": "Three carriers where the identical clone appears in the middle of the method body. The surrounding code before, in between, and after differs.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 101402,
+            "notes": "Exact clone at middle position of method body in all three carriers.",
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "InvoiceServiceMiddle.php", "namespace": "Acme\\Billing\\Invoices", "class": "InvoiceServiceMiddle", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "QuoteServiceMiddle.php", "namespace": "Acme\\Billing\\Quotes", "class": "QuoteServiceMiddle", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": []},
+                {"file": "OrderServiceMiddle.php", "namespace": "Acme\\Billing\\Orders", "class": "OrderServiceMiddle", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "MarginCalculator.php", "namespace": "Acme\\Billing\\Reports", "class": "MarginCalculator", "source": "nearmiss_invoice", "reason": "near-miss: similar billing vocabulary but calculates margins"}
+            ],
+            "cleans": [
+                {"file": "ConfigRepository.php", "namespace": "Acme\\Billing\\Config", "class": "ConfigRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L01-ex_position-003",
+            "title": "Same clone at different positions: bottom of method body",
+            "description": "Three carriers where the identical clone appears at the bottom of the method body. The surrounding code before differs.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 101403,
+            "notes": "Exact clone at bottom position of method body in all three carriers.",
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "InvoiceServiceBottom.php", "namespace": "Acme\\Billing\\Invoices", "class": "InvoiceServiceBottom", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "QuoteServiceBottom.php", "namespace": "Acme\\Billing\\Quotes", "class": "QuoteServiceBottom", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": []},
+                {"file": "OrderServiceBottom.php", "namespace": "Acme\\Billing\\Orders", "class": "OrderServiceBottom", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "SummaryReporter.php", "namespace": "Acme\\Billing\\Reports", "class": "SummaryReporter", "source": "nearmiss_invoice", "reason": "near-miss: similar billing vocabulary but generates summaries"}
+            ],
+            "cleans": [
+                {"file": "SettingStore.php", "namespace": "Acme\\Billing\\Settings", "class": "SettingStore", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L01-ex_position-004",
+            "title": "Access guard clone at different positions in security services",
+            "description": "Authorization method clone appearing at different positions (top/middle/bottom) in security service methods.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 101404,
+            "notes": "Access guard clone at different positions in security services.",
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "SecurityServiceTop.php", "namespace": "Acme\\Security\\Services", "class": "SecurityServiceTop", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "AccessServiceMiddle.php", "namespace": "Acme\\Security\\Access", "class": "AccessServiceMiddle", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PermissionServiceBottom.php", "namespace": "Acme\\Security\\Permissions", "class": "PermissionServiceBottom", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "AuditLogger.php", "namespace": "Acme\\Security\\Audit", "class": "AuditLogger", "source": "nearmiss_access", "reason": "near-miss: similar auth vocabulary but logs events"}
+            ],
+            "cleans": [
+                {"file": "SessionManager.php", "namespace": "Acme\\Security\\Sessions", "class": "SessionManager", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L01-ex_position-005",
+            "title": "CSV parseRow clone at different positions in import services",
+            "description": "CSV parsing method clone appearing at different positions in data import service methods.",
+            "seed": "csv_import",
+            "mount": "method",
+            "clone_symbol": "parseRow",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 101405,
+            "notes": "CSV parseRow clone at different positions in import services.",
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "ImportServiceTop.php", "namespace": "Acme\\Import\\Services", "class": "ImportServiceTop", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "ParserServiceMiddle.php", "namespace": "Acme\\Import\\Parsing", "class": "ParserServiceMiddle", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": []},
+                {"file": "FileServiceBottom.php", "namespace": "Acme\\Import\\Files", "class": "FileServiceBottom", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "DataTransformer.php", "namespace": "Acme\\Import\\Transform", "class": "DataTransformer", "source": "nearmiss_csv", "reason": "near-miss: similar parsing vocabulary but transforms differently"}
+            ],
+            "cleans": [
+                {"file": "SchemaValidator.php", "namespace": "Acme\\Import\\Validation", "class": "SchemaValidator", "source": "clean_parsing"}
+            ]
+        }
+    ]
+}

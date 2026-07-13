@@ -1,0 +1,64 @@
+{
+    "schema_version": 1,
+    "set_id": "L10-adv_boundary-005",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-2",
+            "granularity": "method",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers"
+            ],
+            "token_hash": "5cd8e7841ecf7c41",
+            "normalized_hash": "89e09fba7eb77dcb",
+            "members": [
+                {
+                    "file": "src/AccessCheckerA.php",
+                    "start_line": 9,
+                    "end_line": 27,
+                    "symbol": "authorize",
+                    "pristine": true
+                },
+                {
+                    "file": "src/AccessCheckerB.php",
+                    "start_line": 18,
+                    "end_line": 36,
+                    "symbol": "authorize",
+                    "pristine": false
+                },
+                {
+                    "file": "src/AccessCheckerC.php",
+                    "start_line": 25,
+                    "end_line": 43,
+                    "symbol": "authorize",
+                    "pristine": false
+                }
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": false,
+                "semantic": false
+            },
+            "notes": "CP-04: Uses access_guard seed to test boundary with different code patterns."
+        }
+    ],
+    "non_duplicates": [
+        {
+            "file": "src/RateLimiter.php",
+            "start_line": 12,
+            "end_line": 27,
+            "reason": "Near-miss: same access vocabulary but different logic",
+            "trap": true
+        }
+    ],
+    "scoring": {
+        "line_tolerance": 0,
+        "member_jaccard_min": 0.85,
+        "min_members_for_credit": 2
+    }
+}

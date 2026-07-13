@@ -1,0 +1,138 @@
+{
+    "level": 10,
+    "level_name": "adversarial_edge_cases",
+    "level_dir": "L10_adversarial_edge_cases",
+    "family": "adv_generated",
+    "sets": [
+        {
+            "set_id": "L10-adv_generated-001",
+            "title": "Generated/compiled-template code with planted clones",
+            "description": "Code that looks generated from a template compiler (Smarty-like repetitive boilerplate with dynamic parts). Tests whether detectors are fooled by generated-code patterns. Infrastructure gap: SetBuilder does not generate compiled-template style content. Uses standard carriers as proxy.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments", "identifiers"],
+            "rng_seed": 110601,
+            "notes": "CP-09: Generated/compiled code style. Infrastructure gap: SetBuilder does not generate Smarty-like compiled template content. This set uses standard method carriers to test clone detection in repetitive-boilerplate context. True generated-code testing requires template-compiler simulator or SetBuilder enhancement.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.75, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true, "metric_based": false, "semantic": false},
+            "carriers": [
+                {"file": "CompiledInvoiceA.php", "namespace": "Acme\\Billing\\CompiledA", "class": "CompiledInvoiceA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "CompiledInvoiceB.php", "namespace": "Acme\\Billing\\CompiledB", "class": "CompiledInvoiceB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-01"}]},
+                {"file": "CompiledInvoiceC.php", "namespace": "Acme\\Billing\\CompiledC", "class": "CompiledInvoiceC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "LT-03"}]}
+            ],
+            "distractors": [
+                {"file": "TrustScorer.php", "namespace": "Acme\\Billing\\Scoring", "class": "TrustScorer", "source": "nearmiss_invoice", "reason": "Near-miss: same invoice vocabulary but different computation"}
+            ],
+            "cleans": [
+                {"file": "InvoiceParser.php", "namespace": "Acme\\Billing\\Parsing", "class": "InvoiceParser", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L10-adv_generated-002",
+            "title": "Generated code with CM-03 trailing comment noise",
+            "description": "Generated-style code with trailing comment noise typical of compiled templates.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments", "identifiers"],
+            "rng_seed": 110602,
+            "notes": "CP-09 + CM-03: Trailing comment noise in generated context. Using CM-03 instead of CM-09 to avoid prepending license header before the method (which caused line-audit failure).",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.7, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true, "metric_based": false, "semantic": false},
+            "carriers": [
+                {"file": "CompiledInvoiceA.php", "namespace": "Acme\\Billing\\CompiledA", "class": "CompiledInvoiceA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "CompiledInvoiceB.php", "namespace": "Acme\\Billing\\CompiledB", "class": "CompiledInvoiceB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "CM-03"}]},
+                {"file": "CompiledInvoiceC.php", "namespace": "Acme\\Billing\\CompiledC", "class": "CompiledInvoiceC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "CM-03"}, {"code": "LT-01"}]}
+            ],
+            "distractors": [
+                {"file": "TrustScorer.php", "namespace": "Acme\\Billing\\Scoring", "class": "TrustScorer", "source": "nearmiss_invoice", "reason": "Near-miss: same invoice vocabulary but different computation"}
+            ],
+            "cleans": [
+                {"file": "InvoiceParser.php", "namespace": "Acme\\Billing\\Parsing", "class": "InvoiceParser", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L10-adv_generated-003",
+            "title": "Generated code with RN-05 case convention drift",
+            "description": "Generated-style code with snake_case to camelCase identifier drift.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments", "identifiers"],
+            "rng_seed": 110603,
+            "notes": "CP-09 + RN-05: Case convention drift in generated context. Infrastructure gap for template generation applies.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.7, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": false},
+            "carriers": [
+                {"file": "CompiledInvoiceA.php", "namespace": "Acme\\Billing\\CompiledA", "class": "CompiledInvoiceA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "CompiledInvoiceB.php", "namespace": "Acme\\Billing\\CompiledB", "class": "CompiledInvoiceB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-05"}]},
+                {"file": "CompiledInvoiceC.php", "namespace": "Acme\\Billing\\CompiledC", "class": "CompiledInvoiceC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "RN-05"}, {"code": "CM-03"}]}
+            ],
+            "distractors": [
+                {"file": "TrustScorer.php", "namespace": "Acme\\Billing\\Scoring", "class": "TrustScorer", "source": "nearmiss_invoice", "reason": "Near-miss: same invoice vocabulary but different computation"}
+            ],
+            "cleans": [
+                {"file": "InvoiceParser.php", "namespace": "Acme\\Billing\\Parsing", "class": "InvoiceParser", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L10-adv_generated-004",
+            "title": "Generated code with ST-01 logging insertion variation",
+            "description": "Generated-style code with logging/metrics insertion to simulate instrumentation noise.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers"],
+            "rng_seed": 110604,
+            "notes": "CP-09 + ST-01: Logging insertion in generated context. CF-04 (loop_form) is a selector transform requiring variant param - not usable directly. Using ST-01 as alternative.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": false},
+            "carriers": [
+                {"file": "CompiledInvoiceA.php", "namespace": "Acme\\Billing\\CompiledA", "class": "CompiledInvoiceA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "CompiledInvoiceB.php", "namespace": "Acme\\Billing\\CompiledB", "class": "CompiledInvoiceB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-01"}]},
+                {"file": "CompiledInvoiceC.php", "namespace": "Acme\\Billing\\CompiledC", "class": "CompiledInvoiceC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-01"}, {"code": "LT-01"}]}
+            ],
+            "distractors": [
+                {"file": "TrustScorer.php", "namespace": "Acme\\Billing\\Scoring", "class": "TrustScorer", "source": "nearmiss_invoice", "reason": "Near-miss: same invoice vocabulary but different computation"}
+            ],
+            "cleans": [
+                {"file": "InvoiceParser.php", "namespace": "Acme\\Billing\\Parsing", "class": "InvoiceParser", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L10-adv_generated-005",
+            "title": "Generated code with access_guard seed and compound transforms",
+            "description": "Uses access_guard seed with compound WS-03 + CM-03 transforms to simulate generated-code noise.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments", "identifiers"],
+            "rng_seed": 110605,
+            "notes": "CP-09: Uses access_guard with compound transforms to simulate generated-code noise patterns.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.7, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true, "metric_based": false, "semantic": false},
+            "carriers": [
+                {"file": "CompiledAccessA.php", "namespace": "Acme\\Security\\CompiledA", "class": "CompiledAccessA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "CompiledAccessB.php", "namespace": "Acme\\Security\\CompiledB", "class": "CompiledAccessB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "WS-03"}, {"code": "CM-03"}]},
+                {"file": "CompiledAccessC.php", "namespace": "Acme\\Security\\CompiledC", "class": "CompiledAccessC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "WS-03"}, {"code": "CM-03"}, {"code": "LT-02"}]}
+            ],
+            "distractors": [
+                {"file": "RateLimiter.php", "namespace": "Acme\\Security\\Limit", "class": "RateLimiter", "source": "nearmiss_access", "reason": "Near-miss: same access control vocabulary but different logic"}
+            ],
+            "cleans": [
+                {"file": "AuthProvider.php", "namespace": "Acme\\Security\\Auth", "class": "AuthProvider", "source": "clean_auth"}
+            ]
+        }
+    ]
+}

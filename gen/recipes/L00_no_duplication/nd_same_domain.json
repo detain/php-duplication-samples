@@ -1,0 +1,93 @@
+{
+    "level": 0,
+    "level_name": "no_duplication",
+    "level_dir": "L00_no_duplication",
+    "family": "nd_same_domain",
+    "sets": [
+        {
+            "set_id": "L00-nd_same_domain-001",
+            "title": "Five billing-domain services with shared vocabulary but distinct logic",
+            "description": "BillingService, BillingValidator, BillingCalculator, BillingFormatter, and BillingReporter — all in the billing domain, all sharing billing terminology but computing different results with no duplicated implementation.",
+            "seed": null,
+            "rng_seed": 100001,
+            "carriers": [],
+            "distractors": [],
+            "cleans": [
+                {"file": "BillingService.php", "namespace": "Acme\\Billing\\Core", "class": "BillingService", "source": "clean_billing"},
+                {"file": "BillingValidator.php", "namespace": "Acme\\Billing\\Validation", "class": "BillingValidator", "source": "clean_auth"},
+                {"file": "BillingCalculator.php", "namespace": "Acme\\Billing\\Calc", "class": "BillingCalculator", "source": "clean_parsing"},
+                {"file": "BillingFormatter.php", "namespace": "Acme\\Billing\\Format", "class": "BillingFormatter", "source": "nd_payroll"},
+                {"file": "BillingReporter.php", "namespace": "Acme\\Billing\\Reports", "class": "BillingReporter", "source": "nd_ratelimit"}
+            ],
+            "traps": []
+        },
+        {
+            "set_id": "L00-nd_same_domain-002",
+            "title": "Five billing-domain services (variant 2)",
+            "description": "InvoiceProcessor, PaymentValidator, TaxCalculator, AmountFormatter, and LedgerReporter — billing domain files with shared vocabulary but unique implementations.",
+            "seed": null,
+            "rng_seed": 100101,
+            "carriers": [],
+            "distractors": [],
+            "cleans": [
+                {"file": "InvoiceProcessor.php", "namespace": "Acme\\Billing\\Invoicing", "class": "InvoiceProcessor", "source": "clean_billing"},
+                {"file": "PaymentValidator.php", "namespace": "Acme\\Billing\\Payments", "class": "PaymentValidator", "source": "clean_auth"},
+                {"file": "TaxCalculator.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxCalculator", "source": "clean_parsing"},
+                {"file": "AmountFormatter.php", "namespace": "Acme\\Billing\\Display", "class": "AmountFormatter", "source": "nd_payroll"},
+                {"file": "LedgerReporter.php", "namespace": "Acme\\Billing\\Ledger", "class": "LedgerReporter", "source": "nd_ratelimit"}
+            ],
+            "traps": []
+        },
+        {
+            "set_id": "L00-nd_same_domain-003",
+            "title": "Five billing-domain services (variant 3)",
+            "description": "SubscriptionManager, RenewalValidator, ProrationCalculator, CurrencyFormatter, and AuditReporter — billing domain with billing terminology across all files.",
+            "seed": null,
+            "rng_seed": 100201,
+            "carriers": [],
+            "distractors": [],
+            "cleans": [
+                {"file": "SubscriptionManager.php", "namespace": "Acme\\Billing\\Subscriptions", "class": "SubscriptionManager", "source": "clean_billing"},
+                {"file": "RenewalValidator.php", "namespace": "Acme\\Billing\\Renewals", "class": "RenewalValidator", "source": "clean_auth"},
+                {"file": "ProrationCalculator.php", "namespace": "Acme\\Billing\\Proration", "class": "ProrationCalculator", "source": "clean_parsing"},
+                {"file": "CurrencyFormatter.php", "namespace": "Acme\\Billing\\Currency", "class": "CurrencyFormatter", "source": "nd_payroll"},
+                {"file": "AuditReporter.php", "namespace": "Acme\\Billing\\Audit", "class": "AuditReporter", "source": "nd_ratelimit"}
+            ],
+            "traps": []
+        },
+        {
+            "set_id": "L00-nd_same_domain-004",
+            "title": "Five billing-domain services (variant 4)",
+            "description": "PlanManager, PaymentMethodValidator, FeeCalculator, StatementFormatter, and RevenueReporter — billing domain services sharing common vocabulary.",
+            "seed": null,
+            "rng_seed": 100301,
+            "carriers": [],
+            "distractors": [],
+            "cleans": [
+                {"file": "PlanManager.php", "namespace": "Acme\\Billing\\Plans", "class": "PlanManager", "source": "clean_billing"},
+                {"file": "PaymentMethodValidator.php", "namespace": "Acme\\Billing\\Methods", "class": "PaymentMethodValidator", "source": "clean_auth"},
+                {"file": "FeeCalculator.php", "namespace": "Acme\\Billing\\Fees", "class": "FeeCalculator", "source": "clean_parsing"},
+                {"file": "StatementFormatter.php", "namespace": "Acme\\Billing\\Statements", "class": "StatementFormatter", "source": "nd_payroll"},
+                {"file": "RevenueReporter.php", "namespace": "Acme\\Billing\\Revenue", "class": "RevenueReporter", "source": "nd_ratelimit"}
+            ],
+            "traps": []
+        },
+        {
+            "set_id": "L00-nd_same_domain-005",
+            "title": "Five billing-domain services (variant 5)",
+            "description": "CreditManager, PaymentProcessor, RateCalculator, InvoiceFormatter, and FinanceReporter — billing domain with consistent terminology but different logic.",
+            "seed": null,
+            "rng_seed": 100401,
+            "carriers": [],
+            "distractors": [],
+            "cleans": [
+                {"file": "CreditManager.php", "namespace": "Acme\\Billing\\Credits", "class": "CreditManager", "source": "clean_billing"},
+                {"file": "PaymentProcessor.php", "namespace": "Acme\\Billing\\Processing", "class": "PaymentProcessor", "source": "clean_auth"},
+                {"file": "RateCalculator.php", "namespace": "Acme\\Billing\\Rates", "class": "RateCalculator", "source": "clean_parsing"},
+                {"file": "InvoiceFormatter.php", "namespace": "Acme\\Billing\\Invoices", "class": "InvoiceFormatter", "source": "nd_payroll"},
+                {"file": "FinanceReporter.php", "namespace": "Acme\\Billing\\Finance", "class": "FinanceReporter", "source": "nd_ratelimit"}
+            ],
+            "traps": []
+        }
+    ]
+}

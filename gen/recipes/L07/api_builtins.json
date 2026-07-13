@@ -1,0 +1,453 @@
+{
+    "level": 7,
+    "level_name": "api_idioms",
+    "level_dir": "L07_api_idioms",
+    "family": "api_builtins",
+    "sets": [
+        {
+            "set_id": "L07-api_builtins-001",
+            "title": "Invoice totalling: foreach loop vs array_sum built-in",
+            "description": "The same invoice line-item totalling computation written in three genuinely different idioms: carrier A uses the pristine foreach with manual accumulation; carrier B uses array_sum and array_column built-ins; carrier C uses array_reduce functional style. All compute equivalent results with different token sequences.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-4",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers",
+                "literals",
+                "controlflow"
+            ],
+            "rng_seed": 107601,
+            "notes": "Set 001 of 5. API-06 (api_builtins) variant uses array_sum/array_column instead of foreach loop for summation. The built-in functions vs explicit loop difference means token-based detectors will struggle to find shared token sequences.",
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": false,
+                "semantic": true
+            },
+            "role_composition": {"carrier": 3, "distractor": 1, "clean": 1},
+            "requires": [
+                "api_abstraction",
+                "ast_canonicalization"
+            ],
+            "carriers": [
+                {
+                    "file": "InvoiceComputeStandard.php",
+                    "namespace": "Acme\\Billing\\Invoicing",
+                    "class": "InvoiceComputeStandard",
+                    "scaffold": "method_alpha",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                },
+                {
+                    "file": "InvoiceComputeBuiltins.php",
+                    "namespace": "Acme\\Billing\\Invoicing",
+                    "class": "InvoiceComputeBuiltins",
+                    "scaffold": "method_beta",
+                    "group": "A",
+                    "pristine": false,
+                    "variant": "api_builtins",
+                    "transforms": [
+                        {
+                            "code": "API-06",
+                            "variant": "api_builtins"
+                        }
+                    ]
+                },
+                {
+                    "file": "InvoiceComputeAlternative.php",
+                    "namespace": "Acme\\Billing\\Invoicing",
+                    "class": "InvoiceComputeAlternative",
+                    "scaffold": "method_gamma",
+                    "group": "A",
+                    "pristine": false,
+                    "variant": "api_map_loop",
+                    "transforms": [
+                        {
+                            "code": "API-01",
+                            "variant": "api_map_loop"
+                        }
+                    ]
+                }
+            ],
+            "distractors": [
+                {
+                    "file": "MarginSummarizer.php",
+                    "namespace": "Acme\\Billing\\Analytics",
+                    "class": "MarginSummarizer",
+                    "source": "nearmiss_invoice",
+                    "reason": "near-miss: same invoice-domain vocabulary but computes revenue/cost/margin summary with different arithmetic"
+                }
+            ],
+            "cleans": [
+                {
+                    "file": "TaxRateRepository.php",
+                    "namespace": "Acme\\Billing\\Tax",
+                    "class": "TaxRateRepository",
+                    "source": "clean_billing"
+                }
+            ]
+        },
+        {
+            "set_id": "L07-api_builtins-002",
+            "title": "Invoice totalling: foreach loop vs array_sum built-in",
+            "description": "The same invoice line-item totalling computation written in three genuinely different idioms: carrier A uses the pristine foreach with manual accumulation; carrier B uses array_sum and array_column built-ins; carrier C uses array_reduce functional style. All compute equivalent results with different token sequences.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-4",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers",
+                "literals",
+                "controlflow"
+            ],
+            "rng_seed": 107602,
+            "notes": "Set 002 of 5. API-06 (api_builtins) variant uses array_sum/array_column instead of foreach loop for summation.",
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": false,
+                "semantic": true
+            },
+            "role_composition": {"carrier": 3, "distractor": 1, "clean": 1},
+            "requires": [
+                "api_abstraction",
+                "ast_canonicalization"
+            ],
+            "carriers": [
+                {
+                    "file": "InvoiceComputeStandard.php",
+                    "namespace": "Acme\\Billing\\Invoicing",
+                    "class": "InvoiceComputeStandard",
+                    "scaffold": "method_alpha",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                },
+                {
+                    "file": "InvoiceComputeBuiltins.php",
+                    "namespace": "Acme\\Billing\\Invoicing",
+                    "class": "InvoiceComputeBuiltins",
+                    "scaffold": "method_beta",
+                    "group": "A",
+                    "pristine": false,
+                    "variant": "api_builtins",
+                    "transforms": [
+                        {
+                            "code": "API-06",
+                            "variant": "api_builtins"
+                        }
+                    ]
+                },
+                {
+                    "file": "InvoiceComputeAlternative.php",
+                    "namespace": "Acme\\Billing\\Invoicing",
+                    "class": "InvoiceComputeAlternative",
+                    "scaffold": "method_gamma",
+                    "group": "A",
+                    "pristine": false,
+                    "variant": "api_map_loop",
+                    "transforms": [
+                        {
+                            "code": "API-01",
+                            "variant": "api_map_loop"
+                        }
+                    ]
+                }
+            ],
+            "distractors": [
+                {
+                    "file": "MarginSummarizer.php",
+                    "namespace": "Acme\\Billing\\Analytics",
+                    "class": "MarginSummarizer",
+                    "source": "nearmiss_invoice",
+                    "reason": "near-miss: same invoice-domain vocabulary but computes revenue/cost/margin summary with different arithmetic"
+                }
+            ],
+            "cleans": [
+                {
+                    "file": "TaxRateRepository.php",
+                    "namespace": "Acme\\Billing\\Tax",
+                    "class": "TaxRateRepository",
+                    "source": "clean_billing"
+                }
+            ]
+        },
+        {
+            "set_id": "L07-api_builtins-003",
+            "title": "Invoice totalling: foreach loop vs array_sum built-in",
+            "description": "The same invoice line-item totalling computation written in three genuinely different idioms: carrier A uses the pristine foreach with manual accumulation; carrier B uses array_sum and array_column built-ins; carrier C uses array_reduce functional style. All compute equivalent results with different token sequences.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-4",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers",
+                "literals",
+                "controlflow"
+            ],
+            "rng_seed": 107603,
+            "notes": "Set 003 of 5. API-06 (api_builtins) variant uses array_sum/array_column instead of foreach loop for summation.",
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": false,
+                "semantic": true
+            },
+            "role_composition": {"carrier": 3, "distractor": 1, "clean": 1},
+            "requires": [
+                "api_abstraction",
+                "ast_canonicalization"
+            ],
+            "carriers": [
+                {
+                    "file": "InvoiceComputeStandard.php",
+                    "namespace": "Acme\\Billing\\Invoicing",
+                    "class": "InvoiceComputeStandard",
+                    "scaffold": "method_alpha",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                },
+                {
+                    "file": "InvoiceComputeBuiltins.php",
+                    "namespace": "Acme\\Billing\\Invoicing",
+                    "class": "InvoiceComputeBuiltins",
+                    "scaffold": "method_beta",
+                    "group": "A",
+                    "pristine": false,
+                    "variant": "api_builtins",
+                    "transforms": [
+                        {
+                            "code": "API-06",
+                            "variant": "api_builtins"
+                        }
+                    ]
+                },
+                {
+                    "file": "InvoiceComputeAlternative.php",
+                    "namespace": "Acme\\Billing\\Invoicing",
+                    "class": "InvoiceComputeAlternative",
+                    "scaffold": "method_gamma",
+                    "group": "A",
+                    "pristine": false,
+                    "variant": "api_map_loop",
+                    "transforms": [
+                        {
+                            "code": "API-01",
+                            "variant": "api_map_loop"
+                        }
+                    ]
+                }
+            ],
+            "distractors": [
+                {
+                    "file": "MarginSummarizer.php",
+                    "namespace": "Acme\\Billing\\Analytics",
+                    "class": "MarginSummarizer",
+                    "source": "nearmiss_invoice",
+                    "reason": "near-miss: same invoice-domain vocabulary but computes revenue/cost/margin summary with different arithmetic"
+                }
+            ],
+            "cleans": [
+                {
+                    "file": "TaxRateRepository.php",
+                    "namespace": "Acme\\Billing\\Tax",
+                    "class": "TaxRateRepository",
+                    "source": "clean_billing"
+                }
+            ]
+        },
+        {
+            "set_id": "L07-api_builtins-004",
+            "title": "Invoice totalling: foreach loop vs array_sum built-in",
+            "description": "The same invoice line-item totalling computation written in three genuinely different idioms: carrier A uses the pristine foreach with manual accumulation; carrier B uses array_sum and array_column built-ins; carrier C uses array_reduce functional style. All compute equivalent results with different token sequences.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-4",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers",
+                "literals",
+                "controlflow"
+            ],
+            "rng_seed": 107604,
+            "notes": "Set 004 of 5. API-06 (api_builtins) variant uses array_sum/array_column instead of foreach loop for summation.",
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": false,
+                "semantic": true
+            },
+            "role_composition": {"carrier": 3, "distractor": 1, "clean": 1},
+            "requires": [
+                "api_abstraction",
+                "ast_canonicalization"
+            ],
+            "carriers": [
+                {
+                    "file": "InvoiceComputeStandard.php",
+                    "namespace": "Acme\\Billing\\Invoicing",
+                    "class": "InvoiceComputeStandard",
+                    "scaffold": "method_alpha",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                },
+                {
+                    "file": "InvoiceComputeBuiltins.php",
+                    "namespace": "Acme\\Billing\\Invoicing",
+                    "class": "InvoiceComputeBuiltins",
+                    "scaffold": "method_beta",
+                    "group": "A",
+                    "pristine": false,
+                    "variant": "api_builtins",
+                    "transforms": [
+                        {
+                            "code": "API-06",
+                            "variant": "api_builtins"
+                        }
+                    ]
+                },
+                {
+                    "file": "InvoiceComputeAlternative.php",
+                    "namespace": "Acme\\Billing\\Invoicing",
+                    "class": "InvoiceComputeAlternative",
+                    "scaffold": "method_gamma",
+                    "group": "A",
+                    "pristine": false,
+                    "variant": "api_map_loop",
+                    "transforms": [
+                        {
+                            "code": "API-01",
+                            "variant": "api_map_loop"
+                        }
+                    ]
+                }
+            ],
+            "distractors": [
+                {
+                    "file": "MarginSummarizer.php",
+                    "namespace": "Acme\\Billing\\Analytics",
+                    "class": "MarginSummarizer",
+                    "source": "nearmiss_invoice",
+                    "reason": "near-miss: same invoice-domain vocabulary but computes revenue/cost/margin summary with different arithmetic"
+                }
+            ],
+            "cleans": [
+                {
+                    "file": "TaxRateRepository.php",
+                    "namespace": "Acme\\Billing\\Tax",
+                    "class": "TaxRateRepository",
+                    "source": "clean_billing"
+                }
+            ]
+        },
+        {
+            "set_id": "L07-api_builtins-005",
+            "title": "Invoice totalling: foreach loop vs array_sum built-in",
+            "description": "The same invoice line-item totalling computation written in three genuinely different idioms: carrier A uses the pristine foreach with manual accumulation; carrier B uses array_sum and array_column built-ins; carrier C uses array_reduce functional style. All compute equivalent results with different token sequences.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-4",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers",
+                "literals",
+                "controlflow"
+            ],
+            "rng_seed": 107605,
+            "notes": "Set 005 of 5. API-06 (api_builtins) variant uses array_sum/array_column instead of foreach loop for summation.",
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": false,
+                "semantic": true
+            },
+            "role_composition": {"carrier": 3, "distractor": 1, "clean": 1},
+            "requires": [
+                "api_abstraction",
+                "ast_canonicalization"
+            ],
+            "carriers": [
+                {
+                    "file": "InvoiceComputeStandard.php",
+                    "namespace": "Acme\\Billing\\Invoicing",
+                    "class": "InvoiceComputeStandard",
+                    "scaffold": "method_alpha",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                },
+                {
+                    "file": "InvoiceComputeBuiltins.php",
+                    "namespace": "Acme\\Billing\\Invoicing",
+                    "class": "InvoiceComputeBuiltins",
+                    "scaffold": "method_beta",
+                    "group": "A",
+                    "pristine": false,
+                    "variant": "api_builtins",
+                    "transforms": [
+                        {
+                            "code": "API-06",
+                            "variant": "api_builtins"
+                        }
+                    ]
+                },
+                {
+                    "file": "InvoiceComputeAlternative.php",
+                    "namespace": "Acme\\Billing\\Invoicing",
+                    "class": "InvoiceComputeAlternative",
+                    "scaffold": "method_gamma",
+                    "group": "A",
+                    "pristine": false,
+                    "variant": "api_map_loop",
+                    "transforms": [
+                        {
+                            "code": "API-01",
+                            "variant": "api_map_loop"
+                        }
+                    ]
+                }
+            ],
+            "distractors": [
+                {
+                    "file": "MarginSummarizer.php",
+                    "namespace": "Acme\\Billing\\Analytics",
+                    "class": "MarginSummarizer",
+                    "source": "nearmiss_invoice",
+                    "reason": "near-miss: same invoice-domain vocabulary but computes revenue/cost/margin summary with different arithmetic"
+                }
+            ],
+            "cleans": [
+                {
+                    "file": "TaxRateRepository.php",
+                    "namespace": "Acme\\Billing\\Tax",
+                    "class": "TaxRateRepository",
+                    "source": "clean_billing"
+                }
+            ]
+        }
+    ]
+}

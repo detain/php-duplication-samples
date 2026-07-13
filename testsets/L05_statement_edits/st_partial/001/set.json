@@ -1,0 +1,96 @@
+{
+    "schema_version": 1,
+    "set_id": "L05-st_partial-001",
+    "level": 5,
+    "level_name": "statement_edits",
+    "family": "st_partial",
+    "title": "Invoice totals with partial clone — extra step in one carrier",
+    "description": "The same computeTotals method in three billing classes. Carrier A is pristine; carrier B has an extra logging+dead-code step inserted, creating a partial clone where the shared region is reduced (one carrier has extra statements the others lack). Type-3 clone with asymmetric shared region.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "invoice_totals",
+    "difficulty_band": "very_hard",
+    "files": [
+        {
+            "path": "src/PristineInvoiceCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 39
+        },
+        {
+            "path": "src/PartialInvoiceCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 46
+        },
+        {
+            "path": "src/MorePartialInvoiceCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 45
+        },
+        {
+            "path": "src/MarginSummarizer.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 30
+        },
+        {
+            "path": "src/TaxRateRepository.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-3",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "ST-01",
+            "name": "insert_logging",
+            "params": {
+                "after": [
+                    1
+                ],
+                "message": "start",
+                "call": "error_log"
+            },
+            "applied_to": [
+                "src/PartialInvoiceCalc.php",
+                "src/MorePartialInvoiceCalc.php"
+            ]
+        },
+        {
+            "code": "ST-02",
+            "name": "insert_dead",
+            "params": {
+                "count": 1,
+                "after": [
+                    2
+                ]
+            },
+            "applied_to": [
+                "src/PartialInvoiceCalc.php",
+                "src/MorePartialInvoiceCalc.php"
+            ]
+        }
+    ],
+    "difficulty": {
+        "score": 64,
+        "requires": [
+            "ast_canonicalization",
+            "deadcode_elimination"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L05/st_partial.json",
+        "version": "1.0.0",
+        "rng_seed": 105701
+    }
+}

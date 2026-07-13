@@ -1,0 +1,63 @@
+{
+    "schema_version": 1,
+    "set_id": "L01-ex_method-001",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-1",
+            "granularity": "method",
+            "normalized_by": [
+                "whitespace",
+                "comments"
+            ],
+            "token_hash": "5cd8e7841ecf7c41",
+            "normalized_hash": "d62b3b768faecc30",
+            "members": [
+                {
+                    "file": "src/ResourceAuthorizationService.php",
+                    "start_line": 9,
+                    "end_line": 27,
+                    "symbol": "authorize",
+                    "pristine": true
+                },
+                {
+                    "file": "src/AccessControlService.php",
+                    "start_line": 18,
+                    "end_line": 36,
+                    "symbol": "authorize",
+                    "pristine": true
+                },
+                {
+                    "file": "src/PermissionGrantService.php",
+                    "start_line": 24,
+                    "end_line": 42,
+                    "symbol": "authorize",
+                    "pristine": true
+                }
+            ],
+            "detection_expectation": {
+                "text_based": true,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": true,
+                "semantic": true
+            },
+            "notes": "Exact clone method inside class skeletons that differ in class name, namespace, and surrounding methods."
+        }
+    ],
+    "non_duplicates": [
+        {
+            "file": "src/AuditTrailService.php",
+            "start_line": 12,
+            "end_line": 27,
+            "reason": "near-miss: similar authorization vocabulary but tracks events instead of granting access",
+            "trap": true
+        }
+    ],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.6,
+        "min_members_for_credit": 2
+    }
+}

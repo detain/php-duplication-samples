@@ -1,0 +1,163 @@
+{
+    "level": 1,
+    "level_name": "exact",
+    "level_dir": "L01_exact",
+    "family": "ex_multi_cluster",
+    "sets": [
+        {
+            "set_id": "L01-ex_multi_cluster-001",
+            "title": "Two independent exact clone clusters per set",
+            "description": "Each set contains 2 separate exact clone clusters. Cluster A uses invoice_totals seed, Cluster B uses access_guard seed. Each cluster has 3 carriers.",
+            "seed": "invoice_totals",
+            "mount": "function",
+            "clone_symbol": "computeTotals",
+            "granularity": "function",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 101601,
+            "role_composition": {"carrier": 6, "distractor": 2, "clean": 2},
+            "notes": "Two independent exact clone clusters: invoice_totals and access_guard. Each cluster has 3 carriers. Total 6 carriers per set.",
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "InvoiceCalcA.php", "namespace": "Acme\\Billing\\Invoices", "class": "InvoiceCalcA", "scaffold": "fn_alpha", "group": "A", "pristine": true, "transforms": [], "cluster": "A"},
+                {"file": "InvoiceCalcB.php", "namespace": "Acme\\Billing\\Quotes", "class": "InvoiceCalcB", "scaffold": "fn_beta", "group": "A", "pristine": true, "transforms": [], "cluster": "A"},
+                {"file": "InvoiceCalcC.php", "namespace": "Acme\\Billing\\Orders", "class": "InvoiceCalcC", "scaffold": "fn_gamma", "group": "A", "pristine": true, "transforms": [], "cluster": "A"},
+                {"file": "AuthGuardA.php", "namespace": "Acme\\Security\\Auth", "class": "AuthGuardA", "scaffold": "method_alpha", "group": "B", "pristine": true, "transforms": [], "cluster": "B"},
+                {"file": "AuthGuardB.php", "namespace": "Acme\\Security\\Access", "class": "AuthGuardB", "scaffold": "method_beta", "group": "B", "pristine": true, "transforms": [], "cluster": "B"},
+                {"file": "AuthGuardC.php", "namespace": "Acme\\Security\\Perms", "class": "AuthGuardC", "scaffold": "method_gamma", "group": "B", "pristine": true, "transforms": [], "cluster": "B"}
+            ],
+            "distractors": [
+                {"file": "InvoiceDistractor.php", "namespace": "Acme\\Billing\\Reports", "class": "InvoiceDistractor", "source": "nearmiss_invoice", "reason": "near-miss: similar invoice vocabulary but different logic"},
+                {"file": "AuthDistractor.php", "namespace": "Acme\\Security\\Audit", "class": "AuthDistractor", "source": "nearmiss_access", "reason": "near-miss: similar auth vocabulary but different logic"}
+            ],
+            "cleans": [
+                {"file": "BillingClean.php", "namespace": "Acme\\Billing\\Config", "class": "BillingClean", "source": "clean_billing"},
+                {"file": "SecurityClean.php", "namespace": "Acme\\Security\\Config", "class": "SecurityClean", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L01-ex_multi_cluster-002",
+            "title": "Two independent exact clone clusters - csv_import and invoice_totals",
+            "description": "Second set with Cluster A using csv_import and Cluster B using invoice_totals.",
+            "seed": "csv_import",
+            "mount": "function",
+            "clone_symbol": "parseRow",
+            "granularity": "function",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 101602,
+            "role_composition": {"carrier": 6, "distractor": 2, "clean": 2},
+            "notes": "Two clusters: csv_import and invoice_totals. 3 carriers each.",
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "CsvImportA.php", "namespace": "Acme\\Import\\Csv", "class": "CsvImportA", "scaffold": "fn_alpha", "group": "A", "pristine": true, "transforms": [], "cluster": "A"},
+                {"file": "CsvImportB.php", "namespace": "Acme\\Import\\Delim", "class": "CsvImportB", "scaffold": "fn_beta", "group": "A", "pristine": true, "transforms": [], "cluster": "A"},
+                {"file": "CsvImportC.php", "namespace": "Acme\\Import\\Files", "class": "CsvImportC", "scaffold": "fn_gamma", "group": "A", "pristine": true, "transforms": [], "cluster": "A"},
+                {"file": "TotalsCalcA.php", "namespace": "Acme\\Finance\\Calcs", "class": "TotalsCalcA", "scaffold": "method_alpha", "group": "B", "pristine": true, "transforms": [], "cluster": "B"},
+                {"file": "TotalsCalcB.php", "namespace": "Acme\\Finance\\Amounts", "class": "TotalsCalcB", "scaffold": "method_beta", "group": "B", "pristine": true, "transforms": [], "cluster": "B"},
+                {"file": "TotalsCalcC.php", "namespace": "Acme\\Finance\\Bills", "class": "TotalsCalcC", "scaffold": "method_gamma", "group": "B", "pristine": true, "transforms": [], "cluster": "B"}
+            ],
+            "distractors": [
+                {"file": "CsvDistractor.php", "namespace": "Acme\\Import\\Transform", "class": "CsvDistractor", "source": "nearmiss_csv", "reason": "near-miss: similar parsing vocabulary but different logic"},
+                {"file": "TotalsDistractor.php", "namespace": "Acme\\Finance\\Reports", "class": "TotalsDistractor", "source": "nearmiss_invoice", "reason": "near-miss: similar totals vocabulary but different logic"}
+            ],
+            "cleans": [
+                {"file": "ImportClean.php", "namespace": "Acme\\Import\\Config", "class": "ImportClean", "source": "clean_parsing"},
+                {"file": "FinanceClean.php", "namespace": "Acme\\Finance\\Config", "class": "FinanceClean", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L01-ex_multi_cluster-003",
+            "title": "Two independent exact clone clusters - access_guard and csv_import",
+            "description": "Third set with Cluster A using access_guard and Cluster B using csv_import.",
+            "seed": "access_guard",
+            "mount": "function",
+            "clone_symbol": "authorize",
+            "granularity": "function",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 101603,
+            "role_composition": {"carrier": 6, "distractor": 2, "clean": 2},
+            "notes": "Two clusters: access_guard and csv_import. 3 carriers each.",
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "SecAuthA.php", "namespace": "Acme\\Security\\Auth", "class": "SecAuthA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": [], "cluster": "A"},
+                {"file": "SecAuthB.php", "namespace": "Acme\\Security\\Access", "class": "SecAuthB", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": [], "cluster": "A"},
+                {"file": "SecAuthC.php", "namespace": "Acme\\Security\\Perms", "class": "SecAuthC", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": [], "cluster": "A"},
+                {"file": "DataParseA.php", "namespace": "Acme\\Data\\Parse", "class": "DataParseA", "scaffold": "fn_alpha", "group": "B", "pristine": true, "transforms": [], "cluster": "B"},
+                {"file": "DataParseB.php", "namespace": "Acme\\Data\\Import", "class": "DataParseB", "scaffold": "fn_beta", "group": "B", "pristine": true, "transforms": [], "cluster": "B"},
+                {"file": "DataParseC.php", "namespace": "Acme\\Data\\Files", "class": "DataParseC", "scaffold": "fn_gamma", "group": "B", "pristine": true, "transforms": [], "cluster": "B"}
+            ],
+            "distractors": [
+                {"file": "SecDistractor.php", "namespace": "Acme\\Security\\Audit", "class": "SecDistractor", "source": "nearmiss_access", "reason": "near-miss: similar auth vocabulary but different logic"},
+                {"file": "DataDistractor.php", "namespace": "Acme\\Data\\Transform", "class": "DataDistractor", "source": "nearmiss_csv", "reason": "near-miss: similar parse vocabulary but different logic"}
+            ],
+            "cleans": [
+                {"file": "SecurityClean.php", "namespace": "Acme\\Security\\Config", "class": "SecurityClean", "source": "clean_auth"},
+                {"file": "DataClean.php", "namespace": "Acme\\Data\\Config", "class": "DataClean", "source": "clean_parsing"}
+            ]
+        },
+        {
+            "set_id": "L01-ex_multi_cluster-004",
+            "title": "Three independent exact clone clusters",
+            "description": "Fourth set with 3 separate clone clusters, each with 2 carriers (total 6 carriers).",
+            "seed": "invoice_totals",
+            "mount": "function",
+            "clone_symbol": "computeTotals",
+            "granularity": "function",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 101604,
+            "role_composition": {"carrier": 6, "distractor": 2, "clean": 2},
+            "notes": "Three clusters with 2 carriers each (6 total). invoice_totals, access_guard, csv_import.",
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "Cluster1A.php", "namespace": "Acme\\Alpha\\Cluster1", "class": "Cluster1A", "scaffold": "fn_alpha", "group": "A", "pristine": true, "transforms": [], "cluster": "A"},
+                {"file": "Cluster1B.php", "namespace": "Acme\\Alpha\\Cluster1", "class": "Cluster1B", "scaffold": "fn_beta", "group": "A", "pristine": true, "transforms": [], "cluster": "A"},
+                {"file": "Cluster2A.php", "namespace": "Acme\\Beta\\Cluster2", "class": "Cluster2A", "scaffold": "method_alpha", "group": "B", "pristine": true, "transforms": [], "cluster": "B"},
+                {"file": "Cluster2B.php", "namespace": "Acme\\Beta\\Cluster2", "class": "Cluster2B", "scaffold": "method_beta", "group": "B", "pristine": true, "transforms": [], "cluster": "B"},
+                {"file": "Cluster3A.php", "namespace": "Acme\\Gamma\\Cluster3", "class": "Cluster3A", "scaffold": "fn_gamma", "group": "C", "pristine": true, "transforms": [], "cluster": "C"},
+                {"file": "Cluster3B.php", "namespace": "Acme\\Gamma\\Cluster3", "class": "Cluster3B", "scaffold": "method_gamma", "group": "C", "pristine": true, "transforms": [], "cluster": "C"}
+            ],
+            "distractors": [
+                {"file": "Distractor1.php", "namespace": "Acme\\Alpha\\Reports", "class": "Distractor1", "source": "nearmiss_invoice", "reason": "near-miss: similar vocabulary but different logic"},
+                {"file": "Distractor2.php", "namespace": "Acme\\Beta\\Reports", "class": "Distractor2", "source": "nearmiss_access", "reason": "near-miss: similar vocabulary but different logic"}
+            ],
+            "cleans": [
+                {"file": "Clean1.php", "namespace": "Acme\\Alpha\\Config", "class": "Clean1", "source": "clean_billing"},
+                {"file": "Clean2.php", "namespace": "Acme\\Beta\\Config", "class": "Clean2", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L01-ex_multi_cluster-005",
+            "title": "Two clusters variant - invoice_totals and access_guard",
+            "description": "Fifth set with two clusters: invoice_totals in Cluster A, access_guard in Cluster B.",
+            "seed": "invoice_totals",
+            "mount": "function",
+            "clone_symbol": "computeTotals",
+            "granularity": "function",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 101605,
+            "role_composition": {"carrier": 6, "distractor": 2, "clean": 2},
+            "notes": "Two clusters: invoice_totals and access_guard variant. 3 carriers each.",
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "BillServA.php", "namespace": "Acme\\Bill\\ServA", "class": "BillServA", "scaffold": "fn_alpha", "group": "A", "pristine": true, "transforms": [], "cluster": "A"},
+                {"file": "BillServB.php", "namespace": "Acme\\Bill\\ServB", "class": "BillServB", "scaffold": "fn_beta", "group": "A", "pristine": true, "transforms": [], "cluster": "A"},
+                {"file": "BillServC.php", "namespace": "Acme\\Bill\\ServC", "class": "BillServC", "scaffold": "fn_gamma", "group": "A", "pristine": true, "transforms": [], "cluster": "A"},
+                {"file": "GrantServA.php", "namespace": "Acme\\Grant\\ServA", "class": "GrantServA", "scaffold": "method_alpha", "group": "B", "pristine": true, "transforms": [], "cluster": "B"},
+                {"file": "GrantServB.php", "namespace": "Acme\\Grant\\ServB", "class": "GrantServB", "scaffold": "method_beta", "group": "B", "pristine": true, "transforms": [], "cluster": "B"},
+                {"file": "GrantServC.php", "namespace": "Acme\\Grant\\ServC", "class": "GrantServC", "scaffold": "method_gamma", "group": "B", "pristine": true, "transforms": [], "cluster": "B"}
+            ],
+            "distractors": [
+                {"file": "BillDistractor.php", "namespace": "Acme\\Bill\\Reports", "class": "BillDistractor", "source": "nearmiss_invoice", "reason": "near-miss: similar billing vocabulary but different logic"},
+                {"file": "GrantDistractor.php", "namespace": "Acme\\Grant\\Audit", "class": "GrantDistractor", "source": "nearmiss_access", "reason": "near-miss: similar grant vocabulary but different logic"}
+            ],
+            "cleans": [
+                {"file": "BillClean.php", "namespace": "Acme\\Bill\\Config", "class": "BillClean", "source": "clean_billing"},
+                {"file": "GrantClean.php", "namespace": "Acme\\Grant\\Config", "class": "GrantClean", "source": "clean_auth"}
+            ]
+        }
+    ]
+}

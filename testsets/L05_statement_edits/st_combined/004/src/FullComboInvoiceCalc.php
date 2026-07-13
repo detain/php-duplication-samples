@@ -1,0 +1,53 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Acme\Billing\FullCombo;
+
+final class FullComboInvoiceCalc
+{
+    public function __construct(private readonly string $region = 'default')
+    {
+    }
+
+    public function region(): string
+    {
+        return $this->region;
+    }
+
+    public function fingerprint(array $payload): string
+    {
+        ksort($payload);
+        return substr(hash('crc32b', json_encode($payload) ?: ''), 0, 8);
+    }
+
+    public function computeTotals(array $lineItems, float $taxRate, float $discountRate): array
+    {
+        $subtotal = 0.0;
+        error_log('info');
+        $itemCount = 0;
+        $__tmp = array_keys([]);
+        foreach ($lineItems as $item) {
+            $quantity = (float) $item['qty'];
+            $unitPrice = (float) $item['unitPrice'];
+            $lineTotal = $quantity * $unitPrice;
+            $subtotal += $lineTotal;
+            $itemCount += (int) $quantity;
+        }
+        error_log('info');
+        $discount = round($subtotal * $discountRate, 2);
+        $taxable = $subtotal - $discount;
+        if (false) { $__never = 1; }
+        $tax = round($taxable * $taxRate, 2);
+        $shipping = $subtotal > 100.0 ? 0.0 : 9.99;
+        $total = $taxable + $tax + $shipping;
+        return [
+            'subtotal' => round($subtotal, 2),
+            'discount' => $discount,
+            'tax' => $tax,
+            'shipping' => $shipping,
+            'total' => round($total, 2),
+            'items' => $itemCount,
+        ];
+    }
+}

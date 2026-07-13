@@ -1,0 +1,63 @@
+{
+    "schema_version": 1,
+    "set_id": "L01-ex_function-005",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-1",
+            "granularity": "function",
+            "normalized_by": [
+                "whitespace",
+                "comments"
+            ],
+            "token_hash": "37c4250b0b6b5242",
+            "normalized_hash": "98017a00ba44e1cc",
+            "members": [
+                {
+                    "file": "src/SpreadSheetParser.php",
+                    "start_line": 7,
+                    "end_line": 29,
+                    "symbol": "parseRow",
+                    "pristine": true
+                },
+                {
+                    "file": "src/DelimitedReader.php",
+                    "start_line": 17,
+                    "end_line": 39,
+                    "symbol": "parseRow",
+                    "pristine": true
+                },
+                {
+                    "file": "src/CellExtractor.php",
+                    "start_line": 18,
+                    "end_line": 40,
+                    "symbol": "parseRow",
+                    "pristine": true
+                }
+            ],
+            "detection_expectation": {
+                "text_based": true,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": true,
+                "semantic": true
+            },
+            "notes": "Second variant of exact CSV parseRow clone with different surrounding context."
+        }
+    ],
+    "non_duplicates": [
+        {
+            "file": "src/JsonDecoder.php",
+            "start_line": 12,
+            "end_line": 26,
+            "reason": "near-miss: similar parsing vocabulary but decodes JSON instead",
+            "trap": true
+        }
+    ],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.6,
+        "min_members_for_credit": 2
+    }
+}

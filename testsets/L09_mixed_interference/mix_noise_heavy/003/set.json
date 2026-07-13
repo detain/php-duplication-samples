@@ -1,0 +1,90 @@
+{
+    "schema_version": 1,
+    "set_id": "L09-mix_noise_heavy-003",
+    "level": 9,
+    "level_name": "mixed_interference",
+    "family": "mix_noise_heavy",
+    "title": "Invoice totals with uniform heavy whitespace noise",
+    "description": "Same computeTotals method. All carriers receive identical heavy whitespace noise (WS-03 + WS-06). Tests normalization under uniform heavy interference.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "invoice_totals",
+    "difficulty_band": "expert",
+    "files": [
+        {
+            "path": "src/PristineInvoiceCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 42
+        },
+        {
+            "path": "src/NoisyCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 47
+        },
+        {
+            "path": "src/NoisierCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 46
+        },
+        {
+            "path": "src/MarginSummarizer.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 30
+        },
+        {
+            "path": "src/TaxRateRepository.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-1",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "WS-03",
+            "name": "blank_inside",
+            "params": {
+                "blank_lines": 2
+            },
+            "applied_to": [
+                "src/PristineInvoiceCalc.php",
+                "src/NoisyCalc.php",
+                "src/NoisierCalc.php"
+            ]
+        },
+        {
+            "code": "WS-06",
+            "name": "line_wrap",
+            "params": {
+                "occurrence": 1
+            },
+            "applied_to": [
+                "src/PristineInvoiceCalc.php",
+                "src/NoisyCalc.php",
+                "src/NoisierCalc.php"
+            ]
+        }
+    ],
+    "difficulty": {
+        "score": 85,
+        "requires": [
+            "whitespace_normalization"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L09/mix_noise_heavy.json",
+        "version": "1.0.0",
+        "rng_seed": 109603
+    }
+}

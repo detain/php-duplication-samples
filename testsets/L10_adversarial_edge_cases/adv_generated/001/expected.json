@@ -1,0 +1,64 @@
+{
+    "schema_version": 1,
+    "set_id": "L10-adv_generated-001",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-2",
+            "granularity": "method",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers"
+            ],
+            "token_hash": "f1e5708cf467f899",
+            "normalized_hash": "653f9a74aa6b1cb6",
+            "members": [
+                {
+                    "file": "src/CompiledInvoiceA.php",
+                    "start_line": 9,
+                    "end_line": 33,
+                    "symbol": "computeTotals",
+                    "pristine": true
+                },
+                {
+                    "file": "src/CompiledInvoiceB.php",
+                    "start_line": 18,
+                    "end_line": 42,
+                    "symbol": "computeTotals",
+                    "pristine": false
+                },
+                {
+                    "file": "src/CompiledInvoiceC.php",
+                    "start_line": 24,
+                    "end_line": 48,
+                    "symbol": "computeTotals",
+                    "pristine": false
+                }
+            ],
+            "detection_expectation": {
+                "text_based": true,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": false,
+                "semantic": false
+            },
+            "notes": "CP-09: Generated/compiled code style. Infrastructure gap: SetBuilder does not generate Smarty-like compiled template content. This set uses standard method carriers to test clone detection in repetitive-boilerplate context. True generated-code testing requires template-compiler simulator or SetBuilder enhancement."
+        }
+    ],
+    "non_duplicates": [
+        {
+            "file": "src/TrustScorer.php",
+            "start_line": 12,
+            "end_line": 28,
+            "reason": "Near-miss: same invoice vocabulary but different computation",
+            "trap": true
+        }
+    ],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.75,
+        "min_members_for_credit": 2
+    }
+}

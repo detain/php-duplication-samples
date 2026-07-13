@@ -1,0 +1,67 @@
+{
+    "schema_version": 1,
+    "set_id": "L09-mix_cf_rn_ws-005",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-3",
+            "granularity": "method",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers",
+                "case_convention",
+                "literals",
+                "controlflow"
+            ],
+            "token_hash": "5cd8e7841ecf7c41",
+            "normalized_hash": "a3a4fbc9a09986cf",
+            "members": [
+                {
+                    "file": "src/PristineAccessPolicy.php",
+                    "start_line": 9,
+                    "end_line": 27,
+                    "symbol": "authorize",
+                    "pristine": true
+                },
+                {
+                    "file": "src/MatchGuardPolicy.php",
+                    "start_line": 18,
+                    "end_line": 30,
+                    "symbol": "authorize",
+                    "pristine": false
+                },
+                {
+                    "file": "src/NestedGuardPolicy.php",
+                    "start_line": 24,
+                    "end_line": 39,
+                    "symbol": "authorize",
+                    "pristine": false
+                }
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": false,
+                "ast_based": true,
+                "metric_based": false,
+                "semantic": true
+            },
+            "notes": "Combines CF (controlflow rewrite via cf_match_guard/cf_guard_nested variants) with RN-05 (case_convention) and WS-06 (line_wrap). Because controlflow normalization reveals structurally different forms, token-based detection is not expected to work. AST/semantic detectors required."
+        }
+    ],
+    "non_duplicates": [
+        {
+            "file": "src/TrustScorer.php",
+            "start_line": 12,
+            "end_line": 27,
+            "reason": "near-miss: same auth vocabulary (user/resource/roles/grants/status) but computes a numeric trust score, not a boolean decision",
+            "trap": true
+        }
+    ],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.4,
+        "min_members_for_credit": 2
+    }
+}

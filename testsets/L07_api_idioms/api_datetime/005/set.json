@@ -1,0 +1,82 @@
+{
+    "schema_version": 1,
+    "set_id": "L07-api_datetime-005",
+    "level": 7,
+    "level_name": "api_idioms",
+    "family": "api_datetime",
+    "title": "Authorization: strtotime style vs DateTimeImmutable idioms",
+    "description": "The same authorization decision expressed in two genuinely different datetime-handling idioms: carrier A uses strtotime for any time-based operations; carrier B uses DateTimeImmutable objects. Both compute identical authorization decisions for all input combinations.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "access_guard",
+    "difficulty_band": "expert",
+    "files": [
+        {
+            "path": "src/AccessControlStandard.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 33
+        },
+        {
+            "path": "src/AccessControlDatetime.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 55
+        },
+        {
+            "path": "src/RoleHierarchyChecker.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 29
+        },
+        {
+            "path": "src/PayrollAccessLogger.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 28
+        },
+        {
+            "path": "src/SessionValidator.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 27
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-4",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 2
+    },
+    "interference": [
+        {
+            "code": "API-09",
+            "name": "datetime",
+            "params": {
+                "variant": "api_datetime"
+            },
+            "applied_to": [
+                "src/AccessControlDatetime.php"
+            ]
+        }
+    ],
+    "difficulty": {
+        "score": 88,
+        "requires": [
+            "api_abstraction",
+            "ast_canonicalization"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L07/api_datetime.json",
+        "version": "1.0.0",
+        "rng_seed": 107905
+    },
+    "role_composition": {
+        "carrier": 2,
+        "distractor": 1,
+        "clean": 1
+    }
+}

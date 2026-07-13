@@ -1,0 +1,63 @@
+{
+    "schema_version": 1,
+    "set_id": "L03-cm_license_header-003",
+    "level": 3,
+    "level_name": "comments_variation",
+    "family": "cm_license_header",
+    "title": "GPL v3 license header on access authorization method",
+    "description": "Clone pair differs by GPL v3 license header comment on the access authorization method. Text-based detection identifies the license header tokens.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "access_guard",
+    "difficulty_band": "easy",
+    "files": [
+        {
+            "path": "src/AccessServiceBase.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 33
+        },
+        {
+            "path": "src/AccessServiceDecorated.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 42
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-1",
+        "granularity": "function",
+        "clusters": 1,
+        "instances": 2
+    },
+    "interference": [
+        {
+            "code": "CM-09",
+            "name": "license_header",
+            "params": {
+                "license": "GPL v3 License"
+            },
+            "applied_to": [
+                "src/AccessServiceDecorated.php"
+            ]
+        }
+    ],
+    "difficulty": {
+        "score": 18,
+        "requires": [
+            "comment_stripping"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L03_comments/cm_license_header.json",
+        "version": "1.0.0",
+        "rng_seed": 103903
+    },
+    "role_composition": {
+        "carrier": 2,
+        "distractor": 1,
+        "clean": 1
+    }
+}

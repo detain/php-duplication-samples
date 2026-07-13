@@ -1,0 +1,66 @@
+{
+    "schema_version": 1,
+    "set_id": "L07-api_table_driven-001",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-4",
+            "granularity": "method",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers",
+                "literals",
+                "controlflow"
+            ],
+            "token_hash": "5cd8e7841ecf7c41",
+            "normalized_hash": "a3a4fbc9a09986cf",
+            "members": [
+                {
+                    "file": "src/AccessControlStandard.php",
+                    "start_line": 9,
+                    "end_line": 27,
+                    "symbol": "authorize",
+                    "pristine": true
+                },
+                {
+                    "file": "src/AccessControlTableDriven.php",
+                    "start_line": 18,
+                    "end_line": 50,
+                    "symbol": "authorize",
+                    "pristine": false
+                }
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": false,
+                "semantic": true
+            },
+            "notes": "Set 001 of 5. API-05 (api_table_driven) variant uses lookup array (array_flip + isset) instead of if/else-if chain for role and grant checks. Both carriers compute mathematically equivalent authorization decisions (verified by equivalence_test.php). The lookup-array vs explicit-condition difference means token-based detectors will struggle to find shared token sequences beyond basic structure."
+        }
+    ],
+    "non_duplicates": [
+        {
+            "file": "src/RoleHierarchyChecker.php",
+            "start_line": 12,
+            "end_line": 27,
+            "reason": "near-miss: same authorization domain vocabulary (user, resource, roles, grants) but computes hierarchical role inheritance — a different authorization model with role precedence logic, not a duplicate of authorize",
+            "trap": true
+        },
+        {
+            "file": "src/PayrollAccessLogger.php",
+            "start_line": 12,
+            "end_line": 26,
+            "reason": "near-miss: same authorization vocabulary but logs access attempts to payroll systems — a different concern (audit logging) not authorization decisions",
+            "trap": true
+        }
+    ],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.6,
+        "min_members_for_credit": 2
+    }
+}
