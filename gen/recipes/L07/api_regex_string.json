@@ -1,0 +1,96 @@
+{
+    "level": 7,
+    "level_name": "api_idioms",
+    "level_dir": "L07_api_idioms",
+    "family": "api_regex_string",
+    "sets": [
+        {
+            "set_id": "L07-api_regex_string-001",
+            "title": "Invoice totalling: regex pattern matching vs string operations",
+            "description": "The same invoice line-item processing expressed using three genuinely different idioms: regex-based string pattern matching, explicit string operations, and api_map_loop functional mapping. Carrier A uses the pristine foreach with direct array access, carrier B applies regex patterns, and carrier C uses api_map_loop functional style. All compute equivalent results.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-4",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers",
+                "literals",
+                "controlflow"
+            ],
+            "rng_seed": 107003,
+            "notes": "API-03 variant is TODO - variant file does not exist yet. This recipe is a placeholder until the api_regex_string variant is created in gen/seeds/invoice_totals/variants/api_regex_string.php. Carrier B uses a placeholder variant reference until the actual variant is authored.",
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": false,
+                "semantic": true
+            },
+            "requires": [
+                "api_abstraction",
+                "ast_canonicalization"
+            ],
+            "carriers": [
+                {
+                    "file": "InvoiceComputeStandard.php",
+                    "namespace": "Acme\\Billing\\Invoicing",
+                    "class": "InvoiceComputeStandard",
+                    "scaffold": "method_alpha",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                },
+                {
+                    "file": "InvoiceComputeFunctional.php",
+                    "namespace": "Acme\\Billing\\Invoicing",
+                    "class": "InvoiceComputeFunctional",
+                    "scaffold": "method_beta",
+                    "group": "A",
+                    "pristine": false,
+                    "variant": "api_regex_string",
+                    "transforms": [
+                        {
+                            "code": "API-03",
+                            "variant": "api_regex_string"
+                        }
+                    ]
+                },
+                {
+                    "file": "InvoiceComputeAlternative.php",
+                    "namespace": "Acme\\Billing\\Invoicing",
+                    "class": "InvoiceComputeAlternative",
+                    "scaffold": "method_gamma",
+                    "group": "A",
+                    "pristine": false,
+                    "variant": "api_map_loop",
+                    "transforms": [
+                        {
+                            "code": "API-01",
+                            "variant": "api_map_loop"
+                        }
+                    ]
+                }
+            ],
+            "distractors": [
+                {
+                    "file": "MarginSummarizer.php",
+                    "namespace": "Acme\\Billing\\Analytics",
+                    "class": "MarginSummarizer",
+                    "source": "nearmiss_invoice",
+                    "reason": "near-miss: same invoice-domain vocabulary (lineItems, qty, unitPrice) and similar foreach-over-items shape, but computes revenue/cost/margin summary \u2014 a different result with different arithmetic (costRate multiplication, margin ratio), not a duplicate of computeTotals"
+                }
+            ],
+            "cleans": [
+                {
+                    "file": "TaxRateRepository.php",
+                    "namespace": "Acme\\Billing\\Tax",
+                    "class": "TaxRateRepository",
+                    "source": "clean_billing"
+                }
+            ]
+        }
+    ]
+}

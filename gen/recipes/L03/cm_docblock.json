@@ -1,0 +1,97 @@
+{
+    "level": 3,
+    "level_name": "comments_variation",
+    "level_dir": "L03_comments",
+    "family": "cm_docblock",
+    "sets": [
+        {
+            "set_id": "L03-cm_docblock-001",
+            "title": "Invoice-totals method with docblock interference on the cloned symbol",
+            "description": "The same invoice-totalling computeTotals method in three service classes under the cm_docblock family. Carrier A has no docblock (pristine). Carrier B has a minimal /** */ docblock with a one-line summary. Carrier C has a full multi-line docblock with @param and @return tags. After comment stripping, all three produce identical token streams — this is a Type-1 clone designed to test comment-stripping detectors. A near-miss distractor shares invoice vocabulary and foreach shape but computes a different result (revenue/cost margin ratio).",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 103001,
+            "requires": ["comment_stripping"],
+            "notes": "CM-03 (docblock) applied to the cloned symbol. Carrier A pristine vs Carrier C full docblock is the discriminating pair — after comment stripping, token streams are identical. Text-based matchers will flag all three as duplicates; token-based with comment normalization should also detect all three; raw text-based without comment handling will find only A≈B.",
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": true,
+                "semantic": true
+            },
+            "carriers": [
+                {
+                    "file": "LedgerPostingService.php",
+                    "namespace": "Acme\\Ledger\\Posting",
+                    "class": "LedgerPostingService",
+                    "scaffold": "method_alpha",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                },
+                {
+                    "file": "PriceBookService.php",
+                    "namespace": "Acme\\Ledger\\Pricing",
+                    "class": "PriceBookService",
+                    "scaffold": "method_beta",
+                    "group": "A",
+                    "pristine": false,
+                    "transforms": [
+                        {
+                            "code": "CM-03",
+                            "params": {
+                                "style": "minimal",
+                                "summary": "Compute the result for the given inputs."
+                            }
+                        }
+                    ]
+                },
+                {
+                    "file": "SettlementService.php",
+                    "namespace": "Acme\\Ledger\\Settlement",
+                    "class": "SettlementService",
+                    "scaffold": "method_gamma",
+                    "group": "A",
+                    "pristine": false,
+                    "transforms": [
+                        {
+                            "code": "CM-03",
+                            "params": {
+                                "style": "full",
+                                "summary": "Compute invoice totals including subtotal, tax, discount and shipping.",
+                                "tags": [
+                                    "@param array $lineItems List of line items with qty and unitPrice.",
+                                    "@param float $taxRate Tax rate as a decimal (e.g. 0.08 for 8%).",
+                                    "@param float $discountRate Discount rate as a decimal (e.g. 0.05 for 5%).",
+                                    "@return array{invoice details} Computed subtotal, discount, tax, shipping and grand total."
+                                ]
+                            }
+                        }
+                    ]
+                }
+            ],
+            "distractors": [
+                {
+                    "file": "MarginReporter.php",
+                    "namespace": "Acme\\Ledger\\Reporting",
+                    "class": "MarginReporter",
+                    "source": "nearmiss_invoice",
+                    "reason": "near-miss: same invoice vocabulary and foreach shape, but computes revenue/cost margins and a ratio — a different result"
+                }
+            ],
+            "cleans": [
+                {
+                    "file": "TaxRateRepository.php",
+                    "namespace": "Acme\\Ledger\\Catalog",
+                    "class": "TaxRateRepository",
+                    "source": "clean_billing"
+                }
+            ]
+        }
+    ]
+}

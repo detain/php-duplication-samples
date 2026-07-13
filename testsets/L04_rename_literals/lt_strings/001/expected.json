@@ -1,0 +1,65 @@
+{
+    "schema_version": 1,
+    "set_id": "L04-lt_strings-001",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-2",
+            "granularity": "method",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers",
+                "literals"
+            ],
+            "token_hash": "4ffb959f327d1b8c",
+            "normalized_hash": "5015f13c10f8031c",
+            "members": [
+                {
+                    "file": "src/PristineRowReader.php",
+                    "start_line": 9,
+                    "end_line": 31,
+                    "symbol": "parseRow",
+                    "pristine": true
+                },
+                {
+                    "file": "src/ModifiedRowReader.php",
+                    "start_line": 18,
+                    "end_line": 40,
+                    "symbol": "parseRow",
+                    "pristine": false
+                },
+                {
+                    "file": "src/FullyModifiedRowReader.php",
+                    "start_line": 24,
+                    "end_line": 46,
+                    "symbol": "parseRow",
+                    "pristine": false
+                }
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": true,
+                "semantic": true
+            },
+            "notes": "LT-02 (strings) changes string literal values like 'active'->'enabled'. The string keys and structure remain unchanged."
+        }
+    ],
+    "non_duplicates": [
+        {
+            "file": "src/RowWidthProfiler.php",
+            "start_line": 12,
+            "end_line": 26,
+            "reason": "near-miss: same CSV vocabulary and foreach-over-columns shape, but builds a column-width histogram — a different result",
+            "trap": true
+        }
+    ],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.6,
+        "min_members_for_credit": 2
+    }
+}

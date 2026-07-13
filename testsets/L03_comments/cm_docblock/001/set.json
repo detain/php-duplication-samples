@@ -1,0 +1,94 @@
+{
+    "schema_version": 1,
+    "set_id": "L03-cm_docblock-001",
+    "level": 3,
+    "level_name": "comments_variation",
+    "family": "cm_docblock",
+    "title": "Invoice-totals method with docblock interference on the cloned symbol",
+    "description": "The same invoice-totalling computeTotals method in three service classes under the cm_docblock family. Carrier A has no docblock (pristine). Carrier B has a minimal /** */ docblock with a one-line summary. Carrier C has a full multi-line docblock with @param and @return tags. After comment stripping, all three produce identical token streams — this is a Type-1 clone designed to test comment-stripping detectors. A near-miss distractor shares invoice vocabulary and foreach shape but computes a different result (revenue/cost margin ratio).",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "invoice_totals",
+    "difficulty_band": "easy",
+    "files": [
+        {
+            "path": "src/LedgerPostingService.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 39
+        },
+        {
+            "path": "src/PriceBookService.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 45
+        },
+        {
+            "path": "src/SettlementService.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 51
+        },
+        {
+            "path": "src/MarginReporter.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 30
+        },
+        {
+            "path": "src/TaxRateRepository.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-1",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "CM-03",
+            "name": "docblock",
+            "params": {
+                "style": "minimal",
+                "summary": "Compute the result for the given inputs."
+            },
+            "applied_to": [
+                "src/PriceBookService.php"
+            ]
+        },
+        {
+            "code": "CM-03",
+            "name": "docblock",
+            "params": {
+                "style": "full",
+                "summary": "Compute invoice totals including subtotal, tax, discount and shipping.",
+                "tags": [
+                    "@param array $lineItems List of line items with qty and unitPrice.",
+                    "@param float $taxRate Tax rate as a decimal (e.g. 0.08 for 8%).",
+                    "@param float $discountRate Discount rate as a decimal (e.g. 0.05 for 5%).",
+                    "@return array{invoice details} Computed subtotal, discount, tax, shipping and grand total."
+                ]
+            },
+            "applied_to": [
+                "src/SettlementService.php"
+            ]
+        }
+    ],
+    "difficulty": {
+        "score": 18,
+        "requires": [
+            "comment_stripping"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L03/cm_docblock.json",
+        "version": "1.0.0",
+        "rng_seed": 103001
+    }
+}

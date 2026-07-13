@@ -213,6 +213,16 @@
                     "type": "integer"
                 }
             }
+        },
+        "role_composition": {
+            "$comment": "Override the default 3-carrier+1-distractor+1-clean role composition for non-standard sets (e.g. ex_full_file, L7 variant-selector sets with only 2 carriers). Verify.php reads this from set.json to adjust its role-count assertion.",
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "carrier":   {"type": "integer", "minimum": 1},
+                "distractor": {"type": "integer", "minimum": 0},
+                "clean":      {"type": "integer", "minimum": 1}
+            }
         }
     }
 }

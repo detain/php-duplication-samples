@@ -28,8 +28,16 @@ loadAs($dir . '/payload.php', 'auth_pristine');
 // pristine payload over the same input matrix. Add a row here when a new
 // variant file is introduced under variants/.
 $variants = [
-    'auth_nested' => $dir . '/variants/cf_guard_nested.php',
-    'auth_match'  => $dir . '/variants/cf_match_guard.php',
+    'auth_nested'        => $dir . '/variants/cf_guard_nested.php',
+    'auth_match'         => $dir . '/variants/cf_match_guard.php',
+    'auth_if_ternary'    => $dir . '/variants/cf_if_ternary.php',
+    'auth_loop_forms'    => $dir . '/variants/cf_loop_forms.php',
+    'auth_early_return'  => $dir . '/variants/cf_early_return.php',
+    'auth_demorgan'      => $dir . '/variants/bl_demorgan.php',
+    'auth_split_combined'=> $dir . '/variants/bl_split_combined.php',
+    'auth_commutative'  => $dir . '/variants/bl_commutative.php',
+    'auth_arith'         => $dir . '/variants/ex_arith.php',
+    'auth_null_styles'  => $dir . '/variants/nu_null_styles.php',
 ];
 foreach ($variants as $fn => $file) {
     loadAs($file, $fn);
@@ -59,7 +67,7 @@ foreach ($users as $ui => $user) {
         $expected = auth_pristine($user, $resource);
         foreach (array_keys($variants) as $fn) {
             $count++;
-            $actual = $fn($user, $resource);
+            $actual = @$fn($user, $resource);
             if ($actual !== $expected) {
                 $failures++;
                 fwrite(STDERR, "[FAIL] {$fn} user {$ui} resource {$ri}: expected "

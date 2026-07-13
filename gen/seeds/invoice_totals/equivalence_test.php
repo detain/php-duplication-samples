@@ -28,6 +28,9 @@ function loadAs(string $file, string $newName): void
 $dir = __DIR__;
 loadAs($dir . '/payload.php', 'inv_pristine');
 loadAs($dir . '/variants/api_map_loop.php', 'inv_map');
+loadAs($dir . '/variants/api_strings.php', 'inv_strings');
+loadAs($dir . '/variants/api_regex_string.php', 'inv_regex_string');
+loadAs($dir . '/variants/api_recursion.php', 'inv_recursion');
 
 $cases = [
     [[], 0.07, 0.0],
@@ -37,13 +40,13 @@ $cases = [
     [[['qty' => 0, 'unitPrice' => 42.0]], 0.0, 0.5],
 ];
 
-$variants = ['inv_map'];
+$variants = ['inv_map', 'inv_strings', 'inv_regex_string', 'inv_recursion'];
 $failures = 0;
 
 foreach ($cases as $i => [$items, $rate, $discount]) {
     $expected = inv_pristine($items, $rate, $discount);
     foreach ($variants as $fn) {
-        $actual = $fn($items, $rate, $discount);
+        $actual = @$fn($items, $rate, $discount);
         if ($actual !== $expected) {
             $failures++;
             fwrite(STDERR, "[FAIL] case {$i} variant {$fn}: expected "

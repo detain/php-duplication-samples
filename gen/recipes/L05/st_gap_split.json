@@ -1,0 +1,96 @@
+{
+    "level": 5,
+    "level_name": "statement_edits",
+    "level_dir": "L05_statement_edits",
+    "family": "st_gap_split",
+    "sets": [
+        {
+            "set_id": "L05-st_gap_split-001",
+            "title": "Invoice totals with foreign computation block inserted at statement boundary",
+            "description": "The same computeTotals method in three billing classes. Carrier A is pristine; carrier B inserts an 8-line unrelated computation block. Gap at statement boundary (Type-3).",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers",
+                "literals"
+            ],
+            "edit_budget": 65,
+            "rng_seed": 105301,
+            "notes": "ST-06 (gap_split) inserts a 3-25 line foreign block (different computation, different variables) at a statement boundary inside the clone.",
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": true,
+                "semantic": true
+            },
+            "carriers": [
+                {
+                    "file": "PristineInvoiceCalc.php",
+                    "namespace": "Acme\\Billing\\Pristine",
+                    "class": "PristineInvoiceCalc",
+                    "scaffold": "method_alpha",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                },
+                {
+                    "file": "GappedInvoiceCalc.php",
+                    "namespace": "Acme\\Billing\\Gapped",
+                    "class": "GappedInvoiceCalc",
+                    "scaffold": "method_beta",
+                    "group": "A",
+                    "pristine": false,
+                    "transforms": [
+                        {
+                            "code": "ST-06",
+                            "params": {
+                                "lines": 8,
+                                "after": 1
+                            }
+                        }
+                    ]
+                },
+                {
+                    "file": "MoreGappedInvoiceCalc.php",
+                    "namespace": "Acme\\Billing\\MoreGapped",
+                    "class": "MoreGappedInvoiceCalc",
+                    "scaffold": "method_gamma",
+                    "group": "A",
+                    "pristine": false,
+                    "transforms": [
+                        {
+                            "code": "ST-06",
+                            "params": {
+                                "lines": 12,
+                                "after": 2
+                            }
+                        }
+                    ]
+                }
+            ],
+            "distractors": [
+                {
+                    "file": "MarginSummarizer.php",
+                    "namespace": "Acme\\Billing\\Summary",
+                    "class": "MarginSummarizer",
+                    "source": "nearmiss_invoice",
+                    "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total \u2014 a different result"
+                }
+            ],
+            "cleans": [
+                {
+                    "file": "TaxRateRepository.php",
+                    "namespace": "Acme\\Billing\\Tax",
+                    "class": "TaxRateRepository",
+                    "source": "clean_billing"
+                }
+            ]
+        }
+    ]
+}

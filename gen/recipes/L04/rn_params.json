@@ -1,0 +1,33 @@
+{
+    "level": 4,
+    "level_name": "rename_literals",
+    "level_dir": "L04_rename_literals",
+    "family": "rn_params",
+    "sets": [
+        {
+            "set_id": "L04-rn_params-001",
+            "title": "Invoice totals with parameter names renamed",
+            "description": "The same computeTotals method in three calculator classes. Carrier A is pristine; carrier B renames one parameter; carrier C renames all parameters. Only parameter names differ (Type-2).",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments", "identifiers"],
+            "rng_seed": 104101,
+            "notes": "RN-02 (params) renames function parameters. Only parameter identifiers change - local variables and structure are untouched.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineInvoiceCalc.php", "namespace": "Acme\\Billing\\Pristine", "class": "PristineInvoiceCalc", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "RenamedInvoiceCalc.php", "namespace": "Acme\\Billing\\Renamed", "class": "RenamedInvoiceCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-02", "params": {"renames": {"lineItems": "rows"}}}]},
+                {"file": "FullyRenamedInvoiceCalc.php", "namespace": "Acme\\Billing\\FullyRenamed", "class": "FullyRenamedInvoiceCalc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "RN-02", "params": {"renames": {"lineItems": "rows", "taxRate": "tr", "discountRate": "dr"}}}]}
+            ],
+            "distractors": [
+                {"file": "LineItemProfiler.php", "namespace": "Acme\\Billing\\Profiling", "class": "LineItemProfiler", "source": "nearmiss_invoice", "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes a histogram of line item prices — a different result"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        }
+    ]
+}

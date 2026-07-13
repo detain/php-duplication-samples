@@ -54,7 +54,7 @@
                         "type": "array",
                         "items": {
                             "type": "string",
-                            "enum": ["whitespace", "comments", "identifiers", "literals", "types", "namespaces", "controlflow", "api", "semantic"]
+                            "enum": ["whitespace", "comments", "identifiers", "literals", "types", "namespaces", "controlflow", "api", "semantic", "case_convention"]
                         }
                     },
                     "token_hash": {

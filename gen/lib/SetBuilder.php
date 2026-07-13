@@ -212,6 +212,10 @@ final class SetBuilder
         if (isset($spec['expected_detection_by_tool'])) {
             $set['expected_detection_by_tool'] = $spec['expected_detection_by_tool'];
         }
+        // role_composition override for non-standard sets (MINOR-2 / §18.7)
+        if (isset($spec['role_composition'])) {
+            $set['role_composition'] = (object)$spec['role_composition'];
+        }
 
         // ---- expected.json -------------------------------------------------
         $clusters = [];
@@ -323,9 +327,37 @@ final class SetBuilder
         $prefix = array_slice($scaffoldLines, 0, $markerIdx);
         $suffix = array_slice($scaffoldLines, $markerIdx + 1);
 
+        // CM-03 (docblock) inserts a docblock before the function signature.
+        // The clone region covers the function body, not the docblock lines.
+        // Skip leading docblock lines so start_line points at the function decl.
+        $skipLeading = 0;
+        $inDocblock = false;
+        foreach ($reindented as $line) {
+            $trimmed = trim($line);
+            if ($trimmed === '') {
+                continue;
+            }
+            if (!$inDocblock && str_starts_with($trimmed, '/**')) {
+                $inDocblock = true;
+                $skipLeading++;
+                continue;
+            }
+            if ($inDocblock && str_starts_with($trimmed, '*') && !str_starts_with($trimmed, '*/')) {
+                $skipLeading++;
+                continue;
+            }
+            // End of docblock or not a docblock line at all.
+            if ($inDocblock && preg_match('/^\s*\*\//', $trimmed)) {
+                $skipLeading++; // the closing */
+                $inDocblock = false;
+                continue;
+            }
+            break;
+        }
+
         $carrierLines = array_merge($prefix, $reindented, $suffix);
-        $start = count($prefix) + 1;
-        $end = $start + count($reindented) - 1;
+        $start = count($prefix) + 1 + $skipLeading;
+        $end = $start + count($reindented) - 1 - $skipLeading;
 
         $content = rtrim(implode("\n", $carrierLines), "\n") . "\n";
         return [$content, $start, $end, $payloadText];

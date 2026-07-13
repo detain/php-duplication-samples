@@ -1,0 +1,33 @@
+{
+    "level": 4,
+    "level_name": "rename_literals",
+    "level_dir": "L04_rename_literals",
+    "family": "ty_type_hints",
+    "sets": [
+        {
+            "set_id": "L04-ty_type_hints-001",
+            "title": "Invoice totals with type hints modified",
+            "description": "The same computeTotals method in three calculator classes. Carrier A has full type hints; carrier B removes one type hint; carrier C changes type hint types. Type declarations differ (Type-2).",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments", "identifiers", "types"],
+            "rng_seed": 104301,
+            "notes": "TY-01 (type_hints) adds/removes/changes type hints. The code logic is identical but type annotations differ. Normalization strips type hints so all carriers become identical after normalization.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineTypedCalc.php", "namespace": "Acme\\Billing\\Pristine", "class": "PristineTypedCalc", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PartialTypedCalc.php", "namespace": "Acme\\Billing\\Partial", "class": "PartialTypedCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "TY-01", "params": {"param_types": {"lineItems": ""}, "return_type": ""}}]},
+                {"file": "ChangedTypedCalc.php", "namespace": "Acme\\Billing\\Changed", "class": "ChangedTypedCalc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "TY-01", "params": {"param_types": {"lineItems": "array", "taxRate": "float", "discountRate": "float"}, "return_type": "array"}}]}
+            ],
+            "distractors": [
+                {"file": "LineItemProfiler.php", "namespace": "Acme\\Billing\\Profiling", "class": "LineItemProfiler", "source": "nearmiss_invoice", "reason": "near-miss: same invoice calculation vocabulary and foreach-over-items shape, but computes a histogram of line item prices — a different result"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        }
+    ]
+}

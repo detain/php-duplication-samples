@@ -1,0 +1,93 @@
+{
+    "level": 6,
+    "level_name": "controlflow_rewrites",
+    "level_dir": "L06_controlflow_rewrites",
+    "family": "bl_commutative",
+    "sets": [
+        {
+            "set_id": "L06-bl_commutative-001",
+            "title": "Authorization decision: commutative Boolean reorderings",
+            "description": "The same resource-authorization decision expressed with logically equivalent Boolean expressions where operands are reordered following the commutative property (A AND B == B AND A, A OR B == B OR A). Carrier A uses the pristine form, carrier B reorders operands in Boolean expressions. All carriers are verified equivalent via equivalence_test.php.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": [
+                "controlflow"
+            ],
+            "rng_seed": 106106,
+            "notes": "BL-03 variant is TODO - variant file does not exist yet. This recipe is a placeholder until the bl_commutative variant is created in gen/seeds/access_guard/variants/bl_commutative.php. Carrier B uses a placeholder variant reference until the actual variant is authored.",
+            "scoring": {
+                "line_tolerance": 2,
+                "member_jaccard_min": 0.6,
+                "min_members_for_credit": 2
+            },
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": false,
+                "semantic": true
+            },
+            "carriers": [
+                {
+                    "file": "DocumentAccessPolicy.php",
+                    "namespace": "Acme\\Access\\Documents",
+                    "class": "DocumentAccessPolicy",
+                    "scaffold": "method_alpha",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                },
+                {
+                    "file": "FolderAccessPolicy.php",
+                    "namespace": "Acme\\Access\\Folders",
+                    "class": "FolderAccessPolicy",
+                    "scaffold": "method_beta",
+                    "group": "A",
+                    "pristine": false,
+                    "variant": "bl_commutative",
+                    "transforms": [
+                        {
+                            "code": "BL-03",
+                            "variant": "bl_commutative"
+                        }
+                    ]
+                },
+                {
+                    "file": "ProjectAccessPolicy.php",
+                    "namespace": "Acme\\Access\\Projects",
+                    "class": "ProjectAccessPolicy",
+                    "scaffold": "method_gamma",
+                    "group": "A",
+                    "pristine": false,
+                    "variant": "cf_if_ternary",
+                    "transforms": [
+                        {
+                            "code": "CF-01",
+                            "variant": "cf_if_ternary"
+                        }
+                    ]
+                }
+            ],
+            "distractors": [
+                {
+                    "file": "TrustScorer.php",
+                    "namespace": "Acme\\Access\\Scoring",
+                    "class": "TrustScorer",
+                    "source": "nearmiss_access",
+                    "reason": "near-miss: same auth vocabulary (user/resource/roles/grants/status) but computes a numeric trust score, not a boolean decision"
+                }
+            ],
+            "cleans": [
+                {
+                    "file": "RoleHierarchy.php",
+                    "namespace": "Acme\\Access\\Roles",
+                    "class": "RoleHierarchy",
+                    "source": "clean_auth"
+                }
+            ]
+        }
+    ]
+}

@@ -37,6 +37,8 @@ final class PhpTokens
      *   numbers  (bool)  T_LNUMBER/DNUMBER-> 'NUM'
      *   strings  (bool)  encapsed string  -> 'STR'
      *   names    (bool)  T_STRING         -> 'NAME'
+     *   case_conv(bool)   lowercase all identifiers + names (for RN-05)
+     *   typehint (bool)  strip T_STRING type-hint tokens (for TY-01/02)
      *
      * @param array<string,bool> $opts
      * @return list<string>
@@ -48,6 +50,8 @@ final class PhpTokens
         $absNumbers    = $opts['numbers'] ?? false;
         $absStrings    = $opts['strings'] ?? false;
         $absNames      = $opts['names'] ?? false;
+        $caseConv      = $opts['case_conv'] ?? false;
+        $typeHint      = $opts['typehint'] ?? false;
 
         $out = [];
         foreach (self::rawTokens($fragment) as $t) {
@@ -62,9 +66,13 @@ final class PhpTokens
             if ($stripComments && ($id === T_COMMENT || $id === T_DOC_COMMENT)) {
                 continue;
             }
+            // Strip type-hint tokens (e.g., 'int', 'float', 'string', 'array', 'bool' etc.)
+            if ($typeHint && ($id === T_STRING || $id === T_ARRAY || $id === T_NS_SEPARATOR) && self::isTypeHintToken($text)) {
+                continue;
+            }
             switch ($id) {
                 case T_VARIABLE:
-                    $out[] = $absVars ? '$V' : $text;
+                    $out[] = $absVars ? '$V' : ($caseConv ? strtolower($text) : $text);
                     break;
                 case T_LNUMBER:
                 case T_DNUMBER:
@@ -74,13 +82,26 @@ final class PhpTokens
                     $out[] = $absStrings ? 'STR' : $text;
                     break;
                 case T_STRING:
-                    $out[] = $absNames ? 'NAME' : $text;
+                    $text2 = ($caseConv && !$typeHint) ? strtolower($text) : $text;
+                    $out[] = $absNames ? 'NAME' : $text2;
                     break;
                 default:
                     $out[] = $text;
             }
         }
         return $out;
+    }
+
+    private static function isTypeHintToken(string $text): bool
+    {
+        static $types = [
+            'int'=>true, 'float'=>true, 'string'=>true, 'bool'=>true,
+            'void'=>true, 'null'=>true, 'true'=>true, 'false'=>true,
+            'mixed'=>true, 'object'=>true, 'iterable'=>true, 'resource'=>true,
+            'static'=>true, 'self'=>true, 'parent'=>true, 'array'=>true,
+            'never'=>true, 'closure'=>true, 'generator'=>true,
+        ];
+        return isset($types[strtolower($text)]);
     }
 
     /**
@@ -107,7 +128,14 @@ final class PhpTokens
                 case 'whitespace':
                     // whitespace is always stripped by normalize()
                     break;
-                // namespaces/types/controlflow/api/semantic: no token-level
+                case 'case_convention':
+                    $opts['case_conv'] = true;
+                    break;
+                case 'types':
+                    // "types" stage triggers type-hint stripping for TY-01/TY-02
+                    $opts['typehint'] = true;
+                    break;
+                // namespaces/controlflow/api/semantic: no token-level
                 // canonicalization here; those clusters rely on behavioral proof.
             }
         }

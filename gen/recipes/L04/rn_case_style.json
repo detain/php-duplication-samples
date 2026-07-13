@@ -1,0 +1,33 @@
+{
+    "level": 4,
+    "level_name": "rename_literals",
+    "level_dir": "L04_rename_literals",
+    "family": "rn_case_style",
+    "sets": [
+        {
+            "set_id": "L04-rn_case_style-001",
+            "title": "CSV row parser with case convention converted",
+            "description": "The same CSV row-parsing method in three importer classes. Carrier A uses snake_case; carrier B converts to camelCase. Only naming convention differs (Type-2).",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments", "identifiers", "case_convention", "literals"],
+            "rng_seed": 104401,
+            "notes": "RN-05 (case_style) converts snake_case to camelCase and vice versa. invoice_totals has mixed-case identifiers ($subtotal, $itemCount, etc.) which become $sub_total/$item_count under camel_to_snake. All 3 carriers are distinct after case-preserving normalization.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineCaseCalc.php", "namespace": "Acme\\Billing\\Pristine", "class": "PristineCaseCalc", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "CamelCaseCalc.php", "namespace": "Acme\\Billing\\Camel", "class": "CamelCaseCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-05", "params": {"direction": "snake_to_camel"}}]},
+                {"file": "SnakeCaseCalc.php", "namespace": "Acme\\Billing\\Snake", "class": "SnakeCaseCalc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "RN-05", "params": {"direction": "camel_to_snake"}}]}
+            ],
+            "distractors": [
+                {"file": "LineItemProfiler.php", "namespace": "Acme\\Billing\\Profiling", "class": "LineItemProfiler", "source": "nearmiss_invoice", "reason": "near-miss: same invoice-domain vocabulary and foreach-over-items shape, but computes a histogram of line item prices — a different result"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        }
+    ]
+}
