@@ -21,13 +21,13 @@
             "path": "src/TrimmedInvoiceCalc.php",
             "role": "carrier",
             "duplicate_group": "A",
-            "sloc": 43
+            "sloc": 44
         },
         {
             "path": "src/MoreTrimmedInvoiceCalc.php",
             "role": "carrier",
             "duplicate_group": "A",
-            "sloc": 41
+            "sloc": 42
         },
         {
             "path": "src/MarginSummarizer.php",

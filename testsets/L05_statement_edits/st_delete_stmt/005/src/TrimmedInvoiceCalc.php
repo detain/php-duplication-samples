@@ -19,6 +19,13 @@ final class TrimmedInvoiceCalc
     {
         $subtotal = 0.0;
         $itemCount = 0;
+        foreach ($lineItems as $item) {
+            $quantity = (float) $item['qty'];
+            $unitPrice = (float) $item['unitPrice'];
+            $lineTotal = $quantity * $unitPrice;
+            $subtotal += $lineTotal;
+            $itemCount += (int) $quantity;
+        }
         $discount = round($subtotal * $discountRate, 2);
         $taxable = $subtotal - $discount;
         $tax = round($taxable * $taxRate, 2);

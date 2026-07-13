@@ -18,6 +18,7 @@ final class TrimmedInvoiceCalc
     public function computeTotals(array $lineItems, float $taxRate, float $discountRate): array
     {
         $subtotal = 0.0;
+        $itemCount = 0;
         foreach ($lineItems as $item) {
             $quantity = (float) $item['qty'];
             $unitPrice = (float) $item['unitPrice'];

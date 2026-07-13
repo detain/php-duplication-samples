@@ -18,16 +18,16 @@
             "sloc": 33
         },
         {
-            "path": "src/FolderAccessPolicy.php",
+            "path": "src/ScatteredAccessPolicy.php",
             "role": "carrier",
             "duplicate_group": "A",
-            "sloc": 43
+            "sloc": 44
         },
         {
-            "path": "src/ProjectAccessPolicy.php",
+            "path": "src/NormalizedOrderAccessPolicy.php",
             "role": "carrier",
             "duplicate_group": "A",
-            "sloc": 40
+            "sloc": 44
         },
         {
             "path": "src/TrustScorer.php",
@@ -51,23 +51,23 @@
     },
     "interference": [
         {
-            "code": "SEM-04",
-            "name": "error_style",
+            "code": "SEM-08",
+            "name": "cross_file_scatter",
             "params": {
-                "variant": "sem_error_style"
+                "variant": "sem_scatter"
             },
             "applied_to": [
-                "src/FolderAccessPolicy.php"
+                "src/ScatteredAccessPolicy.php"
             ]
         },
         {
-            "code": "SEM-05",
-            "name": "di_variants",
+            "code": "SEM-11",
+            "name": "normalization_order",
             "params": {
-                "variant": "sem_di_style"
+                "variant": "sem_normalization_order"
             },
             "applied_to": [
-                "src/ProjectAccessPolicy.php"
+                "src/NormalizedOrderAccessPolicy.php"
             ]
         }
     ],

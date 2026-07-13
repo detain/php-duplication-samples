@@ -23,16 +23,16 @@
                     "pristine": true
                 },
                 {
-                    "file": "src/NormalizedOrderAccessPolicy.php",
+                    "file": "src/StateMachineAccessPolicy.php",
                     "start_line": 18,
-                    "end_line": 48,
+                    "end_line": 89,
                     "symbol": "authorize",
                     "pristine": false
                 },
                 {
-                    "file": "src/ConfigDrivenAccessPolicy.php",
+                    "file": "src/ScatteredAccessPolicy.php",
                     "start_line": 24,
-                    "end_line": 71,
+                    "end_line": 53,
                     "symbol": "authorize",
                     "pristine": false
                 }

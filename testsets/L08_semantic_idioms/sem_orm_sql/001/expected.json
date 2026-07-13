@@ -23,16 +23,16 @@
                     "pristine": true
                 },
                 {
-                    "file": "src/OrmAccessRepository.php",
+                    "file": "src/ScatteredAccessPolicy.php",
                     "start_line": 18,
-                    "end_line": 54,
+                    "end_line": 47,
                     "symbol": "authorize",
                     "pristine": false
                 },
                 {
-                    "file": "src/RuleAccessPolicy.php",
+                    "file": "src/StateMachineAccessPolicy.php",
                     "start_line": 24,
-                    "end_line": 51,
+                    "end_line": 95,
                     "symbol": "authorize",
                     "pristine": false
                 }

@@ -21,8 +21,8 @@
             "requires": ["semantic_reasoning"],
             "carriers": [
                 {"file": "DocumentAccessPolicy.php", "namespace": "Acme\\Access\\Documents", "class": "DocumentAccessPolicy", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
-                {"file": "FolderAccessPolicy.php", "namespace": "Acme\\Access\\Folders", "class": "FolderAccessPolicy", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "sem_event", "transforms": [{"code": "SEM-06", "variant": "sem_event"}]},
-                {"file": "ProjectAccessPolicy.php", "namespace": "Acme\\Access\\Projects", "class": "ProjectAccessPolicy", "scaffold": "method_gamma", "group": "A", "pristine": false, "variant": "sem_scatter", "transforms": [{"code": "SEM-08", "variant": "sem_scatter"}]}
+                {"file": "ScatteredAccessPolicy.php", "namespace": "Acme\\Access\\Scattered", "class": "ScatteredAccessPolicy", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "sem_scatter", "transforms": [{"code": "SEM-08", "variant": "sem_scatter"}]},
+                {"file": "StateMachineAccessPolicy.php", "namespace": "Acme\\Access\\State", "class": "StateMachineAccessPolicy", "scaffold": "method_gamma", "group": "A", "pristine": false, "variant": "sem_state_machine", "transforms": [{"code": "SEM-09", "variant": "sem_state_machine"}]}
             ],
             "distractors": [
                 {"file": "TrustScorer.php", "namespace": "Acme\\Access\\Scoring", "class": "TrustScorer", "source": "nearmiss_access", "reason": "near-miss: same auth vocabulary (user/resource/roles/grants/status) but computes a numeric trust score, not a boolean decision"}

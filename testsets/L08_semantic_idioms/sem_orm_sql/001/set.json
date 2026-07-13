@@ -18,16 +18,16 @@
             "sloc": 33
         },
         {
-            "path": "src/OrmAccessRepository.php",
+            "path": "src/ScatteredAccessPolicy.php",
             "role": "carrier",
             "duplicate_group": "A",
-            "sloc": 50
+            "sloc": 44
         },
         {
-            "path": "src/RuleAccessPolicy.php",
+            "path": "src/StateMachineAccessPolicy.php",
             "role": "carrier",
             "duplicate_group": "A",
-            "sloc": 40
+            "sloc": 81
         },
         {
             "path": "src/TrustScorer.php",
@@ -51,23 +51,23 @@
     },
     "interference": [
         {
-            "code": "SEM-07",
-            "name": "orm_vs_sql",
+            "code": "SEM-08",
+            "name": "cross_file_scatter",
             "params": {
-                "variant": "sem_orm_sql"
+                "variant": "sem_scatter"
             },
             "applied_to": [
-                "src/OrmAccessRepository.php"
+                "src/ScatteredAccessPolicy.php"
             ]
         },
         {
-            "code": "SEM-01",
-            "name": "rule_reexpression",
+            "code": "SEM-09",
+            "name": "state_machine",
             "params": {
-                "variant": "sem_rule"
+                "variant": "sem_state_machine"
             },
             "applied_to": [
-                "src/RuleAccessPolicy.php"
+                "src/StateMachineAccessPolicy.php"
             ]
         }
     ],

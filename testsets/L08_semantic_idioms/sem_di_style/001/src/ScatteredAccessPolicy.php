@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Acme\Access\Projects;
+namespace Acme\Access\Scattered;
 
-final class ProjectAccessPolicy
+final class ScatteredAccessPolicy
 {
     public function __construct(private readonly string $region = 'default')
     {

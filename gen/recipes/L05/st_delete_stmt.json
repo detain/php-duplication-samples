@@ -19,8 +19,8 @@
                 "identifiers",
                 "literals"
             ],
-            "edit_budget": 100,
-            "rng_seed": 105201,
+            "edit_budget": 15,
+            "rng_seed": 105210,
             "notes": "Set 1 of 5. ST-04 (delete_stmt) removes non-essential statements like comments or debug lines. Core logic remains intact.",
             "detection_expectation": {
                 "text_based": false,
@@ -105,8 +105,8 @@
                 "identifiers",
                 "literals"
             ],
-            "edit_budget": 100,
-            "rng_seed": 105206,
+            "edit_budget": 15,
+            "rng_seed": 105210,
             "notes": "Set 2 of 5. ST-04 (delete_stmt) removes non-essential statements like comments or debug lines. Core logic remains intact.",
             "detection_expectation": {
                 "text_based": false,
@@ -191,7 +191,7 @@
                 "identifiers",
                 "literals"
             ],
-            "edit_budget": 100,
+            "edit_budget": 15,
             "rng_seed": 105203,
             "notes": "Set 3 of 5. ST-04 (delete_stmt) removes non-essential statements like comments or debug lines. Core logic remains intact.",
             "detection_expectation": {
@@ -277,8 +277,8 @@
                 "identifiers",
                 "literals"
             ],
-            "edit_budget": 100,
-            "rng_seed": 105204,
+            "edit_budget": 15,
+            "rng_seed": 105210,
             "notes": "Set 4 of 5. ST-04 (delete_stmt) removes non-essential statements like comments or debug lines. Core logic remains intact.",
             "detection_expectation": {
                 "text_based": false,
@@ -363,8 +363,8 @@
                 "identifiers",
                 "literals"
             ],
-            "edit_budget": 100,
-            "rng_seed": 105205,
+            "edit_budget": 15,
+            "rng_seed": 105210,
             "notes": "Set 5 of 5. ST-04 (delete_stmt) removes non-essential statements like comments or debug lines. Core logic remains intact.",
             "detection_expectation": {
                 "text_based": false,

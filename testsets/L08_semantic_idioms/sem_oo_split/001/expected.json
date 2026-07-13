@@ -23,16 +23,16 @@
                     "pristine": true
                 },
                 {
-                    "file": "src/FolderAccessPolicy.php",
+                    "file": "src/StateMachineAccessPolicy.php",
                     "start_line": 18,
-                    "end_line": 41,
+                    "end_line": 89,
                     "symbol": "authorize",
                     "pristine": false
                 },
                 {
-                    "file": "src/ProjectAccessPolicy.php",
+                    "file": "src/ScatteredAccessPolicy.php",
                     "start_line": 24,
-                    "end_line": 43,
+                    "end_line": 53,
                     "symbol": "authorize",
                     "pristine": false
                 }
