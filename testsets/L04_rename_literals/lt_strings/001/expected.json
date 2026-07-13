@@ -45,7 +45,7 @@
                 "metric_based": true,
                 "semantic": true
             },
-            "notes": "LT-02 (strings) changes string literal values like 'active'->'enabled'. The string keys and structure remain unchanged."
+            "notes": "LT-02 (strings) changes string literal values like 'active'->'enabled'. The string keys and structure remain unchanged. Set 001 of 5."
         }
     ],
     "non_duplicates": [

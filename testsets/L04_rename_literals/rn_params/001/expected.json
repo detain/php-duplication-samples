@@ -44,7 +44,7 @@
                 "metric_based": true,
                 "semantic": true
             },
-            "notes": "RN-02 (params) renames function parameters. Only parameter identifiers change - local variables and structure are untouched."
+            "notes": "RN-02 (params) renames function parameters. Only parameter identifiers change - local variables and structure are untouched. Set 001 of 5."
         }
     ],
     "non_duplicates": [

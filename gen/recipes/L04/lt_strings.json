@@ -15,7 +15,107 @@
             "clone_type": "type-2",
             "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
             "rng_seed": 104201,
-            "notes": "LT-02 (strings) changes string literal values like 'active'->'enabled'. The string keys and structure remain unchanged.",
+            "notes": "LT-02 (strings) changes string literal values like 'active'->'enabled'. The string keys and structure remain unchanged. Set 001 of 5.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineRowReader.php", "namespace": "Acme\\Import\\Pristine", "class": "PristineRowReader", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "ModifiedRowReader.php", "namespace": "Acme\\Import\\Modified", "class": "ModifiedRowReader", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-02", "params": {"replacements": [{"find": "'active'", "replace": "'enabled'"}]}}]},
+                {"file": "FullyModifiedRowReader.php", "namespace": "Acme\\Import\\FullyModified", "class": "FullyModifiedRowReader", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "LT-02", "params": {"replacements": [{"find": "'active'", "replace": "'enabled'"}, {"find": "'pending'", "replace": "'processing'"}]}}]}
+            ],
+            "distractors": [
+                {"file": "RowWidthProfiler.php", "namespace": "Acme\\Import\\Profiling", "class": "RowWidthProfiler", "source": "nearmiss_csv", "reason": "near-miss: same CSV vocabulary and foreach-over-columns shape, but builds a column-width histogram — a different result"}
+            ],
+            "cleans": [
+                {"file": "HeaderSchemaDetector.php", "namespace": "Acme\\Import\\Schema", "class": "HeaderSchemaDetector", "source": "clean_parsing"}
+            ]
+        },
+        {
+            "set_id": "L04-lt_strings-002",
+            "title": "CSV row parser with string literal values modified",
+            "description": "The same CSV row-parsing method in three importer classes. Carrier A is pristine; carrier B changes one string literal; carrier C changes all string literals. Only string values differ (Type-2).",
+            "seed": "csv_import",
+            "mount": "method",
+            "clone_symbol": "parseRow",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "rng_seed": 104202,
+            "notes": "LT-02 (strings) changes string literal values like 'active'->'enabled'. The string keys and structure remain unchanged. Set 002 of 5.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineRowReader.php", "namespace": "Acme\\Import\\Pristine", "class": "PristineRowReader", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "ModifiedRowReader.php", "namespace": "Acme\\Import\\Modified", "class": "ModifiedRowReader", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-02", "params": {"replacements": [{"find": "'active'", "replace": "'enabled'"}]}}]},
+                {"file": "FullyModifiedRowReader.php", "namespace": "Acme\\Import\\FullyModified", "class": "FullyModifiedRowReader", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "LT-02", "params": {"replacements": [{"find": "'active'", "replace": "'enabled'"}, {"find": "'pending'", "replace": "'processing'"}]}}]}
+            ],
+            "distractors": [
+                {"file": "RowWidthProfiler.php", "namespace": "Acme\\Import\\Profiling", "class": "RowWidthProfiler", "source": "nearmiss_csv", "reason": "near-miss: same CSV vocabulary and foreach-over-columns shape, but builds a column-width histogram — a different result"}
+            ],
+            "cleans": [
+                {"file": "HeaderSchemaDetector.php", "namespace": "Acme\\Import\\Schema", "class": "HeaderSchemaDetector", "source": "clean_parsing"}
+            ]
+        },
+        {
+            "set_id": "L04-lt_strings-003",
+            "title": "CSV row parser with string literal values modified",
+            "description": "The same CSV row-parsing method in three importer classes. Carrier A is pristine; carrier B changes one string literal; carrier C changes all string literals. Only string values differ (Type-2).",
+            "seed": "csv_import",
+            "mount": "method",
+            "clone_symbol": "parseRow",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "rng_seed": 104203,
+            "notes": "LT-02 (strings) changes string literal values like 'active'->'enabled'. The string keys and structure remain unchanged. Set 003 of 5.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineRowReader.php", "namespace": "Acme\\Import\\Pristine", "class": "PristineRowReader", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "ModifiedRowReader.php", "namespace": "Acme\\Import\\Modified", "class": "ModifiedRowReader", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-02", "params": {"replacements": [{"find": "'active'", "replace": "'enabled'"}]}}]},
+                {"file": "FullyModifiedRowReader.php", "namespace": "Acme\\Import\\FullyModified", "class": "FullyModifiedRowReader", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "LT-02", "params": {"replacements": [{"find": "'active'", "replace": "'enabled'"}, {"find": "'pending'", "replace": "'processing'"}]}}]}
+            ],
+            "distractors": [
+                {"file": "RowWidthProfiler.php", "namespace": "Acme\\Import\\Profiling", "class": "RowWidthProfiler", "source": "nearmiss_csv", "reason": "near-miss: same CSV vocabulary and foreach-over-columns shape, but builds a column-width histogram — a different result"}
+            ],
+            "cleans": [
+                {"file": "HeaderSchemaDetector.php", "namespace": "Acme\\Import\\Schema", "class": "HeaderSchemaDetector", "source": "clean_parsing"}
+            ]
+        },
+        {
+            "set_id": "L04-lt_strings-004",
+            "title": "CSV row parser with string literal values modified",
+            "description": "The same CSV row-parsing method in three importer classes. Carrier A is pristine; carrier B changes one string literal; carrier C changes all string literals. Only string values differ (Type-2).",
+            "seed": "csv_import",
+            "mount": "method",
+            "clone_symbol": "parseRow",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "rng_seed": 104204,
+            "notes": "LT-02 (strings) changes string literal values like 'active'->'enabled'. The string keys and structure remain unchanged. Set 004 of 5.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineRowReader.php", "namespace": "Acme\\Import\\Pristine", "class": "PristineRowReader", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "ModifiedRowReader.php", "namespace": "Acme\\Import\\Modified", "class": "ModifiedRowReader", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-02", "params": {"replacements": [{"find": "'active'", "replace": "'enabled'"}]}}]},
+                {"file": "FullyModifiedRowReader.php", "namespace": "Acme\\Import\\FullyModified", "class": "FullyModifiedRowReader", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "LT-02", "params": {"replacements": [{"find": "'active'", "replace": "'enabled'"}, {"find": "'pending'", "replace": "'processing'"}]}}]}
+            ],
+            "distractors": [
+                {"file": "RowWidthProfiler.php", "namespace": "Acme\\Import\\Profiling", "class": "RowWidthProfiler", "source": "nearmiss_csv", "reason": "near-miss: same CSV vocabulary and foreach-over-columns shape, but builds a column-width histogram — a different result"}
+            ],
+            "cleans": [
+                {"file": "HeaderSchemaDetector.php", "namespace": "Acme\\Import\\Schema", "class": "HeaderSchemaDetector", "source": "clean_parsing"}
+            ]
+        },
+        {
+            "set_id": "L04-lt_strings-005",
+            "title": "CSV row parser with string literal values modified",
+            "description": "The same CSV row-parsing method in three importer classes. Carrier A is pristine; carrier B changes one string literal; carrier C changes all string literals. Only string values differ (Type-2).",
+            "seed": "csv_import",
+            "mount": "method",
+            "clone_symbol": "parseRow",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "rng_seed": 104205,
+            "notes": "LT-02 (strings) changes string literal values like 'active'->'enabled'. The string keys and structure remain unchanged. Set 005 of 5.",
             "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
             "carriers": [
                 {"file": "PristineRowReader.php", "namespace": "Acme\\Import\\Pristine", "class": "PristineRowReader", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},

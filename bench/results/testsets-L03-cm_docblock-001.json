@@ -1,0 +1,89 @@
+{
+    "generated_at": "2026-07-13T14:43:58-04:00",
+    "tools": {
+        "phpcpd": {
+            "present": true,
+            "version": "phpcpd 6.0.3 by Sebastian Bergmann.",
+            "flags": "--fuzzy --min-lines 5 --min-tokens 50"
+        },
+        "jscpd": {
+            "present": true,
+            "version": "4.2.4",
+            "flags": "--formats-exts php:php --min-lines 5 --min-tokens 50"
+        }
+    },
+    "rows": [
+        {
+            "set": "L03-cm_docblock-001",
+            "tool": "phpcpd",
+            "version": "phpcpd 6.0.3 by Sebastian Bergmann.",
+            "flags": "--fuzzy --min-lines 5 --min-tokens 50",
+            "recall": 1,
+            "precision": 0.75,
+            "f1": 0.8571428571428571,
+            "trap_fp": 0,
+            "reported_groups": [
+                [
+                    {
+                        "file": "src/LedgerPostingService.php",
+                        "start": 9,
+                        "end": 35
+                    },
+                    {
+                        "file": "src/PriceBookService.php",
+                        "start": 19,
+                        "end": 45
+                    }
+                ],
+                [
+                    {
+                        "file": "src/LedgerPostingService.php",
+                        "start": 9,
+                        "end": 31
+                    },
+                    {
+                        "file": "src/SettlementService.php",
+                        "start": 32,
+                        "end": 54
+                    }
+                ]
+            ]
+        },
+        {
+            "set": "L03-cm_docblock-001",
+            "tool": "jscpd",
+            "version": "4.2.4",
+            "flags": "--formats-exts php:php --min-lines 5 --min-tokens 50",
+            "recall": 1,
+            "precision": 0.75,
+            "f1": 0.8571428571428571,
+            "trap_fp": 0,
+            "reported_groups": [
+                [
+                    {
+                        "file": "src/PriceBookService.php",
+                        "start": 19,
+                        "end": 45
+                    },
+                    {
+                        "file": "src/SettlementService.php",
+                        "start": 32,
+                        "end": 57
+                    }
+                ],
+                [
+                    {
+                        "file": "src/LedgerPostingService.php",
+                        "start": 9,
+                        "end": 35
+                    },
+                    {
+                        "file": "src/SettlementService.php",
+                        "start": 32,
+                        "end": 45
+                    }
+                ]
+            ]
+        }
+    ]
+}

@@ -1,0 +1,62 @@
+{
+    "schema_version": 1,
+    "set_id": "L06-cf_if_ternary-003",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-3",
+            "granularity": "method",
+            "normalized_by": [
+                "controlflow"
+            ],
+            "token_hash": "5cd8e7841ecf7c41",
+            "normalized_hash": "d62b3b768faecc30",
+            "members": [
+                {
+                    "file": "src/DocumentAccessPolicy.php",
+                    "start_line": 9,
+                    "end_line": 27,
+                    "symbol": "authorize",
+                    "pristine": true
+                },
+                {
+                    "file": "src/FolderAccessPolicy.php",
+                    "start_line": 18,
+                    "end_line": 31,
+                    "symbol": "authorize",
+                    "pristine": false
+                },
+                {
+                    "file": "src/ProjectAccessPolicy.php",
+                    "start_line": 24,
+                    "end_line": 39,
+                    "symbol": "authorize",
+                    "pristine": false
+                }
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": false,
+                "semantic": true
+            },
+            "notes": "CF-01 (ternary) variant is behaviorally identical to the pristine guard-clause (verified by equivalence_test.php). The three carriers use genuinely different control-flow syntax — guard chain, nested ternary, and nested if-statement — ensuring token-based detectors find no pair. AST and semantic detectors can recover the clone cluster. Set 003 of 5."
+        }
+    ],
+    "non_duplicates": [
+        {
+            "file": "src/TrustScorer.php",
+            "start_line": 12,
+            "end_line": 27,
+            "reason": "near-miss: same auth vocabulary (user/resource/roles/grants/status) but computes a numeric trust score, not a boolean decision",
+            "trap": true
+        }
+    ],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.6,
+        "min_members_for_credit": 2
+    }
+}

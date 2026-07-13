@@ -1,0 +1,89 @@
+{
+    "schema_version": 1,
+    "set_id": "L05-st_gap_split-002",
+    "level": 5,
+    "level_name": "statement_edits",
+    "family": "st_gap_split",
+    "title": "Invoice totals with foreign computation block inserted at statement boundary",
+    "description": "The same computeTotals method in three billing classes. Carrier A is pristine; carrier B inserts an 8-line unrelated computation block. Gap at statement boundary (Type-3).",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "invoice_totals",
+    "difficulty_band": "hard",
+    "files": [
+        {
+            "path": "src/PristineInvoiceCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 39
+        },
+        {
+            "path": "src/GappedInvoiceCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 53
+        },
+        {
+            "path": "src/MoreGappedInvoiceCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 52
+        },
+        {
+            "path": "src/MarginSummarizer.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 30
+        },
+        {
+            "path": "src/TaxRateRepository.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-3",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "ST-06",
+            "name": "gap_split",
+            "params": {
+                "lines": 8,
+                "after": 1
+            },
+            "applied_to": [
+                "src/GappedInvoiceCalc.php"
+            ]
+        },
+        {
+            "code": "ST-06",
+            "name": "gap_split",
+            "params": {
+                "lines": 12,
+                "after": 2
+            },
+            "applied_to": [
+                "src/MoreGappedInvoiceCalc.php"
+            ]
+        }
+    ],
+    "difficulty": {
+        "score": 57,
+        "requires": [
+            "ast_canonicalization",
+            "deadcode_elimination"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L05/st_gap_split.json",
+        "version": "1.0.0",
+        "rng_seed": 105302
+    }
+}

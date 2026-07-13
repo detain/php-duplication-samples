@@ -82,6 +82,6 @@
         "tool": "gen/build.php",
         "recipe": "gen/recipes/L06/ex_arith.json",
         "version": "1.0.0",
-        "rng_seed": 106107
+        "rng_seed": 106701
     }
 }

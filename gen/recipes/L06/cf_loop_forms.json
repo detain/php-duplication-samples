@@ -16,8 +16,348 @@
             "normalized_by": [
                 "controlflow"
             ],
-            "rng_seed": 106102,
-            "notes": "CF-04 (loop forms) variant uses foreach to iterate through grants instead of the in_array check in the pristine form. This is a valid loop-form rewrite of the same authorization logic. The three carriers use different control-flow structures: guard chain, foreach loop, and match dispatch.",
+            "rng_seed": 106201,
+            "notes": "CF-04 (loop forms) variant uses foreach to iterate through grants instead of the in_array check in the pristine form. This is a valid loop-form rewrite of the same authorization logic. The three carriers use different control-flow structures: guard chain, foreach loop, and match dispatch. Set 001 of 5.",
+            "scoring": {
+                "line_tolerance": 2,
+                "member_jaccard_min": 0.6,
+                "min_members_for_credit": 2
+            },
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": false,
+                "semantic": true
+            },
+            "carriers": [
+                {
+                    "file": "DocumentAccessPolicy.php",
+                    "namespace": "Acme\\Access\\Documents",
+                    "class": "DocumentAccessPolicy",
+                    "scaffold": "method_alpha",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                },
+                {
+                    "file": "FolderAccessPolicy.php",
+                    "namespace": "Acme\\Access\\Folders",
+                    "class": "FolderAccessPolicy",
+                    "scaffold": "method_beta",
+                    "group": "A",
+                    "pristine": false,
+                    "variant": "cf_loop_forms",
+                    "transforms": [
+                        {
+                            "code": "CF-04",
+                            "variant": "cf_loop_forms"
+                        }
+                    ]
+                },
+                {
+                    "file": "ProjectAccessPolicy.php",
+                    "namespace": "Acme\\Access\\Projects",
+                    "class": "ProjectAccessPolicy",
+                    "scaffold": "method_gamma",
+                    "group": "A",
+                    "pristine": false,
+                    "variant": "cf_match_guard",
+                    "transforms": [
+                        {
+                            "code": "CF-02",
+                            "variant": "cf_match_guard"
+                        }
+                    ]
+                }
+            ],
+            "distractors": [
+                {
+                    "file": "TrustScorer.php",
+                    "namespace": "Acme\\Access\\Scoring",
+                    "class": "TrustScorer",
+                    "source": "nearmiss_access",
+                    "reason": "near-miss: same auth vocabulary (user/resource/roles/grants/status) but computes a numeric trust score, not a boolean decision"
+                }
+            ],
+            "cleans": [
+                {
+                    "file": "RoleHierarchy.php",
+                    "namespace": "Acme\\Access\\Roles",
+                    "class": "RoleHierarchy",
+                    "source": "clean_auth"
+                }
+            ]
+        },
+        {
+            "set_id": "L06-cf_loop_forms-002",
+            "title": "Authorization decision: guard clauses vs loop-based iteration",
+            "description": "The same resource-authorization decision in three distinct control-flow forms: carrier A uses early-return guard clauses (pristine), carrier B re-expresses the grant-check logic using foreach iteration over grants, carrier C uses the cf_match_guard match(true) dispatch form. All three are behaviorally identical via equivalence_test.php. The loop form in carrier B is a genuine control-flow rewrite of the guard-clause style.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": [
+                "controlflow"
+            ],
+            "rng_seed": 106202,
+            "notes": "CF-04 (loop forms) variant uses foreach to iterate through grants instead of the in_array check in the pristine form. This is a valid loop-form rewrite of the same authorization logic. The three carriers use different control-flow structures: guard chain, foreach loop, and match dispatch. Set 002 of 5.",
+            "scoring": {
+                "line_tolerance": 2,
+                "member_jaccard_min": 0.6,
+                "min_members_for_credit": 2
+            },
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": false,
+                "semantic": true
+            },
+            "carriers": [
+                {
+                    "file": "DocumentAccessPolicy.php",
+                    "namespace": "Acme\\Access\\Documents",
+                    "class": "DocumentAccessPolicy",
+                    "scaffold": "method_alpha",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                },
+                {
+                    "file": "FolderAccessPolicy.php",
+                    "namespace": "Acme\\Access\\Folders",
+                    "class": "FolderAccessPolicy",
+                    "scaffold": "method_beta",
+                    "group": "A",
+                    "pristine": false,
+                    "variant": "cf_loop_forms",
+                    "transforms": [
+                        {
+                            "code": "CF-04",
+                            "variant": "cf_loop_forms"
+                        }
+                    ]
+                },
+                {
+                    "file": "ProjectAccessPolicy.php",
+                    "namespace": "Acme\\Access\\Projects",
+                    "class": "ProjectAccessPolicy",
+                    "scaffold": "method_gamma",
+                    "group": "A",
+                    "pristine": false,
+                    "variant": "cf_match_guard",
+                    "transforms": [
+                        {
+                            "code": "CF-02",
+                            "variant": "cf_match_guard"
+                        }
+                    ]
+                }
+            ],
+            "distractors": [
+                {
+                    "file": "TrustScorer.php",
+                    "namespace": "Acme\\Access\\Scoring",
+                    "class": "TrustScorer",
+                    "source": "nearmiss_access",
+                    "reason": "near-miss: same auth vocabulary (user/resource/roles/grants/status) but computes a numeric trust score, not a boolean decision"
+                }
+            ],
+            "cleans": [
+                {
+                    "file": "RoleHierarchy.php",
+                    "namespace": "Acme\\Access\\Roles",
+                    "class": "RoleHierarchy",
+                    "source": "clean_auth"
+                }
+            ]
+        },
+        {
+            "set_id": "L06-cf_loop_forms-003",
+            "title": "Authorization decision: guard clauses vs loop-based iteration",
+            "description": "The same resource-authorization decision in three distinct control-flow forms: carrier A uses early-return guard clauses (pristine), carrier B re-expresses the grant-check logic using foreach iteration over grants, carrier C uses the cf_match_guard match(true) dispatch form. All three are behaviorally identical via equivalence_test.php. The loop form in carrier B is a genuine control-flow rewrite of the guard-clause style.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": [
+                "controlflow"
+            ],
+            "rng_seed": 106203,
+            "notes": "CF-04 (loop forms) variant uses foreach to iterate through grants instead of the in_array check in the pristine form. This is a valid loop-form rewrite of the same authorization logic. The three carriers use different control-flow structures: guard chain, foreach loop, and match dispatch. Set 003 of 5.",
+            "scoring": {
+                "line_tolerance": 2,
+                "member_jaccard_min": 0.6,
+                "min_members_for_credit": 2
+            },
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": false,
+                "semantic": true
+            },
+            "carriers": [
+                {
+                    "file": "DocumentAccessPolicy.php",
+                    "namespace": "Acme\\Access\\Documents",
+                    "class": "DocumentAccessPolicy",
+                    "scaffold": "method_alpha",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                },
+                {
+                    "file": "FolderAccessPolicy.php",
+                    "namespace": "Acme\\Access\\Folders",
+                    "class": "FolderAccessPolicy",
+                    "scaffold": "method_beta",
+                    "group": "A",
+                    "pristine": false,
+                    "variant": "cf_loop_forms",
+                    "transforms": [
+                        {
+                            "code": "CF-04",
+                            "variant": "cf_loop_forms"
+                        }
+                    ]
+                },
+                {
+                    "file": "ProjectAccessPolicy.php",
+                    "namespace": "Acme\\Access\\Projects",
+                    "class": "ProjectAccessPolicy",
+                    "scaffold": "method_gamma",
+                    "group": "A",
+                    "pristine": false,
+                    "variant": "cf_match_guard",
+                    "transforms": [
+                        {
+                            "code": "CF-02",
+                            "variant": "cf_match_guard"
+                        }
+                    ]
+                }
+            ],
+            "distractors": [
+                {
+                    "file": "TrustScorer.php",
+                    "namespace": "Acme\\Access\\Scoring",
+                    "class": "TrustScorer",
+                    "source": "nearmiss_access",
+                    "reason": "near-miss: same auth vocabulary (user/resource/roles/grants/status) but computes a numeric trust score, not a boolean decision"
+                }
+            ],
+            "cleans": [
+                {
+                    "file": "RoleHierarchy.php",
+                    "namespace": "Acme\\Access\\Roles",
+                    "class": "RoleHierarchy",
+                    "source": "clean_auth"
+                }
+            ]
+        },
+        {
+            "set_id": "L06-cf_loop_forms-004",
+            "title": "Authorization decision: guard clauses vs loop-based iteration",
+            "description": "The same resource-authorization decision in three distinct control-flow forms: carrier A uses early-return guard clauses (pristine), carrier B re-expresses the grant-check logic using foreach iteration over grants, carrier C uses the cf_match_guard match(true) dispatch form. All three are behaviorally identical via equivalence_test.php. The loop form in carrier B is a genuine control-flow rewrite of the guard-clause style.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": [
+                "controlflow"
+            ],
+            "rng_seed": 106204,
+            "notes": "CF-04 (loop forms) variant uses foreach to iterate through grants instead of the in_array check in the pristine form. This is a valid loop-form rewrite of the same authorization logic. The three carriers use different control-flow structures: guard chain, foreach loop, and match dispatch. Set 004 of 5.",
+            "scoring": {
+                "line_tolerance": 2,
+                "member_jaccard_min": 0.6,
+                "min_members_for_credit": 2
+            },
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": false,
+                "semantic": true
+            },
+            "carriers": [
+                {
+                    "file": "DocumentAccessPolicy.php",
+                    "namespace": "Acme\\Access\\Documents",
+                    "class": "DocumentAccessPolicy",
+                    "scaffold": "method_alpha",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                },
+                {
+                    "file": "FolderAccessPolicy.php",
+                    "namespace": "Acme\\Access\\Folders",
+                    "class": "FolderAccessPolicy",
+                    "scaffold": "method_beta",
+                    "group": "A",
+                    "pristine": false,
+                    "variant": "cf_loop_forms",
+                    "transforms": [
+                        {
+                            "code": "CF-04",
+                            "variant": "cf_loop_forms"
+                        }
+                    ]
+                },
+                {
+                    "file": "ProjectAccessPolicy.php",
+                    "namespace": "Acme\\Access\\Projects",
+                    "class": "ProjectAccessPolicy",
+                    "scaffold": "method_gamma",
+                    "group": "A",
+                    "pristine": false,
+                    "variant": "cf_match_guard",
+                    "transforms": [
+                        {
+                            "code": "CF-02",
+                            "variant": "cf_match_guard"
+                        }
+                    ]
+                }
+            ],
+            "distractors": [
+                {
+                    "file": "TrustScorer.php",
+                    "namespace": "Acme\\Access\\Scoring",
+                    "class": "TrustScorer",
+                    "source": "nearmiss_access",
+                    "reason": "near-miss: same auth vocabulary (user/resource/roles/grants/status) but computes a numeric trust score, not a boolean decision"
+                }
+            ],
+            "cleans": [
+                {
+                    "file": "RoleHierarchy.php",
+                    "namespace": "Acme\\Access\\Roles",
+                    "class": "RoleHierarchy",
+                    "source": "clean_auth"
+                }
+            ]
+        },
+        {
+            "set_id": "L06-cf_loop_forms-005",
+            "title": "Authorization decision: guard clauses vs loop-based iteration",
+            "description": "The same resource-authorization decision in three distinct control-flow forms: carrier A uses early-return guard clauses (pristine), carrier B re-expresses the grant-check logic using foreach iteration over grants, carrier C uses the cf_match_guard match(true) dispatch form. All three are behaviorally identical via equivalence_test.php. The loop form in carrier B is a genuine control-flow rewrite of the guard-clause style.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": [
+                "controlflow"
+            ],
+            "rng_seed": 106205,
+            "notes": "CF-04 (loop forms) variant uses foreach to iterate through grants instead of the in_array check in the pristine form. This is a valid loop-form rewrite of the same authorization logic. The three carriers use different control-flow structures: guard chain, foreach loop, and match dispatch. Set 005 of 5.",
             "scoring": {
                 "line_tolerance": 2,
                 "member_jaccard_min": 0.6,

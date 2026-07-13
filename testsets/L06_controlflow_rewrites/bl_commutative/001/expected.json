@@ -42,7 +42,7 @@
                 "metric_based": false,
                 "semantic": true
             },
-            "notes": "BL-03 variant is TODO - variant file does not exist yet. This recipe is a placeholder until the bl_commutative variant is created in gen/seeds/access_guard/variants/bl_commutative.php. Carrier B uses a placeholder variant reference until the actual variant is authored."
+            "notes": "BL-03 variant is TODO - variant file does not exist yet. This recipe is a placeholder until the bl_commutative variant is created in gen/seeds/access_guard/variants/bl_commutative.php. Carrier B uses a placeholder variant reference until the actual variant is authored. Set 001 of 5."
         }
     ],
     "non_duplicates": [

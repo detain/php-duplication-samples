@@ -45,7 +45,7 @@
                 "metric_based": true,
                 "semantic": true
             },
-            "notes": "ST-09 (expr_tweak) changes >= to >, +1 to +2, or similar small expression edits. Boundary conditions change slightly."
+            "notes": "Set 1 of 5. ST-09 (expr_tweak) changes >= to >, +1 to +2, or similar small expression edits. Boundary conditions change slightly."
         }
     ],
     "non_duplicates": [

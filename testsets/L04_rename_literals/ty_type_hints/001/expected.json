@@ -45,7 +45,7 @@
                 "metric_based": true,
                 "semantic": true
             },
-            "notes": "TY-01 (type_hints) adds/removes/changes type hints. The code logic is identical but type annotations differ. Normalization strips type hints so all carriers become identical after normalization."
+            "notes": "TY-01 (type_hints) adds/removes/changes type hints. The code logic is identical but type annotations differ. Normalization strips type hints so all carriers become identical after normalization. Set 001 of 5."
         }
     ],
     "non_duplicates": [

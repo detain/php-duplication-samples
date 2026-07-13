@@ -42,7 +42,7 @@
                 "metric_based": false,
                 "semantic": true
             },
-            "notes": "CF-01 (ternary) variant is behaviorally identical to the pristine guard-clause (verified by equivalence_test.php). The three carriers use genuinely different control-flow syntax — guard chain, nested ternary, and nested if-statement — ensuring token-based detectors find no pair. AST and semantic detectors can recover the clone cluster."
+            "notes": "CF-01 (ternary) variant is behaviorally identical to the pristine guard-clause (verified by equivalence_test.php). The three carriers use genuinely different control-flow syntax — guard chain, nested ternary, and nested if-statement — ensuring token-based detectors find no pair. AST and semantic detectors can recover the clone cluster. Set 001 of 5."
         }
     ],
     "non_duplicates": [

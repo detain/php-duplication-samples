@@ -16,8 +16,348 @@
             "normalized_by": [
                 "controlflow"
             ],
-            "rng_seed": 106103,
-            "notes": "CF-05 (early_return) variant combines guard clauses with an $allowed accumulator for the grant checks, differing from the pristine form which uses guard clauses throughout. The three carriers use different patterns: pure guard chain, guard+accumulator, and nested ternary.",
+            "rng_seed": 106301,
+            "notes": "CF-05 (early_return) variant combines guard clauses with an $allowed accumulator for the grant checks, differing from the pristine form which uses guard clauses throughout. The three carriers use different patterns: pure guard chain, guard+accumulator, and nested ternary. Set 001 of 5.",
+            "scoring": {
+                "line_tolerance": 2,
+                "member_jaccard_min": 0.6,
+                "min_members_for_credit": 2
+            },
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": false,
+                "semantic": true
+            },
+            "carriers": [
+                {
+                    "file": "DocumentAccessPolicy.php",
+                    "namespace": "Acme\\Access\\Documents",
+                    "class": "DocumentAccessPolicy",
+                    "scaffold": "method_alpha",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                },
+                {
+                    "file": "FolderAccessPolicy.php",
+                    "namespace": "Acme\\Access\\Folders",
+                    "class": "FolderAccessPolicy",
+                    "scaffold": "method_beta",
+                    "group": "A",
+                    "pristine": false,
+                    "variant": "cf_early_return",
+                    "transforms": [
+                        {
+                            "code": "CF-05",
+                            "variant": "cf_early_return"
+                        }
+                    ]
+                },
+                {
+                    "file": "ProjectAccessPolicy.php",
+                    "namespace": "Acme\\Access\\Projects",
+                    "class": "ProjectAccessPolicy",
+                    "scaffold": "method_gamma",
+                    "group": "A",
+                    "pristine": false,
+                    "variant": "cf_if_ternary",
+                    "transforms": [
+                        {
+                            "code": "CF-01",
+                            "variant": "cf_if_ternary"
+                        }
+                    ]
+                }
+            ],
+            "distractors": [
+                {
+                    "file": "TrustScorer.php",
+                    "namespace": "Acme\\Access\\Scoring",
+                    "class": "TrustScorer",
+                    "source": "nearmiss_access",
+                    "reason": "near-miss: same auth vocabulary (user/resource/roles/grants/status) but computes a numeric trust score, not a boolean decision"
+                }
+            ],
+            "cleans": [
+                {
+                    "file": "RoleHierarchy.php",
+                    "namespace": "Acme\\Access\\Roles",
+                    "class": "RoleHierarchy",
+                    "source": "clean_auth"
+                }
+            ]
+        },
+        {
+            "set_id": "L06-cf_early_return-002",
+            "title": "Authorization decision: guard clauses vs early-return with accumulator",
+            "description": "The same resource-authorization decision in three distinct control-flow forms: carrier A uses early-return guard clauses (pristine), carrier B re-expresses the logic using multiple early returns combined with an $allowed accumulator variable, carrier C uses the cf_if_ternary nested ternary form. All three are behaviorally identical via equivalence_test.php. The early-return variant introduces the $allowed variable which distinguishes it from the pristine pure guard chain.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": [
+                "controlflow"
+            ],
+            "rng_seed": 106302,
+            "notes": "CF-05 (early_return) variant combines guard clauses with an $allowed accumulator for the grant checks, differing from the pristine form which uses guard clauses throughout. The three carriers use different patterns: pure guard chain, guard+accumulator, and nested ternary. Set 002 of 5.",
+            "scoring": {
+                "line_tolerance": 2,
+                "member_jaccard_min": 0.6,
+                "min_members_for_credit": 2
+            },
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": false,
+                "semantic": true
+            },
+            "carriers": [
+                {
+                    "file": "DocumentAccessPolicy.php",
+                    "namespace": "Acme\\Access\\Documents",
+                    "class": "DocumentAccessPolicy",
+                    "scaffold": "method_alpha",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                },
+                {
+                    "file": "FolderAccessPolicy.php",
+                    "namespace": "Acme\\Access\\Folders",
+                    "class": "FolderAccessPolicy",
+                    "scaffold": "method_beta",
+                    "group": "A",
+                    "pristine": false,
+                    "variant": "cf_early_return",
+                    "transforms": [
+                        {
+                            "code": "CF-05",
+                            "variant": "cf_early_return"
+                        }
+                    ]
+                },
+                {
+                    "file": "ProjectAccessPolicy.php",
+                    "namespace": "Acme\\Access\\Projects",
+                    "class": "ProjectAccessPolicy",
+                    "scaffold": "method_gamma",
+                    "group": "A",
+                    "pristine": false,
+                    "variant": "cf_if_ternary",
+                    "transforms": [
+                        {
+                            "code": "CF-01",
+                            "variant": "cf_if_ternary"
+                        }
+                    ]
+                }
+            ],
+            "distractors": [
+                {
+                    "file": "TrustScorer.php",
+                    "namespace": "Acme\\Access\\Scoring",
+                    "class": "TrustScorer",
+                    "source": "nearmiss_access",
+                    "reason": "near-miss: same auth vocabulary (user/resource/roles/grants/status) but computes a numeric trust score, not a boolean decision"
+                }
+            ],
+            "cleans": [
+                {
+                    "file": "RoleHierarchy.php",
+                    "namespace": "Acme\\Access\\Roles",
+                    "class": "RoleHierarchy",
+                    "source": "clean_auth"
+                }
+            ]
+        },
+        {
+            "set_id": "L06-cf_early_return-003",
+            "title": "Authorization decision: guard clauses vs early-return with accumulator",
+            "description": "The same resource-authorization decision in three distinct control-flow forms: carrier A uses early-return guard clauses (pristine), carrier B re-expresses the logic using multiple early returns combined with an $allowed accumulator variable, carrier C uses the cf_if_ternary nested ternary form. All three are behaviorally identical via equivalence_test.php. The early-return variant introduces the $allowed variable which distinguishes it from the pristine pure guard chain.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": [
+                "controlflow"
+            ],
+            "rng_seed": 106303,
+            "notes": "CF-05 (early_return) variant combines guard clauses with an $allowed accumulator for the grant checks, differing from the pristine form which uses guard clauses throughout. The three carriers use different patterns: pure guard chain, guard+accumulator, and nested ternary. Set 003 of 5.",
+            "scoring": {
+                "line_tolerance": 2,
+                "member_jaccard_min": 0.6,
+                "min_members_for_credit": 2
+            },
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": false,
+                "semantic": true
+            },
+            "carriers": [
+                {
+                    "file": "DocumentAccessPolicy.php",
+                    "namespace": "Acme\\Access\\Documents",
+                    "class": "DocumentAccessPolicy",
+                    "scaffold": "method_alpha",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                },
+                {
+                    "file": "FolderAccessPolicy.php",
+                    "namespace": "Acme\\Access\\Folders",
+                    "class": "FolderAccessPolicy",
+                    "scaffold": "method_beta",
+                    "group": "A",
+                    "pristine": false,
+                    "variant": "cf_early_return",
+                    "transforms": [
+                        {
+                            "code": "CF-05",
+                            "variant": "cf_early_return"
+                        }
+                    ]
+                },
+                {
+                    "file": "ProjectAccessPolicy.php",
+                    "namespace": "Acme\\Access\\Projects",
+                    "class": "ProjectAccessPolicy",
+                    "scaffold": "method_gamma",
+                    "group": "A",
+                    "pristine": false,
+                    "variant": "cf_if_ternary",
+                    "transforms": [
+                        {
+                            "code": "CF-01",
+                            "variant": "cf_if_ternary"
+                        }
+                    ]
+                }
+            ],
+            "distractors": [
+                {
+                    "file": "TrustScorer.php",
+                    "namespace": "Acme\\Access\\Scoring",
+                    "class": "TrustScorer",
+                    "source": "nearmiss_access",
+                    "reason": "near-miss: same auth vocabulary (user/resource/roles/grants/status) but computes a numeric trust score, not a boolean decision"
+                }
+            ],
+            "cleans": [
+                {
+                    "file": "RoleHierarchy.php",
+                    "namespace": "Acme\\Access\\Roles",
+                    "class": "RoleHierarchy",
+                    "source": "clean_auth"
+                }
+            ]
+        },
+        {
+            "set_id": "L06-cf_early_return-004",
+            "title": "Authorization decision: guard clauses vs early-return with accumulator",
+            "description": "The same resource-authorization decision in three distinct control-flow forms: carrier A uses early-return guard clauses (pristine), carrier B re-expresses the logic using multiple early returns combined with an $allowed accumulator variable, carrier C uses the cf_if_ternary nested ternary form. All three are behaviorally identical via equivalence_test.php. The early-return variant introduces the $allowed variable which distinguishes it from the pristine pure guard chain.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": [
+                "controlflow"
+            ],
+            "rng_seed": 106304,
+            "notes": "CF-05 (early_return) variant combines guard clauses with an $allowed accumulator for the grant checks, differing from the pristine form which uses guard clauses throughout. The three carriers use different patterns: pure guard chain, guard+accumulator, and nested ternary. Set 004 of 5.",
+            "scoring": {
+                "line_tolerance": 2,
+                "member_jaccard_min": 0.6,
+                "min_members_for_credit": 2
+            },
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": false,
+                "semantic": true
+            },
+            "carriers": [
+                {
+                    "file": "DocumentAccessPolicy.php",
+                    "namespace": "Acme\\Access\\Documents",
+                    "class": "DocumentAccessPolicy",
+                    "scaffold": "method_alpha",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                },
+                {
+                    "file": "FolderAccessPolicy.php",
+                    "namespace": "Acme\\Access\\Folders",
+                    "class": "FolderAccessPolicy",
+                    "scaffold": "method_beta",
+                    "group": "A",
+                    "pristine": false,
+                    "variant": "cf_early_return",
+                    "transforms": [
+                        {
+                            "code": "CF-05",
+                            "variant": "cf_early_return"
+                        }
+                    ]
+                },
+                {
+                    "file": "ProjectAccessPolicy.php",
+                    "namespace": "Acme\\Access\\Projects",
+                    "class": "ProjectAccessPolicy",
+                    "scaffold": "method_gamma",
+                    "group": "A",
+                    "pristine": false,
+                    "variant": "cf_if_ternary",
+                    "transforms": [
+                        {
+                            "code": "CF-01",
+                            "variant": "cf_if_ternary"
+                        }
+                    ]
+                }
+            ],
+            "distractors": [
+                {
+                    "file": "TrustScorer.php",
+                    "namespace": "Acme\\Access\\Scoring",
+                    "class": "TrustScorer",
+                    "source": "nearmiss_access",
+                    "reason": "near-miss: same auth vocabulary (user/resource/roles/grants/status) but computes a numeric trust score, not a boolean decision"
+                }
+            ],
+            "cleans": [
+                {
+                    "file": "RoleHierarchy.php",
+                    "namespace": "Acme\\Access\\Roles",
+                    "class": "RoleHierarchy",
+                    "source": "clean_auth"
+                }
+            ]
+        },
+        {
+            "set_id": "L06-cf_early_return-005",
+            "title": "Authorization decision: guard clauses vs early-return with accumulator",
+            "description": "The same resource-authorization decision in three distinct control-flow forms: carrier A uses early-return guard clauses (pristine), carrier B re-expresses the logic using multiple early returns combined with an $allowed accumulator variable, carrier C uses the cf_if_ternary nested ternary form. All three are behaviorally identical via equivalence_test.php. The early-return variant introduces the $allowed variable which distinguishes it from the pristine pure guard chain.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": [
+                "controlflow"
+            ],
+            "rng_seed": 106305,
+            "notes": "CF-05 (early_return) variant combines guard clauses with an $allowed accumulator for the grant checks, differing from the pristine form which uses guard clauses throughout. The three carriers use different patterns: pure guard chain, guard+accumulator, and nested ternary. Set 005 of 5.",
             "scoring": {
                 "line_tolerance": 2,
                 "member_jaccard_min": 0.6,

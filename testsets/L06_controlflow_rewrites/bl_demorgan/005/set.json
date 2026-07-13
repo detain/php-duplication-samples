@@ -1,0 +1,86 @@
+{
+    "schema_version": 1,
+    "set_id": "L06-bl_demorgan-005",
+    "level": 6,
+    "level_name": "controlflow_rewrites",
+    "family": "bl_demorgan",
+    "title": "Authorization decision: De Morgan's law rewrites",
+    "description": "The same resource-authorization decision expressed with logically equivalent Boolean expressions following De Morgan's law. Carrier A uses the pristine guard-clause form, carrier B applies De Morgan transformations to the Boolean conditions while preserving behavior. All carriers are verified equivalent via equivalence_test.php.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "access_guard",
+    "difficulty_band": "expert",
+    "files": [
+        {
+            "path": "src/DocumentAccessPolicy.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 33
+        },
+        {
+            "path": "src/FolderAccessPolicy.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 32
+        },
+        {
+            "path": "src/ProjectAccessPolicy.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 34
+        },
+        {
+            "path": "src/TrustScorer.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 29
+        },
+        {
+            "path": "src/RoleHierarchy.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 27
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-3",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "BL-01",
+            "name": "demorgan",
+            "params": {
+                "variant": "bl_demorgan"
+            },
+            "applied_to": [
+                "src/FolderAccessPolicy.php"
+            ]
+        },
+        {
+            "code": "CF-03",
+            "name": "guard_nested",
+            "params": {
+                "variant": "cf_guard_nested"
+            },
+            "applied_to": [
+                "src/ProjectAccessPolicy.php"
+            ]
+        }
+    ],
+    "difficulty": {
+        "score": 91,
+        "requires": [
+            "controlflow_normalization"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L06/bl_demorgan.json",
+        "version": "1.0.0",
+        "rng_seed": 106405
+    }
+}

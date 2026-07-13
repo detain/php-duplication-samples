@@ -20,8 +20,360 @@
                 "literals",
                 "controlflow"
             ],
-            "rng_seed": 107002,
-            "notes": "API-02 (api_strings) variant uses sprintf for formatting instead of number_format/round. Both carriers compute mathematically equivalent results (verified by equivalence_test.php). The sprintf vs round/number_format difference means token-based detectors will struggle to find shared token sequences beyond basic structure.",
+            "rng_seed": 107101,
+            "notes": "Set 001 of 5. API-02 (api_strings) variant uses sprintf for formatting instead of number_format/round. Both carriers compute mathematically equivalent results (verified by equivalence_test.php). The sprintf vs round/number_format difference means token-based detectors will struggle to find shared token sequences beyond basic structure.",
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": false,
+                "semantic": true
+            },
+            "requires": [
+                "api_abstraction",
+                "ast_canonicalization"
+            ],
+            "carriers": [
+                {
+                    "file": "InvoiceComputeStandard.php",
+                    "namespace": "Acme\\Billing\\Invoicing",
+                    "class": "InvoiceComputeStandard",
+                    "scaffold": "method_alpha",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                },
+                {
+                    "file": "InvoiceComputeFunctional.php",
+                    "namespace": "Acme\\Billing\\Invoicing",
+                    "class": "InvoiceComputeFunctional",
+                    "scaffold": "method_beta",
+                    "group": "A",
+                    "pristine": false,
+                    "variant": "api_strings",
+                    "transforms": [
+                        {
+                            "code": "API-02",
+                            "variant": "api_strings"
+                        }
+                    ]
+                },
+                {
+                    "file": "InvoiceComputeAlternative.php",
+                    "namespace": "Acme\\Billing\\Invoicing",
+                    "class": "InvoiceComputeAlternative",
+                    "scaffold": "method_gamma",
+                    "group": "A",
+                    "pristine": false,
+                    "variant": "api_map_loop",
+                    "transforms": [
+                        {
+                            "code": "API-01",
+                            "variant": "api_map_loop"
+                        }
+                    ]
+                }
+            ],
+            "distractors": [
+                {
+                    "file": "MarginSummarizer.php",
+                    "namespace": "Acme\\Billing\\Analytics",
+                    "class": "MarginSummarizer",
+                    "source": "nearmiss_invoice",
+                    "reason": "near-miss: same invoice-domain vocabulary (lineItems, qty, unitPrice) and similar foreach-over-items shape, but computes revenue/cost/margin summary \u2014 a different result with different arithmetic (costRate multiplication, margin ratio), not a duplicate of computeTotals"
+                }
+            ],
+            "cleans": [
+                {
+                    "file": "TaxRateRepository.php",
+                    "namespace": "Acme\\Billing\\Tax",
+                    "class": "TaxRateRepository",
+                    "source": "clean_billing"
+                }
+            ]
+        },
+        {
+            "set_id": "L07-api_strings-002",
+            "title": "Invoice totalling: number formatting vs string formatting",
+            "description": "The same invoice line-item totalling computation written in three genuinely different idioms: carrier A uses the pristine foreach with number_format/round for formatting; carrier B uses sprintf for string formatting of the same numeric values; carrier C uses api_map_loop functional style mapping. Both compute numerically identical results. The three idioms share minimal token sequences beyond variable names and operators, so token-based detection is challenging. AST-canonicalizing and semantic detectors should recover the clone pair.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-4",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers",
+                "literals",
+                "controlflow"
+            ],
+            "rng_seed": 107102,
+            "notes": "Set 002 of 5. API-02 (api_strings) variant uses sprintf for formatting instead of number_format/round. Both carriers compute mathematically equivalent results (verified by equivalence_test.php). The sprintf vs round/number_format difference means token-based detectors will struggle to find shared token sequences beyond basic structure.",
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": false,
+                "semantic": true
+            },
+            "requires": [
+                "api_abstraction",
+                "ast_canonicalization"
+            ],
+            "carriers": [
+                {
+                    "file": "InvoiceComputeStandard.php",
+                    "namespace": "Acme\\Billing\\Invoicing",
+                    "class": "InvoiceComputeStandard",
+                    "scaffold": "method_alpha",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                },
+                {
+                    "file": "InvoiceComputeFunctional.php",
+                    "namespace": "Acme\\Billing\\Invoicing",
+                    "class": "InvoiceComputeFunctional",
+                    "scaffold": "method_beta",
+                    "group": "A",
+                    "pristine": false,
+                    "variant": "api_strings",
+                    "transforms": [
+                        {
+                            "code": "API-02",
+                            "variant": "api_strings"
+                        }
+                    ]
+                },
+                {
+                    "file": "InvoiceComputeAlternative.php",
+                    "namespace": "Acme\\Billing\\Invoicing",
+                    "class": "InvoiceComputeAlternative",
+                    "scaffold": "method_gamma",
+                    "group": "A",
+                    "pristine": false,
+                    "variant": "api_map_loop",
+                    "transforms": [
+                        {
+                            "code": "API-01",
+                            "variant": "api_map_loop"
+                        }
+                    ]
+                }
+            ],
+            "distractors": [
+                {
+                    "file": "MarginSummarizer.php",
+                    "namespace": "Acme\\Billing\\Analytics",
+                    "class": "MarginSummarizer",
+                    "source": "nearmiss_invoice",
+                    "reason": "near-miss: same invoice-domain vocabulary (lineItems, qty, unitPrice) and similar foreach-over-items shape, but computes revenue/cost/margin summary \u2014 a different result with different arithmetic (costRate multiplication, margin ratio), not a duplicate of computeTotals"
+                }
+            ],
+            "cleans": [
+                {
+                    "file": "TaxRateRepository.php",
+                    "namespace": "Acme\\Billing\\Tax",
+                    "class": "TaxRateRepository",
+                    "source": "clean_billing"
+                }
+            ]
+        },
+        {
+            "set_id": "L07-api_strings-003",
+            "title": "Invoice totalling: number formatting vs string formatting",
+            "description": "The same invoice line-item totalling computation written in three genuinely different idioms: carrier A uses the pristine foreach with number_format/round for formatting; carrier B uses sprintf for string formatting of the same numeric values; carrier C uses api_map_loop functional style mapping. Both compute numerically identical results. The three idioms share minimal token sequences beyond variable names and operators, so token-based detection is challenging. AST-canonicalizing and semantic detectors should recover the clone pair.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-4",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers",
+                "literals",
+                "controlflow"
+            ],
+            "rng_seed": 107103,
+            "notes": "Set 003 of 5. API-02 (api_strings) variant uses sprintf for formatting instead of number_format/round. Both carriers compute mathematically equivalent results (verified by equivalence_test.php). The sprintf vs round/number_format difference means token-based detectors will struggle to find shared token sequences beyond basic structure.",
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": false,
+                "semantic": true
+            },
+            "requires": [
+                "api_abstraction",
+                "ast_canonicalization"
+            ],
+            "carriers": [
+                {
+                    "file": "InvoiceComputeStandard.php",
+                    "namespace": "Acme\\Billing\\Invoicing",
+                    "class": "InvoiceComputeStandard",
+                    "scaffold": "method_alpha",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                },
+                {
+                    "file": "InvoiceComputeFunctional.php",
+                    "namespace": "Acme\\Billing\\Invoicing",
+                    "class": "InvoiceComputeFunctional",
+                    "scaffold": "method_beta",
+                    "group": "A",
+                    "pristine": false,
+                    "variant": "api_strings",
+                    "transforms": [
+                        {
+                            "code": "API-02",
+                            "variant": "api_strings"
+                        }
+                    ]
+                },
+                {
+                    "file": "InvoiceComputeAlternative.php",
+                    "namespace": "Acme\\Billing\\Invoicing",
+                    "class": "InvoiceComputeAlternative",
+                    "scaffold": "method_gamma",
+                    "group": "A",
+                    "pristine": false,
+                    "variant": "api_map_loop",
+                    "transforms": [
+                        {
+                            "code": "API-01",
+                            "variant": "api_map_loop"
+                        }
+                    ]
+                }
+            ],
+            "distractors": [
+                {
+                    "file": "MarginSummarizer.php",
+                    "namespace": "Acme\\Billing\\Analytics",
+                    "class": "MarginSummarizer",
+                    "source": "nearmiss_invoice",
+                    "reason": "near-miss: same invoice-domain vocabulary (lineItems, qty, unitPrice) and similar foreach-over-items shape, but computes revenue/cost/margin summary \u2014 a different result with different arithmetic (costRate multiplication, margin ratio), not a duplicate of computeTotals"
+                }
+            ],
+            "cleans": [
+                {
+                    "file": "TaxRateRepository.php",
+                    "namespace": "Acme\\Billing\\Tax",
+                    "class": "TaxRateRepository",
+                    "source": "clean_billing"
+                }
+            ]
+        },
+        {
+            "set_id": "L07-api_strings-004",
+            "title": "Invoice totalling: number formatting vs string formatting",
+            "description": "The same invoice line-item totalling computation written in three genuinely different idioms: carrier A uses the pristine foreach with number_format/round for formatting; carrier B uses sprintf for string formatting of the same numeric values; carrier C uses api_map_loop functional style mapping. Both compute numerically identical results. The three idioms share minimal token sequences beyond variable names and operators, so token-based detection is challenging. AST-canonicalizing and semantic detectors should recover the clone pair.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-4",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers",
+                "literals",
+                "controlflow"
+            ],
+            "rng_seed": 107104,
+            "notes": "Set 004 of 5. API-02 (api_strings) variant uses sprintf for formatting instead of number_format/round. Both carriers compute mathematically equivalent results (verified by equivalence_test.php). The sprintf vs round/number_format difference means token-based detectors will struggle to find shared token sequences beyond basic structure.",
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": false,
+                "semantic": true
+            },
+            "requires": [
+                "api_abstraction",
+                "ast_canonicalization"
+            ],
+            "carriers": [
+                {
+                    "file": "InvoiceComputeStandard.php",
+                    "namespace": "Acme\\Billing\\Invoicing",
+                    "class": "InvoiceComputeStandard",
+                    "scaffold": "method_alpha",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                },
+                {
+                    "file": "InvoiceComputeFunctional.php",
+                    "namespace": "Acme\\Billing\\Invoicing",
+                    "class": "InvoiceComputeFunctional",
+                    "scaffold": "method_beta",
+                    "group": "A",
+                    "pristine": false,
+                    "variant": "api_strings",
+                    "transforms": [
+                        {
+                            "code": "API-02",
+                            "variant": "api_strings"
+                        }
+                    ]
+                },
+                {
+                    "file": "InvoiceComputeAlternative.php",
+                    "namespace": "Acme\\Billing\\Invoicing",
+                    "class": "InvoiceComputeAlternative",
+                    "scaffold": "method_gamma",
+                    "group": "A",
+                    "pristine": false,
+                    "variant": "api_map_loop",
+                    "transforms": [
+                        {
+                            "code": "API-01",
+                            "variant": "api_map_loop"
+                        }
+                    ]
+                }
+            ],
+            "distractors": [
+                {
+                    "file": "MarginSummarizer.php",
+                    "namespace": "Acme\\Billing\\Analytics",
+                    "class": "MarginSummarizer",
+                    "source": "nearmiss_invoice",
+                    "reason": "near-miss: same invoice-domain vocabulary (lineItems, qty, unitPrice) and similar foreach-over-items shape, but computes revenue/cost/margin summary \u2014 a different result with different arithmetic (costRate multiplication, margin ratio), not a duplicate of computeTotals"
+                }
+            ],
+            "cleans": [
+                {
+                    "file": "TaxRateRepository.php",
+                    "namespace": "Acme\\Billing\\Tax",
+                    "class": "TaxRateRepository",
+                    "source": "clean_billing"
+                }
+            ]
+        },
+        {
+            "set_id": "L07-api_strings-005",
+            "title": "Invoice totalling: number formatting vs string formatting",
+            "description": "The same invoice line-item totalling computation written in three genuinely different idioms: carrier A uses the pristine foreach with number_format/round for formatting; carrier B uses sprintf for string formatting of the same numeric values; carrier C uses api_map_loop functional style mapping. Both compute numerically identical results. The three idioms share minimal token sequences beyond variable names and operators, so token-based detection is challenging. AST-canonicalizing and semantic detectors should recover the clone pair.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-4",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers",
+                "literals",
+                "controlflow"
+            ],
+            "rng_seed": 107105,
+            "notes": "Set 005 of 5. API-02 (api_strings) variant uses sprintf for formatting instead of number_format/round. Both carriers compute mathematically equivalent results (verified by equivalence_test.php). The sprintf vs round/number_format difference means token-based detectors will struggle to find shared token sequences beyond basic structure.",
             "detection_expectation": {
                 "text_based": false,
                 "token_based": true,

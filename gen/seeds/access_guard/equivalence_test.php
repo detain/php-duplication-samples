@@ -38,6 +38,17 @@ $variants = [
     'auth_commutative'  => $dir . '/variants/bl_commutative.php',
     'auth_arith'         => $dir . '/variants/ex_arith.php',
     'auth_null_styles'  => $dir . '/variants/nu_null_styles.php',
+    'auth_sem_rule'     => $dir . '/variants/sem_rule.php',
+    'auth_sem_inline'   => $dir . '/variants/sem_inline_extract.php',
+    'auth_sem_oo_split' => $dir . '/variants/sem_oo_split.php',
+    'auth_sem_error'    => $dir . '/variants/sem_error_style.php',
+    'auth_sem_di'       => $dir . '/variants/sem_di_style.php',
+    'auth_sem_event'    => $dir . '/variants/sem_event.php',
+    'auth_sem_orm'      => $dir . '/variants/sem_orm_sql.php',
+    'auth_sem_scatter'  => $dir . '/variants/sem_scatter.php',
+    'auth_sem_state'    => $dir . '/variants/sem_state_machine.php',
+    'auth_sem_config'   => $dir . '/variants/sem_config_driven.php',
+    'auth_sem_order'    => $dir . '/variants/sem_normalization_order.php',
 ];
 foreach ($variants as $fn => $file) {
     loadAs($file, $fn);

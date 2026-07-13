@@ -1,0 +1,87 @@
+{
+    "schema_version": 1,
+    "set_id": "L06-bl_commutative-005",
+    "level": 6,
+    "level_name": "controlflow_rewrites",
+    "family": "bl_commutative",
+    "title": "Authorization decision: commutative Boolean reorderings",
+    "description": "The same resource-authorization decision expressed with logically equivalent Boolean expressions where operands are reordered following the commutative property (A AND B == B AND A, A OR B == B OR A). Carrier A uses the pristine form, carrier B reorders operands in Boolean expressions. All carriers are verified equivalent via equivalence_test.php.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "access_guard",
+    "difficulty_band": "expert",
+    "files": [
+        {
+            "path": "src/DocumentAccessPolicy.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 33
+        },
+        {
+            "path": "src/FolderAccessPolicy.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 40
+        },
+        {
+            "path": "src/ProjectAccessPolicy.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 32
+        },
+        {
+            "path": "src/TrustScorer.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 29
+        },
+        {
+            "path": "src/RoleHierarchy.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 27
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-3",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "BL-03",
+            "name": "commutative",
+            "params": {
+                "variant": "bl_commutative"
+            },
+            "applied_to": [
+                "src/FolderAccessPolicy.php"
+            ]
+        },
+        {
+            "code": "CF-01",
+            "name": "if_ternary",
+            "params": {
+                "variant": "cf_if_ternary"
+            },
+            "applied_to": [
+                "src/ProjectAccessPolicy.php"
+            ]
+        }
+    ],
+    "difficulty": {
+        "score": 89,
+        "requires": [
+            "commutative_reordering",
+            "controlflow_normalization"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L06/bl_commutative.json",
+        "version": "1.0.0",
+        "rng_seed": 106605
+    }
+}

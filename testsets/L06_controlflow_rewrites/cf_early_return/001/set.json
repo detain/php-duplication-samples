@@ -81,6 +81,6 @@
         "tool": "gen/build.php",
         "recipe": "gen/recipes/L06/cf_early_return.json",
         "version": "1.0.0",
-        "rng_seed": 106103
+        "rng_seed": 106301
     }
 }

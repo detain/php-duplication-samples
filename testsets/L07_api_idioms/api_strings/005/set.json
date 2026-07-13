@@ -1,0 +1,87 @@
+{
+    "schema_version": 1,
+    "set_id": "L07-api_strings-005",
+    "level": 7,
+    "level_name": "api_idioms",
+    "family": "api_strings",
+    "title": "Invoice totalling: number formatting vs string formatting",
+    "description": "The same invoice line-item totalling computation written in three genuinely different idioms: carrier A uses the pristine foreach with number_format/round for formatting; carrier B uses sprintf for string formatting of the same numeric values; carrier C uses api_map_loop functional style mapping. Both compute numerically identical results. The three idioms share minimal token sequences beyond variable names and operators, so token-based detection is challenging. AST-canonicalizing and semantic detectors should recover the clone pair.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "invoice_totals",
+    "difficulty_band": "expert",
+    "files": [
+        {
+            "path": "src/InvoiceComputeStandard.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 39
+        },
+        {
+            "path": "src/InvoiceComputeFunctional.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 44
+        },
+        {
+            "path": "src/InvoiceComputeAlternative.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 45
+        },
+        {
+            "path": "src/MarginSummarizer.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 30
+        },
+        {
+            "path": "src/TaxRateRepository.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-4",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "API-02",
+            "name": "string_fns",
+            "params": {
+                "variant": "api_strings"
+            },
+            "applied_to": [
+                "src/InvoiceComputeFunctional.php"
+            ]
+        },
+        {
+            "code": "API-01",
+            "name": "map_vs_loop",
+            "params": {
+                "variant": "api_map_loop"
+            },
+            "applied_to": [
+                "src/InvoiceComputeAlternative.php"
+            ]
+        }
+    ],
+    "difficulty": {
+        "score": 100,
+        "requires": [
+            "api_abstraction",
+            "ast_canonicalization"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L07/api_strings.json",
+        "version": "1.0.0",
+        "rng_seed": 107105
+    }
+}

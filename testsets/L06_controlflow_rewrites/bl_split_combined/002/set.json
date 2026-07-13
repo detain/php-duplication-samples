@@ -1,0 +1,86 @@
+{
+    "schema_version": 1,
+    "set_id": "L06-bl_split_combined-002",
+    "level": 6,
+    "level_name": "controlflow_rewrites",
+    "family": "bl_split_combined",
+    "title": "Authorization decision: split vs combined Boolean conditions",
+    "description": "The same resource-authorization decision expressed with logically equivalent Boolean expressions where some conditions are split into separate statements while others are combined. Carrier A uses the pristine form, carrier B splits combined conditions into separate checks or combines separate conditions. All carriers are verified equivalent via equivalence_test.php.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "access_guard",
+    "difficulty_band": "expert",
+    "files": [
+        {
+            "path": "src/DocumentAccessPolicy.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 33
+        },
+        {
+            "path": "src/FolderAccessPolicy.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 43
+        },
+        {
+            "path": "src/ProjectAccessPolicy.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 30
+        },
+        {
+            "path": "src/TrustScorer.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 29
+        },
+        {
+            "path": "src/RoleHierarchy.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 27
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-3",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "BL-02",
+            "name": "split_combined",
+            "params": {
+                "variant": "bl_split_combined"
+            },
+            "applied_to": [
+                "src/FolderAccessPolicy.php"
+            ]
+        },
+        {
+            "code": "CF-02",
+            "name": "match_switch",
+            "params": {
+                "variant": "cf_match_guard"
+            },
+            "applied_to": [
+                "src/ProjectAccessPolicy.php"
+            ]
+        }
+    ],
+    "difficulty": {
+        "score": 91,
+        "requires": [
+            "controlflow_normalization"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L06/bl_split_combined.json",
+        "version": "1.0.0",
+        "rng_seed": 106502
+    }
+}

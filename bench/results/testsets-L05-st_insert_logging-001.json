@@ -1,0 +1,89 @@
+{
+    "generated_at": "2026-07-13T14:45:32-04:00",
+    "tools": {
+        "phpcpd": {
+            "present": true,
+            "version": "phpcpd 6.0.3 by Sebastian Bergmann.",
+            "flags": "--fuzzy --min-lines 5 --min-tokens 50"
+        },
+        "jscpd": {
+            "present": true,
+            "version": "4.2.4",
+            "flags": "--formats-exts php:php --min-lines 5 --min-tokens 50"
+        }
+    },
+    "rows": [
+        {
+            "set": "L05-st_insert_logging-001",
+            "tool": "phpcpd",
+            "version": "phpcpd 6.0.3 by Sebastian Bergmann.",
+            "flags": "--fuzzy --min-lines 5 --min-tokens 50",
+            "recall": 1,
+            "precision": 1,
+            "f1": 1,
+            "trap_fp": 0,
+            "reported_groups": [
+                [
+                    {
+                        "file": "src/LoggedInvoiceCalc.php",
+                        "start": 22,
+                        "end": 45
+                    },
+                    {
+                        "file": "src/PristineInvoiceCalc.php",
+                        "start": 12,
+                        "end": 35
+                    }
+                ]
+            ]
+        },
+        {
+            "set": "L05-st_insert_logging-001",
+            "tool": "jscpd",
+            "version": "4.2.4",
+            "flags": "--formats-exts php:php --min-lines 5 --min-tokens 50",
+            "recall": 1,
+            "precision": 0.5,
+            "f1": 0.6666666666666666,
+            "trap_fp": 0,
+            "reported_groups": [
+                [
+                    {
+                        "file": "src/PristineInvoiceCalc.php",
+                        "start": 11,
+                        "end": 21
+                    },
+                    {
+                        "file": "src/VerboseInvoiceCalc.php",
+                        "start": 27,
+                        "end": 37
+                    }
+                ],
+                [
+                    {
+                        "file": "src/PristineInvoiceCalc.php",
+                        "start": 23,
+                        "end": 35
+                    },
+                    {
+                        "file": "src/VerboseInvoiceCalc.php",
+                        "start": 41,
+                        "end": 52
+                    }
+                ],
+                [
+                    {
+                        "file": "src/LoggedInvoiceCalc.php",
+                        "start": 21,
+                        "end": 45
+                    },
+                    {
+                        "file": "src/VerboseInvoiceCalc.php",
+                        "start": 27,
+                        "end": 35
+                    }
+                ]
+            ]
+        }
+    ]
+}

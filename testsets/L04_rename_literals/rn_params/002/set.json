@@ -1,0 +1,92 @@
+{
+    "schema_version": 1,
+    "set_id": "L04-rn_params-002",
+    "level": 4,
+    "level_name": "rename_literals",
+    "family": "rn_params",
+    "title": "Invoice totals with parameter names renamed",
+    "description": "The same computeTotals method in three calculator classes. Carrier A is pristine; carrier B renames one parameter; carrier C renames all parameters. Only parameter names differ (Type-2).",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "invoice_totals",
+    "difficulty_band": "medium",
+    "files": [
+        {
+            "path": "src/PristineInvoiceCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 39
+        },
+        {
+            "path": "src/RenamedInvoiceCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 44
+        },
+        {
+            "path": "src/FullyRenamedInvoiceCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 43
+        },
+        {
+            "path": "src/LineItemProfiler.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 30
+        },
+        {
+            "path": "src/TaxRateRepository.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-2",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "RN-02",
+            "name": "params",
+            "params": {
+                "renames": {
+                    "lineItems": "rows"
+                }
+            },
+            "applied_to": [
+                "src/RenamedInvoiceCalc.php"
+            ]
+        },
+        {
+            "code": "RN-02",
+            "name": "params",
+            "params": {
+                "renames": {
+                    "lineItems": "rows",
+                    "taxRate": "tr",
+                    "discountRate": "dr"
+                }
+            },
+            "applied_to": [
+                "src/FullyRenamedInvoiceCalc.php"
+            ]
+        }
+    ],
+    "difficulty": {
+        "score": 36,
+        "requires": [
+            "identifier_canonicalization"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L04/rn_params.json",
+        "version": "1.0.0",
+        "rng_seed": 104102
+    }
+}

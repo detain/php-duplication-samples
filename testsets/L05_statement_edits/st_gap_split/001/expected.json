@@ -45,7 +45,7 @@
                 "metric_based": true,
                 "semantic": true
             },
-            "notes": "ST-06 (gap_split) inserts a 3-25 line foreign block (different computation, different variables) at a statement boundary inside the clone."
+            "notes": "Set 1 of 5. ST-06 (gap_split) inserts a 3-25 line foreign block (different computation, different variables) at a statement boundary inside the clone."
         }
     ],
     "non_duplicates": [

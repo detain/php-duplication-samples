@@ -45,7 +45,7 @@
                 "metric_based": true,
                 "semantic": true
             },
-            "notes": "ST-02 (insert_dead) inserts unused variable assignments or dead if-blocks. The inserted code is syntactically valid but semantically unused."
+            "notes": "Set 1 of 5. ST-02 (insert_dead) inserts unused variable assignments or dead if-blocks. The inserted code is syntactically valid but semantically unused."
         }
     ],
     "non_duplicates": [

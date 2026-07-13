@@ -45,7 +45,7 @@
                 "metric_based": true,
                 "semantic": true
             },
-            "notes": "ST-04 (delete_stmt) removes non-essential statements like comments or debug lines. Core logic remains intact."
+            "notes": "Set 1 of 5. ST-04 (delete_stmt) removes non-essential statements like comments or debug lines. Core logic remains intact."
         }
     ],
     "non_duplicates": [

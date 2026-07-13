@@ -46,7 +46,7 @@
                 "metric_based": false,
                 "semantic": true
             },
-            "notes": "API-02 (api_strings) variant uses sprintf for formatting instead of number_format/round. Both carriers compute mathematically equivalent results (verified by equivalence_test.php). The sprintf vs round/number_format difference means token-based detectors will struggle to find shared token sequences beyond basic structure."
+            "notes": "Set 001 of 5. API-02 (api_strings) variant uses sprintf for formatting instead of number_format/round. Both carriers compute mathematically equivalent results (verified by equivalence_test.php). The sprintf vs round/number_format difference means token-based detectors will struggle to find shared token sequences beyond basic structure."
         }
     ],
     "non_duplicates": [

@@ -1,0 +1,62 @@
+{
+    "schema_version": 1,
+    "set_id": "L06-bl_split_combined-005",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-3",
+            "granularity": "method",
+            "normalized_by": [
+                "controlflow"
+            ],
+            "token_hash": "5cd8e7841ecf7c41",
+            "normalized_hash": "d62b3b768faecc30",
+            "members": [
+                {
+                    "file": "src/DocumentAccessPolicy.php",
+                    "start_line": 9,
+                    "end_line": 27,
+                    "symbol": "authorize",
+                    "pristine": true
+                },
+                {
+                    "file": "src/FolderAccessPolicy.php",
+                    "start_line": 18,
+                    "end_line": 43,
+                    "symbol": "authorize",
+                    "pristine": false
+                },
+                {
+                    "file": "src/ProjectAccessPolicy.php",
+                    "start_line": 24,
+                    "end_line": 36,
+                    "symbol": "authorize",
+                    "pristine": false
+                }
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": false,
+                "semantic": true
+            },
+            "notes": "BL-02 variant is TODO - variant file does not exist yet. This recipe is a placeholder until the bl_split_combined variant is created in gen/seeds/access_guard/variants/bl_split_combined.php. Carrier B uses a placeholder variant reference until the actual variant is authored. Set 005 of 5."
+        }
+    ],
+    "non_duplicates": [
+        {
+            "file": "src/TrustScorer.php",
+            "start_line": 12,
+            "end_line": 27,
+            "reason": "near-miss: same auth vocabulary (user/resource/roles/grants/status) but computes a numeric trust score, not a boolean decision",
+            "trap": true
+        }
+    ],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.6,
+        "min_members_for_credit": 2
+    }
+}

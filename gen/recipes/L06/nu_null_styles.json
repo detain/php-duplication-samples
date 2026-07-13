@@ -16,8 +16,348 @@
             "normalized_by": [
                 "controlflow"
             ],
-            "rng_seed": 106108,
-            "notes": "NU-01 variant is TODO - variant file does not exist yet. This recipe is a placeholder until the nu_null_styles variant is created in gen/seeds/access_guard/variants/nu_null_styles.php. Carrier B uses a placeholder variant reference until the actual variant is authored.",
+            "rng_seed": 106801,
+            "notes": "NU-01 variant is TODO - variant file does not exist yet. This recipe is a placeholder until the nu_null_styles variant is created in gen/seeds/access_guard/variants/nu_null_styles.php. Carrier B uses a placeholder variant reference until the actual variant is authored. Set 001 of 5.",
+            "scoring": {
+                "line_tolerance": 2,
+                "member_jaccard_min": 0.6,
+                "min_members_for_credit": 2
+            },
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": false,
+                "semantic": true
+            },
+            "carriers": [
+                {
+                    "file": "DocumentAccessPolicy.php",
+                    "namespace": "Acme\\Access\\Documents",
+                    "class": "DocumentAccessPolicy",
+                    "scaffold": "method_alpha",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                },
+                {
+                    "file": "FolderAccessPolicy.php",
+                    "namespace": "Acme\\Access\\Folders",
+                    "class": "FolderAccessPolicy",
+                    "scaffold": "method_beta",
+                    "group": "A",
+                    "pristine": false,
+                    "variant": "nu_null_styles",
+                    "transforms": [
+                        {
+                            "code": "NU-01",
+                            "variant": "nu_null_styles"
+                        }
+                    ]
+                },
+                {
+                    "file": "ProjectAccessPolicy.php",
+                    "namespace": "Acme\\Access\\Projects",
+                    "class": "ProjectAccessPolicy",
+                    "scaffold": "method_gamma",
+                    "group": "A",
+                    "pristine": false,
+                    "variant": "cf_loop_forms",
+                    "transforms": [
+                        {
+                            "code": "CF-04",
+                            "variant": "cf_loop_forms"
+                        }
+                    ]
+                }
+            ],
+            "distractors": [
+                {
+                    "file": "TrustScorer.php",
+                    "namespace": "Acme\\Access\\Scoring",
+                    "class": "TrustScorer",
+                    "source": "nearmiss_access",
+                    "reason": "near-miss: same auth vocabulary (user/resource/roles/grants/status) but computes a numeric trust score, not a boolean decision"
+                }
+            ],
+            "cleans": [
+                {
+                    "file": "RoleHierarchy.php",
+                    "namespace": "Acme\\Access\\Roles",
+                    "class": "RoleHierarchy",
+                    "source": "clean_auth"
+                }
+            ]
+        },
+        {
+            "set_id": "L06-nu_null_styles-002",
+            "title": "Authorization decision: varied null-coalescing styles",
+            "description": "The same resource-authorization decision expressed with different null-handling idioms ($a ?? $b, isset($a) ? $a : $b, $a ??= $b, etc.). Carrier A uses the pristine form with mixed null-coalescing operators, carrier B standardizes to a different null-handling style while preserving behavior. All carriers are verified equivalent via equivalence_test.php.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": [
+                "controlflow"
+            ],
+            "rng_seed": 106802,
+            "notes": "NU-01 variant is TODO - variant file does not exist yet. This recipe is a placeholder until the nu_null_styles variant is created in gen/seeds/access_guard/variants/nu_null_styles.php. Carrier B uses a placeholder variant reference until the actual variant is authored. Set 002 of 5.",
+            "scoring": {
+                "line_tolerance": 2,
+                "member_jaccard_min": 0.6,
+                "min_members_for_credit": 2
+            },
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": false,
+                "semantic": true
+            },
+            "carriers": [
+                {
+                    "file": "DocumentAccessPolicy.php",
+                    "namespace": "Acme\\Access\\Documents",
+                    "class": "DocumentAccessPolicy",
+                    "scaffold": "method_alpha",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                },
+                {
+                    "file": "FolderAccessPolicy.php",
+                    "namespace": "Acme\\Access\\Folders",
+                    "class": "FolderAccessPolicy",
+                    "scaffold": "method_beta",
+                    "group": "A",
+                    "pristine": false,
+                    "variant": "nu_null_styles",
+                    "transforms": [
+                        {
+                            "code": "NU-01",
+                            "variant": "nu_null_styles"
+                        }
+                    ]
+                },
+                {
+                    "file": "ProjectAccessPolicy.php",
+                    "namespace": "Acme\\Access\\Projects",
+                    "class": "ProjectAccessPolicy",
+                    "scaffold": "method_gamma",
+                    "group": "A",
+                    "pristine": false,
+                    "variant": "cf_loop_forms",
+                    "transforms": [
+                        {
+                            "code": "CF-04",
+                            "variant": "cf_loop_forms"
+                        }
+                    ]
+                }
+            ],
+            "distractors": [
+                {
+                    "file": "TrustScorer.php",
+                    "namespace": "Acme\\Access\\Scoring",
+                    "class": "TrustScorer",
+                    "source": "nearmiss_access",
+                    "reason": "near-miss: same auth vocabulary (user/resource/roles/grants/status) but computes a numeric trust score, not a boolean decision"
+                }
+            ],
+            "cleans": [
+                {
+                    "file": "RoleHierarchy.php",
+                    "namespace": "Acme\\Access\\Roles",
+                    "class": "RoleHierarchy",
+                    "source": "clean_auth"
+                }
+            ]
+        },
+        {
+            "set_id": "L06-nu_null_styles-003",
+            "title": "Authorization decision: varied null-coalescing styles",
+            "description": "The same resource-authorization decision expressed with different null-handling idioms ($a ?? $b, isset($a) ? $a : $b, $a ??= $b, etc.). Carrier A uses the pristine form with mixed null-coalescing operators, carrier B standardizes to a different null-handling style while preserving behavior. All carriers are verified equivalent via equivalence_test.php.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": [
+                "controlflow"
+            ],
+            "rng_seed": 106803,
+            "notes": "NU-01 variant is TODO - variant file does not exist yet. This recipe is a placeholder until the nu_null_styles variant is created in gen/seeds/access_guard/variants/nu_null_styles.php. Carrier B uses a placeholder variant reference until the actual variant is authored. Set 003 of 5.",
+            "scoring": {
+                "line_tolerance": 2,
+                "member_jaccard_min": 0.6,
+                "min_members_for_credit": 2
+            },
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": false,
+                "semantic": true
+            },
+            "carriers": [
+                {
+                    "file": "DocumentAccessPolicy.php",
+                    "namespace": "Acme\\Access\\Documents",
+                    "class": "DocumentAccessPolicy",
+                    "scaffold": "method_alpha",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                },
+                {
+                    "file": "FolderAccessPolicy.php",
+                    "namespace": "Acme\\Access\\Folders",
+                    "class": "FolderAccessPolicy",
+                    "scaffold": "method_beta",
+                    "group": "A",
+                    "pristine": false,
+                    "variant": "nu_null_styles",
+                    "transforms": [
+                        {
+                            "code": "NU-01",
+                            "variant": "nu_null_styles"
+                        }
+                    ]
+                },
+                {
+                    "file": "ProjectAccessPolicy.php",
+                    "namespace": "Acme\\Access\\Projects",
+                    "class": "ProjectAccessPolicy",
+                    "scaffold": "method_gamma",
+                    "group": "A",
+                    "pristine": false,
+                    "variant": "cf_loop_forms",
+                    "transforms": [
+                        {
+                            "code": "CF-04",
+                            "variant": "cf_loop_forms"
+                        }
+                    ]
+                }
+            ],
+            "distractors": [
+                {
+                    "file": "TrustScorer.php",
+                    "namespace": "Acme\\Access\\Scoring",
+                    "class": "TrustScorer",
+                    "source": "nearmiss_access",
+                    "reason": "near-miss: same auth vocabulary (user/resource/roles/grants/status) but computes a numeric trust score, not a boolean decision"
+                }
+            ],
+            "cleans": [
+                {
+                    "file": "RoleHierarchy.php",
+                    "namespace": "Acme\\Access\\Roles",
+                    "class": "RoleHierarchy",
+                    "source": "clean_auth"
+                }
+            ]
+        },
+        {
+            "set_id": "L06-nu_null_styles-004",
+            "title": "Authorization decision: varied null-coalescing styles",
+            "description": "The same resource-authorization decision expressed with different null-handling idioms ($a ?? $b, isset($a) ? $a : $b, $a ??= $b, etc.). Carrier A uses the pristine form with mixed null-coalescing operators, carrier B standardizes to a different null-handling style while preserving behavior. All carriers are verified equivalent via equivalence_test.php.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": [
+                "controlflow"
+            ],
+            "rng_seed": 106804,
+            "notes": "NU-01 variant is TODO - variant file does not exist yet. This recipe is a placeholder until the nu_null_styles variant is created in gen/seeds/access_guard/variants/nu_null_styles.php. Carrier B uses a placeholder variant reference until the actual variant is authored. Set 004 of 5.",
+            "scoring": {
+                "line_tolerance": 2,
+                "member_jaccard_min": 0.6,
+                "min_members_for_credit": 2
+            },
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": false,
+                "semantic": true
+            },
+            "carriers": [
+                {
+                    "file": "DocumentAccessPolicy.php",
+                    "namespace": "Acme\\Access\\Documents",
+                    "class": "DocumentAccessPolicy",
+                    "scaffold": "method_alpha",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                },
+                {
+                    "file": "FolderAccessPolicy.php",
+                    "namespace": "Acme\\Access\\Folders",
+                    "class": "FolderAccessPolicy",
+                    "scaffold": "method_beta",
+                    "group": "A",
+                    "pristine": false,
+                    "variant": "nu_null_styles",
+                    "transforms": [
+                        {
+                            "code": "NU-01",
+                            "variant": "nu_null_styles"
+                        }
+                    ]
+                },
+                {
+                    "file": "ProjectAccessPolicy.php",
+                    "namespace": "Acme\\Access\\Projects",
+                    "class": "ProjectAccessPolicy",
+                    "scaffold": "method_gamma",
+                    "group": "A",
+                    "pristine": false,
+                    "variant": "cf_loop_forms",
+                    "transforms": [
+                        {
+                            "code": "CF-04",
+                            "variant": "cf_loop_forms"
+                        }
+                    ]
+                }
+            ],
+            "distractors": [
+                {
+                    "file": "TrustScorer.php",
+                    "namespace": "Acme\\Access\\Scoring",
+                    "class": "TrustScorer",
+                    "source": "nearmiss_access",
+                    "reason": "near-miss: same auth vocabulary (user/resource/roles/grants/status) but computes a numeric trust score, not a boolean decision"
+                }
+            ],
+            "cleans": [
+                {
+                    "file": "RoleHierarchy.php",
+                    "namespace": "Acme\\Access\\Roles",
+                    "class": "RoleHierarchy",
+                    "source": "clean_auth"
+                }
+            ]
+        },
+        {
+            "set_id": "L06-nu_null_styles-005",
+            "title": "Authorization decision: varied null-coalescing styles",
+            "description": "The same resource-authorization decision expressed with different null-handling idioms ($a ?? $b, isset($a) ? $a : $b, $a ??= $b, etc.). Carrier A uses the pristine form with mixed null-coalescing operators, carrier B standardizes to a different null-handling style while preserving behavior. All carriers are verified equivalent via equivalence_test.php.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": [
+                "controlflow"
+            ],
+            "rng_seed": 106805,
+            "notes": "NU-01 variant is TODO - variant file does not exist yet. This recipe is a placeholder until the nu_null_styles variant is created in gen/seeds/access_guard/variants/nu_null_styles.php. Carrier B uses a placeholder variant reference until the actual variant is authored. Set 005 of 5.",
             "scoring": {
                 "line_tolerance": 2,
                 "member_jaccard_min": 0.6,

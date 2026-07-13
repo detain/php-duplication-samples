@@ -46,7 +46,7 @@
                 "metric_based": false,
                 "semantic": true
             },
-            "notes": "API-04 variant is TODO - variant file does not exist yet. This recipe is a placeholder until the api_recursion variant is created in gen/seeds/invoice_totals/variants/api_recursion.php. Carrier B uses a placeholder variant reference until the actual variant is authored."
+            "notes": "Set 001 of 5. API-04 variant is TODO - variant file does not exist yet. This recipe is a placeholder until the api_recursion variant is created in gen/seeds/invoice_totals/variants/api_recursion.php. Carrier B uses a placeholder variant reference until the actual variant is authored."
         }
     ],
     "non_duplicates": [

@@ -81,6 +81,6 @@
         "tool": "gen/build.php",
         "recipe": "gen/recipes/L06/nu_null_styles.json",
         "version": "1.0.0",
-        "rng_seed": 106108
+        "rng_seed": 106801
     }
 }

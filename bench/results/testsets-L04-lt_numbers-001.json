@@ -1,0 +1,106 @@
+{
+    "generated_at": "2026-07-13T14:44:45-04:00",
+    "tools": {
+        "phpcpd": {
+            "present": true,
+            "version": "phpcpd 6.0.3 by Sebastian Bergmann.",
+            "flags": "--fuzzy --min-lines 5 --min-tokens 50"
+        },
+        "jscpd": {
+            "present": true,
+            "version": "4.2.4",
+            "flags": "--formats-exts php:php --min-lines 5 --min-tokens 50"
+        }
+    },
+    "rows": [
+        {
+            "set": "L04-lt_numbers-001",
+            "tool": "phpcpd",
+            "version": "phpcpd 6.0.3 by Sebastian Bergmann.",
+            "flags": "--fuzzy --min-lines 5 --min-tokens 50",
+            "recall": 1,
+            "precision": 1,
+            "f1": 1,
+            "trap_fp": 0,
+            "reported_groups": [
+                [
+                    {
+                        "file": "src/CustomerInvoiceCalc.php",
+                        "start": 18,
+                        "end": 32
+                    },
+                    {
+                        "file": "src/ProductInvoiceCalc.php",
+                        "start": 24,
+                        "end": 38
+                    },
+                    {
+                        "file": "src/VendorInvoiceCalc.php",
+                        "start": 9,
+                        "end": 23
+                    }
+                ]
+            ]
+        },
+        {
+            "set": "L04-lt_numbers-001",
+            "tool": "jscpd",
+            "version": "4.2.4",
+            "flags": "--formats-exts php:php --min-lines 5 --min-tokens 50",
+            "recall": 1,
+            "precision": 0.375,
+            "f1": 0.5454545454545454,
+            "trap_fp": 0,
+            "reported_groups": [
+                [
+                    {
+                        "file": "src/ProductInvoiceCalc.php",
+                        "start": 24,
+                        "end": 38
+                    },
+                    {
+                        "file": "src/VendorInvoiceCalc.php",
+                        "start": 9,
+                        "end": 23
+                    }
+                ],
+                [
+                    {
+                        "file": "src/ProductInvoiceCalc.php",
+                        "start": 38,
+                        "end": 49
+                    },
+                    {
+                        "file": "src/VendorInvoiceCalc.php",
+                        "start": 23,
+                        "end": 35
+                    }
+                ],
+                [
+                    {
+                        "file": "src/CustomerInvoiceCalc.php",
+                        "start": 15,
+                        "end": 32
+                    },
+                    {
+                        "file": "src/ProductInvoiceCalc.php",
+                        "start": 21,
+                        "end": 23
+                    }
+                ],
+                [
+                    {
+                        "file": "src/CustomerInvoiceCalc.php",
+                        "start": 32,
+                        "end": 44
+                    },
+                    {
+                        "file": "src/VendorInvoiceCalc.php",
+                        "start": 23,
+                        "end": 35
+                    }
+                ]
+            ]
+        }
+    ]
+}

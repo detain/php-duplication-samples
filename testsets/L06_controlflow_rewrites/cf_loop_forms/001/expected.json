@@ -42,7 +42,7 @@
                 "metric_based": false,
                 "semantic": true
             },
-            "notes": "CF-04 (loop forms) variant uses foreach to iterate through grants instead of the in_array check in the pristine form. This is a valid loop-form rewrite of the same authorization logic. The three carriers use different control-flow structures: guard chain, foreach loop, and match dispatch."
+            "notes": "CF-04 (loop forms) variant uses foreach to iterate through grants instead of the in_array check in the pristine form. This is a valid loop-form rewrite of the same authorization logic. The three carriers use different control-flow structures: guard chain, foreach loop, and match dispatch. Set 001 of 5."
         }
     ],
     "non_duplicates": [

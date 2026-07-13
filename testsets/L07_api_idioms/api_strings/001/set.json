@@ -82,6 +82,6 @@
         "tool": "gen/build.php",
         "recipe": "gen/recipes/L07/api_strings.json",
         "version": "1.0.0",
-        "rng_seed": 107002
+        "rng_seed": 107101
     }
 }

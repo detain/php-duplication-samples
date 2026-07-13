@@ -1,0 +1,86 @@
+{
+    "schema_version": 1,
+    "set_id": "L06-cf_early_return-002",
+    "level": 6,
+    "level_name": "controlflow_rewrites",
+    "family": "cf_early_return",
+    "title": "Authorization decision: guard clauses vs early-return with accumulator",
+    "description": "The same resource-authorization decision in three distinct control-flow forms: carrier A uses early-return guard clauses (pristine), carrier B re-expresses the logic using multiple early returns combined with an $allowed accumulator variable, carrier C uses the cf_if_ternary nested ternary form. All three are behaviorally identical via equivalence_test.php. The early-return variant introduces the $allowed variable which distinguishes it from the pristine pure guard chain.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "access_guard",
+    "difficulty_band": "expert",
+    "files": [
+        {
+            "path": "src/DocumentAccessPolicy.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 33
+        },
+        {
+            "path": "src/FolderAccessPolicy.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 39
+        },
+        {
+            "path": "src/ProjectAccessPolicy.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 32
+        },
+        {
+            "path": "src/TrustScorer.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 29
+        },
+        {
+            "path": "src/RoleHierarchy.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 27
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-3",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "CF-05",
+            "name": "early_return",
+            "params": {
+                "variant": "cf_early_return"
+            },
+            "applied_to": [
+                "src/FolderAccessPolicy.php"
+            ]
+        },
+        {
+            "code": "CF-01",
+            "name": "if_ternary",
+            "params": {
+                "variant": "cf_if_ternary"
+            },
+            "applied_to": [
+                "src/ProjectAccessPolicy.php"
+            ]
+        }
+    ],
+    "difficulty": {
+        "score": 89,
+        "requires": [
+            "controlflow_normalization"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L06/cf_early_return.json",
+        "version": "1.0.0",
+        "rng_seed": 106302
+    }
+}

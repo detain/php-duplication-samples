@@ -16,8 +16,348 @@
             "normalized_by": [
                 "controlflow"
             ],
-            "rng_seed": 106107,
-            "notes": "EX-01 variant is TODO - variant file does not exist yet. This recipe is a placeholder until the ex_arith variant is created in gen/seeds/access_guard/variants/ex_arith.php. Carrier B uses a placeholder variant reference until the actual variant is authored.",
+            "rng_seed": 106701,
+            "notes": "EX-01 variant is TODO - variant file does not exist yet. This recipe is a placeholder until the ex_arith variant is created in gen/seeds/access_guard/variants/ex_arith.php. Carrier B uses a placeholder variant reference until the actual variant is authored. Set 001 of 5.",
+            "scoring": {
+                "line_tolerance": 2,
+                "member_jaccard_min": 0.6,
+                "min_members_for_credit": 2
+            },
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": false,
+                "semantic": true
+            },
+            "carriers": [
+                {
+                    "file": "DocumentAccessPolicy.php",
+                    "namespace": "Acme\\Access\\Documents",
+                    "class": "DocumentAccessPolicy",
+                    "scaffold": "method_alpha",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                },
+                {
+                    "file": "FolderAccessPolicy.php",
+                    "namespace": "Acme\\Access\\Folders",
+                    "class": "FolderAccessPolicy",
+                    "scaffold": "method_beta",
+                    "group": "A",
+                    "pristine": false,
+                    "variant": "ex_arith",
+                    "transforms": [
+                        {
+                            "code": "EX-01",
+                            "variant": "ex_arith"
+                        }
+                    ]
+                },
+                {
+                    "file": "ProjectAccessPolicy.php",
+                    "namespace": "Acme\\Access\\Projects",
+                    "class": "ProjectAccessPolicy",
+                    "scaffold": "method_gamma",
+                    "group": "A",
+                    "pristine": false,
+                    "variant": "cf_guard_nested",
+                    "transforms": [
+                        {
+                            "code": "CF-03",
+                            "variant": "cf_guard_nested"
+                        }
+                    ]
+                }
+            ],
+            "distractors": [
+                {
+                    "file": "TrustScorer.php",
+                    "namespace": "Acme\\Access\\Scoring",
+                    "class": "TrustScorer",
+                    "source": "nearmiss_access",
+                    "reason": "near-miss: same auth vocabulary (user/resource/roles/grants/status) but computes a numeric trust score, not a boolean decision"
+                }
+            ],
+            "cleans": [
+                {
+                    "file": "RoleHierarchy.php",
+                    "namespace": "Acme\\Access\\Roles",
+                    "class": "RoleHierarchy",
+                    "source": "clean_auth"
+                }
+            ]
+        },
+        {
+            "set_id": "L06-ex_arith-002",
+            "title": "Authorization decision: equivalent arithmetic rewrites",
+            "description": "The same resource-authorization decision expressed with arithmetically equivalent operations (e.g., a > b + c rewritten as a - b > c, or multiplication expressed as repeated addition where applicable). Carrier A uses the pristine form, carrier B applies arithmetic transformations while preserving Boolean results. All carriers are verified equivalent via equivalence_test.php.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": [
+                "controlflow"
+            ],
+            "rng_seed": 106702,
+            "notes": "EX-01 variant is TODO - variant file does not exist yet. This recipe is a placeholder until the ex_arith variant is created in gen/seeds/access_guard/variants/ex_arith.php. Carrier B uses a placeholder variant reference until the actual variant is authored. Set 002 of 5.",
+            "scoring": {
+                "line_tolerance": 2,
+                "member_jaccard_min": 0.6,
+                "min_members_for_credit": 2
+            },
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": false,
+                "semantic": true
+            },
+            "carriers": [
+                {
+                    "file": "DocumentAccessPolicy.php",
+                    "namespace": "Acme\\Access\\Documents",
+                    "class": "DocumentAccessPolicy",
+                    "scaffold": "method_alpha",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                },
+                {
+                    "file": "FolderAccessPolicy.php",
+                    "namespace": "Acme\\Access\\Folders",
+                    "class": "FolderAccessPolicy",
+                    "scaffold": "method_beta",
+                    "group": "A",
+                    "pristine": false,
+                    "variant": "ex_arith",
+                    "transforms": [
+                        {
+                            "code": "EX-01",
+                            "variant": "ex_arith"
+                        }
+                    ]
+                },
+                {
+                    "file": "ProjectAccessPolicy.php",
+                    "namespace": "Acme\\Access\\Projects",
+                    "class": "ProjectAccessPolicy",
+                    "scaffold": "method_gamma",
+                    "group": "A",
+                    "pristine": false,
+                    "variant": "cf_guard_nested",
+                    "transforms": [
+                        {
+                            "code": "CF-03",
+                            "variant": "cf_guard_nested"
+                        }
+                    ]
+                }
+            ],
+            "distractors": [
+                {
+                    "file": "TrustScorer.php",
+                    "namespace": "Acme\\Access\\Scoring",
+                    "class": "TrustScorer",
+                    "source": "nearmiss_access",
+                    "reason": "near-miss: same auth vocabulary (user/resource/roles/grants/status) but computes a numeric trust score, not a boolean decision"
+                }
+            ],
+            "cleans": [
+                {
+                    "file": "RoleHierarchy.php",
+                    "namespace": "Acme\\Access\\Roles",
+                    "class": "RoleHierarchy",
+                    "source": "clean_auth"
+                }
+            ]
+        },
+        {
+            "set_id": "L06-ex_arith-003",
+            "title": "Authorization decision: equivalent arithmetic rewrites",
+            "description": "The same resource-authorization decision expressed with arithmetically equivalent operations (e.g., a > b + c rewritten as a - b > c, or multiplication expressed as repeated addition where applicable). Carrier A uses the pristine form, carrier B applies arithmetic transformations while preserving Boolean results. All carriers are verified equivalent via equivalence_test.php.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": [
+                "controlflow"
+            ],
+            "rng_seed": 106703,
+            "notes": "EX-01 variant is TODO - variant file does not exist yet. This recipe is a placeholder until the ex_arith variant is created in gen/seeds/access_guard/variants/ex_arith.php. Carrier B uses a placeholder variant reference until the actual variant is authored. Set 003 of 5.",
+            "scoring": {
+                "line_tolerance": 2,
+                "member_jaccard_min": 0.6,
+                "min_members_for_credit": 2
+            },
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": false,
+                "semantic": true
+            },
+            "carriers": [
+                {
+                    "file": "DocumentAccessPolicy.php",
+                    "namespace": "Acme\\Access\\Documents",
+                    "class": "DocumentAccessPolicy",
+                    "scaffold": "method_alpha",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                },
+                {
+                    "file": "FolderAccessPolicy.php",
+                    "namespace": "Acme\\Access\\Folders",
+                    "class": "FolderAccessPolicy",
+                    "scaffold": "method_beta",
+                    "group": "A",
+                    "pristine": false,
+                    "variant": "ex_arith",
+                    "transforms": [
+                        {
+                            "code": "EX-01",
+                            "variant": "ex_arith"
+                        }
+                    ]
+                },
+                {
+                    "file": "ProjectAccessPolicy.php",
+                    "namespace": "Acme\\Access\\Projects",
+                    "class": "ProjectAccessPolicy",
+                    "scaffold": "method_gamma",
+                    "group": "A",
+                    "pristine": false,
+                    "variant": "cf_guard_nested",
+                    "transforms": [
+                        {
+                            "code": "CF-03",
+                            "variant": "cf_guard_nested"
+                        }
+                    ]
+                }
+            ],
+            "distractors": [
+                {
+                    "file": "TrustScorer.php",
+                    "namespace": "Acme\\Access\\Scoring",
+                    "class": "TrustScorer",
+                    "source": "nearmiss_access",
+                    "reason": "near-miss: same auth vocabulary (user/resource/roles/grants/status) but computes a numeric trust score, not a boolean decision"
+                }
+            ],
+            "cleans": [
+                {
+                    "file": "RoleHierarchy.php",
+                    "namespace": "Acme\\Access\\Roles",
+                    "class": "RoleHierarchy",
+                    "source": "clean_auth"
+                }
+            ]
+        },
+        {
+            "set_id": "L06-ex_arith-004",
+            "title": "Authorization decision: equivalent arithmetic rewrites",
+            "description": "The same resource-authorization decision expressed with arithmetically equivalent operations (e.g., a > b + c rewritten as a - b > c, or multiplication expressed as repeated addition where applicable). Carrier A uses the pristine form, carrier B applies arithmetic transformations while preserving Boolean results. All carriers are verified equivalent via equivalence_test.php.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": [
+                "controlflow"
+            ],
+            "rng_seed": 106704,
+            "notes": "EX-01 variant is TODO - variant file does not exist yet. This recipe is a placeholder until the ex_arith variant is created in gen/seeds/access_guard/variants/ex_arith.php. Carrier B uses a placeholder variant reference until the actual variant is authored. Set 004 of 5.",
+            "scoring": {
+                "line_tolerance": 2,
+                "member_jaccard_min": 0.6,
+                "min_members_for_credit": 2
+            },
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": false,
+                "semantic": true
+            },
+            "carriers": [
+                {
+                    "file": "DocumentAccessPolicy.php",
+                    "namespace": "Acme\\Access\\Documents",
+                    "class": "DocumentAccessPolicy",
+                    "scaffold": "method_alpha",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                },
+                {
+                    "file": "FolderAccessPolicy.php",
+                    "namespace": "Acme\\Access\\Folders",
+                    "class": "FolderAccessPolicy",
+                    "scaffold": "method_beta",
+                    "group": "A",
+                    "pristine": false,
+                    "variant": "ex_arith",
+                    "transforms": [
+                        {
+                            "code": "EX-01",
+                            "variant": "ex_arith"
+                        }
+                    ]
+                },
+                {
+                    "file": "ProjectAccessPolicy.php",
+                    "namespace": "Acme\\Access\\Projects",
+                    "class": "ProjectAccessPolicy",
+                    "scaffold": "method_gamma",
+                    "group": "A",
+                    "pristine": false,
+                    "variant": "cf_guard_nested",
+                    "transforms": [
+                        {
+                            "code": "CF-03",
+                            "variant": "cf_guard_nested"
+                        }
+                    ]
+                }
+            ],
+            "distractors": [
+                {
+                    "file": "TrustScorer.php",
+                    "namespace": "Acme\\Access\\Scoring",
+                    "class": "TrustScorer",
+                    "source": "nearmiss_access",
+                    "reason": "near-miss: same auth vocabulary (user/resource/roles/grants/status) but computes a numeric trust score, not a boolean decision"
+                }
+            ],
+            "cleans": [
+                {
+                    "file": "RoleHierarchy.php",
+                    "namespace": "Acme\\Access\\Roles",
+                    "class": "RoleHierarchy",
+                    "source": "clean_auth"
+                }
+            ]
+        },
+        {
+            "set_id": "L06-ex_arith-005",
+            "title": "Authorization decision: equivalent arithmetic rewrites",
+            "description": "The same resource-authorization decision expressed with arithmetically equivalent operations (e.g., a > b + c rewritten as a - b > c, or multiplication expressed as repeated addition where applicable). Carrier A uses the pristine form, carrier B applies arithmetic transformations while preserving Boolean results. All carriers are verified equivalent via equivalence_test.php.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": [
+                "controlflow"
+            ],
+            "rng_seed": 106705,
+            "notes": "EX-01 variant is TODO - variant file does not exist yet. This recipe is a placeholder until the ex_arith variant is created in gen/seeds/access_guard/variants/ex_arith.php. Carrier B uses a placeholder variant reference until the actual variant is authored. Set 005 of 5.",
             "scoring": {
                 "line_tolerance": 2,
                 "member_jaccard_min": 0.6,

@@ -1,0 +1,87 @@
+{
+    "schema_version": 1,
+    "set_id": "L07-api_regex_string-002",
+    "level": 7,
+    "level_name": "api_idioms",
+    "family": "api_regex_string",
+    "title": "Invoice totalling: regex pattern matching vs string operations",
+    "description": "The same invoice line-item processing expressed using three genuinely different idioms: regex-based string pattern matching, explicit string operations, and api_map_loop functional mapping. Carrier A uses the pristine foreach with direct array access, carrier B applies regex patterns, and carrier C uses api_map_loop functional style. All compute equivalent results.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "invoice_totals",
+    "difficulty_band": "expert",
+    "files": [
+        {
+            "path": "src/InvoiceComputeStandard.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 39
+        },
+        {
+            "path": "src/InvoiceComputeFunctional.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 50
+        },
+        {
+            "path": "src/InvoiceComputeAlternative.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 45
+        },
+        {
+            "path": "src/MarginSummarizer.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 30
+        },
+        {
+            "path": "src/TaxRateRepository.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-4",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "API-03",
+            "name": "regex_vs_string",
+            "params": {
+                "variant": "api_regex_string"
+            },
+            "applied_to": [
+                "src/InvoiceComputeFunctional.php"
+            ]
+        },
+        {
+            "code": "API-01",
+            "name": "map_vs_loop",
+            "params": {
+                "variant": "api_map_loop"
+            },
+            "applied_to": [
+                "src/InvoiceComputeAlternative.php"
+            ]
+        }
+    ],
+    "difficulty": {
+        "score": 100,
+        "requires": [
+            "api_abstraction",
+            "ast_canonicalization"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L07/api_regex_string.json",
+        "version": "1.0.0",
+        "rng_seed": 107202
+    }
+}
