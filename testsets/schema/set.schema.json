@@ -1,0 +1,218 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://phpdup.local/testsets/schema/set.schema.json",
+    "title": "set.json",
+    "$comment": "Per-set descriptor (plan_samples.md §7.1, R4). One per benchmark set, lives one level above src/ so detection tools cannot read roles.",
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+        "schema_version",
+        "set_id",
+        "level",
+        "level_name",
+        "family",
+        "title",
+        "description",
+        "language",
+        "min_php",
+        "seed",
+        "difficulty_band",
+        "files",
+        "duplication",
+        "interference",
+        "difficulty",
+        "generator"
+    ],
+    "properties": {
+        "schema_version": {
+            "$comment": "Schema revision; bump on any breaking field change.",
+            "type": "integer",
+            "const": 1
+        },
+        "set_id": {
+            "$comment": "Canonical id: L{NN}-{family}-{NNN}. Must match the directory path.",
+            "type": "string",
+            "pattern": "^L[0-9]{2}-[a-z0-9_]+-[0-9]{3}$"
+        },
+        "level": {
+            "$comment": "Difficulty tier 0-10.",
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 10
+        },
+        "level_name": {
+            "type": "string"
+        },
+        "family": {
+            "$comment": "Variation family slug, e.g. ws_blank_inside.",
+            "type": "string",
+            "pattern": "^[a-z0-9_]+$"
+        },
+        "title": {
+            "type": "string",
+            "minLength": 1
+        },
+        "description": {
+            "type": "string",
+            "minLength": 1
+        },
+        "language": {
+            "type": "string",
+            "enum": ["php"]
+        },
+        "min_php": {
+            "type": "string"
+        },
+        "seed": {
+            "$comment": "Seed domain name (gen/seeds/<seed>) the cloned region came from; null for L0 sets that assemble only distractors/clean fillers.",
+            "type": ["string", "null"]
+        },
+        "difficulty_band": {
+            "$comment": "Coarse human label derived mechanically from difficulty.score cutoffs (§7.1, §15).",
+            "type": "string",
+            "enum": ["baseline", "trivial", "easy", "medium", "hard", "very_hard", "expert"]
+        },
+        "files": {
+            "type": "array",
+            "minItems": 5,
+            "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["path", "role", "duplicate_group", "sloc"],
+                "properties": {
+                    "path": {
+                        "$comment": "Set-relative path, always under src/.",
+                        "type": "string",
+                        "pattern": "^src/"
+                    },
+                    "role": {
+                        "type": "string",
+                        "enum": ["carrier", "distractor", "clean"]
+                    },
+                    "duplicate_group": {
+                        "$comment": "Short label (A, B, ...) grouping carriers that share a cluster; null for distractor/clean.",
+                        "type": ["string", "null"]
+                    },
+                    "sloc": {
+                        "type": "integer",
+                        "minimum": 0
+                    }
+                }
+            }
+        },
+        "duplication": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["present", "clone_type", "granularity", "clusters", "instances"],
+            "properties": {
+                "present": {
+                    "type": "boolean"
+                },
+                "clone_type": {
+                    "type": "string",
+                    "enum": ["none", "type-1", "type-2", "type-3", "type-4", "semantic-domain"]
+                },
+                "granularity": {
+                    "$comment": "null for L0 (no clone).",
+                    "type": ["string", "null"],
+                    "enum": ["file", "class", "method", "function", "block", "statement-run", null]
+                },
+                "clusters": {
+                    "type": "integer",
+                    "minimum": 0
+                },
+                "instances": {
+                    "type": "integer",
+                    "minimum": 0
+                }
+            }
+        },
+        "interference": {
+            "$comment": "Applied interference codes with reproduction params; [] for L0/L1.",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["code", "name", "params", "applied_to"],
+                "properties": {
+                    "code": {
+                        "$comment": "Must exist in gen/transforms/registry.json.",
+                        "type": "string",
+                        "pattern": "^[A-Z]{2,3}-[0-9]{2}$"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "params": {
+                        "type": "object"
+                    },
+                    "applied_to": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "difficulty": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["score", "requires"],
+            "properties": {
+                "score": {
+                    "$comment": "0-100, computed mechanically by the generator (§7.1 formula).",
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 100
+                },
+                "requires": {
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "enum": [
+                            "whitespace_normalization",
+                            "comment_stripping",
+                            "identifier_canonicalization",
+                            "literal_abstraction",
+                            "ast_canonicalization",
+                            "commutative_reordering",
+                            "controlflow_normalization",
+                            "deadcode_elimination",
+                            "api_abstraction",
+                            "inline_expansion",
+                            "cfg_comparison",
+                            "semantic_reasoning"
+                        ]
+                    }
+                }
+            }
+        },
+        "expected_detection_by_tool": {
+            "$comment": "Optional derived hint; authoritative per-class expectation lives in expected.json.",
+            "type": "object",
+            "additionalProperties": {
+                "type": "boolean"
+            }
+        },
+        "generator": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["tool", "recipe", "version", "rng_seed"],
+            "properties": {
+                "tool": {
+                    "type": "string"
+                },
+                "recipe": {
+                    "type": "string"
+                },
+                "version": {
+                    "type": "string"
+                },
+                "rng_seed": {
+                    "type": "integer"
+                }
+            }
+        }
+    }
+}

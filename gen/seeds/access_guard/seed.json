@@ -1,0 +1,15 @@
+{
+    "domain": "access_guard",
+    "summary": "Resource authorization decision (id/status/role/owner/grant checks).",
+    "size_class": "M",
+    "symbol": "authorize",
+    "line_count": 20,
+    "token_count": 150,
+    "required_symbols": ["authorize"],
+    "mount_modes": ["method", "function"],
+    "compatible_interference": ["WS-03", "CM-03", "RN-01", "CF-02", "CF-03", "CF-05", "BL-02"],
+    "variants": [
+        {"file": "cf_guard_nested.php", "code": "CF-03", "name": "guard_nested"},
+        {"file": "cf_match_guard.php", "code": "CF-02", "name": "match_switch"}
+    ]
+}

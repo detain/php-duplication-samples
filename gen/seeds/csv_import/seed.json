@@ -1,0 +1,12 @@
+{
+    "domain": "csv_import",
+    "summary": "Parse a delimited CSV row into a normalized column map.",
+    "size_class": "M",
+    "symbol": "parseRow",
+    "line_count": 22,
+    "token_count": 160,
+    "required_symbols": ["parseRow"],
+    "mount_modes": ["method", "function"],
+    "compatible_interference": ["WS-03", "WS-06", "CM-03", "RN-01", "RN-02", "LT-02", "ST-01"],
+    "variants": []
+}

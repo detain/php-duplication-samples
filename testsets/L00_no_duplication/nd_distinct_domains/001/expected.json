@@ -1,0 +1,28 @@
+{
+    "schema_version": 1,
+    "set_id": "L00-nd_distinct_domains-001",
+    "clusters": [],
+    "non_duplicates": [
+        {
+            "file": "src/PayrollCalendar.php",
+            "start_line": 1,
+            "end_line": 11,
+            "reason": "deliberate false-positive bait: the declare(strict_types=1) + namespace + final-class declaration scaffold is byte-identical across all five files. It is the only shape shared between any two files here and a low-threshold token/line detector may be tempted to pair it, but it is ubiquitous PHP boilerplate, not a duplicated implementation.",
+            "trap": true,
+            "known_tool_fp": true
+        },
+        {
+            "file": "src/DnsRecordParser.php",
+            "start_line": 1,
+            "end_line": 11,
+            "reason": "deliberate false-positive bait: same class-declaration scaffold shared verbatim with every other file. A detector pairing this header would be reporting shared boilerplate, not a real clone.",
+            "trap": true,
+            "known_tool_fp": true
+        }
+    ],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.6,
+        "min_members_for_credit": 2
+    }
+}

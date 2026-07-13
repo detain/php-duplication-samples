@@ -1,0 +1,13 @@
+{
+    "name": "detain/php-duplication-samples",
+    "description": "Dev-only generator for the graduated duplication-detection test-set corpus (testsets/). Corpus files themselves are dependency-free; this dependency is used only by gen/.",
+    "type": "project",
+    "license": "MIT",
+    "require-dev": {
+        "nikic/php-parser": "^5"
+    },
+    "config": {
+        "sort-packages": true,
+        "optimize-autoloader": false
+    }
+}

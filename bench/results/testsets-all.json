@@ -1,0 +1,265 @@
+{
+    "generated_at": "2026-07-13T14:09:50-04:00",
+    "tools": {
+        "phpcpd": {
+            "present": true,
+            "version": "phpcpd 6.0.3 by Sebastian Bergmann.",
+            "flags": "--fuzzy --min-lines 5 --min-tokens 50"
+        },
+        "jscpd": {
+            "present": true,
+            "version": "4.2.4",
+            "flags": "--formats-exts php:php --min-lines 5 --min-tokens 50"
+        }
+    },
+    "rows": [
+        {
+            "set": "L00-nd_distinct_domains-001",
+            "tool": "phpcpd",
+            "version": "phpcpd 6.0.3 by Sebastian Bergmann.",
+            "flags": "--fuzzy --min-lines 5 --min-tokens 50",
+            "recall": 1,
+            "precision": 1,
+            "f1": 1,
+            "trap_fp": 0,
+            "reported_groups": []
+        },
+        {
+            "set": "L00-nd_distinct_domains-001",
+            "tool": "jscpd",
+            "version": "4.2.4",
+            "flags": "--formats-exts php:php --min-lines 5 --min-tokens 50",
+            "recall": 1,
+            "precision": 1,
+            "f1": 1,
+            "trap_fp": 0,
+            "reported_groups": []
+        },
+        {
+            "set": "L01-ex_function-001",
+            "tool": "phpcpd",
+            "version": "phpcpd 6.0.3 by Sebastian Bergmann.",
+            "flags": "--fuzzy --min-lines 5 --min-tokens 50",
+            "recall": 1,
+            "precision": 0.75,
+            "f1": 0.8571428571428571,
+            "trap_fp": 0,
+            "reported_groups": [
+                [
+                    {
+                        "file": "src/InvoiceMath.php",
+                        "start": 17,
+                        "end": 43
+                    },
+                    {
+                        "file": "src/QuoteMath.php",
+                        "start": 7,
+                        "end": 33
+                    }
+                ],
+                [
+                    {
+                        "file": "src/InvoiceMath.php",
+                        "start": 17,
+                        "end": 39
+                    },
+                    {
+                        "file": "src/OrderMath.php",
+                        "start": 18,
+                        "end": 40
+                    }
+                ]
+            ]
+        },
+        {
+            "set": "L01-ex_function-001",
+            "tool": "jscpd",
+            "version": "4.2.4",
+            "flags": "--formats-exts php:php --min-lines 5 --min-tokens 50",
+            "recall": 1,
+            "precision": 0.75,
+            "f1": 0.8571428571428571,
+            "trap_fp": 0,
+            "reported_groups": [
+                [
+                    {
+                        "file": "src/OrderMath.php",
+                        "start": 18,
+                        "end": 42
+                    },
+                    {
+                        "file": "src/QuoteMath.php",
+                        "start": 7,
+                        "end": 31
+                    }
+                ],
+                [
+                    {
+                        "file": "src/InvoiceMath.php",
+                        "start": 14,
+                        "end": 43
+                    },
+                    {
+                        "file": "src/OrderMath.php",
+                        "start": 15,
+                        "end": 33
+                    }
+                ]
+            ]
+        },
+        {
+            "set": "L02-ws_blank_inside-001",
+            "tool": "phpcpd",
+            "version": "phpcpd 6.0.3 by Sebastian Bergmann.",
+            "flags": "--fuzzy --min-lines 5 --min-tokens 50",
+            "recall": 1,
+            "precision": 0.75,
+            "f1": 0.8571428571428571,
+            "trap_fp": 0,
+            "reported_groups": [
+                [
+                    {
+                        "file": "src/LedgerPostingService.php",
+                        "start": 9,
+                        "end": 36
+                    },
+                    {
+                        "file": "src/PriceBookService.php",
+                        "start": 18,
+                        "end": 45
+                    }
+                ],
+                [
+                    {
+                        "file": "src/LedgerPostingService.php",
+                        "start": 9,
+                        "end": 35
+                    },
+                    {
+                        "file": "src/SettlementService.php",
+                        "start": 24,
+                        "end": 50
+                    }
+                ]
+            ]
+        },
+        {
+            "set": "L02-ws_blank_inside-001",
+            "tool": "jscpd",
+            "version": "4.2.4",
+            "flags": "--formats-exts php:php --min-lines 5 --min-tokens 50",
+            "recall": 1,
+            "precision": 0.75,
+            "f1": 0.8571428571428571,
+            "trap_fp": 0,
+            "reported_groups": [
+                [
+                    {
+                        "file": "src/PriceBookService.php",
+                        "start": 15,
+                        "end": 45
+                    },
+                    {
+                        "file": "src/SettlementService.php",
+                        "start": 21,
+                        "end": 53
+                    }
+                ],
+                [
+                    {
+                        "file": "src/LedgerPostingService.php",
+                        "start": 9,
+                        "end": 35
+                    },
+                    {
+                        "file": "src/SettlementService.php",
+                        "start": 24,
+                        "end": 45
+                    }
+                ]
+            ]
+        },
+        {
+            "set": "L04-rn_locals-001",
+            "tool": "phpcpd",
+            "version": "phpcpd 6.0.3 by Sebastian Bergmann.",
+            "flags": "--fuzzy --min-lines 5 --min-tokens 50",
+            "recall": 1,
+            "precision": 0.75,
+            "f1": 0.8571428571428571,
+            "trap_fp": 0,
+            "reported_groups": [
+                [
+                    {
+                        "file": "src/CustomerRowReader.php",
+                        "start": 18,
+                        "end": 42
+                    },
+                    {
+                        "file": "src/VendorRowReader.php",
+                        "start": 9,
+                        "end": 33
+                    }
+                ],
+                [
+                    {
+                        "file": "src/CustomerRowReader.php",
+                        "start": 18,
+                        "end": 39
+                    },
+                    {
+                        "file": "src/ProductRowReader.php",
+                        "start": 24,
+                        "end": 45
+                    }
+                ]
+            ]
+        },
+        {
+            "set": "L04-rn_locals-001",
+            "tool": "jscpd",
+            "version": "4.2.4",
+            "flags": "--formats-exts php:php --min-lines 5 --min-tokens 50",
+            "recall": 1,
+            "precision": 1,
+            "f1": 1,
+            "trap_fp": 0,
+            "reported_groups": [
+                [
+                    {
+                        "file": "src/CustomerRowReader.php",
+                        "start": 31,
+                        "end": 42
+                    },
+                    {
+                        "file": "src/VendorRowReader.php",
+                        "start": 22,
+                        "end": 33
+                    }
+                ]
+            ]
+        },
+        {
+            "set": "L06-cf_guard_nested-001",
+            "tool": "phpcpd",
+            "version": "phpcpd 6.0.3 by Sebastian Bergmann.",
+            "flags": "--fuzzy --min-lines 5 --min-tokens 50",
+            "recall": 0,
+            "precision": 1,
+            "f1": 0,
+            "trap_fp": 0,
+            "reported_groups": []
+        },
+        {
+            "set": "L06-cf_guard_nested-001",
+            "tool": "jscpd",
+            "version": "4.2.4",
+            "flags": "--formats-exts php:php --min-lines 5 --min-tokens 50",
+            "recall": 0,
+            "precision": 1,
+            "f1": 0,
+            "trap_fp": 0,
+            "reported_groups": []
+        }
+    ]
+}

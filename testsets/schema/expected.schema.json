@@ -1,0 +1,187 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://phpdup.local/testsets/schema/expected.schema.json",
+    "title": "expected.json",
+    "$comment": "Line-accurate ideal answers (plan_samples.md §7.2, R5). members[] map directly onto bench/run.php ground-truth clusters (start_line/end_line).",
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["schema_version", "set_id", "clusters", "non_duplicates", "scoring"],
+    "properties": {
+        "schema_version": {
+            "type": "integer",
+            "const": 1
+        },
+        "set_id": {
+            "type": "string",
+            "pattern": "^L[0-9]{2}-[a-z0-9_]+-[0-9]{3}$"
+        },
+        "clusters": {
+            "$comment": "[] for L0 negative controls.",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                    "id",
+                    "group_id",
+                    "clone_type",
+                    "granularity",
+                    "normalized_by",
+                    "token_hash",
+                    "normalized_hash",
+                    "members",
+                    "detection_expectation",
+                    "notes"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "group_id": {
+                        "$comment": "Matches a set.json files[].duplicate_group label.",
+                        "type": "string"
+                    },
+                    "clone_type": {
+                        "type": "string",
+                        "enum": ["type-1", "type-2", "type-3", "type-4", "semantic-domain"]
+                    },
+                    "granularity": {
+                        "type": "string",
+                        "enum": ["file", "class", "method", "function", "block", "statement-run"]
+                    },
+                    "normalized_by": {
+                        "$comment": "Ordered normalization stages that make the members equal (whitespace -> comments -> identifiers -> literals -> ...).",
+                        "type": "array",
+                        "items": {
+                            "type": "string",
+                            "enum": ["whitespace", "comments", "identifiers", "literals", "types", "namespaces", "controlflow", "api", "semantic"]
+                        }
+                    },
+                    "token_hash": {
+                        "type": "string"
+                    },
+                    "normalized_hash": {
+                        "type": "string"
+                    },
+                    "members": {
+                        "type": "array",
+                        "minItems": 2,
+                        "items": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "required": ["file", "start_line", "end_line", "symbol", "pristine"],
+                            "properties": {
+                                "file": {
+                                    "type": "string",
+                                    "pattern": "^src/"
+                                },
+                                "start_line": {
+                                    "type": "integer",
+                                    "minimum": 1
+                                },
+                                "end_line": {
+                                    "type": "integer",
+                                    "minimum": 1
+                                },
+                                "symbol": {
+                                    "type": ["string", "null"]
+                                },
+                                "pristine": {
+                                    "$comment": "True for the untransformed reference member.",
+                                    "type": "boolean"
+                                },
+                                "fragments": {
+                                    "$comment": "Optional: for gapped/partial clones (ST-06/ST-07/SEM-08), the sub-ranges that actually match.",
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "additionalProperties": false,
+                                        "required": ["start_line", "end_line"],
+                                        "properties": {
+                                            "start_line": {"type": "integer", "minimum": 1},
+                                            "end_line": {"type": "integer", "minimum": 1}
+                                        }
+                                    }
+                                },
+                                "drift_generation": {
+                                    "$comment": "Optional: for genealogy chains (CP-07), hop distance from the origin.",
+                                    "type": "integer",
+                                    "minimum": 0
+                                }
+                            }
+                        }
+                    },
+                    "detection_expectation": {
+                        "$comment": "Which detector CLASS is expected to find this cluster (§7.2).",
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": ["text_based", "token_based", "ast_based", "metric_based", "semantic"],
+                        "properties": {
+                            "text_based": {"type": "boolean"},
+                            "token_based": {"type": "boolean"},
+                            "ast_based": {"type": "boolean"},
+                            "metric_based": {"type": "boolean"},
+                            "semantic": {"type": "boolean"}
+                        }
+                    },
+                    "notes": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "non_duplicates": {
+            "$comment": "Regions that must NOT be reported. trap:true entries feed the false-positive-resistance metric (§13).",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["file", "start_line", "end_line", "reason", "trap"],
+                "properties": {
+                    "file": {
+                        "type": "string",
+                        "pattern": "^src/"
+                    },
+                    "start_line": {
+                        "type": "integer",
+                        "minimum": 1
+                    },
+                    "end_line": {
+                        "type": "integer",
+                        "minimum": 1
+                    },
+                    "reason": {
+                        "type": "string"
+                    },
+                    "trap": {
+                        "type": "boolean"
+                    },
+                    "known_tool_fp": {
+                        "$comment": "Optional: a boilerplate idiom real token tools flag but that is acceptable (§12.5).",
+                        "type": "boolean"
+                    }
+                }
+            }
+        },
+        "scoring": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["line_tolerance", "member_jaccard_min", "min_members_for_credit"],
+            "properties": {
+                "line_tolerance": {
+                    "type": "integer",
+                    "minimum": 0
+                },
+                "member_jaccard_min": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1
+                },
+                "min_members_for_credit": {
+                    "type": "integer",
+                    "minimum": 1
+                }
+            }
+        }
+    }
+}

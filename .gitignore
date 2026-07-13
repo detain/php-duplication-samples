@@ -1,1 +1,5 @@
 .logs
+
+# Composer dev dependencies for the gen/ generator (run `composer install` to restore).
+# The rendered testsets/ corpus is committed and usable without these.
+/vendor/

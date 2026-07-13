@@ -1,0 +1,89 @@
+{
+    "generated_at": "2026-07-13T13:33:47-04:00",
+    "tools": {
+        "phpcpd": {
+            "present": true,
+            "version": "phpcpd 6.0.3 by Sebastian Bergmann.",
+            "flags": "--fuzzy --min-lines 5 --min-tokens 50"
+        },
+        "jscpd": {
+            "present": true,
+            "version": "4.2.4",
+            "flags": "--formats-exts php:php --min-lines 5 --min-tokens 50"
+        }
+    },
+    "rows": [
+        {
+            "set": "L01-ex_function-001",
+            "tool": "phpcpd",
+            "version": "phpcpd 6.0.3 by Sebastian Bergmann.",
+            "flags": "--fuzzy --min-lines 5 --min-tokens 50",
+            "recall": 1,
+            "precision": 0.75,
+            "f1": 0.8571428571428571,
+            "trap_fp": 0,
+            "reported_groups": [
+                [
+                    {
+                        "file": "src/InvoiceMath.php",
+                        "start": 17,
+                        "end": 43
+                    },
+                    {
+                        "file": "src/QuoteMath.php",
+                        "start": 7,
+                        "end": 33
+                    }
+                ],
+                [
+                    {
+                        "file": "src/InvoiceMath.php",
+                        "start": 17,
+                        "end": 39
+                    },
+                    {
+                        "file": "src/OrderMath.php",
+                        "start": 18,
+                        "end": 40
+                    }
+                ]
+            ]
+        },
+        {
+            "set": "L01-ex_function-001",
+            "tool": "jscpd",
+            "version": "4.2.4",
+            "flags": "--formats-exts php:php --min-lines 5 --min-tokens 50",
+            "recall": 1,
+            "precision": 0.75,
+            "f1": 0.8571428571428571,
+            "trap_fp": 0,
+            "reported_groups": [
+                [
+                    {
+                        "file": "src/OrderMath.php",
+                        "start": 18,
+                        "end": 42
+                    },
+                    {
+                        "file": "src/QuoteMath.php",
+                        "start": 7,
+                        "end": 31
+                    }
+                ],
+                [
+                    {
+                        "file": "src/InvoiceMath.php",
+                        "start": 14,
+                        "end": 43
+                    },
+                    {
+                        "file": "src/OrderMath.php",
+                        "start": 15,
+                        "end": 33
+                    }
+                ]
+            ]
+        }
+    ]
+}

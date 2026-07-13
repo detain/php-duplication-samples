@@ -1,0 +1,33 @@
+{
+    "level": 1,
+    "level_name": "exact",
+    "level_dir": "L01_exact",
+    "family": "ex_function",
+    "sets": [
+        {
+            "set_id": "L01-ex_function-001",
+            "title": "Byte-identical invoice-totals function in three files",
+            "description": "A standalone invoice-totalling function is duplicated byte-for-byte across three files (top/middle/bottom positions), each surrounded by different helper functions. A near-miss margin summariser shares the vocabulary but computes a different result; a tax-rate repository is unrelated filler.",
+            "seed": "invoice_totals",
+            "mount": "function",
+            "clone_symbol": "computeTotals",
+            "granularity": "function",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 101001,
+            "notes": "Byte-for-byte identical region in all three carriers; only the surrounding helper functions differ. Any detector class should recover all three members.",
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "InvoiceMath.php", "namespace": "Acme\\Billing\\Invoices", "class": "InvoiceMath", "scaffold": "fn_beta", "group": "A", "pristine": true, "transforms": []},
+                {"file": "QuoteMath.php", "namespace": "Acme\\Billing\\Quotes", "class": "QuoteMath", "scaffold": "fn_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "OrderMath.php", "namespace": "Acme\\Billing\\Orders", "class": "OrderMath", "scaffold": "fn_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "MarginReporter.php", "namespace": "Acme\\Billing\\Reporting", "class": "MarginReporter", "source": "nearmiss_invoice", "reason": "near-miss: same invoice vocabulary and foreach shape, but computes revenue/cost margins and a ratio — a different result"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Catalog", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        }
+    ]
+}

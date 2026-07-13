@@ -1,6 +1,11 @@
 # Plan: Graduated Duplication-Detection Test Sets — Combined Master Plan
 
-Status: **PLAN** — nothing described here has been built yet.
+Status: **IN PROGRESS** — **P0 Foundation is BUILT & INDEPENDENTLY VERIFIED (2026-07-13)**: JSON
+schemas, the `gen/` generator engine (build/verify/manifest + transform interface + Wave-1
+transforms WS-03/WS-06/CM-03/RN-01/LT-01/ST-01 + CF/API variant-selectors), 3 seed domains with
+equivalence tests, `bench/run-testsets.php`, doc skeletons, and **5 verified pilot sets**
+(L00/L01/L02/L04/L06). Remaining: finish Wave-1 fan-out (5 more starter sets) then phases P1–P8.
+See **Current build status** at the end of §0 and §16/§18.10.
 Scope: a new, self-contained corpus of **graduated-difficulty** test sets for benchmarking
 duplicate-code detection, with machine-readable per-set metadata and line-accurate
 ideal-answer ground truth. Complements (does not replace or modify) the existing
@@ -35,6 +40,36 @@ scores. Keep it in mind whatever your role.
 
 Section numbers are stable; `§N.M` refers to a subsection. Appendices are lettered (A–D) and
 referenced by letter, not number.
+
+### Current build status (2026-07-13)
+
+**P0 Foundation: DONE and independently verified** — built, adversarially reviewed, fixed, and
+re-verified in the live tree. Present and green:
+
+- `composer.json` + `vendor/` (dev-only `nikic/php-parser` v5.8) — corpus files stay dep-free.
+- `testsets/schema/{set,expected,manifest}.schema.json` (+ README) — real draft-07 validation.
+- `gen/` engine: `build.php` (`--set/--family/--level/--all/--check`, deterministic), `verify.php`
+  (all §12 checks — incl. a token-distinctness check for `token_based:false` clusters and role
+  composition), `manifest.php`, `lib/*`, and transforms **WS-03, WS-06, CM-03, RN-01, LT-01,
+  ST-01** + CF/API **variant-selectors** + `registry.json` (all §8 codes weighted).
+- `gen/seeds/` — 3 domains (`invoice_totals`, `csv_import`, `access_guard`) with payloads,
+  `seed.json`, and behavioral **equivalence tests** for the variant-bearing seeds.
+- `gen/scaffolds/`, `gen/distractors/`, `gen/recipes/`.
+- `bench/run-testsets.php` (per-set phpcpd+jscpd, `{file,start,end}` extraction, Jaccard scorer,
+  tool-version capture) + `bench/corpora/testsets.ground-truth.json`.
+- Docs: `testsets/README.md`, `testsets/ORCHESTRATION.md` (verbatim §18+§20), `gen/README.md`,
+  per-level README stubs.
+- **5 verified pilot sets = the first 5 of the Wave-1 batch:** `L00-nd_distinct_domains-001`,
+  `L01-ex_function-001`, `L02-ws_blank_inside-001`, `L04-rn_locals-001`, `L06-cf_guard_nested-001`.
+  All pass `gen/verify.php`; `gen/build.php --check` is byte-clean; bench scores align with each
+  set's `detection_expectation` (token tools: L1/L2/L4 recall 1.00, L6 recall 0.00, traps 0 FP).
+
+**Review trail:** `gen/FOUNDATION_REVIEW.md` + `gen/FOUNDATION_FIXLOG.md`.
+
+**Next step (a fresh session per `prompt_samples.md`):** sanity-check Foundation, then finish
+Wave 1 (the **5 remaining** starter sets — `L02-ws_line_wrap-001`, `L03-cm_docblock-001`,
+`L04-lt_numbers-001`, `L05-st_insert_logging-001`, `L07-api_map_loop-001`), then drive phases
+P1–P7 and P8 Integration via §18.10. Nothing is committed — the tree is uncommitted for review.
 
 ---
 
@@ -1361,7 +1396,7 @@ Each phase ends with `gen/verify.php` green, a benchmark smoke run, and a **chec
 
 | Phase | Deliverable | Details |
 |---|---|---|
-| **P0 — Foundations** | Schemas + generator skeleton + verifier + runner stub | `testsets/schema/*`, `gen/build.php\|verify.php\|manifest.php`, transform interface + 3 pilot transforms (WS-01, CM-01, RN-01), `bench/run-testsets.php` MVP. One pilot set per pipeline path proving line-accurate ground truth end-to-end. |
+| **P0 — Foundations** ✅ **DONE (2026-07-13, verified)** | Schemas + generator engine + verifier + runner + seeds | `testsets/schema/*`, `gen/build.php\|verify.php\|manifest.php` + transform interface + Wave-1 transforms (WS-03, WS-06, CM-03, RN-01, LT-01, ST-01) + CF/API variant-selectors, 3 seed domains w/ equivalence tests, scaffolds/distractors, `bench/run-testsets.php`, docs, and **5 verified pilot sets** (one per pipeline path) proving line-accurate ground truth end-to-end. Reviewed + fixed (see `gen/FOUNDATION_REVIEW.md`). |
 | **P1 — Seeds + L0 + L1** | 30 seeds, 40 scaffolds, 60 distractors; 65 sets | Proves negative-assurance QA (§12.5) and exact-clone assembly. Baseline tool run recorded. |
 | **P2 — L2 + L3** | 120 sets, all WS-*/CM-* transforms | The "formatting ladder" the request centers on (spacing before/after/inside, wraps, tabs, comments). |
 | **P3 — L4 + L5** | 110 sets, RN/LT/TY/NS/ST transforms | AST-level transform work (php-parser); gapped-clone ground-truth modeling. |

@@ -1,0 +1,127 @@
+{
+    "schema_version": 1,
+    "generated_at": "git:29cf2a48480a",
+    "totals": {
+        "levels": 5,
+        "families": 5,
+        "sets": 5,
+        "files": 25,
+        "clusters": 4
+    },
+    "corpus_stats": {
+        "total_php_files": 25,
+        "total_sloc": 795,
+        "total_duplicate_regions": 12,
+        "distractor_files": 4,
+        "clean_files": 9
+    },
+    "levels": [
+        {
+            "level": 0,
+            "dir": "L00_no_duplication",
+            "title": "No duplication (negative controls)",
+            "families": [
+                {
+                    "family": "nd_distinct_domains",
+                    "interference_codes": [],
+                    "sets": [
+                        {
+                            "set_id": "L00-nd_distinct_domains-001",
+                            "dir": "L00_no_duplication/nd_distinct_domains/001",
+                            "clusters": 0,
+                            "files": 5,
+                            "difficulty": 0
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "level": 1,
+            "dir": "L01_exact",
+            "title": "Exact duplication (Type-1)",
+            "families": [
+                {
+                    "family": "ex_function",
+                    "interference_codes": [],
+                    "sets": [
+                        {
+                            "set_id": "L01-ex_function-001",
+                            "dir": "L01_exact/ex_function/001",
+                            "clusters": 1,
+                            "files": 5,
+                            "difficulty": 5
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "level": 2,
+            "dir": "L02_whitespace",
+            "title": "Whitespace & layout variation (Type-1)",
+            "families": [
+                {
+                    "family": "ws_blank_inside",
+                    "interference_codes": [
+                        "WS-03"
+                    ],
+                    "sets": [
+                        {
+                            "set_id": "L02-ws_blank_inside-001",
+                            "dir": "L02_whitespace/ws_blank_inside/001",
+                            "clusters": 1,
+                            "files": 5,
+                            "difficulty": 13
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "level": 4,
+            "dir": "L04_rename_literals",
+            "title": "Renames, literals, types, namespaces (Type-2)",
+            "families": [
+                {
+                    "family": "rn_locals",
+                    "interference_codes": [
+                        "RN-01"
+                    ],
+                    "sets": [
+                        {
+                            "set_id": "L04-rn_locals-001",
+                            "dir": "L04_rename_literals/rn_locals/001",
+                            "clusters": 1,
+                            "files": 5,
+                            "difficulty": 36
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "level": 6,
+            "dir": "L06_controlflow_rewrites",
+            "title": "Control-flow & expression rewrites",
+            "families": [
+                {
+                    "family": "cf_guard_nested",
+                    "interference_codes": [
+                        "CF-02",
+                        "CF-03"
+                    ],
+                    "sets": [
+                        {
+                            "set_id": "L06-cf_guard_nested-001",
+                            "dir": "L06_controlflow_rewrites/cf_guard_nested/001",
+                            "clusters": 1,
+                            "files": 5,
+                            "difficulty": 90
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

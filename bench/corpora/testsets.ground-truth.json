@@ -1,0 +1,94 @@
+{
+    "corpus": "testsets",
+    "generated_at": "git:29cf2a48480a",
+    "clusters": [
+        {
+            "set_id": "L01-ex_function-001",
+            "id": "c1",
+            "clone_type": "type-1",
+            "members": [
+                {
+                    "file": "L01_exact/ex_function/001/src/InvoiceMath.php",
+                    "start": 17,
+                    "end": 41
+                },
+                {
+                    "file": "L01_exact/ex_function/001/src/QuoteMath.php",
+                    "start": 7,
+                    "end": 31
+                },
+                {
+                    "file": "L01_exact/ex_function/001/src/OrderMath.php",
+                    "start": 18,
+                    "end": 42
+                }
+            ]
+        },
+        {
+            "set_id": "L02-ws_blank_inside-001",
+            "id": "c1",
+            "clone_type": "type-1",
+            "members": [
+                {
+                    "file": "L02_whitespace/ws_blank_inside/001/src/LedgerPostingService.php",
+                    "start": 9,
+                    "end": 33
+                },
+                {
+                    "file": "L02_whitespace/ws_blank_inside/001/src/PriceBookService.php",
+                    "start": 18,
+                    "end": 43
+                },
+                {
+                    "file": "L02_whitespace/ws_blank_inside/001/src/SettlementService.php",
+                    "start": 24,
+                    "end": 52
+                }
+            ]
+        },
+        {
+            "set_id": "L04-rn_locals-001",
+            "id": "c1",
+            "clone_type": "type-2",
+            "members": [
+                {
+                    "file": "L04_rename_literals/rn_locals/001/src/CustomerRowReader.php",
+                    "start": 18,
+                    "end": 40
+                },
+                {
+                    "file": "L04_rename_literals/rn_locals/001/src/VendorRowReader.php",
+                    "start": 9,
+                    "end": 31
+                },
+                {
+                    "file": "L04_rename_literals/rn_locals/001/src/ProductRowReader.php",
+                    "start": 24,
+                    "end": 46
+                }
+            ]
+        },
+        {
+            "set_id": "L06-cf_guard_nested-001",
+            "id": "c1",
+            "clone_type": "type-3",
+            "members": [
+                {
+                    "file": "L06_controlflow_rewrites/cf_guard_nested/001/src/DocumentAccessPolicy.php",
+                    "start": 9,
+                    "end": 27
+                },
+                {
+                    "file": "L06_controlflow_rewrites/cf_guard_nested/001/src/FolderAccessPolicy.php",
+                    "start": 18,
+                    "end": 30
+                },
+                {
+                    "file": "L06_controlflow_rewrites/cf_guard_nested/001/src/ProjectAccessPolicy.php",
+                    "start": 24,
+                    "end": 39
+                }
+            ]
+        }
+    ]
+}

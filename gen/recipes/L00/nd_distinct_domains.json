@@ -1,0 +1,28 @@
+{
+    "level": 0,
+    "level_name": "no_duplication",
+    "level_dir": "L00_no_duplication",
+    "family": "nd_distinct_domains",
+    "sets": [
+        {
+            "set_id": "L00-nd_distinct_domains-001",
+            "title": "Five unrelated single-responsibility services",
+            "description": "Payroll calendar, DNS record parser, image thumbnailer, rate limiter, and sitemap builder — five utterly unrelated files with no duplicated region. A perfect detector reports zero clusters; this measures the false-positive floor.",
+            "seed": null,
+            "rng_seed": 100000,
+            "carriers": [],
+            "distractors": [],
+            "cleans": [
+                {"file": "PayrollCalendar.php", "namespace": "Acme\\People\\Payroll", "class": "PayrollCalendar", "source": "nd_payroll"},
+                {"file": "DnsRecordParser.php", "namespace": "Acme\\Net\\Naming", "class": "DnsRecordParser", "source": "nd_dns"},
+                {"file": "ImageThumbnailer.php", "namespace": "Acme\\Media\\Imaging", "class": "ImageThumbnailer", "source": "nd_image"},
+                {"file": "RequestThrottle.php", "namespace": "Acme\\Http\\Throttle", "class": "RequestThrottle", "source": "nd_ratelimit"},
+                {"file": "SitemapBuilder.php", "namespace": "Acme\\Seo\\Sitemaps", "class": "SitemapBuilder", "source": "nd_sitemap"}
+            ],
+            "traps": [
+                {"file": "PayrollCalendar.php", "region": "class_header", "known_tool_fp": true, "reason": "deliberate false-positive bait: the declare(strict_types=1) + namespace + final-class declaration scaffold is byte-identical across all five files. It is the only shape shared between any two files here and a low-threshold token/line detector may be tempted to pair it, but it is ubiquitous PHP boilerplate, not a duplicated implementation."},
+                {"file": "DnsRecordParser.php", "region": "class_header", "known_tool_fp": true, "reason": "deliberate false-positive bait: same class-declaration scaffold shared verbatim with every other file. A detector pairing this header would be reporting shared boilerplate, not a real clone."}
+            ]
+        }
+    ]
+}
