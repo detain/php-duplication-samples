@@ -1,0 +1,86 @@
+{
+    "schema_version": 1,
+    "set_id": "L08-sem_event-001",
+    "level": 8,
+    "level_name": "semantic_idioms",
+    "family": "sem_event",
+    "title": "Authorization decision: direct vs event-dispatch vs scattered-concerns expression",
+    "description": "The same resource-authorization decision in three semantically equivalent forms: carrier A uses the pristine guard-clause boolean-return form, carrier B uses an event-dispatch style with conceptual before/after authorize events (sem_event variant), and carrier C uses a scattered-concerns style with descriptive variable names indicating different conceptual classes (sem_scatter variant). All three compute behaviorally identical results. No two carriers share a token run long enough for token/line tools to pair them, so only semantic detection is expected to recover the cluster.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "access_guard",
+    "difficulty_band": "expert",
+    "files": [
+        {
+            "path": "src/DocumentAccessPolicy.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 33
+        },
+        {
+            "path": "src/FolderAccessPolicy.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 45
+        },
+        {
+            "path": "src/ProjectAccessPolicy.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 43
+        },
+        {
+            "path": "src/TrustScorer.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 29
+        },
+        {
+            "path": "src/RoleHierarchy.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 27
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-4",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "SEM-06",
+            "name": "event_indirection",
+            "params": {
+                "variant": "sem_event"
+            },
+            "applied_to": [
+                "src/FolderAccessPolicy.php"
+            ]
+        },
+        {
+            "code": "SEM-08",
+            "name": "cross_file_scatter",
+            "params": {
+                "variant": "sem_scatter"
+            },
+            "applied_to": [
+                "src/ProjectAccessPolicy.php"
+            ]
+        }
+    ],
+    "difficulty": {
+        "score": 100,
+        "requires": [
+            "semantic_reasoning"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L08/sem_event.json",
+        "version": "1.0.0",
+        "rng_seed": 108601
+    }
+}

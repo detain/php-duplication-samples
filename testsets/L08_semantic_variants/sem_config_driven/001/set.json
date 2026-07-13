@@ -1,0 +1,87 @@
+{
+    "schema_version": 1,
+    "set_id": "L08-sem_config_driven-001",
+    "level": 8,
+    "level_name": "semantic_variants",
+    "family": "sem_config_driven",
+    "title": "Authorization decision: config-driven rules vs normalization order variants",
+    "description": "The same resource-authorization decision expressed in three semantically equivalent forms: carrier A uses the pristine access_guard with inline checks, carrier B uses configuration-driven rules with hardcoded config array, and carrier C checks conditions in a different normalization order (grant → role → owner instead of role → owner → grant). All three compute identical boolean results. Minimal token overlap; requires semantic analysis to detect clone relationship.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "access_guard",
+    "difficulty_band": "expert",
+    "files": [
+        {
+            "path": "src/DocumentAccessPolicy.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 33
+        },
+        {
+            "path": "src/ConfigDrivenAccessPolicy.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 61
+        },
+        {
+            "path": "src/NormalizedOrderAccessPolicy.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 44
+        },
+        {
+            "path": "src/TrustScorer.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 29
+        },
+        {
+            "path": "src/RoleHierarchy.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 27
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-4/semantic-domain",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "SEM-10",
+            "name": "config_driven",
+            "params": {
+                "variant": "sem_config_driven"
+            },
+            "applied_to": [
+                "src/ConfigDrivenAccessPolicy.php"
+            ]
+        },
+        {
+            "code": "SEM-11",
+            "name": "normalization_order",
+            "params": {
+                "variant": "sem_normalization_order"
+            },
+            "applied_to": [
+                "src/NormalizedOrderAccessPolicy.php"
+            ]
+        }
+    ],
+    "difficulty": {
+        "score": 100,
+        "requires": [
+            "semantic_equivalence",
+            "ast_canonicalization"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L08/sem_config_driven.json",
+        "version": "1.0.0",
+        "rng_seed": 109001
+    }
+}

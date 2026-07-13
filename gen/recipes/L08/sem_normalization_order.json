@@ -1,0 +1,35 @@
+{
+    "level": 8,
+    "level_name": "semantic_idioms",
+    "level_dir": "L08_semantic_idioms",
+    "family": "sem_normalization_order",
+    "sets": [
+        {
+            "set_id": "L08-sem_normalization_order-001",
+            "title": "Authorization decision: normalization order vs config-driven rules variants",
+            "description": "The same resource-authorization decision in three semantically equivalent forms: carrier A uses the pristine guard-clause boolean-return form, carrier B checks conditions in a different normalization order (grant→role→owner instead of role→owner→grant) (sem_normalization_order variant), and carrier C uses configuration-driven rules with hardcoded config array (sem_config_driven variant). All three compute behaviorally identical results. No two carriers share a token run long enough for token/line tools to pair them, so only semantic detection is expected to recover the cluster.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-4",
+            "normalized_by": ["controlflow", "identifiers", "literals"],
+            "rng_seed": 109101,
+            "notes": "SEM-11 variant (sem_normalization_order) uses different condition ordering. SEM-10 variant (sem_config_driven) uses hardcoded config array. Behavioral equivalence enforced by gen/seeds/access_guard/equivalence_test.php.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": false, "ast_based": false, "metric_based": false, "semantic": true},
+            "requires": ["semantic_reasoning"],
+            "carriers": [
+                {"file": "DocumentAccessPolicy.php", "namespace": "Acme\\Access\\Documents", "class": "DocumentAccessPolicy", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "NormalizedOrderAccessPolicy.php", "namespace": "Acme\\Access\\Normalized", "class": "NormalizedOrderAccessPolicy", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "sem_normalization_order", "transforms": [{"code": "SEM-11", "variant": "sem_normalization_order"}]},
+                {"file": "ConfigDrivenAccessPolicy.php", "namespace": "Acme\\Access\\Config", "class": "ConfigDrivenAccessPolicy", "scaffold": "method_gamma", "group": "A", "pristine": false, "variant": "sem_config_driven", "transforms": [{"code": "SEM-10", "variant": "sem_config_driven"}]}
+            ],
+            "distractors": [
+                {"file": "TrustScorer.php", "namespace": "Acme\\Access\\Scoring", "class": "TrustScorer", "source": "nearmiss_access", "reason": "near-miss: same auth vocabulary (user/resource/roles/grants/status) but computes a numeric trust score, not a boolean decision"}
+            ],
+            "cleans": [
+                {"file": "RoleHierarchy.php", "namespace": "Acme\\Access\\Roles", "class": "RoleHierarchy", "source": "clean_auth"}
+            ]
+        }
+    ]
+}

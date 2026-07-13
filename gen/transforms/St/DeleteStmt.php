@@ -45,6 +45,19 @@ final class DeleteStmt implements Transform
             return new TransformResult($in->lines, $in->lineMap);
         }
 
+        // The AST parser wraps the fragment in "<?php class GenWrap { ... }" to
+        // handle visibility modifiers legally. getEndLine() returns ABSOLUTE line
+        // numbers in this wrapped text, but we need RELATIVE positions in the
+        // payload. The GenWrap class declaration adds 2 lines (line 1: "<?php",
+        // line 2: "class GenWrap { ") before the fragment content starts at
+        // line 3. So the wrapper offset is 2.
+        //
+        // IMPORTANT: AST statement 1 is the function SIGNATURE (not a body
+        // statement), and statement 2 is the opening brace. The first actual
+        // body statement is AST statement 3. We should never delete statements
+        // 1 or 2 since that would remove the function header.
+        $wrapperOffset = 2;
+
         // Pick statements to delete (prefer later ones which are typically
         // less critical like comments, debug, etc.)
         $maxOrd = count($endLines);
@@ -59,12 +72,17 @@ final class DeleteStmt implements Transform
             array_splice($candidates, $pick, 1);
         }
 
-        // Find line ranges to delete.
+        // Find line ranges to delete (convert absolute -> relative).
+        // Never delete AST statements 1 or 2 - those are the function signature
+        // and opening brace which must be preserved.
         $deleteRanges = [];
         foreach ($toDelete as $ord) {
+            if ($ord <= 2) {
+                continue; // Skip function header statements
+            }
             $lineIdx = $ord - 1;
-            $startLine = $lineIdx > 0 ? ($endLines[$lineIdx - 1] + 1) : 1;
-            $endLine = $endLines[$lineIdx];
+            $startLine = $lineIdx > 0 ? ($endLines[$lineIdx - 1] + 1 - $wrapperOffset) : 1;
+            $endLine = $endLines[$lineIdx] - $wrapperOffset;
             $deleteRanges[] = [$startLine, $endLine];
         }
 

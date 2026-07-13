@@ -1,0 +1,64 @@
+{
+    "schema_version": 1,
+    "set_id": "L08-sem_normalization_order-001",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-4",
+            "granularity": "method",
+            "normalized_by": [
+                "controlflow",
+                "identifiers",
+                "literals"
+            ],
+            "token_hash": "5cd8e7841ecf7c41",
+            "normalized_hash": "a3a4fbc9a09986cf",
+            "members": [
+                {
+                    "file": "src/DocumentAccessPolicy.php",
+                    "start_line": 9,
+                    "end_line": 27,
+                    "symbol": "authorize",
+                    "pristine": true
+                },
+                {
+                    "file": "src/NormalizedOrderAccessPolicy.php",
+                    "start_line": 18,
+                    "end_line": 48,
+                    "symbol": "authorize",
+                    "pristine": false
+                },
+                {
+                    "file": "src/ConfigDrivenAccessPolicy.php",
+                    "start_line": 24,
+                    "end_line": 71,
+                    "symbol": "authorize",
+                    "pristine": false
+                }
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": false,
+                "ast_based": false,
+                "metric_based": false,
+                "semantic": true
+            },
+            "notes": "SEM-11 variant (sem_normalization_order) uses different condition ordering. SEM-10 variant (sem_config_driven) uses hardcoded config array. Behavioral equivalence enforced by gen/seeds/access_guard/equivalence_test.php."
+        }
+    ],
+    "non_duplicates": [
+        {
+            "file": "src/TrustScorer.php",
+            "start_line": 12,
+            "end_line": 27,
+            "reason": "near-miss: same auth vocabulary (user/resource/roles/grants/status) but computes a numeric trust score, not a boolean decision",
+            "trap": true
+        }
+    ],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.6,
+        "min_members_for_credit": 2
+    }
+}

@@ -26,14 +26,14 @@
                 {
                     "file": "src/TrimmedInvoiceCalc.php",
                     "start_line": 18,
-                    "end_line": 41,
+                    "end_line": 42,
                     "symbol": "computeTotals",
                     "pristine": false
                 },
                 {
                     "file": "src/MoreTrimmedInvoiceCalc.php",
                     "start_line": 24,
-                    "end_line": 44,
+                    "end_line": 47,
                     "symbol": "computeTotals",
                     "pristine": false
                 }

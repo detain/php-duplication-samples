@@ -1,0 +1,35 @@
+{
+    "level": 8,
+    "level_name": "semantic_idioms",
+    "level_dir": "L08_semantic_idioms",
+    "family": "sem_di_style",
+    "sets": [
+        {
+            "set_id": "L08-sem_di_style-001",
+            "title": "Authorization decision: dependency-injection vs exception-throwing expression",
+            "description": "The same resource-authorization decision in three semantically equivalent forms: carrier A uses the pristine guard-clause boolean-return form, carrier B uses a dependency-injection-style inline approach (sem_di_style variant), and carrier C uses an exception-throwing style with try/catch translation to boolean (sem_error_style variant). All three compute behaviorally identical results. No two carriers share a token run long enough for token/line tools to pair them, so only semantic detection is expected to recover the cluster.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-4",
+            "normalized_by": ["controlflow", "identifiers", "literals"],
+            "rng_seed": 108501,
+            "notes": "SEM-05 variant (sem_di_style) uses inline DI-style checks. SEM-04 variant (sem_error_style) uses exceptions to express denial. Behavioral equivalence enforced by gen/seeds/access_guard/equivalence_test.php.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": false, "ast_based": false, "metric_based": false, "semantic": true},
+            "requires": ["semantic_reasoning"],
+            "carriers": [
+                {"file": "DocumentAccessPolicy.php", "namespace": "Acme\\Access\\Documents", "class": "DocumentAccessPolicy", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "FolderAccessPolicy.php", "namespace": "Acme\\Access\\Folders", "class": "FolderAccessPolicy", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "sem_di_style", "transforms": [{"code": "SEM-05", "variant": "sem_di_style"}]},
+                {"file": "ProjectAccessPolicy.php", "namespace": "Acme\\Access\\Projects", "class": "ProjectAccessPolicy", "scaffold": "method_gamma", "group": "A", "pristine": false, "variant": "sem_error_style", "transforms": [{"code": "SEM-04", "variant": "sem_error_style"}]}
+            ],
+            "distractors": [
+                {"file": "TrustScorer.php", "namespace": "Acme\\Access\\Scoring", "class": "TrustScorer", "source": "nearmiss_access", "reason": "near-miss: same auth vocabulary (user/resource/roles/grants/status) but computes a numeric trust score, not a boolean decision"}
+            ],
+            "cleans": [
+                {"file": "RoleHierarchy.php", "namespace": "Acme\\Access\\Roles", "class": "RoleHierarchy", "source": "clean_auth"}
+            ]
+        }
+    ]
+}
