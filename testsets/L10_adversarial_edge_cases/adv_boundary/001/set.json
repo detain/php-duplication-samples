@@ -1,0 +1,63 @@
+{
+    "schema_version": 1,
+    "set_id": "L10-adv_boundary-001",
+    "level": 10,
+    "level_name": "adversarial_edge_cases",
+    "family": "adv_boundary",
+    "title": "Clones at exact 5-line boundary (lower)",
+    "description": "Clone regions spanning exactly 5 lines - the lower boundary of phpcpd's default 5-line minimum. Tests off-by-one in region reporting: does the detector include the boundary line correctly?",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "invoice_totals",
+    "difficulty_band": "expert",
+    "files": [
+        {
+            "path": "src/TotalsCalculatorA.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 39
+        },
+        {
+            "path": "src/TotalsCalculatorB.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 44
+        },
+        {
+            "path": "src/TotalsCalculatorC.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 43
+        },
+        {
+            "path": "src/ReceiptCalculator.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 30
+        },
+        {
+            "path": "src/InvoiceFormatter.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-2",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [],
+    "difficulty": {
+        "score": 82,
+        "requires": []
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L10/adv_boundary.json",
+        "version": "1.0.0",
+        "rng_seed": 110201
+    }
+}

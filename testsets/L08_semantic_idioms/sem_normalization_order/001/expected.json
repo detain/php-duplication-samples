@@ -44,7 +44,7 @@
                 "metric_based": false,
                 "semantic": true
             },
-            "notes": "SEM-11 variant (sem_normalization_order) uses different condition ordering. SEM-10 variant (sem_config_driven) uses hardcoded config array. Behavioral equivalence enforced by gen/seeds/access_guard/equivalence_test.php."
+            "notes": "Set 001 of 5. SEM-11 variant (sem_normalization_order) uses different condition ordering. SEM-10 variant (sem_config_driven) uses hardcoded config array. Behavioral equivalence enforced by gen/seeds/access_guard/equivalence_test.php."
         }
     ],
     "non_duplicates": [

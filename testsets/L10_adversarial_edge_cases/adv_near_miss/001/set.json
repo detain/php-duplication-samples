@@ -1,0 +1,86 @@
+{
+    "schema_version": 1,
+    "set_id": "L10-adv_near_miss-001",
+    "level": 10,
+    "level_name": "adversarial_edge_cases",
+    "family": "adv_near_miss",
+    "title": "High token overlap, different semantics - FP bait only",
+    "description": "Three carrier files share ≥60% token overlap with each other, but compute different results. A token-based detector WOULD pair them because they look similar at the token level, but semantic analysis reveals they perform different computations. This measures the false-positive rate when threshold is low. L0-style: no actual duplication present.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "invoice_totals",
+    "difficulty_band": "expert",
+    "files": [
+        {
+            "path": "src/InvoiceCalculatorA.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 39
+        },
+        {
+            "path": "src/InvoiceCalculatorB.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 44
+        },
+        {
+            "path": "src/InvoiceCalculatorC.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 49
+        },
+        {
+            "path": "src/TrustScorer.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 30
+        },
+        {
+            "path": "src/InvoiceParser.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-3",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "LT-01",
+            "name": "numeric",
+            "params": {
+                "variant": "api_strings"
+            },
+            "applied_to": [
+                "src/InvoiceCalculatorB.php"
+            ]
+        },
+        {
+            "code": "LT-03",
+            "name": "array_values",
+            "params": {
+                "variant": "api_regex_string"
+            },
+            "applied_to": [
+                "src/InvoiceCalculatorC.php"
+            ]
+        }
+    ],
+    "difficulty": {
+        "score": 94,
+        "requires": [
+            "literal_abstraction"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L10/adv_near_miss.json",
+        "version": "1.0.0",
+        "rng_seed": 110001
+    }
+}

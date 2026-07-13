@@ -1,0 +1,138 @@
+{
+    "level": 6,
+    "level_name": "controlflow_rewrites",
+    "level_dir": "L06_controlflow_rewrites",
+    "family": "cf_match_switch",
+    "sets": [
+        {
+            "set_id": "L06-cf_match_switch-001",
+            "title": "Authorization decision: guard clauses vs match dispatch vs nested conditionals",
+            "description": "The same resource-authorization decision in three policy classes, each written in a genuinely different control-flow form: carrier A uses early-return guard clauses (pristine), carrier B uses a combined precondition guard plus a match(true) dispatch over grant conditions, carrier C uses nested conditionals with a single result variable. All three are hand-written and proven behaviorally identical. No two carriers share a token run long enough for a token/line tool to pair them, so only AST-canonicalizing and semantic detectors are expected to recover the cluster.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["controlflow"],
+            "rng_seed": 106201,
+            "notes": "Guard-clause (A), match-dispatch (B) and nested-conditional (C) forms are proven behaviorally identical by gen/seeds/access_guard/equivalence_test.php over the full input matrix. The three bodies are pairwise token-distinct (no member pair shares a >=40 normalized Type-2 token run), so a token detector finds no pair at all — recovering the full three-member cluster requires seeing through the control-flow rewrite, consistent with token_based=false. min_members_for_credit is the default 2. Set 001 of 5.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": false, "ast_based": true, "metric_based": false, "semantic": true},
+            "carriers": [
+                {"file": "DocumentAccessPolicy.php", "namespace": "Acme\\Access\\Documents", "class": "DocumentAccessPolicy", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "FolderAccessPolicy.php", "namespace": "Acme\\Access\\Folders", "class": "FolderAccessPolicy", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "cf_match_guard", "transforms": [{"code": "CF-02", "variant": "cf_match_guard"}]},
+                {"file": "ProjectAccessPolicy.php", "namespace": "Acme\\Access\\Projects", "class": "ProjectAccessPolicy", "scaffold": "method_gamma", "group": "A", "pristine": false, "variant": "cf_guard_nested", "transforms": [{"code": "CF-03", "variant": "cf_guard_nested"}]}
+            ],
+            "distractors": [
+                {"file": "TrustScorer.php", "namespace": "Acme\\Access\\Scoring", "class": "TrustScorer", "source": "nearmiss_access", "reason": "near-miss: same auth vocabulary (user/resource/roles/grants/status) but computes a numeric trust score, not a boolean decision"}
+            ],
+            "cleans": [
+                {"file": "RoleHierarchy.php", "namespace": "Acme\\Access\\Roles", "class": "RoleHierarchy", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L06-cf_match_switch-002",
+            "title": "Authorization decision: guard clauses vs match dispatch vs nested conditionals",
+            "description": "The same resource-authorization decision in three policy classes, each written in a genuinely different control-flow form: carrier A uses early-return guard clauses (pristine), carrier B uses a combined precondition guard plus a match(true) dispatch over grant conditions, carrier C uses nested conditionals with a single result variable. All three are hand-written and proven behaviorally identical. No two carriers share a token run long enough for a token/line tool to pair them, so only AST-canonicalizing and semantic detectors are expected to recover the cluster.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["controlflow"],
+            "rng_seed": 106202,
+            "notes": "Guard-clause (A), match-dispatch (B) and nested-conditional (C) forms are proven behaviorally identical by gen/seeds/access_guard/equivalence_test.php over the full input matrix. The three bodies are pairwise token-distinct (no member pair shares a >=40 normalized Type-2 token run), so a token detector finds no pair at all — recovering the full three-member cluster requires seeing through the control-flow rewrite, consistent with token_based=false. min_members_for_credit is the default 2. Set 002 of 5.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": false, "ast_based": true, "metric_based": false, "semantic": true},
+            "carriers": [
+                {"file": "DocumentAccessPolicy.php", "namespace": "Acme\\Access\\Documents", "class": "DocumentAccessPolicy", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "FolderAccessPolicy.php", "namespace": "Acme\\Access\\Folders", "class": "FolderAccessPolicy", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "cf_match_guard", "transforms": [{"code": "CF-02", "variant": "cf_match_guard"}]},
+                {"file": "ProjectAccessPolicy.php", "namespace": "Acme\\Access\\Projects", "class": "ProjectAccessPolicy", "scaffold": "method_gamma", "group": "A", "pristine": false, "variant": "cf_guard_nested", "transforms": [{"code": "CF-03", "variant": "cf_guard_nested"}]}
+            ],
+            "distractors": [
+                {"file": "TrustScorer.php", "namespace": "Acme\\Access\\Scoring", "class": "TrustScorer", "source": "nearmiss_access", "reason": "near-miss: same auth vocabulary (user/resource/roles/grants/status) but computes a numeric trust score, not a boolean decision"}
+            ],
+            "cleans": [
+                {"file": "RoleHierarchy.php", "namespace": "Acme\\Access\\Roles", "class": "RoleHierarchy", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L06-cf_match_switch-003",
+            "title": "Authorization decision: guard clauses vs match dispatch vs nested conditionals",
+            "description": "The same resource-authorization decision in three policy classes, each written in a genuinely different control-flow form: carrier A uses early-return guard clauses (pristine), carrier B uses a combined precondition guard plus a match(true) dispatch over grant conditions, carrier C uses nested conditionals with a single result variable. All three are hand-written and proven behaviorally identical. No two carriers share a token run long enough for a token/line tool to pair them, so only AST-canonicalizing and semantic detectors are expected to recover the cluster.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["controlflow"],
+            "rng_seed": 106203,
+            "notes": "Guard-clause (A), match-dispatch (B) and nested-conditional (C) forms are proven behaviorally identical by gen/seeds/access_guard/equivalence_test.php over the full input matrix. The three bodies are pairwise token-distinct (no member pair shares a >=40 normalized Type-2 token run), so a token detector finds no pair at all — recovering the full three-member cluster requires seeing through the control-flow rewrite, consistent with token_based=false. min_members_for_credit is the default 2. Set 003 of 5.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": false, "ast_based": true, "metric_based": false, "semantic": true},
+            "carriers": [
+                {"file": "DocumentAccessPolicy.php", "namespace": "Acme\\Access\\Documents", "class": "DocumentAccessPolicy", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "FolderAccessPolicy.php", "namespace": "Acme\\Access\\Folders", "class": "FolderAccessPolicy", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "cf_match_guard", "transforms": [{"code": "CF-02", "variant": "cf_match_guard"}]},
+                {"file": "ProjectAccessPolicy.php", "namespace": "Acme\\Access\\Projects", "class": "ProjectAccessPolicy", "scaffold": "method_gamma", "group": "A", "pristine": false, "variant": "cf_guard_nested", "transforms": [{"code": "CF-03", "variant": "cf_guard_nested"}]}
+            ],
+            "distractors": [
+                {"file": "TrustScorer.php", "namespace": "Acme\\Access\\Scoring", "class": "TrustScorer", "source": "nearmiss_access", "reason": "near-miss: same auth vocabulary (user/resource/roles/grants/status) but computes a numeric trust score, not a boolean decision"}
+            ],
+            "cleans": [
+                {"file": "RoleHierarchy.php", "namespace": "Acme\\Access\\Roles", "class": "RoleHierarchy", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L06-cf_match_switch-004",
+            "title": "Authorization decision: guard clauses vs match dispatch vs nested conditionals",
+            "description": "The same resource-authorization decision in three policy classes, each written in a genuinely different control-flow form: carrier A uses early-return guard clauses (pristine), carrier B uses a combined precondition guard plus a match(true) dispatch over grant conditions, carrier C uses nested conditionals with a single result variable. All three are hand-written and proven behaviorally identical. No two carriers share a token run long enough for a token/line tool to pair them, so only AST-canonicalizing and semantic detectors are expected to recover the cluster.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["controlflow"],
+            "rng_seed": 106204,
+            "notes": "Guard-clause (A), match-dispatch (B) and nested-conditional (C) forms are proven behaviorally identical by gen/seeds/access_guard/equivalence_test.php over the full input matrix. The three bodies are pairwise token-distinct (no member pair shares a >=40 normalized Type-2 token run), so a token detector finds no pair at all — recovering the full three-member cluster requires seeing through the control-flow rewrite, consistent with token_based=false. min_members_for_credit is the default 2. Set 004 of 5.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": false, "ast_based": true, "metric_based": false, "semantic": true},
+            "carriers": [
+                {"file": "DocumentAccessPolicy.php", "namespace": "Acme\\Access\\Documents", "class": "DocumentAccessPolicy", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "FolderAccessPolicy.php", "namespace": "Acme\\Access\\Folders", "class": "FolderAccessPolicy", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "cf_match_guard", "transforms": [{"code": "CF-02", "variant": "cf_match_guard"}]},
+                {"file": "ProjectAccessPolicy.php", "namespace": "Acme\\Access\\Projects", "class": "ProjectAccessPolicy", "scaffold": "method_gamma", "group": "A", "pristine": false, "variant": "cf_guard_nested", "transforms": [{"code": "CF-03", "variant": "cf_guard_nested"}]}
+            ],
+            "distractors": [
+                {"file": "TrustScorer.php", "namespace": "Acme\\Access\\Scoring", "class": "TrustScorer", "source": "nearmiss_access", "reason": "near-miss: same auth vocabulary (user/resource/roles/grants/status) but computes a numeric trust score, not a boolean decision"}
+            ],
+            "cleans": [
+                {"file": "RoleHierarchy.php", "namespace": "Acme\\Access\\Roles", "class": "RoleHierarchy", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L06-cf_match_switch-005",
+            "title": "Authorization decision: guard clauses vs match dispatch vs nested conditionals",
+            "description": "The same resource-authorization decision in three policy classes, each written in a genuinely different control-flow form: carrier A uses early-return guard clauses (pristine), carrier B uses a combined precondition guard plus a match(true) dispatch over grant conditions, carrier C uses nested conditionals with a single result variable. All three are hand-written and proven behaviorally identical. No two carriers share a token run long enough for a token/line tool to pair them, so only AST-canonicalizing and semantic detectors are expected to recover the cluster.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["controlflow"],
+            "rng_seed": 106205,
+            "notes": "Guard-clause (A), match-dispatch (B) and nested-conditional (C) forms are proven behaviorally identical by gen/seeds/access_guard/equivalence_test.php over the full input matrix. The three bodies are pairwise token-distinct (no member pair shares a >=40 normalized Type-2 token run), so a token detector finds no pair at all — recovering the full three-member cluster requires seeing through the control-flow rewrite, consistent with token_based=false. min_members_for_credit is the default 2. Set 005 of 5.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": false, "ast_based": true, "metric_based": false, "semantic": true},
+            "carriers": [
+                {"file": "DocumentAccessPolicy.php", "namespace": "Acme\\Access\\Documents", "class": "DocumentAccessPolicy", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "FolderAccessPolicy.php", "namespace": "Acme\\Access\\Folders", "class": "FolderAccessPolicy", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "cf_match_guard", "transforms": [{"code": "CF-02", "variant": "cf_match_guard"}]},
+                {"file": "ProjectAccessPolicy.php", "namespace": "Acme\\Access\\Projects", "class": "ProjectAccessPolicy", "scaffold": "method_gamma", "group": "A", "pristine": false, "variant": "cf_guard_nested", "transforms": [{"code": "CF-03", "variant": "cf_guard_nested"}]}
+            ],
+            "distractors": [
+                {"file": "TrustScorer.php", "namespace": "Acme\\Access\\Scoring", "class": "TrustScorer", "source": "nearmiss_access", "reason": "near-miss: same auth vocabulary (user/resource/roles/grants/status) but computes a numeric trust score, not a boolean decision"}
+            ],
+            "cleans": [
+                {"file": "RoleHierarchy.php", "namespace": "Acme\\Access\\Roles", "class": "RoleHierarchy", "source": "clean_auth"}
+            ]
+        }
+    ]
+}

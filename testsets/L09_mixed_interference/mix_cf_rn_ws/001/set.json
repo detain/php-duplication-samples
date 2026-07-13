@@ -1,0 +1,118 @@
+{
+    "schema_version": 1,
+    "set_id": "L09-mix_cf_rn_ws-001",
+    "level": 9,
+    "level_name": "mixed_interference",
+    "family": "mix_cf_rn_ws",
+    "title": "Access guard with controlflow + rename + whitespace interference",
+    "description": "The same authorize method across three policy classes. Carrier A is pristine guard-clause form; carrier B applies CF variant (cf_match_guard) + RN-05 case_convention; carrier C applies CF variant (cf_guard_nested) + RN-05 + WS-06 line_wrap. Control-flow differs significantly between carriers, so token-based detectors should NOT pair them.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "access_guard",
+    "difficulty_band": "expert",
+    "files": [
+        {
+            "path": "src/PristineAccessPolicy.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 33
+        },
+        {
+            "path": "src/MatchGuardPolicy.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 31
+        },
+        {
+            "path": "src/NestedGuardPolicy.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 34
+        },
+        {
+            "path": "src/TrustScorer.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 29
+        },
+        {
+            "path": "src/RoleHierarchy.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 27
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-3",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "CF-02",
+            "name": "match_switch",
+            "params": {
+                "variant": "cf_match_guard"
+            },
+            "applied_to": [
+                "src/MatchGuardPolicy.php"
+            ]
+        },
+        {
+            "code": "RN-05",
+            "name": "case_convention",
+            "params": {
+                "direction": "snake_to_camel"
+            },
+            "applied_to": [
+                "src/MatchGuardPolicy.php"
+            ]
+        },
+        {
+            "code": "CF-03",
+            "name": "guard_nested",
+            "params": {
+                "variant": "cf_guard_nested"
+            },
+            "applied_to": [
+                "src/NestedGuardPolicy.php"
+            ]
+        },
+        {
+            "code": "RN-05",
+            "name": "case_convention",
+            "params": {
+                "direction": "camel_to_snake"
+            },
+            "applied_to": [
+                "src/NestedGuardPolicy.php"
+            ]
+        },
+        {
+            "code": "WS-06",
+            "name": "line_wrap",
+            "params": {
+                "occurrence": 1
+            },
+            "applied_to": [
+                "src/NestedGuardPolicy.php"
+            ]
+        }
+    ],
+    "difficulty": {
+        "score": 100,
+        "requires": [
+            "controlflow_normalization",
+            "identifier_canonicalization",
+            "whitespace_normalization"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L09/mix_cf_rn_ws.json",
+        "version": "1.0.0",
+        "rng_seed": 109301
+    }
+}

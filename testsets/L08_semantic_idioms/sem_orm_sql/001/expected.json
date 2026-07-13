@@ -44,7 +44,7 @@
                 "metric_based": false,
                 "semantic": true
             },
-            "notes": "SEM-07 variant (sem_orm_sql) uses ORM-style inline repository logic. SEM-01 variant (sem_rule) uses rule re-expression with compound predicates. Behavioral equivalence enforced by gen/seeds/access_guard/equivalence_test.php."
+            "notes": "Set 001 of 5. SEM-07 variant (sem_orm_sql) uses ORM-style inline repository logic. SEM-01 variant (sem_rule) uses rule re-expression with compound predicates. Behavioral equivalence enforced by gen/seeds/access_guard/equivalence_test.php."
         }
     ],
     "non_duplicates": [

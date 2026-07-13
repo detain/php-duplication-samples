@@ -44,7 +44,7 @@
                 "metric_based": false,
                 "semantic": true
             },
-            "notes": "SEM-06 variant (sem_event) uses conceptual event dispatch pattern. SEM-08 variant (sem_scatter) expresses logic with scattered-concerns variable naming. Behavioral equivalence enforced by gen/seeds/access_guard/equivalence_test.php."
+            "notes": "Set 001 of 5. SEM-06 variant (sem_event) uses conceptual event dispatch pattern. SEM-08 variant (sem_scatter) expresses logic with scattered-concerns variable naming. Behavioral equivalence enforced by gen/seeds/access_guard/equivalence_test.php."
         }
     ],
     "non_duplicates": [

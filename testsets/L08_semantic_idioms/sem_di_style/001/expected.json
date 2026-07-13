@@ -44,7 +44,7 @@
                 "metric_based": false,
                 "semantic": true
             },
-            "notes": "SEM-05 variant (sem_di_style) uses inline DI-style checks. SEM-04 variant (sem_error_style) uses exceptions to express denial. Behavioral equivalence enforced by gen/seeds/access_guard/equivalence_test.php."
+            "notes": "Set 001 of 5. SEM-05 variant (sem_di_style) uses inline DI-style checks. SEM-04 variant (sem_error_style) uses exceptions to express denial. Behavioral equivalence enforced by gen/seeds/access_guard/equivalence_test.php."
         }
     ],
     "non_duplicates": [

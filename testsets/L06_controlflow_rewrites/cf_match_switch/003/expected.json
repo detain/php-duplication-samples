@@ -1,0 +1,62 @@
+{
+    "schema_version": 1,
+    "set_id": "L06-cf_match_switch-003",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-3",
+            "granularity": "method",
+            "normalized_by": [
+                "controlflow"
+            ],
+            "token_hash": "5cd8e7841ecf7c41",
+            "normalized_hash": "d62b3b768faecc30",
+            "members": [
+                {
+                    "file": "src/DocumentAccessPolicy.php",
+                    "start_line": 9,
+                    "end_line": 27,
+                    "symbol": "authorize",
+                    "pristine": true
+                },
+                {
+                    "file": "src/FolderAccessPolicy.php",
+                    "start_line": 18,
+                    "end_line": 30,
+                    "symbol": "authorize",
+                    "pristine": false
+                },
+                {
+                    "file": "src/ProjectAccessPolicy.php",
+                    "start_line": 24,
+                    "end_line": 39,
+                    "symbol": "authorize",
+                    "pristine": false
+                }
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": false,
+                "ast_based": true,
+                "metric_based": false,
+                "semantic": true
+            },
+            "notes": "Guard-clause (A), match-dispatch (B) and nested-conditional (C) forms are proven behaviorally identical by gen/seeds/access_guard/equivalence_test.php over the full input matrix. The three bodies are pairwise token-distinct (no member pair shares a >=40 normalized Type-2 token run), so a token detector finds no pair at all — recovering the full three-member cluster requires seeing through the control-flow rewrite, consistent with token_based=false. min_members_for_credit is the default 2. Set 003 of 5."
+        }
+    ],
+    "non_duplicates": [
+        {
+            "file": "src/TrustScorer.php",
+            "start_line": 12,
+            "end_line": 27,
+            "reason": "near-miss: same auth vocabulary (user/resource/roles/grants/status) but computes a numeric trust score, not a boolean decision",
+            "trap": true
+        }
+    ],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.6,
+        "min_members_for_credit": 2
+    }
+}

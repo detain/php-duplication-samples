@@ -44,7 +44,7 @@
                 "metric_based": false,
                 "semantic": true
             },
-            "notes": "SEM-03 variant (sem_oo_split) organizes logic into descriptive phases with comments. SEM-02 variant (sem_inline_extract) keeps all logic inline without helper extraction. Behavioral equivalence enforced by gen/seeds/access_guard/equivalence_test.php."
+            "notes": "Set 001 of 5. SEM-03 variant (sem_oo_split) organizes logic into descriptive phases with comments. SEM-02 variant (sem_inline_extract) keeps all logic inline without helper extraction. Behavioral equivalence enforced by gen/seeds/access_guard/equivalence_test.php."
         }
     ],
     "non_duplicates": [

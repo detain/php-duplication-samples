@@ -1,0 +1,86 @@
+{
+    "schema_version": 1,
+    "set_id": "L08-sem_state_machine-002",
+    "level": 8,
+    "level_name": "semantic_idioms",
+    "family": "sem_state_machine",
+    "title": "Authorization decision: state machine vs scattered concerns expression",
+    "description": "The same resource-authorization decision in three semantically equivalent forms: carrier A uses the pristine guard-clause boolean-return form, carrier B uses a finite state machine with explicit state transitions UNKNOWN→USER_VALID→ROLE_CHECKED→OWNER_CHECKED→GRANT_CHECKED→ALLOWED/DENIED (sem_state_machine variant), and carrier C expresses authorization with scattered-concerns variable naming indicating different logical classes (sem_scatter variant). All three compute behaviorally identical results. No two carriers share a token run long enough for token/line tools to pair them, so only semantic detection is expected to recover the cluster.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "access_guard",
+    "difficulty_band": "expert",
+    "files": [
+        {
+            "path": "src/DocumentAccessPolicy.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 33
+        },
+        {
+            "path": "src/StateMachineAccessPolicy.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 82
+        },
+        {
+            "path": "src/ScatteredAccessPolicy.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 43
+        },
+        {
+            "path": "src/TrustScorer.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 29
+        },
+        {
+            "path": "src/RoleHierarchy.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 27
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-4",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "SEM-09",
+            "name": "state_machine",
+            "params": {
+                "variant": "sem_state_machine"
+            },
+            "applied_to": [
+                "src/StateMachineAccessPolicy.php"
+            ]
+        },
+        {
+            "code": "SEM-08",
+            "name": "cross_file_scatter",
+            "params": {
+                "variant": "sem_scatter"
+            },
+            "applied_to": [
+                "src/ScatteredAccessPolicy.php"
+            ]
+        }
+    ],
+    "difficulty": {
+        "score": 100,
+        "requires": [
+            "semantic_reasoning"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L08/sem_state_machine.json",
+        "version": "1.0.0",
+        "rng_seed": 108902
+    }
+}

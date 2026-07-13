@@ -1,0 +1,34 @@
+{
+    "level": 10,
+    "level_name": "adversarial_edge_cases",
+    "level_dir": "L10_adversarial_edge_cases",
+    "family": "adv_overlap",
+    "sets": [
+        {
+            "set_id": "L10-adv_overlap-001",
+            "title": "Nested and overlapping clone clusters",
+            "description": "Overlapping cluster topology: one large clone (method A) contains an inline helper that also appears standalone in another file's method B. Token tools WOULD find the high-overlap regions, but the overlapping topology tests whether detectors correctly report the topology (large+small clones or just one).",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["controlflow", "identifiers"],
+            "rng_seed": 110301,
+            "notes": "CP-02: Nested + overlapping clusters. Token tools WOULD find high overlap (token_based:true). The adversarial part is the overlapping topology - does detector report the large clone, small clone, or both?",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": true},
+            "carriers": [
+                {"file": "InvoiceCalculatorA.php", "namespace": "Acme\\Billing\\CalcA", "class": "InvoiceCalculatorA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "InvoiceCalculatorB.php", "namespace": "Acme\\Billing\\CalcB", "class": "InvoiceCalculatorB", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "api_strings", "transforms": [{"code": "LT-01", "variant": "api_strings"}]},
+                {"file": "InvoiceCalculatorC.php", "namespace": "Acme\\Billing\\CalcC", "class": "InvoiceCalculatorC", "scaffold": "method_gamma", "group": "A", "pristine": false, "variant": "api_map_loop", "transforms": [{"code": "LT-04", "variant": "api_map_loop"}]}
+            ],
+            "distractors": [
+                {"file": "TrustScorer.php", "namespace": "Acme\\Billing\\Scoring", "class": "TrustScorer", "source": "nearmiss_invoice", "reason": "Near-miss: same invoice calculation vocabulary but computes different result - adds premium support fee"}
+            ],
+            "cleans": [
+                {"file": "InvoiceParser.php", "namespace": "Acme\\Billing\\Parsing", "class": "InvoiceParser", "source": "clean_billing"}
+            ]
+        }
+    ]
+}

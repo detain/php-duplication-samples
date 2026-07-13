@@ -1,0 +1,34 @@
+{
+    "level": 10,
+    "level_name": "adversarial_edge_cases",
+    "level_dir": "L10_adversarial_edge_cases",
+    "family": "adv_near_miss",
+    "sets": [
+        {
+            "set_id": "L10-adv_near_miss-001",
+            "title": "High token overlap, different semantics - FP bait only",
+            "description": "Three carrier files share ≥60% token overlap with each other, but compute different results. A token-based detector WOULD pair them because they look similar at the token level, but semantic analysis reveals they perform different computations. This measures the false-positive rate when threshold is low. L0-style: no actual duplication present.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["controlflow", "identifiers"],
+            "rng_seed": 110001,
+            "notes": "CP-10: High token overlap with different semantics. Token tools WOULD pair these (token_based:true) but semantic analysis shows different computation - making them false positives. The point is measuring FP rate when threshold is low.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": true},
+            "carriers": [
+                {"file": "InvoiceCalculatorA.php", "namespace": "Acme\\Billing\\CalcA", "class": "InvoiceCalculatorA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "InvoiceCalculatorB.php", "namespace": "Acme\\Billing\\CalcB", "class": "InvoiceCalculatorB", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "api_strings", "transforms": [{"code": "LT-01", "variant": "api_strings"}]},
+                {"file": "InvoiceCalculatorC.php", "namespace": "Acme\\Billing\\CalcC", "class": "InvoiceCalculatorC", "scaffold": "method_gamma", "group": "A", "pristine": false, "variant": "api_regex_string", "transforms": [{"code": "LT-03", "variant": "api_regex_string"}]}
+            ],
+            "distractors": [
+                {"file": "TrustScorer.php", "namespace": "Acme\\Billing\\Scoring", "class": "TrustScorer", "source": "nearmiss_invoice", "reason": "Near-miss distractor: same invoice calculation vocabulary (lineItems/tax/discount/total) but computes a different result - adds premium shipping fee instead of conditional shipping"}
+            ],
+            "cleans": [
+                {"file": "InvoiceParser.php", "namespace": "Acme\\Billing\\Parsing", "class": "InvoiceParser", "source": "clean_billing"}
+            ]
+        }
+    ]
+}

@@ -44,7 +44,7 @@
                 "metric_based": false,
                 "semantic": true
             },
-            "notes": "SEM-01 variant (sem_rule) combines separate checks into compound predicates. SEM-11 variant (sem_normalization_order) reorders grant checks. Behavioral equivalence enforced by gen/seeds/access_guard/equivalence_test.php."
+            "notes": "Set 001 of 5. SEM-01 variant (sem_rule) combines separate checks into compound predicates. SEM-11 variant (sem_normalization_order) reorders grant checks. Behavioral equivalence enforced by gen/seeds/access_guard/equivalence_test.php."
         }
     ],
     "non_duplicates": [

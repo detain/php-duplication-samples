@@ -44,7 +44,7 @@
                 "metric_based": false,
                 "semantic": true
             },
-            "notes": "SEM-08 variant (sem_scatter) uses scattered-concerns variable naming. SEM-09 variant (sem_state_machine) uses explicit state machine transitions. Behavioral equivalence enforced by gen/seeds/access_guard/equivalence_test.php."
+            "notes": "Set 001 of 5. SEM-08 variant (sem_scatter) uses scattered-concerns variable naming. SEM-09 variant (sem_state_machine) uses explicit state machine transitions. Behavioral equivalence enforced by gen/seeds/access_guard/equivalence_test.php."
         }
     ],
     "non_duplicates": [

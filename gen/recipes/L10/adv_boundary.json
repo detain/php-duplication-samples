@@ -1,0 +1,86 @@
+{
+    "level": 10,
+    "level_name": "adversarial_edge_cases",
+    "level_dir": "L10_adversarial_edge_cases",
+    "family": "adv_boundary",
+    "sets": [
+        {
+            "set_id": "L10-adv_boundary-001",
+            "title": "Clones at exact 5-line boundary (lower)",
+            "description": "Clone regions spanning exactly 5 lines - the lower boundary of phpcpd's default 5-line minimum. Tests off-by-one in region reporting: does the detector include the boundary line correctly?",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments", "identifiers"],
+            "rng_seed": 110201,
+            "notes": "CP-04: Clones at exact 5-line/50-token boundaries. Set 001 is at the lower boundary (5 lines). Tests off-by-one in region reporting.",
+            "scoring": {"line_tolerance": 0, "member_jaccard_min": 0.85, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true, "metric_based": false, "semantic": false},
+            "carriers": [
+                {"file": "TotalsCalculatorA.php", "namespace": "Acme\\Billing\\TotalsA", "class": "TotalsCalculatorA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "TotalsCalculatorB.php", "namespace": "Acme\\Billing\\TotalsB", "class": "TotalsCalculatorB", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": []},
+                {"file": "TotalsCalculatorC.php", "namespace": "Acme\\Billing\\TotalsC", "class": "TotalsCalculatorC", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "ReceiptCalculator.php", "namespace": "Acme\\Billing\\Receipt", "class": "ReceiptCalculator", "source": "nearmiss_invoice", "reason": "Near-miss: same invoice vocabulary but computes receipt totals differently (includes tip calculation)"}
+            ],
+            "cleans": [
+                {"file": "InvoiceFormatter.php", "namespace": "Acme\\Billing\\Format", "class": "InvoiceFormatter", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L10-adv_boundary-002",
+            "title": "Clones at exact 5-line boundary (upper)",
+            "description": "Clone regions at the upper boundary of detection - still 5 lines but at the edge where tools may handle boundaries differently. Tests consistency of boundary handling.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments", "identifiers"],
+            "rng_seed": 110202,
+            "notes": "CP-04: Set 002 is at the upper boundary. Same 5 lines as 001 but using a different structural form to test consistency.",
+            "scoring": {"line_tolerance": 0, "member_jaccard_min": 0.85, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true, "metric_based": false, "semantic": false},
+            "carriers": [
+                {"file": "TotalsCalculatorA.php", "namespace": "Acme\\Billing\\TotalsA", "class": "TotalsCalculatorA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "TotalsCalculatorB.php", "namespace": "Acme\\Billing\\TotalsB", "class": "TotalsCalculatorB", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "api_strings", "transforms": [{"code": "LT-01", "variant": "api_strings"}]},
+                {"file": "TotalsCalculatorC.php", "namespace": "Acme\\Billing\\TotalsC", "class": "TotalsCalculatorC", "scaffold": "method_gamma", "group": "A", "pristine": false, "variant": "api_map_loop", "transforms": [{"code": "LT-04", "variant": "api_map_loop"}]}
+            ],
+            "distractors": [
+                {"file": "ReceiptCalculator.php", "namespace": "Acme\\Billing\\Receipt", "class": "ReceiptCalculator", "source": "nearmiss_invoice", "reason": "Near-miss: same invoice vocabulary but computes receipt totals differently"}
+            ],
+            "cleans": [
+                {"file": "InvoiceFormatter.php", "namespace": "Acme\\Billing\\Format", "class": "InvoiceFormatter", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L10-adv_boundary-003",
+            "title": "Clones straddling 5-line boundary",
+            "description": "Clone regions that straddle the 5-line boundary - some members have exactly 5 lines, others have 6. Tests whether detectors correctly handle asymmetric boundary cases.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments", "identifiers"],
+            "rng_seed": 110203,
+            "notes": "CP-04: Set 003 straddles the boundary - some carriers at 5 lines, others at 6. Tests off-by-one asymmetry.",
+            "scoring": {"line_tolerance": 1, "member_jaccard_min": 0.8, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true, "metric_based": false, "semantic": false},
+            "carriers": [
+                {"file": "TotalsCalculatorA.php", "namespace": "Acme\\Billing\\TotalsA", "class": "TotalsCalculatorA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "TotalsCalculatorB.php", "namespace": "Acme\\Billing\\TotalsB", "class": "TotalsCalculatorB", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "api_recursion", "transforms": [{"code": "LT-02", "variant": "api_recursion"}]},
+                {"file": "TotalsCalculatorC.php", "namespace": "Acme\\Billing\\TotalsC", "class": "TotalsCalculatorC", "scaffold": "method_gamma", "group": "A", "pristine": false, "variant": "api_regex_string", "transforms": [{"code": "LT-03", "variant": "api_regex_string"}]}
+            ],
+            "distractors": [
+                {"file": "ReceiptCalculator.php", "namespace": "Acme\\Billing\\Receipt", "class": "ReceiptCalculator", "source": "nearmiss_invoice", "reason": "Near-miss: same invoice vocabulary but computes receipt totals differently"}
+            ],
+            "cleans": [
+                {"file": "InvoiceFormatter.php", "namespace": "Acme\\Billing\\Format", "class": "InvoiceFormatter", "source": "clean_billing"}
+            ]
+        }
+    ]
+}
