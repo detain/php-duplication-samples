@@ -1,0 +1,12 @@
+{
+    "domain": "webhook_verifier",
+    "summary": "Verify webhook HMAC-SHA256 signatures.",
+    "size_class": "M",
+    "symbol": "verifySignature",
+    "line_count": 22,
+    "token_count": 160,
+    "required_symbols": ["verifySignature"],
+    "mount_modes": ["method", "function"],
+    "compatible_interference": ["WS-03", "CM-03", "RN-01", "RN-02", "LT-01", "ST-01"],
+    "variants": []
+}

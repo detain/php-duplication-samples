@@ -1,0 +1,12 @@
+{
+    "domain": "inventory_reservation",
+    "summary": "Reserve inventory for an order with timeout.",
+    "size_class": "M",
+    "symbol": "reserveInventory",
+    "line_count": 32,
+    "token_count": 240,
+    "required_symbols": ["reserveInventory"],
+    "mount_modes": ["method", "function"],
+    "compatible_interference": ["WS-03", "CM-03", "RN-01", "RN-02", "LT-01", "ST-01"],
+    "variants": []
+}

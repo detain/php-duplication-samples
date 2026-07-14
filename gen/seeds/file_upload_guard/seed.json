@@ -1,0 +1,12 @@
+{
+    "domain": "file_upload_guard",
+    "summary": "Validate file upload constraints (size, extension, MIME type).",
+    "size_class": "M",
+    "symbol": "validateUpload",
+    "line_count": 30,
+    "token_count": 220,
+    "required_symbols": ["validateUpload"],
+    "mount_modes": ["method", "function"],
+    "compatible_interference": ["WS-03", "CM-03", "RN-01", "RN-02", "LT-01", "CF-01", "CF-02"],
+    "variants": []
+}

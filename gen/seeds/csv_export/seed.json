@@ -1,0 +1,12 @@
+{
+    "domain": "csv_export",
+    "summary": "Export data array to CSV format with headers.",
+    "size_class": "M",
+    "symbol": "exportToCsv",
+    "line_count": 25,
+    "token_count": 180,
+    "required_symbols": ["exportToCsv"],
+    "mount_modes": ["method", "function"],
+    "compatible_interference": ["WS-03", "WS-06", "CM-03", "RN-01", "RN-02", "LT-02", "ST-01"],
+    "variants": []
+}

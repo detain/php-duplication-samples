@@ -1,0 +1,15 @@
+{
+    "domain": "variant_rich_guard",
+    "summary": "Rich access guard with multiple variant implementations.",
+    "size_class": "M",
+    "symbol": "authorize",
+    "line_count": 28,
+    "token_count": 200,
+    "required_symbols": ["authorize"],
+    "mount_modes": ["method", "function"],
+    "compatible_interference": ["WS-03", "CM-03", "RN-01", "RN-02", "LT-01", "CF-01", "CF-02", "CF-03"],
+    "variants": [
+        {"file": "cf_nested_conditions.php", "code": "CF-03", "name": "nested_conditions"},
+        {"file": "bl_split_conditions.php", "code": "BL-01", "name": "split_conditions"}
+    ]
+}

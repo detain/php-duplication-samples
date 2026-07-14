@@ -1,0 +1,12 @@
+{
+    "domain": "retry_backoff",
+    "summary": "Retry with exponential backoff for unreliable operations.",
+    "size_class": "M",
+    "symbol": "retryWithBackoff",
+    "line_count": 28,
+    "token_count": 200,
+    "required_symbols": ["retryWithBackoff"],
+    "mount_modes": ["method", "function"],
+    "compatible_interference": ["WS-03", "CM-03", "RN-01", "RN-02", "LT-01", "BL-01"],
+    "variants": []
+}

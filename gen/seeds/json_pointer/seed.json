@@ -1,0 +1,12 @@
+{
+    "domain": "json_pointer",
+    "summary": "Resolve JSON pointer paths in nested arrays.",
+    "size_class": "M",
+    "symbol": "resolvePointer",
+    "line_count": 28,
+    "token_count": 200,
+    "required_symbols": ["resolvePointer"],
+    "mount_modes": ["method", "function"],
+    "compatible_interference": ["WS-03", "CM-03", "RN-01", "RN-02", "LT-01", "ST-01"],
+    "variants": []
+}

@@ -1,0 +1,12 @@
+{
+    "domain": "password_policy",
+    "summary": "Password validation against configurable rules.",
+    "size_class": "M",
+    "symbol": "validatePassword",
+    "line_count": 30,
+    "token_count": 220,
+    "required_symbols": ["validatePassword"],
+    "mount_modes": ["method", "function"],
+    "compatible_interference": ["WS-03", "CM-03", "RN-01", "RN-02", "LT-01", "CF-01", "CF-02"],
+    "variants": []
+}
