@@ -13,7 +13,10 @@
             "clone_symbol": "computeTotals",
             "granularity": "function",
             "clone_type": "type-1",
-            "normalized_by": ["whitespace", "comments"],
+            "normalized_by": [
+                "whitespace",
+                "comments"
+            ],
             "rng_seed": 103901,
             "notes": "CM-09 license header addition (MIT License).",
             "detection_expectation": {
@@ -23,14 +26,67 @@
                 "metric_based": false,
                 "semantic": false
             },
-            "role_composition": {"carrier": 2, "distractor": 1, "clean": 1},
+            "role_composition": {
+                "carrier": 3,
+                "distractor": 1,
+                "clean": 1
+            },
             "carriers": [
-                {"file": "LedgerPostingService.php", "namespace": "Acme\\Ledger\\Posting", "class": "LedgerPostingService", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
-                {"file": "PriceBookService.php", "namespace": "Acme\\Ledger\\Pricing", "class": "PriceBookService", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "CM-09", "params": {"license": "MIT License"}}]}
+                {
+                    "file": "LedgerPostingService.php",
+                    "namespace": "Acme\\Ledger\\Posting",
+                    "class": "LedgerPostingService",
+                    "scaffold": "method_alpha",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                },
+                {
+                    "file": "PriceBookService.php",
+                    "namespace": "Acme\\Ledger\\Pricing",
+                    "class": "PriceBookService",
+                    "scaffold": "method_beta",
+                    "group": "A",
+                    "pristine": false,
+                    "transforms": [
+                        {
+                            "code": "CM-09",
+                            "params": {
+                                "license": "MIT License"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "file": "ThirdService.php",
+                    "namespace": "Acme\\Ledger\\Third",
+                    "class": "ThirdService",
+                    "scaffold": "method_gamma",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                }
             ],
-            "distractor": {"variant": "pristine"},
-            "clean": 1,
-            "interference": ["CM-09"]
+            "interference": [
+                "CM-09"
+            ],
+            "distractors": [
+                {
+                    "file": "MarginReporter.php",
+                    "namespace": "Acme\\Ledger\\Reporting",
+                    "class": "MarginReporter",
+                    "source": "nearmiss_access",
+                    "reason": "near-miss: shares foreach+invoice vocabulary but computes margin/ratio not totals"
+                }
+            ],
+            "cleans": [
+                {
+                    "file": "TaxRateRepository.php",
+                    "namespace": "Acme\\Ledger\\Catalog",
+                    "class": "TaxRateRepository",
+                    "source": "clean_auth"
+                }
+            ]
         },
         {
             "set_id": "L03-cm_license_header-002",
@@ -41,7 +97,10 @@
             "clone_symbol": "computeTotals",
             "granularity": "function",
             "clone_type": "type-1",
-            "normalized_by": ["whitespace", "comments"],
+            "normalized_by": [
+                "whitespace",
+                "comments"
+            ],
             "rng_seed": 103902,
             "notes": "CM-09 license header addition (Apache 2.0 License).",
             "detection_expectation": {
@@ -51,14 +110,67 @@
                 "metric_based": false,
                 "semantic": false
             },
-            "role_composition": {"carrier": 2, "distractor": 1, "clean": 1},
+            "role_composition": {
+                "carrier": 3,
+                "distractor": 1,
+                "clean": 1
+            },
             "carriers": [
-                {"file": "LedgerPostingService.php", "namespace": "Acme\\Ledger\\Posting", "class": "LedgerPostingService", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
-                {"file": "PriceBookService.php", "namespace": "Acme\\Ledger\\Pricing", "class": "PriceBookService", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "CM-09", "params": {"license": "Apache 2.0 License"}}]}
+                {
+                    "file": "LedgerPostingService.php",
+                    "namespace": "Acme\\Ledger\\Posting",
+                    "class": "LedgerPostingService",
+                    "scaffold": "method_alpha",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                },
+                {
+                    "file": "PriceBookService.php",
+                    "namespace": "Acme\\Ledger\\Pricing",
+                    "class": "PriceBookService",
+                    "scaffold": "method_beta",
+                    "group": "A",
+                    "pristine": false,
+                    "transforms": [
+                        {
+                            "code": "CM-09",
+                            "params": {
+                                "license": "Apache 2.0 License"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "file": "ThirdService.php",
+                    "namespace": "Acme\\Ledger\\Third",
+                    "class": "ThirdService",
+                    "scaffold": "method_gamma",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                }
             ],
-            "distractor": {"variant": "pristine"},
-            "clean": 1,
-            "interference": ["CM-09"]
+            "interference": [
+                "CM-09"
+            ],
+            "distractors": [
+                {
+                    "file": "MarginReporter.php",
+                    "namespace": "Acme\\Ledger\\Reporting",
+                    "class": "MarginReporter",
+                    "source": "nearmiss_access",
+                    "reason": "near-miss: shares foreach+invoice vocabulary but computes margin/ratio not totals"
+                }
+            ],
+            "cleans": [
+                {
+                    "file": "TaxRateRepository.php",
+                    "namespace": "Acme\\Ledger\\Catalog",
+                    "class": "TaxRateRepository",
+                    "source": "clean_auth"
+                }
+            ]
         },
         {
             "set_id": "L03-cm_license_header-003",
@@ -69,7 +181,10 @@
             "clone_symbol": "authorize",
             "granularity": "function",
             "clone_type": "type-1",
-            "normalized_by": ["whitespace", "comments"],
+            "normalized_by": [
+                "whitespace",
+                "comments"
+            ],
             "rng_seed": 103903,
             "notes": "CM-09 license header addition (GPL v3 License) on access control method.",
             "detection_expectation": {
@@ -79,14 +194,67 @@
                 "metric_based": false,
                 "semantic": false
             },
-            "role_composition": {"carrier": 2, "distractor": 1, "clean": 1},
+            "role_composition": {
+                "carrier": 3,
+                "distractor": 1,
+                "clean": 1
+            },
             "carriers": [
-                {"file": "AccessServiceBase.php", "namespace": "Acme\\Security\\Access", "class": "AccessServiceBase", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
-                {"file": "AccessServiceDecorated.php", "namespace": "Acme\\Security\\Decorated", "class": "AccessServiceDecorated", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "CM-09", "params": {"license": "GPL v3 License"}}]}
+                {
+                    "file": "AccessServiceBase.php",
+                    "namespace": "Acme\\Security\\Access",
+                    "class": "AccessServiceBase",
+                    "scaffold": "method_alpha",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                },
+                {
+                    "file": "AccessServiceDecorated.php",
+                    "namespace": "Acme\\Security\\Decorated",
+                    "class": "AccessServiceDecorated",
+                    "scaffold": "method_beta",
+                    "group": "A",
+                    "pristine": false,
+                    "transforms": [
+                        {
+                            "code": "CM-09",
+                            "params": {
+                                "license": "GPL v3 License"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "file": "ThirdService.php",
+                    "namespace": "Acme\\Security\\Third",
+                    "class": "ThirdService",
+                    "scaffold": "method_gamma",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                }
             ],
-            "distractor": {"variant": "pristine"},
-            "clean": 1,
-            "interference": ["CM-09"]
+            "interference": [
+                "CM-09"
+            ],
+            "distractors": [
+                {
+                    "file": "MarginReporter.php",
+                    "namespace": "Acme\\Ledger\\Reporting",
+                    "class": "MarginReporter",
+                    "source": "nearmiss_access",
+                    "reason": "near-miss: shares foreach+invoice vocabulary but computes margin/ratio not totals"
+                }
+            ],
+            "cleans": [
+                {
+                    "file": "TaxRateRepository.php",
+                    "namespace": "Acme\\Ledger\\Catalog",
+                    "class": "TaxRateRepository",
+                    "source": "clean_auth"
+                }
+            ]
         },
         {
             "set_id": "L03-cm_license_header-004",
@@ -97,7 +265,10 @@
             "clone_symbol": "computeTotals",
             "granularity": "function",
             "clone_type": "type-1",
-            "normalized_by": ["whitespace", "comments"],
+            "normalized_by": [
+                "whitespace",
+                "comments"
+            ],
             "rng_seed": 103904,
             "notes": "CM-09 license header addition (BSD 3-Clause License).",
             "detection_expectation": {
@@ -107,14 +278,67 @@
                 "metric_based": false,
                 "semantic": false
             },
-            "role_composition": {"carrier": 2, "distractor": 1, "clean": 1},
+            "role_composition": {
+                "carrier": 3,
+                "distractor": 1,
+                "clean": 1
+            },
             "carriers": [
-                {"file": "LedgerPostingService.php", "namespace": "Acme\\Ledger\\Posting", "class": "LedgerPostingService", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
-                {"file": "PriceBookService.php", "namespace": "Acme\\Ledger\\Pricing", "class": "PriceBookService", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "CM-09", "params": {"license": "BSD 3-Clause License"}}]}
+                {
+                    "file": "LedgerPostingService.php",
+                    "namespace": "Acme\\Ledger\\Posting",
+                    "class": "LedgerPostingService",
+                    "scaffold": "method_alpha",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                },
+                {
+                    "file": "PriceBookService.php",
+                    "namespace": "Acme\\Ledger\\Pricing",
+                    "class": "PriceBookService",
+                    "scaffold": "method_beta",
+                    "group": "A",
+                    "pristine": false,
+                    "transforms": [
+                        {
+                            "code": "CM-09",
+                            "params": {
+                                "license": "BSD 3-Clause License"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "file": "ThirdService.php",
+                    "namespace": "Acme\\Ledger\\Third",
+                    "class": "ThirdService",
+                    "scaffold": "method_gamma",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                }
             ],
-            "distractor": {"variant": "pristine"},
-            "clean": 1,
-            "interference": ["CM-09"]
+            "interference": [
+                "CM-09"
+            ],
+            "distractors": [
+                {
+                    "file": "MarginReporter.php",
+                    "namespace": "Acme\\Ledger\\Reporting",
+                    "class": "MarginReporter",
+                    "source": "nearmiss_access",
+                    "reason": "near-miss: shares foreach+invoice vocabulary but computes margin/ratio not totals"
+                }
+            ],
+            "cleans": [
+                {
+                    "file": "TaxRateRepository.php",
+                    "namespace": "Acme\\Ledger\\Catalog",
+                    "class": "TaxRateRepository",
+                    "source": "clean_auth"
+                }
+            ]
         },
         {
             "set_id": "L03-cm_license_header-005",
@@ -125,7 +349,10 @@
             "clone_symbol": "computeTotals",
             "granularity": "function",
             "clone_type": "type-1",
-            "normalized_by": ["whitespace", "comments"],
+            "normalized_by": [
+                "whitespace",
+                "comments"
+            ],
             "rng_seed": 103905,
             "notes": "CM-09 license header addition (ISC License).",
             "detection_expectation": {
@@ -135,14 +362,67 @@
                 "metric_based": false,
                 "semantic": false
             },
-            "role_composition": {"carrier": 2, "distractor": 1, "clean": 1},
+            "role_composition": {
+                "carrier": 3,
+                "distractor": 1,
+                "clean": 1
+            },
             "carriers": [
-                {"file": "LedgerPostingService.php", "namespace": "Acme\\Ledger\\Posting", "class": "LedgerPostingService", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
-                {"file": "PriceBookService.php", "namespace": "Acme\\Ledger\\Pricing", "class": "PriceBookService", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "CM-09", "params": {"license": "ISC License"}}]}
+                {
+                    "file": "LedgerPostingService.php",
+                    "namespace": "Acme\\Ledger\\Posting",
+                    "class": "LedgerPostingService",
+                    "scaffold": "method_alpha",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                },
+                {
+                    "file": "PriceBookService.php",
+                    "namespace": "Acme\\Ledger\\Pricing",
+                    "class": "PriceBookService",
+                    "scaffold": "method_beta",
+                    "group": "A",
+                    "pristine": false,
+                    "transforms": [
+                        {
+                            "code": "CM-09",
+                            "params": {
+                                "license": "ISC License"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "file": "ThirdService.php",
+                    "namespace": "Acme\\Ledger\\Third",
+                    "class": "ThirdService",
+                    "scaffold": "method_gamma",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                }
             ],
-            "distractor": {"variant": "pristine"},
-            "clean": 1,
-            "interference": ["CM-09"]
+            "interference": [
+                "CM-09"
+            ],
+            "distractors": [
+                {
+                    "file": "MarginReporter.php",
+                    "namespace": "Acme\\Ledger\\Reporting",
+                    "class": "MarginReporter",
+                    "source": "nearmiss_access",
+                    "reason": "near-miss: shares foreach+invoice vocabulary but computes margin/ratio not totals"
+                }
+            ],
+            "cleans": [
+                {
+                    "file": "TaxRateRepository.php",
+                    "namespace": "Acme\\Ledger\\Catalog",
+                    "class": "TaxRateRepository",
+                    "source": "clean_auth"
+                }
+            ]
         }
     ]
 }

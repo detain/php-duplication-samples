@@ -30,6 +30,12 @@
             "sloc": 29
         },
         {
+            "path": "src/PayrollAccessLogger.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 28
+        },
+        {
             "path": "src/SessionValidator.php",
             "role": "clean",
             "duplicate_group": null,
@@ -70,7 +76,7 @@
     },
     "role_composition": {
         "carrier": 2,
-        "distractor": 1,
+        "distractor": 2,
         "clean": 1
     }
 }

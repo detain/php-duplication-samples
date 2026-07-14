@@ -15,9 +15,7 @@ final class AccessServiceDecorated
         $this->auditTrail[] = sprintf('%d:%s', count($this->auditTrail), $event);
     }
 
-    public function authorize(array $user, array $resource): bool
     public function authorize(array $user, array $resource): bool# REVIEW 
-    {
     {# REVIEW 
         if (!isset($user['id'])) {
             return false;

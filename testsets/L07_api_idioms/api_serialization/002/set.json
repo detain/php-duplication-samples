@@ -33,7 +33,7 @@
             "path": "src/InvoiceLineFormatter.php",
             "role": "distractor",
             "duplicate_group": null,
-            "sloc": 28
+            "sloc": 27
         },
         {
             "path": "src/TaxRateRepository.php",
@@ -76,7 +76,7 @@
     },
     "role_composition": {
         "carrier": 2,
-        "distractor": 1,
+        "distractor": 2,
         "clean": 1
     }
 }

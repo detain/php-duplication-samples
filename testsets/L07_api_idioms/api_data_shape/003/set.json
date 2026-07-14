@@ -76,7 +76,7 @@
     },
     "role_composition": {
         "carrier": 2,
-        "distractor": 1,
+        "distractor": 2,
         "clean": 1
     }
 }

@@ -42,15 +42,18 @@ final class InlineTrailing implements Transform
 
         $outLines = [];
         $outMap   = [];
+        $nonBlankIdx = 0;
 
         foreach ($in->lines as $i => $line) {
-            $outLines[] = $line;
-            $outMap[]   = $in->lineMap[$i] ?? -1;
-
-            if (trim($line) !== '' && $i < $count) {
+            if (trim($line) !== '' && $nonBlankIdx < $count) {
+                // Replace this line with a trailing-commented version
                 $word = $rng->pick(self::COMMENTS);
                 $outLines[] = $line . $style . $word;
                 $outMap[]   = -1;
+                $nonBlankIdx++;
+            } else {
+                $outLines[] = $line;
+                $outMap[]   = $in->lineMap[$i] ?? -1;
             }
         }
 

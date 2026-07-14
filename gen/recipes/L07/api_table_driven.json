@@ -29,7 +29,7 @@
                 "metric_based": false,
                 "semantic": true
             },
-            "role_composition": {"carrier": 2, "distractor": 1, "clean": 1},
+            "role_composition": {"carrier": 2, "distractor": 2, "clean": 1},
             "requires": [
                 "api_abstraction",
                 "ast_canonicalization"
@@ -110,7 +110,7 @@
                 "metric_based": false,
                 "semantic": true
             },
-            "role_composition": {"carrier": 2, "distractor": 1, "clean": 1},
+            "role_composition": {"carrier": 2, "distractor": 2, "clean": 1},
             "requires": [
                 "api_abstraction",
                 "ast_canonicalization"
@@ -148,6 +148,13 @@
                     "class": "RoleHierarchyChecker",
                     "source": "nearmiss_access",
                     "reason": "near-miss: same authorization domain vocabulary but computes hierarchical role inheritance"
+                },
+                {
+                    "file": "PayrollAccessLogger.php",
+                    "namespace": "Acme\\Security\\Audit",
+                    "class": "PayrollAccessLogger",
+                    "source": "nearmiss_csv",
+                    "reason": "near-miss: same authorization vocabulary but logs access attempts to payroll systems — a different concern (audit logging) not authorization decisions"
                 }
             ],
             "cleans": [
@@ -184,7 +191,7 @@
                 "metric_based": false,
                 "semantic": true
             },
-            "role_composition": {"carrier": 2, "distractor": 1, "clean": 1},
+            "role_composition": {"carrier": 2, "distractor": 2, "clean": 1},
             "requires": [
                 "api_abstraction",
                 "ast_canonicalization"
@@ -222,6 +229,13 @@
                     "class": "RoleHierarchyChecker",
                     "source": "nearmiss_access",
                     "reason": "near-miss: same authorization domain vocabulary but computes hierarchical role inheritance"
+                },
+                {
+                    "file": "PayrollAccessLogger.php",
+                    "namespace": "Acme\\Security\\Audit",
+                    "class": "PayrollAccessLogger",
+                    "source": "nearmiss_csv",
+                    "reason": "near-miss: same authorization vocabulary but logs access attempts to payroll systems — a different concern (audit logging) not authorization decisions"
                 }
             ],
             "cleans": [
@@ -258,7 +272,7 @@
                 "metric_based": false,
                 "semantic": true
             },
-            "role_composition": {"carrier": 2, "distractor": 1, "clean": 1},
+            "role_composition": {"carrier": 2, "distractor": 2, "clean": 1},
             "requires": [
                 "api_abstraction",
                 "ast_canonicalization"
@@ -296,6 +310,13 @@
                     "class": "RoleHierarchyChecker",
                     "source": "nearmiss_access",
                     "reason": "near-miss: same authorization domain vocabulary but computes hierarchical role inheritance"
+                },
+                {
+                    "file": "PayrollAccessLogger.php",
+                    "namespace": "Acme\\Security\\Audit",
+                    "class": "PayrollAccessLogger",
+                    "source": "nearmiss_csv",
+                    "reason": "near-miss: same authorization vocabulary but logs access attempts to payroll systems — a different concern (audit logging) not authorization decisions"
                 }
             ],
             "cleans": [
@@ -332,7 +353,7 @@
                 "metric_based": false,
                 "semantic": true
             },
-            "role_composition": {"carrier": 2, "distractor": 1, "clean": 1},
+            "role_composition": {"carrier": 2, "distractor": 2, "clean": 1},
             "requires": [
                 "api_abstraction",
                 "ast_canonicalization"
@@ -370,6 +391,13 @@
                     "class": "RoleHierarchyChecker",
                     "source": "nearmiss_access",
                     "reason": "near-miss: same authorization domain vocabulary but computes hierarchical role inheritance"
+                },
+                {
+                    "file": "PayrollAccessLogger.php",
+                    "namespace": "Acme\\Security\\Audit",
+                    "class": "PayrollAccessLogger",
+                    "source": "nearmiss_csv",
+                    "reason": "near-miss: same authorization vocabulary but logs access attempts to payroll systems — a different concern (audit logging) not authorization decisions"
                 }
             ],
             "cleans": [

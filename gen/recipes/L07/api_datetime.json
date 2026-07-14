@@ -29,7 +29,7 @@
                 "metric_based": false,
                 "semantic": true
             },
-            "role_composition": {"carrier": 2, "distractor": 1, "clean": 1},
+            "role_composition": {"carrier": 2, "distractor": 2, "clean": 1},
             "requires": [
                 "api_abstraction",
                 "ast_canonicalization"
@@ -110,7 +110,7 @@
                 "metric_based": false,
                 "semantic": true
             },
-            "role_composition": {"carrier": 2, "distractor": 1, "clean": 1},
+            "role_composition": {"carrier": 2, "distractor": 2, "clean": 1},
             "requires": [
                 "api_abstraction",
                 "ast_canonicalization"
@@ -191,7 +191,7 @@
                 "metric_based": false,
                 "semantic": true
             },
-            "role_composition": {"carrier": 2, "distractor": 1, "clean": 1},
+            "role_composition": {"carrier": 2, "distractor": 2, "clean": 1},
             "requires": [
                 "api_abstraction",
                 "ast_canonicalization"
@@ -272,7 +272,7 @@
                 "metric_based": false,
                 "semantic": true
             },
-            "role_composition": {"carrier": 2, "distractor": 1, "clean": 1},
+            "role_composition": {"carrier": 2, "distractor": 2, "clean": 1},
             "requires": [
                 "api_abstraction",
                 "ast_canonicalization"
@@ -353,7 +353,7 @@
                 "metric_based": false,
                 "semantic": true
             },
-            "role_composition": {"carrier": 2, "distractor": 1, "clean": 1},
+            "role_composition": {"carrier": 2, "distractor": 2, "clean": 1},
             "requires": [
                 "api_abstraction",
                 "ast_canonicalization"

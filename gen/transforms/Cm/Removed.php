@@ -56,11 +56,17 @@ final class Removed implements Transform
     {
         $tokens = PhpTokens::rawTokens($line);
 
-        if ($style === 'strip_trailing') {
+        // Map recipe-style params to internal strip functions
+        if ($style === '//' || $style === 'strip_trailing') {
             return $this->stripTrailing($tokens);
         }
 
-        if ($style === 'strip_docblock') {
+        if ($style === 'docblock' || $style === 'strip_docblock') {
+            return $this->stripDocblock($tokens);
+        }
+
+        if ($style === '/* */' || $style === '/*') {
+            // Block comments: strip docblock style (remove /* */ comments)
             return $this->stripDocblock($tokens);
         }
 

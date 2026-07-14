@@ -1,0 +1,56 @@
+{
+    "schema_version": 1,
+    "set_id": "L03-cm_docblock-003",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-1",
+            "granularity": "method",
+            "normalized_by": [
+                "whitespace",
+                "comments"
+            ],
+            "token_hash": "5cd8e7841ecf7c41",
+            "normalized_hash": "d62b3b768faecc30",
+            "members": [
+                {
+                    "file": "src/AccessServiceBase.php",
+                    "start_line": 9,
+                    "end_line": 27,
+                    "symbol": "computeTotals",
+                    "pristine": true
+                },
+                {
+                    "file": "src/AccessServiceDecorated.php",
+                    "start_line": 19,
+                    "end_line": 37,
+                    "symbol": "computeTotals",
+                    "pristine": false
+                }
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": true,
+                "semantic": true
+            },
+            "notes": "CM-03 (docblock) set 3 of 5 using access_guard seed."
+        }
+    ],
+    "non_duplicates": [
+        {
+            "file": "src/PermissionBroker.php",
+            "start_line": 12,
+            "end_line": 28,
+            "reason": "near-miss: same access vocabulary, but computes a different result",
+            "trap": true
+        }
+    ],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.6,
+        "min_members_for_credit": 2
+    }
+}

@@ -23,10 +23,17 @@
                 },
                 {
                     "file": "src/PriceBookService.php",
-                    "start_line": 18,
-                    "end_line": 47,
+                    "start_line": 19,
+                    "end_line": 44,
                     "symbol": "computeTotals",
                     "pristine": false
+                },
+                {
+                    "file": "src/ThirdService.php",
+                    "start_line": 24,
+                    "end_line": 48,
+                    "symbol": "computeTotals",
+                    "pristine": true
                 }
             ],
             "detection_expectation": {
@@ -39,7 +46,15 @@
             "notes": "CM-09 license header addition (BSD 3-Clause License)."
         }
     ],
-    "non_duplicates": [],
+    "non_duplicates": [
+        {
+            "file": "src/MarginReporter.php",
+            "start_line": 12,
+            "end_line": 27,
+            "reason": "near-miss: shares foreach+invoice vocabulary but computes margin/ratio not totals",
+            "trap": true
+        }
+    ],
     "scoring": {
         "line_tolerance": 2,
         "member_jaccard_min": 0.6,

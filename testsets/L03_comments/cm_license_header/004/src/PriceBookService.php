@@ -15,10 +15,7 @@ final class PriceBookService
         $this->auditTrail[] = sprintf('%d:%s', count($this->auditTrail), $event);
     }
 
-    /*
-     * Copyright 2024 All rights reserved.
-     * BSD 3-Clause License
-     */
+    /* BSD 3-Clause License */
 
     public function computeTotals(array $lineItems, float $taxRate, float $discountRate): array
     {

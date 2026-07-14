@@ -5,30 +5,28 @@ declare(strict_types=1);
 namespace Acme\Billing\Export;
 
 /**
- * Tax-rate lookup repository keyed by region code.
+ * Resolves the inherited role set for a role.
  */
 final class InvoiceLineFormatter
 {
-    /** @var array<string,float> */
-    private array $rates = [
-        'US-CA' => 0.0725,
-        'US-NY' => 0.04,
-        'DE' => 0.19,
-        'GB' => 0.20,
+    /** @var array<string,list<string>> */
+    private array $inherits = [
+        'admin' => ['editor', 'viewer'],
+        'editor' => ['viewer'],
+        'viewer' => [],
     ];
 
-    public function rateFor(string $region): float
+    public function expand(string $role): array
     {
-        return $this->rates[$region] ?? 0.0;
+        $seen = [$role => true];
+        foreach ($this->inherits[$role] ?? [] as $child) {
+            $seen[$child] = true;
+        }
+        return array_keys($seen);
     }
 
-    public function regions(): array
+    public function isKnown(string $role): bool
     {
-        return array_keys($this->rates);
-    }
-
-    public function register(string $region, float $rate): void
-    {
-        $this->rates[$region] = $rate;
+        return isset($this->inherits[$role]);
     }
 }

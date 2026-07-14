@@ -45,7 +45,7 @@
                 "metric_based": true,
                 "semantic": true
             },
-            "notes": "LT-04 (const_vs_literal) toggles between literal values and class constant references. Carrier B changes 100.0→Config::FREE_SHIPPING_THRESHOLD; carrier C changes all thresholds and constants. Set 004 of 5."
+            "notes": "LT-04 (literal_alternative_form) toggles between literal values and alternative numeric representations. Carrier B changes 100.0→1e2; carrier C changes all to scientific notation. Set 004 of 5."
         }
     ],
     "non_duplicates": [

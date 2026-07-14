@@ -5,30 +5,29 @@ declare(strict_types=1);
 namespace Acme\Ledger\Reporting;
 
 /**
- * Summarises revenue, cost and margin for a set of invoice line items.
+ * Computes a numeric trust score for a user against a resource.
  */
 final class MarginReporter
 {
-    public function summarizeMargins(array $lineItems, float $costRate): array
+    public function trustScore(array $user, array $resource): int
     {
-        $revenue = 0.0;
-        $cost = 0.0;
-        foreach ($lineItems as $item) {
-            $line = (float) $item['qty'] * (float) $item['unitPrice'];
-            $revenue += $line;
-            $cost += $line * $costRate;
+        $score = 0;
+        if (isset($user['id'])) {
+            $score += 10;
         }
-        $margin = $revenue - $cost;
-        $ratio = $revenue > 0.0 ? $margin / $revenue : 0.0;
-        return [
-            'revenue' => round($revenue, 2),
-            'margin' => round($margin, 2),
-            'ratio' => round($ratio, 4),
-        ];
+        if (($user['status'] ?? '') === 'active') {
+            $score += 20;
+        }
+        $score += 5 * count($user['roles'] ?? []);
+        $score += 2 * count($user['grants'] ?? []);
+        if (($resource['ownerId'] ?? null) === ($user['id'] ?? -1)) {
+            $score += 40;
+        }
+        return min(100, $score);
     }
 
-    public function currencyCode(): string
+    public function tier(int $score): string
     {
-        return 'USD';
+        return $score >= 60 ? 'high' : 'low';
     }
 }

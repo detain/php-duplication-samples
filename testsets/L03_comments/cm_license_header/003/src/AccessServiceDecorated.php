@@ -15,10 +15,7 @@ final class AccessServiceDecorated
         $this->auditTrail[] = sprintf('%d:%s', count($this->auditTrail), $event);
     }
 
-    /*
-     * Copyright 2024 All rights reserved.
-     * GPL v3 License
-     */
+    /* GPL v3 License */
 
     public function authorize(array $user, array $resource): bool
     {

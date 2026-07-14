@@ -13,7 +13,10 @@
             "clone_symbol": "computeTotals",
             "granularity": "function",
             "clone_type": "type-1",
-            "normalized_by": ["whitespace", "comments"],
+            "normalized_by": [
+                "whitespace",
+                "comments"
+            ],
             "rng_seed": 104001,
             "notes": "CM-10 PHPDoc annotation addition with array params and return type.",
             "detection_expectation": {
@@ -23,14 +26,71 @@
                 "metric_based": false,
                 "semantic": false
             },
-            "role_composition": {"carrier": 2, "distractor": 1, "clean": 1},
+            "role_composition": {
+                "carrier": 3,
+                "distractor": 1,
+                "clean": 1
+            },
             "carriers": [
-                {"file": "LedgerPostingService.php", "namespace": "Acme\\Ledger\\Posting", "class": "LedgerPostingService", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
-                {"file": "PriceBookService.php", "namespace": "Acme\\Ledger\\Pricing", "class": "PriceBookService", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "CM-10", "params": {"params": ["array $items List of items", "float $taxRate Tax rate"], "returns": "@return array computed totals"}}]}
+                {
+                    "file": "LedgerPostingService.php",
+                    "namespace": "Acme\\Ledger\\Posting",
+                    "class": "LedgerPostingService",
+                    "scaffold": "method_alpha",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                },
+                {
+                    "file": "PriceBookService.php",
+                    "namespace": "Acme\\Ledger\\Pricing",
+                    "class": "PriceBookService",
+                    "scaffold": "method_beta",
+                    "group": "A",
+                    "pristine": false,
+                    "transforms": [
+                        {
+                            "code": "CM-10",
+                            "params": {
+                                "params": [
+                                    "array $items List of items",
+                                    "float $taxRate Tax rate"
+                                ],
+                                "returns": "@return array computed totals"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "file": "ThirdService.php",
+                    "namespace": "Acme\\Ledger\\Third",
+                    "class": "ThirdService",
+                    "scaffold": "method_gamma",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                }
             ],
-            "distractor": {"variant": "pristine"},
-            "clean": 1,
-            "interference": ["CM-10"]
+            "interference": [
+                "CM-10"
+            ],
+            "distractors": [
+                {
+                    "file": "MarginReporter.php",
+                    "namespace": "Acme\\Ledger\\Reporting",
+                    "class": "MarginReporter",
+                    "source": "nearmiss_access",
+                    "reason": "near-miss: shares foreach+invoice vocabulary but computes margin/ratio not totals"
+                }
+            ],
+            "cleans": [
+                {
+                    "file": "TaxRateRepository.php",
+                    "namespace": "Acme\\Ledger\\Catalog",
+                    "class": "TaxRateRepository",
+                    "source": "clean_auth"
+                }
+            ]
         },
         {
             "set_id": "L03-cm_annotations-002",
@@ -41,7 +101,10 @@
             "clone_symbol": "computeTotals",
             "granularity": "function",
             "clone_type": "type-1",
-            "normalized_by": ["whitespace", "comments"],
+            "normalized_by": [
+                "whitespace",
+                "comments"
+            ],
             "rng_seed": 104002,
             "notes": "CM-10 PHPDoc annotation with float params and return type.",
             "detection_expectation": {
@@ -51,14 +114,71 @@
                 "metric_based": false,
                 "semantic": false
             },
-            "role_composition": {"carrier": 2, "distractor": 1, "clean": 1},
+            "role_composition": {
+                "carrier": 3,
+                "distractor": 1,
+                "clean": 1
+            },
             "carriers": [
-                {"file": "LedgerPostingService.php", "namespace": "Acme\\Ledger\\Posting", "class": "LedgerPostingService", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
-                {"file": "PriceBookService.php", "namespace": "Acme\\Ledger\\Pricing", "class": "PriceBookService", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "CM-10", "params": {"params": ["float $subtotal Subtotal amount", "float $discount Discount amount"], "returns": "@return float total"}}]}
+                {
+                    "file": "LedgerPostingService.php",
+                    "namespace": "Acme\\Ledger\\Posting",
+                    "class": "LedgerPostingService",
+                    "scaffold": "method_alpha",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                },
+                {
+                    "file": "PriceBookService.php",
+                    "namespace": "Acme\\Ledger\\Pricing",
+                    "class": "PriceBookService",
+                    "scaffold": "method_beta",
+                    "group": "A",
+                    "pristine": false,
+                    "transforms": [
+                        {
+                            "code": "CM-10",
+                            "params": {
+                                "params": [
+                                    "float $subtotal Subtotal amount",
+                                    "float $discount Discount amount"
+                                ],
+                                "returns": "@return float total"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "file": "ThirdService.php",
+                    "namespace": "Acme\\Ledger\\Third",
+                    "class": "ThirdService",
+                    "scaffold": "method_gamma",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                }
             ],
-            "distractor": {"variant": "pristine"},
-            "clean": 1,
-            "interference": ["CM-10"]
+            "interference": [
+                "CM-10"
+            ],
+            "distractors": [
+                {
+                    "file": "MarginReporter.php",
+                    "namespace": "Acme\\Ledger\\Reporting",
+                    "class": "MarginReporter",
+                    "source": "nearmiss_access",
+                    "reason": "near-miss: shares foreach+invoice vocabulary but computes margin/ratio not totals"
+                }
+            ],
+            "cleans": [
+                {
+                    "file": "TaxRateRepository.php",
+                    "namespace": "Acme\\Ledger\\Catalog",
+                    "class": "TaxRateRepository",
+                    "source": "clean_auth"
+                }
+            ]
         },
         {
             "set_id": "L03-cm_annotations-003",
@@ -69,7 +189,10 @@
             "clone_symbol": "authorize",
             "granularity": "function",
             "clone_type": "type-1",
-            "normalized_by": ["whitespace", "comments"],
+            "normalized_by": [
+                "whitespace",
+                "comments"
+            ],
             "rng_seed": 104003,
             "notes": "CM-10 PHPDoc annotation on access control method.",
             "detection_expectation": {
@@ -79,14 +202,71 @@
                 "metric_based": false,
                 "semantic": false
             },
-            "role_composition": {"carrier": 2, "distractor": 1, "clean": 1},
+            "role_composition": {
+                "carrier": 3,
+                "distractor": 1,
+                "clean": 1
+            },
             "carriers": [
-                {"file": "AccessServiceBase.php", "namespace": "Acme\\Security\\Access", "class": "AccessServiceBase", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
-                {"file": "AccessServiceDecorated.php", "namespace": "Acme\\Security\\Decorated", "class": "AccessServiceDecorated", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "CM-10", "params": {"params": ["int $userId User identifier", "string $resource Resource name"], "returns": "@return bool access granted"}}]}
+                {
+                    "file": "AccessServiceBase.php",
+                    "namespace": "Acme\\Security\\Access",
+                    "class": "AccessServiceBase",
+                    "scaffold": "method_alpha",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                },
+                {
+                    "file": "AccessServiceDecorated.php",
+                    "namespace": "Acme\\Security\\Decorated",
+                    "class": "AccessServiceDecorated",
+                    "scaffold": "method_beta",
+                    "group": "A",
+                    "pristine": false,
+                    "transforms": [
+                        {
+                            "code": "CM-10",
+                            "params": {
+                                "params": [
+                                    "int $userId User identifier",
+                                    "string $resource Resource name"
+                                ],
+                                "returns": "@return bool access granted"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "file": "ThirdService.php",
+                    "namespace": "Acme\\Security\\Third",
+                    "class": "ThirdService",
+                    "scaffold": "method_gamma",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                }
             ],
-            "distractor": {"variant": "pristine"},
-            "clean": 1,
-            "interference": ["CM-10"]
+            "interference": [
+                "CM-10"
+            ],
+            "distractors": [
+                {
+                    "file": "MarginReporter.php",
+                    "namespace": "Acme\\Ledger\\Reporting",
+                    "class": "MarginReporter",
+                    "source": "nearmiss_access",
+                    "reason": "near-miss: shares foreach+invoice vocabulary but computes margin/ratio not totals"
+                }
+            ],
+            "cleans": [
+                {
+                    "file": "TaxRateRepository.php",
+                    "namespace": "Acme\\Ledger\\Catalog",
+                    "class": "TaxRateRepository",
+                    "source": "clean_auth"
+                }
+            ]
         },
         {
             "set_id": "L03-cm_annotations-004",
@@ -97,7 +277,10 @@
             "clone_symbol": "computeTotals",
             "granularity": "function",
             "clone_type": "type-1",
-            "normalized_by": ["whitespace", "comments"],
+            "normalized_by": [
+                "whitespace",
+                "comments"
+            ],
             "rng_seed": 104004,
             "notes": "CM-10 PHPDoc annotation with line items and tax rate params.",
             "detection_expectation": {
@@ -107,14 +290,71 @@
                 "metric_based": false,
                 "semantic": false
             },
-            "role_composition": {"carrier": 2, "distractor": 1, "clean": 1},
+            "role_composition": {
+                "carrier": 3,
+                "distractor": 1,
+                "clean": 1
+            },
             "carriers": [
-                {"file": "LedgerPostingService.php", "namespace": "Acme\\Ledger\\Posting", "class": "LedgerPostingService", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
-                {"file": "PriceBookService.php", "namespace": "Acme\\Ledger\\Pricing", "class": "PriceBookService", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "CM-10", "params": {"params": ["array $lineItems Line items with qty and price", "float $taxRate Tax rate as decimal"], "returns": "@return array{invoice details}"}}]}
+                {
+                    "file": "LedgerPostingService.php",
+                    "namespace": "Acme\\Ledger\\Posting",
+                    "class": "LedgerPostingService",
+                    "scaffold": "method_alpha",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                },
+                {
+                    "file": "PriceBookService.php",
+                    "namespace": "Acme\\Ledger\\Pricing",
+                    "class": "PriceBookService",
+                    "scaffold": "method_beta",
+                    "group": "A",
+                    "pristine": false,
+                    "transforms": [
+                        {
+                            "code": "CM-10",
+                            "params": {
+                                "params": [
+                                    "array $lineItems Line items with qty and price",
+                                    "float $taxRate Tax rate as decimal"
+                                ],
+                                "returns": "@return array{invoice details}"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "file": "ThirdService.php",
+                    "namespace": "Acme\\Ledger\\Third",
+                    "class": "ThirdService",
+                    "scaffold": "method_gamma",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                }
             ],
-            "distractor": {"variant": "pristine"},
-            "clean": 1,
-            "interference": ["CM-10"]
+            "interference": [
+                "CM-10"
+            ],
+            "distractors": [
+                {
+                    "file": "MarginReporter.php",
+                    "namespace": "Acme\\Ledger\\Reporting",
+                    "class": "MarginReporter",
+                    "source": "nearmiss_access",
+                    "reason": "near-miss: shares foreach+invoice vocabulary but computes margin/ratio not totals"
+                }
+            ],
+            "cleans": [
+                {
+                    "file": "TaxRateRepository.php",
+                    "namespace": "Acme\\Ledger\\Catalog",
+                    "class": "TaxRateRepository",
+                    "source": "clean_auth"
+                }
+            ]
         },
         {
             "set_id": "L03-cm_annotations-005",
@@ -125,7 +365,10 @@
             "clone_symbol": "computeTotals",
             "granularity": "function",
             "clone_type": "type-1",
-            "normalized_by": ["whitespace", "comments"],
+            "normalized_by": [
+                "whitespace",
+                "comments"
+            ],
             "rng_seed": 104005,
             "notes": "CM-10 PHPDoc annotation with currency param and void return.",
             "detection_expectation": {
@@ -135,14 +378,70 @@
                 "metric_based": false,
                 "semantic": false
             },
-            "role_composition": {"carrier": 2, "distractor": 1, "clean": 1},
+            "role_composition": {
+                "carrier": 3,
+                "distractor": 1,
+                "clean": 1
+            },
             "carriers": [
-                {"file": "LedgerPostingService.php", "namespace": "Acme\\Ledger\\Posting", "class": "LedgerPostingService", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
-                {"file": "PriceBookService.php", "namespace": "Acme\\Ledger\\Pricing", "class": "PriceBookService", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "CM-10", "params": {"params": ["string $currency Currency code"], "returns": "@return void"}}]}
+                {
+                    "file": "LedgerPostingService.php",
+                    "namespace": "Acme\\Ledger\\Posting",
+                    "class": "LedgerPostingService",
+                    "scaffold": "method_alpha",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                },
+                {
+                    "file": "PriceBookService.php",
+                    "namespace": "Acme\\Ledger\\Pricing",
+                    "class": "PriceBookService",
+                    "scaffold": "method_beta",
+                    "group": "A",
+                    "pristine": false,
+                    "transforms": [
+                        {
+                            "code": "CM-10",
+                            "params": {
+                                "params": [
+                                    "string $currency Currency code"
+                                ],
+                                "returns": "@return void"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "file": "ThirdService.php",
+                    "namespace": "Acme\\Ledger\\Third",
+                    "class": "ThirdService",
+                    "scaffold": "method_gamma",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                }
             ],
-            "distractor": {"variant": "pristine"},
-            "clean": 1,
-            "interference": ["CM-10"]
+            "interference": [
+                "CM-10"
+            ],
+            "distractors": [
+                {
+                    "file": "MarginReporter.php",
+                    "namespace": "Acme\\Ledger\\Reporting",
+                    "class": "MarginReporter",
+                    "source": "nearmiss_access",
+                    "reason": "near-miss: shares foreach+invoice vocabulary but computes margin/ratio not totals"
+                }
+            ],
+            "cleans": [
+                {
+                    "file": "TaxRateRepository.php",
+                    "namespace": "Acme\\Ledger\\Catalog",
+                    "class": "TaxRateRepository",
+                    "source": "clean_auth"
+                }
+            ]
         }
     ]
 }

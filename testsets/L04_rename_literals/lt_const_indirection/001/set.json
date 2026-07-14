@@ -4,8 +4,8 @@
     "level": 4,
     "level_name": "rename_literals",
     "family": "lt_const_indirection",
-    "title": "Invoice totals with literal ↔ class constant indirection",
-    "description": "The same invoice computation method in three calculator classes. Carrier A uses literal values (100.0, 9.99); carrier B replaces one literal with a class constant reference; carrier C replaces all literals with class constants. Type-2: same computation via different value representations.",
+    "title": "Invoice totals with literal ↔ alternative numeric representation",
+    "description": "The same invoice computation method in three calculator classes. Carrier A uses literal values (100.0, 9.99); carrier B converts one literal to scientific notation (1e2); carrier C converts all literals to scientific notation. Type-2: same computation via different value representations.",
     "language": "php",
     "min_php": "8.1",
     "seed": "invoice_totals",
@@ -54,10 +54,9 @@
             "code": "LT-04",
             "name": "const_vs_literal",
             "params": {
-                "direction": "literal_to_const",
-                "const_class": "Config",
-                "const_name": "FREE_SHIPPING_THRESHOLD",
-                "const_value": "100.0"
+                "direction": "literal_to_alt",
+                "style": "scientific",
+                "value": "100.0"
             },
             "applied_to": [
                 "src/PartialConstCalc.php"
@@ -67,10 +66,9 @@
             "code": "LT-04",
             "name": "const_vs_literal",
             "params": {
-                "direction": "literal_to_const",
-                "const_class": "Config",
-                "const_name": "STANDARD_SHIPPING_COST",
-                "const_value": "9.99"
+                "direction": "literal_to_alt",
+                "style": "scientific",
+                "value": "9.99"
             },
             "applied_to": [
                 "src/FullConstCalc.php"

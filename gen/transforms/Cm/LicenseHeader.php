@@ -44,13 +44,9 @@ final class LicenseHeader implements Transform
             }
         }
 
-        $header = [
-            $indent . '/*',
-            $indent . ' * Copyright 2024 All rights reserved.',
-            $indent . ' * ' . $license,
-            $indent . ' */',
-            $indent . '',
-        ];
+        // Single-line license comment to minimize line-shift impact.
+        $headerLine = $indent . '/* ' . $license . ' */';
+        $header = [$headerLine, $indent . ''];
 
         $outLines = array_merge($header, $in->lines);
         $outMap   = array_merge(array_fill(0, count($header), -1), $in->lineMap);

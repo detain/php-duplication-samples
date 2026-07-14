@@ -13,7 +13,10 @@
             "clone_symbol": "computeTotals",
             "granularity": "function",
             "clone_type": "type-1",
-            "normalized_by": ["whitespace", "comments"],
+            "normalized_by": [
+                "whitespace",
+                "comments"
+            ],
             "rng_seed": 104101,
             "notes": "CM-11 combined comment transform (CM-01 line comments + CM-03 docblock + CM-10 annotations).",
             "detection_expectation": {
@@ -23,14 +26,73 @@
                 "metric_based": false,
                 "semantic": false
             },
-            "role_composition": {"carrier": 2, "distractor": 1, "clean": 1},
+            "role_composition": {
+                "carrier": 3,
+                "distractor": 1,
+                "clean": 1
+            },
             "carriers": [
-                {"file": "LedgerPostingService.php", "namespace": "Acme\\Ledger\\Posting", "class": "LedgerPostingService", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
-                {"file": "PriceBookService.php", "namespace": "Acme\\Ledger\\Pricing", "class": "PriceBookService", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "CM-11", "params": {"styles": ["CM-01", "CM-03", "CM-10"]}}]}
+                {
+                    "file": "LedgerPostingService.php",
+                    "namespace": "Acme\\Ledger\\Posting",
+                    "class": "LedgerPostingService",
+                    "scaffold": "method_alpha",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                },
+                {
+                    "file": "PriceBookService.php",
+                    "namespace": "Acme\\Ledger\\Pricing",
+                    "class": "PriceBookService",
+                    "scaffold": "method_beta",
+                    "group": "A",
+                    "pristine": false,
+                    "transforms": [
+                        {
+                            "code": "CM-11",
+                            "params": {
+                                "styles": [
+                                    "CM-01",
+                                    "CM-03",
+                                    "CM-10"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "file": "ThirdService.php",
+                    "namespace": "Acme\\Ledger\\Third",
+                    "class": "ThirdService",
+                    "scaffold": "method_gamma",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                }
             ],
-            "distractor": {"variant": "pristine"},
-            "clean": 1,
-            "interference": ["CM-01", "CM-03", "CM-10"]
+            "interference": [
+                "CM-01",
+                "CM-03",
+                "CM-10"
+            ],
+            "distractors": [
+                {
+                    "file": "MarginReporter.php",
+                    "namespace": "Acme\\Ledger\\Reporting",
+                    "class": "MarginReporter",
+                    "source": "nearmiss_access",
+                    "reason": "near-miss: shares foreach+invoice vocabulary but computes margin/ratio not totals"
+                }
+            ],
+            "cleans": [
+                {
+                    "file": "TaxRateRepository.php",
+                    "namespace": "Acme\\Ledger\\Catalog",
+                    "class": "TaxRateRepository",
+                    "source": "clean_auth"
+                }
+            ]
         },
         {
             "set_id": "L03-cm_combined-002",
@@ -41,7 +103,10 @@
             "clone_symbol": "computeTotals",
             "granularity": "function",
             "clone_type": "type-1",
-            "normalized_by": ["whitespace", "comments"],
+            "normalized_by": [
+                "whitespace",
+                "comments"
+            ],
             "rng_seed": 104102,
             "notes": "CM-11 combined comment transform (CM-02 block comments + CM-04 inline trailing).",
             "detection_expectation": {
@@ -51,14 +116,71 @@
                 "metric_based": false,
                 "semantic": false
             },
-            "role_composition": {"carrier": 2, "distractor": 1, "clean": 1},
+            "role_composition": {
+                "carrier": 3,
+                "distractor": 1,
+                "clean": 1
+            },
             "carriers": [
-                {"file": "LedgerPostingService.php", "namespace": "Acme\\Ledger\\Posting", "class": "LedgerPostingService", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
-                {"file": "PriceBookService.php", "namespace": "Acme\\Ledger\\Pricing", "class": "PriceBookService", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "CM-11", "params": {"styles": ["CM-02", "CM-04"]}}]}
+                {
+                    "file": "LedgerPostingService.php",
+                    "namespace": "Acme\\Ledger\\Posting",
+                    "class": "LedgerPostingService",
+                    "scaffold": "method_alpha",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                },
+                {
+                    "file": "PriceBookService.php",
+                    "namespace": "Acme\\Ledger\\Pricing",
+                    "class": "PriceBookService",
+                    "scaffold": "method_beta",
+                    "group": "A",
+                    "pristine": false,
+                    "transforms": [
+                        {
+                            "code": "CM-11",
+                            "params": {
+                                "styles": [
+                                    "CM-02",
+                                    "CM-04"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "file": "ThirdService.php",
+                    "namespace": "Acme\\Ledger\\Third",
+                    "class": "ThirdService",
+                    "scaffold": "method_gamma",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                }
             ],
-            "distractor": {"variant": "pristine"},
-            "clean": 1,
-            "interference": ["CM-02", "CM-04"]
+            "interference": [
+                "CM-02",
+                "CM-04"
+            ],
+            "distractors": [
+                {
+                    "file": "MarginReporter.php",
+                    "namespace": "Acme\\Ledger\\Reporting",
+                    "class": "MarginReporter",
+                    "source": "nearmiss_access",
+                    "reason": "near-miss: shares foreach+invoice vocabulary but computes margin/ratio not totals"
+                }
+            ],
+            "cleans": [
+                {
+                    "file": "TaxRateRepository.php",
+                    "namespace": "Acme\\Ledger\\Catalog",
+                    "class": "TaxRateRepository",
+                    "source": "clean_auth"
+                }
+            ]
         },
         {
             "set_id": "L03-cm_combined-003",
@@ -69,7 +191,10 @@
             "clone_symbol": "authorize",
             "granularity": "function",
             "clone_type": "type-1",
-            "normalized_by": ["whitespace", "comments"],
+            "normalized_by": [
+                "whitespace",
+                "comments"
+            ],
             "rng_seed": 104103,
             "notes": "CM-11 combined comment transform (CM-01 line + CM-02 block + CM-03 docblock).",
             "detection_expectation": {
@@ -79,14 +204,73 @@
                 "metric_based": false,
                 "semantic": false
             },
-            "role_composition": {"carrier": 2, "distractor": 1, "clean": 1},
+            "role_composition": {
+                "carrier": 3,
+                "distractor": 1,
+                "clean": 1
+            },
             "carriers": [
-                {"file": "AccessServiceBase.php", "namespace": "Acme\\Security\\Access", "class": "AccessServiceBase", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
-                {"file": "AccessServiceDecorated.php", "namespace": "Acme\\Security\\Decorated", "class": "AccessServiceDecorated", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "CM-11", "params": {"styles": ["CM-01", "CM-02", "CM-03"]}}]}
+                {
+                    "file": "AccessServiceBase.php",
+                    "namespace": "Acme\\Security\\Access",
+                    "class": "AccessServiceBase",
+                    "scaffold": "method_alpha",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                },
+                {
+                    "file": "AccessServiceDecorated.php",
+                    "namespace": "Acme\\Security\\Decorated",
+                    "class": "AccessServiceDecorated",
+                    "scaffold": "method_beta",
+                    "group": "A",
+                    "pristine": false,
+                    "transforms": [
+                        {
+                            "code": "CM-11",
+                            "params": {
+                                "styles": [
+                                    "CM-01",
+                                    "CM-02",
+                                    "CM-03"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "file": "ThirdService.php",
+                    "namespace": "Acme\\Security\\Third",
+                    "class": "ThirdService",
+                    "scaffold": "method_gamma",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                }
             ],
-            "distractor": {"variant": "pristine"},
-            "clean": 1,
-            "interference": ["CM-01", "CM-02", "CM-03"]
+            "interference": [
+                "CM-01",
+                "CM-02",
+                "CM-03"
+            ],
+            "distractors": [
+                {
+                    "file": "MarginReporter.php",
+                    "namespace": "Acme\\Ledger\\Reporting",
+                    "class": "MarginReporter",
+                    "source": "nearmiss_access",
+                    "reason": "near-miss: shares foreach+invoice vocabulary but computes margin/ratio not totals"
+                }
+            ],
+            "cleans": [
+                {
+                    "file": "TaxRateRepository.php",
+                    "namespace": "Acme\\Ledger\\Catalog",
+                    "class": "TaxRateRepository",
+                    "source": "clean_auth"
+                }
+            ]
         },
         {
             "set_id": "L03-cm_combined-004",
@@ -97,7 +281,10 @@
             "clone_symbol": "computeTotals",
             "granularity": "function",
             "clone_type": "type-1",
-            "normalized_by": ["whitespace", "comments"],
+            "normalized_by": [
+                "whitespace",
+                "comments"
+            ],
             "rng_seed": 104104,
             "notes": "CM-11 combined comment transform (CM-03 docblock + CM-10 annotations).",
             "detection_expectation": {
@@ -107,14 +294,71 @@
                 "metric_based": false,
                 "semantic": false
             },
-            "role_composition": {"carrier": 2, "distractor": 1, "clean": 1},
+            "role_composition": {
+                "carrier": 3,
+                "distractor": 1,
+                "clean": 1
+            },
             "carriers": [
-                {"file": "LedgerPostingService.php", "namespace": "Acme\\Ledger\\Posting", "class": "LedgerPostingService", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
-                {"file": "PriceBookService.php", "namespace": "Acme\\Ledger\\Pricing", "class": "PriceBookService", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "CM-11", "params": {"styles": ["CM-03", "CM-10"]}}]}
+                {
+                    "file": "LedgerPostingService.php",
+                    "namespace": "Acme\\Ledger\\Posting",
+                    "class": "LedgerPostingService",
+                    "scaffold": "method_alpha",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                },
+                {
+                    "file": "PriceBookService.php",
+                    "namespace": "Acme\\Ledger\\Pricing",
+                    "class": "PriceBookService",
+                    "scaffold": "method_beta",
+                    "group": "A",
+                    "pristine": false,
+                    "transforms": [
+                        {
+                            "code": "CM-11",
+                            "params": {
+                                "styles": [
+                                    "CM-03",
+                                    "CM-10"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "file": "ThirdService.php",
+                    "namespace": "Acme\\Ledger\\Third",
+                    "class": "ThirdService",
+                    "scaffold": "method_gamma",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                }
             ],
-            "distractor": {"variant": "pristine"},
-            "clean": 1,
-            "interference": ["CM-03", "CM-10"]
+            "interference": [
+                "CM-03",
+                "CM-10"
+            ],
+            "distractors": [
+                {
+                    "file": "MarginReporter.php",
+                    "namespace": "Acme\\Ledger\\Reporting",
+                    "class": "MarginReporter",
+                    "source": "nearmiss_access",
+                    "reason": "near-miss: shares foreach+invoice vocabulary but computes margin/ratio not totals"
+                }
+            ],
+            "cleans": [
+                {
+                    "file": "TaxRateRepository.php",
+                    "namespace": "Acme\\Ledger\\Catalog",
+                    "class": "TaxRateRepository",
+                    "source": "clean_auth"
+                }
+            ]
         },
         {
             "set_id": "L03-cm_combined-005",
@@ -125,7 +369,10 @@
             "clone_symbol": "computeTotals",
             "granularity": "function",
             "clone_type": "type-1",
-            "normalized_by": ["whitespace", "comments"],
+            "normalized_by": [
+                "whitespace",
+                "comments"
+            ],
             "rng_seed": 104105,
             "notes": "CM-11 combined comment transform (CM-01 line comments + CM-04 inline trailing).",
             "detection_expectation": {
@@ -135,14 +382,71 @@
                 "metric_based": false,
                 "semantic": false
             },
-            "role_composition": {"carrier": 2, "distractor": 1, "clean": 1},
+            "role_composition": {
+                "carrier": 3,
+                "distractor": 1,
+                "clean": 1
+            },
             "carriers": [
-                {"file": "LedgerPostingService.php", "namespace": "Acme\\Ledger\\Posting", "class": "LedgerPostingService", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
-                {"file": "PriceBookService.php", "namespace": "Acme\\Ledger\\Pricing", "class": "PriceBookService", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "CM-11", "params": {"styles": ["CM-01", "CM-04"]}}]}
+                {
+                    "file": "LedgerPostingService.php",
+                    "namespace": "Acme\\Ledger\\Posting",
+                    "class": "LedgerPostingService",
+                    "scaffold": "method_alpha",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                },
+                {
+                    "file": "PriceBookService.php",
+                    "namespace": "Acme\\Ledger\\Pricing",
+                    "class": "PriceBookService",
+                    "scaffold": "method_beta",
+                    "group": "A",
+                    "pristine": false,
+                    "transforms": [
+                        {
+                            "code": "CM-11",
+                            "params": {
+                                "styles": [
+                                    "CM-01",
+                                    "CM-04"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "file": "ThirdService.php",
+                    "namespace": "Acme\\Ledger\\Third",
+                    "class": "ThirdService",
+                    "scaffold": "method_gamma",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                }
             ],
-            "distractor": {"variant": "pristine"},
-            "clean": 1,
-            "interference": ["CM-01", "CM-04"]
+            "interference": [
+                "CM-01",
+                "CM-04"
+            ],
+            "distractors": [
+                {
+                    "file": "MarginReporter.php",
+                    "namespace": "Acme\\Ledger\\Reporting",
+                    "class": "MarginReporter",
+                    "source": "nearmiss_access",
+                    "reason": "near-miss: shares foreach+invoice vocabulary but computes margin/ratio not totals"
+                }
+            ],
+            "cleans": [
+                {
+                    "file": "TaxRateRepository.php",
+                    "namespace": "Acme\\Ledger\\Catalog",
+                    "class": "TaxRateRepository",
+                    "source": "clean_auth"
+                }
+            ]
         }
     ]
 }

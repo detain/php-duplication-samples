@@ -22,6 +22,24 @@
             "role": "carrier",
             "duplicate_group": "A",
             "sloc": 46
+        },
+        {
+            "path": "src/ThirdService.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 43
+        },
+        {
+            "path": "src/MarginReporter.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 29
+        },
+        {
+            "path": "src/TaxRateRepository.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 27
         }
     ],
     "duplication": {
@@ -29,7 +47,7 @@
         "clone_type": "type-1",
         "granularity": "function",
         "clusters": 1,
-        "instances": 2
+        "instances": 3
     },
     "interference": [
         {
@@ -57,7 +75,7 @@
         "rng_seed": 103101
     },
     "role_composition": {
-        "carrier": 2,
+        "carrier": 3,
         "distractor": 1,
         "clean": 1
     }

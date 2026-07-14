@@ -15,24 +15,24 @@ final class AccessServiceDecorated
         $this->auditTrail[] = sprintf('%d:%s', count($this->auditTrail), $event);
     }
 
-    publicfunctionauthorize(array$user,array$resource):bool
+    public function authorize(array $user, array $resource): bool
     {
-    if(!isset($user['id'])){
-    returnfalse;
-    }
-    if(($user['status']??'')!=='active'){
-    returnfalse;
-    }
-    if(in_array('admin',$user['roles']??[],true)){
-    returntrue;
-    }
-    if(($resource['ownerId']??null)===$user['id']){
-    returntrue;
-    }
-    if(in_array($resource['id']??'',$user['grants']??[],true)){
-    returntrue;
-    }
-    returnfalse;
+        if (!isset($user['id'])) {
+            return false;
+        }
+        if (($user['status'] ?? '') !== 'active') {
+            return false;
+        }
+        if (in_array('admin', $user['roles'] ?? [], true)) {
+            return true;
+        }
+        if (($resource['ownerId'] ?? null) === $user['id']) {
+            return true;
+        }
+        if (in_array($resource['id'] ?? '', $user['grants'] ?? [], true)) {
+            return true;
+        }
+        return false;
     }
 
     public function lastEvent(): string

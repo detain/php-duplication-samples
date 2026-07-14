@@ -13,7 +13,10 @@
             "clone_symbol": "computeTotals",
             "granularity": "function",
             "clone_type": "type-1",
-            "normalized_by": ["whitespace", "comments"],
+            "normalized_by": [
+                "whitespace",
+                "comments"
+            ],
             "rng_seed": 103401,
             "notes": "CM-04 inline trailing comment addition (2x // style).",
             "detection_expectation": {
@@ -23,14 +26,68 @@
                 "metric_based": false,
                 "semantic": false
             },
-            "role_composition": {"carrier": 2, "distractor": 1, "clean": 1},
+            "role_composition": {
+                "carrier": 3,
+                "distractor": 1,
+                "clean": 1
+            },
             "carriers": [
-                {"file": "LedgerPostingService.php", "namespace": "Acme\\Ledger\\Posting", "class": "LedgerPostingService", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
-                {"file": "PriceBookService.php", "namespace": "Acme\\Ledger\\Pricing", "class": "PriceBookService", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "CM-04", "params": {"count": 2, "style": "//"}}]}
+                {
+                    "file": "LedgerPostingService.php",
+                    "namespace": "Acme\\Ledger\\Posting",
+                    "class": "LedgerPostingService",
+                    "scaffold": "method_alpha",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                },
+                {
+                    "file": "PriceBookService.php",
+                    "namespace": "Acme\\Ledger\\Pricing",
+                    "class": "PriceBookService",
+                    "scaffold": "method_beta",
+                    "group": "A",
+                    "pristine": false,
+                    "transforms": [
+                        {
+                            "code": "CM-04",
+                            "params": {
+                                "count": 2,
+                                "style": "//"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "file": "ThirdService.php",
+                    "namespace": "Acme\\Ledger\\Third",
+                    "class": "ThirdService",
+                    "scaffold": "method_gamma",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                }
             ],
-            "distractor": {"variant": "pristine"},
-            "clean": 1,
-            "interference": ["CM-04"]
+            "interference": [
+                "CM-04"
+            ],
+            "distractors": [
+                {
+                    "file": "MarginReporter.php",
+                    "namespace": "Acme\\Ledger\\Reporting",
+                    "class": "MarginReporter",
+                    "source": "nearmiss_access",
+                    "reason": "near-miss: shares foreach+invoice vocabulary but computes margin/ratio not totals"
+                }
+            ],
+            "cleans": [
+                {
+                    "file": "TaxRateRepository.php",
+                    "namespace": "Acme\\Ledger\\Catalog",
+                    "class": "TaxRateRepository",
+                    "source": "clean_auth"
+                }
+            ]
         },
         {
             "set_id": "L03-cm_inline_trailing-002",
@@ -41,7 +98,10 @@
             "clone_symbol": "computeTotals",
             "granularity": "function",
             "clone_type": "type-1",
-            "normalized_by": ["whitespace", "comments"],
+            "normalized_by": [
+                "whitespace",
+                "comments"
+            ],
             "rng_seed": 103402,
             "notes": "CM-04 inline trailing comment addition (3x // style).",
             "detection_expectation": {
@@ -51,14 +111,68 @@
                 "metric_based": false,
                 "semantic": false
             },
-            "role_composition": {"carrier": 2, "distractor": 1, "clean": 1},
+            "role_composition": {
+                "carrier": 3,
+                "distractor": 1,
+                "clean": 1
+            },
             "carriers": [
-                {"file": "LedgerPostingService.php", "namespace": "Acme\\Ledger\\Posting", "class": "LedgerPostingService", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
-                {"file": "PriceBookService.php", "namespace": "Acme\\Ledger\\Pricing", "class": "PriceBookService", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "CM-04", "params": {"count": 3, "style": "//"}}]}
+                {
+                    "file": "LedgerPostingService.php",
+                    "namespace": "Acme\\Ledger\\Posting",
+                    "class": "LedgerPostingService",
+                    "scaffold": "method_alpha",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                },
+                {
+                    "file": "PriceBookService.php",
+                    "namespace": "Acme\\Ledger\\Pricing",
+                    "class": "PriceBookService",
+                    "scaffold": "method_beta",
+                    "group": "A",
+                    "pristine": false,
+                    "transforms": [
+                        {
+                            "code": "CM-04",
+                            "params": {
+                                "count": 3,
+                                "style": "//"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "file": "ThirdService.php",
+                    "namespace": "Acme\\Ledger\\Third",
+                    "class": "ThirdService",
+                    "scaffold": "method_gamma",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                }
             ],
-            "distractor": {"variant": "pristine"},
-            "clean": 1,
-            "interference": ["CM-04"]
+            "interference": [
+                "CM-04"
+            ],
+            "distractors": [
+                {
+                    "file": "MarginReporter.php",
+                    "namespace": "Acme\\Ledger\\Reporting",
+                    "class": "MarginReporter",
+                    "source": "nearmiss_access",
+                    "reason": "near-miss: shares foreach+invoice vocabulary but computes margin/ratio not totals"
+                }
+            ],
+            "cleans": [
+                {
+                    "file": "TaxRateRepository.php",
+                    "namespace": "Acme\\Ledger\\Catalog",
+                    "class": "TaxRateRepository",
+                    "source": "clean_auth"
+                }
+            ]
         },
         {
             "set_id": "L03-cm_inline_trailing-003",
@@ -69,7 +183,10 @@
             "clone_symbol": "authorize",
             "granularity": "function",
             "clone_type": "type-1",
-            "normalized_by": ["whitespace", "comments"],
+            "normalized_by": [
+                "whitespace",
+                "comments"
+            ],
             "rng_seed": 103403,
             "notes": "CM-04 inline trailing comment on access control method (# style).",
             "detection_expectation": {
@@ -79,14 +196,68 @@
                 "metric_based": false,
                 "semantic": false
             },
-            "role_composition": {"carrier": 2, "distractor": 1, "clean": 1},
+            "role_composition": {
+                "carrier": 3,
+                "distractor": 1,
+                "clean": 1
+            },
             "carriers": [
-                {"file": "AccessServiceBase.php", "namespace": "Acme\\Security\\Access", "class": "AccessServiceBase", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
-                {"file": "AccessServiceDecorated.php", "namespace": "Acme\\Security\\Decorated", "class": "AccessServiceDecorated", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "CM-04", "params": {"count": 2, "style": "#"}}]}
+                {
+                    "file": "AccessServiceBase.php",
+                    "namespace": "Acme\\Security\\Access",
+                    "class": "AccessServiceBase",
+                    "scaffold": "method_alpha",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                },
+                {
+                    "file": "AccessServiceDecorated.php",
+                    "namespace": "Acme\\Security\\Decorated",
+                    "class": "AccessServiceDecorated",
+                    "scaffold": "method_beta",
+                    "group": "A",
+                    "pristine": false,
+                    "transforms": [
+                        {
+                            "code": "CM-04",
+                            "params": {
+                                "count": 2,
+                                "style": "#"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "file": "ThirdService.php",
+                    "namespace": "Acme\\Security\\Third",
+                    "class": "ThirdService",
+                    "scaffold": "method_gamma",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                }
             ],
-            "distractor": {"variant": "pristine"},
-            "clean": 1,
-            "interference": ["CM-04"]
+            "interference": [
+                "CM-04"
+            ],
+            "distractors": [
+                {
+                    "file": "MarginReporter.php",
+                    "namespace": "Acme\\Ledger\\Reporting",
+                    "class": "MarginReporter",
+                    "source": "nearmiss_access",
+                    "reason": "near-miss: shares foreach+invoice vocabulary but computes margin/ratio not totals"
+                }
+            ],
+            "cleans": [
+                {
+                    "file": "TaxRateRepository.php",
+                    "namespace": "Acme\\Ledger\\Catalog",
+                    "class": "TaxRateRepository",
+                    "source": "clean_auth"
+                }
+            ]
         },
         {
             "set_id": "L03-cm_inline_trailing-004",
@@ -97,7 +268,10 @@
             "clone_symbol": "computeTotals",
             "granularity": "function",
             "clone_type": "type-1",
-            "normalized_by": ["whitespace", "comments"],
+            "normalized_by": [
+                "whitespace",
+                "comments"
+            ],
             "rng_seed": 103404,
             "notes": "CM-04 inline trailing comment addition (1x // style).",
             "detection_expectation": {
@@ -107,14 +281,68 @@
                 "metric_based": false,
                 "semantic": false
             },
-            "role_composition": {"carrier": 2, "distractor": 1, "clean": 1},
+            "role_composition": {
+                "carrier": 3,
+                "distractor": 1,
+                "clean": 1
+            },
             "carriers": [
-                {"file": "LedgerPostingService.php", "namespace": "Acme\\Ledger\\Posting", "class": "LedgerPostingService", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
-                {"file": "PriceBookService.php", "namespace": "Acme\\Ledger\\Pricing", "class": "PriceBookService", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "CM-04", "params": {"count": 1, "style": "//"}}]}
+                {
+                    "file": "LedgerPostingService.php",
+                    "namespace": "Acme\\Ledger\\Posting",
+                    "class": "LedgerPostingService",
+                    "scaffold": "method_alpha",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                },
+                {
+                    "file": "PriceBookService.php",
+                    "namespace": "Acme\\Ledger\\Pricing",
+                    "class": "PriceBookService",
+                    "scaffold": "method_beta",
+                    "group": "A",
+                    "pristine": false,
+                    "transforms": [
+                        {
+                            "code": "CM-04",
+                            "params": {
+                                "count": 1,
+                                "style": "//"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "file": "ThirdService.php",
+                    "namespace": "Acme\\Ledger\\Third",
+                    "class": "ThirdService",
+                    "scaffold": "method_gamma",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                }
             ],
-            "distractor": {"variant": "pristine"},
-            "clean": 1,
-            "interference": ["CM-04"]
+            "interference": [
+                "CM-04"
+            ],
+            "distractors": [
+                {
+                    "file": "MarginReporter.php",
+                    "namespace": "Acme\\Ledger\\Reporting",
+                    "class": "MarginReporter",
+                    "source": "nearmiss_access",
+                    "reason": "near-miss: shares foreach+invoice vocabulary but computes margin/ratio not totals"
+                }
+            ],
+            "cleans": [
+                {
+                    "file": "TaxRateRepository.php",
+                    "namespace": "Acme\\Ledger\\Catalog",
+                    "class": "TaxRateRepository",
+                    "source": "clean_auth"
+                }
+            ]
         },
         {
             "set_id": "L03-cm_inline_trailing-005",
@@ -125,7 +353,10 @@
             "clone_symbol": "computeTotals",
             "granularity": "function",
             "clone_type": "type-1",
-            "normalized_by": ["whitespace", "comments"],
+            "normalized_by": [
+                "whitespace",
+                "comments"
+            ],
             "rng_seed": 103405,
             "notes": "CM-04 inline trailing comment addition (4x // style).",
             "detection_expectation": {
@@ -135,14 +366,68 @@
                 "metric_based": false,
                 "semantic": false
             },
-            "role_composition": {"carrier": 2, "distractor": 1, "clean": 1},
+            "role_composition": {
+                "carrier": 3,
+                "distractor": 1,
+                "clean": 1
+            },
             "carriers": [
-                {"file": "LedgerPostingService.php", "namespace": "Acme\\Ledger\\Posting", "class": "LedgerPostingService", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
-                {"file": "PriceBookService.php", "namespace": "Acme\\Ledger\\Pricing", "class": "PriceBookService", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "CM-04", "params": {"count": 4, "style": "//"}}]}
+                {
+                    "file": "LedgerPostingService.php",
+                    "namespace": "Acme\\Ledger\\Posting",
+                    "class": "LedgerPostingService",
+                    "scaffold": "method_alpha",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                },
+                {
+                    "file": "PriceBookService.php",
+                    "namespace": "Acme\\Ledger\\Pricing",
+                    "class": "PriceBookService",
+                    "scaffold": "method_beta",
+                    "group": "A",
+                    "pristine": false,
+                    "transforms": [
+                        {
+                            "code": "CM-04",
+                            "params": {
+                                "count": 4,
+                                "style": "//"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "file": "ThirdService.php",
+                    "namespace": "Acme\\Ledger\\Third",
+                    "class": "ThirdService",
+                    "scaffold": "method_gamma",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                }
             ],
-            "distractor": {"variant": "pristine"},
-            "clean": 1,
-            "interference": ["CM-04"]
+            "interference": [
+                "CM-04"
+            ],
+            "distractors": [
+                {
+                    "file": "MarginReporter.php",
+                    "namespace": "Acme\\Ledger\\Reporting",
+                    "class": "MarginReporter",
+                    "source": "nearmiss_access",
+                    "reason": "near-miss: shares foreach+invoice vocabulary but computes margin/ratio not totals"
+                }
+            ],
+            "cleans": [
+                {
+                    "file": "TaxRateRepository.php",
+                    "namespace": "Acme\\Ledger\\Catalog",
+                    "class": "TaxRateRepository",
+                    "source": "clean_auth"
+                }
+            ]
         }
     ]
 }

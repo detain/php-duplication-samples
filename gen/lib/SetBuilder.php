@@ -328,13 +328,26 @@ final class SetBuilder
         $suffix = array_slice($scaffoldLines, $markerIdx + 1);
 
         // CM-03 (docblock) inserts a docblock before the function signature.
-        // The clone region covers the function body, not the docblock lines.
-        // Skip leading docblock lines so start_line points at the function decl.
+        // CM-09 (license_header) inserts a block comment before the function.
+        // The clone region covers the function body, not these comment lines.
+        // Skip leading comment lines so start_line points at the function decl.
         $skipLeading = 0;
         $inDocblock = false;
         foreach ($reindented as $line) {
             $trimmed = trim($line);
             if ($trimmed === '') {
+                continue;
+            }
+            // Skip block comments (/* ... */) - both single-line and multi-line.
+            if (!$inDocblock && str_starts_with($trimmed, '/*')) {
+                $skipLeading++;
+                if (!str_ends_with(rtrim($trimmed), '*/')) {
+                    $inDocblock = true; // multi-line block comment started
+                }
+                continue;
+            }
+            if (!$inDocblock && str_starts_with($trimmed, '//')) {
+                $skipLeading++;
                 continue;
             }
             if (!$inDocblock && str_starts_with($trimmed, '/**')) {

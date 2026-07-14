@@ -35,7 +35,7 @@ final class FullConstCalc
         $discount = round($subtotal * $discountRate, 2);
         $taxable = $subtotal - $discount;
         $tax = round($taxable * $taxRate, 2);
-        $shipping = $subtotal > 100.0 ? 0.0 : Config::STANDARD_SHIPPING_COST;
+        $shipping = $subtotal > 100.0 ? 0.0 : 9.99e0;
         $total = $taxable + $tax + $shipping;
         return [
             'subtotal' => round($subtotal, 2),
