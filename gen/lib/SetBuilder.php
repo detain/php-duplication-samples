@@ -94,6 +94,8 @@ final class SetBuilder
 
         // F-5 region_sloc: per-file sloc breakdown
         $regionSlocByFile = [];
+        // E-2 uniqueness_budget: track unique_segments per file for budget actuals
+        $uniqueSegmentsByFile = [];
 
         // F-6 intended_refactoring
         $intendedRefactoring = $spec['intended_refactoring'] ?? null;
@@ -132,6 +134,8 @@ final class SetBuilder
                 // F-2: Build fragments and unique_segments from lineMap
                 $fragments = $this->computeFragments($lineMap, $start, $end);
                 $uniqueSegments = $this->computeUniqueSegments($lineMap, $start, $end);
+                // E-2: store unique_segments per file for uniqueness_budget.actual
+                $uniqueSegmentsByFile[$rel] = $uniqueSegments;
 
                 if (($carrier['pristine'] ?? false) && $pristineText === null) {
                     $pristineText = $payloadText;
@@ -290,6 +294,47 @@ final class SetBuilder
 
         $schemaVersion = $usesV2 ? 2 : 1;
 
+        // E-2: Build uniqueness_budget from spec + actual lineMap data (v2 only)
+        $uniquenessBudget = null;
+        if ($usesV2) {
+            $specBudget = $spec['duplication']['uniqueness_budget'] ?? null;
+            if ($specBudget !== null) {
+                $perCarrierUniqueLines = [];
+                $perCarrierSegments = [];
+                $carriersWithUnique = 0;
+                $budgetActual = [];
+                foreach ($uniqueSegmentsByFile as $rel => $segs) {
+                    $region = $regionSlocByFile[$rel] ?? null;
+                    if ($region === null) { continue; }
+                    $role = $this->roleOf($rel, $spec);
+                    if ($role === 'carrier' || $role === 'fragment') {
+                        $uniqueCount = count($segs);
+                        $segmentCount = is_array($segs) ? count($segs) : 0;
+                        $perCarrierUniqueLines[] = $uniqueCount;
+                        $perCarrierSegments[] = $segmentCount;
+                        if ($uniqueCount > 0) { $carriersWithUnique++; }
+                        $budgetActual[] = [
+                            'file' => $rel,
+                            'unique_lines' => $uniqueCount,
+                            'segments' => $segmentCount,
+                        ];
+                    }
+                }
+                $uniquenessBudget = [
+                    'per_carrier_unique_lines' => [
+                        'min' => count($perCarrierUniqueLines) > 0 ? min($perCarrierUniqueLines) : ($specBudget['min'] ?? 0),
+                        'max' => count($perCarrierUniqueLines) > 0 ? max($perCarrierUniqueLines) : ($specBudget['max'] ?? 0),
+                    ],
+                    'per_carrier_segments' => [
+                        'min' => count($perCarrierSegments) > 0 ? min($perCarrierSegments) : 0,
+                        'max' => count($perCarrierSegments) > 0 ? max($perCarrierSegments) : 0,
+                    ],
+                    'carriers_with_unique_code' => $carriersWithUnique,
+                    'actual' => $budgetActual,
+                ];
+            }
+        }
+
         $requires = [];
         if (isset($spec['requires'])) {
             $requires = (array)$spec['requires'];
@@ -333,13 +378,18 @@ final class SetBuilder
             'seed'           => $spec['seed'] ?? null,
             'difficulty_band' => $this->registry->band($scoreClamped),
             'files'          => $fileEntries,
-            'duplication'    => [
+            'duplication'    => array_merge([
                 'present'     => $present,
                 'clone_type'  => $cloneType,
                 'granularity' => $granularity,
                 'clusters'    => $clusterCount,
                 'instances'   => $this->countAllMembers($allClusterData),
-            ],
+            ], $usesV2 ? [
+                // E-3: raw duplication ratio (distinct from partiality which is 1-ratio)
+                'duplication_ratio' => round($duplicationRatio, 4),
+                // E-2: uniqueness_budget
+                'uniqueness_budget' => $uniquenessBudget,
+            ] : []),
             'interference'   => $interference,
             'difficulty'     => [
                 'score'    => $scoreClamped,
