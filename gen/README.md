@@ -73,9 +73,42 @@ ground-truth ranges after any wrap or insertion.
   behaviorally-equivalent variant body from `gen/seeds/<seed>/variants/<name>.php`
   (`Selector/VariantSelector`). Behavioral equivalence is proven by the seed's
   `equivalence_test.php` (§12.4).
+- **wrapper** (NZ/UQ) — noise injection transforms that insert semantically inert but textually
+  real code. NZ transforms are pure instrumentation (logging, metrics, assertions). UQ transforms
+  inject unique business logic that preserves behavioral equivalence but erodes shared code
+  from within.
+- **encoding** (ENC) — byte-level encoding transforms that alter how source text is represented
+  without changing its semantic content (BOM, NBSP, Unicode confusables, EOL styles, escape
+  sequences).
+- **topology** (CP) — cluster topology directives for multi-cluster sets, not actual transforms.
+  Handled by SetBuilder's multi-cluster assembly logic; no Transform class required.
 
 The registry lists **all** §8 codes with weights (for the difficulty formula) and marks which are
 `implemented` in this build; the rest are declared for later phases.
+
+### New transform groups (Wave 2)
+
+- **SY** (PHP-era modernization, SY-01..SY-10) — text transforms that modernize old PHP 5.x
+  syntax to PHP 8.x equivalents: positional→named arguments, anonymous→arrow functions,
+  array()→[], concatenation→interpolation, Yoda conditions, list()→[] destructuring, etc.
+  (`gen/transforms/Sy/`).
+- **LEG** (Legacy PHP syntax, LEG-01..LEG-10) — text/ast transforms for migrating deprecated
+  PHP features: pow()→**, eregi→preg, split→preg_split, each→foreach, mcrypt→openssl,
+  constructor property promotion, etc. (`gen/transforms/Leg/`).
+- **UQ** (Unique-code injection, UQ-01..UQ-08) — wrapper transforms that inject tracked,
+  behavior-preserving unique code into clones to support partial duplication detection:
+  per-currency rounding, audit timestamps, bounds clamping, pre/post-processing hooks.
+  All emit `unique_segments[]` metadata. (`gen/transforms/Uq/`).
+- **NZ** (Noise injection, NZ-01..NZ-10) — wrapper transforms that insert semantically inert
+  instrumentation: logging, metrics, security assertions, framework attributes, i18n wrappers,
+  feature flags, debug dumps, environment checks, timing, request context. (`gen/transforms/Nz/`).
+- **ENC** (Encoding normalization, ENC-01..ENC-07) — encoding transforms at the byte level:
+  BOM insertion/removal, NBSP indentation, Unicode confusables, mixed EOL, escape sequence
+  variation, heredoc↔double-quoted strings, tabs in strings. (`gen/transforms/Enc/`).
+- **CP** (Clone topology, CP-01..CP-09) — metadata directives for multi-cluster sets specifying
+  cluster count, topology, instance ladder, intra-file duplication, cross-seed clusters,
+  overlapping regions, subset relationships, twin clusters, and confusable clusters.
+  Not actual transforms; handled by SetBuilder assembly logic.
 
 ## Authoring guide
 

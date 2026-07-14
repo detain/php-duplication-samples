@@ -1,0 +1,163 @@
+{
+    "level": 5,
+    "level_name": "refactorability",
+    "level_dir": "L05_refactorability",
+    "family": "rf_extractable_method",
+    "sets": [
+        {
+            "set_id": "L05-rf_extractable_method-001",
+            "title": "Invoice line processing clones that CAN be extracted to a shared method",
+            "description": "Three billing classes with identical processLineItem methods that differ only in literal values. These CAN be unified into a single extractMethodWithHoles pattern.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "processLineItem",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "schema_version": 2,
+            "rng_seed": 500101,
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true},
+            "intended_refactoring": {
+                "kind": "extract_method_with_holes",
+                "unified_symbol": "processLineItem",
+                "unified_signature": "processLineItem(item, config)",
+                "holes": [
+                    {"hole_id": "error_handling", "description": "Missing exception handling for invalid item"},
+                    {"hole_id": "logging", "description": "No audit trail logging"}
+                ],
+                "collapses": [0, 1, 2],
+                "advisability": "recommended"
+            },
+            "solution": "<?php\ndeclare(strict_types=1);\n\nnamespace Acme\\Billing\\Unified;\n\nclass LineItemProcessor\n{\n    public function processLineItem(array $item, array $config): array\n    {\n        $quantity = (int)($item['quantity'] ?? 0);\n        $unitPrice = (float)($item['unit_price'] ?? 0.0);\n        $taxRate = (float)($config['tax_rate'] ?? 0.0);\n        $subtotal = $quantity * $unitPrice;\n        $tax = $subtotal * $taxRate;\n        $total = $subtotal + $tax;\n        return [\n            'quantity' => $quantity,\n            'unit_price' => $unitPrice,\n            'subtotal' => $subtotal,\n            'tax' => $tax,\n            'total' => $total,\n        ];\n    }\n}\n",
+            "carriers": [
+                {"file": "StandardBilling.php", "namespace": "Acme\\Billing\\Standard", "class": "StandardBilling", "scaffold": "method_alpha", "group": "A", "pristine": false, "transforms": []},
+                {"file": "PremiumBilling.php", "namespace": "Acme\\Billing\\Premium", "class": "PremiumBilling", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": []},
+                {"file": "EnterpriseBilling.php", "namespace": "Acme\\Billing\\Enterprise", "class": "EnterpriseBilling", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "ShippingCalculator.php", "namespace": "Acme\\Shipping", "class": "ShippingCalculator", "source": "nearmiss_invoice", "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total — a different result"}
+            ]
+        },
+        {
+            "set_id": "L05-rf_extractable_method-002",
+            "title": "Cache key generation clones extractable to shared utility",
+            "description": "Three caching classes with identical generateKey methods. CAN be unified.",
+            "seed": "cache_manager",
+            "mount": "method",
+            "clone_symbol": "generateKey",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "schema_version": 2,
+            "rng_seed": 500102,
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true},
+            "intended_refactoring": {
+                "kind": "extract_method_with_holes",
+                "unified_symbol": "generateKey",
+                "unified_signature": "generateKey(prefix, id, scope)",
+                "holes": [
+                    {"hole_id": "validation", "description": "No validation for empty prefix or id"}
+                ],
+                "collapses": [0, 1, 2],
+                "advisability": "recommended"
+            },
+            "solution": "<?php\ndeclare(strict_types=1);\n\nnamespace Acme\\Cache\\Unified;\n\nclass CacheKeyGenerator\n{\n    public function generateKey(string $prefix, string $id, array $scope = []): string\n    {\n        $key = $prefix . ':' . $id;\n        if (!empty($scope)) {\n            $key .= ':' . implode(':', $scope);\n        }\n        return $key;\n    }\n}\n",
+            "carriers": [
+                {"file": "MemcachedCache.php", "namespace": "Acme\\Cache\\Memcached", "class": "MemcachedCache", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "RedisCache.php", "namespace": "Acme\\Cache\\Redis", "class": "RedisCache", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": []},
+                {"file": "FileCache.php", "namespace": "Acme\\Cache\\File", "class": "FileCache", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": []}
+            ]
+        },
+        {
+            "set_id": "L05-rf_extractable_method-003",
+            "title": "Permission checking clones extractable to shared checker",
+            "description": "Three auth classes with identical hasPermission methods. CAN be unified.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "hasPermission",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "schema_version": 2,
+            "rng_seed": 500103,
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true},
+            "intended_refactoring": {
+                "kind": "extract_method_with_holes",
+                "unified_symbol": "hasPermission",
+                "unified_signature": "hasPermission(user, resource, action)",
+                "holes": [
+                    {"hole_id": "role_hierarchy", "description": "No role hierarchy consideration"}
+                ],
+                "collapses": [0, 1, 2],
+                "advisability": "recommended"
+            },
+            "solution": "<?php\ndeclare(strict_types=1);\n\nnamespace Acme\\Auth\\Unified;\n\nclass PermissionChecker\n{\n    public function hasPermission(array $user, string $resource, string $action): bool\n    {\n        $permissions = $user['permissions'] ?? [];\n        $required = $resource . ':' . $action;\n        return in_array($required, $permissions, true);\n    }\n}\n",
+            "carriers": [
+                {"file": "BasicAuth.php", "namespace": "Acme\\Auth\\Basic", "class": "BasicAuth", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "AdvancedAuth.php", "namespace": "Acme\\Auth\\Advanced", "class": "AdvancedAuth", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": []},
+                {"file": "EnterpriseAuth.php", "namespace": "Acme\\Auth\\Enterprise", "class": "EnterpriseAuth", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": []}
+            ]
+        },
+        {
+            "set_id": "L05-rf_extractable_method-004",
+            "title": "Event building clones extractable to shared builder",
+            "description": "Three event classes with identical buildEvent methods. CAN be unified.",
+            "seed": "event_dispatcher",
+            "mount": "method",
+            "clone_symbol": "buildEvent",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "schema_version": 2,
+            "rng_seed": 500104,
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true},
+            "intended_refactoring": {
+                "kind": "extract_method_with_holes",
+                "unified_symbol": "buildEvent",
+                "unified_signature": "buildEvent(type, payload, metadata)",
+                "holes": [
+                    {"hole_id": "timestamp", "description": "No automatic timestamp injection"},
+                    {"hole_id": "validation", "description": "No event type validation"}
+                ],
+                "collapses": [0, 1, 2],
+                "advisability": "recommended"
+            },
+            "solution": "<?php\ndeclare(strict_types=1);\n\nnamespace Acme\\Events\\Unified;\n\nclass EventBuilder\n{\n    public function buildEvent(string $type, array $payload, array $metadata = []): array\n    {\n        return [\n            'type' => $type,\n            'payload' => $payload,\n            'metadata' => $metadata,\n        ];\n    }\n}\n",
+            "carriers": [
+                {"file": "SyncEventDispatcher.php", "namespace": "Acme\\Events\\Sync", "class": "SyncEventDispatcher", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "AsyncEventDispatcher.php", "namespace": "Acme\\Events\\Async", "class": "AsyncEventDispatcher", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": []},
+                {"file": "BatchEventDispatcher.php", "namespace": "Acme\\Events\\Batch", "class": "BatchEventDispatcher", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": []}
+            ]
+        },
+        {
+            "set_id": "L05-rf_extractable_method-005",
+            "title": "Slug generation clones extractable to shared generator",
+            "description": "Three text processing classes with identical generateSlug methods. CAN be unified.",
+            "seed": "slug_generator",
+            "mount": "method",
+            "clone_symbol": "generateSlug",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "schema_version": 2,
+            "rng_seed": 500105,
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true},
+            "intended_refactoring": {
+                "kind": "extract_method_with_holes",
+                "unified_symbol": "generateSlug",
+                "unified_signature": "generateSlug(input, maxLength)",
+                "holes": [
+                    {"hole_id": "unicode_handling", "description": "No proper unicode normalization"}
+                ],
+                "collapses": [0, 1, 2],
+                "advisability": "recommended"
+            },
+            "solution": "<?php\ndeclare(strict_types=1);\n\nnamespace Acme\\Text\\Unified;\n\nclass SlugGenerator\n{\n    public function generateSlug(string $input, int $maxLength = 100): string\n    {\n        $slug = strtolower(trim($input));\n        $slug = preg_replace('/[^a-z0-9]+/', '-', $slug);\n        $slug = trim($slug, '-');\n        if ($maxLength > 0 && strlen($slug) > $maxLength) {\n            $slug = substr($slug, 0, $maxLength);\n        }\n        return $slug;\n    }\n}\n",
+            "carriers": [
+                {"file": "BlogSlugGenerator.php", "namespace": "Acme\\Text\\Blog", "class": "BlogSlugGenerator", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "CategorySlugGenerator.php", "namespace": "Acme\\Text\\Category", "class": "CategorySlugGenerator", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": []},
+                {"file": "TagSlugGenerator.php", "namespace": "Acme\\Text\\Tag", "class": "TagSlugGenerator", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": []}
+            ]
+        }
+    ]
+}

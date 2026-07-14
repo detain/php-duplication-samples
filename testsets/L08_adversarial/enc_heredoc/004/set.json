@@ -1,0 +1,76 @@
+{
+    "schema_version": 1,
+    "set_id": "L08-enc_heredoc-004",
+    "level": 8,
+    "level_name": "adversarial",
+    "family": "enc_heredoc",
+    "title": "Heredoc: Multiple heredocs per method",
+    "description": "Methods contain multiple heredoc strings with varying content.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "config_loader",
+    "difficulty_band": "expert",
+    "files": [
+        {
+            "path": "src/ConfigLoaderA.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 74
+        },
+        {
+            "path": "src/ConfigLoaderB.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 79
+        },
+        {
+            "path": "src/ConfigLoaderC.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 78
+        },
+        {
+            "path": "src/Validator.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 14
+        },
+        {
+            "path": "src/Merger.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 14
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-2",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "ENC-06",
+            "name": "heredoc",
+            "params": {},
+            "applied_to": [
+                "src/ConfigLoaderB.php",
+                "src/ConfigLoaderC.php"
+            ],
+            "intensity": 2
+        }
+    ],
+    "difficulty": {
+        "score": 91,
+        "requires": [
+            "literal_abstraction"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L08_adversarial/enc_heredoc.json",
+        "version": "1.0.0",
+        "rng_seed": 80604
+    }
+}

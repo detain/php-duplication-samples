@@ -1,0 +1,12 @@
+{
+    "domain": "event_dispatcher",
+    "summary": "Observer pattern event system with listener registration and dispatch.",
+    "size_class": "M",
+    "symbol": "dispatch",
+    "line_count": 56,
+    "token_count": 380,
+    "required_symbols": ["on", "dispatch", "once", "off"],
+    "mount_modes": ["method"],
+    "compatible_interference": ["WS-03", "CM-03", "RN-01", "CF-05"],
+    "variants": []
+}

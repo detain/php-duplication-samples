@@ -1,5 +1,5 @@
 {
-    "schema_version": 1,
+    "schema_version": 2,
     "set_id": "L02-ws_trailing-002",
     "clusters": [
         {
@@ -19,21 +19,27 @@
                     "start_line": 9,
                     "end_line": 33,
                     "symbol": "computeTotals",
-                    "pristine": true
+                    "pristine": true,
+                    "group": "A",
+                    "seed": "invoice_totals"
                 },
                 {
                     "file": "src/PriceBookService.php",
                     "start_line": 18,
                     "end_line": 42,
                     "symbol": "computeTotals",
-                    "pristine": false
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "invoice_totals"
                 },
                 {
                     "file": "src/SettlementService.php",
                     "start_line": 24,
                     "end_line": 48,
                     "symbol": "computeTotals",
-                    "pristine": false
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "invoice_totals"
                 }
             ],
             "detection_expectation": {

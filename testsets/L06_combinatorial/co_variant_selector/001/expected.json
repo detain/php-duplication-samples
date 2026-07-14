@@ -1,0 +1,84 @@
+{
+    "schema_version": 2,
+    "set_id": "L06-co_variant_selector-001",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-3",
+            "granularity": "method",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers",
+                "case_convention",
+                "controlflow"
+            ],
+            "token_hash": "5cd8e7841ecf7c41",
+            "normalized_hash": "89e09fba7eb77dcb",
+            "members": [
+                {
+                    "file": "src/PristineAccessPolicy.php",
+                    "start_line": 9,
+                    "end_line": 27,
+                    "symbol": "authorize",
+                    "pristine": true,
+                    "group": "A",
+                    "seed": "access_guard"
+                },
+                {
+                    "file": "src/TernaryPolicy.php",
+                    "start_line": 18,
+                    "end_line": 36,
+                    "symbol": "authorize",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "access_guard"
+                },
+                {
+                    "file": "src/TernaryWsPolicy.php",
+                    "start_line": 24,
+                    "end_line": 43,
+                    "symbol": "authorize",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "access_guard",
+                    "fragments": [
+                        {
+                            "start_line": 48,
+                            "end_line": 66
+                        }
+                    ],
+                    "unique_segments": [
+                        {
+                            "start_line": 47,
+                            "end_line": 47
+                        }
+                    ]
+                }
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": true,
+                "semantic": true
+            },
+            "notes": "Selector-style interference using statement reorder + literal transforms. Replaces CF variants which require variant files."
+        }
+    ],
+    "non_duplicates": [
+        {
+            "file": "src/TrustScorer.php",
+            "start_line": 12,
+            "end_line": 27,
+            "reason": "near-miss: same auth vocabulary but computes numeric trust score instead of boolean decision",
+            "trap": true
+        }
+    ],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.55,
+        "min_members_for_credit": 2
+    }
+}

@@ -56,7 +56,8 @@
             "params": {},
             "applied_to": [
                 "src/CompiledInvoiceB.php"
-            ]
+            ],
+            "intensity": 2
         },
         {
             "code": "LT-03",
@@ -64,7 +65,8 @@
             "params": {},
             "applied_to": [
                 "src/CompiledInvoiceC.php"
-            ]
+            ],
+            "intensity": 2
         }
     ],
     "difficulty": {

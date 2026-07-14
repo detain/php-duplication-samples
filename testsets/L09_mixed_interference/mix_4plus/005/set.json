@@ -51,6 +51,18 @@
     },
     "interference": [
         {
+            "code": "ST-01",
+            "name": "insert_logging",
+            "params": {
+                "lines": 2
+            },
+            "applied_to": [
+                "src/PristineInvoiceCalc.php",
+                "src/FullStackAltCalc.php"
+            ],
+            "intensity": 3
+        },
+        {
             "code": "RN-05",
             "name": "case_convention",
             "params": {
@@ -59,7 +71,8 @@
             "applied_to": [
                 "src/PristineInvoiceCalc.php",
                 "src/FullStackAltCalc.php"
-            ]
+            ],
+            "intensity": 2
         },
         {
             "code": "WS-03",
@@ -69,7 +82,8 @@
             },
             "applied_to": [
                 "src/PristineInvoiceCalc.php"
-            ]
+            ],
+            "intensity": 1
         },
         {
             "code": "WS-06",
@@ -80,48 +94,8 @@
             "applied_to": [
                 "src/PristineInvoiceCalc.php",
                 "src/FullStackAltCalc.php"
-            ]
-        },
-        {
-            "code": "ST-01",
-            "name": "insert_logging",
-            "params": {
-                "lines": 2
-            },
-            "applied_to": [
-                "src/PristineInvoiceCalc.php",
-                "src/FullStackAltCalc.php"
-            ]
-        },
-        {
-            "code": "RN-05",
-            "name": "case_convention",
-            "params": {
-                "direction": "snake_to_camel"
-            },
-            "applied_to": [
-                "src/FullStackCalc.php"
-            ]
-        },
-        {
-            "code": "WS-03",
-            "name": "blank_inside",
-            "params": {
-                "blank_lines": 2
-            },
-            "applied_to": [
-                "src/FullStackCalc.php"
-            ]
-        },
-        {
-            "code": "WS-06",
-            "name": "line_wrap",
-            "params": {
-                "occurrence": 2
-            },
-            "applied_to": [
-                "src/FullStackCalc.php"
-            ]
+            ],
+            "intensity": 2
         },
         {
             "code": "ST-01",
@@ -131,7 +105,41 @@
             },
             "applied_to": [
                 "src/FullStackCalc.php"
-            ]
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "RN-05",
+            "name": "case_convention",
+            "params": {
+                "direction": "snake_to_camel"
+            },
+            "applied_to": [
+                "src/FullStackCalc.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "WS-03",
+            "name": "blank_inside",
+            "params": {
+                "blank_lines": 2
+            },
+            "applied_to": [
+                "src/FullStackCalc.php"
+            ],
+            "intensity": 1
+        },
+        {
+            "code": "WS-06",
+            "name": "line_wrap",
+            "params": {
+                "occurrence": 2
+            },
+            "applied_to": [
+                "src/FullStackCalc.php"
+            ],
+            "intensity": 2
         },
         {
             "code": "WS-03",
@@ -141,15 +149,16 @@
             },
             "applied_to": [
                 "src/FullStackAltCalc.php"
-            ]
+            ],
+            "intensity": 1
         }
     ],
     "difficulty": {
         "score": 100,
         "requires": [
+            "ast_canonicalization",
             "identifier_canonicalization",
-            "whitespace_normalization",
-            "ast_canonicalization"
+            "whitespace_normalization"
         ]
     },
     "generator": {

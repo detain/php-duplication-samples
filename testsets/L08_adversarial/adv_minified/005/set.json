@@ -1,0 +1,76 @@
+{
+    "schema_version": 1,
+    "set_id": "L08-adv_minified-005",
+    "level": 8,
+    "level_name": "adversarial",
+    "family": "adv_minified",
+    "title": "Minified: Trailing whitespace removal",
+    "description": "Tests code with trailing whitespace removed.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "config_loader",
+    "difficulty_band": "expert",
+    "files": [
+        {
+            "path": "src/ConfigLoaderA.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 74
+        },
+        {
+            "path": "src/ConfigLoaderB.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 79
+        },
+        {
+            "path": "src/ConfigLoaderC.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 78
+        },
+        {
+            "path": "src/Validator.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 14
+        },
+        {
+            "path": "src/Merger.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 14
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-1",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "WS-09",
+            "name": "trailing_space",
+            "params": {},
+            "applied_to": [
+                "src/ConfigLoaderB.php",
+                "src/ConfigLoaderC.php"
+            ],
+            "intensity": 1
+        }
+    ],
+    "difficulty": {
+        "score": 87,
+        "requires": [
+            "whitespace_normalization"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L08_adversarial/adv_minified.json",
+        "version": "1.0.0",
+        "rng_seed": 82405
+    }
+}

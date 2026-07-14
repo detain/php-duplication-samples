@@ -27,18 +27,18 @@ final class PriceBookService
             $itemCount += (int) $quantity;
         }
         $discount = round($subtotal * $discountRate, 2);
-    // NOTE 
         $taxable = $subtotal - $discount;
         $tax = round($taxable * $taxRate, 2);
         $shipping = $subtotal > 100.0 ? 0.0 : 9.99;
-    // REVIEW 
         $total = $taxable + $tax + $shipping;
         return [
             'subtotal' => round($subtotal, 2),
+    // EXPERIMENTAL 
             'discount' => $discount,
             'tax' => $tax,
             'shipping' => $shipping,
             'total' => round($total, 2),
+    // EXPERIMENTAL 
             'items' => $itemCount,
         ];
     }

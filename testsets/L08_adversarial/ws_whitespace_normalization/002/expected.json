@@ -1,0 +1,55 @@
+{
+    "schema_version": 1,
+    "set_id": "L08-ws_whitespace_normalization-002",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-1",
+            "granularity": "method",
+            "normalized_by": [
+                "whitespace",
+                "comments"
+            ],
+            "token_hash": "acced26c1a39ba09",
+            "normalized_hash": "6c76ed84fa4097ff",
+            "members": [
+                {
+                    "file": "src/RowProcessorA.php",
+                    "start_line": 9,
+                    "end_line": 78,
+                    "symbol": "processRow",
+                    "pristine": true
+                },
+                {
+                    "file": "src/RowProcessorB.php",
+                    "start_line": 18,
+                    "end_line": 88,
+                    "symbol": "processRow",
+                    "pristine": false
+                },
+                {
+                    "file": "src/RowProcessorC.php",
+                    "start_line": 24,
+                    "end_line": 94,
+                    "symbol": "processRow",
+                    "pristine": false
+                }
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": false,
+                "semantic": false
+            },
+            "notes": ""
+        }
+    ],
+    "non_duplicates": [],
+    "scoring": {
+        "line_tolerance": 1,
+        "member_jaccard_min": 0.9,
+        "min_members_for_credit": 2
+    }
+}

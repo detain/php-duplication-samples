@@ -1,0 +1,202 @@
+{
+    "schema_version": 2,
+    "set_id": "L04-ct_two_cluster-001",
+    "level": 4,
+    "level_name": "partial_duplication",
+    "family": "ct_two_cluster",
+    "title": "Two independent partial clone clusters per set",
+    "description": "Each set contains 2 separate partial clone clusters. Cluster A uses invoice_totals seed with partial_fragment, Cluster B uses access_guard. Each cluster has its own carriers with partial duplication.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "invoice_totals",
+    "difficulty_band": "medium",
+    "files": [
+        {
+            "path": "src/InvoiceCalcA.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 39,
+            "region_sloc": {
+                "sloc": 25,
+                "duplicate": 25,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/InvoiceCalcB.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 42,
+            "region_sloc": {
+                "sloc": 23,
+                "duplicate": 23,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/InvoiceCalcC.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 41,
+            "region_sloc": {
+                "sloc": 23,
+                "duplicate": 23,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/AuthGuardA.php",
+            "role": "carrier",
+            "duplicate_group": "B",
+            "sloc": 39,
+            "region_sloc": {
+                "sloc": 25,
+                "duplicate": 25,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/AuthGuardB.php",
+            "role": "carrier",
+            "duplicate_group": "B",
+            "sloc": 42,
+            "region_sloc": {
+                "sloc": 23,
+                "duplicate": 23,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/AuthGuardC.php",
+            "role": "carrier",
+            "duplicate_group": "B",
+            "sloc": 41,
+            "region_sloc": {
+                "sloc": 23,
+                "duplicate": 23,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/InvoiceDistractor.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 30
+        },
+        {
+            "path": "src/AuthDistractor.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 29
+        },
+        {
+            "path": "src/BillingClean.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        },
+        {
+            "path": "src/SecurityClean.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 27
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-3",
+        "granularity": "method",
+        "clusters": 2,
+        "instances": 6
+    },
+    "interference": [
+        {
+            "code": "ST-07",
+            "name": "partial_fragment",
+            "params": {
+                "head_trim": 2,
+                "tail_trim": 0
+            },
+            "applied_to": [
+                "src/InvoiceCalcB.php",
+                "src/AuthGuardB.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "ST-07",
+            "name": "partial_fragment",
+            "params": {
+                "head_trim": 0,
+                "tail_trim": 2
+            },
+            "applied_to": [
+                "src/InvoiceCalcC.php",
+                "src/AuthGuardC.php"
+            ],
+            "intensity": 3
+        }
+    ],
+    "difficulty": {
+        "score": 42,
+        "requires": [
+            "ast_canonicalization",
+            "deadcode_elimination"
+        ],
+        "score_raw": 42,
+        "axes": {
+            "breadth": 1,
+            "intensity": 3,
+            "intensity_max": 3,
+            "semantic_depth": 0,
+            "partiality": 1
+        },
+        "application_count": 4,
+        "axis_count": 1
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L04_partial_duplication/ct_two_cluster.json",
+        "version": "2.0.0",
+        "rng_seed": 104701
+    },
+    "interference_profile": {
+        "axis_count": 1,
+        "per_carrier_axes": {
+            "src/InvoiceCalcB.php": [
+                "ST-07"
+            ],
+            "src/InvoiceCalcC.php": [
+                "ST-07"
+            ],
+            "src/AuthGuardB.php": [
+                "ST-07"
+            ],
+            "src/AuthGuardC.php": [
+                "ST-07"
+            ]
+        },
+        "groups_touched": [
+            "A",
+            "B"
+        ],
+        "stack_depth_max": 1,
+        "symmetric_overlap": 1,
+        "pairwise_overlap": 1,
+        "combination_design": "structural_only"
+    },
+    "engine_features": [
+        "multi_cluster"
+    ],
+    "role_composition": {
+        "carrier": 6,
+        "distractor": 2,
+        "clean": 2
+    }
+}

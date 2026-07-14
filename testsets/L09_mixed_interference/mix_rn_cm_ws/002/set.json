@@ -58,7 +58,8 @@
             },
             "applied_to": [
                 "src/RenamedDocCalc.php"
-            ]
+            ],
+            "intensity": 2
         },
         {
             "code": "CM-03",
@@ -68,7 +69,8 @@
             },
             "applied_to": [
                 "src/RenamedDocCalc.php"
-            ]
+            ],
+            "intensity": 1
         },
         {
             "code": "RN-05",
@@ -78,7 +80,8 @@
             },
             "applied_to": [
                 "src/RenamedDocAltCalc.php"
-            ]
+            ],
+            "intensity": 2
         },
         {
             "code": "CM-03",
@@ -88,7 +91,8 @@
             },
             "applied_to": [
                 "src/RenamedDocAltCalc.php"
-            ]
+            ],
+            "intensity": 1
         }
     ],
     "difficulty": {

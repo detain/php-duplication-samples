@@ -1,0 +1,104 @@
+{
+    "schema_version": 1,
+    "set_id": "L12-mx_complexity_mix-003",
+    "level": 12,
+    "level_name": "mixed_scale",
+    "family": "mx_complexity_mix",
+    "title": "Three-carrier complexity gradient",
+    "description": "Three carriers with increasing complexity showing complexity gradient.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "invoice_totals",
+    "difficulty_band": "easy",
+    "files": [
+        {
+            "path": "src/ComplexMixA.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 39
+        },
+        {
+            "path": "src/ComplexMixB.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 45
+        },
+        {
+            "path": "src/ComplexMixC.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 46
+        },
+        {
+            "path": "src/ComplexMixDistractor.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 30
+        },
+        {
+            "path": "src/ComplexMixClean.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-2",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "CM-01",
+            "name": "line_comment_add",
+            "params": {},
+            "applied_to": [
+                "src/ComplexMixB.php"
+            ],
+            "intensity": 1
+        },
+        {
+            "code": "RN-05",
+            "name": "case_convention",
+            "params": {},
+            "applied_to": [
+                "src/ComplexMixC.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "LT-02",
+            "name": "string",
+            "params": {},
+            "applied_to": [
+                "src/ComplexMixC.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "CM-02",
+            "name": "block_comment_add",
+            "params": {},
+            "applied_to": [
+                "src/ComplexMixC.php"
+            ],
+            "intensity": 1
+        }
+    ],
+    "difficulty": {
+        "score": 17,
+        "requires": [
+            "identifier_canonicalization",
+            "literal_abstraction",
+            "comment_stripping"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L12_mixed_scale/mx_complexity_mix.json",
+        "version": "1.0.0",
+        "rng_seed": 120203
+    }
+}

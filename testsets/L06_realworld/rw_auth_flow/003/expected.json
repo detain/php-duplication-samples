@@ -1,0 +1,56 @@
+{
+    "schema_version": 1,
+    "set_id": "L06-rw_auth_flow-003",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-4",
+            "granularity": "method",
+            "normalized_by": [
+                "controlflow",
+                "identifiers",
+                "literals"
+            ],
+            "token_hash": "31009d0a8533eb74",
+            "normalized_hash": "ee7a54615c17e656",
+            "members": [
+                {
+                    "file": "src/MfaAuth.php",
+                    "start_line": 9,
+                    "end_line": 137,
+                    "symbol": "authenticate",
+                    "pristine": true
+                },
+                {
+                    "file": "src/TotpHandler.php",
+                    "start_line": 18,
+                    "end_line": 147,
+                    "symbol": "authenticate",
+                    "pristine": false
+                },
+                {
+                    "file": "src/SmsHandler.php",
+                    "start_line": 24,
+                    "end_line": 154,
+                    "symbol": "authenticate",
+                    "pristine": false
+                }
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": false,
+                "ast_based": false,
+                "metric_based": false,
+                "semantic": true
+            },
+            "notes": "Set 003 of 5. MFA with ST-01, ST-05 variants."
+        }
+    ],
+    "non_duplicates": [],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.6,
+        "min_members_for_credit": 2
+    }
+}

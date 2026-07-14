@@ -49,8 +49,8 @@
     "non_duplicates": [
         {
             "file": "src/DataTransformer.php",
-            "start_line": 12,
-            "end_line": 26,
+            "start_line": 9,
+            "end_line": 78,
             "reason": "near-miss: similar parsing vocabulary but transforms data differently",
             "trap": true
         }

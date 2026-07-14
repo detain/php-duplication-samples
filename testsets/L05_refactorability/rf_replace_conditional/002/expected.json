@@ -1,0 +1,101 @@
+{
+    "schema_version": 2,
+    "set_id": "L05-rf_replace_conditional-002",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-2",
+            "granularity": "class",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "class_structure"
+            ],
+            "token_hash": "5a1df59bd93d82d2",
+            "normalized_hash": "0efe1e60b3c6ea7a",
+            "members": [
+                {
+                    "file": "src/PendingOrderHandler.php",
+                    "start_line": 9,
+                    "end_line": 48,
+                    "symbol": "transition",
+                    "pristine": true,
+                    "group": "A",
+                    "seed": "state_machine"
+                },
+                {
+                    "file": "src/ProcessingOrderHandler.php",
+                    "start_line": 18,
+                    "end_line": 57,
+                    "symbol": "transition",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "state_machine"
+                },
+                {
+                    "file": "src/ShippedOrderHandler.php",
+                    "start_line": 24,
+                    "end_line": 63,
+                    "symbol": "transition",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "state_machine"
+                },
+                {
+                    "file": "src/DeliveredOrderHandler.php",
+                    "start_line": 24,
+                    "end_line": 63,
+                    "symbol": "transition",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "state_machine"
+                },
+                {
+                    "file": "src/CancelledOrderHandler.php",
+                    "start_line": 24,
+                    "end_line": 63,
+                    "symbol": "transition",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "state_machine"
+                }
+            ],
+            "detection_expectation": {
+                "text_based": true,
+                "token_based": true,
+                "ast_based": true
+            },
+            "notes": ""
+        }
+    ],
+    "non_duplicates": [],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.6,
+        "min_members_for_credit": 2
+    },
+    "intended_refactoring": {
+        "kind": "replace_conditional_with_polymorphism",
+        "unified_symbol": "OrderState",
+        "unified_signature": "handle(OrderContext $context): string",
+        "strategy_interface": "OrderStateInterface with handle(OrderContext $context): string and getStatus(): string methods",
+        "strategy_implementations": [
+            "PendingState",
+            "ProcessingState",
+            "ShippedState",
+            "DeliveredState",
+            "CancelledState"
+        ],
+        "context_class": "OrderStateMachine",
+        "conditional_type": "switch statement",
+        "collapses": [
+            0,
+            1,
+            2,
+            3,
+            4
+        ],
+        "advisability": "recommended"
+    }
+}

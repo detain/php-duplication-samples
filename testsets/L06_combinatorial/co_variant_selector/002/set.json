@@ -1,0 +1,165 @@
+{
+    "schema_version": 2,
+    "set_id": "L06-co_variant_selector-002",
+    "level": 6,
+    "level_name": "combinatorial",
+    "family": "co_variant_selector",
+    "title": "Selector variants stacked with comments",
+    "description": "Same authorize method. Tests CF variants combined with comment changes. Control flow with documentation.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "access_guard",
+    "difficulty_band": "expert",
+    "files": [
+        {
+            "path": "src/DocPolicy.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 33,
+            "region_sloc": {
+                "sloc": 19,
+                "duplicate": 19,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/EarlyReturnPolicy.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 39,
+            "region_sloc": {
+                "sloc": 20,
+                "duplicate": 19,
+                "unique": 1,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/CfDocPolicy.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 35,
+            "region_sloc": {
+                "sloc": 17,
+                "duplicate": 17,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/TrustScorer.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 29
+        },
+        {
+            "path": "src/RoleHierarchy.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 27
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-3",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "LT-02",
+            "name": "string",
+            "params": {
+                "style": "double_quotes"
+            },
+            "applied_to": [
+                "src/DocPolicy.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "ST-01",
+            "name": "insert_logging",
+            "params": {
+                "lines": 1
+            },
+            "applied_to": [
+                "src/EarlyReturnPolicy.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "ST-05",
+            "name": "reorder_independent",
+            "params": {
+                "reorder_level": 1
+            },
+            "applied_to": [
+                "src/CfDocPolicy.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "LT-01",
+            "name": "numeric",
+            "params": {
+                "format": "hex"
+            },
+            "applied_to": [
+                "src/CfDocPolicy.php"
+            ],
+            "intensity": 2
+        }
+    ],
+    "difficulty": {
+        "score": 91,
+        "requires": [
+            "literal_abstraction",
+            "ast_canonicalization",
+            "commutative_reordering"
+        ],
+        "score_raw": 91,
+        "axes": {
+            "breadth": 4,
+            "intensity": 2.5,
+            "intensity_max": 3,
+            "semantic_depth": 0,
+            "partiality": 1
+        },
+        "application_count": 4,
+        "axis_count": 4
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L06_combinatorial/co_variant_selector.json",
+        "version": "2.0.0",
+        "rng_seed": 1614002
+    },
+    "interference_profile": {
+        "axis_count": 4,
+        "per_carrier_axes": {
+            "src/DocPolicy.php": [
+                "LT-02"
+            ],
+            "src/EarlyReturnPolicy.php": [
+                "ST-01"
+            ],
+            "src/CfDocPolicy.php": [
+                "ST-05",
+                "LT-01"
+            ]
+        },
+        "groups_touched": [
+            "A"
+        ],
+        "stack_depth_max": 2,
+        "symmetric_overlap": 0,
+        "pairwise_overlap": 0,
+        "combination_design": "structural_only"
+    },
+    "engine_features": [
+        "fragment_emission"
+    ]
+}

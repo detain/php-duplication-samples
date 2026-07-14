@@ -1,0 +1,148 @@
+{
+    "level": 4,
+    "level_name": "partial_duplication",
+    "level_dir": "L04_partial_duplication",
+    "family": "gr_method",
+    "sets": [
+        {
+            "set_id": "L04-gr_method-001",
+            "title": "Method-level partial clone detection",
+            "description": "The same method cloned with partial fragmentation at method granularity. Tests detection of method-sized partial clones.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "schema_version": 2,
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "rng_seed": 104901,
+            "notes": "Method-level partial clone with head/tail trimming.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "difficulty": {"complexity": 4, "partiality": "high"},
+            "duplication": {"uniqueness_budget": {"min": 3, "max": 6}},
+            "carriers": [
+                {"file": "BillingServiceA.php", "namespace": "Acme\\Billing\\Services", "class": "BillingServiceA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "BillingServiceB.php", "namespace": "Acme\\Billing\\Services", "class": "BillingServiceB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 2, "tail_trim": 0}}]},
+                {"file": "BillingServiceC.php", "namespace": "Acme\\Billing\\Services", "class": "BillingServiceC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 0, "tail_trim": 2}}]}
+            ],
+            "distractors": [
+                {"file": "MarginCalculator.php", "namespace": "Acme\\Billing\\Calculator", "class": "MarginCalculator", "source": "nearmiss_invoice", "reason": "near-miss: similar invoice vocabulary but computes margins"}
+            ],
+            "cleans": [
+                {"file": "TaxConfig.php", "namespace": "Acme\\Billing\\Config", "class": "TaxConfig", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L04-gr_method-002",
+            "title": "Method-level clone with scattered unique statements",
+            "description": "Method with unique statements scattered throughout creating fragmented shared regions.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "schema_version": 2,
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "rng_seed": 104902,
+            "notes": "Method-level with ST-01/ST-02 scattered insertions.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "difficulty": {"complexity": 5, "partiality": "high"},
+            "duplication": {"uniqueness_budget": {"min": 4, "max": 8}},
+            "carriers": [
+                {"file": "BillingServiceA.php", "namespace": "Acme\\Billing\\Services", "class": "BillingServiceA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "BillingServiceB.php", "namespace": "Acme\\Billing\\Services", "class": "BillingServiceB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-01", "params": {"after": [3], "message": "log1", "call": "error_log"}}, {"code": "ST-02", "params": {"count": 1, "after": [10]}}]},
+                {"file": "BillingServiceC.php", "namespace": "Acme\\Billing\\Services", "class": "BillingServiceC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-01", "params": {"after": [5], "message": "log2", "call": "error_log"}}, {"code": "ST-02", "params": {"count": 1, "after": [12]}}]}
+            ],
+            "distractors": [
+                {"file": "MarginCalculator.php", "namespace": "Acme\\Billing\\Calculator", "class": "MarginCalculator", "source": "nearmiss_invoice", "reason": "near-miss: similar invoice vocabulary but computes margins"}
+            ],
+            "cleans": [
+                {"file": "TaxConfig.php", "namespace": "Acme\\Billing\\Config", "class": "TaxConfig", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L04-gr_method-003",
+            "title": "Method-level partial clone using access_guard",
+            "description": "Authorize method with partial fragmentation at method granularity.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "schema_version": 2,
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "rng_seed": 104903,
+            "notes": "Method-level partial clone for authorization logic.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "difficulty": {"complexity": 4, "partiality": "high"},
+            "duplication": {"uniqueness_budget": {"min": 2, "max": 5}},
+            "carriers": [
+                {"file": "SecurityServiceA.php", "namespace": "Acme\\Security\\Services", "class": "SecurityServiceA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "SecurityServiceB.php", "namespace": "Acme\\Security\\Services", "class": "SecurityServiceB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 2, "tail_trim": 0}}]},
+                {"file": "SecurityServiceC.php", "namespace": "Acme\\Security\\Services", "class": "SecurityServiceC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 0, "tail_trim": 2}}]}
+            ],
+            "distractors": [
+                {"file": "AuditLogger.php", "namespace": "Acme\\Security\\Logger", "class": "AuditLogger", "source": "nearmiss_access", "reason": "near-miss: similar auth vocabulary but performs auditing"}
+            ],
+            "cleans": [
+                {"file": "SecurityConfig.php", "namespace": "Acme\\Security\\Config", "class": "SecurityConfig", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L04-gr_method-004",
+            "title": "Method-level partial clone using csv_import",
+            "description": "ParseRow method with partial fragmentation at method granularity.",
+            "seed": "csv_import",
+            "mount": "method",
+            "clone_symbol": "parseRow",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "schema_version": 2,
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "rng_seed": 104904,
+            "notes": "Method-level partial clone for parsing logic.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "difficulty": {"complexity": 4, "partiality": "high"},
+            "duplication": {"uniqueness_budget": {"min": 2, "max": 5}},
+            "carriers": [
+                {"file": "ImportServiceA.php", "namespace": "Acme\\Import\\Services", "class": "ImportServiceA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "ImportServiceB.php", "namespace": "Acme\\Import\\Services", "class": "ImportServiceB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 2, "tail_trim": 0}}]},
+                {"file": "ImportServiceC.php", "namespace": "Acme\\Import\\Services", "class": "ImportServiceC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 0, "tail_trim": 2}}]}
+            ],
+            "distractors": [
+                {"file": "XmlParser.php", "namespace": "Acme\\Import\\Parser", "class": "XmlParser", "source": "nearmiss_csv", "reason": "near-miss: similar parsing vocabulary but handles XML"}
+            ],
+            "cleans": [
+                {"file": "ImportConfig.php", "namespace": "Acme\\Import\\Config", "class": "ImportConfig", "source": "clean_parsing"}
+            ]
+        },
+        {
+            "set_id": "L04-gr_method-005",
+            "title": "Method-level with block-style unique insertions",
+            "description": "Method with dead code blocks inserted creating larger unique regions.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "schema_version": 2,
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "rng_seed": 104905,
+            "notes": "Method-level with multiple ST-02 dead code block insertions.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "difficulty": {"complexity": 5, "partiality": "high"},
+            "duplication": {"uniqueness_budget": {"min": 5, "max": 9}},
+            "carriers": [
+                {"file": "BillingServiceA.php", "namespace": "Acme\\Billing\\Services", "class": "BillingServiceA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "BillingServiceB.php", "namespace": "Acme\\Billing\\Services", "class": "BillingServiceB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-02", "params": {"count": 2, "after": [5]}}, {"code": "ST-02", "params": {"count": 1, "after": [12]}}]},
+                {"file": "BillingServiceC.php", "namespace": "Acme\\Billing\\Services", "class": "BillingServiceC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-02", "params": {"count": 1, "after": [3]}}, {"code": "ST-02", "params": {"count": 2, "after": [15]}}]}
+            ],
+            "distractors": [
+                {"file": "MarginCalculator.php", "namespace": "Acme\\Billing\\Calculator", "class": "MarginCalculator", "source": "nearmiss_invoice", "reason": "near-miss: similar invoice vocabulary but computes margins"}
+            ],
+            "cleans": [
+                {"file": "TaxConfig.php", "namespace": "Acme\\Billing\\Config", "class": "TaxConfig", "source": "clean_billing"}
+            ]
+        }
+    ]
+}

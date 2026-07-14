@@ -1,0 +1,70 @@
+{
+    "schema_version": 1,
+    "set_id": "L18-pg_growth_1-001",
+    "level": 18,
+    "level_name": "partial_growth",
+    "family": "pg_growth_1",
+    "title": "Initial small clone set - basic",
+    "description": "Tests pg_growth_1: initial small clone set for incremental growth testing.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "invoice_totals",
+    "difficulty_band": "trivial",
+    "files": [
+        {
+            "path": "src/GrowthA.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 39
+        },
+        {
+            "path": "src/GrowthB.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 44
+        },
+        {
+            "path": "src/GrowthDistractor.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 30
+        },
+        {
+            "path": "src/GrowthClean.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-2",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 2
+    },
+    "interference": [
+        {
+            "code": "LT-01",
+            "name": "numeric",
+            "params": {},
+            "applied_to": [
+                "src/GrowthB.php"
+            ],
+            "intensity": 2
+        }
+    ],
+    "difficulty": {
+        "score": 6,
+        "requires": [
+            "identifier_canonicalization",
+            "literal_abstraction"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L18_partial_growth/pg_growth_1.json",
+        "version": "1.0.0",
+        "rng_seed": 180101
+    }
+}

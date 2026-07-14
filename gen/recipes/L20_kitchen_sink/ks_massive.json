@@ -1,0 +1,139 @@
+{
+    "level": 20,
+    "level_name": "kitchen_sink",
+    "level_dir": "L20_kitchen_sink",
+    "family": "ks_massive",
+    "sets": [
+        {
+            "set_id": "L20-ks_massive-001",
+            "title": "Massive complexity - all transform axes",
+            "description": "All known working transforms combined for maximum stress.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["identifiers", "literals", "comments"],
+            "rng_seed": 200301,
+            "notes": "L20: Massive complexity - all axes.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.7, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["identifier_canonicalization", "literal_abstraction", "comment_stripping"],
+            "carriers": [
+                {"file": "MassiveA.php", "namespace": "Acme\\Massive\\Alpha", "class": "MassiveA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "MassiveB.php", "namespace": "Acme\\Massive\\Beta", "class": "MassiveB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-05"}, {"code": "LT-01"}, {"code": "LT-02"}, {"code": "CM-01"}]}
+            ],
+            "distractors": [
+                {"file": "MassiveDistractor.php", "namespace": "Acme\\Massive\\Distract", "class": "MassiveDistractor", "source": "nearmiss_invoice", "reason": "Near-miss: similar invoice"}
+            ],
+            "cleans": [
+                {"file": "MassiveClean.php", "namespace": "Acme\\Massive\\Config", "class": "MassiveClean", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L20-ks_massive-002",
+            "title": "Massive with intense literal transforms",
+            "description": "All LT transforms for maximum literal chaos.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["identifiers", "literals"],
+            "rng_seed": 200302,
+            "notes": "L20: Massive + all LT transforms.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.65, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["identifier_canonicalization", "literal_abstraction"],
+            "carriers": [
+                {"file": "MassiveA.php", "namespace": "Acme\\Massive\\Alpha", "class": "MassiveA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "MassiveB.php", "namespace": "Acme\\Massive\\Beta", "class": "MassiveB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-05"}, {"code": "LT-01"}, {"code": "LT-02"}, {"code": "LT-03"}, {"code": "LT-04"}]}
+            ],
+            "distractors": [
+                {"file": "MassiveDistractor.php", "namespace": "Acme\\Massive\\Distract", "class": "MassiveDistractor", "source": "nearmiss_access", "reason": "Near-miss: similar auth"}
+            ],
+            "cleans": [
+                {"file": "MassiveClean.php", "namespace": "Acme\\Massive\\Config", "class": "MassiveClean", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L20-ks_massive-003",
+            "title": "Three-carrier massive complexity",
+            "description": "Three carriers with maximum transform intensity.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["identifiers", "literals", "comments"],
+            "rng_seed": 200303,
+            "notes": "L20: Three-carrier massive complexity.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 3},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["identifier_canonicalization", "literal_abstraction", "comment_stripping"],
+            "carriers": [
+                {"file": "MassiveA.php", "namespace": "Acme\\Massive\\Alpha", "class": "MassiveA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "MassiveB.php", "namespace": "Acme\\Massive\\Beta", "class": "MassiveB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-03"}, {"code": "CM-02"}]},
+                {"file": "MassiveC.php", "namespace": "Acme\\Massive\\Gamma", "class": "MassiveC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "RN-05"}, {"code": "LT-01"}, {"code": "LT-02"}, {"code": "CM-01"}, {"code": "CM-03"}]}
+            ],
+            "distractors": [
+                {"file": "MassiveDistractor.php", "namespace": "Acme\\Massive\\Distract", "class": "MassiveDistractor", "source": "nearmiss_invoice", "reason": "Near-miss: similar invoice"}
+            ],
+            "cleans": [
+                {"file": "MassiveClean.php", "namespace": "Acme\\Massive\\Config", "class": "MassiveClean", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L20-ks_massive-004",
+            "title": "Massive with statement structure changes",
+            "description": "ST-05 and ST-08 combined for control flow chaos.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["identifiers", "controlflow"],
+            "rng_seed": 200304,
+            "notes": "L20: Massive + ST-05 + ST-08 control flow.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["identifier_canonicalization", "ast_canonicalization", "commutative_reordering"],
+            "carriers": [
+                {"file": "MassiveA.php", "namespace": "Acme\\Massive\\Alpha", "class": "MassiveA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "MassiveB.php", "namespace": "Acme\\Massive\\Beta", "class": "MassiveB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-05"}, {"code": "ST-08"}]}
+            ],
+            "distractors": [
+                {"file": "MassiveDistractor.php", "namespace": "Acme\\Massive\\Distract", "class": "MassiveDistractor", "source": "nearmiss_access", "reason": "Near-miss: similar auth"}
+            ],
+            "cleans": [
+                {"file": "MassiveClean.php", "namespace": "Acme\\Massive\\Config", "class": "MassiveClean", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L20-ks_massive-005",
+            "title": "Ultimate kitchen sink stress test",
+            "description": "Maximum transforms on all axes for ultimate stress.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["identifiers", "literals", "comments"],
+            "rng_seed": 200305,
+            "notes": "L20: Ultimate stress - RN-05 + all LT + all CM + ST-05.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.55, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["identifier_canonicalization", "literal_abstraction", "comment_stripping", "ast_canonicalization", "commutative_reordering"],
+            "carriers": [
+                {"file": "MassiveA.php", "namespace": "Acme\\Massive\\Alpha", "class": "MassiveA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "MassiveB.php", "namespace": "Acme\\Massive\\Beta", "class": "MassiveB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-05"}, {"code": "LT-01"}, {"code": "LT-02"}, {"code": "LT-03"}, {"code": "LT-04"}, {"code": "CM-01"}, {"code": "CM-02"}, {"code": "CM-03"}, {"code": "ST-05"}]}
+            ],
+            "distractors": [
+                {"file": "MassiveDistractor.php", "namespace": "Acme\\Massive\\Distract", "class": "MassiveDistractor", "source": "nearmiss_invoice", "reason": "Near-miss: similar invoice"}
+            ],
+            "cleans": [
+                {"file": "MassiveClean.php", "namespace": "Acme\\Massive\\Config", "class": "MassiveClean", "source": "clean_billing"}
+            ]
+        }
+    ]
+}

@@ -1,0 +1,12 @@
+{
+    "domain": "validation_rule",
+    "summary": "Rule evaluation engine applying validation rules to values.",
+    "size_class": "M",
+    "symbol": "validate",
+    "line_count": 53,
+    "token_count": 360,
+    "required_symbols": ["validate"],
+    "mount_modes": ["method"],
+    "compatible_interference": ["WS-03", "WS-06", "CM-03", "RN-01", "CF-02", "CF-05"],
+    "variants": []
+}

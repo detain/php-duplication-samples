@@ -58,7 +58,8 @@
             },
             "applied_to": [
                 "src/InvoiceTemplateB.php"
-            ]
+            ],
+            "intensity": 2
         },
         {
             "code": "LT-04",
@@ -68,7 +69,8 @@
             },
             "applied_to": [
                 "src/InvoiceTemplateC.php"
-            ]
+            ],
+            "intensity": 2
         }
     ],
     "difficulty": {

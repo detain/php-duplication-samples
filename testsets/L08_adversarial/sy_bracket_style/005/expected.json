@@ -1,0 +1,55 @@
+{
+    "schema_version": 1,
+    "set_id": "L08-sy_bracket_style-005",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-1",
+            "granularity": "method",
+            "normalized_by": [
+                "whitespace",
+                "comments"
+            ],
+            "token_hash": "6374b8bf1248fbcf",
+            "normalized_hash": "49c2151b0ddf4ccf",
+            "members": [
+                {
+                    "file": "src/AccessCheckerA.php",
+                    "start_line": 9,
+                    "end_line": 51,
+                    "symbol": "checkAccess",
+                    "pristine": true
+                },
+                {
+                    "file": "src/AccessCheckerB.php",
+                    "start_line": 18,
+                    "end_line": 60,
+                    "symbol": "checkAccess",
+                    "pristine": false
+                },
+                {
+                    "file": "src/AccessCheckerC.php",
+                    "start_line": 24,
+                    "end_line": 66,
+                    "symbol": "checkAccess",
+                    "pristine": false
+                }
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": false,
+                "semantic": false
+            },
+            "notes": ""
+        }
+    ],
+    "non_duplicates": [],
+    "scoring": {
+        "line_tolerance": 1,
+        "member_jaccard_min": 0.85,
+        "min_members_for_credit": 2
+    }
+}

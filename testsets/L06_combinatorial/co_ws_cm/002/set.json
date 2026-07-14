@@ -1,0 +1,154 @@
+{
+    "schema_version": 2,
+    "set_id": "L06-co_ws_cm-002",
+    "level": 6,
+    "level_name": "combinatorial",
+    "family": "co_ws_cm",
+    "title": "Whitespace and comment interference (WS-03 + CM-03)",
+    "description": "Same computeTotals method. Carrier A applies WS-03 blank_inside; carrier B applies CM-03 docblock; carrier C applies both WS-03 and CM-03. Tests blank lines inside method bodies combined with docblock generation.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "invoice_totals",
+    "difficulty_band": "very_hard",
+    "files": [
+        {
+            "path": "src/PristineInvoiceCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 39,
+            "region_sloc": {
+                "sloc": 25,
+                "duplicate": 23,
+                "unique": 2,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/DocblockedCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 47,
+            "region_sloc": {
+                "sloc": 25,
+                "duplicate": 22,
+                "unique": 3,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/BothCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 46,
+            "region_sloc": {
+                "sloc": 25,
+                "duplicate": 19,
+                "unique": 6,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/MarginSummarizer.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 30
+        },
+        {
+            "path": "src/TaxRateRepository.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-1",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "WS-03",
+            "name": "blank_inside",
+            "params": {
+                "blank_lines": 2
+            },
+            "applied_to": [
+                "src/PristineInvoiceCalc.php"
+            ],
+            "intensity": 1
+        },
+        {
+            "code": "CM-03",
+            "name": "docblock",
+            "params": {
+                "style": "docblock"
+            },
+            "applied_to": [
+                "src/DocblockedCalc.php",
+                "src/BothCalc.php"
+            ],
+            "intensity": 1
+        },
+        {
+            "code": "WS-03",
+            "name": "blank_inside",
+            "params": {
+                "blank_lines": 3
+            },
+            "applied_to": [
+                "src/BothCalc.php"
+            ],
+            "intensity": 1
+        }
+    ],
+    "difficulty": {
+        "score": 66,
+        "requires": [
+            "whitespace_normalization",
+            "comment_stripping"
+        ],
+        "score_raw": 66,
+        "axes": {
+            "breadth": 2,
+            "intensity": 1,
+            "intensity_max": 1,
+            "semantic_depth": 0,
+            "partiality": 1
+        },
+        "application_count": 4,
+        "axis_count": 2
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L06_combinatorial/co_ws_cm.json",
+        "version": "2.0.0",
+        "rng_seed": 1601002
+    },
+    "interference_profile": {
+        "axis_count": 2,
+        "per_carrier_axes": {
+            "src/PristineInvoiceCalc.php": [
+                "WS-03"
+            ],
+            "src/DocblockedCalc.php": [
+                "CM-03"
+            ],
+            "src/BothCalc.php": [
+                "CM-03",
+                "WS-03"
+            ]
+        },
+        "groups_touched": [
+            "A"
+        ],
+        "stack_depth_max": 2,
+        "symmetric_overlap": 0,
+        "pairwise_overlap": 0.3333,
+        "combination_design": "textual_only"
+    },
+    "engine_features": [
+        "fragment_emission"
+    ]
+}

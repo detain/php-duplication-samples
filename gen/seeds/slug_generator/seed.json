@@ -1,0 +1,12 @@
+{
+    "domain": "slug_generator",
+    "summary": "Convert a string into a URL-safe slug with dashes and lowercase.",
+    "size_class": "S",
+    "symbol": "slugify",
+    "line_count": 12,
+    "token_count": 90,
+    "required_symbols": ["slugify"],
+    "mount_modes": ["method", "function"],
+    "compatible_interference": ["WS-03", "CM-03", "RN-01", "LT-02"],
+    "variants": []
+}

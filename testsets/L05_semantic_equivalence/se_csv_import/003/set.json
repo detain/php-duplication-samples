@@ -1,0 +1,92 @@
+{
+    "schema_version": 1,
+    "set_id": "L05-se_csv_import-003",
+    "level": 5,
+    "level_name": "semantic_equivalence",
+    "family": "se_csv_import",
+    "title": "CSV import: rename and literal variations",
+    "description": "CSV parsing with renamed variables and different literal representations.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "csv_processor",
+    "difficulty_band": "very_hard",
+    "files": [
+        {
+            "path": "src/BasicParser.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 71
+        },
+        {
+            "path": "src/RenamedParser.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 76
+        },
+        {
+            "path": "src/LiteralParser.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 75
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-4",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "RN-01",
+            "name": "local_vars",
+            "params": {},
+            "applied_to": [
+                "src/RenamedParser.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "RN-02",
+            "name": "params",
+            "params": {},
+            "applied_to": [
+                "src/RenamedParser.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "LT-01",
+            "name": "numeric",
+            "params": {},
+            "applied_to": [
+                "src/LiteralParser.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "LT-02",
+            "name": "string",
+            "params": {},
+            "applied_to": [
+                "src/LiteralParser.php"
+            ],
+            "intensity": 2
+        }
+    ],
+    "difficulty": {
+        "score": 69,
+        "requires": [
+            "semantic_reasoning",
+            "identifier_canonicalization",
+            "literal_abstraction"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L05_semantic_equivalence/se_csv_import.json",
+        "version": "1.0.0",
+        "rng_seed": 50703
+    }
+}

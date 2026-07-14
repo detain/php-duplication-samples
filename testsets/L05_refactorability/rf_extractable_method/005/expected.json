@@ -1,0 +1,78 @@
+{
+    "schema_version": 2,
+    "set_id": "L05-rf_extractable_method-005",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-1",
+            "granularity": "method",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers",
+                "literals"
+            ],
+            "token_hash": "ee49ad7f6ffe7256",
+            "normalized_hash": "db0a21facf2a6c3d",
+            "members": [
+                {
+                    "file": "src/BlogSlugGenerator.php",
+                    "start_line": 9,
+                    "end_line": 16,
+                    "symbol": "generateSlug",
+                    "pristine": true,
+                    "group": "A",
+                    "seed": "slug_generator"
+                },
+                {
+                    "file": "src/CategorySlugGenerator.php",
+                    "start_line": 18,
+                    "end_line": 25,
+                    "symbol": "generateSlug",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "slug_generator"
+                },
+                {
+                    "file": "src/TagSlugGenerator.php",
+                    "start_line": 24,
+                    "end_line": 31,
+                    "symbol": "generateSlug",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "slug_generator"
+                }
+            ],
+            "detection_expectation": {
+                "text_based": true,
+                "token_based": true,
+                "ast_based": true
+            },
+            "notes": ""
+        }
+    ],
+    "non_duplicates": [],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.6,
+        "min_members_for_credit": 2
+    },
+    "intended_refactoring": {
+        "kind": "extract_method_with_holes",
+        "unified_symbol": "generateSlug",
+        "unified_signature": "generateSlug(input, maxLength)",
+        "holes": [
+            {
+                "hole_id": "unicode_handling",
+                "description": "No proper unicode normalization"
+            }
+        ],
+        "collapses": [
+            0,
+            1,
+            2
+        ],
+        "advisability": "recommended"
+    }
+}

@@ -1,0 +1,56 @@
+{
+    "schema_version": 1,
+    "set_id": "L05-se_rate_limit-004",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-4",
+            "granularity": "method",
+            "normalized_by": [
+                "controlflow",
+                "identifiers",
+                "literals"
+            ],
+            "token_hash": "deb8024b5dcb8e0b",
+            "normalized_hash": "745e9d02aa3f191c",
+            "members": [
+                {
+                    "file": "src/BasicLimiter.php",
+                    "start_line": 9,
+                    "end_line": 50,
+                    "symbol": "checkRateLimit",
+                    "pristine": true
+                },
+                {
+                    "file": "src/CommentedLimiter.php",
+                    "start_line": 18,
+                    "end_line": 62,
+                    "symbol": "checkRateLimit",
+                    "pristine": false
+                },
+                {
+                    "file": "src/SpacedLimiter.php",
+                    "start_line": 24,
+                    "end_line": 66,
+                    "symbol": "checkRateLimit",
+                    "pristine": false
+                }
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": false,
+                "ast_based": false,
+                "metric_based": false,
+                "semantic": true
+            },
+            "notes": "Set 004 of 5. Uses CM-02, WS-02, WS-04 for textual diversity."
+        }
+    ],
+    "non_duplicates": [],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.6,
+        "min_members_for_credit": 2
+    }
+}

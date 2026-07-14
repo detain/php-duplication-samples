@@ -1,0 +1,192 @@
+{
+    "schema_version": 2,
+    "set_id": "L06-co_lt_st-004",
+    "level": 6,
+    "level_name": "combinatorial",
+    "family": "co_lt_st",
+    "title": "Heavy literal and statement interference",
+    "description": "Same computeTotals method. Multiple LT and ST transforms combined at higher intensity. Tests detector robustness under heavy literal and statement changes.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "invoice_totals",
+    "difficulty_band": "expert",
+    "files": [
+        {
+            "path": "src/HeavyCalcA.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 40,
+            "region_sloc": {
+                "sloc": 26,
+                "duplicate": 25,
+                "unique": 1,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/HeavyCalcB.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 42,
+            "region_sloc": {
+                "sloc": 23,
+                "duplicate": 23,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/HeavyCalcC.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 47,
+            "region_sloc": {
+                "sloc": 29,
+                "duplicate": 25,
+                "unique": 4,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/MarginSummarizer.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 30
+        },
+        {
+            "path": "src/TaxRateRepository.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-3",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "ST-01",
+            "name": "insert_logging",
+            "params": {
+                "lines": 1
+            },
+            "applied_to": [
+                "src/HeavyCalcA.php",
+                "src/HeavyCalcC.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "LT-01",
+            "name": "numeric",
+            "params": {
+                "format": "hex"
+            },
+            "applied_to": [
+                "src/HeavyCalcA.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "ST-05",
+            "name": "reorder_independent",
+            "params": {
+                "reorder_level": 1
+            },
+            "applied_to": [
+                "src/HeavyCalcB.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "LT-02",
+            "name": "string",
+            "params": {
+                "style": "double_quotes"
+            },
+            "applied_to": [
+                "src/HeavyCalcB.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "LT-03",
+            "name": "array_values",
+            "params": {
+                "style": "short_array"
+            },
+            "applied_to": [
+                "src/HeavyCalcB.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "ST-02",
+            "name": "insert_dead",
+            "params": {
+                "lines": 2
+            },
+            "applied_to": [
+                "src/HeavyCalcC.php"
+            ],
+            "intensity": 3
+        }
+    ],
+    "difficulty": {
+        "score": 100,
+        "requires": [
+            "ast_canonicalization",
+            "literal_abstraction",
+            "commutative_reordering",
+            "deadcode_elimination"
+        ],
+        "score_raw": 107,
+        "axes": {
+            "breadth": 6,
+            "intensity": 2.5,
+            "intensity_max": 3,
+            "semantic_depth": 0,
+            "partiality": 1
+        },
+        "application_count": 7,
+        "axis_count": 6
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L06_combinatorial/co_lt_st.json",
+        "version": "2.0.0",
+        "rng_seed": 1605004
+    },
+    "interference_profile": {
+        "axis_count": 6,
+        "per_carrier_axes": {
+            "src/HeavyCalcA.php": [
+                "ST-01",
+                "LT-01"
+            ],
+            "src/HeavyCalcB.php": [
+                "ST-05",
+                "LT-02",
+                "LT-03"
+            ],
+            "src/HeavyCalcC.php": [
+                "ST-02",
+                "ST-01"
+            ]
+        },
+        "groups_touched": [
+            "A"
+        ],
+        "stack_depth_max": 3,
+        "symmetric_overlap": 0,
+        "pairwise_overlap": 0.1111,
+        "combination_design": "structural_only"
+    },
+    "engine_features": [
+        "fragment_emission"
+    ]
+}

@@ -16,7 +16,6 @@ final class PriceBookService
     }
 
     public function computeTotals(array $lineItems, float $taxRate, float $discountRate): array
-    // EXPERIMENTAL 
     {
         $subtotal = 0.0;
         $itemCount = 0;
@@ -34,6 +33,7 @@ final class PriceBookService
         $total = $taxable + $tax + $shipping;
         return [
             'subtotal' => round($subtotal, 2),
+    // EXPERIMENTAL 
             'discount' => $discount,
             'tax' => $tax,
             'shipping' => $shipping,

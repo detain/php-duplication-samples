@@ -1,0 +1,137 @@
+{
+    "schema_version": 2,
+    "set_id": "L04-sz_s-003",
+    "level": 4,
+    "level_name": "partial_duplication",
+    "family": "sz_s",
+    "title": "Small partial clones using csv_import",
+    "description": "Small shared regions with csv_import seed.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "csv_import",
+    "difficulty_band": "medium",
+    "files": [
+        {
+            "path": "src/SmallCloneA.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 37,
+            "region_sloc": {
+                "sloc": 23,
+                "duplicate": 23,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/SmallCloneB.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 36,
+            "region_sloc": {
+                "sloc": 17,
+                "duplicate": 17,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/SmallCloneC.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 33,
+            "region_sloc": {
+                "sloc": 15,
+                "duplicate": 15,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/XmlImportService.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 63
+        },
+        {
+            "path": "src/DataValidationService.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 22
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-3",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "ST-07",
+            "name": "partial_fragment",
+            "params": {
+                "head_trim": 3,
+                "tail_trim": 3
+            },
+            "applied_to": [
+                "src/SmallCloneB.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "ST-07",
+            "name": "partial_fragment",
+            "params": {
+                "head_trim": 4,
+                "tail_trim": 4
+            },
+            "applied_to": [
+                "src/SmallCloneC.php"
+            ],
+            "intensity": 3
+        }
+    ],
+    "difficulty": {
+        "score": 42,
+        "requires": [
+            "ast_canonicalization",
+            "deadcode_elimination"
+        ],
+        "score_raw": 42,
+        "axes": {
+            "breadth": 1,
+            "intensity": 3,
+            "intensity_max": 3,
+            "semantic_depth": 0,
+            "partiality": 1
+        },
+        "application_count": 2,
+        "axis_count": 1
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L04_partial_duplication/sz_s.json",
+        "version": "2.0.0",
+        "rng_seed": 105003
+    },
+    "interference_profile": {
+        "axis_count": 1,
+        "per_carrier_axes": {
+            "src/SmallCloneB.php": [
+                "ST-07"
+            ],
+            "src/SmallCloneC.php": [
+                "ST-07"
+            ]
+        },
+        "groups_touched": [
+            "A"
+        ],
+        "stack_depth_max": 1,
+        "symmetric_overlap": 1,
+        "pairwise_overlap": 1,
+        "combination_design": "structural_only"
+    }
+}

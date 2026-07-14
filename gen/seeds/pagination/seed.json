@@ -1,0 +1,12 @@
+{
+    "domain": "pagination",
+    "summary": "Cursor and offset pagination with total count metadata.",
+    "size_class": "S",
+    "symbol": "paginate",
+    "line_count": 48,
+    "token_count": 320,
+    "required_symbols": ["paginate", "cursorPaginate"],
+    "mount_modes": ["method"],
+    "compatible_interference": ["WS-03", "CM-03", "RN-01"],
+    "variants": []
+}

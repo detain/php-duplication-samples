@@ -1,0 +1,96 @@
+{
+    "schema_version": 1,
+    "set_id": "L14-xl_template_mix-005",
+    "level": 14,
+    "level_name": "cross_language",
+    "family": "xl_template_mix",
+    "title": "Template mix with all literal transforms",
+    "description": "Cross-language PHP in HTML with all literal type transformations.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "invoice_totals",
+    "difficulty_band": "medium",
+    "files": [
+        {
+            "path": "src/TemplateMixA.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 39
+        },
+        {
+            "path": "src/TemplateMixB.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 44
+        },
+        {
+            "path": "src/TemplateMixDistractor.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 30
+        },
+        {
+            "path": "src/TemplateMixClean.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-2",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 2
+    },
+    "interference": [
+        {
+            "code": "LT-01",
+            "name": "numeric",
+            "params": {},
+            "applied_to": [
+                "src/TemplateMixB.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "LT-02",
+            "name": "string",
+            "params": {},
+            "applied_to": [
+                "src/TemplateMixB.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "LT-03",
+            "name": "array_values",
+            "params": {},
+            "applied_to": [
+                "src/TemplateMixB.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "LT-04",
+            "name": "const_vs_literal",
+            "params": {},
+            "applied_to": [
+                "src/TemplateMixB.php"
+            ],
+            "intensity": 2
+        }
+    ],
+    "difficulty": {
+        "score": 25,
+        "requires": [
+            "literal_abstraction"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L14_cross_language/xl_template_mix.json",
+        "version": "1.0.0",
+        "rng_seed": 140305
+    }
+}

@@ -58,7 +58,8 @@
             },
             "applied_to": [
                 "src/InvoiceCalculatorB.php"
-            ]
+            ],
+            "intensity": 2
         },
         {
             "code": "NS-01",
@@ -66,7 +67,8 @@
             "params": {},
             "applied_to": [
                 "src/InvoiceCalculatorB.php"
-            ]
+            ],
+            "intensity": 2
         },
         {
             "code": "LT-03",
@@ -76,7 +78,8 @@
             },
             "applied_to": [
                 "src/InvoiceCalculatorC.php"
-            ]
+            ],
+            "intensity": 2
         }
     ],
     "difficulty": {

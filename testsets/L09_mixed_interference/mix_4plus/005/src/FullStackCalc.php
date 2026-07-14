@@ -18,7 +18,7 @@ final class FullStackCalc
     public function computeTotals(array $lineItems, float $taxRate, float $discountRate): array
     {
         $subtotal = 0.0;
-        error_log('processing step');
+        errorLog('processing step');
         $itemCount = 0;
         foreach ($lineItems as $item) {
             $quantity = (float) $item['qty'];

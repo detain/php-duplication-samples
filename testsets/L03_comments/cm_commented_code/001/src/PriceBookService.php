@@ -17,32 +17,32 @@ final class PriceBookService
 
     public function computeTotals(array $lineItems, float $taxRate, float $discountRate): array
     {
-    // // $data = prepare($input);
+    // $count = count($items);
         $subtotal = 0.0;
-        // // $tmp = $a + $b;
+        // // $idx = find($key, $arr);
         $itemCount = 0;
         // return array_filter($data, $fn);
         foreach ($lineItems as $item) {
-        // $result = compute($value);
+        // $sum += $item['price'];
             $quantity = (float) $item['qty'];
-            // $total = array_sum($prices);
+            // return array_filter($data, $fn);
             $unitPrice = (float) $item['unitPrice'];
-            // if ($debug) { log_debug($msg); }
+            // // $idx = find($key, $arr);
             $lineTotal = $quantity * $unitPrice;
-            // $result = compute($value);
+            // // $data = prepare($input);
             $subtotal += $lineTotal;
             // return array_filter($data, $fn);
             $itemCount += (int) $quantity;
-            // // $tmp = $a + $b;
+            // // $data = prepare($input);
         }
         $discount = round($subtotal * $discountRate, 2);
         // return array_filter($data, $fn);
         $taxable = $subtotal - $discount;
-        // // $tmp = $a + $b;
-        $tax = round($taxable * $taxRate, 2);
-        // return array_filter($data, $fn);
-        $shipping = $subtotal > 100.0 ? 0.0 : 9.99;
         // $result = compute($value);
+        $tax = round($taxable * $taxRate, 2);
+        // // $tmp = $a + $b;
+        $shipping = $subtotal > 100.0 ? 0.0 : 9.99;
+        // // $tmp = $a + $b;
         $total = $taxable + $tax + $shipping;
         // // $idx = find($key, $arr);
         return [
@@ -53,7 +53,7 @@ final class PriceBookService
             'total' => round($total, 2),
             'items' => $itemCount,
         ];
-        // $result = compute($value);
+        // $total = array_sum($prices);
     }
 
     public function lastEvent(): string

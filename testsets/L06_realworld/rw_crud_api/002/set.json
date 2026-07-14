@@ -1,0 +1,82 @@
+{
+    "schema_version": 1,
+    "set_id": "L06-rw_crud_api-002",
+    "level": 6,
+    "level_name": "realworld_scenarios",
+    "family": "rw_crud_api",
+    "title": "CRUD API: GraphQL resolvers",
+    "description": "GraphQL API with field resolvers for user data. Uses match expressions for type resolution.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "user_repository",
+    "difficulty_band": "expert",
+    "files": [
+        {
+            "path": "src/GraphQlHandler.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 74
+        },
+        {
+            "path": "src/FieldResolver.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 78
+        },
+        {
+            "path": "src/QueryBuilder.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 72
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-4",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "CF-02",
+            "name": "match_switch",
+            "params": {},
+            "applied_to": [
+                "src/FieldResolver.php"
+            ],
+            "intensity": 4
+        },
+        {
+            "code": "CF-05",
+            "name": "early_return",
+            "params": {},
+            "applied_to": [
+                "src/QueryBuilder.php"
+            ],
+            "intensity": 4
+        },
+        {
+            "code": "BL-01",
+            "name": "demorgan",
+            "params": {},
+            "applied_to": [
+                "src/QueryBuilder.php"
+            ],
+            "intensity": 4
+        }
+    ],
+    "difficulty": {
+        "score": 100,
+        "requires": [
+            "semantic_reasoning",
+            "controlflow_normalization"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L06_realworld/rw_crud_api.json",
+        "version": "1.0.0",
+        "rng_seed": 60202
+    }
+}

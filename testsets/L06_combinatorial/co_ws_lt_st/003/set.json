@@ -1,0 +1,190 @@
+{
+    "schema_version": 2,
+    "set_id": "L06-co_ws_lt_st-003",
+    "level": 6,
+    "level_name": "combinatorial",
+    "family": "co_ws_lt_st",
+    "title": "3-axis interference (WS-01 + LT-03 + ST-05)",
+    "description": "Same computeTotals method. Carrier A applies WS-01; carrier B applies LT-03 + ST-05; carrier C applies all three. Tests blank lines, array literals, and statement reordering.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "invoice_totals",
+    "difficulty_band": "very_hard",
+    "files": [
+        {
+            "path": "src/BlankLinesCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 39,
+            "region_sloc": {
+                "sloc": 25,
+                "duplicate": 21,
+                "unique": 4,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/LtStCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 42,
+            "region_sloc": {
+                "sloc": 23,
+                "duplicate": 23,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/AllThreeCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 41,
+            "region_sloc": {
+                "sloc": 23,
+                "duplicate": 20,
+                "unique": 3,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/MarginSummarizer.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 30
+        },
+        {
+            "path": "src/TaxRateRepository.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-3",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "WS-01",
+            "name": "blank_before",
+            "params": {
+                "blank_lines": 4
+            },
+            "applied_to": [
+                "src/BlankLinesCalc.php"
+            ],
+            "intensity": 1
+        },
+        {
+            "code": "ST-05",
+            "name": "reorder_independent",
+            "params": {
+                "reorder_level": 1
+            },
+            "applied_to": [
+                "src/LtStCalc.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "LT-03",
+            "name": "array_values",
+            "params": {
+                "style": "short_array"
+            },
+            "applied_to": [
+                "src/LtStCalc.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "ST-05",
+            "name": "reorder_independent",
+            "params": {
+                "reorder_level": 2
+            },
+            "applied_to": [
+                "src/AllThreeCalc.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "LT-03",
+            "name": "array_values",
+            "params": {
+                "style": "long_array"
+            },
+            "applied_to": [
+                "src/AllThreeCalc.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "WS-01",
+            "name": "blank_before",
+            "params": {
+                "blank_lines": 3
+            },
+            "applied_to": [
+                "src/AllThreeCalc.php"
+            ],
+            "intensity": 1
+        }
+    ],
+    "difficulty": {
+        "score": 78,
+        "requires": [
+            "whitespace_normalization",
+            "ast_canonicalization",
+            "commutative_reordering",
+            "literal_abstraction"
+        ],
+        "score_raw": 78,
+        "axes": {
+            "breadth": 3,
+            "intensity": 2,
+            "intensity_max": 3,
+            "semantic_depth": 0,
+            "partiality": 1
+        },
+        "application_count": 6,
+        "axis_count": 3
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L06_combinatorial/co_ws_lt_st.json",
+        "version": "2.0.0",
+        "rng_seed": 1606003
+    },
+    "interference_profile": {
+        "axis_count": 3,
+        "per_carrier_axes": {
+            "src/BlankLinesCalc.php": [
+                "WS-01"
+            ],
+            "src/LtStCalc.php": [
+                "ST-05",
+                "LT-03"
+            ],
+            "src/AllThreeCalc.php": [
+                "ST-05",
+                "LT-03",
+                "WS-01"
+            ]
+        },
+        "groups_touched": [
+            "A"
+        ],
+        "stack_depth_max": 3,
+        "symmetric_overlap": 0,
+        "pairwise_overlap": 0.3333,
+        "combination_design": "type2_plus_type1"
+    },
+    "engine_features": [
+        "fragment_emission"
+    ]
+}

@@ -1,0 +1,148 @@
+{
+    "level": 4,
+    "level_name": "partial_duplication",
+    "level_dir": "L04_partial_duplication",
+    "family": "pd_middle_unique",
+    "sets": [
+        {
+            "set_id": "L04-pd_middle_unique-001",
+            "title": "Partial clone with unique middle (shared head and tail)",
+            "description": "The same computeTotals method where carrier B and C have unique middle sections while head and tail are shared. Creates a donut-like pattern.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "schema_version": 2,
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "rng_seed": 104601,
+            "notes": "ST-07 with head_trim and tail_trim creates shared head+tail with unique middle.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "difficulty": {"complexity": 5, "partiality": "medium"},
+            "duplication": {"uniqueness_budget": {"min": 4, "max": 8}},
+            "carriers": [
+                {"file": "PristineInvoiceCalc.php", "namespace": "Acme\\Billing\\Pristine", "class": "PristineInvoiceCalc", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "MiddleUniqueCalc.php", "namespace": "Acme\\Billing\\MiddleUnique", "class": "MiddleUniqueCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 3, "tail_trim": 3}}]},
+                {"file": "MiddleUnique2Calc.php", "namespace": "Acme\\Billing\\MiddleUnique2", "class": "MiddleUnique2Calc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 4, "tail_trim": 4}}]}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss: same invoice vocabulary but computes margins"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L04-pd_middle_unique-002",
+            "title": "Partial clone with larger unique middle section",
+            "description": "Carrier B and C have larger unique middle sections with only small head and tail shared.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "schema_version": 2,
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "rng_seed": 104602,
+            "notes": "Larger head_trim and tail_trim creates smaller shared regions.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "difficulty": {"complexity": 6, "partiality": "high"},
+            "duplication": {"uniqueness_budget": {"min": 10, "max": 14}},
+            "carriers": [
+                {"file": "PristineInvoiceCalc.php", "namespace": "Acme\\Billing\\Pristine", "class": "PristineInvoiceCalc", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "LargeMidCalc.php", "namespace": "Acme\\Billing\\LargeMid", "class": "LargeMidCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 6, "tail_trim": 6}}]},
+                {"file": "LargeMid2Calc.php", "namespace": "Acme\\Billing\\LargeMid2", "class": "LargeMid2Calc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 7, "tail_trim": 7}}]}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss: same invoice vocabulary but computes margins"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L04-pd_middle_unique-003",
+            "title": "Partial clone using access_guard with unique middle",
+            "description": "The same authorize method with unique middle sections.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "schema_version": 2,
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "rng_seed": 104603,
+            "notes": "access_guard with symmetric head_trim and tail_trim.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "difficulty": {"complexity": 5, "partiality": "medium"},
+            "duplication": {"uniqueness_budget": {"min": 4, "max": 6}},
+            "carriers": [
+                {"file": "PristineAuthGuard.php", "namespace": "Acme\\Security\\Pristine", "class": "PristineAuthGuard", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "MidUniqueAuth.php", "namespace": "Acme\\Security\\MidUnique", "class": "MidUniqueAuth", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 2, "tail_trim": 2}}]},
+                {"file": "MidUnique2Auth.php", "namespace": "Acme\\Security\\MidUnique2", "class": "MidUnique2Auth", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 3, "tail_trim": 3}}]}
+            ],
+            "distractors": [
+                {"file": "AuditTrailService.php", "namespace": "Acme\\Security\\Audit", "class": "AuditTrailService", "source": "nearmiss_access", "reason": "near-miss: similar authorization vocabulary but performs auditing"}
+            ],
+            "cleans": [
+                {"file": "TokenValidationService.php", "namespace": "Acme\\Security\\Tokens", "class": "TokenValidationService", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L04-pd_middle_unique-004",
+            "title": "Partial clone using csv_import with unique middle",
+            "description": "The same parseRow method with unique middle sections.",
+            "seed": "csv_import",
+            "mount": "method",
+            "clone_symbol": "parseRow",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "schema_version": 2,
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "rng_seed": 104604,
+            "notes": "csv_import with symmetric head_trim and tail_trim.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "difficulty": {"complexity": 5, "partiality": "medium"},
+            "duplication": {"uniqueness_budget": {"min": 4, "max": 6}},
+            "carriers": [
+                {"file": "PristineCsvImport.php", "namespace": "Acme\\Import\\Pristine", "class": "PristineCsvImport", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "MidUniqueCsv.php", "namespace": "Acme\\Import\\MidUnique", "class": "MidUniqueCsv", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 2, "tail_trim": 2}}]},
+                {"file": "MidUnique2Csv.php", "namespace": "Acme\\Import\\MidUnique2", "class": "MidUnique2Csv", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 3, "tail_trim": 3}}]}
+            ],
+            "distractors": [
+                {"file": "XmlImportService.php", "namespace": "Acme\\Import\\Xml", "class": "XmlImportService", "source": "nearmiss_csv", "reason": "near-miss: similar parsing vocabulary but handles XML"}
+            ],
+            "cleans": [
+                {"file": "DataValidationService.php", "namespace": "Acme\\Import\\Validation", "class": "DataValidationService", "source": "clean_parsing"}
+            ]
+        },
+        {
+            "set_id": "L04-pd_middle_unique-005",
+            "title": "Middle-unique with ST-01 insertions in the middle region",
+            "description": "Uses ST-01 to insert unique statements specifically in the middle region.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "schema_version": 2,
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "rng_seed": 104605,
+            "notes": "ST-01 insertions after head lines but before tail lines.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "difficulty": {"complexity": 5, "partiality": "medium"},
+            "duplication": {"uniqueness_budget": {"min": 3, "max": 6}},
+            "carriers": [
+                {"file": "PristineInvoiceCalc.php", "namespace": "Acme\\Billing\\Pristine", "class": "PristineInvoiceCalc", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "MidInsertCalc.php", "namespace": "Acme\\Billing\\MidInsert", "class": "MidInsertCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-01", "params": {"after": [6], "message": "mid_log", "call": "error_log"}}]},
+                {"file": "MidInsert2Calc.php", "namespace": "Acme\\Billing\\MidInsert2", "class": "MidInsert2Calc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-01", "params": {"after": [8], "message": "mid_log2", "call": "error_log"}}, {"code": "ST-02", "params": {"count": 1, "after": [10]}}]}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss: same invoice vocabulary but computes margins"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        }
+    ]
+}

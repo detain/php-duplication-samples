@@ -16,6 +16,7 @@ final class TeamAInvoiceCalc
             $unitPrice = (float) $item['unitPrice'];
             $lineTotal = $quantity * $unitPrice;
             $subtotal += $lineTotal;
+            $itemCount += (int) $quantity;
         }
         $discount = round($subtotal * $discountRate, 2);
         $taxable = $subtotal - $discount;

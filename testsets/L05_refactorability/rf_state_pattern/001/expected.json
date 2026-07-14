@@ -1,0 +1,96 @@
+{
+    "schema_version": 2,
+    "set_id": "L05-rf_state_pattern-001",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-1",
+            "granularity": "method",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers",
+                "literals"
+            ],
+            "token_hash": "0dae3bbde11f447e",
+            "normalized_hash": "0dae3bbde11f447e",
+            "members": [
+                {
+                    "file": "src/DomesticOrderProcessor.php",
+                    "start_line": 9,
+                    "end_line": 48,
+                    "symbol": "handleState",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "state_machine"
+                },
+                {
+                    "file": "src/InternationalOrderProcessor.php",
+                    "start_line": 18,
+                    "end_line": 57,
+                    "symbol": "handleState",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "state_machine"
+                },
+                {
+                    "file": "src/BulkOrderProcessor.php",
+                    "start_line": 24,
+                    "end_line": 63,
+                    "symbol": "handleState",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "state_machine"
+                }
+            ],
+            "detection_expectation": {
+                "text_based": true,
+                "token_based": true,
+                "ast_based": true
+            },
+            "notes": ""
+        }
+    ],
+    "non_duplicates": [],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.6,
+        "min_members_for_credit": 2
+    },
+    "intended_refactoring": {
+        "kind": "strategy_object",
+        "pattern": "state",
+        "unified_symbol": "handleState",
+        "states": [
+            "pending",
+            "processing",
+            "shipped",
+            "delivered"
+        ],
+        "state_interface": "OrderStateInterface",
+        "state_implementations": [
+            "PendingState",
+            "ProcessingState",
+            "ShippedState",
+            "DeliveredState"
+        ],
+        "context_class": "OrderProcessor",
+        "holes": [
+            {
+                "hole_id": "state_transition_validation",
+                "description": "No validation of valid state transitions"
+            },
+            {
+                "hole_id": "observer_notification",
+                "description": "No notification to observers on state change"
+            }
+        ],
+        "collapses": [
+            0,
+            1,
+            2
+        ],
+        "advisability": "recommended"
+    }
+}

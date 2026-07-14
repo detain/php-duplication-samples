@@ -1,0 +1,80 @@
+{
+    "schema_version": 1,
+    "set_id": "L19-ac_homoglyph_cluster-004",
+    "level": 19,
+    "level_name": "adversarial_cluster",
+    "family": "ac_homoglyph_cluster",
+    "title": "Homoglyph cluster with ST-08 param reorder",
+    "description": "Homoglyph confusion with parameter reordering.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "access_guard",
+    "difficulty_band": "easy",
+    "files": [
+        {
+            "path": "src/HomoglyphA.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 33
+        },
+        {
+            "path": "src/HomoglyphB.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 38
+        },
+        {
+            "path": "src/HomoglyphDistractor.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 29
+        },
+        {
+            "path": "src/HomoglyphClean.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 27
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-3",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 2
+    },
+    "interference": [
+        {
+            "code": "ST-08",
+            "name": "param_reorder",
+            "params": {},
+            "applied_to": [
+                "src/HomoglyphB.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "RN-05",
+            "name": "case_convention",
+            "params": {},
+            "applied_to": [
+                "src/HomoglyphB.php"
+            ],
+            "intensity": 2
+        }
+    ],
+    "difficulty": {
+        "score": 16,
+        "requires": [
+            "ast_canonicalization",
+            "commutative_reordering",
+            "identifier_canonicalization"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L19_adversarial_cluster/ac_homoglyph_cluster.json",
+        "version": "1.0.0",
+        "rng_seed": 190104
+    }
+}

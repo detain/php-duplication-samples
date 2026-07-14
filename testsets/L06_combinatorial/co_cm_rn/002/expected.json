@@ -1,0 +1,95 @@
+{
+    "schema_version": 2,
+    "set_id": "L06-co_cm_rn-002",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-2",
+            "granularity": "method",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers",
+                "case_convention"
+            ],
+            "token_hash": "e2c6d2de09404029",
+            "normalized_hash": "d5da572207f4bce3",
+            "members": [
+                {
+                    "file": "src/DocblockedCalc.php",
+                    "start_line": 12,
+                    "end_line": 36,
+                    "symbol": "computeTotals",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "invoice_totals",
+                    "fragments": [
+                        {
+                            "start_line": 26,
+                            "end_line": 50
+                        }
+                    ],
+                    "unique_segments": [
+                        {
+                            "start_line": 23,
+                            "end_line": 25
+                        }
+                    ]
+                },
+                {
+                    "file": "src/LocalVarCalc.php",
+                    "start_line": 18,
+                    "end_line": 42,
+                    "symbol": "computeTotals",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "invoice_totals"
+                },
+                {
+                    "file": "src/BothCalc.php",
+                    "start_line": 27,
+                    "end_line": 51,
+                    "symbol": "computeTotals",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "invoice_totals",
+                    "fragments": [
+                        {
+                            "start_line": 56,
+                            "end_line": 80
+                        }
+                    ],
+                    "unique_segments": [
+                        {
+                            "start_line": 53,
+                            "end_line": 55
+                        }
+                    ]
+                }
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": true,
+                "semantic": true
+            },
+            "notes": "CM-03 adds docblock documentation. RN-01 renames local variables. Combined they test comprehensive comment and identifier normalization."
+        }
+    ],
+    "non_duplicates": [
+        {
+            "file": "src/MarginSummarizer.php",
+            "start_line": 12,
+            "end_line": 28,
+            "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total",
+            "trap": true
+        }
+    ],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.6,
+        "min_members_for_credit": 2
+    }
+}

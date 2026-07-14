@@ -1,0 +1,55 @@
+{
+    "schema_version": 1,
+    "set_id": "L16-am_strategy-001",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-2",
+            "granularity": "method",
+            "normalized_by": [
+                "literals"
+            ],
+            "token_hash": "5cd8e7841ecf7c41",
+            "normalized_hash": "bd80be04e3c0b2c6",
+            "members": [
+                {
+                    "file": "src/StrategyA.php",
+                    "start_line": 9,
+                    "end_line": 27,
+                    "symbol": "authorize",
+                    "pristine": true
+                },
+                {
+                    "file": "src/StrategyB.php",
+                    "start_line": 18,
+                    "end_line": 36,
+                    "symbol": "authorize",
+                    "pristine": false
+                }
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": true,
+                "semantic": true
+            },
+            "notes": "L16: Strategy pattern with LT-01."
+        }
+    ],
+    "non_duplicates": [
+        {
+            "file": "src/StrategyDistractor.php",
+            "start_line": 12,
+            "end_line": 27,
+            "reason": "Near-miss: similar strategy pattern",
+            "trap": true
+        }
+    ],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.7,
+        "min_members_for_credit": 2
+    }
+}

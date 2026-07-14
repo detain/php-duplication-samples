@@ -1,0 +1,78 @@
+{
+    "schema_version": 1,
+    "set_id": "L08-sy_operator_spacing-002",
+    "level": 8,
+    "level_name": "adversarial",
+    "family": "sy_operator_spacing",
+    "title": "Operator Spacing: Compound assignment variations",
+    "description": "Tests compound assignment operator spacing: a+=b vs a += b.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "csv_processor",
+    "difficulty_band": "expert",
+    "files": [
+        {
+            "path": "src/RowProcessorA.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 71
+        },
+        {
+            "path": "src/RowProcessorB.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 76
+        },
+        {
+            "path": "src/RowProcessorC.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 75
+        },
+        {
+            "path": "src/Filter.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 15
+        },
+        {
+            "path": "src/Mapper.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 15
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-1",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "WS-04",
+            "name": "operator_spacing",
+            "params": {
+                "style": "tight"
+            },
+            "applied_to": [
+                "src/RowProcessorB.php",
+                "src/RowProcessorC.php"
+            ],
+            "intensity": 1
+        }
+    ],
+    "difficulty": {
+        "score": 88,
+        "requires": [
+            "whitespace_normalization"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L08_adversarial/sy_operator_spacing.json",
+        "version": "1.0.0",
+        "rng_seed": 81002
+    }
+}

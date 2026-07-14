@@ -1,0 +1,161 @@
+{
+    "schema_version": 2,
+    "set_id": "L04-ct_two_cluster-003",
+    "clusters": [
+        {
+            "id": "A",
+            "group_id": "A",
+            "clone_type": "type-3",
+            "granularity": "method",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers",
+                "literals"
+            ],
+            "token_hash": "f1e5708cf467f899",
+            "normalized_hash": "88b44d89704ac03f",
+            "members": [
+                {
+                    "file": "src/Cluster1A.php",
+                    "start_line": 9,
+                    "end_line": 33,
+                    "symbol": "computeTotals",
+                    "pristine": true,
+                    "group": "A",
+                    "seed": "invoice_totals"
+                },
+                {
+                    "file": "src/Cluster1B.php",
+                    "start_line": 18,
+                    "end_line": 38,
+                    "symbol": "computeTotals",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "invoice_totals"
+                },
+                {
+                    "file": "src/Cluster1C.php",
+                    "start_line": 24,
+                    "end_line": 42,
+                    "symbol": "computeTotals",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "invoice_totals"
+                }
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": true,
+                "semantic": true
+            },
+            "notes": "Same seed, different transform strategies per cluster."
+        },
+        {
+            "id": "B",
+            "group_id": "B",
+            "clone_type": "type-3",
+            "granularity": "method",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers",
+                "literals"
+            ],
+            "token_hash": "f1e5708cf467f899",
+            "normalized_hash": "88b44d89704ac03f",
+            "members": [
+                {
+                    "file": "src/Cluster2A.php",
+                    "start_line": 9,
+                    "end_line": 33,
+                    "symbol": "computeTotals",
+                    "pristine": true,
+                    "group": "B",
+                    "seed": "invoice_totals"
+                },
+                {
+                    "file": "src/Cluster2B.php",
+                    "start_line": 18,
+                    "end_line": 43,
+                    "symbol": "computeTotals",
+                    "pristine": false,
+                    "group": "B",
+                    "seed": "invoice_totals",
+                    "fragments": [
+                        {
+                            "start_line": 35,
+                            "end_line": 47
+                        },
+                        {
+                            "start_line": 49,
+                            "end_line": 60
+                        }
+                    ],
+                    "unique_segments": [
+                        {
+                            "start_line": 48,
+                            "end_line": 48
+                        }
+                    ]
+                },
+                {
+                    "file": "src/Cluster2C.php",
+                    "start_line": 24,
+                    "end_line": 49,
+                    "symbol": "computeTotals",
+                    "pristine": false,
+                    "group": "B",
+                    "seed": "invoice_totals",
+                    "fragments": [
+                        {
+                            "start_line": 47,
+                            "end_line": 62
+                        },
+                        {
+                            "start_line": 64,
+                            "end_line": 72
+                        }
+                    ],
+                    "unique_segments": [
+                        {
+                            "start_line": 63,
+                            "end_line": 63
+                        }
+                    ]
+                }
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": true,
+                "semantic": true
+            },
+            "notes": "Same seed, different transform strategies per cluster."
+        }
+    ],
+    "non_duplicates": [
+        {
+            "file": "src/Distractor1.php",
+            "start_line": 12,
+            "end_line": 28,
+            "reason": "near-miss: similar vocabulary but different logic",
+            "trap": true
+        },
+        {
+            "file": "src/Distractor2.php",
+            "start_line": 12,
+            "end_line": 28,
+            "reason": "near-miss: similar vocabulary but different logic",
+            "trap": true
+        }
+    ],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.6,
+        "min_members_for_credit": 2
+    }
+}

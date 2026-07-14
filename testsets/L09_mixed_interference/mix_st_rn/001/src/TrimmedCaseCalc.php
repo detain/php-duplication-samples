@@ -33,6 +33,7 @@ final class TrimmedCaseCalc
             $item_count += (int) $quantity;
         }
         $discount = round($subtotal * $discount_rate, 2);
+        $taxable = $subtotal - $discount;
         $tax = round($taxable * $tax_rate, 2);
         $shipping = $subtotal > 100.0 ? 0.0 : 9.99;
         $total = $taxable + $tax + $shipping;

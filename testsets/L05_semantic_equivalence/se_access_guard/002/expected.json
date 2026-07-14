@@ -1,0 +1,56 @@
+{
+    "schema_version": 1,
+    "set_id": "L05-se_access_guard-002",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-4",
+            "granularity": "method",
+            "normalized_by": [
+                "controlflow",
+                "identifiers",
+                "literals"
+            ],
+            "token_hash": "5cd8e7841ecf7c41",
+            "normalized_hash": "a3a4fbc9a09986cf",
+            "members": [
+                {
+                    "file": "src/DocumentAccessPolicy.php",
+                    "start_line": 9,
+                    "end_line": 27,
+                    "symbol": "authorize",
+                    "pristine": true
+                },
+                {
+                    "file": "src/ErrorAccessPolicy.php",
+                    "start_line": 18,
+                    "end_line": 41,
+                    "symbol": "authorize",
+                    "pristine": false
+                },
+                {
+                    "file": "src/DiAccessPolicy.php",
+                    "start_line": 24,
+                    "end_line": 45,
+                    "symbol": "authorize",
+                    "pristine": false
+                }
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": false,
+                "ast_based": false,
+                "metric_based": false,
+                "semantic": true
+            },
+            "notes": "Set 002 of 5. Uses sem_error_style (SEM-04), sem_di_style (SEM-05), sem_rule (SEM-01)."
+        }
+    ],
+    "non_duplicates": [],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.6,
+        "min_members_for_credit": 2
+    }
+}

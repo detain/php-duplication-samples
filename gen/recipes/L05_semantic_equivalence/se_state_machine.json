@@ -1,0 +1,113 @@
+{
+    "level": 5,
+    "level_name": "semantic_equivalence",
+    "level_dir": "L05_semantic_equivalence",
+    "family": "se_state_machine",
+    "sets": [
+        {
+            "set_id": "L05-se_state_machine-001",
+            "title": "State machine: structural equivalence with ST transforms",
+            "description": "State machine transitions with identical behavior using structural transforms: ST-01 (insert_logging), ST-05 (reorder_independent), ST-08 (param_reorder).",
+            "seed": "state_machine",
+            "mount": "method",
+            "clone_symbol": "processTransition",
+            "granularity": "method",
+            "clone_type": "type-4",
+            "normalized_by": ["controlflow", "identifiers", "literals"],
+            "rng_seed": 50201,
+            "notes": "Set 001 of 5. Uses only ST-* transforms (no selector transforms since state_machine has no variants).",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": false, "ast_based": false, "metric_based": false, "semantic": true},
+            "requires": ["semantic_reasoning", "ast_canonicalization"],
+            "carriers": [
+                {"file": "SimpleStateMachine.php", "namespace": "Acme\\Workflow\\Simple", "class": "SimpleStateMachine", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "LoggedStateMachine.php", "namespace": "Acme\\Workflow\\Logged", "class": "LoggedStateMachine", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-01"}]},
+                {"file": "ReorderedStateMachine.php", "namespace": "Acme\\Workflow\\Reordered", "class": "ReorderedStateMachine", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-05"}]}
+            ]
+        },
+        {
+            "set_id": "L05-se_state_machine-002",
+            "title": "State machine: structural diversity with multiple ST transforms",
+            "description": "State machine with multiple structural transforms: ST-01, ST-04, ST-09.",
+            "seed": "state_machine",
+            "mount": "method",
+            "clone_symbol": "processTransition",
+            "granularity": "method",
+            "clone_type": "type-4",
+            "normalized_by": ["controlflow", "identifiers", "literals"],
+            "rng_seed": 50202,
+            "notes": "Set 002 of 5. Uses ST-01, ST-04, ST-09 for structural diversity.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": false, "ast_based": false, "metric_based": false, "semantic": true},
+            "requires": ["semantic_reasoning", "ast_canonicalization"],
+            "carriers": [
+                {"file": "SimpleStateMachine.php", "namespace": "Acme\\Workflow\\Simple", "class": "SimpleStateMachine", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "DeadStateMachine.php", "namespace": "Acme\\Workflow\\Dead", "class": "DeadStateMachine", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-04"}]},
+                {"file": "ExprStateMachine.php", "namespace": "Acme\\Workflow\\Expr", "class": "ExprStateMachine", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-09"}]}
+            ]
+        },
+        {
+            "set_id": "L05-se_state_machine-003",
+            "title": "State machine: rename and literal variations",
+            "description": "State machine with renamed variables and different literal representations.",
+            "seed": "state_machine",
+            "mount": "method",
+            "clone_symbol": "processTransition",
+            "granularity": "method",
+            "clone_type": "type-4",
+            "normalized_by": ["controlflow", "identifiers", "literals"],
+            "rng_seed": 50203,
+            "notes": "Set 003 of 5. Uses RN-01, RN-02, LT-01, LT-02 for identifier and literal diversity.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": false, "ast_based": false, "metric_based": false, "semantic": true},
+            "requires": ["semantic_reasoning", "identifier_canonicalization", "literal_abstraction"],
+            "carriers": [
+                {"file": "SimpleStateMachine.php", "namespace": "Acme\\Workflow\\Simple", "class": "SimpleStateMachine", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "RenamedStateMachine.php", "namespace": "Acme\\Workflow\\Renamed", "class": "RenamedStateMachine", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-01"}, {"code": "RN-02"}]},
+                {"file": "LiteralStateMachine.php", "namespace": "Acme\\Workflow\\Literal", "class": "LiteralStateMachine", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "LT-01"}, {"code": "LT-02"}]}
+            ]
+        },
+        {
+            "set_id": "L05-se_state_machine-004",
+            "title": "State machine: full structural equivalence suite",
+            "description": "Complete state machine equivalence with maximum structural diversity using ST and RN transforms.",
+            "seed": "state_machine",
+            "mount": "method",
+            "clone_symbol": "processTransition",
+            "granularity": "method",
+            "clone_type": "type-4",
+            "normalized_by": ["controlflow", "identifiers", "literals"],
+            "rng_seed": 50204,
+            "notes": "Set 004 of 5. Combines ST-01, ST-05, RN-01, LT-01 for maximum diversity (no TY-01 due to known issues).",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": false, "ast_based": false, "metric_based": false, "semantic": true},
+            "requires": ["semantic_reasoning", "ast_canonicalization", "identifier_canonicalization"],
+            "carriers": [
+                {"file": "SimpleStateMachine.php", "namespace": "Acme\\Workflow\\Simple", "class": "SimpleStateMachine", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "FullStateMachine.php", "namespace": "Acme\\Workflow\\Full", "class": "FullStateMachine", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-01"}, {"code": "RN-01"}, {"code": "LT-01"}]},
+                {"file": "ComplexStateMachine.php", "namespace": "Acme\\Workflow\\Complex", "class": "ComplexStateMachine", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-05"}, {"code": "RN-02"}, {"code": "LT-02"}]}
+            ]
+        },
+        {
+            "set_id": "L05-se_state_machine-005",
+            "title": "State machine: comment and whitespace variations",
+            "description": "State machine with comment and whitespace variations for textual diversity.",
+            "seed": "state_machine",
+            "mount": "method",
+            "clone_symbol": "processTransition",
+            "granularity": "method",
+            "clone_type": "type-4",
+            "normalized_by": ["controlflow", "identifiers", "literals"],
+            "rng_seed": 50205,
+            "notes": "Set 005 of 5. Uses CM-05, CM-02, WS-02 for comment and whitespace diversity.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": false, "ast_based": false, "metric_based": false, "semantic": true},
+            "requires": ["semantic_reasoning"],
+            "carriers": [
+                {"file": "SimpleStateMachine.php", "namespace": "Acme\\Workflow\\Simple", "class": "SimpleStateMachine", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "CommentedStateMachine.php", "namespace": "Acme\\Workflow\\Commented", "class": "CommentedStateMachine", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "CM-05"}, {"code": "ST-01"}]},
+                {"file": "SpacedStateMachine.php", "namespace": "Acme\\Workflow\\Spaced", "class": "SpacedStateMachine", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "WS-02"}, {"code": "CM-02"}]}
+            ]
+        }
+    ]
+}

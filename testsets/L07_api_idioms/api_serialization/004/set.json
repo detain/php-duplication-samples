@@ -58,7 +58,8 @@
             },
             "applied_to": [
                 "src/InvoiceComputeSerialization.php"
-            ]
+            ],
+            "intensity": 4
         }
     ],
     "difficulty": {

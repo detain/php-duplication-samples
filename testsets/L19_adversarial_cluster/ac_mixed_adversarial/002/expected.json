@@ -1,0 +1,57 @@
+{
+    "schema_version": 1,
+    "set_id": "L19-ac_mixed_adversarial-002",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-2",
+            "granularity": "method",
+            "normalized_by": [
+                "comments",
+                "literals",
+                "identifiers"
+            ],
+            "token_hash": "5cd8e7841ecf7c41",
+            "normalized_hash": "a3a4fbc9a09986cf",
+            "members": [
+                {
+                    "file": "src/MixedAdvA.php",
+                    "start_line": 9,
+                    "end_line": 27,
+                    "symbol": "authorize",
+                    "pristine": true
+                },
+                {
+                    "file": "src/MixedAdvB.php",
+                    "start_line": 18,
+                    "end_line": 37,
+                    "symbol": "authorize",
+                    "pristine": false
+                }
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": true,
+                "semantic": true
+            },
+            "notes": "L19: ac_mixed_adversarial + CM + LT transforms."
+        }
+    ],
+    "non_duplicates": [
+        {
+            "file": "src/MixedAdvDistractor.php",
+            "start_line": 12,
+            "end_line": 27,
+            "reason": "Near-miss: mixed adversarial auth confusion",
+            "trap": true
+        }
+    ],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.65,
+        "min_members_for_credit": 2
+    }
+}

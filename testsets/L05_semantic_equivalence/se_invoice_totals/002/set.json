@@ -1,0 +1,73 @@
+{
+    "schema_version": 1,
+    "set_id": "L05-se_invoice_totals-002",
+    "level": 5,
+    "level_name": "semantic_equivalence",
+    "family": "se_invoice_totals",
+    "title": "Invoice totals: string vs regex API equivalence",
+    "description": "Three semantically equivalent invoice total calculations using different string processing APIs: carrier A uses direct string operations (pristine), carrier B uses regex (api_regex_string variant), and carrier C uses string function chain (api_strings variant).",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "invoice_totals",
+    "difficulty_band": "very_hard",
+    "files": [
+        {
+            "path": "src/InvoiceCalculator.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 39
+        },
+        {
+            "path": "src/OrderCalculator.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 50
+        },
+        {
+            "path": "src/QuoteCalculator.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 43
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-4",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "API-03",
+            "name": "regex_vs_string",
+            "params": {},
+            "applied_to": [
+                "src/OrderCalculator.php"
+            ],
+            "intensity": 4
+        },
+        {
+            "code": "API-02",
+            "name": "string_fns",
+            "params": {},
+            "applied_to": [
+                "src/QuoteCalculator.php"
+            ],
+            "intensity": 4
+        }
+    ],
+    "difficulty": {
+        "score": 77,
+        "requires": [
+            "semantic_reasoning",
+            "api_abstraction"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L05_semantic_equivalence/se_invoice_totals.json",
+        "version": "1.0.0",
+        "rng_seed": 50002
+    }
+}

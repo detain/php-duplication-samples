@@ -1,0 +1,80 @@
+{
+    "schema_version": 1,
+    "set_id": "L20-ks_massive-004",
+    "level": 20,
+    "level_name": "kitchen_sink",
+    "family": "ks_massive",
+    "title": "Massive with statement structure changes",
+    "description": "ST-05 and ST-08 combined for control flow chaos.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "access_guard",
+    "difficulty_band": "easy",
+    "files": [
+        {
+            "path": "src/MassiveA.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 33
+        },
+        {
+            "path": "src/MassiveB.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 36
+        },
+        {
+            "path": "src/MassiveDistractor.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 29
+        },
+        {
+            "path": "src/MassiveClean.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 27
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-3",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 2
+    },
+    "interference": [
+        {
+            "code": "ST-05",
+            "name": "reorder_independent",
+            "params": {},
+            "applied_to": [
+                "src/MassiveB.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "ST-08",
+            "name": "param_reorder",
+            "params": {},
+            "applied_to": [
+                "src/MassiveB.php"
+            ],
+            "intensity": 3
+        }
+    ],
+    "difficulty": {
+        "score": 20,
+        "requires": [
+            "identifier_canonicalization",
+            "ast_canonicalization",
+            "commutative_reordering"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L20_kitchen_sink/ks_massive.json",
+        "version": "1.0.0",
+        "rng_seed": 200304
+    }
+}

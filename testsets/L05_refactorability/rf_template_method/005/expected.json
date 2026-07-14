@@ -1,0 +1,90 @@
+{
+    "schema_version": 2,
+    "set_id": "L05-rf_template_method-005",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-2",
+            "granularity": "class",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "class_structure"
+            ],
+            "token_hash": "acced26c1a39ba09",
+            "normalized_hash": "6c76ed84fa4097ff",
+            "members": [
+                {
+                    "file": "src/UserImportProcessor.php",
+                    "start_line": 9,
+                    "end_line": 78,
+                    "symbol": "process",
+                    "pristine": true,
+                    "group": "A",
+                    "seed": "csv_processor"
+                },
+                {
+                    "file": "src/SalesExportProcessor.php",
+                    "start_line": 18,
+                    "end_line": 87,
+                    "symbol": "process",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "csv_processor"
+                },
+                {
+                    "file": "src/InventorySyncProcessor.php",
+                    "start_line": 24,
+                    "end_line": 93,
+                    "symbol": "process",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "csv_processor"
+                }
+            ],
+            "detection_expectation": {
+                "text_based": true,
+                "token_based": true,
+                "ast_based": true
+            },
+            "notes": ""
+        }
+    ],
+    "non_duplicates": [],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.6,
+        "min_members_for_credit": 2
+    },
+    "intended_refactoring": {
+        "kind": "template_method",
+        "unified_symbol": "CsvProcessor",
+        "unified_signature": "process(string $inputPath, string $outputPath): ProcessResult",
+        "template_method": "process - final method defining CSV processing cycle",
+        "hook_methods": [
+            "openFile",
+            "parseHeaders",
+            "parseRows",
+            "transformData",
+            "writeOutput"
+        ],
+        "abstract_methods": [
+            "parseHeaders",
+            "parseRows",
+            "transformData"
+        ],
+        "hook_extensions": [
+            "openFile",
+            "writeOutput",
+            "onError",
+            "logProgress"
+        ],
+        "collapses": [
+            0,
+            1,
+            2
+        ],
+        "advisability": "recommended"
+    }
+}

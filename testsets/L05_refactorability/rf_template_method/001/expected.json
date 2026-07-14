@@ -1,0 +1,89 @@
+{
+    "schema_version": 2,
+    "set_id": "L05-rf_template_method-001",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-2",
+            "granularity": "class",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "class_structure"
+            ],
+            "token_hash": "d1b9af74d74f2081",
+            "normalized_hash": "a2e233997e0caa7c",
+            "members": [
+                {
+                    "file": "src/SalesReportBuilder.php",
+                    "start_line": 9,
+                    "end_line": 99,
+                    "symbol": "generate",
+                    "pristine": true,
+                    "group": "A",
+                    "seed": "report_builder"
+                },
+                {
+                    "file": "src/InventoryReportBuilder.php",
+                    "start_line": 18,
+                    "end_line": 108,
+                    "symbol": "generate",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "report_builder"
+                },
+                {
+                    "file": "src/CustomerReportBuilder.php",
+                    "start_line": 24,
+                    "end_line": 114,
+                    "symbol": "generate",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "report_builder"
+                }
+            ],
+            "detection_expectation": {
+                "text_based": true,
+                "token_based": true,
+                "ast_based": true
+            },
+            "notes": ""
+        }
+    ],
+    "non_duplicates": [],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.6,
+        "min_members_for_credit": 2
+    },
+    "intended_refactoring": {
+        "kind": "template_method",
+        "unified_symbol": "ReportBuilder",
+        "unified_signature": "generate(ReportRequest $request): ReportResult",
+        "template_method": "generate - final method defining algorithm skeleton",
+        "hook_methods": [
+            "validateInputs",
+            "fetchData",
+            "applyFilters",
+            "formatOutput",
+            "sendDelivery"
+        ],
+        "abstract_methods": [
+            "validateInputs",
+            "fetchData",
+            "applyFilters",
+            "formatOutput"
+        ],
+        "hook_extensions": [
+            "sendDelivery",
+            "logReport"
+        ],
+        "collapses": [
+            0,
+            1,
+            2
+        ],
+        "advisability": "recommended"
+    }
+}

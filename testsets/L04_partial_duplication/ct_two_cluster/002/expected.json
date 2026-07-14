@@ -1,0 +1,129 @@
+{
+    "schema_version": 2,
+    "set_id": "L04-ct_two_cluster-002",
+    "clusters": [
+        {
+            "id": "A",
+            "group_id": "A",
+            "clone_type": "type-3",
+            "granularity": "method",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers",
+                "literals"
+            ],
+            "token_hash": "4ffb959f327d1b8c",
+            "normalized_hash": "5015f13c10f8031c",
+            "members": [
+                {
+                    "file": "src/CsvImportA.php",
+                    "start_line": 9,
+                    "end_line": 31,
+                    "symbol": "parseRow",
+                    "pristine": true,
+                    "group": "A",
+                    "seed": "csv_import"
+                },
+                {
+                    "file": "src/CsvImportB.php",
+                    "start_line": 18,
+                    "end_line": 39,
+                    "symbol": "parseRow",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "csv_import"
+                },
+                {
+                    "file": "src/CsvImportC.php",
+                    "start_line": 24,
+                    "end_line": 45,
+                    "symbol": "parseRow",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "csv_import"
+                }
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": true,
+                "semantic": true
+            },
+            "notes": "Two clusters with varied duplication ratios."
+        },
+        {
+            "id": "B",
+            "group_id": "B",
+            "clone_type": "type-3",
+            "granularity": "method",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers",
+                "literals"
+            ],
+            "token_hash": "4ffb959f327d1b8c",
+            "normalized_hash": "5015f13c10f8031c",
+            "members": [
+                {
+                    "file": "src/TotalsCalcA.php",
+                    "start_line": 9,
+                    "end_line": 31,
+                    "symbol": "parseRow",
+                    "pristine": true,
+                    "group": "B",
+                    "seed": "csv_import"
+                },
+                {
+                    "file": "src/TotalsCalcB.php",
+                    "start_line": 18,
+                    "end_line": 30,
+                    "symbol": "parseRow",
+                    "pristine": false,
+                    "group": "B",
+                    "seed": "csv_import"
+                },
+                {
+                    "file": "src/TotalsCalcC.php",
+                    "start_line": 24,
+                    "end_line": 34,
+                    "symbol": "parseRow",
+                    "pristine": false,
+                    "group": "B",
+                    "seed": "csv_import"
+                }
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": true,
+                "semantic": true
+            },
+            "notes": "Two clusters with varied duplication ratios."
+        }
+    ],
+    "non_duplicates": [
+        {
+            "file": "src/CsvDistractor.php",
+            "start_line": 9,
+            "end_line": 78,
+            "reason": "near-miss: similar parsing vocabulary but different logic",
+            "trap": true
+        },
+        {
+            "file": "src/TotalsDistractor.php",
+            "start_line": 12,
+            "end_line": 28,
+            "reason": "near-miss: similar totals vocabulary but different logic",
+            "trap": true
+        }
+    ],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.6,
+        "min_members_for_credit": 2
+    }
+}

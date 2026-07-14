@@ -1,0 +1,100 @@
+{
+    "schema_version": 2,
+    "set_id": "L06-co_literal_fold-004",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-3",
+            "granularity": "method",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers",
+                "case_convention",
+                "literals"
+            ],
+            "token_hash": "e2c6d2de09404029",
+            "normalized_hash": "d5da572207f4bce3",
+            "members": [
+                {
+                    "file": "src/LiteralRenameCalc.php",
+                    "start_line": 9,
+                    "end_line": 33,
+                    "symbol": "computeTotals",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "invoice_totals"
+                },
+                {
+                    "file": "src/FullLiteralCalc.php",
+                    "start_line": 18,
+                    "end_line": 44,
+                    "symbol": "computeTotals",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "invoice_totals",
+                    "fragments": [
+                        {
+                            "start_line": 36,
+                            "end_line": 38
+                        },
+                        {
+                            "start_line": 40,
+                            "end_line": 61
+                        }
+                    ],
+                    "unique_segments": [
+                        {
+                            "start_line": 35,
+                            "end_line": 39
+                        }
+                    ]
+                },
+                {
+                    "file": "src/MaxLiteralCalc.php",
+                    "start_line": 24,
+                    "end_line": 49,
+                    "symbol": "computeTotals",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "invoice_totals",
+                    "fragments": [
+                        {
+                            "start_line": 48,
+                            "end_line": 72
+                        }
+                    ],
+                    "unique_segments": [
+                        {
+                            "start_line": 47,
+                            "end_line": 47
+                        }
+                    ]
+                }
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": true,
+                "semantic": true
+            },
+            "notes": "Literal folding with rename. Uses RN-05 (case_convention) instead of RN-01/02. Tests comprehensive literal and identifier normalization pipeline."
+        }
+    ],
+    "non_duplicates": [
+        {
+            "file": "src/MarginSummarizer.php",
+            "start_line": 12,
+            "end_line": 28,
+            "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total",
+            "trap": true
+        }
+    ],
+    "scoring": {
+        "line_tolerance": 4,
+        "member_jaccard_min": 0.4,
+        "min_members_for_credit": 2
+    }
+}

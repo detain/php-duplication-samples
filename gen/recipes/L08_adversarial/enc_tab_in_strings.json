@@ -1,0 +1,133 @@
+{
+    "level": 8,
+    "level_name": "adversarial",
+    "level_dir": "L08_adversarial",
+    "family": "enc_tab_in_strings",
+    "sets": [
+        {
+            "set_id": "L08-enc_tab_in_strings-001",
+            "title": "Tab in Strings: Tab character inside string literals",
+            "description": "Tests whether tab characters embedded inside string literals confuse clone detection. Tabs in strings are literal characters, not whitespace formatting.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 80401,
+            "scoring": {"line_tolerance": 1, "member_jaccard_min": 0.9, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": false},
+            "carriers": [
+                {"file": "TotalsCalculatorA.php", "namespace": "Acme\\Billing\\TotalsA", "class": "TotalsCalculatorA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "TotalsCalculatorB.php", "namespace": "Acme\\Billing\\TotalsB", "class": "TotalsCalculatorB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ENC-07"}]},
+                {"file": "TotalsCalculatorC.php", "namespace": "Acme\\Billing\\TotalsC", "class": "TotalsCalculatorC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ENC-07"}]}
+            ],
+            "distractors": [
+                {"file": "Validator.php", "namespace": "Acme\\Billing\\Validate", "class": "Validator", "source": "clean_billing", "reason": "Clean distractor - unrelated billing logic"}
+            ],
+            "cleans": [
+                {"file": "SchemaMapper.php", "namespace": "Acme\\Billing\\Schema", "class": "SchemaMapper", "source": "clean_parsing"}
+            ]
+        },
+        {
+            "set_id": "L08-enc_tab_in_strings-002",
+            "title": "Tab in Strings: Multiple tabs per string",
+            "description": "Strings contain multiple tab characters at different positions.",
+            "seed": "csv_processor",
+            "mount": "method",
+            "clone_symbol": "processRow",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 80402,
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.85, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": false},
+            "carriers": [
+                {"file": "RowProcessorA.php", "namespace": "Acme\\Data\\ProcessA", "class": "RowProcessorA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "RowProcessorB.php", "namespace": "Acme\\Data\\ProcessB", "class": "RowProcessorB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ENC-07"}]},
+                {"file": "RowProcessorC.php", "namespace": "Acme\\Data\\ProcessC", "class": "RowProcessorC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ENC-07"}]}
+            ],
+            "distractors": [
+                {"file": "Filter.php", "namespace": "Acme\\Data\\Filter", "class": "RowFilter", "source": "clean_csv", "reason": "Clean distractor - different processing logic"}
+            ],
+            "cleans": [
+                {"file": "Mapper.php", "namespace": "Acme\\Data\\Map", "class": "RowMapper", "source": "clean_csv"}
+            ]
+        },
+        {
+            "set_id": "L08-enc_tab_in_strings-003",
+            "title": "Tab in Strings: Tab vs \\t escape sequence",
+            "description": "One carrier uses literal tab, another uses \\t escape. Both represent the same character but different byte values.",
+            "seed": "logger",
+            "mount": "method",
+            "clone_symbol": "logMessage",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 80403,
+            "scoring": {"line_tolerance": 1, "member_jaccard_min": 0.9, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": false},
+            "carriers": [
+                {"file": "LoggerA.php", "namespace": "Acme\\Log\\LoggerA", "class": "LoggerA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "LoggerB.php", "namespace": "Acme\\Log\\LoggerB", "class": "LoggerB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ENC-07"}]},
+                {"file": "LoggerC.php", "namespace": "Acme\\Log\\LoggerC", "class": "LoggerC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ENC-05"}, {"code": "ENC-07"}]}
+            ],
+            "distractors": [
+                {"file": "Handler.php", "namespace": "Acme\\Log\\Handler", "class": "LogHandler", "source": "clean_logger", "reason": "Clean distractor - log handling"}
+            ],
+            "cleans": [
+                {"file": "Formatter.php", "namespace": "Acme\\Log\\Format", "class": "LogFormatter", "source": "clean_logger"}
+            ]
+        },
+        {
+            "set_id": "L08-enc_tab_in_strings-004",
+            "title": "Tab in Strings: Mixed with indentation tabs",
+            "description": "Tabs appear both as indentation and inside strings, creating confusing byte patterns.",
+            "seed": "serializer",
+            "mount": "method",
+            "clone_symbol": "serialize",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 80404,
+            "scoring": {"line_tolerance": 1, "member_jaccard_min": 0.85, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": false},
+            "carriers": [
+                {"file": "SerializerA.php", "namespace": "Acme\\Util\\SerA", "class": "SerializerA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "SerializerB.php", "namespace": "Acme\\Util\\SerB", "class": "SerializerB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "WS-08"}, {"code": "ENC-07"}]},
+                {"file": "SerializerC.php", "namespace": "Acme\\Util\\SerC", "class": "SerializerC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ENC-07"}]}
+            ],
+            "distractors": [
+                {"file": "Deserializer.php", "namespace": "Acme\\Util\\Deser", "class": "Deserializer", "source": "clean_serializer", "reason": "Clean distractor - deserialization logic"}
+            ],
+            "cleans": [
+                {"file": "Validator.php", "namespace": "Acme\\Util\\Valid", "class": "DataValidator", "source": "clean_serializer"}
+            ]
+        },
+        {
+            "set_id": "L08-enc_tab_in_strings-005",
+            "title": "Tab in Strings: Combined with string escape variation",
+            "description": "ENC-07 tabs combined with ENC-05 escape sequence variations for compound string encoding challenges.",
+            "seed": "notification_service",
+            "mount": "method",
+            "clone_symbol": "formatMessage",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 80405,
+            "scoring": {"line_tolerance": 1, "member_jaccard_min": 0.85, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": false},
+            "carriers": [
+                {"file": "MessageFormatterA.php", "namespace": "Acme\\Notify\\FormatA", "class": "MessageFormatterA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "MessageFormatterB.php", "namespace": "Acme\\Notify\\FormatB", "class": "MessageFormatterB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ENC-05"}, {"code": "ENC-07"}]},
+                {"file": "MessageFormatterC.php", "namespace": "Acme\\Notify\\FormatC", "class": "MessageFormatterC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ENC-05"}, {"code": "ENC-07"}]}
+            ],
+            "distractors": [
+                {"file": "Sender.php", "namespace": "Acme\\Notify\\Send", "class": "MessageSender", "source": "clean_notification", "reason": "Clean distractor - notification sending"}
+            ],
+            "cleans": [
+                {"file": "Queue.php", "namespace": "Acme\\Notify\\Queue", "class": "NotificationQueue", "source": "clean_notification"}
+            ]
+        }
+    ]
+}

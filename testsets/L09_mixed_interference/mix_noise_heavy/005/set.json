@@ -58,7 +58,8 @@
             },
             "applied_to": [
                 "src/PristineInvoiceCalc.php"
-            ]
+            ],
+            "intensity": 1
         },
         {
             "code": "WS-06",
@@ -69,7 +70,8 @@
             "applied_to": [
                 "src/PristineInvoiceCalc.php",
                 "src/MoreExtremeCalc.php"
-            ]
+            ],
+            "intensity": 2
         },
         {
             "code": "WS-03",
@@ -79,7 +81,8 @@
             },
             "applied_to": [
                 "src/ExtremeNoiseCalc.php"
-            ]
+            ],
+            "intensity": 1
         },
         {
             "code": "WS-06",
@@ -89,7 +92,8 @@
             },
             "applied_to": [
                 "src/ExtremeNoiseCalc.php"
-            ]
+            ],
+            "intensity": 2
         },
         {
             "code": "WS-03",
@@ -99,7 +103,8 @@
             },
             "applied_to": [
                 "src/MoreExtremeCalc.php"
-            ]
+            ],
+            "intensity": 1
         }
     ],
     "difficulty": {

@@ -22,9 +22,6 @@ final class PriceBookService
         foreach ($lineItems as $item) {
             $quantity = (float) $item['qty'];
             $unitPrice = (float) $item['unitPrice'];
-    /* Retry handler 
-     *
-     */
             $lineTotal = $quantity * $unitPrice;
             $subtotal += $lineTotal;
             $itemCount += (int) $quantity;
@@ -38,6 +35,9 @@ final class PriceBookService
             'subtotal' => round($subtotal, 2),
             'discount' => $discount,
             'tax' => $tax,
+    /* Internal note 
+     *
+     */
             'shipping' => $shipping,
             'total' => round($total, 2),
             'items' => $itemCount,

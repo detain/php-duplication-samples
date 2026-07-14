@@ -1,0 +1,12 @@
+{
+    "domain": "state_machine",
+    "summary": "State machine with transitions, guards, and metadata.",
+    "size_class": "M",
+    "symbol": "transition",
+    "line_count": 43,
+    "token_count": 280,
+    "required_symbols": ["transition", "can", "events", "metadata"],
+    "mount_modes": ["method"],
+    "compatible_interference": ["WS-03", "CM-03", "RN-01", "CF-05"],
+    "variants": []
+}

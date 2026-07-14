@@ -1,0 +1,137 @@
+{
+    "schema_version": 2,
+    "set_id": "L04-pd_boundary-005",
+    "level": 4,
+    "level_name": "partial_duplication",
+    "family": "pd_boundary",
+    "title": "Boundary insertions at both ends",
+    "description": "Unique content inserted at both start and end boundaries.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "invoice_totals",
+    "difficulty_band": "medium",
+    "files": [
+        {
+            "path": "src/BothBoundaryA.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 39,
+            "region_sloc": {
+                "sloc": 25,
+                "duplicate": 25,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/BothBoundaryB.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 42,
+            "region_sloc": {
+                "sloc": 23,
+                "duplicate": 23,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/BothBoundaryC.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 39,
+            "region_sloc": {
+                "sloc": 21,
+                "duplicate": 21,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/MarginSummarizer.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 30
+        },
+        {
+            "path": "src/TaxRateRepository.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-3",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "ST-07",
+            "name": "partial_fragment",
+            "params": {
+                "head_trim": 1,
+                "tail_trim": 1
+            },
+            "applied_to": [
+                "src/BothBoundaryB.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "ST-07",
+            "name": "partial_fragment",
+            "params": {
+                "head_trim": 2,
+                "tail_trim": 2
+            },
+            "applied_to": [
+                "src/BothBoundaryC.php"
+            ],
+            "intensity": 3
+        }
+    ],
+    "difficulty": {
+        "score": 42,
+        "requires": [
+            "ast_canonicalization",
+            "deadcode_elimination"
+        ],
+        "score_raw": 42,
+        "axes": {
+            "breadth": 1,
+            "intensity": 3,
+            "intensity_max": 3,
+            "semantic_depth": 0,
+            "partiality": 1
+        },
+        "application_count": 2,
+        "axis_count": 1
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L04_partial_duplication/pd_boundary.json",
+        "version": "2.0.0",
+        "rng_seed": 105405
+    },
+    "interference_profile": {
+        "axis_count": 1,
+        "per_carrier_axes": {
+            "src/BothBoundaryB.php": [
+                "ST-07"
+            ],
+            "src/BothBoundaryC.php": [
+                "ST-07"
+            ]
+        },
+        "groups_touched": [
+            "A"
+        ],
+        "stack_depth_max": 1,
+        "symmetric_overlap": 1,
+        "pairwise_overlap": 1,
+        "combination_design": "structural_only"
+    }
+}

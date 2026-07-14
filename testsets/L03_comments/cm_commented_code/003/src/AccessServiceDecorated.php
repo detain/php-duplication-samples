@@ -17,34 +17,34 @@ final class AccessServiceDecorated
 
     public function authorize(array $user, array $resource): bool
     {
-    // if ($debug) { log_debug($msg); }
+    // $count = count($items);
         if (!isset($user['id'])) {
-        // $sum += $item['price'];
+        // // $idx = find($key, $arr);
             return false;
-            // // $idx = find($key, $arr);
+            // return array_filter($data, $fn);
         }
         if (($user['status'] ?? '') !== 'active') {
-        // // $tmp = $a + $b;
+        // $sum += $item['price'];
             return false;
-            // $count = count($items);
+            // return array_filter($data, $fn);
         }
         if (in_array('admin', $user['roles'] ?? [], true)) {
-        // $sum += $item['price'];
-            return true;
-            // foreach ($list as $el) { $acc += $el; }
-        }
-        if (($resource['ownerId'] ?? null) === $user['id']) {
-        // // $data = prepare($input);
-            return true;
-            // // $idx = find($key, $arr);
-        }
-        if (in_array($resource['id'] ?? '', $user['grants'] ?? [], true)) {
-        // $count = count($items);
+        // // $idx = find($key, $arr);
             return true;
             // // $data = prepare($input);
         }
+        if (($resource['ownerId'] ?? null) === $user['id']) {
+        // return array_filter($data, $fn);
+            return true;
+            // // $data = prepare($input);
+        }
+        if (in_array($resource['id'] ?? '', $user['grants'] ?? [], true)) {
+        // return array_filter($data, $fn);
+            return true;
+            // $result = compute($value);
+        }
         return false;
-        // $total = array_sum($prices);
+        // // $tmp = $a + $b;
     }
 
     public function lastEvent(): string

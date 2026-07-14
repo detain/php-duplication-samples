@@ -1,0 +1,71 @@
+{
+    "generated_at": "2026-07-14T04:30:13-04:00",
+    "profiles": {
+        "phpcpd": {
+            "name": "phpcpd",
+            "version": "phpcpd 6.0.3 by Sebastian Bergmann.",
+            "type": "phar",
+            "detects": [
+                "type-1 exact duplication",
+                "type-1 with whitespace variation",
+                "type-1 with comment variation",
+                "type-2 with identifier rename",
+                "type-2 with literal change",
+                "type-3 with statement edit"
+            ],
+            "misses": [
+                "type-4 semantic/architectural",
+                "cross-file scattered clones",
+                "partial duplication with unique regions",
+                "semantic-equivalent variants (CF/API selection)",
+                "behaviorally-equivalent refactored code"
+            ],
+            "thresholds": {
+                "min_lines": 5,
+                "min_tokens": 50
+            },
+            "fp_profile": {
+                "shared_boilerplate": "high",
+                "getter_setter_pairs": "medium",
+                "template_like_code": "medium",
+                "class_header_blocks": "medium"
+            },
+            "region_accuracy": "line-based (approximate)",
+            "token_accuracy": "token-based (precise for type-1/2)",
+            "scaling": "O(n^2) token comparison; degrades on >10k token files"
+        },
+        "jscpd": {
+            "name": "jscpd",
+            "version": "4.2.4",
+            "type": "node",
+            "detects": [
+                "type-1 exact duplication",
+                "type-1 with whitespace variation",
+                "type-1 with comment variation",
+                "type-2 with identifier rename",
+                "type-2 with literal change",
+                "type-3 with statement edit"
+            ],
+            "misses": [
+                "type-4 semantic/architectural",
+                "cross-file scattered clones",
+                "partial duplication with unique regions",
+                "semantic-equivalent variants (CF/API selection)",
+                "behaviorally-equivalent refactored code"
+            ],
+            "thresholds": {
+                "min_lines": 5,
+                "min_tokens": 50
+            },
+            "fp_profile": {
+                "shared_boilerplate": "high",
+                "getter_setter_pairs": "medium",
+                "template_like_code": "medium",
+                "class_header_blocks": "medium"
+            },
+            "region_accuracy": "line-based (approximate)",
+            "token_accuracy": "token-based (precise for type-1/2)",
+            "scaling": "O(n^2) token comparison; degrades on >10k token files"
+        }
+    }
+}

@@ -1,0 +1,14 @@
+{
+    "domain": "user_repository",
+    "summary": "Data access pattern: findById, findByEmail, insert, update with hydration.",
+    "size_class": "L",
+    "symbol": "findById",
+    "line_count": 70,
+    "token_count": 480,
+    "required_symbols": ["findById", "findByEmail", "insert", "update"],
+    "mount_modes": ["method"],
+    "compatible_interference": ["WS-03", "CM-03", "RN-01", "LT-02"],
+    "variants": [
+        {"file": "table_driven.php", "code": "API-01", "name": "table_driven"}
+    ]
+}

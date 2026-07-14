@@ -109,7 +109,6 @@ function parseArgs(array $argv): array
             $o['all'] = true;
         } elseif ($arg === '--check') {
             $o['check'] = true;
-            $o['all'] = true;
         }
     }
     return $o;

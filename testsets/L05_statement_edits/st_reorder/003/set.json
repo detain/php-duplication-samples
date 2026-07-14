@@ -62,7 +62,8 @@
             },
             "applied_to": [
                 "src/BeforeLoopInvoiceCalc.php"
-            ]
+            ],
+            "intensity": 3
         },
         {
             "code": "ST-01",
@@ -76,7 +77,8 @@
             },
             "applied_to": [
                 "src/AfterLoopInvoiceCalc.php"
-            ]
+            ],
+            "intensity": 3
         }
     ],
     "difficulty": {

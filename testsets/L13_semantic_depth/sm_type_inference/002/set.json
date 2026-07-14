@@ -1,0 +1,69 @@
+{
+    "schema_version": 1,
+    "set_id": "L13-sm_type_inference-002",
+    "level": 13,
+    "level_name": "semantic_depth",
+    "family": "sm_type_inference",
+    "title": "Type inference with string type changes",
+    "description": "Type-aware detection with string literal type variations.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "invoice_totals",
+    "difficulty_band": "trivial",
+    "files": [
+        {
+            "path": "src/TypeInfA.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 39
+        },
+        {
+            "path": "src/TypeInfB.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 44
+        },
+        {
+            "path": "src/TypeInfDistractor.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 30
+        },
+        {
+            "path": "src/TypeInfClean.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-2",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 2
+    },
+    "interference": [
+        {
+            "code": "LT-02",
+            "name": "string",
+            "params": {},
+            "applied_to": [
+                "src/TypeInfB.php"
+            ],
+            "intensity": 2
+        }
+    ],
+    "difficulty": {
+        "score": 6,
+        "requires": [
+            "literal_abstraction"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L13_semantic_depth/sm_type_inference.json",
+        "version": "1.0.0",
+        "rng_seed": 130102
+    }
+}

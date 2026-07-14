@@ -1,0 +1,56 @@
+{
+    "schema_version": 1,
+    "set_id": "L08-enc_heredoc-003",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-2",
+            "granularity": "method",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers"
+            ],
+            "token_hash": "ed70dc8295c7c4c4",
+            "normalized_hash": "14a6e4c31a9cbd74",
+            "members": [
+                {
+                    "file": "src/QueryBuilderA.php",
+                    "start_line": 9,
+                    "end_line": 55,
+                    "symbol": "buildQuery",
+                    "pristine": true
+                },
+                {
+                    "file": "src/QueryBuilderB.php",
+                    "start_line": 18,
+                    "end_line": 64,
+                    "symbol": "buildQuery",
+                    "pristine": false
+                },
+                {
+                    "file": "src/QueryBuilderC.php",
+                    "start_line": 24,
+                    "end_line": 70,
+                    "symbol": "buildQuery",
+                    "pristine": false
+                }
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": false,
+                "semantic": false
+            },
+            "notes": ""
+        }
+    ],
+    "non_duplicates": [],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.7,
+        "min_members_for_credit": 2
+    }
+}

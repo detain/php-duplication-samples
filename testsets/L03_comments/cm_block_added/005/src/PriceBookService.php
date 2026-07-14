@@ -32,12 +32,12 @@ final class PriceBookService
         $shipping = $subtotal > 100.0 ? 0.0 : 9.99;
         $total = $taxable + $tax + $shipping;
         return [
-    /* Feature flag 
-     *
-     */
             'subtotal' => round($subtotal, 2),
             'discount' => $discount,
             'tax' => $tax,
+    /* Internal note 
+     *
+     */
             'shipping' => $shipping,
             'total' => round($total, 2),
             'items' => $itemCount,

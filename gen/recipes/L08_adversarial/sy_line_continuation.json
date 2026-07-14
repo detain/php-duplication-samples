@@ -1,0 +1,133 @@
+{
+    "level": 8,
+    "level_name": "adversarial",
+    "level_dir": "L08_adversarial",
+    "family": "sy_line_continuation",
+    "sets": [
+        {
+            "set_id": "L08-sy_line_continuation-001",
+            "title": "Line Continuation: Backslash vs concatenation",
+            "description": "Tests line continuation styles: backslash continuation vs string concatenation.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 81201,
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.85, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": false},
+            "carriers": [
+                {"file": "TotalsCalculatorA.php", "namespace": "Acme\\Billing\\TotalsA", "class": "TotalsCalculatorA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "TotalsCalculatorB.php", "namespace": "Acme\\Billing\\TotalsB", "class": "TotalsCalculatorB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "WS-06"}]},
+                {"file": "TotalsCalculatorC.php", "namespace": "Acme\\Billing\\TotalsC", "class": "TotalsCalculatorC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "WS-06"}]}
+            ],
+            "distractors": [
+                {"file": "Validator.php", "namespace": "Acme\\Billing\\Validate", "class": "Validator", "source": "clean_billing", "reason": "Clean distractor - unrelated billing logic"}
+            ],
+            "cleans": [
+                {"file": "SchemaMapper.php", "namespace": "Acme\\Billing\\Schema", "class": "SchemaMapper", "source": "clean_parsing"}
+            ]
+        },
+        {
+            "set_id": "L08-sy_line_continuation-002",
+            "title": "Line Continuation: Long string concatenation",
+            "description": "Tests breaking long strings via concatenation vs backslash.",
+            "seed": "csv_processor",
+            "mount": "method",
+            "clone_symbol": "processRow",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 81202,
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.85, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": false},
+            "carriers": [
+                {"file": "RowProcessorA.php", "namespace": "Acme\\Data\\ProcessA", "class": "RowProcessorA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "RowProcessorB.php", "namespace": "Acme\\Data\\ProcessB", "class": "RowProcessorB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "WS-06"}]},
+                {"file": "RowProcessorC.php", "namespace": "Acme\\Data\\ProcessC", "class": "RowProcessorC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "WS-06"}]}
+            ],
+            "distractors": [
+                {"file": "Filter.php", "namespace": "Acme\\Data\\Filter", "class": "RowFilter", "source": "clean_csv", "reason": "Clean distractor - different processing logic"}
+            ],
+            "cleans": [
+                {"file": "Mapper.php", "namespace": "Acme\\Data\\Map", "class": "RowMapper", "source": "clean_csv"}
+            ]
+        },
+        {
+            "set_id": "L08-sy_line_continuation-003",
+            "title": "Line Continuation: Function call chaining",
+            "description": "Tests method chaining continuation styles.",
+            "seed": "query_builder",
+            "mount": "method",
+            "clone_symbol": "buildQuery",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 81203,
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.85, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": false},
+            "carriers": [
+                {"file": "QueryBuilderA.php", "namespace": "Acme\\Db\\QueryA", "class": "QueryBuilderA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "QueryBuilderB.php", "namespace": "Acme\\Db\\QueryB", "class": "QueryBuilderB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "WS-07"}]},
+                {"file": "QueryBuilderC.php", "namespace": "Acme\\Db\\QueryC", "class": "QueryBuilderC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "WS-07"}]}
+            ],
+            "distractors": [
+                {"file": "Escaper.php", "namespace": "Acme\\Db\\Esc", "class": "QueryEscaper", "source": "clean_query", "reason": "Clean distractor - escaping logic"}
+            ],
+            "cleans": [
+                {"file": "Compiler.php", "namespace": "Acme\\Db\\Comp", "class": "SqlCompiler", "source": "clean_query"}
+            ]
+        },
+        {
+            "set_id": "L08-sy_line_continuation-004",
+            "title": "Line Continuation: Array initialization multi-line",
+            "description": "Tests multi-line array initialization continuation.",
+            "seed": "config_loader",
+            "mount": "method",
+            "clone_symbol": "loadConfig",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 81204,
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.85, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": false},
+            "carriers": [
+                {"file": "ConfigLoaderA.php", "namespace": "Acme\\Config\\LoadA", "class": "ConfigLoaderA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "ConfigLoaderB.php", "namespace": "Acme\\Config\\LoadB", "class": "ConfigLoaderB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "WS-06"}, {"code": "WS-07"}]},
+                {"file": "ConfigLoaderC.php", "namespace": "Acme\\Config\\LoadC", "class": "ConfigLoaderC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "WS-06"}, {"code": "WS-07"}]}
+            ],
+            "distractors": [
+                {"file": "Validator.php", "namespace": "Acme\\Config\\Valid", "class": "ConfigValidator", "source": "clean_config", "reason": "Clean distractor - validation logic"}
+            ],
+            "cleans": [
+                {"file": "Merger.php", "namespace": "Acme\\Config\\Merge", "class": "ConfigMerger", "source": "clean_config"}
+            ]
+        },
+        {
+            "set_id": "L08-sy_line_continuation-005",
+            "title": "Line Continuation: Compound with whitespace",
+            "description": "WS-06/WS-07 line continuation combined with other whitespace variations.",
+            "seed": "serializer",
+            "mount": "method",
+            "clone_symbol": "serialize",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 81205,
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.8, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": false},
+            "carriers": [
+                {"file": "SerializerA.php", "namespace": "Acme\\Util\\SerA", "class": "SerializerA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "SerializerB.php", "namespace": "Acme\\Util\\SerB", "class": "SerializerB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "WS-06"}, {"code": "WS-11"}, {"code": "WS-04"}]},
+                {"file": "SerializerC.php", "namespace": "Acme\\Util\\SerC", "class": "SerializerC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "WS-07"}, {"code": "WS-11"}, {"code": "WS-04"}]}
+            ],
+            "distractors": [
+                {"file": "Deserializer.php", "namespace": "Acme\\Util\\Deser", "class": "Deserializer", "source": "clean_serializer", "reason": "Clean distractor - deserialization logic"}
+            ],
+            "cleans": [
+                {"file": "Validator.php", "namespace": "Acme\\Util\\Valid", "class": "DataValidator", "source": "clean_serializer"}
+            ]
+        }
+    ]
+}

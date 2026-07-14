@@ -1,0 +1,150 @@
+{
+    "schema_version": 2,
+    "set_id": "L06-co_lt_st-001",
+    "level": 6,
+    "level_name": "combinatorial",
+    "family": "co_lt_st",
+    "title": "Literal and statement interference (LT-01 + ST-01)",
+    "description": "Same computeTotals method across three billing classes. Carrier A applies LT-01 numeric; carrier B applies ST-01 insert_logging; carrier C applies both. Type-3 clone with literal changes and added statements.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "invoice_totals",
+    "difficulty_band": "very_hard",
+    "files": [
+        {
+            "path": "src/PristineInvoiceCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 39,
+            "region_sloc": {
+                "sloc": 25,
+                "duplicate": 25,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/LiteralCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 44,
+            "region_sloc": {
+                "sloc": 25,
+                "duplicate": 25,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/LtStCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 44,
+            "region_sloc": {
+                "sloc": 26,
+                "duplicate": 25,
+                "unique": 1,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/MarginSummarizer.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 30
+        },
+        {
+            "path": "src/TaxRateRepository.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-3",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "LT-01",
+            "name": "numeric",
+            "params": {
+                "format": "hex"
+            },
+            "applied_to": [
+                "src/LiteralCalc.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "ST-01",
+            "name": "insert_logging",
+            "params": {
+                "lines": 1
+            },
+            "applied_to": [
+                "src/LtStCalc.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "LT-01",
+            "name": "numeric",
+            "params": {
+                "format": "binary"
+            },
+            "applied_to": [
+                "src/LtStCalc.php"
+            ],
+            "intensity": 2
+        }
+    ],
+    "difficulty": {
+        "score": 75,
+        "requires": [
+            "literal_abstraction",
+            "ast_canonicalization"
+        ],
+        "score_raw": 75,
+        "axes": {
+            "breadth": 2,
+            "intensity": 2.33,
+            "intensity_max": 3,
+            "semantic_depth": 0,
+            "partiality": 1
+        },
+        "application_count": 3,
+        "axis_count": 2
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L06_combinatorial/co_lt_st.json",
+        "version": "2.0.0",
+        "rng_seed": 1605001
+    },
+    "interference_profile": {
+        "axis_count": 2,
+        "per_carrier_axes": {
+            "src/LiteralCalc.php": [
+                "LT-01"
+            ],
+            "src/LtStCalc.php": [
+                "ST-01",
+                "LT-01"
+            ]
+        },
+        "groups_touched": [
+            "A"
+        ],
+        "stack_depth_max": 2,
+        "symmetric_overlap": 1,
+        "pairwise_overlap": 0.5,
+        "combination_design": "structural_only"
+    },
+    "engine_features": [
+        "fragment_emission"
+    ]
+}

@@ -1,0 +1,55 @@
+{
+    "schema_version": 1,
+    "set_id": "L16-am_fluent-002",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-2",
+            "granularity": "method",
+            "normalized_by": [
+                "identifiers"
+            ],
+            "token_hash": "5cd8e7841ecf7c41",
+            "normalized_hash": "89e09fba7eb77dcb",
+            "members": [
+                {
+                    "file": "src/FluentA.php",
+                    "start_line": 9,
+                    "end_line": 27,
+                    "symbol": "authorize",
+                    "pristine": true
+                },
+                {
+                    "file": "src/FluentB.php",
+                    "start_line": 18,
+                    "end_line": 37,
+                    "symbol": "authorize",
+                    "pristine": false
+                }
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": true,
+                "semantic": true
+            },
+            "notes": "L16: am_fluent + RN-05 rename."
+        }
+    ],
+    "non_duplicates": [
+        {
+            "file": "src/FluentDistractor.php",
+            "start_line": 12,
+            "end_line": 27,
+            "reason": "Near-miss: similar auth fluent",
+            "trap": true
+        }
+    ],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.65,
+        "min_members_for_credit": 2
+    }
+}

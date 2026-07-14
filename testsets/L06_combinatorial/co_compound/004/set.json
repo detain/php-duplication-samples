@@ -1,0 +1,231 @@
+{
+    "schema_version": 2,
+    "set_id": "L06-co_compound-004",
+    "level": 6,
+    "level_name": "combinatorial",
+    "family": "co_compound",
+    "title": "Compound interference: WS+CM+RN triple interference",
+    "description": "Same computeTotals method. Tests triple compound interference: whitespace, comments, and rename groups all interfering together.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "invoice_totals",
+    "difficulty_band": "expert",
+    "files": [
+        {
+            "path": "src/TripleCompound.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 40,
+            "region_sloc": {
+                "sloc": 26,
+                "duplicate": 24,
+                "unique": 2,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/TripleHeavy.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 42,
+            "region_sloc": {
+                "sloc": 23,
+                "duplicate": 21,
+                "unique": 2,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/MaxTriple.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 43,
+            "region_sloc": {
+                "sloc": 25,
+                "duplicate": 24,
+                "unique": 1,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/MarginSummarizer.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 30
+        },
+        {
+            "path": "src/TaxRateRepository.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-2",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "ST-01",
+            "name": "insert_logging",
+            "params": {
+                "lines": 1
+            },
+            "applied_to": [
+                "src/TripleCompound.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "RN-05",
+            "name": "case_convention",
+            "params": {
+                "direction": "camel_to_snake"
+            },
+            "applied_to": [
+                "src/TripleCompound.php",
+                "src/MaxTriple.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "WS-01",
+            "name": "blank_before",
+            "params": {
+                "blank_lines": 1
+            },
+            "applied_to": [
+                "src/TripleCompound.php",
+                "src/MaxTriple.php"
+            ],
+            "intensity": 1
+        },
+        {
+            "code": "ST-05",
+            "name": "reorder_independent",
+            "params": {
+                "reorder_level": 1
+            },
+            "applied_to": [
+                "src/TripleHeavy.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "LT-01",
+            "name": "numeric",
+            "params": {
+                "format": "hex"
+            },
+            "applied_to": [
+                "src/TripleHeavy.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "RN-05",
+            "name": "case_convention",
+            "params": {
+                "direction": "snake_to_camel"
+            },
+            "applied_to": [
+                "src/TripleHeavy.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "WS-01",
+            "name": "blank_before",
+            "params": {
+                "blank_lines": 2
+            },
+            "applied_to": [
+                "src/TripleHeavy.php"
+            ],
+            "intensity": 1
+        },
+        {
+            "code": "ST-09",
+            "name": "expr_tweak",
+            "params": {
+                "tweak_level": 1
+            },
+            "applied_to": [
+                "src/MaxTriple.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "LT-02",
+            "name": "string",
+            "params": {
+                "style": "double_quotes"
+            },
+            "applied_to": [
+                "src/MaxTriple.php"
+            ],
+            "intensity": 2
+        }
+    ],
+    "difficulty": {
+        "score": 100,
+        "requires": [
+            "ast_canonicalization",
+            "identifier_canonicalization",
+            "whitespace_normalization",
+            "commutative_reordering",
+            "literal_abstraction"
+        ],
+        "score_raw": 109,
+        "axes": {
+            "breadth": 7,
+            "intensity": 2.11,
+            "intensity_max": 3,
+            "semantic_depth": 0,
+            "partiality": 1
+        },
+        "application_count": 11,
+        "axis_count": 7
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L06_combinatorial/co_compound.json",
+        "version": "2.0.0",
+        "rng_seed": 1615004
+    },
+    "interference_profile": {
+        "axis_count": 7,
+        "per_carrier_axes": {
+            "src/TripleCompound.php": [
+                "ST-01",
+                "RN-05",
+                "WS-01"
+            ],
+            "src/TripleHeavy.php": [
+                "ST-05",
+                "LT-01",
+                "RN-05",
+                "WS-01"
+            ],
+            "src/MaxTriple.php": [
+                "ST-09",
+                "LT-02",
+                "RN-05",
+                "WS-01"
+            ]
+        },
+        "groups_touched": [
+            "A"
+        ],
+        "stack_depth_max": 4,
+        "symmetric_overlap": 2,
+        "pairwise_overlap": 0.3778,
+        "combination_design": "type2_plus_type1"
+    },
+    "engine_features": [
+        "fragment_emission"
+    ]
+}

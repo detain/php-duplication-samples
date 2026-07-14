@@ -1,0 +1,69 @@
+{
+    "schema_version": 1,
+    "set_id": "L11-rn_nested-001",
+    "level": 11,
+    "level_name": "deep_rename_stacks",
+    "family": "rn_nested",
+    "title": "Nested rename at method and class scopes",
+    "description": "Tests RN-05 rename at multiple nested scopes - method params AND local vars renamed together.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "invoice_totals",
+    "difficulty_band": "trivial",
+    "files": [
+        {
+            "path": "src/NestedRenameA.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 39
+        },
+        {
+            "path": "src/NestedRenameB.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 44
+        },
+        {
+            "path": "src/NestedRenameDistractor.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 30
+        },
+        {
+            "path": "src/NestedRenameClean.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-2",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 2
+    },
+    "interference": [
+        {
+            "code": "RN-05",
+            "name": "case_convention",
+            "params": {},
+            "applied_to": [
+                "src/NestedRenameB.php"
+            ],
+            "intensity": 2
+        }
+    ],
+    "difficulty": {
+        "score": 6,
+        "requires": [
+            "identifier_canonicalization"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L11_deep_rename_stacks/rn_nested.json",
+        "version": "1.0.0",
+        "rng_seed": 110101
+    }
+}

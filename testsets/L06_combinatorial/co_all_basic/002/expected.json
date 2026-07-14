@@ -1,0 +1,97 @@
+{
+    "schema_version": 2,
+    "set_id": "L06-co_all_basic-002",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-3",
+            "granularity": "method",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers",
+                "case_convention",
+                "literals",
+                "namespaces"
+            ],
+            "token_hash": "e2c6d2de09404029",
+            "normalized_hash": "d5da572207f4bce3",
+            "members": [
+                {
+                    "file": "src/NamespaceCalc.php",
+                    "start_line": 9,
+                    "end_line": 33,
+                    "symbol": "computeTotals",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "invoice_totals"
+                },
+                {
+                    "file": "src/AllBasicCalc.php",
+                    "start_line": 18,
+                    "end_line": 46,
+                    "symbol": "computeTotals",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "invoice_totals",
+                    "fragments": [
+                        {
+                            "start_line": 36,
+                            "end_line": 38
+                        },
+                        {
+                            "start_line": 40,
+                            "end_line": 47
+                        },
+                        {
+                            "start_line": 49,
+                            "end_line": 52
+                        },
+                        {
+                            "start_line": 54,
+                            "end_line": 63
+                        }
+                    ],
+                    "unique_segments": [
+                        {
+                            "start_line": 35,
+                            "end_line": 53
+                        }
+                    ]
+                },
+                {
+                    "file": "src/AllBasicAltCalc.php",
+                    "start_line": 24,
+                    "end_line": 48,
+                    "symbol": "computeTotals",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "invoice_totals"
+                }
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": true,
+                "semantic": true
+            },
+            "notes": "All basic types with working transforms only: WS-01 + RN-05 + LT-01/02/03 + ST-01/02 + TY-01/02."
+        }
+    ],
+    "non_duplicates": [
+        {
+            "file": "src/MarginSummarizer.php",
+            "start_line": 12,
+            "end_line": 28,
+            "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total",
+            "trap": true
+        }
+    ],
+    "scoring": {
+        "line_tolerance": 4,
+        "member_jaccard_min": 0.4,
+        "min_members_for_credit": 2
+    }
+}

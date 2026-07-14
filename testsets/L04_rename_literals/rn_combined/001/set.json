@@ -59,7 +59,8 @@
             "applied_to": [
                 "src/PartialCombinedCalc.php",
                 "src/FullCombinedCalc.php"
-            ]
+            ],
+            "intensity": 2
         },
         {
             "code": "LT-01",
@@ -74,7 +75,8 @@
             },
             "applied_to": [
                 "src/PartialCombinedCalc.php"
-            ]
+            ],
+            "intensity": 2
         },
         {
             "code": "LT-01",
@@ -93,7 +95,8 @@
             },
             "applied_to": [
                 "src/FullCombinedCalc.php"
-            ]
+            ],
+            "intensity": 2
         }
     ],
     "difficulty": {

@@ -1,0 +1,264 @@
+{
+    "schema_version": 2,
+    "set_id": "L06-co_5_axis-005",
+    "level": 6,
+    "level_name": "combinatorial",
+    "family": "co_5_axis",
+    "title": "Maximum 5-axis interference",
+    "description": "Same computeTotals method. All major WS, RN, LT, ST, TY transforms stacked at maximum intensity. Tests the ceiling of 5-axis clone detection.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "invoice_totals",
+    "difficulty_band": "expert",
+    "files": [
+        {
+            "path": "src/MaxCalcA.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 40,
+            "region_sloc": {
+                "sloc": 26,
+                "duplicate": 24,
+                "unique": 2,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/MaxCalcB.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 42,
+            "region_sloc": {
+                "sloc": 23,
+                "duplicate": 21,
+                "unique": 2,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/MaxCalcC.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 46,
+            "region_sloc": {
+                "sloc": 28,
+                "duplicate": 25,
+                "unique": 3,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/MarginSummarizer.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 30
+        },
+        {
+            "path": "src/TaxRateRepository.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-3",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "ST-01",
+            "name": "insert_logging",
+            "params": {
+                "lines": 2
+            },
+            "applied_to": [
+                "src/MaxCalcA.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "RN-05",
+            "name": "case_convention",
+            "params": {
+                "direction": "camel_to_snake"
+            },
+            "applied_to": [
+                "src/MaxCalcA.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "LT-01",
+            "name": "numeric",
+            "params": {
+                "format": "binary"
+            },
+            "applied_to": [
+                "src/MaxCalcA.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "WS-01",
+            "name": "blank_before",
+            "params": {
+                "blank_lines": 1
+            },
+            "applied_to": [
+                "src/MaxCalcA.php"
+            ],
+            "intensity": 1
+        },
+        {
+            "code": "ST-05",
+            "name": "reorder_independent",
+            "params": {
+                "reorder_level": 2
+            },
+            "applied_to": [
+                "src/MaxCalcB.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "LT-02",
+            "name": "string",
+            "params": {
+                "style": "single_quotes"
+            },
+            "applied_to": [
+                "src/MaxCalcB.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "LT-03",
+            "name": "array_values",
+            "params": {
+                "style": "long_array"
+            },
+            "applied_to": [
+                "src/MaxCalcB.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "WS-01",
+            "name": "blank_before",
+            "params": {
+                "blank_lines": 2
+            },
+            "applied_to": [
+                "src/MaxCalcB.php"
+            ],
+            "intensity": 1
+        },
+        {
+            "code": "ST-02",
+            "name": "insert_dead",
+            "params": {
+                "lines": 1
+            },
+            "applied_to": [
+                "src/MaxCalcC.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "ST-09",
+            "name": "expr_tweak",
+            "params": {
+                "tweak_level": 1
+            },
+            "applied_to": [
+                "src/MaxCalcC.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "RN-05",
+            "name": "case_convention",
+            "params": {
+                "direction": "snake_to_camel"
+            },
+            "applied_to": [
+                "src/MaxCalcC.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "LT-04",
+            "name": "const_vs_literal",
+            "params": {
+                "style": "const_literal"
+            },
+            "applied_to": [
+                "src/MaxCalcC.php"
+            ],
+            "intensity": 2
+        }
+    ],
+    "difficulty": {
+        "score": 100,
+        "requires": [
+            "ast_canonicalization",
+            "identifier_canonicalization",
+            "literal_abstraction",
+            "whitespace_normalization",
+            "commutative_reordering",
+            "deadcode_elimination"
+        ],
+        "score_raw": 132,
+        "axes": {
+            "breadth": 10,
+            "intensity": 2.17,
+            "intensity_max": 3,
+            "semantic_depth": 0,
+            "partiality": 1
+        },
+        "application_count": 12,
+        "axis_count": 10
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L06_combinatorial/co_5_axis.json",
+        "version": "2.0.0",
+        "rng_seed": 1608005
+    },
+    "interference_profile": {
+        "axis_count": 10,
+        "per_carrier_axes": {
+            "src/MaxCalcA.php": [
+                "ST-01",
+                "RN-05",
+                "LT-01",
+                "WS-01"
+            ],
+            "src/MaxCalcB.php": [
+                "ST-05",
+                "LT-02",
+                "LT-03",
+                "WS-01"
+            ],
+            "src/MaxCalcC.php": [
+                "ST-02",
+                "ST-09",
+                "RN-05",
+                "LT-04"
+            ]
+        },
+        "groups_touched": [
+            "A"
+        ],
+        "stack_depth_max": 4,
+        "symmetric_overlap": 0,
+        "pairwise_overlap": 0.0952,
+        "combination_design": "type2_plus_type1"
+    },
+    "engine_features": [
+        "fragment_emission"
+    ]
+}

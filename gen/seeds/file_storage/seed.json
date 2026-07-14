@@ -1,0 +1,12 @@
+{
+    "domain": "file_storage",
+    "summary": "File upload, storage, retrieval with signed URL generation.",
+    "size_class": "M",
+    "symbol": "upload",
+    "line_count": 103,
+    "token_count": 700,
+    "required_symbols": ["upload", "download", "delete", "exists", "url"],
+    "mount_modes": ["method"],
+    "compatible_interference": ["WS-03", "CM-03", "RN-01", "LT-02", "ST-01"],
+    "variants": []
+}

@@ -1,0 +1,135 @@
+{
+    "schema_version": 1,
+    "set_id": "L20-ks_all_axes-002",
+    "level": 20,
+    "level_name": "kitchen_sink",
+    "family": "ks_all_axes",
+    "title": "All axes with all literal transforms",
+    "description": "10+ axes with all literal type transformations.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "access_guard",
+    "difficulty_band": "hard",
+    "files": [
+        {
+            "path": "src/AllAxesA.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 33
+        },
+        {
+            "path": "src/AllAxesB.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 40
+        },
+        {
+            "path": "src/AllAxesDistractor.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 29
+        },
+        {
+            "path": "src/AllAxesClean.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 27
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-3",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 2
+    },
+    "interference": [
+        {
+            "code": "ST-01",
+            "name": "insert_logging",
+            "params": {},
+            "applied_to": [
+                "src/AllAxesB.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "ST-09",
+            "name": "expr_tweak",
+            "params": {},
+            "applied_to": [
+                "src/AllAxesB.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "LT-01",
+            "name": "numeric",
+            "params": {},
+            "applied_to": [
+                "src/AllAxesB.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "LT-02",
+            "name": "string",
+            "params": {},
+            "applied_to": [
+                "src/AllAxesB.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "LT-03",
+            "name": "array_values",
+            "params": {},
+            "applied_to": [
+                "src/AllAxesB.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "LT-04",
+            "name": "const_vs_literal",
+            "params": {},
+            "applied_to": [
+                "src/AllAxesB.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "RN-05",
+            "name": "case_convention",
+            "params": {},
+            "applied_to": [
+                "src/AllAxesB.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "CM-03",
+            "name": "docblock",
+            "params": {},
+            "applied_to": [
+                "src/AllAxesB.php"
+            ],
+            "intensity": 1
+        }
+    ],
+    "difficulty": {
+        "score": 53,
+        "requires": [
+            "literal_abstraction",
+            "identifier_canonicalization",
+            "comment_stripping",
+            "ast_canonicalization"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L20_kitchen_sink/ks_all_axes.json",
+        "version": "1.0.0",
+        "rng_seed": 200202
+    }
+}

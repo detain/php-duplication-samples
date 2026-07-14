@@ -1,0 +1,137 @@
+{
+    "schema_version": 2,
+    "set_id": "L04-pd_head_unique-003",
+    "level": 4,
+    "level_name": "partial_duplication",
+    "family": "pd_head_unique",
+    "title": "Partial clone using access_guard with unique head",
+    "description": "The same authorize method with unique head sections.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "access_guard",
+    "difficulty_band": "medium",
+    "files": [
+        {
+            "path": "src/PristineAuthGuard.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 33,
+            "region_sloc": {
+                "sloc": 19,
+                "duplicate": 19,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/HeadUniqueAuth.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 35,
+            "region_sloc": {
+                "sloc": 16,
+                "duplicate": 16,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/HeadUnique2Auth.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 33,
+            "region_sloc": {
+                "sloc": 15,
+                "duplicate": 15,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/AuditTrailService.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 29
+        },
+        {
+            "path": "src/TokenValidationService.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 27
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-3",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "ST-07",
+            "name": "partial_fragment",
+            "params": {
+                "head_trim": 3,
+                "tail_trim": 0
+            },
+            "applied_to": [
+                "src/HeadUniqueAuth.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "ST-07",
+            "name": "partial_fragment",
+            "params": {
+                "head_trim": 4,
+                "tail_trim": 0
+            },
+            "applied_to": [
+                "src/HeadUnique2Auth.php"
+            ],
+            "intensity": 3
+        }
+    ],
+    "difficulty": {
+        "score": 42,
+        "requires": [
+            "ast_canonicalization",
+            "deadcode_elimination"
+        ],
+        "score_raw": 42,
+        "axes": {
+            "breadth": 1,
+            "intensity": 3,
+            "intensity_max": 3,
+            "semantic_depth": 0,
+            "partiality": 1
+        },
+        "application_count": 2,
+        "axis_count": 1
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L04_partial_duplication/pd_head_unique.json",
+        "version": "2.0.0",
+        "rng_seed": 104403
+    },
+    "interference_profile": {
+        "axis_count": 1,
+        "per_carrier_axes": {
+            "src/HeadUniqueAuth.php": [
+                "ST-07"
+            ],
+            "src/HeadUnique2Auth.php": [
+                "ST-07"
+            ]
+        },
+        "groups_touched": [
+            "A"
+        ],
+        "stack_depth_max": 1,
+        "symmetric_overlap": 1,
+        "pairwise_overlap": 1,
+        "combination_design": "structural_only"
+    }
+}

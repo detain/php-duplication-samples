@@ -1,0 +1,215 @@
+{
+    "schema_version": 2,
+    "set_id": "L06-co_ws_cm_rn-003",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-2",
+            "granularity": "method",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers",
+                "case_convention"
+            ],
+            "token_hash": "e2c6d2de09404029",
+            "normalized_hash": "d5da572207f4bce3",
+            "members": [
+                {
+                    "file": "src/WrappedCalc.php",
+                    "start_line": 9,
+                    "end_line": 36,
+                    "symbol": "computeTotals",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "invoice_totals"
+                },
+                {
+                    "file": "src/CmRnCalc.php",
+                    "start_line": 18,
+                    "end_line": 72,
+                    "symbol": "computeTotals",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "invoice_totals",
+                    "fragments": [
+                        {
+                            "start_line": 35,
+                            "end_line": 36
+                        },
+                        {
+                            "start_line": 39,
+                            "end_line": 39
+                        },
+                        {
+                            "start_line": 42,
+                            "end_line": 42
+                        },
+                        {
+                            "start_line": 45,
+                            "end_line": 45
+                        },
+                        {
+                            "start_line": 48,
+                            "end_line": 48
+                        },
+                        {
+                            "start_line": 51,
+                            "end_line": 51
+                        },
+                        {
+                            "start_line": 54,
+                            "end_line": 54
+                        },
+                        {
+                            "start_line": 57,
+                            "end_line": 57
+                        },
+                        {
+                            "start_line": 60,
+                            "end_line": 60
+                        },
+                        {
+                            "start_line": 63,
+                            "end_line": 64
+                        },
+                        {
+                            "start_line": 67,
+                            "end_line": 67
+                        },
+                        {
+                            "start_line": 70,
+                            "end_line": 70
+                        },
+                        {
+                            "start_line": 73,
+                            "end_line": 73
+                        },
+                        {
+                            "start_line": 76,
+                            "end_line": 76
+                        },
+                        {
+                            "start_line": 79,
+                            "end_line": 86
+                        },
+                        {
+                            "start_line": 89,
+                            "end_line": 89
+                        }
+                    ],
+                    "unique_segments": [
+                        {
+                            "start_line": 37,
+                            "end_line": 88
+                        }
+                    ]
+                },
+                {
+                    "file": "src/AllThreeCalc.php",
+                    "start_line": 24,
+                    "end_line": 66,
+                    "symbol": "computeTotals",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "invoice_totals",
+                    "fragments": [
+                        {
+                            "start_line": 47,
+                            "end_line": 48
+                        },
+                        {
+                            "start_line": 50,
+                            "end_line": 50
+                        },
+                        {
+                            "start_line": 52,
+                            "end_line": 52
+                        },
+                        {
+                            "start_line": 54,
+                            "end_line": 54
+                        },
+                        {
+                            "start_line": 56,
+                            "end_line": 56
+                        },
+                        {
+                            "start_line": 58,
+                            "end_line": 58
+                        },
+                        {
+                            "start_line": 60,
+                            "end_line": 60
+                        },
+                        {
+                            "start_line": 62,
+                            "end_line": 62
+                        },
+                        {
+                            "start_line": 64,
+                            "end_line": 64
+                        },
+                        {
+                            "start_line": 66,
+                            "end_line": 70
+                        },
+                        {
+                            "start_line": 72,
+                            "end_line": 72
+                        },
+                        {
+                            "start_line": 74,
+                            "end_line": 74
+                        },
+                        {
+                            "start_line": 76,
+                            "end_line": 76
+                        },
+                        {
+                            "start_line": 78,
+                            "end_line": 78
+                        },
+                        {
+                            "start_line": 80,
+                            "end_line": 87
+                        },
+                        {
+                            "start_line": 89,
+                            "end_line": 89
+                        }
+                    ],
+                    "unique_segments": [
+                        {
+                            "start_line": 49,
+                            "end_line": 88
+                        }
+                    ]
+                }
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": true,
+                "semantic": true
+            },
+            "notes": "3-axis interference: WS-06 (line_wrap) + CM-07 (commented_out_code) + RN-02 (params). Tests structural and identifier normalization."
+        }
+    ],
+    "non_duplicates": [
+        {
+            "file": "src/MarginSummarizer.php",
+            "start_line": 12,
+            "end_line": 28,
+            "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total",
+            "trap": true
+        }
+    ],
+    "scoring": {
+        "line_tolerance": 3,
+        "member_jaccard_min": 0.55,
+        "min_members_for_credit": 2
+    }
+}

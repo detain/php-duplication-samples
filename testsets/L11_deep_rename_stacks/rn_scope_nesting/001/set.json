@@ -1,0 +1,69 @@
+{
+    "schema_version": 1,
+    "set_id": "L11-rn_scope_nesting-001",
+    "level": 11,
+    "level_name": "deep_rename_stacks",
+    "family": "rn_scope_nesting",
+    "title": "Method-scope rename with nested function vars",
+    "description": "Tests RN-05 rename at method scope with local variable renaming nested inside.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "access_guard",
+    "difficulty_band": "trivial",
+    "files": [
+        {
+            "path": "src/ScopeNestA.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 33
+        },
+        {
+            "path": "src/ScopeNestB.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 38
+        },
+        {
+            "path": "src/ScopeNestDistractor.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 29
+        },
+        {
+            "path": "src/ScopeNestClean.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 27
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-2",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 2
+    },
+    "interference": [
+        {
+            "code": "RN-05",
+            "name": "case_convention",
+            "params": {},
+            "applied_to": [
+                "src/ScopeNestB.php"
+            ],
+            "intensity": 2
+        }
+    ],
+    "difficulty": {
+        "score": 6,
+        "requires": [
+            "identifier_canonicalization"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L11_deep_rename_stacks/rn_scope_nesting.json",
+        "version": "1.0.0",
+        "rng_seed": 110301
+    }
+}

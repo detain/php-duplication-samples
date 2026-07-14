@@ -1,0 +1,418 @@
+{
+  "level": 5,
+  "level_name": "refactorability",
+  "level_dir": "L05_refactorability",
+  "family": "rf_template_method",
+  "sets": [
+    {
+      "set_id": "L05-rf_template_method-001",
+      "title": "Report builder clones with skeleton pattern",
+      "description": "Three report builder classes that follow the same algorithm skeleton: validateInputs -> fetchData -> applyFilters -> formatOutput -> sendDelivery. Each step varies by implementation but the overall flow is identical. CAN be unified via Template Method pattern with abstract base class.",
+      "seed": "report_builder",
+      "mount": "class",
+      "clone_symbol": "generate",
+      "granularity": "class",
+      "clone_type": "type-2",
+      "schema_version": 2,
+      "rng_seed": 510101,
+      "normalized_by": [
+        "whitespace",
+        "comments",
+        "class_structure"
+      ],
+      "detection_expectation": {
+        "text_based": true,
+        "token_based": true,
+        "ast_based": true
+      },
+      "intended_refactoring": {
+        "kind": "template_method",
+        "unified_symbol": "ReportBuilder",
+        "unified_signature": "generate(ReportRequest $request): ReportResult",
+        "template_method": "generate - final method defining algorithm skeleton",
+        "hook_methods": [
+          "validateInputs",
+          "fetchData",
+          "applyFilters",
+          "formatOutput",
+          "sendDelivery"
+        ],
+        "abstract_methods": [
+          "validateInputs",
+          "fetchData",
+          "applyFilters",
+          "formatOutput"
+        ],
+        "hook_extensions": [
+          "sendDelivery",
+          "logReport"
+        ],
+        "collapses": [
+          0,
+          1,
+          2
+        ],
+        "advisability": "recommended"
+      },
+      "solution": "<?php\\ndeclare(strict_types=1);\\n\\nnamespace Acme\\\\Reporting\\\\Template;\\n\\nabstract class ReportBuilder\\n{\\n    /**\\n     * Template method - final to enforce algorithm skeleton.\\n     * Defines the\u4e0d\u53d8 algorithm structure with hook extension points.\\n     */\\n    final public function generate(ReportRequest $request): ReportResult\\n    {\\n        $this->logReport('Starting report generation');\\n        $this->validateInputs($request);\\n        $data = $this->fetchData($request);\\n        $filtered = $this->applyFilters($data, $request->getFilters());\\n        $formatted = $this->formatOutput($filtered);\\n        $this->sendDelivery($formatted, $request->getRecipient());\\n        $this->logReport('Report generation completed');\\n        return new ReportResult($formatted, true);\\n    }\\n\\n    /**\\n     * Hook method - override for custom logging behavior.\\n     * Default implementation does nothing.\\n     */\\n    protected function logReport(string $message): void\\n    {\\n        // Default: no-op. Override for custom logging.\\n    }\\n\\n    /**\\n     * Abstract method - MUST be implemented by subclasses.\\n     */\\n    abstract protected function validateInputs(ReportRequest $request): void;\\n\\n    /**\\n     * Abstract method - MUST be implemented by subclasses.\\n     */\\n    abstract protected function fetchData(ReportRequest $request): array;\\n\\n    /**\\n     * Abstract method - MUST be implemented by subclasses.\\n     */\\n    abstract protected function applyFilters(array $data, array $filters): array;\\n\\n    /**\\n     * Abstract method - MUST be implemented by subclasses.\\n     */\\n    abstract protected function formatOutput(array $data): string;\\n\\n    /**\\n     * Hook method - override for custom delivery behavior.\\n     * Default sends email.\\n     */\\n    protected function sendDelivery(string $content, string $recipient): void\\n    {\\n        mail($recipient, 'Report', $content);\\n    }\\n}\\n\\nclass SalesReportBuilder extends ReportBuilder\\n{\\n    protected function validateInputs(ReportRequest $request): void\\n    {\\n        if ($request->getStartDate() === null) {\\n            throw new \\\\InvalidArgumentException('Start date required for sales report');\\n        }\\n    }\\n\\n    protected function fetchData(ReportRequest $request): array\\n    {\\n        // Fetch sales data from database\\n        return [['product' => 'Widget', 'amount' => 100]];\\n    }\\n\\n    protected function applyFilters(array $data, array $filters): array\\n    {\\n        return array_filter($data, fn($row) => $row['amount'] > ($filters['min_amount'] ?? 0));\\n    }\\n\\n    protected function formatOutput(array $data): string\\n    {\\n        $output = \\\"Sales Report\\\\n\\\";\\n        foreach ($data as $row) {\\n            $output .= sprintf(\\\"%s: $%d\\\\n\\\", $row['product'], $row['amount']);\\n        }\\n        return $output;\\n    }\\n}\\n\\nclass InventoryReportBuilder extends ReportBuilder\\n{\\n    protected function validateInputs(ReportRequest $request): void\\n    {\\n        if (empty($request->getWarehouseId())) {\\n            throw new \\\\InvalidArgumentException('Warehouse ID required');\\n        }\\n    }\\n\\n    protected function fetchData(ReportRequest $request): array\\n    {\\n        return [['item' => 'Box', 'quantity' => 50]];\\n    }\\n\\n    protected function applyFilters(array $data, array $filters): array\\n    {\\n        return array_filter($data, fn($row) => $row['quantity'] < ($filters['max_quantity'] ?? PHP_INT_MAX));\\n    }\\n\\n    protected function formatOutput(array $data): string\\n    {\\n        $output = \\\"Inventory Report\\\\n\\\";\\n        foreach ($data as $row) {\\n            $output .= sprintf(\\\"%s: %d units\\\\n\\\", $row['item'], $row['quantity']);\\n        }\\n        return $output;\\n    }\\n}\n",
+      "carriers": [
+        {
+          "file": "SalesReportBuilder.php",
+          "namespace": "Acme\\Reporting\\Sales",
+          "class": "SalesReportBuilder",
+          "scaffold": "method_alpha",
+          "group": "A",
+          "pristine": true,
+          "transforms": []
+        },
+        {
+          "file": "InventoryReportBuilder.php",
+          "namespace": "Acme\\Reporting\\Inventory",
+          "class": "InventoryReportBuilder",
+          "scaffold": "method_beta",
+          "group": "A",
+          "pristine": false,
+          "transforms": []
+        },
+        {
+          "file": "CustomerReportBuilder.php",
+          "namespace": "Acme\\Reporting\\Customer",
+          "class": "CustomerReportBuilder",
+          "scaffold": "method_gamma",
+          "group": "A",
+          "pristine": false,
+          "transforms": []
+        }
+      ],
+      "distractors": []
+    },
+    {
+      "set_id": "L05-rf_template_method-002",
+      "title": "State machine clones with transition skeleton",
+      "description": "Three state machine classes that follow the same workflow: enterState -> executeAction -> evaluateTransitions -> exitState. Each state handling varies but the machine cycle is identical. CAN be unified via Template Method pattern.",
+      "seed": "state_machine",
+      "mount": "class",
+      "clone_symbol": "advance",
+      "granularity": "class",
+      "clone_type": "type-2",
+      "schema_version": 2,
+      "rng_seed": 510102,
+      "normalized_by": [
+        "whitespace",
+        "comments",
+        "class_structure"
+      ],
+      "detection_expectation": {
+        "text_based": true,
+        "token_based": true,
+        "ast_based": true
+      },
+      "intended_refactoring": {
+        "kind": "template_method",
+        "unified_symbol": "StateMachine",
+        "unified_signature": "advance(mixed $context): State",
+        "template_method": "advance - final method defining state transition cycle",
+        "hook_methods": [
+          "enterState",
+          "executeAction",
+          "evaluateTransitions",
+          "exitState"
+        ],
+        "abstract_methods": [
+          "enterState",
+          "executeAction",
+          "evaluateTransitions",
+          "exitState"
+        ],
+        "hook_extensions": [
+          "onInvalidTransition",
+          "logTransition"
+        ],
+        "collapses": [
+          0,
+          1,
+          2
+        ],
+        "advisability": "recommended"
+      },
+      "solution": "dTransition\", \"logTransition\"],\n                \"collapses\": [0, 1, 2],\n                \"advisability\": \"recommended\"\n            },\n            \"solution\": \"<?php\\ndeclare(strict_types=1);\\n\\nnamespace Acme\\\\Workflow\\\\Template;\\n\\nabstract class StateMachine\\n{\\n    protected State $currentState;\\n\\n    /**\\n     * Template method - final to enforce state machine cycle.\\n     */\\n    final public function advance(mixed $context): State\\n    {\\n        $this->logTransition($this->currentState, 'enter');\\n        $this->enterState($this->currentState);\\n\\n        $action = $this->executeAction($context);\\n        $nextState = $this->evaluateTransitions($this->currentState, $action);\\n\\n        $this->exitState($this->currentState);\\n        $this->logTransition($this->currentState, 'exit');\\n\\n        $this->currentState = $nextState;\\n        $this->logTransition($nextState, 'enter');\\n        $this->enterState($nextState);\\n\\n        return $nextState;\\n    }\\n\\n    /**\\n     * Hook method for custom transition logging.\\n     */\\n    protected function logTransition(State $state, string $phase): void\\n    {\\n        // Default: no-op\\n    }\\n\\n    /**\\n     * Hook method for invalid transition handling.\\n     */\\n    protected function onInvalidTransition(State $from, mixed $action): void\\n    {\\n        throw new \\\\RuntimeException(\\\"Invalid transition from {$from->getName()} with action\\\");\\n    }\\n\\n    abstract protected function enterState(State $state): void;\\n    abstract protected function executeAction(mixed $context): mixed;\\n    abstract protected function evaluateTransitions(State $currentState, mixed $action): State;\\n    abstract protected function exitState(State $state): void;\\n}\\n\\nclass OrderStateMachine extends StateMachine\\n{\\n    protected function enterState(State $state): void\\n    {\\n        // Order-specific entry logic\\n    }\\n\\n    protected function executeAction(mixed $context): mixed\\n    {\\n        return $context['action'] ?? 'process';\\n    }\\n\\n    protected function evaluateTransitions(State $currentState, mixed $action): State\\n    {\\n        return new State('confirmed');\\n    }\\n\\n    protected function exitState(State $state): void\\n    {\\n        // Order-specific exit logic\\n    }\\n}\\n\\nclass DocumentStateMachine extends StateMachine\\n{\\n    protected function enterState(State $state): void\\n    {\\n        // Document-specific entry logic\\n    }\\n\\n    protected function executeAction(mixed $context): mixed\\n    {\\n        return $context['action'] ?? 'approve';\\n    }\\n\\n    protected function evaluateTransitions(State $currentState, mixed $action): State\\n    {\\n  ",
+      "carriers": [
+        {
+          "file": "OrderStateMachine.php",
+          "namespace": "Acme\\Workflow\\Order",
+          "class": "OrderStateMachine",
+          "scaffold": "method_alpha",
+          "group": "A",
+          "pristine": true,
+          "transforms": []
+        },
+        {
+          "file": "DocumentStateMachine.php",
+          "namespace": "Acme\\Workflow\\Document",
+          "class": "DocumentStateMachine",
+          "scaffold": "method_beta",
+          "group": "A",
+          "pristine": false,
+          "transforms": []
+        },
+        {
+          "file": "TaskStateMachine.php",
+          "namespace": "Acme\\Workflow\\Task",
+          "class": "TaskStateMachine",
+          "scaffold": "method_gamma",
+          "group": "A",
+          "pristine": false,
+          "transforms": []
+        }
+      ],
+      "distractors": []
+    },
+    {
+      "set_id": "L05-rf_template_method-003",
+      "title": "Payment processor clones with flow skeleton",
+      "description": "Three payment processor classes that follow the same flow: authorize -> capture -> settle -> refund. Each step has different payment gateway logic but the overall flow remains identical. CAN be unified via Template Method pattern.",
+      "seed": "payment_processor",
+      "mount": "class",
+      "clone_symbol": "process",
+      "granularity": "class",
+      "clone_type": "type-2",
+      "schema_version": 2,
+      "rng_seed": 510103,
+      "normalized_by": [
+        "whitespace",
+        "comments",
+        "class_structure"
+      ],
+      "detection_expectation": {
+        "text_based": true,
+        "token_based": true,
+        "ast_based": true
+      },
+      "intended_refactoring": {
+        "kind": "template_method",
+        "unified_symbol": "PaymentProcessor",
+        "unified_signature": "process(PaymentRequest $request): PaymentResult",
+        "template_method": "process - final method defining payment flow",
+        "hook_methods": [
+          "authorize",
+          "capture",
+          "settle",
+          "refund",
+          "notifyResult"
+        ],
+        "abstract_methods": [
+          "authorize",
+          "capture",
+          "settle"
+        ],
+        "hook_extensions": [
+          "refund",
+          "notifyResult",
+          "logTransaction"
+        ],
+        "collapses": [
+          0,
+          1,
+          2
+        ],
+        "advisability": "recommended"
+      },
+      "solution": "          \"abstract_methods\": [\"authorize\", \"capture\", \"settle\"],\n                \"hook_extensions\": [\"refund\", \"notifyResult\", \"logTransaction\"],\n                \"collapses\": [0, 1, 2],\n                \"advisability\": \"recommended\"\n            },\n            \"solution\": \"<?php\\ndeclare(strict_types=1);\\n\\nnamespace Acme\\\\Payment\\\\Template;\\n\\nabstract class PaymentProcessor\\n{\\n    /**\\n     * Template method - final to enforce payment flow skeleton.\\n     */\\n    final public function process(PaymentRequest $request): PaymentResult\\n    {\\n        $this->logTransaction('Starting payment process');\\n\\n        $authResult = $this->authorize($request);\\n        if (!$authResult->isSuccessful()) {\\n            return $this->notifyResult(PaymentResult::failed('Authorization failed'));\\n        }\\n\\n        $captureResult = $this->capture($authResult->getTransactionId(), $request->getAmount());\\n        if (!$captureResult->isSuccessful()) {\\n            return $this->notifyResult(PaymentResult::failed('Capture failed'));\\n        }\\n\\n        $settleResult = $this->settle($captureResult->getTransactionId());\\n\\n        $this->logTransaction('Payment process completed');\\n        return $this->notifyResult($settleResult);\\n    }\\n\\n    /**\\n     * Hook method for transaction logging.\\n     */\\n    protected function logTransaction(string $message): void\\n    {\\n        // Default: no-op\\n    }\\n\\n    /**\\n     * Hook method for refund processing - can be overridden.\\n     */\\n    protected function refund(string $transactionId, float $amount): RefundResult\\n    {\\n        return RefundResult::failed('Refund not supported');\\n    }\\n\\n    /**\\n     * Hook method for result notification - can be overridden.\\n     */\\n    protected function notifyResult(PaymentResult $result): PaymentResult\\n    {\\n        $this->logTransaction('Notifying result: ' . ($result->isSuccessful() ? 'success' : 'failure'));\\n        return $result;\\n    }\\n\\n    abstract protected function authorize(PaymentRequest $request): AuthorizationResult;\\n    abstract protected function capture(string $transactionId, float $amount): CaptureResult;\\n    abstract protected function settle(string $transactionId): PaymentResult;\\n}\\n\\nclass StripePaymentProcessor extends PaymentProcessor\\n{\\n    protected function authorize(PaymentRequest $request): AuthorizationResult\\n    {\\n        return new AuthorizationResult(true, 'stripe_auth_123');\\n    }\\n\\n    protected function capture(string $transactionId, float $amount): CaptureResult\\n    {\\n        return new CaptureResult(true, 'stripe_capture_456');\\n    }\\n\\n    protected function settle(string $transactionId): PaymentResult\\n    {\\n        return PaymentResult::successful('stripe_settle_789');\\n    }\\n}\\n\\nclass PayPalPaymentProcessor extends PaymentProcessor\\n{\\n    protected function authorize(PaymentRequest $request): AuthorizationResult\\n    {\\n        return new AuthorizationResult(true, 'paypal_auth_123');\\n    }\\n\\n    protected function capture(string $t",
+      "carriers": [
+        {
+          "file": "StripePaymentProcessor.php",
+          "namespace": "Acme\\Payment\\Stripe",
+          "class": "StripePaymentProcessor",
+          "scaffold": "method_alpha",
+          "group": "A",
+          "pristine": true,
+          "transforms": []
+        },
+        {
+          "file": "PayPalPaymentProcessor.php",
+          "namespace": "Acme\\Payment\\PayPal",
+          "class": "PayPalPaymentProcessor",
+          "scaffold": "method_beta",
+          "group": "A",
+          "pristine": false,
+          "transforms": []
+        },
+        {
+          "file": "SquarePaymentProcessor.php",
+          "namespace": "Acme\\Payment\\Square",
+          "class": "SquarePaymentProcessor",
+          "scaffold": "method_gamma",
+          "group": "A",
+          "pristine": false,
+          "transforms": []
+        }
+      ],
+      "distractors": []
+    },
+    {
+      "set_id": "L05-rf_template_method-004",
+      "title": "Form builder clones with render skeleton",
+      "description": "Three form builder classes that follow the same render flow: validateSchema -> buildFields -> applyStyling -> renderHtml -> attachScripts. Each form type varies in field definitions but the render process is identical. CAN be unified via Template Method pattern.",
+      "seed": "form_builder",
+      "mount": "class",
+      "clone_symbol": "render",
+      "granularity": "class",
+      "clone_type": "type-2",
+      "schema_version": 2,
+      "rng_seed": 510104,
+      "normalized_by": [
+        "whitespace",
+        "comments",
+        "class_structure"
+      ],
+      "detection_expectation": {
+        "text_based": true,
+        "token_based": true,
+        "ast_based": true
+      },
+      "intended_refactoring": {
+        "kind": "template_method",
+        "unified_symbol": "FormBuilder",
+        "unified_signature": "render(array $schema): string",
+        "template_method": "render - final method defining form render cycle",
+        "hook_methods": [
+          "validateSchema",
+          "buildFields",
+          "applyStyling",
+          "renderHtml",
+          "attachScripts"
+        ],
+        "abstract_methods": [
+          "validateSchema",
+          "buildFields",
+          "renderHtml"
+        ],
+        "hook_extensions": [
+          "applyStyling",
+          "attachScripts",
+          "onValidationError"
+        ],
+        "collapses": [
+          0,
+          1,
+          2
+        ],
+        "advisability": "recommended"
+      },
+      "solution": "thods\": [\"validateSchema\", \"buildFields\", \"applyStyling\", \"renderHtml\", \"attachScripts\"],\n                \"abstract_methods\": [\"validateSchema\", \"buildFields\", \"renderHtml\"],\n                \"hook_extensions\": [\"applyStyling\", \"attachScripts\", \"onValidationError\"],\n                \"collapses\": [0, 1, 2],\n                \"advisability\": \"recommended\"\n            },\n            \"solution\": \"<?php\\ndeclare(strict_types=1);\\n\\nnamespace Acme\\\\Forms\\\\Template;\\n\\nabstract class FormBuilder\\n{\\n    /**\\n     * Template method - final to enforce form render skeleton.\\n     */\\n    final public function render(array $schema): string\\n    {\\n        $this->validateSchema($schema);\\n        $fields = $this->buildFields($schema);\\n        $styled = $this->applyStyling($fields, $schema);\\n        $html = $this->renderHtml($styled);\\n        $scripts = $this->attachScripts($html);\\n        return $scripts;\\n    }\\n\\n    /**\\n     * Hook method for validation error handling.\\n     */\\n    protected function onValidationError(array $errors): void\\n    {\\n        throw new \\\\InvalidArgumentException('Form validation failed: ' . implode(', ', $errors));\\n    }\\n\\n    /**\\n     * Hook method for custom styling.\\n     */\\n    protected function applyStyling(array $fields, array $schema): array\\n    {\\n        foreach ($fields as &$field) {\\n            $field['class'] = ($field['class'] ?? '') . ' form-control';\\n        }\\n        return $fields;\\n    }\\n\\n    /**\\n     * Hook method for script attachment.\\n     */\\n    protected function attachScripts(string $html): string\\n    {\\n        return $html;\\n    }\\n\\n    abstract protected function validateSchema(array $schema): void;\\n    abstract protected function buildFields(array $schema): array;\\n    abstract protected function renderHtml(array $fields): string;\\n}\\n\\nclass ContactFormBuilder extends FormBuilder\\n{\\n    protected function validateSchema(array $schema): void\\n    {\\n        $required = ['name', 'email', 'message'];\\n        $errors = [];\\n        foreach ($required as $field) {\\n            if (!isset($schema['fields'][$field])) {\\n                $errors[] = \\\"Missing required field: $field\\\";\\n            }\\n        }\\n        if (!empty($errors)) {\\n            $this->onValidationError($errors);\\n        }\\n    }\\n\\n    protected function buildFields(array $schema): array\\n    {\\n        return [\\n            ['name' => 'name', 'type' => 'text'],\\n            ['name' => 'email', 'type' => 'email'],\\n            ['name' => 'message', 'type' => 'textarea'],\\n        ];\\n    }\\n\\n    protected function renderHtml(array $fields): string\\n    {\\n        $html = '<form>';\\n        foreach ($fields as $field) {\\n            $html .= sprintf('<input type=\\\"%s\\\" name=\\\"%s\\\">', $field['type'], $field['name']);\\n        }\\n        $html .= '</form>';\\n        return $html;\\n    }\\n}\\n\\nclass CheckoutFormBuilder extends FormBuilder\\n{\\n    protected function validateSchema(array $schema): void\\n    {\\n        if (!isset($schema['fields']['payment'])) {\\n            $this->onValidationError(['Missing payment field']);\\n        }\\n    }\\n\\n    protected function buildFields(array $schema): array\\n    {\\n        return [\\n            ['name' => 'card_number', 'type' => 'text'],\\n            ['name' => 'expiry', 'type' => 'text'],\\n   ",
+      "carriers": [
+        {
+          "file": "ContactFormBuilder.php",
+          "namespace": "Acme\\Forms\\Contact",
+          "class": "ContactFormBuilder",
+          "scaffold": "method_alpha",
+          "group": "A",
+          "pristine": true,
+          "transforms": []
+        },
+        {
+          "file": "CheckoutFormBuilder.php",
+          "namespace": "Acme\\Forms\\Checkout",
+          "class": "CheckoutFormBuilder",
+          "scaffold": "method_beta",
+          "group": "A",
+          "pristine": false,
+          "transforms": []
+        },
+        {
+          "file": "SurveyFormBuilder.php",
+          "namespace": "Acme\\Forms\\Survey",
+          "class": "SurveyFormBuilder",
+          "scaffold": "method_gamma",
+          "group": "A",
+          "pristine": false,
+          "transforms": []
+        }
+      ],
+      "distractors": []
+    },
+    {
+      "set_id": "L05-rf_template_method-005",
+      "title": "CSV processor clones with process skeleton",
+      "description": "Three CSV processor classes that follow the same workflow: openFile -> parseHeaders -> parseRows -> transformData -> writeOutput. Each processor handles different data transformations but the file handling flow is identical. CAN be unified via Template Method pattern.",
+      "seed": "csv_processor",
+      "mount": "class",
+      "clone_symbol": "process",
+      "granularity": "class",
+      "clone_type": "type-2",
+      "schema_version": 2,
+      "rng_seed": 510105,
+      "normalized_by": [
+        "whitespace",
+        "comments",
+        "class_structure"
+      ],
+      "detection_expectation": {
+        "text_based": true,
+        "token_based": true,
+        "ast_based": true
+      },
+      "intended_refactoring": {
+        "kind": "template_method",
+        "unified_symbol": "CsvProcessor",
+        "unified_signature": "process(string $inputPath, string $outputPath): ProcessResult",
+        "template_method": "process - final method defining CSV processing cycle",
+        "hook_methods": [
+          "openFile",
+          "parseHeaders",
+          "parseRows",
+          "transformData",
+          "writeOutput"
+        ],
+        "abstract_methods": [
+          "parseHeaders",
+          "parseRows",
+          "transformData"
+        ],
+        "hook_extensions": [
+          "openFile",
+          "writeOutput",
+          "onError",
+          "logProgress"
+        ],
+        "collapses": [
+          0,
+          1,
+          2
+        ],
+        "advisability": "recommended"
+      },
+      "solution": "string $inputPath, string $outputPath): ProcessResult\",\n                \"template_method\": \"process - final method defining CSV processing cycle\",\n                \"hook_methods\": [\"openFile\", \"parseHeaders\", \"parseRows\", \"transformData\", \"writeOutput\"],\n                \"abstract_methods\": [\"parseHeaders\", \"parseRows\", \"transformData\"],\n                \"hook_extensions\": [\"openFile\", \"writeOutput\", \"onError\", \"logProgress\"],\n                \"collapses\": [0, 1, 2],\n                \"advisability\": \"recommended\"\n            },\n            \"solution\": \"<?php\\ndeclare(strict_types=1);\\n\\nnamespace Acme\\\\Data\\\\Template;\\n\\nabstract class CsvProcessor\\n{\\n    /**\\n     * Template method - final to enforce CSV processing skeleton.\\n     */\\n    final public function process(string $inputPath, string $outputPath): ProcessResult\\n    {\\n        $this->logProgress('Starting CSV processing');\\n        $handle = $this->openFile($inputPath);\\n\\n        $headers = $this->parseHeaders($handle);\\n        $rows = $this->parseRows($handle, $headers);\\n\\n        fclose($handle);\\n        $this->logProgress(sprintf('Parsed %d rows', count($rows)));\\n\\n        $transformed = $this->transformData($rows);\\n        $this->logProgress('Data transformation complete');\\n\\n        $outHandle = $this->writeOutput($outputPath, $transformed);\\n        fclose($outHandle);\\n\\n        $this->logProgress('CSV processing completed');\\n        return ProcessResult::successful(count($transformed));\\n    }\\n\\n    /**\\n     * Hook method - override for custom file opening.\\n     */\\n    protected function openFile(string $path)\\n    {\\n        $handle = fopen($path, 'r');\\n        if ($handle === false) {\\n            throw new \\\\RuntimeException(\\\"Cannot open file: $path\\\");\\n        }\\n        return $handle;\\n    }\\n\\n    /**\\n     * Hook method for progress logging.\\n     */\\n    protected function logProgress(string $message): void\\n    {\\n        // Default: no-op\\n    }\\n\\n    /**\\n     * Hook method for error handling.\\n     */\\n    protected function onError(string $message): void\\n    {\\n        throw new \\\\RuntimeException($message);\\n    }\\n\\n    /**\\n     * Hook method - override for custom file writing.\\n     */\\n    protected function writeOutput(string $path, array $data)\\n    {\\n        $handle = fopen($path, 'w');\\n        if ($handle === false) {\\n            throw new \\\\RuntimeException(\\\"Cannot write file: $path\\\");\\n        }\\n        foreach ($data as $row) {\\n            fputcsv($handle, $row);\\n        }\\n        return $handle;\\n    }\\n\\n    abstract protected function parseHeaders($handle): array;\\n    abstract protected function parseRows($handle, array $headers): array;\\n    abstract protected function transformData(array $rows): array;\\n}\\n\\nclass UserImportProcessor extends CsvProcessor\\n{\\n    protected function parseHeaders($handle): array\\n    {\\n        $headers = fgetcsv($handle);\\n        return $headers ?: [];\\n    }\\n\\n    protected function parseRows($handle, array $headers): array\\n    {\\n        $rows = [];\\n        while (($row = fgetcsv($handle)) !== false) {\\n            $rows[] = array_combine($headers, $row);\\n        }\\n        return $rows;\\n    }\\n\\n    protected function transformData(array $rows): array\\n    {\\n        return array_map(function ($row) {\\n            $row['name'] = strtoupper($row['name'] ?? '');\\n            $row['created_at'] = date('Y-m-d');\\n            return $row;\\n        }, $rows);\\n    }\\n}\\n\\nclass SalesExportProcessor extends CsvProcessor\\n{\\n    protected function parseHeaders($handle): array\\n    {\\n        $headers = fgetcsv($handle);\\n      ",
+      "carriers": [
+        {
+          "file": "UserImportProcessor.php",
+          "namespace": "Acme\\Data\\Import\\User",
+          "class": "UserImportProcessor",
+          "scaffold": "method_alpha",
+          "group": "A",
+          "pristine": true,
+          "transforms": []
+        },
+        {
+          "file": "SalesExportProcessor.php",
+          "namespace": "Acme\\Data\\Export\\Sales",
+          "class": "SalesExportProcessor",
+          "scaffold": "method_beta",
+          "group": "A",
+          "pristine": false,
+          "transforms": []
+        },
+        {
+          "file": "InventorySyncProcessor.php",
+          "namespace": "Acme\\Data\\Sync\\Inventory",
+          "class": "InventorySyncProcessor",
+          "scaffold": "method_gamma",
+          "group": "A",
+          "pristine": false,
+          "transforms": []
+        }
+      ],
+      "distractors": []
+    }
+  ]
+}

@@ -1,0 +1,139 @@
+{
+    "level": 17,
+    "level_name": "refactor_fork",
+    "level_dir": "L17_refactor_fork",
+    "family": "rf_variant",
+    "sets": [
+        {
+            "set_id": "L17-rf_variant-001",
+            "title": "Refactor variant A - different path taken",
+            "description": "Shows one refactoring path taken while original remains unchanged.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["identifiers", "literals"],
+            "rng_seed": 170301,
+            "notes": "L17: Refactor variant - path A taken.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.7, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["identifier_canonicalization", "literal_abstraction"],
+            "carriers": [
+                {"file": "RefactorVariantA.php", "namespace": "Acme\\Refactor\\Alpha", "class": "RefactorVariantA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "RefactorVariantB.php", "namespace": "Acme\\Refactor\\Beta", "class": "RefactorVariantB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-01"}, {"code": "LT-02"}]}
+            ],
+            "distractors": [
+                {"file": "RefactorVariantDistractor.php", "namespace": "Acme\\Refactor\\Distract", "class": "RefactorVariantDistractor", "source": "nearmiss_invoice", "reason": "Near-miss: similar invoice calculation"}
+            ],
+            "cleans": [
+                {"file": "RefactorVariantClean.php", "namespace": "Acme\\Refactor\\Config", "class": "RefactorVariantClean", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L17-rf_variant-002",
+            "title": "Refactor variant with RN-05 rename path",
+            "description": "Refactor path using case convention rename.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["identifiers"],
+            "rng_seed": 170302,
+            "notes": "L17: Refactor variant + RN-05 rename path.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.65, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["identifier_canonicalization"],
+            "carriers": [
+                {"file": "RefactorVariantA.php", "namespace": "Acme\\Refactor\\Alpha", "class": "RefactorVariantA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "RefactorVariantB.php", "namespace": "Acme\\Refactor\\Beta", "class": "RefactorVariantB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-05"}]}
+            ],
+            "distractors": [
+                {"file": "RefactorVariantDistractor.php", "namespace": "Acme\\Refactor\\Distract", "class": "RefactorVariantDistractor", "source": "nearmiss_access", "reason": "Near-miss: similar auth pattern"}
+            ],
+            "cleans": [
+                {"file": "RefactorVariantClean.php", "namespace": "Acme\\Refactor\\Config", "class": "RefactorVariantClean", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L17-rf_variant-003",
+            "title": "Three-way refactor fork",
+            "description": "Three carriers showing different refactoring paths.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["identifiers", "literals", "comments"],
+            "rng_seed": 170303,
+            "notes": "L17: Three-way refactor fork.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 3},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["identifier_canonicalization", "literal_abstraction", "comment_stripping"],
+            "carriers": [
+                {"file": "RefactorVariantA.php", "namespace": "Acme\\Refactor\\Alpha", "class": "RefactorVariantA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "RefactorVariantB.php", "namespace": "Acme\\Refactor\\Beta", "class": "RefactorVariantB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-03"}]},
+                {"file": "RefactorVariantC.php", "namespace": "Acme\\Refactor\\Gamma", "class": "RefactorVariantC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "RN-05"}, {"code": "CM-01"}, {"code": "LT-02"}]}
+            ],
+            "distractors": [
+                {"file": "RefactorVariantDistractor.php", "namespace": "Acme\\Refactor\\Distract", "class": "RefactorVariantDistractor", "source": "nearmiss_invoice", "reason": "Near-miss: similar invoice"}
+            ],
+            "cleans": [
+                {"file": "RefactorVariantClean.php", "namespace": "Acme\\Refactor\\Config", "class": "RefactorVariantClean", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L17-rf_variant-004",
+            "title": "Refactor fork with ST-02 statement swap",
+            "description": "Refactor variant using statement swapping as the path.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["identifiers", "controlflow"],
+            "rng_seed": 170304,
+            "notes": "L17: Refactor fork + ST-02 swap.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["identifier_canonicalization", "ast_canonicalization", "commutative_reordering"],
+            "carriers": [
+                {"file": "RefactorVariantA.php", "namespace": "Acme\\Refactor\\Alpha", "class": "RefactorVariantA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "RefactorVariantB.php", "namespace": "Acme\\Refactor\\Beta", "class": "RefactorVariantB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-02"}]}
+            ],
+            "distractors": [
+                {"file": "RefactorVariantDistractor.php", "namespace": "Acme\\Refactor\\Distract", "class": "RefactorVariantDistractor", "source": "nearmiss_access", "reason": "Near-miss: similar auth"}
+            ],
+            "cleans": [
+                {"file": "RefactorVariantClean.php", "namespace": "Acme\\Refactor\\Config", "class": "RefactorVariantClean", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L17-rf_variant-005",
+            "title": "Maximum refactor variant complexity",
+            "description": "Refactor fork with all literal transforms for maximum path divergence.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["identifiers", "literals"],
+            "rng_seed": 170305,
+            "notes": "L17: Maximum refactor fork complexity.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.55, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["identifier_canonicalization", "literal_abstraction"],
+            "carriers": [
+                {"file": "RefactorVariantA.php", "namespace": "Acme\\Refactor\\Alpha", "class": "RefactorVariantA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "RefactorVariantB.php", "namespace": "Acme\\Refactor\\Beta", "class": "RefactorVariantB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-05"}, {"code": "LT-01"}, {"code": "LT-02"}, {"code": "LT-03"}, {"code": "LT-04"}]}
+            ],
+            "distractors": [
+                {"file": "RefactorVariantDistractor.php", "namespace": "Acme\\Refactor\\Distract", "class": "RefactorVariantDistractor", "source": "nearmiss_invoice", "reason": "Near-miss: similar invoice"}
+            ],
+            "cleans": [
+                {"file": "RefactorVariantClean.php", "namespace": "Acme\\Refactor\\Config", "class": "RefactorVariantClean", "source": "clean_billing"}
+            ]
+        }
+    ]
+}

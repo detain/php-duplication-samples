@@ -1,0 +1,106 @@
+{
+    "schema_version": 1,
+    "set_id": "L20-ks_all-002",
+    "level": 20,
+    "level_name": "kitchen_sink",
+    "family": "ks_all",
+    "title": "Kitchen sink with all literal transforms",
+    "description": "All literal type transformations combined.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "access_guard",
+    "difficulty_band": "medium",
+    "files": [
+        {
+            "path": "src/KitchenSinkA.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 33
+        },
+        {
+            "path": "src/KitchenSinkB.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 38
+        },
+        {
+            "path": "src/KitchenSinkDistractor.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 29
+        },
+        {
+            "path": "src/KitchenSinkClean.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 27
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-2",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 2
+    },
+    "interference": [
+        {
+            "code": "LT-01",
+            "name": "numeric",
+            "params": {},
+            "applied_to": [
+                "src/KitchenSinkB.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "LT-02",
+            "name": "string",
+            "params": {},
+            "applied_to": [
+                "src/KitchenSinkB.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "LT-03",
+            "name": "array_values",
+            "params": {},
+            "applied_to": [
+                "src/KitchenSinkB.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "LT-04",
+            "name": "const_vs_literal",
+            "params": {},
+            "applied_to": [
+                "src/KitchenSinkB.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "RN-05",
+            "name": "case_convention",
+            "params": {},
+            "applied_to": [
+                "src/KitchenSinkB.php"
+            ],
+            "intensity": 2
+        }
+    ],
+    "difficulty": {
+        "score": 31,
+        "requires": [
+            "literal_abstraction",
+            "identifier_canonicalization"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L20_kitchen_sink/ks_all.json",
+        "version": "1.0.0",
+        "rng_seed": 200102
+    }
+}

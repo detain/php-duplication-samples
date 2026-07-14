@@ -1,0 +1,139 @@
+{
+    "level": 12,
+    "level_name": "mixed_scale",
+    "level_dir": "L12_mixed_scale",
+    "family": "mx_granularity_mix",
+    "sets": [
+        {
+            "set_id": "L12-mx_granularity_mix-001",
+            "title": "Expression-level and method-level clones mixed",
+            "description": "Tests granularity_mix: expression-level clone alongside method-level clone in same set.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["identifiers", "literals"],
+            "rng_seed": 120201,
+            "notes": "L12: Granularity mix - expression and method level.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.7, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["identifier_canonicalization", "literal_abstraction"],
+            "carriers": [
+                {"file": "GranularityMixA.php", "namespace": "Acme\\Granularity\\Alpha", "class": "GranularityMixA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "GranularityMixB.php", "namespace": "Acme\\Granularity\\Beta", "class": "GranularityMixB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-02"}]}
+            ],
+            "distractors": [
+                {"file": "GranularityMixDistractor.php", "namespace": "Acme\\Granularity\\Distract", "class": "GranularityMixDistractor", "source": "nearmiss_invoice", "reason": "Near-miss: similar invoice vocabulary"}
+            ],
+            "cleans": [
+                {"file": "GranularityMixClean.php", "namespace": "Acme\\Granularity\\Config", "class": "GranularityMixClean", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L12-mx_granularity_mix-002",
+            "title": "Granularity mix with ST-09 expr tweak",
+            "description": "Expression-level tweak combined with method-level transforms.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["identifiers"],
+            "rng_seed": 120202,
+            "notes": "L12: Granularity mix + ST-09 expression tweak.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.65, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["identifier_canonicalization", "ast_canonicalization"],
+            "carriers": [
+                {"file": "GranularityMixA.php", "namespace": "Acme\\Granularity\\Alpha", "class": "GranularityMixA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "GranularityMixB.php", "namespace": "Acme\\Granularity\\Beta", "class": "GranularityMixB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-09"}]}
+            ],
+            "distractors": [
+                {"file": "GranularityMixDistractor.php", "namespace": "Acme\\Granularity\\Distract", "class": "GranularityMixDistractor", "source": "nearmiss_access", "reason": "Near-miss: similar auth vocabulary"}
+            ],
+            "cleans": [
+                {"file": "GranularityMixClean.php", "namespace": "Acme\\Granularity\\Config", "class": "GranularityMixClean", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L12-mx_granularity_mix-003",
+            "title": "Granularity mix with multiple transforms",
+            "description": "Three carriers showing granularity variation with multiple transforms.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["identifiers", "literals", "comments"],
+            "rng_seed": 120203,
+            "notes": "L12: Granularity mix with three carriers.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 3},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["identifier_canonicalization", "literal_abstraction", "comment_stripping"],
+            "carriers": [
+                {"file": "GranularityMixA.php", "namespace": "Acme\\Granularity\\Alpha", "class": "GranularityMixA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "GranularityMixB.php", "namespace": "Acme\\Granularity\\Beta", "class": "GranularityMixB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-03"}]},
+                {"file": "GranularityMixC.php", "namespace": "Acme\\Granularity\\Gamma", "class": "GranularityMixC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "RN-05"}, {"code": "CM-03"}]}
+            ],
+            "distractors": [
+                {"file": "GranularityMixDistractor.php", "namespace": "Acme\\Granularity\\Distract", "class": "GranularityMixDistractor", "source": "nearmiss_invoice", "reason": "Near-miss: similar invoice"}
+            ],
+            "cleans": [
+                {"file": "GranularityMixClean.php", "namespace": "Acme\\Granularity\\Config", "class": "GranularityMixClean", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L12-mx_granularity_mix-004",
+            "title": "Granularity mix with ST-02 dead code insertion",
+            "description": "Dead code insertion at expression level within method clone.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["identifiers"],
+            "rng_seed": 120204,
+            "notes": "L12: Granularity mix + ST-02 dead code.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["identifier_canonicalization", "ast_canonicalization", "deadcode_elimination"],
+            "carriers": [
+                {"file": "GranularityMixA.php", "namespace": "Acme\\Granularity\\Alpha", "class": "GranularityMixA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "GranularityMixB.php", "namespace": "Acme\\Granularity\\Beta", "class": "GranularityMixB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-02"}]}
+            ],
+            "distractors": [
+                {"file": "GranularityMixDistractor.php", "namespace": "Acme\\Granularity\\Distract", "class": "GranularityMixDistractor", "source": "nearmiss_access", "reason": "Near-miss: similar auth vocabulary"}
+            ],
+            "cleans": [
+                {"file": "GranularityMixClean.php", "namespace": "Acme\\Granularity\\Config", "class": "GranularityMixClean", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L12-mx_granularity_mix-005",
+            "title": "Granularity mix with LT-04 const vs literal",
+            "description": "Constant indirection combined with granularity variation.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["literals"],
+            "rng_seed": 120205,
+            "notes": "L12: Granularity mix + LT-04 const indirection.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["literal_abstraction"],
+            "carriers": [
+                {"file": "GranularityMixA.php", "namespace": "Acme\\Granularity\\Alpha", "class": "GranularityMixA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "GranularityMixB.php", "namespace": "Acme\\Granularity\\Beta", "class": "GranularityMixB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-04"}]}
+            ],
+            "distractors": [
+                {"file": "GranularityMixDistractor.php", "namespace": "Acme\\Granularity\\Distract", "class": "GranularityMixDistractor", "source": "nearmiss_invoice", "reason": "Near-miss: similar invoice"}
+            ],
+            "cleans": [
+                {"file": "GranularityMixClean.php", "namespace": "Acme\\Granularity\\Config", "class": "GranularityMixClean", "source": "clean_billing"}
+            ]
+        }
+    ]
+}

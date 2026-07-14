@@ -58,7 +58,8 @@
             },
             "applied_to": [
                 "src/BlankInsideCalc.php"
-            ]
+            ],
+            "intensity": 1
         },
         {
             "code": "WS-06",
@@ -68,7 +69,8 @@
             },
             "applied_to": [
                 "src/LineWrapCalc.php"
-            ]
+            ],
+            "intensity": 2
         }
     ],
     "difficulty": {

@@ -1,0 +1,206 @@
+{
+    "schema_version": 2,
+    "set_id": "L06-co_compound-002",
+    "level": 6,
+    "level_name": "combinatorial",
+    "family": "co_compound",
+    "title": "Compound interference: WS+RN interference",
+    "description": "Same computeTotals method. Tests pairwise compound interference: whitespace and rename groups interfering together.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "invoice_totals",
+    "difficulty_band": "expert",
+    "files": [
+        {
+            "path": "src/WsRnCompound.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 39,
+            "region_sloc": {
+                "sloc": 25,
+                "duplicate": 24,
+                "unique": 1,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/WsRnHeavy.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 44,
+            "region_sloc": {
+                "sloc": 25,
+                "duplicate": 23,
+                "unique": 2,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/MaxWsRn.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 44,
+            "region_sloc": {
+                "sloc": 26,
+                "duplicate": 24,
+                "unique": 2,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/MarginSummarizer.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 30
+        },
+        {
+            "path": "src/TaxRateRepository.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-2",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "RN-05",
+            "name": "case_convention",
+            "params": {
+                "direction": "camel_to_snake"
+            },
+            "applied_to": [
+                "src/WsRnCompound.php",
+                "src/MaxWsRn.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "WS-01",
+            "name": "blank_before",
+            "params": {
+                "blank_lines": 1
+            },
+            "applied_to": [
+                "src/WsRnCompound.php",
+                "src/MaxWsRn.php"
+            ],
+            "intensity": 1
+        },
+        {
+            "code": "RN-05",
+            "name": "case_convention",
+            "params": {
+                "direction": "snake_to_camel"
+            },
+            "applied_to": [
+                "src/WsRnHeavy.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "LT-01",
+            "name": "numeric",
+            "params": {
+                "format": "hex"
+            },
+            "applied_to": [
+                "src/WsRnHeavy.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "WS-01",
+            "name": "blank_before",
+            "params": {
+                "blank_lines": 2
+            },
+            "applied_to": [
+                "src/WsRnHeavy.php"
+            ],
+            "intensity": 1
+        },
+        {
+            "code": "ST-01",
+            "name": "insert_logging",
+            "params": {
+                "lines": 1
+            },
+            "applied_to": [
+                "src/MaxWsRn.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "LT-02",
+            "name": "string",
+            "params": {
+                "style": "double_quotes"
+            },
+            "applied_to": [
+                "src/MaxWsRn.php"
+            ],
+            "intensity": 2
+        }
+    ],
+    "difficulty": {
+        "score": 89,
+        "requires": [
+            "identifier_canonicalization",
+            "whitespace_normalization",
+            "literal_abstraction",
+            "ast_canonicalization"
+        ],
+        "score_raw": 89,
+        "axes": {
+            "breadth": 5,
+            "intensity": 1.86,
+            "intensity_max": 3,
+            "semantic_depth": 0,
+            "partiality": 1
+        },
+        "application_count": 9,
+        "axis_count": 5
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L06_combinatorial/co_compound.json",
+        "version": "2.0.0",
+        "rng_seed": 1615002
+    },
+    "interference_profile": {
+        "axis_count": 5,
+        "per_carrier_axes": {
+            "src/WsRnCompound.php": [
+                "RN-05",
+                "WS-01"
+            ],
+            "src/WsRnHeavy.php": [
+                "RN-05",
+                "LT-01",
+                "WS-01"
+            ],
+            "src/MaxWsRn.php": [
+                "ST-01",
+                "RN-05",
+                "LT-02",
+                "WS-01"
+            ]
+        },
+        "groups_touched": [
+            "A"
+        ],
+        "stack_depth_max": 4,
+        "symmetric_overlap": 2,
+        "pairwise_overlap": 0.5222,
+        "combination_design": "type2_plus_type1"
+    },
+    "engine_features": [
+        "fragment_emission"
+    ]
+}

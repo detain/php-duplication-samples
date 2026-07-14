@@ -1,0 +1,56 @@
+{
+    "schema_version": 1,
+    "set_id": "L05-se_csv_import-004",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-4",
+            "granularity": "method",
+            "normalized_by": [
+                "controlflow",
+                "identifiers",
+                "literals"
+            ],
+            "token_hash": "acced26c1a39ba09",
+            "normalized_hash": "fe957df011c87e91",
+            "members": [
+                {
+                    "file": "src/BasicParser.php",
+                    "start_line": 9,
+                    "end_line": 78,
+                    "symbol": "parseRow",
+                    "pristine": true
+                },
+                {
+                    "file": "src/CommentedParser.php",
+                    "start_line": 18,
+                    "end_line": 90,
+                    "symbol": "parseRow",
+                    "pristine": false
+                },
+                {
+                    "file": "src/SpacedParser.php",
+                    "start_line": 24,
+                    "end_line": 95,
+                    "symbol": "parseRow",
+                    "pristine": false
+                }
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": false,
+                "ast_based": false,
+                "metric_based": false,
+                "semantic": true
+            },
+            "notes": "Set 004 of 5. Uses CM-02, WS-02 for textual diversity."
+        }
+    ],
+    "non_duplicates": [],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.6,
+        "min_members_for_credit": 2
+    }
+}

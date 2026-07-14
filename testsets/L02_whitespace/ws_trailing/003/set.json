@@ -1,5 +1,5 @@
 {
-    "schema_version": 1,
+    "schema_version": 2,
     "set_id": "L02-ws_trailing-003",
     "level": 2,
     "level_name": "whitespace_variation",
@@ -15,19 +15,37 @@
             "path": "src/LedgerPostingService.php",
             "role": "carrier",
             "duplicate_group": "A",
-            "sloc": 39
+            "sloc": 39,
+            "region_sloc": {
+                "sloc": 25,
+                "duplicate": 25,
+                "unique": 0,
+                "filler": 0
+            }
         },
         {
             "path": "src/PriceBookService.php",
             "role": "carrier",
             "duplicate_group": "A",
-            "sloc": 44
+            "sloc": 44,
+            "region_sloc": {
+                "sloc": 25,
+                "duplicate": 25,
+                "unique": 0,
+                "filler": 0
+            }
         },
         {
             "path": "src/SettlementService.php",
             "role": "carrier",
             "duplicate_group": "A",
-            "sloc": 43
+            "sloc": 43,
+            "region_sloc": {
+                "sloc": 25,
+                "duplicate": 25,
+                "unique": 0,
+                "filler": 0
+            }
         },
         {
             "path": "src/MarginReporter.php",
@@ -58,7 +76,8 @@
             },
             "applied_to": [
                 "src/PriceBookService.php"
-            ]
+            ],
+            "intensity": 1
         },
         {
             "code": "WS-09",
@@ -68,19 +87,48 @@
             },
             "applied_to": [
                 "src/SettlementService.php"
-            ]
+            ],
+            "intensity": 1
         }
     ],
     "difficulty": {
         "score": 12,
         "requires": [
             "whitespace_normalization"
-        ]
+        ],
+        "score_raw": 12,
+        "axes": {
+            "breadth": 1,
+            "intensity": 1,
+            "intensity_max": 1,
+            "semantic_depth": 0,
+            "partiality": 1
+        },
+        "application_count": 2,
+        "axis_count": 1
     },
     "generator": {
         "tool": "gen/build.php",
         "recipe": "gen/recipes/L02_whitespace/ws_trailing.json",
-        "version": "1.0.0",
+        "version": "2.0.0",
         "rng_seed": 102163
+    },
+    "interference_profile": {
+        "axis_count": 1,
+        "per_carrier_axes": {
+            "src/PriceBookService.php": [
+                "WS-09"
+            ],
+            "src/SettlementService.php": [
+                "WS-09"
+            ]
+        },
+        "groups_touched": [
+            "A"
+        ],
+        "stack_depth_max": 1,
+        "symmetric_overlap": 1,
+        "pairwise_overlap": 1,
+        "combination_design": "textual_only"
     }
 }

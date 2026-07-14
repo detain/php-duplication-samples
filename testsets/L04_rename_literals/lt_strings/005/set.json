@@ -33,7 +33,7 @@
             "path": "src/RowWidthProfiler.php",
             "role": "distractor",
             "duplicate_group": null,
-            "sloc": 28
+            "sloc": 63
         },
         {
             "path": "src/HeaderSchemaDetector.php",
@@ -63,7 +63,8 @@
             },
             "applied_to": [
                 "src/ModifiedRowReader.php"
-            ]
+            ],
+            "intensity": 2
         },
         {
             "code": "LT-02",
@@ -82,7 +83,8 @@
             },
             "applied_to": [
                 "src/FullyModifiedRowReader.php"
-            ]
+            ],
+            "intensity": 2
         }
     ],
     "difficulty": {

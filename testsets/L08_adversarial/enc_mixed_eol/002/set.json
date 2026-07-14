@@ -1,0 +1,76 @@
+{
+    "schema_version": 1,
+    "set_id": "L08-enc_mixed_eol-002",
+    "level": 8,
+    "level_name": "adversarial",
+    "family": "enc_mixed_eol",
+    "title": "Mixed EOL: Alternating CRLF/LF every 3 lines",
+    "description": "Every 3rd line uses CRLF while others use LF. Tests line-based detectors.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "csv_processor",
+    "difficulty_band": "expert",
+    "files": [
+        {
+            "path": "src/RowProcessorA.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 71
+        },
+        {
+            "path": "src/RowProcessorB.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 76
+        },
+        {
+            "path": "src/RowProcessorC.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 75
+        },
+        {
+            "path": "src/Filter.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 15
+        },
+        {
+            "path": "src/Mapper.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 15
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-1",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "ENC-04",
+            "name": "mixed_eol",
+            "params": {},
+            "applied_to": [
+                "src/RowProcessorB.php",
+                "src/RowProcessorC.php"
+            ],
+            "intensity": 2
+        }
+    ],
+    "difficulty": {
+        "score": 89,
+        "requires": [
+            "whitespace_normalization"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L08_adversarial/enc_mixed_eol.json",
+        "version": "1.0.0",
+        "rng_seed": 80102
+    }
+}

@@ -1,0 +1,71 @@
+{
+    "schema_version": 2,
+    "set_id": "L05-rf_class_hierarchy-002",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-2",
+            "granularity": "method",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers"
+            ],
+            "token_hash": "27ce1d1bf4270020",
+            "normalized_hash": "27ce1d1bf4270020",
+            "members": [
+                {
+                    "file": "src/EmailNotifier.php",
+                    "start_line": 9,
+                    "end_line": 67,
+                    "symbol": "send",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "notification_service"
+                },
+                {
+                    "file": "src/SmsNotifier.php",
+                    "start_line": 18,
+                    "end_line": 76,
+                    "symbol": "send",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "notification_service"
+                },
+                {
+                    "file": "src/PushNotifier.php",
+                    "start_line": 24,
+                    "end_line": 82,
+                    "symbol": "send",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "notification_service"
+                }
+            ],
+            "detection_expectation": {
+                "text_based": true,
+                "token_based": true,
+                "ast_based": true
+            },
+            "notes": ""
+        }
+    ],
+    "non_duplicates": [],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.6,
+        "min_members_for_credit": 2
+    },
+    "intended_refactoring": {
+        "kind": "extract_trait",
+        "unified_symbol": "send",
+        "unified_signature": "send(): bool",
+        "collapses": [
+            0,
+            1,
+            2
+        ],
+        "advisability": "recommended"
+    }
+}

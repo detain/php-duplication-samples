@@ -1,0 +1,78 @@
+{
+    "schema_version": 1,
+    "set_id": "L11-rn_scope_nesting-002",
+    "level": 11,
+    "level_name": "deep_rename_stacks",
+    "family": "rn_scope_nesting",
+    "title": "Class + method scope rename stack",
+    "description": "Rename applied at both class and method scope levels in same carrier.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "invoice_totals",
+    "difficulty_band": "easy",
+    "files": [
+        {
+            "path": "src/ScopeNestA.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 39
+        },
+        {
+            "path": "src/ScopeNestB.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 44
+        },
+        {
+            "path": "src/ScopeNestDistractor.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 30
+        },
+        {
+            "path": "src/ScopeNestClean.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-2",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 2
+    },
+    "interference": [
+        {
+            "code": "RN-05",
+            "name": "case_convention",
+            "params": {},
+            "applied_to": [
+                "src/ScopeNestB.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "LT-01",
+            "name": "numeric",
+            "params": {},
+            "applied_to": [
+                "src/ScopeNestB.php"
+            ],
+            "intensity": 2
+        }
+    ],
+    "difficulty": {
+        "score": 12,
+        "requires": [
+            "identifier_canonicalization"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L11_deep_rename_stacks/rn_scope_nesting.json",
+        "version": "1.0.0",
+        "rng_seed": 110302
+    }
+}

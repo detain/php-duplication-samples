@@ -1,0 +1,99 @@
+{
+    "schema_version": 2,
+    "set_id": "L05-rf_anti_refactor_controls-005",
+    "level": 5,
+    "level_name": "refactorability",
+    "family": "rf_anti_refactor_controls",
+    "title": "HTTP client methods with different idempotency guarantees that CANNOT be unified",
+    "description": "Three HTTP client methods that LOOK similar (all use curl) but have fundamentally different idempotency guarantees and semantic contracts: GET is idempotent (read-only), POST is NOT idempotent (creates resource), and the request method conditionally sets CURLOPT_POSTFIELDS based on body presence. Unifying would create an HTTP client with AMBIGUOUS idempotency — the most dangerous anti-pattern in API design.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "http_client",
+    "difficulty_band": "hard",
+    "files": [
+        {
+            "path": "src/HttpGetClient.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 61,
+            "region_sloc": {
+                "sloc": 47,
+                "duplicate": 47,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/HttpPostClient.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 66,
+            "region_sloc": {
+                "sloc": 47,
+                "duplicate": 47,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/HttpFlexibleClient.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 65,
+            "region_sloc": {
+                "sloc": 47,
+                "duplicate": 47,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/HttpLogger.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 53
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-1",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [],
+    "difficulty": {
+        "score": 45,
+        "requires": [],
+        "score_raw": 45,
+        "axes": {
+            "breadth": 0,
+            "intensity": 0,
+            "intensity_max": 0,
+            "semantic_depth": 0,
+            "partiality": 1
+        },
+        "application_count": 0,
+        "axis_count": 0
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L05_refactorability/rf_anti_refactor_controls.json",
+        "version": "2.0.0",
+        "rng_seed": 508105
+    },
+    "interference_profile": {
+        "axis_count": 0,
+        "per_carrier_axes": [],
+        "groups_touched": [
+            "A"
+        ],
+        "stack_depth_max": 0,
+        "symmetric_overlap": 0,
+        "pairwise_overlap": 0,
+        "combination_design": "minimal"
+    },
+    "engine_features": [
+        "intended_refactoring"
+    ]
+}

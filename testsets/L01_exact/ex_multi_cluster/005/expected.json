@@ -3,7 +3,7 @@
     "set_id": "L01-ex_multi_cluster-005",
     "clusters": [
         {
-            "id": "c1",
+            "id": "A",
             "group_id": "A",
             "clone_type": "type-1",
             "granularity": "function",
@@ -34,7 +34,29 @@
                     "end_line": 42,
                     "symbol": "computeTotals",
                     "pristine": true
-                },
+                }
+            ],
+            "detection_expectation": {
+                "text_based": true,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": true,
+                "semantic": true
+            },
+            "notes": "Two clusters: invoice_totals and access_guard variant. 3 carriers each."
+        },
+        {
+            "id": "B",
+            "group_id": "B",
+            "clone_type": "type-1",
+            "granularity": "function",
+            "normalized_by": [
+                "whitespace",
+                "comments"
+            ],
+            "token_hash": "6078001114eb0c6d",
+            "normalized_hash": "cddfeac031011166",
+            "members": [
                 {
                     "file": "src/GrantServA.php",
                     "start_line": 9,

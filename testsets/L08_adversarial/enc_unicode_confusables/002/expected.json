@@ -1,0 +1,56 @@
+{
+    "schema_version": 1,
+    "set_id": "L08-enc_unicode_confusables-002",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-2",
+            "granularity": "method",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers"
+            ],
+            "token_hash": "deb8024b5dcb8e0b",
+            "normalized_hash": "5483a6ec3fe3e23b",
+            "members": [
+                {
+                    "file": "src/LimitCheckerA.php",
+                    "start_line": 9,
+                    "end_line": 50,
+                    "symbol": "checkLimit",
+                    "pristine": true
+                },
+                {
+                    "file": "src/LimitCheckerB.php",
+                    "start_line": 18,
+                    "end_line": 59,
+                    "symbol": "checkLimit",
+                    "pristine": false
+                },
+                {
+                    "file": "src/LimitCheckerC.php",
+                    "start_line": 24,
+                    "end_line": 65,
+                    "symbol": "checkLimit",
+                    "pristine": false
+                }
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": false,
+                "semantic": false
+            },
+            "notes": ""
+        }
+    ],
+    "non_duplicates": [],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.7,
+        "min_members_for_credit": 2
+    }
+}

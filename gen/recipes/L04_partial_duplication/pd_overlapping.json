@@ -1,0 +1,172 @@
+{
+    "level": 4,
+    "level_name": "partial_duplication",
+    "level_dir": "L04_partial_duplication",
+    "family": "pd_overlapping",
+    "sets": [
+        {
+            "set_id": "L04-pd_overlapping-001",
+            "title": "Overlapping partial clone regions",
+            "description": "Two clone clusters where the clone regions in one carrier overlap with the other cluster, creating complex partial duplication patterns.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "schema_version": 2,
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "rng_seed": 105101,
+            "notes": "Multi-cluster with overlapping regions using cross-seed.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "difficulty": {"complexity": 6, "partiality": "high"},
+            "carriers": [
+                {"file": "InvoiceA.php", "namespace": "Acme\\Billing\\Alpha", "class": "InvoiceA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": [], "cluster": "A"},
+                {"file": "InvoiceB.php", "namespace": "Acme\\Billing\\Alpha", "class": "InvoiceB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 2, "tail_trim": 0}}], "cluster": "A"},
+                {"file": "InvoiceC.php", "namespace": "Acme\\Billing\\Alpha", "class": "InvoiceC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 0, "tail_trim": 2}}], "cluster": "A"},
+                {"file": "AuthA.php", "namespace": "Acme\\Security\\Alpha", "class": "AuthA", "scaffold": "method_alpha", "group": "B", "pristine": true, "transforms": [], "seed": "access_guard", "cluster": "B"},
+                {"file": "AuthB.php", "namespace": "Acme\\Security\\Alpha", "class": "AuthB", "scaffold": "method_beta", "group": "B", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 2, "tail_trim": 0}}], "seed": "access_guard", "cluster": "B"},
+                {"file": "AuthC.php", "namespace": "Acme\\Security\\Alpha", "class": "AuthC", "scaffold": "method_gamma", "group": "B", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 0, "tail_trim": 2}}], "seed": "access_guard", "cluster": "B"}
+            ],
+            "distractors": [
+                {"file": "InvDist.php", "namespace": "Acme\\Billing\\Reports", "class": "InvDist", "source": "nearmiss_invoice", "reason": "near-miss"},
+                {"file": "AuthDist.php", "namespace": "Acme\\Security\\Audit", "class": "AuthDist", "source": "nearmiss_access", "reason": "near-miss"}
+            ],
+            "cleans": [
+                {"file": "CleanInv.php", "namespace": "Acme\\Billing\\Config", "class": "CleanInv", "source": "clean_billing"},
+                {"file": "CleanAuth.php", "namespace": "Acme\\Security\\Config", "class": "CleanAuth", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L04-pd_overlapping-002",
+            "title": "Three overlapping partial clusters",
+            "description": "Three clusters with different seeds where regions can overlap in interesting ways.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "schema_version": 2,
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "rng_seed": 105102,
+            "role_composition": {"carrier": 9, "distractor": 3, "clean": 3},
+            "notes": "Three clusters with overlap potential.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "difficulty": {"complexity": 7, "partiality": "high"},
+            "carriers": [
+                {"file": "InvA.php", "namespace": "Acme\\Inv\\Alpha", "class": "InvA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": [], "cluster": "A"},
+                {"file": "InvB.php", "namespace": "Acme\\Inv\\Alpha", "class": "InvB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 3, "tail_trim": 0}}], "cluster": "A"},
+                {"file": "InvC.php", "namespace": "Acme\\Inv\\Alpha", "class": "InvC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 0, "tail_trim": 3}}], "cluster": "A"},
+                {"file": "AuthA.php", "namespace": "Acme\\Auth\\Alpha", "class": "AuthA", "scaffold": "method_alpha", "group": "B", "pristine": true, "transforms": [], "seed": "access_guard", "cluster": "B"},
+                {"file": "AuthB.php", "namespace": "Acme\\Auth\\Alpha", "class": "AuthB", "scaffold": "method_beta", "group": "B", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 2, "tail_trim": 2}}], "seed": "access_guard", "cluster": "B"},
+                {"file": "AuthC.php", "namespace": "Acme\\Auth\\Alpha", "class": "AuthC", "scaffold": "method_gamma", "group": "B", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 3, "tail_trim": 1}}], "seed": "access_guard", "cluster": "B"},
+                {"file": "CsvA.php", "namespace": "Acme\\Csv\\Alpha", "class": "CsvA", "scaffold": "method_alpha", "group": "C", "pristine": true, "transforms": [], "seed": "csv_import", "cluster": "C"},
+                {"file": "CsvB.php", "namespace": "Acme\\Csv\\Alpha", "class": "CsvB", "scaffold": "method_beta", "group": "C", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 2, "tail_trim": 0}}], "seed": "csv_import", "cluster": "C"},
+                {"file": "CsvC.php", "namespace": "Acme\\Csv\\Alpha", "class": "CsvC", "scaffold": "method_gamma", "group": "C", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 0, "tail_trim": 2}}], "seed": "csv_import", "cluster": "C"}
+            ],
+            "distractors": [
+                {"file": "Dist1.php", "namespace": "Acme\\Inv\\Reports", "class": "Dist1", "source": "nearmiss_invoice", "reason": "near-miss"},
+                {"file": "Dist2.php", "namespace": "Acme\\Auth\\Audit", "class": "Dist2", "source": "nearmiss_access", "reason": "near-miss"},
+                {"file": "Dist3.php", "namespace": "Acme\\Csv\\Transform", "class": "Dist3", "source": "nearmiss_csv", "reason": "near-miss"}
+            ],
+            "cleans": [
+                {"file": "Clean1.php", "namespace": "Acme\\Inv\\Config", "class": "Clean1", "source": "clean_billing"},
+                {"file": "Clean2.php", "namespace": "Acme\\Auth\\Config", "class": "Clean2", "source": "clean_auth"},
+                {"file": "Clean3.php", "namespace": "Acme\\Csv\\Config", "class": "Clean3", "source": "clean_parsing"}
+            ]
+        },
+        {
+            "set_id": "L04-pd_overlapping-003",
+            "title": "Overlapping with scattered insertions in overlapping regions",
+            "description": "Creates complex overlapping patterns with scattered unique insertions.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "schema_version": 2,
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "rng_seed": 105103,
+            "notes": "Overlapping clusters with scattered ST-01/ST-02 insertions.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "difficulty": {"complexity": 6, "partiality": "high"},
+            "carriers": [
+                {"file": "CloneA1.php", "namespace": "Acme\\Alpha\\Overlap", "class": "CloneA1", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": [], "cluster": "A"},
+                {"file": "CloneA2.php", "namespace": "Acme\\Alpha\\Overlap", "class": "CloneA2", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-01", "params": {"after": [5], "message": "log1", "call": "error_log"}}, {"code": "ST-02", "params": {"count": 1, "after": [10]}}], "cluster": "A"},
+                {"file": "CloneB1.php", "namespace": "Acme\\Beta\\Overlap", "class": "CloneB1", "scaffold": "method_alpha", "group": "B", "pristine": true, "transforms": [], "cluster": "B"},
+                {"file": "CloneB2.php", "namespace": "Acme\\Beta\\Overlap", "class": "CloneB2", "scaffold": "method_beta", "group": "B", "pristine": false, "transforms": [{"code": "ST-01", "params": {"after": [3], "message": "log2", "call": "error_log"}}, {"code": "ST-07", "params": {"head_trim": 2, "tail_trim": 0}}], "cluster": "B"}
+            ],
+            "distractors": [
+                {"file": "Dist1.php", "namespace": "Acme\\Alpha\\Reports", "class": "Dist1", "source": "nearmiss_invoice", "reason": "near-miss"},
+                {"file": "Dist2.php", "namespace": "Acme\\Beta\\Reports", "class": "Dist2", "source": "nearmiss_invoice", "reason": "near-miss"}
+            ],
+            "cleans": [
+                {"file": "Clean1.php", "namespace": "Acme\\Alpha\\Config", "class": "Clean1", "source": "clean_billing"},
+                {"file": "Clean2.php", "namespace": "Acme\\Beta\\Config", "class": "Clean2", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L04-pd_overlapping-004",
+            "title": "Overlapping clusters with shared subset members",
+            "description": "One carrier participates in both clusters creating subset overlap.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "schema_version": 2,
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "rng_seed": 105104,
+            "notes": "Complex overlapping with subset relationships.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "difficulty": {"complexity": 6, "partiality": "high"},
+            "carriers": [
+                {"file": "Shared1.php", "namespace": "Acme\\Shared\\Cluster", "class": "Shared1", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": [], "cluster": "A"},
+                {"file": "Shared2.php", "namespace": "Acme\\Shared\\Cluster", "class": "Shared2", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 2, "tail_trim": 0}}], "cluster": "A"},
+                {"file": "AOnly.php", "namespace": "Acme\\A\\Only", "class": "AOnly", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 3, "tail_trim": 0}}], "cluster": "A"},
+                {"file": "Shared1b.php", "namespace": "Acme\\Shared\\Cluster", "class": "Shared1b", "scaffold": "method_alpha", "group": "B", "pristine": true, "transforms": [], "cluster": "B"},
+                {"file": "BOnly1.php", "namespace": "Acme\\B\\Only", "class": "BOnly1", "scaffold": "method_beta", "group": "B", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 0, "tail_trim": 2}}], "cluster": "B"},
+                {"file": "BOnly2.php", "namespace": "Acme\\B\\Only", "class": "BOnly2", "scaffold": "method_gamma", "group": "B", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 0, "tail_trim": 3}}], "cluster": "B"}
+            ],
+            "distractors": [
+                {"file": "Dist1.php", "namespace": "Acme\\Shared\\Reports", "class": "Dist1", "source": "nearmiss_invoice", "reason": "near-miss"},
+                {"file": "Dist2.php", "namespace": "Acme\\A\\Reports", "class": "Dist2", "source": "nearmiss_invoice", "reason": "near-miss"}
+            ],
+            "cleans": [
+                {"file": "Clean1.php", "namespace": "Acme\\Shared\\Config", "class": "Clean1", "source": "clean_billing"},
+                {"file": "Clean2.php", "namespace": "Acme\\A\\Config", "class": "Clean2", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L04-pd_overlapping-005",
+            "title": "Near-overlapping clusters with different seeds",
+            "description": "Clusters that are close to overlapping but use different seeds creating boundary cases.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "schema_version": 2,
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "rng_seed": 105105,
+            "notes": "Near-overlapping with different seeds at boundary.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "difficulty": {"complexity": 6, "partiality": "mixed"},
+            "carriers": [
+                {"file": "InvA.php", "namespace": "Acme\\Inv\\Boundary", "class": "InvA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": [], "cluster": "A"},
+                {"file": "InvB.php", "namespace": "Acme\\Inv\\Boundary", "class": "InvB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 4, "tail_trim": 4}}], "cluster": "A"},
+                {"file": "InvC.php", "namespace": "Acme\\Inv\\Boundary", "class": "InvC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 5, "tail_trim": 3}}], "cluster": "A"},
+                {"file": "CsvA.php", "namespace": "Acme\\Csv\\Boundary", "class": "CsvA", "scaffold": "method_alpha", "group": "B", "pristine": true, "transforms": [], "seed": "csv_import", "cluster": "B"},
+                {"file": "CsvB.php", "namespace": "Acme\\Csv\\Boundary", "class": "CsvB", "scaffold": "method_beta", "group": "B", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 2, "tail_trim": 2}}], "seed": "csv_import", "cluster": "B"},
+                {"file": "CsvC.php", "namespace": "Acme\\Csv\\Boundary", "class": "CsvC", "scaffold": "method_gamma", "group": "B", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 3, "tail_trim": 3}}], "seed": "csv_import", "cluster": "B"}
+            ],
+            "distractors": [
+                {"file": "DistInv.php", "namespace": "Acme\\Inv\\Reports", "class": "DistInv", "source": "nearmiss_invoice", "reason": "near-miss"},
+                {"file": "DistCsv.php", "namespace": "Acme\\Csv\\Reports", "class": "DistCsv", "source": "nearmiss_csv", "reason": "near-miss"}
+            ],
+            "cleans": [
+                {"file": "CleanInv.php", "namespace": "Acme\\Inv\\Config", "class": "CleanInv", "source": "clean_billing"},
+                {"file": "CleanCsv.php", "namespace": "Acme\\Csv\\Config", "class": "CleanCsv", "source": "clean_parsing"}
+            ]
+        }
+    ]
+}

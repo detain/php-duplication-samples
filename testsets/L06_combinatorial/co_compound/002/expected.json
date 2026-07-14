@@ -1,0 +1,111 @@
+{
+    "schema_version": 2,
+    "set_id": "L06-co_compound-002",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-2",
+            "granularity": "method",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers",
+                "case_convention"
+            ],
+            "token_hash": "e2c6d2de09404029",
+            "normalized_hash": "d5da572207f4bce3",
+            "members": [
+                {
+                    "file": "src/WsRnCompound.php",
+                    "start_line": 9,
+                    "end_line": 34,
+                    "symbol": "computeTotals",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "invoice_totals",
+                    "fragments": [
+                        {
+                            "start_line": 18,
+                            "end_line": 42
+                        }
+                    ],
+                    "unique_segments": [
+                        {
+                            "start_line": 17,
+                            "end_line": 17
+                        }
+                    ]
+                },
+                {
+                    "file": "src/WsRnHeavy.php",
+                    "start_line": 18,
+                    "end_line": 44,
+                    "symbol": "computeTotals",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "invoice_totals",
+                    "fragments": [
+                        {
+                            "start_line": 37,
+                            "end_line": 61
+                        }
+                    ],
+                    "unique_segments": [
+                        {
+                            "start_line": 35,
+                            "end_line": 36
+                        }
+                    ]
+                },
+                {
+                    "file": "src/MaxWsRn.php",
+                    "start_line": 24,
+                    "end_line": 50,
+                    "symbol": "computeTotals",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "invoice_totals",
+                    "fragments": [
+                        {
+                            "start_line": 48,
+                            "end_line": 50
+                        },
+                        {
+                            "start_line": 52,
+                            "end_line": 73
+                        }
+                    ],
+                    "unique_segments": [
+                        {
+                            "start_line": 47,
+                            "end_line": 51
+                        }
+                    ]
+                }
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": true,
+                "semantic": true
+            },
+            "notes": "Compound interference WS+RN: whitespace and rename transforms interfering together. Tests pairwise interference between these groups."
+        }
+    ],
+    "non_duplicates": [
+        {
+            "file": "src/MarginSummarizer.php",
+            "start_line": 12,
+            "end_line": 28,
+            "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total",
+            "trap": true
+        }
+    ],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.6,
+        "min_members_for_credit": 2
+    }
+}

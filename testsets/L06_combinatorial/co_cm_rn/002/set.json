@@ -1,0 +1,156 @@
+{
+    "schema_version": 2,
+    "set_id": "L06-co_cm_rn-002",
+    "level": 6,
+    "level_name": "combinatorial",
+    "family": "co_cm_rn",
+    "title": "Comment and rename interference (CM-03 + RN-01)",
+    "description": "Same computeTotals method. Carrier A applies CM-03 docblock; carrier B applies RN-01 local_vars; carrier C applies both. Tests docblock changes combined with variable renaming.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "invoice_totals",
+    "difficulty_band": "very_hard",
+    "files": [
+        {
+            "path": "src/DocblockedCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 42,
+            "region_sloc": {
+                "sloc": 25,
+                "duplicate": 22,
+                "unique": 3,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/LocalVarCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 44,
+            "region_sloc": {
+                "sloc": 25,
+                "duplicate": 25,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/BothCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 46,
+            "region_sloc": {
+                "sloc": 25,
+                "duplicate": 22,
+                "unique": 3,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/MarginSummarizer.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 30
+        },
+        {
+            "path": "src/TaxRateRepository.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-2",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "CM-03",
+            "name": "docblock",
+            "params": {
+                "style": "docblock"
+            },
+            "applied_to": [
+                "src/DocblockedCalc.php",
+                "src/BothCalc.php"
+            ],
+            "intensity": 1
+        },
+        {
+            "code": "RN-01",
+            "name": "local_vars",
+            "params": {
+                "style": "add_prefix",
+                "prefix": "tmp"
+            },
+            "applied_to": [
+                "src/LocalVarCalc.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "RN-01",
+            "name": "local_vars",
+            "params": {
+                "style": "add_suffix",
+                "suffix": "_val"
+            },
+            "applied_to": [
+                "src/BothCalc.php"
+            ],
+            "intensity": 2
+        }
+    ],
+    "difficulty": {
+        "score": 69,
+        "requires": [
+            "comment_stripping",
+            "identifier_canonicalization"
+        ],
+        "score_raw": 69,
+        "axes": {
+            "breadth": 2,
+            "intensity": 1.67,
+            "intensity_max": 2,
+            "semantic_depth": 0,
+            "partiality": 1
+        },
+        "application_count": 4,
+        "axis_count": 2
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L06_combinatorial/co_cm_rn.json",
+        "version": "2.0.0",
+        "rng_seed": 1603002
+    },
+    "interference_profile": {
+        "axis_count": 2,
+        "per_carrier_axes": {
+            "src/DocblockedCalc.php": [
+                "CM-03"
+            ],
+            "src/LocalVarCalc.php": [
+                "RN-01"
+            ],
+            "src/BothCalc.php": [
+                "RN-01",
+                "CM-03"
+            ]
+        },
+        "groups_touched": [
+            "A"
+        ],
+        "stack_depth_max": 2,
+        "symmetric_overlap": 0,
+        "pairwise_overlap": 0.3333,
+        "combination_design": "type2_plus_type1"
+    },
+    "engine_features": [
+        "fragment_emission"
+    ]
+}

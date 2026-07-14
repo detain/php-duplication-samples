@@ -1,0 +1,100 @@
+{
+    "schema_version": 2,
+    "set_id": "L06-co_variant_selector-003",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-3",
+            "granularity": "method",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers",
+                "case_convention",
+                "controlflow"
+            ],
+            "token_hash": "4a2dbd905287e75a",
+            "normalized_hash": "4a2dbd905287e75a",
+            "members": [
+                {
+                    "file": "src/MatchSwitchPolicy.php",
+                    "start_line": 9,
+                    "end_line": 27,
+                    "symbol": "authorize",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "access_guard"
+                },
+                {
+                    "file": "src/FullCfCalc.php",
+                    "start_line": 18,
+                    "end_line": 37,
+                    "symbol": "authorize",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "access_guard",
+                    "fragments": [
+                        {
+                            "start_line": 36,
+                            "end_line": 54
+                        }
+                    ],
+                    "unique_segments": [
+                        {
+                            "start_line": 35,
+                            "end_line": 35
+                        }
+                    ]
+                },
+                {
+                    "file": "src/MaxCfPolicy.php",
+                    "start_line": 24,
+                    "end_line": 45,
+                    "symbol": "authorize",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "access_guard",
+                    "fragments": [
+                        {
+                            "start_line": 49,
+                            "end_line": 53
+                        },
+                        {
+                            "start_line": 55,
+                            "end_line": 68
+                        }
+                    ],
+                    "unique_segments": [
+                        {
+                            "start_line": 47,
+                            "end_line": 54
+                        }
+                    ]
+                }
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": true,
+                "semantic": true
+            },
+            "notes": "Multiple selector-style transforms stacked: ST + WS-01 + LT + RN-05. Tests comprehensive normalization without CF/CM variants."
+        }
+    ],
+    "non_duplicates": [
+        {
+            "file": "src/TrustScorer.php",
+            "start_line": 12,
+            "end_line": 27,
+            "reason": "near-miss: same auth vocabulary but computes numeric trust score instead of boolean decision",
+            "trap": true
+        }
+    ],
+    "scoring": {
+        "line_tolerance": 3,
+        "member_jaccard_min": 0.5,
+        "min_members_for_credit": 2
+    }
+}

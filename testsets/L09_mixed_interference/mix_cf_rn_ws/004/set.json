@@ -58,7 +58,8 @@
             },
             "applied_to": [
                 "src/MatchGuardPolicy.php"
-            ]
+            ],
+            "intensity": 4
         },
         {
             "code": "RN-05",
@@ -68,7 +69,8 @@
             },
             "applied_to": [
                 "src/MatchGuardPolicy.php"
-            ]
+            ],
+            "intensity": 2
         },
         {
             "code": "CF-03",
@@ -78,7 +80,8 @@
             },
             "applied_to": [
                 "src/NestedGuardPolicy.php"
-            ]
+            ],
+            "intensity": 4
         },
         {
             "code": "RN-05",
@@ -88,7 +91,8 @@
             },
             "applied_to": [
                 "src/NestedGuardPolicy.php"
-            ]
+            ],
+            "intensity": 2
         },
         {
             "code": "WS-06",
@@ -98,7 +102,8 @@
             },
             "applied_to": [
                 "src/NestedGuardPolicy.php"
-            ]
+            ],
+            "intensity": 2
         }
     ],
     "difficulty": {

@@ -1,0 +1,55 @@
+{
+    "schema_version": 1,
+    "set_id": "L08-enc_mixed_eol-004",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-1",
+            "granularity": "method",
+            "normalized_by": [
+                "whitespace",
+                "comments"
+            ],
+            "token_hash": "36de6bc19f7f6542",
+            "normalized_hash": "102fe700a351e1d6",
+            "members": [
+                {
+                    "file": "src/ConfigLoaderA.php",
+                    "start_line": 9,
+                    "end_line": 75,
+                    "symbol": "loadConfig",
+                    "pristine": true
+                },
+                {
+                    "file": "src/ConfigLoaderB.php",
+                    "start_line": 18,
+                    "end_line": 85,
+                    "symbol": "loadConfig",
+                    "pristine": false
+                },
+                {
+                    "file": "src/ConfigLoaderC.php",
+                    "start_line": 24,
+                    "end_line": 91,
+                    "symbol": "loadConfig",
+                    "pristine": false
+                }
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": false,
+                "metric_based": false,
+                "semantic": false
+            },
+            "notes": ""
+        }
+    ],
+    "non_duplicates": [],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.8,
+        "min_members_for_credit": 2
+    }
+}

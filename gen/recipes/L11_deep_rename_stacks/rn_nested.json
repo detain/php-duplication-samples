@@ -1,0 +1,139 @@
+{
+    "level": 11,
+    "level_name": "deep_rename_stacks",
+    "level_dir": "L11_deep_rename_stacks",
+    "family": "rn_nested",
+    "sets": [
+        {
+            "set_id": "L11-rn_nested-001",
+            "title": "Nested rename at method and class scopes",
+            "description": "Tests RN-05 rename at multiple nested scopes - method params AND local vars renamed together.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["identifiers"],
+            "rng_seed": 110101,
+            "notes": "L11: Deep rename stacks - nested rename at multiple scopes.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.7, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["identifier_canonicalization"],
+            "carriers": [
+                {"file": "NestedRenameA.php", "namespace": "Acme\\Nested\\Alpha", "class": "NestedRenameA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "NestedRenameB.php", "namespace": "Acme\\Nested\\Beta", "class": "NestedRenameB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-05"}]}
+            ],
+            "distractors": [
+                {"file": "NestedRenameDistractor.php", "namespace": "Acme\\Nested\\Distract", "class": "NestedRenameDistractor", "source": "nearmiss_invoice", "reason": "Near-miss: similar invoice vocabulary but different calculation logic"}
+            ],
+            "cleans": [
+                {"file": "NestedRenameClean.php", "namespace": "Acme\\Nested\\Config", "class": "NestedRenameClean", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L11-rn_nested-002",
+            "title": "Nested rename with LT-01 numeric literal change",
+            "description": "Combines RN-05 rename with LT-01 numeric transformation at nested scopes.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["identifiers", "literals"],
+            "rng_seed": 110102,
+            "notes": "L11: RN-05 + LT-01 combined at nested scopes.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.65, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["identifier_canonicalization", "literal_abstraction"],
+            "carriers": [
+                {"file": "NestedRenameA.php", "namespace": "Acme\\Nested\\Alpha", "class": "NestedRenameA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "NestedRenameB.php", "namespace": "Acme\\Nested\\Beta", "class": "NestedRenameB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-05"}, {"code": "LT-01"}]}
+            ],
+            "distractors": [
+                {"file": "NestedRenameDistractor.php", "namespace": "Acme\\Nested\\Distract", "class": "NestedRenameDistractor", "source": "nearmiss_invoice", "reason": "Near-miss: similar vocabulary but different logic"}
+            ],
+            "cleans": [
+                {"file": "NestedRenameClean.php", "namespace": "Acme\\Nested\\Config", "class": "NestedRenameClean", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L11-rn_nested-003",
+            "title": "Nested rename with CM-01 line comment",
+            "description": "Combines RN-05 rename with CM-01 line comment addition.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["identifiers", "comments"],
+            "rng_seed": 110103,
+            "notes": "L11: RN-05 + CM-01 at nested scopes.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.65, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["identifier_canonicalization", "comment_stripping"],
+            "carriers": [
+                {"file": "NestedRenameA.php", "namespace": "Acme\\Nested\\Alpha", "class": "NestedRenameA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "NestedRenameB.php", "namespace": "Acme\\Nested\\Beta", "class": "NestedRenameB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-05"}, {"code": "CM-01"}]}
+            ],
+            "distractors": [
+                {"file": "NestedRenameDistractor.php", "namespace": "Acme\\Nested\\Distract", "class": "NestedRenameDistractor", "source": "nearmiss_access", "reason": "Near-miss: similar auth vocabulary but different logic"}
+            ],
+            "cleans": [
+                {"file": "NestedRenameClean.php", "namespace": "Acme\\Nested\\Config", "class": "NestedRenameClean", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L11-rn_nested-004",
+            "title": "Triple nested scope rename",
+            "description": "Three carriers with rename at three nested scopes: class, method, variable.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["identifiers"],
+            "rng_seed": 110104,
+            "notes": "L11: Triple nested RN-05 across three carriers.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 3},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["identifier_canonicalization"],
+            "carriers": [
+                {"file": "TripleRenameA.php", "namespace": "Acme\\Triple\\Alpha", "class": "TripleRenameA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "TripleRenameB.php", "namespace": "Acme\\Triple\\Beta", "class": "TripleRenameB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-05"}]},
+                {"file": "TripleRenameC.php", "namespace": "Acme\\Triple\\Gamma", "class": "TripleRenameC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "RN-05"}, {"code": "LT-01"}]}
+            ],
+            "distractors": [
+                {"file": "TripleRenameDistractor.php", "namespace": "Acme\\Triple\\Distract", "class": "TripleRenameDistractor", "source": "nearmiss_invoice", "reason": "Near-miss: similar calculation vocabulary"}
+            ],
+            "cleans": [
+                {"file": "TripleRenameClean.php", "namespace": "Acme\\Triple\\Config", "class": "TripleRenameClean", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L11-rn_nested-005",
+            "title": "Nested rename with ST-05 reorder independent",
+            "description": "Combines RN-05 nested rename with ST-05 statement reordering.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["identifiers", "controlflow"],
+            "rng_seed": 110105,
+            "notes": "L11: RN-05 + ST-05 combined for deep rename stack.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["identifier_canonicalization", "ast_canonicalization", "commutative_reordering"],
+            "carriers": [
+                {"file": "NestedRenameA.php", "namespace": "Acme\\Nested\\Alpha", "class": "NestedRenameA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "NestedRenameB.php", "namespace": "Acme\\Nested\\Beta", "class": "NestedRenameB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-05"}, {"code": "ST-05"}]}
+            ],
+            "distractors": [
+                {"file": "NestedRenameDistractor.php", "namespace": "Acme\\Nested\\Distract", "class": "NestedRenameDistractor", "source": "nearmiss_access", "reason": "Near-miss: similar auth vocabulary"}
+            ],
+            "cleans": [
+                {"file": "NestedRenameClean.php", "namespace": "Acme\\Nested\\Config", "class": "NestedRenameClean", "source": "clean_auth"}
+            ]
+        }
+    ]
+}

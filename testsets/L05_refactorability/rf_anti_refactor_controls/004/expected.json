@@ -1,0 +1,74 @@
+{
+    "schema_version": 2,
+    "set_id": "L05-rf_anti_refactor_controls-004",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-1",
+            "granularity": "method",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers",
+                "literals"
+            ],
+            "token_hash": "6fc07c18c985581d",
+            "normalized_hash": "dbbfc0d579d59f30",
+            "members": [
+                {
+                    "file": "src/PublicUrlGenerator.php",
+                    "start_line": 9,
+                    "end_line": 125,
+                    "symbol": "manageFile",
+                    "pristine": true,
+                    "group": "A",
+                    "seed": "file_storage"
+                },
+                {
+                    "file": "src/FileUploader.php",
+                    "start_line": 18,
+                    "end_line": 134,
+                    "symbol": "manageFile",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "file_storage"
+                },
+                {
+                    "file": "src/FileDownloader.php",
+                    "start_line": 24,
+                    "end_line": 140,
+                    "symbol": "manageFile",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "file_storage"
+                }
+            ],
+            "detection_expectation": {
+                "text_based": true,
+                "token_based": true,
+                "ast_based": true
+            },
+            "notes": ""
+        }
+    ],
+    "non_duplicates": [
+        {
+            "file": "src/StorageMetrics.php",
+            "start_line": 9,
+            "end_line": 125,
+            "reason": "near-miss: similar file path handling but only collects metrics without operations",
+            "trap": true
+        }
+    ],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.6,
+        "min_members_for_credit": 2
+    },
+    "intended_refactoring": {
+        "kind": "none",
+        "advisability": "inadvisable",
+        "reason": "Carrier A (url): QUERY that returns a signed URL — it has a side effect (generates signature with expiry), but conceptually it's a query operation. Carrier B (upload): COMMAND that creates/changes file state in storage. Carrier C (download): COMMAND that retrieves file to local path. These violate CQS in different directions: url() is a query with hidden side effect (signature generation), while upload/download are pure commands. Even more critically, url() might be called for a file that doesn't exist yet (to pre-generate URL before upload), but exists() is a separate query. Unifying these would create a method that is simultaneously query-and-command — a VIOLATION of CQS."
+    }
+}

@@ -1,0 +1,103 @@
+{
+    "schema_version": 2,
+    "set_id": "L04-gr_method-005",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-3",
+            "granularity": "method",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers",
+                "literals"
+            ],
+            "token_hash": "f1e5708cf467f899",
+            "normalized_hash": "88b44d89704ac03f",
+            "members": [
+                {
+                    "file": "src/BillingServiceA.php",
+                    "start_line": 9,
+                    "end_line": 33,
+                    "symbol": "computeTotals",
+                    "pristine": true,
+                    "group": "A",
+                    "seed": "invoice_totals"
+                },
+                {
+                    "file": "src/BillingServiceB.php",
+                    "start_line": 18,
+                    "end_line": 43,
+                    "symbol": "computeTotals",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "invoice_totals",
+                    "fragments": [
+                        {
+                            "start_line": 35,
+                            "end_line": 47
+                        },
+                        {
+                            "start_line": 49,
+                            "end_line": 60
+                        }
+                    ],
+                    "unique_segments": [
+                        {
+                            "start_line": 48,
+                            "end_line": 48
+                        }
+                    ]
+                },
+                {
+                    "file": "src/BillingServiceC.php",
+                    "start_line": 24,
+                    "end_line": 49,
+                    "symbol": "computeTotals",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "invoice_totals",
+                    "fragments": [
+                        {
+                            "start_line": 47,
+                            "end_line": 57
+                        },
+                        {
+                            "start_line": 59,
+                            "end_line": 72
+                        }
+                    ],
+                    "unique_segments": [
+                        {
+                            "start_line": 58,
+                            "end_line": 58
+                        }
+                    ]
+                }
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": true,
+                "semantic": true
+            },
+            "notes": "Method-level with multiple ST-02 dead code block insertions."
+        }
+    ],
+    "non_duplicates": [
+        {
+            "file": "src/MarginCalculator.php",
+            "start_line": 12,
+            "end_line": 28,
+            "reason": "near-miss: similar invoice vocabulary but computes margins",
+            "trap": true
+        }
+    ],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.6,
+        "min_members_for_credit": 2
+    }
+}

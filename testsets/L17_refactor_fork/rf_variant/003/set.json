@@ -1,0 +1,104 @@
+{
+    "schema_version": 1,
+    "set_id": "L17-rf_variant-003",
+    "level": 17,
+    "level_name": "refactor_fork",
+    "family": "rf_variant",
+    "title": "Three-way refactor fork",
+    "description": "Three carriers showing different refactoring paths.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "invoice_totals",
+    "difficulty_band": "easy",
+    "files": [
+        {
+            "path": "src/RefactorVariantA.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 39
+        },
+        {
+            "path": "src/RefactorVariantB.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 44
+        },
+        {
+            "path": "src/RefactorVariantC.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 44
+        },
+        {
+            "path": "src/RefactorVariantDistractor.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 30
+        },
+        {
+            "path": "src/RefactorVariantClean.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-2",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "LT-03",
+            "name": "array_values",
+            "params": {},
+            "applied_to": [
+                "src/RefactorVariantB.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "RN-05",
+            "name": "case_convention",
+            "params": {},
+            "applied_to": [
+                "src/RefactorVariantC.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "LT-02",
+            "name": "string",
+            "params": {},
+            "applied_to": [
+                "src/RefactorVariantC.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "CM-01",
+            "name": "line_comment_add",
+            "params": {},
+            "applied_to": [
+                "src/RefactorVariantC.php"
+            ],
+            "intensity": 1
+        }
+    ],
+    "difficulty": {
+        "score": 20,
+        "requires": [
+            "identifier_canonicalization",
+            "literal_abstraction",
+            "comment_stripping"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L17_refactor_fork/rf_variant.json",
+        "version": "1.0.0",
+        "rng_seed": 170303
+    }
+}

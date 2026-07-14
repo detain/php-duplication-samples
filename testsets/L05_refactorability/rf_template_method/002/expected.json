@@ -1,0 +1,88 @@
+{
+    "schema_version": 2,
+    "set_id": "L05-rf_template_method-002",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-2",
+            "granularity": "class",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "class_structure"
+            ],
+            "token_hash": "5a1df59bd93d82d2",
+            "normalized_hash": "0efe1e60b3c6ea7a",
+            "members": [
+                {
+                    "file": "src/OrderStateMachine.php",
+                    "start_line": 9,
+                    "end_line": 48,
+                    "symbol": "advance",
+                    "pristine": true,
+                    "group": "A",
+                    "seed": "state_machine"
+                },
+                {
+                    "file": "src/DocumentStateMachine.php",
+                    "start_line": 18,
+                    "end_line": 57,
+                    "symbol": "advance",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "state_machine"
+                },
+                {
+                    "file": "src/TaskStateMachine.php",
+                    "start_line": 24,
+                    "end_line": 63,
+                    "symbol": "advance",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "state_machine"
+                }
+            ],
+            "detection_expectation": {
+                "text_based": true,
+                "token_based": true,
+                "ast_based": true
+            },
+            "notes": ""
+        }
+    ],
+    "non_duplicates": [],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.6,
+        "min_members_for_credit": 2
+    },
+    "intended_refactoring": {
+        "kind": "template_method",
+        "unified_symbol": "StateMachine",
+        "unified_signature": "advance(mixed $context): State",
+        "template_method": "advance - final method defining state transition cycle",
+        "hook_methods": [
+            "enterState",
+            "executeAction",
+            "evaluateTransitions",
+            "exitState"
+        ],
+        "abstract_methods": [
+            "enterState",
+            "executeAction",
+            "evaluateTransitions",
+            "exitState"
+        ],
+        "hook_extensions": [
+            "onInvalidTransition",
+            "logTransition"
+        ],
+        "collapses": [
+            0,
+            1,
+            2
+        ],
+        "advisability": "recommended"
+    }
+}

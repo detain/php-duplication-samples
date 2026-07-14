@@ -1,0 +1,73 @@
+{
+    "schema_version": 2,
+    "set_id": "L05-rf_consolidate-003",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-1",
+            "granularity": "method",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers",
+                "literals"
+            ],
+            "token_hash": "36de6bc19f7f6542",
+            "normalized_hash": "5eda3a4a7561fdae",
+            "members": [
+                {
+                    "file": "src/AppConfigLoader.php",
+                    "start_line": 9,
+                    "end_line": 75,
+                    "symbol": "getConfig",
+                    "pristine": true,
+                    "group": "A",
+                    "seed": "config_loader"
+                },
+                {
+                    "file": "src/CacheConfigLoader.php",
+                    "start_line": 18,
+                    "end_line": 84,
+                    "symbol": "getConfig",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "config_loader"
+                },
+                {
+                    "file": "src/MailConfigLoader.php",
+                    "start_line": 24,
+                    "end_line": 90,
+                    "symbol": "getConfig",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "config_loader"
+                }
+            ],
+            "detection_expectation": {
+                "text_based": true,
+                "token_based": true,
+                "ast_based": true
+            },
+            "notes": ""
+        }
+    ],
+    "non_duplicates": [],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.6,
+        "min_members_for_credit": 2
+    },
+    "intended_refactoring": {
+        "kind": "consolidate_conditional_fragments",
+        "unified_symbol": "getConfig",
+        "fragment_pattern": "if (!isset($config[$key])) { throw new \\InvalidArgumentException(\"Missing key: $key\"); } return $config[$key];",
+        "shared_helper": "ConfigLoader::getRequired()",
+        "collapses": [
+            0,
+            1,
+            2
+        ],
+        "advisability": "recommended"
+    }
+}

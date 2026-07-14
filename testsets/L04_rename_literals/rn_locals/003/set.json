@@ -33,7 +33,7 @@
             "path": "src/RowWidthProfiler.php",
             "role": "distractor",
             "duplicate_group": null,
-            "sloc": 28
+            "sloc": 63
         },
         {
             "path": "src/HeaderSchemaDetector.php",
@@ -60,7 +60,8 @@
             },
             "applied_to": [
                 "src/VendorRowReader.php"
-            ]
+            ],
+            "intensity": 2
         },
         {
             "code": "RN-01",
@@ -76,7 +77,8 @@
             },
             "applied_to": [
                 "src/ProductRowReader.php"
-            ]
+            ],
+            "intensity": 2
         }
     ],
     "difficulty": {

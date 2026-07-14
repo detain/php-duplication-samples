@@ -1,0 +1,56 @@
+{
+    "schema_version": 1,
+    "set_id": "L06-rw_crud_api-002",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-4",
+            "granularity": "method",
+            "normalized_by": [
+                "controlflow",
+                "identifiers",
+                "literals"
+            ],
+            "token_hash": "5010f938033f11c1",
+            "normalized_hash": "0cea5d082d202c9b",
+            "members": [
+                {
+                    "file": "src/GraphQlHandler.php",
+                    "start_line": 9,
+                    "end_line": 76,
+                    "symbol": "handleRequest",
+                    "pristine": true
+                },
+                {
+                    "file": "src/FieldResolver.php",
+                    "start_line": 18,
+                    "end_line": 84,
+                    "symbol": "handleRequest",
+                    "pristine": false
+                },
+                {
+                    "file": "src/QueryBuilder.php",
+                    "start_line": 24,
+                    "end_line": 85,
+                    "symbol": "handleRequest",
+                    "pristine": false
+                }
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": false,
+                "ast_based": false,
+                "metric_based": false,
+                "semantic": true
+            },
+            "notes": "Set 002 of 5. GraphQL resolvers with CF-02 (match) variants."
+        }
+    ],
+    "non_duplicates": [],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.6,
+        "min_members_for_credit": 2
+    }
+}

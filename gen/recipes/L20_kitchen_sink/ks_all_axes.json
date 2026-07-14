@@ -1,0 +1,139 @@
+{
+    "level": 20,
+    "level_name": "kitchen_sink",
+    "level_dir": "L20_kitchen_sink",
+    "family": "ks_all_axes",
+    "sets": [
+        {
+            "set_id": "L20-ks_all_axes-001",
+            "title": "10+ transform axes combined - basic",
+            "description": "Tests ks_all_axes: 10+ transform axes combined for extreme stress.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["identifiers", "literals", "comments", "controlflow"],
+            "rng_seed": 200201,
+            "notes": "L20: ks_all_axes - 10+ axes combined for extreme stress.",
+            "scoring": {"line_tolerance": 4, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["identifier_canonicalization", "literal_abstraction", "comment_stripping", "ast_canonicalization", "commutative_reordering"],
+            "carriers": [
+                {"file": "AllAxesA.php", "namespace": "Acme\\AllAxes\\Alpha", "class": "AllAxesA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "AllAxesB.php", "namespace": "Acme\\AllAxes\\Beta", "class": "AllAxesB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-05"}, {"code": "LT-01"}, {"code": "LT-02"}, {"code": "CM-01"}, {"code": "ST-05"}, {"code": "ST-08"}]}
+            ],
+            "distractors": [
+                {"file": "AllAxesDistractor.php", "namespace": "Acme\\AllAxes\\Distract", "class": "AllAxesDistractor", "source": "nearmiss_invoice", "reason": "Near-miss: all axes confusion"}
+            ],
+            "cleans": [
+                {"file": "AllAxesClean.php", "namespace": "Acme\\AllAxes\\Config", "class": "AllAxesClean", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L20-ks_all_axes-002",
+            "title": "All axes with all literal transforms",
+            "description": "10+ axes with all literal type transformations.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["literals", "identifiers", "comments", "controlflow"],
+            "rng_seed": 200202,
+            "notes": "L20: ks_all_axes + all LTs + RN-05 + ST + CM.",
+            "scoring": {"line_tolerance": 4, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["literal_abstraction", "identifier_canonicalization", "comment_stripping", "ast_canonicalization"],
+            "carriers": [
+                {"file": "AllAxesA.php", "namespace": "Acme\\AllAxes\\Alpha", "class": "AllAxesA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "AllAxesB.php", "namespace": "Acme\\AllAxes\\Beta", "class": "AllAxesB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-01"}, {"code": "LT-02"}, {"code": "LT-03"}, {"code": "LT-04"}, {"code": "RN-05"}, {"code": "ST-01"}, {"code": "ST-09"}, {"code": "CM-03"}]}
+            ],
+            "distractors": [
+                {"file": "AllAxesDistractor.php", "namespace": "Acme\\AllAxes\\Distract", "class": "AllAxesDistractor", "source": "nearmiss_access", "reason": "Near-miss: all axes auth confusion"}
+            ],
+            "cleans": [
+                {"file": "AllAxesClean.php", "namespace": "Acme\\AllAxes\\Config", "class": "AllAxesClean", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L20-ks_all_axes-003",
+            "title": "All axes three carriers extreme stress",
+            "description": "Three carriers with maximum transform axes for extreme stress.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["identifiers", "literals", "comments", "controlflow"],
+            "rng_seed": 200203,
+            "notes": "L20: ks_all_axes 3 carriers with all transforms.",
+            "scoring": {"line_tolerance": 4, "member_jaccard_min": 0.55, "min_members_for_credit": 3},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["identifier_canonicalization", "literal_abstraction", "comment_stripping", "ast_canonicalization", "commutative_reordering"],
+            "carriers": [
+                {"file": "AllAxesA.php", "namespace": "Acme\\AllAxes\\Alpha", "class": "AllAxesA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "AllAxesB.php", "namespace": "Acme\\AllAxes\\Beta", "class": "AllAxesB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-05"}, {"code": "LT-01"}, {"code": "CM-01"}]},
+                {"file": "AllAxesC.php", "namespace": "Acme\\AllAxes\\Gamma", "class": "AllAxesC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-02"}, {"code": "ST-05"}, {"code": "LT-02"}, {"code": "LT-03"}, {"code": "CM-02"}, {"code": "CM-03"}]}
+            ],
+            "distractors": [
+                {"file": "AllAxesDistractor.php", "namespace": "Acme\\AllAxes\\Distract", "class": "AllAxesDistractor", "source": "nearmiss_invoice", "reason": "Near-miss: all axes invoice confusion"}
+            ],
+            "cleans": [
+                {"file": "AllAxesClean.php", "namespace": "Acme\\AllAxes\\Config", "class": "AllAxesClean", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L20-ks_all_axes-004",
+            "title": "All axes with statement reordering",
+            "description": "Maximum statement reordering combined with all other axes.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["identifiers", "controlflow", "literals"],
+            "rng_seed": 200204,
+            "notes": "L20: ks_all_axes + ST-05 + ST-08 reorder + all LTs + RN-05.",
+            "scoring": {"line_tolerance": 4, "member_jaccard_min": 0.55, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["ast_canonicalization", "commutative_reordering", "identifier_canonicalization", "literal_abstraction"],
+            "carriers": [
+                {"file": "AllAxesA.php", "namespace": "Acme\\AllAxes\\Alpha", "class": "AllAxesA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "AllAxesB.php", "namespace": "Acme\\AllAxes\\Beta", "class": "AllAxesB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-05"}, {"code": "ST-08"}, {"code": "LT-01"}, {"code": "LT-04"}, {"code": "RN-05"}]}
+            ],
+            "distractors": [
+                {"file": "AllAxesDistractor.php", "namespace": "Acme\\AllAxes\\Distract", "class": "AllAxesDistractor", "source": "nearmiss_access", "reason": "Near-miss: all axes auth confusion"}
+            ],
+            "cleans": [
+                {"file": "AllAxesClean.php", "namespace": "Acme\\AllAxes\\Config", "class": "AllAxesClean", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L20-ks_all_axes-005",
+            "title": "All axes ultimate combination",
+            "description": "Ultimate 10+ axis combination for maximum clone detector stress.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["identifiers", "literals", "comments", "controlflow"],
+            "rng_seed": 200205,
+            "notes": "L20: ks_all_axes ultimate - RN + LT + CM + ST + deadcode.",
+            "scoring": {"line_tolerance": 4, "member_jaccard_min": 0.5, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["identifier_canonicalization", "literal_abstraction", "comment_stripping", "ast_canonicalization", "deadcode_elimination", "commutative_reordering"],
+            "carriers": [
+                {"file": "AllAxesA.php", "namespace": "Acme\\AllAxes\\Alpha", "class": "AllAxesA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "AllAxesB.php", "namespace": "Acme\\AllAxes\\Beta", "class": "AllAxesB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-05"}, {"code": "LT-01"}, {"code": "LT-02"}, {"code": "LT-03"}, {"code": "LT-04"}, {"code": "CM-01"}, {"code": "CM-02"}, {"code": "CM-03"}, {"code": "ST-01"}, {"code": "ST-02"}, {"code": "ST-05"}]}
+            ],
+            "distractors": [
+                {"file": "AllAxesDistractor.php", "namespace": "Acme\\AllAxes\\Distract", "class": "AllAxesDistractor", "source": "nearmiss_invoice", "reason": "Near-miss: all axes ultimate confusion"}
+            ],
+            "cleans": [
+                {"file": "AllAxesClean.php", "namespace": "Acme\\AllAxes\\Config", "class": "AllAxesClean", "source": "clean_billing"}
+            ]
+        }
+    ]
+}

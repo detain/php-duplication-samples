@@ -59,7 +59,8 @@
             "applied_to": [
                 "src/PristineAccessPolicy.php",
                 "src/FourAxisPolicy.php"
-            ]
+            ],
+            "intensity": 2
         },
         {
             "code": "WS-03",
@@ -70,7 +71,8 @@
             "applied_to": [
                 "src/PristineAccessPolicy.php",
                 "src/FourAxisPolicy.php"
-            ]
+            ],
+            "intensity": 1
         },
         {
             "code": "RN-05",
@@ -80,7 +82,8 @@
             },
             "applied_to": [
                 "src/ThreeAxisPolicy.php"
-            ]
+            ],
+            "intensity": 2
         },
         {
             "code": "WS-03",
@@ -90,7 +93,8 @@
             },
             "applied_to": [
                 "src/ThreeAxisPolicy.php"
-            ]
+            ],
+            "intensity": 1
         },
         {
             "code": "WS-06",
@@ -101,7 +105,8 @@
             "applied_to": [
                 "src/ThreeAxisPolicy.php",
                 "src/FourAxisPolicy.php"
-            ]
+            ],
+            "intensity": 2
         },
         {
             "code": "ST-01",
@@ -111,7 +116,8 @@
             },
             "applied_to": [
                 "src/FourAxisPolicy.php"
-            ]
+            ],
+            "intensity": 3
         }
     ],
     "difficulty": {

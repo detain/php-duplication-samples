@@ -1,0 +1,202 @@
+{
+    "schema_version": 2,
+    "set_id": "L06-co_literal_fold-002",
+    "level": 6,
+    "level_name": "combinatorial",
+    "family": "co_literal_fold",
+    "title": "Literal folding with whitespace and comments",
+    "description": "Same computeTotals method. Tests LT-04 combined with WS and CM. Literal folding with formatting changes.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "invoice_totals",
+    "difficulty_band": "expert",
+    "files": [
+        {
+            "path": "src/WsCmLiteralCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 40,
+            "region_sloc": {
+                "sloc": 26,
+                "duplicate": 24,
+                "unique": 2,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/LiteralFoldCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 44,
+            "region_sloc": {
+                "sloc": 25,
+                "duplicate": 25,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/AllLiteralCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 41,
+            "region_sloc": {
+                "sloc": 23,
+                "duplicate": 21,
+                "unique": 2,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/MarginSummarizer.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 30
+        },
+        {
+            "path": "src/TaxRateRepository.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-3",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "ST-01",
+            "name": "insert_logging",
+            "params": {
+                "lines": 1
+            },
+            "applied_to": [
+                "src/WsCmLiteralCalc.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "WS-01",
+            "name": "blank_before",
+            "params": {
+                "blank_lines": 1
+            },
+            "applied_to": [
+                "src/WsCmLiteralCalc.php"
+            ],
+            "intensity": 1
+        },
+        {
+            "code": "LT-04",
+            "name": "const_vs_literal",
+            "params": {
+                "style": "const_literal"
+            },
+            "applied_to": [
+                "src/LiteralFoldCalc.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "ST-05",
+            "name": "reorder_independent",
+            "params": {
+                "reorder_level": 1
+            },
+            "applied_to": [
+                "src/AllLiteralCalc.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "LT-04",
+            "name": "const_vs_literal",
+            "params": {
+                "style": "inline_literal"
+            },
+            "applied_to": [
+                "src/AllLiteralCalc.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "LT-01",
+            "name": "numeric",
+            "params": {
+                "format": "hex"
+            },
+            "applied_to": [
+                "src/AllLiteralCalc.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "WS-01",
+            "name": "blank_before",
+            "params": {
+                "blank_lines": 2
+            },
+            "applied_to": [
+                "src/AllLiteralCalc.php"
+            ],
+            "intensity": 1
+        }
+    ],
+    "difficulty": {
+        "score": 94,
+        "requires": [
+            "ast_canonicalization",
+            "whitespace_normalization",
+            "literal_abstraction",
+            "commutative_reordering"
+        ],
+        "score_raw": 94,
+        "axes": {
+            "breadth": 5,
+            "intensity": 2,
+            "intensity_max": 3,
+            "semantic_depth": 0,
+            "partiality": 1
+        },
+        "application_count": 7,
+        "axis_count": 5
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L06_combinatorial/co_literal_fold.json",
+        "version": "2.0.0",
+        "rng_seed": 1612002
+    },
+    "interference_profile": {
+        "axis_count": 5,
+        "per_carrier_axes": {
+            "src/WsCmLiteralCalc.php": [
+                "ST-01",
+                "WS-01"
+            ],
+            "src/LiteralFoldCalc.php": [
+                "LT-04"
+            ],
+            "src/AllLiteralCalc.php": [
+                "ST-05",
+                "LT-04",
+                "LT-01",
+                "WS-01"
+            ]
+        },
+        "groups_touched": [
+            "A"
+        ],
+        "stack_depth_max": 4,
+        "symmetric_overlap": 0,
+        "pairwise_overlap": 0.15,
+        "combination_design": "type2_plus_type1"
+    },
+    "engine_features": [
+        "fragment_emission"
+    ]
+}

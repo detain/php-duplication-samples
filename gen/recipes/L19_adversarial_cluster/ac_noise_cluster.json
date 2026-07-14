@@ -1,0 +1,139 @@
+{
+    "level": 19,
+    "level_name": "adversarial_cluster",
+    "level_dir": "L19_adversarial_cluster",
+    "family": "ac_noise_cluster",
+    "sets": [
+        {
+            "set_id": "L19-ac_noise_cluster-001",
+            "title": "Noise cluster with comment transforms",
+            "description": "Multiple noise transforms clustered together - CM-01 through CM-03.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["comments"],
+            "rng_seed": 190301,
+            "notes": "L19: Noise cluster with CM transforms.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.7, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["comment_stripping"],
+            "carriers": [
+                {"file": "NoiseClusterA.php", "namespace": "Acme\\Noise\\Alpha", "class": "NoiseClusterA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "NoiseClusterB.php", "namespace": "Acme\\Noise\\Beta", "class": "NoiseClusterB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "CM-01"}, {"code": "CM-02"}]}
+            ],
+            "distractors": [
+                {"file": "NoiseClusterDistractor.php", "namespace": "Acme\\Noise\\Distract", "class": "NoiseClusterDistractor", "source": "nearmiss_invoice", "reason": "Near-miss: similar invoice"}
+            ],
+            "cleans": [
+                {"file": "NoiseClusterClean.php", "namespace": "Acme\\Noise\\Config", "class": "NoiseClusterClean", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L19-ac_noise_cluster-002",
+            "title": "Noise cluster with RN-05 and literal",
+            "description": "Case rename and literal noise cluster.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["identifiers"],
+            "rng_seed": 190302,
+            "notes": "L19: Noise cluster + RN-05 + LT-01.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.65, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["identifier_canonicalization"],
+            "carriers": [
+                {"file": "NoiseClusterA.php", "namespace": "Acme\\Noise\\Alpha", "class": "NoiseClusterA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "NoiseClusterB.php", "namespace": "Acme\\Noise\\Beta", "class": "NoiseClusterB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-05"}, {"code": "LT-01"}]}
+            ],
+            "distractors": [
+                {"file": "NoiseClusterDistractor.php", "namespace": "Acme\\Noise\\Distract", "class": "NoiseClusterDistractor", "source": "nearmiss_access", "reason": "Near-miss: similar auth"}
+            ],
+            "cleans": [
+                {"file": "NoiseClusterClean.php", "namespace": "Acme\\Noise\\Config", "class": "NoiseClusterClean", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L19-ac_noise_cluster-003",
+            "title": "Multi-carrier noise cluster",
+            "description": "Three carriers with clustered noise transforms.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["identifiers", "literals", "comments"],
+            "rng_seed": 190303,
+            "notes": "L19: Multi-carrier noise cluster.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 3},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["identifier_canonicalization", "literal_abstraction", "comment_stripping"],
+            "carriers": [
+                {"file": "NoiseClusterA.php", "namespace": "Acme\\Noise\\Alpha", "class": "NoiseClusterA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "NoiseClusterB.php", "namespace": "Acme\\Noise\\Beta", "class": "NoiseClusterB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "CM-03"}]},
+                {"file": "NoiseClusterC.php", "namespace": "Acme\\Noise\\Gamma", "class": "NoiseClusterC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "RN-05"}, {"code": "LT-02"}, {"code": "CM-01"}]}
+            ],
+            "distractors": [
+                {"file": "NoiseClusterDistractor.php", "namespace": "Acme\\Noise\\Distract", "class": "NoiseClusterDistractor", "source": "nearmiss_invoice", "reason": "Near-miss: similar invoice"}
+            ],
+            "cleans": [
+                {"file": "NoiseClusterClean.php", "namespace": "Acme\\Noise\\Config", "class": "NoiseClusterClean", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L19-ac_noise_cluster-004",
+            "title": "Noise cluster with statement transforms",
+            "description": "ST-05 statement reordering in noise cluster context.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["identifiers", "controlflow"],
+            "rng_seed": 190304,
+            "notes": "L19: Noise cluster + ST-05 reorder.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["identifier_canonicalization", "ast_canonicalization", "commutative_reordering"],
+            "carriers": [
+                {"file": "NoiseClusterA.php", "namespace": "Acme\\Noise\\Alpha", "class": "NoiseClusterA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "NoiseClusterB.php", "namespace": "Acme\\Noise\\Beta", "class": "NoiseClusterB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-05"}, {"code": "CM-02"}]}
+            ],
+            "distractors": [
+                {"file": "NoiseClusterDistractor.php", "namespace": "Acme\\Noise\\Distract", "class": "NoiseClusterDistractor", "source": "nearmiss_access", "reason": "Near-miss: similar auth"}
+            ],
+            "cleans": [
+                {"file": "NoiseClusterClean.php", "namespace": "Acme\\Noise\\Config", "class": "NoiseClusterClean", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L19-ac_noise_cluster-005",
+            "title": "Maximum noise cluster complexity",
+            "description": "Noise cluster with all literal and comment transforms.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["identifiers", "literals", "comments"],
+            "rng_seed": 190305,
+            "notes": "L19: Maximum noise cluster complexity.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.55, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["identifier_canonicalization", "literal_abstraction", "comment_stripping"],
+            "carriers": [
+                {"file": "NoiseClusterA.php", "namespace": "Acme\\Noise\\Alpha", "class": "NoiseClusterA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "NoiseClusterB.php", "namespace": "Acme\\Noise\\Beta", "class": "NoiseClusterB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-05"}, {"code": "LT-01"}, {"code": "LT-02"}, {"code": "LT-03"}, {"code": "LT-04"}, {"code": "CM-01"}, {"code": "CM-02"}, {"code": "CM-03"}]}
+            ],
+            "distractors": [
+                {"file": "NoiseClusterDistractor.php", "namespace": "Acme\\Noise\\Distract", "class": "NoiseClusterDistractor", "source": "nearmiss_invoice", "reason": "Near-miss: similar invoice"}
+            ],
+            "cleans": [
+                {"file": "NoiseClusterClean.php", "namespace": "Acme\\Noise\\Config", "class": "NoiseClusterClean", "source": "clean_billing"}
+            ]
+        }
+    ]
+}

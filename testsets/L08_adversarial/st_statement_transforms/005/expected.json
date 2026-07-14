@@ -1,0 +1,55 @@
+{
+    "schema_version": 1,
+    "set_id": "L08-st_statement_transforms-005",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-3",
+            "granularity": "method",
+            "normalized_by": [
+                "whitespace",
+                "comments"
+            ],
+            "token_hash": "511c69ee9858ab47",
+            "normalized_hash": "fc6d1c50a1476f86",
+            "members": [
+                {
+                    "file": "src/SerializerA.php",
+                    "start_line": 9,
+                    "end_line": 87,
+                    "symbol": "serialize",
+                    "pristine": true
+                },
+                {
+                    "file": "src/SerializerB.php",
+                    "start_line": 18,
+                    "end_line": 96,
+                    "symbol": "serialize",
+                    "pristine": false
+                },
+                {
+                    "file": "src/SerializerC.php",
+                    "start_line": 24,
+                    "end_line": 102,
+                    "symbol": "serialize",
+                    "pristine": false
+                }
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": false,
+                "semantic": false
+            },
+            "notes": ""
+        }
+    ],
+    "non_duplicates": [],
+    "scoring": {
+        "line_tolerance": 1,
+        "member_jaccard_min": 0.85,
+        "min_members_for_credit": 2
+    }
+}

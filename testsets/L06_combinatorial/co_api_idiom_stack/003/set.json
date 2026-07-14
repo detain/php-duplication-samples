@@ -1,0 +1,240 @@
+{
+    "schema_version": 2,
+    "set_id": "L06-co_api_idiom_stack-003",
+    "level": 6,
+    "level_name": "combinatorial",
+    "family": "co_api_idiom_stack",
+    "title": "API idiom stacking with statement interference",
+    "description": "Same computeTotals method. Tests multiple API idioms combined with statement-level transforms.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "invoice_totals",
+    "difficulty_band": "expert",
+    "files": [
+        {
+            "path": "src/ApiStCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 40,
+            "region_sloc": {
+                "sloc": 26,
+                "duplicate": 25,
+                "unique": 1,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/FullApiCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 42,
+            "region_sloc": {
+                "sloc": 23,
+                "duplicate": 21,
+                "unique": 2,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/MaxApiCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 47,
+            "region_sloc": {
+                "sloc": 29,
+                "duplicate": 24,
+                "unique": 5,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/MarginSummarizer.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 30
+        },
+        {
+            "path": "src/TaxRateRepository.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-3",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "ST-01",
+            "name": "insert_logging",
+            "params": {
+                "lines": 1
+            },
+            "applied_to": [
+                "src/ApiStCalc.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "RN-05",
+            "name": "case_convention",
+            "params": {
+                "direction": "camel_to_snake"
+            },
+            "applied_to": [
+                "src/ApiStCalc.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "ST-05",
+            "name": "reorder_independent",
+            "params": {
+                "reorder_level": 1
+            },
+            "applied_to": [
+                "src/FullApiCalc.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "LT-01",
+            "name": "numeric",
+            "params": {
+                "format": "hex"
+            },
+            "applied_to": [
+                "src/FullApiCalc.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "WS-01",
+            "name": "blank_before",
+            "params": {
+                "blank_lines": 2
+            },
+            "applied_to": [
+                "src/FullApiCalc.php"
+            ],
+            "intensity": 1
+        },
+        {
+            "code": "ST-01",
+            "name": "insert_logging",
+            "params": {
+                "lines": 2
+            },
+            "applied_to": [
+                "src/MaxApiCalc.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "ST-02",
+            "name": "insert_dead",
+            "params": {
+                "lines": 1
+            },
+            "applied_to": [
+                "src/MaxApiCalc.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "LT-02",
+            "name": "string",
+            "params": {
+                "style": "double_quotes"
+            },
+            "applied_to": [
+                "src/MaxApiCalc.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "RN-05",
+            "name": "case_convention",
+            "params": {
+                "direction": "snake_to_camel"
+            },
+            "applied_to": [
+                "src/MaxApiCalc.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "WS-01",
+            "name": "blank_before",
+            "params": {
+                "blank_lines": 1
+            },
+            "applied_to": [
+                "src/MaxApiCalc.php"
+            ],
+            "intensity": 1
+        }
+    ],
+    "difficulty": {
+        "score": 100,
+        "requires": [
+            "ast_canonicalization",
+            "identifier_canonicalization",
+            "commutative_reordering",
+            "literal_abstraction",
+            "whitespace_normalization",
+            "deadcode_elimination"
+        ],
+        "score_raw": 109,
+        "axes": {
+            "breadth": 7,
+            "intensity": 2.2,
+            "intensity_max": 3,
+            "semantic_depth": 0,
+            "partiality": 1
+        },
+        "application_count": 10,
+        "axis_count": 7
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L06_combinatorial/co_api_idiom_stack.json",
+        "version": "2.0.0",
+        "rng_seed": 1613003
+    },
+    "interference_profile": {
+        "axis_count": 7,
+        "per_carrier_axes": {
+            "src/ApiStCalc.php": [
+                "ST-01",
+                "RN-05"
+            ],
+            "src/FullApiCalc.php": [
+                "ST-05",
+                "LT-01",
+                "WS-01"
+            ],
+            "src/MaxApiCalc.php": [
+                "ST-01",
+                "ST-02",
+                "LT-02",
+                "RN-05",
+                "WS-01"
+            ]
+        },
+        "groups_touched": [
+            "A"
+        ],
+        "stack_depth_max": 5,
+        "symmetric_overlap": 0,
+        "pairwise_overlap": 0.181,
+        "combination_design": "type2_plus_type1"
+    },
+    "engine_features": [
+        "fragment_emission"
+    ]
+}

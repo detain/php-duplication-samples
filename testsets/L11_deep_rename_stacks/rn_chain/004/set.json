@@ -1,0 +1,80 @@
+{
+    "schema_version": 1,
+    "set_id": "L11-rn_chain-004",
+    "level": 11,
+    "level_name": "deep_rename_stacks",
+    "family": "rn_chain",
+    "title": "Chain rename with ST-08 param reorder",
+    "description": "Chain rename combined with parameter reordering.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "invoice_totals",
+    "difficulty_band": "easy",
+    "files": [
+        {
+            "path": "src/ChainRenameA.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 39
+        },
+        {
+            "path": "src/ChainRenameB.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 44
+        },
+        {
+            "path": "src/ChainRenameDistractor.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 30
+        },
+        {
+            "path": "src/ChainRenameClean.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-3",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 2
+    },
+    "interference": [
+        {
+            "code": "ST-08",
+            "name": "param_reorder",
+            "params": {},
+            "applied_to": [
+                "src/ChainRenameB.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "RN-05",
+            "name": "case_convention",
+            "params": {},
+            "applied_to": [
+                "src/ChainRenameB.php"
+            ],
+            "intensity": 2
+        }
+    ],
+    "difficulty": {
+        "score": 16,
+        "requires": [
+            "identifier_canonicalization",
+            "ast_canonicalization",
+            "commutative_reordering"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L11_deep_rename_stacks/rn_chain.json",
+        "version": "1.0.0",
+        "rng_seed": 110204
+    }
+}

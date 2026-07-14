@@ -1,0 +1,76 @@
+{
+    "schema_version": 1,
+    "set_id": "L08-enc_unicode_confusables-002",
+    "level": 8,
+    "level_name": "adversarial",
+    "family": "enc_unicode_confusables",
+    "title": "Unicode Confusables: Greek letter substitutions",
+    "description": "Tests Greek letter homoglyphs (ν vs n, κ vs k, μ vs u) in variable names.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "rate_limiter",
+    "difficulty_band": "expert",
+    "files": [
+        {
+            "path": "src/LimitCheckerA.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 47
+        },
+        {
+            "path": "src/LimitCheckerB.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 52
+        },
+        {
+            "path": "src/LimitCheckerC.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 51
+        },
+        {
+            "path": "src/Throttler.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 15
+        },
+        {
+            "path": "src/Counter.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 15
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-2",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "ENC-03",
+            "name": "unicode_ident",
+            "params": {},
+            "applied_to": [
+                "src/LimitCheckerB.php",
+                "src/LimitCheckerC.php"
+            ],
+            "intensity": 2
+        }
+    ],
+    "difficulty": {
+        "score": 91,
+        "requires": [
+            "identifier_canonicalization"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L08_adversarial/enc_unicode_confusables.json",
+        "version": "1.0.0",
+        "rng_seed": 80302
+    }
+}

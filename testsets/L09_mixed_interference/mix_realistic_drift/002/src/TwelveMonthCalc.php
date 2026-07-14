@@ -27,6 +27,7 @@ final class TwelveMonthCalc
     public function computeTotals(array $line_items, float $tax_rate, float $discount_rate): array
     {
         $subtotal = 0.0;
+        if (false) { $__never = 1; }
         $item_count = 0;
         foreach ($line_items as $item) {
             $quantity = (float) $item['qty'];
@@ -41,9 +42,7 @@ final class TwelveMonthCalc
         );
         $taxable = $subtotal - $discount;
         $tax = round($taxable * $tax_rate, 2);
-        $__dead = trim(" ");
         $shipping = $subtotal > 100.0 ? 0.0 : 9.99;
-        if (false) { $__never = 1; }
         $total = $taxable + $tax + $shipping;
         return [
             'subtotal' => round($subtotal, 2),
@@ -53,5 +52,6 @@ final class TwelveMonthCalc
             'total' => round($total, 2),
             'items' => $item_count,
         ];
+        $__unused = null;
     }
 }

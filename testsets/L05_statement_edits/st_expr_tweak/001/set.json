@@ -64,7 +64,8 @@
             },
             "applied_to": [
                 "src/TweakedInvoiceCalc.php"
-            ]
+            ],
+            "intensity": 3
         },
         {
             "code": "ST-09",
@@ -85,7 +86,8 @@
             },
             "applied_to": [
                 "src/MoreTweakedInvoiceCalc.php"
-            ]
+            ],
+            "intensity": 3
         }
     ],
     "difficulty": {

@@ -1,0 +1,133 @@
+{
+    "level": 8,
+    "level_name": "adversarial",
+    "level_dir": "L08_adversarial",
+    "family": "enc_nbsp",
+    "sets": [
+        {
+            "set_id": "L08-enc_nbsp-001",
+            "title": "NBSP: Non-breaking space as indentation",
+            "description": "Tests whether non-breaking space characters (U+00A0) used as indentation confuse tokenizers. NBSP is valid PHP indentation but trips up most tokenizers.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 80201,
+            "scoring": {"line_tolerance": 1, "member_jaccard_min": 0.9, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": false, "metric_based": false, "semantic": false},
+            "carriers": [
+                {"file": "TotalsCalculatorA.php", "namespace": "Acme\\Billing\\TotalsA", "class": "TotalsCalculatorA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "TotalsCalculatorB.php", "namespace": "Acme\\Billing\\TotalsB", "class": "TotalsCalculatorB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ENC-02"}]},
+                {"file": "TotalsCalculatorC.php", "namespace": "Acme\\Billing\\TotalsC", "class": "TotalsCalculatorC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ENC-02"}]}
+            ],
+            "distractors": [
+                {"file": "Validator.php", "namespace": "Acme\\Billing\\Validate", "class": "Validator", "source": "clean_billing", "reason": "Clean distractor - unrelated billing logic"}
+            ],
+            "cleans": [
+                {"file": "SchemaMapper.php", "namespace": "Acme\\Billing\\Schema", "class": "SchemaMapper", "source": "clean_parsing"}
+            ]
+        },
+        {
+            "set_id": "L08-enc_nbsp-002",
+            "title": "NBSP: Mixed NBSP and regular space indentation",
+            "description": "Some lines use NBSP, others regular spaces. Tests indentation normalization.",
+            "seed": "csv_processor",
+            "mount": "method",
+            "clone_symbol": "processRow",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 80202,
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.85, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": false, "metric_based": false, "semantic": false},
+            "carriers": [
+                {"file": "RowProcessorA.php", "namespace": "Acme\\Data\\ProcessA", "class": "RowProcessorA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "RowProcessorB.php", "namespace": "Acme\\Data\\ProcessB", "class": "RowProcessorB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ENC-02"}]},
+                {"file": "RowProcessorC.php", "namespace": "Acme\\Data\\ProcessC", "class": "RowProcessorC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ENC-02"}]}
+            ],
+            "distractors": [
+                {"file": "Filter.php", "namespace": "Acme\\Data\\Filter", "class": "RowFilter", "source": "clean_csv", "reason": "Clean distractor - different processing logic"}
+            ],
+            "cleans": [
+                {"file": "Mapper.php", "namespace": "Acme\\Data\\Map", "class": "RowMapper", "source": "clean_csv"}
+            ]
+        },
+        {
+            "set_id": "L08-enc_nbsp-003",
+            "title": "NBSP: Tab vs NBSP equivalence confusion",
+            "description": "Some clones use tabs, others use NBSP. Both are valid PHP indentation but different byte values.",
+            "seed": "serializer",
+            "mount": "method",
+            "clone_symbol": "serialize",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 80203,
+            "scoring": {"line_tolerance": 1, "member_jaccard_min": 0.9, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": false, "metric_based": false, "semantic": false},
+            "carriers": [
+                {"file": "SerializerA.php", "namespace": "Acme\\Util\\SerA", "class": "SerializerA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "SerializerB.php", "namespace": "Acme\\Util\\SerB", "class": "SerializerB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "WS-08"}, {"code": "ENC-02"}]},
+                {"file": "SerializerC.php", "namespace": "Acme\\Util\\SerC", "class": "SerializerC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ENC-02"}]}
+            ],
+            "distractors": [
+                {"file": "Deserializer.php", "namespace": "Acme\\Util\\Deser", "class": "Deserializer", "source": "clean_serializer", "reason": "Clean distractor - deserialization logic"}
+            ],
+            "cleans": [
+                {"file": "Validator.php", "namespace": "Acme\\Util\\Valid", "class": "DataValidator", "source": "clean_serializer"}
+            ]
+        },
+        {
+            "set_id": "L08-enc_nbsp-004",
+            "title": "NBSP: Combined with operator spacing",
+            "description": "NBSP indentation combined with operator spacing changes for compound surface variation.",
+            "seed": "permission_checker",
+            "mount": "method",
+            "clone_symbol": "checkAccess",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 80204,
+            "scoring": {"line_tolerance": 1, "member_jaccard_min": 0.85, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": false, "metric_based": false, "semantic": false},
+            "carriers": [
+                {"file": "AccessCheckerA.php", "namespace": "Acme\\Sec\\AccessA", "class": "AccessCheckerA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "AccessCheckerB.php", "namespace": "Acme\\Sec\\AccessB", "class": "AccessCheckerB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ENC-02"}, {"code": "WS-04"}]},
+                {"file": "AccessCheckerC.php", "namespace": "Acme\\Sec\\AccessC", "class": "AccessCheckerC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ENC-02"}, {"code": "WS-04"}]}
+            ],
+            "distractors": [
+                {"file": "RoleManager.php", "namespace": "Acme\\Sec\\Role", "class": "RoleManager", "source": "clean_permission", "reason": "Clean distractor - role management"}
+            ],
+            "cleans": [
+                {"file": "Grant.php", "namespace": "Acme\\Sec\\Grant", "class": "AccessGrant", "source": "clean_permission"}
+            ]
+        },
+        {
+            "set_id": "L08-enc_nbsp-005",
+            "title": "NBSP: Edge case with trailing NBSP",
+            "description": "NBSP appears not just as indentation but also trailing at end of lines. Tests line-ending normalization.",
+            "seed": "slug_generator",
+            "mount": "method",
+            "clone_symbol": "generateSlug",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 80205,
+            "scoring": {"line_tolerance": 1, "member_jaccard_min": 0.9, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": false, "metric_based": false, "semantic": false},
+            "carriers": [
+                {"file": "SlugGenA.php", "namespace": "Acme\\Util\\SlugA", "class": "SlugGenA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "SlugGenB.php", "namespace": "Acme\\Util\\SlugB", "class": "SlugGenB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ENC-02"}]},
+                {"file": "SlugGenC.php", "namespace": "Acme\\Util\\SlugC", "class": "SlugGenC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ENC-02"}, {"code": "WS-09"}]}
+            ],
+            "distractors": [
+                {"file": "Normalizer.php", "namespace": "Acme\\Util\\Norm", "class": "TextNormalizer", "source": "clean_slug", "reason": "Clean distractor - text normalization"}
+            ],
+            "cleans": [
+                {"file": "Validator.php", "namespace": "Acme\\Util\\Valid", "class": "SlugValidator", "source": "clean_slug"}
+            ]
+        }
+    ]
+}

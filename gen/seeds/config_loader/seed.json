@@ -1,0 +1,12 @@
+{
+    "domain": "config_loader",
+    "summary": "Configuration loading with PHP/JSON/INI support and environment override.",
+    "size_class": "S",
+    "symbol": "load",
+    "line_count": 55,
+    "token_count": 360,
+    "required_symbols": ["load"],
+    "mount_modes": ["method", "function"],
+    "compatible_interference": ["WS-03", "CM-03", "RN-01", "LT-02"],
+    "variants": []
+}

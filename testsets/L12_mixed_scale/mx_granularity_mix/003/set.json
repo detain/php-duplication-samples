@@ -1,0 +1,95 @@
+{
+    "schema_version": 1,
+    "set_id": "L12-mx_granularity_mix-003",
+    "level": 12,
+    "level_name": "mixed_scale",
+    "family": "mx_granularity_mix",
+    "title": "Granularity mix with multiple transforms",
+    "description": "Three carriers showing granularity variation with multiple transforms.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "invoice_totals",
+    "difficulty_band": "easy",
+    "files": [
+        {
+            "path": "src/GranularityMixA.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 39
+        },
+        {
+            "path": "src/GranularityMixB.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 44
+        },
+        {
+            "path": "src/GranularityMixC.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 44
+        },
+        {
+            "path": "src/GranularityMixDistractor.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 30
+        },
+        {
+            "path": "src/GranularityMixClean.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-2",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "LT-03",
+            "name": "array_values",
+            "params": {},
+            "applied_to": [
+                "src/GranularityMixB.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "RN-05",
+            "name": "case_convention",
+            "params": {},
+            "applied_to": [
+                "src/GranularityMixC.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "CM-03",
+            "name": "docblock",
+            "params": {},
+            "applied_to": [
+                "src/GranularityMixC.php"
+            ],
+            "intensity": 1
+        }
+    ],
+    "difficulty": {
+        "score": 15,
+        "requires": [
+            "identifier_canonicalization",
+            "literal_abstraction",
+            "comment_stripping"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L12_mixed_scale/mx_granularity_mix.json",
+        "version": "1.0.0",
+        "rng_seed": 120203
+    }
+}

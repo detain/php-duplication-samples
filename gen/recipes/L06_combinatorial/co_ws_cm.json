@@ -1,0 +1,203 @@
+{
+    "level": 6,
+    "level_name": "combinatorial",
+    "level_dir": "L06_combinatorial",
+    "family": "co_ws_cm",
+    "sets": [
+        {
+            "set_id": "L06-co_ws_cm-001",
+            "schema_version": 2,
+            "title": "Whitespace and comment interference (WS-01 + CM-01)",
+            "description": "Same computeTotals method across three billing classes. Carrier A applies WS-01 blank_before; carrier B applies CM-01 line_comment_add; carrier C applies both WS-01 and CM-01 together. Type-1 clone normalized by whitespace/comment stripping.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments", "identifiers", "case_convention"],
+            "rng_seed": 1601001,
+            "interference_profile": {
+                "axis_count": 2,
+                "axes": ["whitespace", "comments"],
+                "groups_applied": ["ws", "cm"]
+            },
+            "difficulty": {
+                "complexity": 4,
+                "axes": {
+                    "whitespace": 2,
+                    "comments": 2
+                }
+            },
+            "notes": "WS-01 (blank_before) adds blank lines at function start. CM-01 (line_comment_add) inserts inline comments. Both are type-1 text-level transforms normalized by token-based detectors.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineInvoiceCalc.php", "namespace": "Acme\\Billing\\Pristine", "class": "PristineInvoiceCalc", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "CommentedCalc.php", "namespace": "Acme\\Billing\\Commented", "class": "CommentedCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "CM-01", "params": {"position": "after_statement"}}]},
+                {"file": "WsCmCalc.php", "namespace": "Acme\\Billing\\WsCm", "class": "WsCmCalc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "WS-01", "params": {"blank_lines": 1}}, {"code": "CM-01", "params": {"position": "inline"}}]}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L06-co_ws_cm-002",
+            "schema_version": 2,
+            "title": "Whitespace and comment interference (WS-03 + CM-03)",
+            "description": "Same computeTotals method. Carrier A applies WS-03 blank_inside; carrier B applies CM-03 docblock; carrier C applies both WS-03 and CM-03. Tests blank lines inside method bodies combined with docblock generation.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments", "identifiers", "case_convention"],
+            "rng_seed": 1601002,
+            "interference_profile": {
+                "axis_count": 2,
+                "axes": ["whitespace", "comments"],
+                "groups_applied": ["ws", "cm"]
+            },
+            "difficulty": {
+                "complexity": 4,
+                "axes": {
+                    "whitespace": 3,
+                    "comments": 3
+                }
+            },
+            "notes": "WS-03 (blank_inside) adds blank lines inside method bodies. CM-03 (docblock) adds function documentation. Both normalized by token-based detectors.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineInvoiceCalc.php", "namespace": "Acme\\Billing\\Pristine", "class": "PristineInvoiceCalc", "scaffold": "method_alpha", "group": "A", "pristine": false, "transforms": [{"code": "WS-03", "params": {"blank_lines": 2}}]},
+                {"file": "DocblockedCalc.php", "namespace": "Acme\\Billing\\Doc", "class": "DocblockedCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "CM-03", "params": {"style": "docblock"}}]},
+                {"file": "BothCalc.php", "namespace": "Acme\\Billing\\Both", "class": "BothCalc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "WS-03", "params": {"blank_lines": 3}}, {"code": "CM-03", "params": {"style": "docblock"}}]}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L06-co_ws_cm-003",
+            "schema_version": 2,
+            "title": "Whitespace and comment interference (WS-06 + CM-07)",
+            "description": "Same computeTotals method. Carrier A applies WS-06 line_wrap; carrier B applies CM-07 commented_out_code; carrier C applies both. Tests line wrapping and commented code insertions.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments", "identifiers", "case_convention"],
+            "rng_seed": 1601003,
+            "interference_profile": {
+                "axis_count": 2,
+                "axes": ["whitespace", "comments"],
+                "groups_applied": ["ws", "cm"]
+            },
+            "difficulty": {
+                "complexity": 4,
+                "axes": {
+                    "whitespace": 4,
+                    "comments": 4
+                }
+            },
+            "notes": "WS-06 (line_wrap) reformats argument lists. CM-07 (commented_out_code) inserts commented duplicate code. Both type-1 and normalized by token-based detectors.",
+            "scoring": {"line_tolerance": 3, "member_jaccard_min": 0.55, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "WrappedCalc.php", "namespace": "Acme\\Billing\\Wrap", "class": "WrappedCalc", "scaffold": "method_alpha", "group": "A", "pristine": false, "transforms": [{"code": "WS-06", "params": {"occurrence": 1}}]},
+                {"file": "CommentedCodeCalc.php", "namespace": "Acme\\Billing\\Commented", "class": "CommentedCodeCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "CM-07", "params": {"lines": 2}}]},
+                {"file": "BothWrappedCalc.php", "namespace": "Acme\\Billing\\Both", "class": "BothWrappedCalc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "WS-06", "params": {"occurrence": 1}}, {"code": "CM-07", "params": {"lines": 2}}]}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L06-co_ws_cm-004",
+            "schema_version": 2,
+            "title": "Heavy whitespace and comment interference",
+            "description": "Same computeTotals method. All carriers apply multiple WS and CM transforms at higher intensity. Tests detector robustness under heavy but uniform interference.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments", "identifiers", "case_convention"],
+            "rng_seed": 1601004,
+            "interference_profile": {
+                "axis_count": 2,
+                "axes": ["whitespace", "comments"],
+                "groups_applied": ["ws", "cm"]
+            },
+            "difficulty": {
+                "complexity": 5,
+                "axes": {
+                    "whitespace": 4,
+                    "comments": 3
+                }
+            },
+            "notes": "Heavy interference: WS-03 + WS-06 combined with CM-01 + CM-03. All carriers use same transform combination. Tests normalization under heavy but uniform interference.",
+            "scoring": {"line_tolerance": 3, "member_jaccard_min": 0.5, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "HeavyCalcA.php", "namespace": "Acme\\Billing\\Heavy", "class": "HeavyCalcA", "scaffold": "method_alpha", "group": "A", "pristine": false, "transforms": [{"code": "WS-03", "params": {"blank_lines": 2}}, {"code": "CM-01", "params": {"position": "after_statement"}}]},
+                {"file": "HeavyCalcB.php", "namespace": "Acme\\Billing\\Heavy", "class": "HeavyCalcB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "WS-06", "params": {"occurrence": 1}}, {"code": "CM-03", "params": {"style": "docblock"}}]},
+                {"file": "HeavyCalcC.php", "namespace": "Acme\\Billing\\Heavy", "class": "HeavyCalcC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "WS-03", "params": {"blank_lines": 3}}, {"code": "WS-06", "params": {"occurrence": 2}}, {"code": "CM-01", "params": {"position": "inline"}}]}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L06-co_ws_cm-005",
+            "schema_version": 2,
+            "title": "Maximum whitespace and comment interference",
+            "description": "Same computeTotals method. All 4 basic WS and CM transforms stacked. Tests the ceiling of type-1 clone detection under maximum interference.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments", "identifiers", "case_convention"],
+            "rng_seed": 1601005,
+            "interference_profile": {
+                "axis_count": 2,
+                "axes": ["whitespace", "comments"],
+                "groups_applied": ["ws", "cm"]
+            },
+            "difficulty": {
+                "complexity": 6,
+                "axes": {
+                    "whitespace": 5,
+                    "comments": 4
+                }
+            },
+            "notes": "Maximum WS+CM interference: WS-01+WS-03+WS-06 combined with CM-01+CM-03+CM-07. Tests detector ceiling under type-1 saturation.",
+            "scoring": {"line_tolerance": 4, "member_jaccard_min": 0.45, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "MaxCalcA.php", "namespace": "Acme\\Billing\\Max", "class": "MaxCalcA", "scaffold": "method_alpha", "group": "A", "pristine": false, "transforms": [{"code": "WS-01", "params": {"blank_lines": 1}}, {"code": "WS-03", "params": {"blank_lines": 2}}, {"code": "CM-01", "params": {"position": "after_statement"}}]},
+                {"file": "MaxCalcB.php", "namespace": "Acme\\Billing\\Max", "class": "MaxCalcB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "WS-06", "params": {"occurrence": 1}}, {"code": "CM-03", "params": {"style": "docblock"}}, {"code": "CM-07", "params": {"lines": 1}}]},
+                {"file": "MaxCalcC.php", "namespace": "Acme\\Billing\\Max", "class": "MaxCalcC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "WS-01", "params": {"blank_lines": 2}}, {"code": "WS-03", "params": {"blank_lines": 3}}, {"code": "WS-06", "params": {"occurrence": 2}}, {"code": "CM-01", "params": {"position": "inline"}}]}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        }
+    ]
+}

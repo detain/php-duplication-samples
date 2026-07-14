@@ -1,0 +1,71 @@
+{
+    "schema_version": 2,
+    "set_id": "L05-rf_class_hierarchy-001",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-2",
+            "granularity": "method",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers"
+            ],
+            "token_hash": "133c8eb86cf81347",
+            "normalized_hash": "133c8eb86cf81347",
+            "members": [
+                {
+                    "file": "src/CreditCardProcessor.php",
+                    "start_line": 9,
+                    "end_line": 140,
+                    "symbol": "validate",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "payment_processor"
+                },
+                {
+                    "file": "src/PayPalProcessor.php",
+                    "start_line": 18,
+                    "end_line": 149,
+                    "symbol": "validate",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "payment_processor"
+                },
+                {
+                    "file": "src/BankTransferProcessor.php",
+                    "start_line": 24,
+                    "end_line": 155,
+                    "symbol": "validate",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "payment_processor"
+                }
+            ],
+            "detection_expectation": {
+                "text_based": true,
+                "token_based": true,
+                "ast_based": true
+            },
+            "notes": ""
+        }
+    ],
+    "non_duplicates": [],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.6,
+        "min_members_for_credit": 2
+    },
+    "intended_refactoring": {
+        "kind": "pull_up_method",
+        "unified_symbol": "validate",
+        "unified_signature": "validate(): bool",
+        "collapses": [
+            0,
+            1,
+            2
+        ],
+        "advisability": "recommended"
+    }
+}

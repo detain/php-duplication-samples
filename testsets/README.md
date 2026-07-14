@@ -5,10 +5,9 @@ detection, with machine-readable per-set metadata (`set.json`) and **line-accura
 ground truth** (`expected.json`). It complements — and never modifies — the category-reference
 `samples/` tree.
 
-> **Status: foundation / Wave-1 complete.** The engine, schemas, verifier, bench runner, and one
-> pilot set per pipeline path are built and green. The full ~540-set corpus is generated wave by
-> wave against this substrate (see `ORCHESTRATION.md`). This README describes the whole design;
-> the counts below reflect what is currently on disk (2026-07-13).
+> **Status: P8e integration complete.** The full L00–L20 corpus (1,095 sets across 21 levels)
+> is built and verified (see `ORCHESTRATION.md`). This README describes the whole design;
+> the counts below reflect what is currently on disk (2026-07-14).
 
 ## North-star
 
@@ -33,6 +32,21 @@ out of the scores (`plan_samples.md` §1, R8).
 | L8 | `L08_semantic_idioms` (+ `L08_semantic_variants`) | type-4/domain | Semantic / architectural duplication. |
 | L9 | `L09_mixed_interference` | mixed | Compound interference (stacked axes). |
 | L10 | `L10_adversarial_edge_cases` | mixed/edge | Threshold, overlap, encoding, topology traps. |
+
+## The L11–L20 Extended Ladder
+
+| Level | Dir | Clone type | What it isolates |
+|---|---|---|---|
+| L11 | `L11_deep_rename_stacks` | type-2 | Multi-level identifier renaming across method → class → namespace chains. |
+| L12 | `L12_mixed_scale` | mixed | Mix of small and large clones within the same set (scale boundary testing). |
+| L13 | `L13_semantic_depth` | type-4 | Deep semantic analysis required — control-flow/data-flow equivalence. |
+| L14 | `L14_cross_language` | cross-language | PHP fragments embedded in HTML/JS contexts. |
+| L15 | `L15_performance_ceiling` | stress | Large file / many clones stress test (1000+ line files). |
+| L16 | `L16_api_idiom_mix` | type-4 | Multiple API idioms combined in a single set. |
+| L17 | `L17_refactor_fork` | mixed | Forks of refactoring paths — multiple semantically equivalent implementations. |
+| L18 | `L18_partial_growth` | type-3 | Clone sets growing incrementally through related files. |
+| L19 | `L19_adversarial_cluster` | adversarial | Multiple adversarial patterns combined (anti-detection ceiling). |
+| L20 | `L20_kitchen_sink` | all | All techniques from L00–L19 combined — maximum difficulty ceiling. |
 
 Each level's single-axis design (`plan_samples.md` §4 D5) means a miss **localizes the exact
 missing capability**: a pass at L1 plus a miss at L4-`rn_locals` says "no identifier

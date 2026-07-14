@@ -1,0 +1,104 @@
+{
+    "schema_version": 1,
+    "set_id": "L08-sy_line_continuation-005",
+    "level": 8,
+    "level_name": "adversarial",
+    "family": "sy_line_continuation",
+    "title": "Line Continuation: Compound with whitespace",
+    "description": "WS-06/WS-07 line continuation combined with other whitespace variations.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "serializer",
+    "difficulty_band": "expert",
+    "files": [
+        {
+            "path": "src/SerializerA.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 86
+        },
+        {
+            "path": "src/SerializerB.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 94
+        },
+        {
+            "path": "src/SerializerC.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 89
+        },
+        {
+            "path": "src/Deserializer.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 14
+        },
+        {
+            "path": "src/Validator.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 14
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-1",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "WS-06",
+            "name": "line_wrap",
+            "params": {},
+            "applied_to": [
+                "src/SerializerB.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "WS-11",
+            "name": "brace_style",
+            "params": {},
+            "applied_to": [
+                "src/SerializerB.php",
+                "src/SerializerC.php"
+            ],
+            "intensity": 1
+        },
+        {
+            "code": "WS-04",
+            "name": "operator_spacing",
+            "params": {},
+            "applied_to": [
+                "src/SerializerB.php",
+                "src/SerializerC.php"
+            ],
+            "intensity": 1
+        },
+        {
+            "code": "WS-07",
+            "name": "line_join",
+            "params": {},
+            "applied_to": [
+                "src/SerializerC.php"
+            ],
+            "intensity": 2
+        }
+    ],
+    "difficulty": {
+        "score": 99,
+        "requires": [
+            "whitespace_normalization"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L08_adversarial/sy_line_continuation.json",
+        "version": "1.0.0",
+        "rng_seed": 81205
+    }
+}

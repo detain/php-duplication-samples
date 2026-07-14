@@ -1,0 +1,76 @@
+{
+    "schema_version": 1,
+    "set_id": "L08-enc_escapeseq-004",
+    "level": 8,
+    "level_name": "adversarial",
+    "family": "enc_escapeseq",
+    "title": "String Escapes: Unicode escape sequences",
+    "description": "Tests Unicode escape sequences (\\u0000) vs literal characters.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "serializer",
+    "difficulty_band": "expert",
+    "files": [
+        {
+            "path": "src/SerializerA.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 86
+        },
+        {
+            "path": "src/SerializerB.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 91
+        },
+        {
+            "path": "src/SerializerC.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 90
+        },
+        {
+            "path": "src/Deserializer.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 14
+        },
+        {
+            "path": "src/Validator.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 14
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-2",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "ENC-05",
+            "name": "string_escapes",
+            "params": {},
+            "applied_to": [
+                "src/SerializerB.php",
+                "src/SerializerC.php"
+            ],
+            "intensity": 2
+        }
+    ],
+    "difficulty": {
+        "score": 90,
+        "requires": [
+            "literal_abstraction"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L08_adversarial/enc_escapeseq.json",
+        "version": "1.0.0",
+        "rng_seed": 80704
+    }
+}

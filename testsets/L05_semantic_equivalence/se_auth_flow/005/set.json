@@ -1,0 +1,100 @@
+{
+    "schema_version": 1,
+    "set_id": "L05-se_auth_flow-005",
+    "level": 5,
+    "level_name": "semantic_equivalence",
+    "family": "se_auth_flow",
+    "title": "Auth flow: structural diversity with semantic preservation",
+    "description": "Authentication with structural transforms (ST-01 insert_logging, ST-04 delete_stmt) that preserve semantics while changing structure.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "auth_handler",
+    "difficulty_band": "expert",
+    "files": [
+        {
+            "path": "src/SessionAuth.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 123
+        },
+        {
+            "path": "src/JwtAuth.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 126
+        },
+        {
+            "path": "src/OAuthAuth.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 128
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-4",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "ST-01",
+            "name": "insert_logging",
+            "params": {},
+            "applied_to": [
+                "src/SessionAuth.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "CF-05",
+            "name": "early_return",
+            "params": {},
+            "applied_to": [
+                "src/JwtAuth.php"
+            ],
+            "intensity": 4
+        },
+        {
+            "code": "ST-04",
+            "name": "delete_stmt",
+            "params": {},
+            "applied_to": [
+                "src/JwtAuth.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "BL-01",
+            "name": "demorgan",
+            "params": {},
+            "applied_to": [
+                "src/OAuthAuth.php"
+            ],
+            "intensity": 4
+        },
+        {
+            "code": "ST-05",
+            "name": "reorder_independent",
+            "params": {},
+            "applied_to": [
+                "src/OAuthAuth.php"
+            ],
+            "intensity": 3
+        }
+    ],
+    "difficulty": {
+        "score": 100,
+        "requires": [
+            "semantic_reasoning",
+            "ast_canonicalization"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L05_semantic_equivalence/se_auth_flow.json",
+        "version": "1.0.0",
+        "rng_seed": 50105
+    }
+}

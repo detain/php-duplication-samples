@@ -1,0 +1,86 @@
+{
+    "schema_version": 2,
+    "set_id": "L05-rf_holes-004",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-1",
+            "granularity": "method",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers",
+                "literals"
+            ],
+            "token_hash": "ac22023fe4df6468",
+            "normalized_hash": "fb252d7282224430",
+            "members": [
+                {
+                    "file": "src/LegacyValidator.php",
+                    "start_line": 9,
+                    "end_line": 55,
+                    "symbol": "validate",
+                    "pristine": true,
+                    "group": "A",
+                    "seed": "validation_rule"
+                },
+                {
+                    "file": "src/ModernValidator.php",
+                    "start_line": 18,
+                    "end_line": 64,
+                    "symbol": "validate",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "validation_rule"
+                },
+                {
+                    "file": "src/ApiValidator.php",
+                    "start_line": 24,
+                    "end_line": 70,
+                    "symbol": "validate",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "validation_rule"
+                }
+            ],
+            "detection_expectation": {
+                "text_based": true,
+                "token_based": true,
+                "ast_based": true
+            },
+            "notes": ""
+        }
+    ],
+    "non_duplicates": [],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.6,
+        "min_members_for_credit": 2
+    },
+    "intended_refactoring": {
+        "kind": "extract_method_with_holes",
+        "unified_symbol": "validate",
+        "unified_signature": "validate(value, rules)",
+        "holes": [
+            {
+                "hole_id": "type_coercion",
+                "description": "No automatic type coercion before validation (e.g., string '123' to int 123)"
+            },
+            {
+                "hole_id": "message_localization",
+                "description": "Error messages are hardcoded, not translatable"
+            },
+            {
+                "hole_id": "ruleset_composition",
+                "description": "Cannot compose multiple rule sets or nest rules"
+            }
+        ],
+        "collapses": [
+            0,
+            1,
+            2
+        ],
+        "advisability": "recommended"
+    }
+}

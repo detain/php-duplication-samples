@@ -1,0 +1,208 @@
+{
+    "schema_version": 2,
+    "set_id": "L06-co_method_rename-003",
+    "level": 6,
+    "level_name": "combinatorial",
+    "family": "co_method_rename",
+    "title": "Case convention with statement interference",
+    "description": "Same computeTotals method. Tests case convention combined with statement-level changes.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "invoice_totals",
+    "difficulty_band": "expert",
+    "files": [
+        {
+            "path": "src/FullStackCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 40,
+            "region_sloc": {
+                "sloc": 26,
+                "duplicate": 24,
+                "unique": 2,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/MethodStCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 45,
+            "region_sloc": {
+                "sloc": 26,
+                "duplicate": 25,
+                "unique": 1,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/MaxMethodCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 44,
+            "region_sloc": {
+                "sloc": 26,
+                "duplicate": 23,
+                "unique": 3,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/MarginSummarizer.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 30
+        },
+        {
+            "path": "src/TaxRateRepository.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-3",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "ST-01",
+            "name": "insert_logging",
+            "params": {
+                "lines": 1
+            },
+            "applied_to": [
+                "src/FullStackCalc.php",
+                "src/MethodStCalc.php",
+                "src/MaxMethodCalc.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "RN-05",
+            "name": "case_convention",
+            "params": {
+                "direction": "snake_to_camel"
+            },
+            "applied_to": [
+                "src/FullStackCalc.php",
+                "src/MaxMethodCalc.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "WS-01",
+            "name": "blank_before",
+            "params": {
+                "blank_lines": 1
+            },
+            "applied_to": [
+                "src/FullStackCalc.php"
+            ],
+            "intensity": 1
+        },
+        {
+            "code": "RN-05",
+            "name": "case_convention",
+            "params": {
+                "direction": "camel_to_snake"
+            },
+            "applied_to": [
+                "src/MethodStCalc.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "LT-01",
+            "name": "numeric",
+            "params": {
+                "format": "hex"
+            },
+            "applied_to": [
+                "src/MethodStCalc.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "LT-01",
+            "name": "numeric",
+            "params": {
+                "format": "binary"
+            },
+            "applied_to": [
+                "src/MaxMethodCalc.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "WS-01",
+            "name": "blank_before",
+            "params": {
+                "blank_lines": 2
+            },
+            "applied_to": [
+                "src/MaxMethodCalc.php"
+            ],
+            "intensity": 1
+        }
+    ],
+    "difficulty": {
+        "score": 83,
+        "requires": [
+            "ast_canonicalization",
+            "identifier_canonicalization",
+            "whitespace_normalization",
+            "literal_abstraction"
+        ],
+        "score_raw": 83,
+        "axes": {
+            "breadth": 4,
+            "intensity": 1.86,
+            "intensity_max": 3,
+            "semantic_depth": 0,
+            "partiality": 1
+        },
+        "application_count": 10,
+        "axis_count": 4
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L06_combinatorial/co_method_rename.json",
+        "version": "2.0.0",
+        "rng_seed": 1610003
+    },
+    "interference_profile": {
+        "axis_count": 4,
+        "per_carrier_axes": {
+            "src/FullStackCalc.php": [
+                "ST-01",
+                "RN-05",
+                "WS-01"
+            ],
+            "src/MethodStCalc.php": [
+                "ST-01",
+                "RN-05",
+                "LT-01"
+            ],
+            "src/MaxMethodCalc.php": [
+                "ST-01",
+                "RN-05",
+                "LT-01",
+                "WS-01"
+            ]
+        },
+        "groups_touched": [
+            "A"
+        ],
+        "stack_depth_max": 4,
+        "symmetric_overlap": 2,
+        "pairwise_overlap": 0.6667,
+        "combination_design": "type2_plus_type1"
+    },
+    "engine_features": [
+        "fragment_emission"
+    ]
+}

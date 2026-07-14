@@ -9,7 +9,7 @@
     "properties": {
         "schema_version": {
             "type": "integer",
-            "const": 1
+            "enum": [1, 2]
         },
         "set_id": {
             "type": "string",
@@ -63,6 +63,21 @@
                     "normalized_hash": {
                         "type": "string"
                     },
+                    "varied_segment_count": {
+                        "$comment": "E-5: Number of varied segments across members.",
+                        "type": "integer",
+                        "minimum": 0
+                    },
+                    "region_sloc": {
+                        "$comment": "E-5: Total region sloc for this cluster (sum across all members).",
+                        "type": "object",
+                        "additionalProperties": false,
+                        "properties": {
+                            "duplicate": {"type": "integer", "minimum": 0},
+                            "unique": {"type": "integer", "minimum": 0},
+                            "filler": {"type": "integer", "minimum": 0}
+                        }
+                    },
                     "members": {
                         "type": "array",
                         "minItems": 2,
@@ -90,6 +105,14 @@
                                     "$comment": "True for the untransformed reference member.",
                                     "type": "boolean"
                                 },
+                                "group": {
+                                    "$comment": "Legacy v1 field: duplicate_group label for this member (matches files[].duplicate_group). Optional, prefer duplicate_group on the cluster.",
+                                    "type": ["string", "null"]
+                                },
+                                "seed": {
+                                    "$comment": "Legacy v1 field: seed domain name this member originated from. Optional.",
+                                    "type": ["string", "null"]
+                                },
                                 "fragments": {
                                     "$comment": "Optional: for gapped/partial clones (ST-06/ST-07/SEM-08), the sub-ranges that actually match.",
                                     "type": "array",
@@ -103,10 +126,39 @@
                                         }
                                     }
                                 },
+                                "unique_segments": {
+                                    "$comment": "E-4: Inverse of fragments[] — regions unique to this member. kind enum: unique_logic, noise, gap",
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "additionalProperties": false,
+                                        "required": ["start_line", "end_line", "lines", "kind", "reason"],
+                                        "properties": {
+                                            "start_line": {"type": "integer", "minimum": 1},
+                                            "end_line": {"type": "integer", "minimum": 1},
+                                            "lines": {"type": "integer", "minimum": 1},
+                                            "kind": {
+                                                "type": "string",
+                                                "enum": ["unique_logic", "noise", "gap"]
+                                            },
+                                            "reason": {"type": "string"}
+                                        }
+                                    }
+                                },
                                 "drift_generation": {
                                     "$comment": "Optional: for genealogy chains (CP-07), hop distance from the origin.",
                                     "type": "integer",
                                     "minimum": 0
+                                },
+                                "region_sloc": {
+                                    "$comment": "E-1: Per-member region_sloc within this cluster.",
+                                    "type": "object",
+                                    "additionalProperties": false,
+                                    "properties": {
+                                        "duplicate": {"type": "integer", "minimum": 0},
+                                        "unique": {"type": "integer", "minimum": 0},
+                                        "filler": {"type": "integer", "minimum": 0}
+                                    }
                                 }
                             }
                         }
@@ -126,6 +178,33 @@
                     },
                     "notes": {
                         "type": "string"
+                    },
+                    "pairwise_expectation": {
+                        "$comment": "E-11: Optional per-cluster pairwise expectation overrides.",
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "required": ["a", "b", "token_based", "ast_based"],
+                            "properties": {
+                                "a": {"type": "string"},
+                                "b": {"type": "string"},
+                                "token_based": {"type": "boolean"},
+                                "ast_based": {"type": "boolean"}
+                            }
+                        }
+                    },
+                    "relation": {
+                        "$comment": "E-10: For multi-cluster sets, relation to another cluster.",
+                        "type": "object",
+                        "additionalProperties": false,
+                        "properties": {
+                            "type": {
+                                "type": "string",
+                                "enum": ["nested", "overlapping", "chained", "braided"]
+                            },
+                            "with": {"type": "string"}
+                        }
                     }
                 }
             }
@@ -180,7 +259,32 @@
                 "min_members_for_credit": {
                     "type": "integer",
                     "minimum": 1
+                },
+                "fragment_scoring": {
+                    "$comment": "E-13: How to score fragments. enum: whole_member | fragments_union",
+                    "type": "string",
+                    "enum": ["whole_member", "fragments_union"]
+                },
+                "unique_segment_penalty": {
+                    "$comment": "E-13: Whether unique segments affect scoring.",
+                    "type": "boolean"
+                },
+                "pairwise_credit": {
+                    "$comment": "E-13: Whether pairwise comparisons affect credit.",
+                    "type": "boolean"
                 }
+            }
+        },
+        "capability_probe": {
+            "$comment": "E-12: Capability probe marker.",
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "capability": {"type": "string"},
+                "isolated": {"type": "boolean"},
+                "control_set": {"type": "string"},
+                "pass_criterion": {"type": "string"},
+                "fail_meaning": {"type": "string"}
             }
         }
     }

@@ -1,0 +1,12 @@
+{
+    "domain": "http_client",
+    "summary": "HTTP request builder with headers, timeouts, and error handling.",
+    "size_class": "M",
+    "symbol": "request",
+    "line_count": 58,
+    "token_count": 390,
+    "required_symbols": ["request"],
+    "mount_modes": ["method"],
+    "compatible_interference": ["WS-03", "CM-03", "RN-01", "LT-02", "ST-01"],
+    "variants": []
+}

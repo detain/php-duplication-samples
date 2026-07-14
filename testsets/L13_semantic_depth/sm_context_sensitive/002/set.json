@@ -1,0 +1,80 @@
+{
+    "schema_version": 1,
+    "set_id": "L13-sm_context_sensitive-002",
+    "level": 13,
+    "level_name": "semantic_depth",
+    "family": "sm_context_sensitive",
+    "title": "Context sensitivity with ST-05 reorder",
+    "description": "Context-dependent with statement reordering affects equivalence.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "access_guard",
+    "difficulty_band": "easy",
+    "files": [
+        {
+            "path": "src/ContextSensA.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 33
+        },
+        {
+            "path": "src/ContextSensB.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 36
+        },
+        {
+            "path": "src/ContextSensDistractor.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 29
+        },
+        {
+            "path": "src/ContextSensClean.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 27
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-3",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 2
+    },
+    "interference": [
+        {
+            "code": "ST-05",
+            "name": "reorder_independent",
+            "params": {},
+            "applied_to": [
+                "src/ContextSensB.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "RN-05",
+            "name": "case_convention",
+            "params": {},
+            "applied_to": [
+                "src/ContextSensB.php"
+            ],
+            "intensity": 2
+        }
+    ],
+    "difficulty": {
+        "score": 16,
+        "requires": [
+            "ast_canonicalization",
+            "commutative_reordering",
+            "identifier_canonicalization"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L13_semantic_depth/sm_context_sensitive.json",
+        "version": "1.0.0",
+        "rng_seed": 130202
+    }
+}

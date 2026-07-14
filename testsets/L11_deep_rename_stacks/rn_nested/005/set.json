@@ -1,0 +1,80 @@
+{
+    "schema_version": 1,
+    "set_id": "L11-rn_nested-005",
+    "level": 11,
+    "level_name": "deep_rename_stacks",
+    "family": "rn_nested",
+    "title": "Nested rename with ST-05 reorder independent",
+    "description": "Combines RN-05 nested rename with ST-05 statement reordering.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "access_guard",
+    "difficulty_band": "easy",
+    "files": [
+        {
+            "path": "src/NestedRenameA.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 33
+        },
+        {
+            "path": "src/NestedRenameB.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 36
+        },
+        {
+            "path": "src/NestedRenameDistractor.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 29
+        },
+        {
+            "path": "src/NestedRenameClean.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 27
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-3",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 2
+    },
+    "interference": [
+        {
+            "code": "ST-05",
+            "name": "reorder_independent",
+            "params": {},
+            "applied_to": [
+                "src/NestedRenameB.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "RN-05",
+            "name": "case_convention",
+            "params": {},
+            "applied_to": [
+                "src/NestedRenameB.php"
+            ],
+            "intensity": 2
+        }
+    ],
+    "difficulty": {
+        "score": 16,
+        "requires": [
+            "identifier_canonicalization",
+            "ast_canonicalization",
+            "commutative_reordering"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L11_deep_rename_stacks/rn_nested.json",
+        "version": "1.0.0",
+        "rng_seed": 110105
+    }
+}

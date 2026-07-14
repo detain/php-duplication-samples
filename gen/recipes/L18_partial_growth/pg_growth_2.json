@@ -1,0 +1,148 @@
+{
+    "level": 18,
+    "level_name": "partial_growth",
+    "level_dir": "L18_partial_growth",
+    "family": "pg_growth_2",
+    "sets": [
+        {
+            "set_id": "L18-pg_growth_2-001",
+            "title": "Grown clone set - expanded from pg_growth_1",
+            "description": "Tests pg_growth_2: grown clone set with more carriers and transforms.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["identifiers", "literals"],
+            "rng_seed": 180201,
+            "notes": "L18: pg_growth_2 - grown clone set with 4 carriers.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.65, "min_members_for_credit": 3},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["identifier_canonicalization", "literal_abstraction"],
+            "carriers": [
+                {"file": "GrownA.php", "namespace": "Acme\\Grown\\Alpha", "class": "GrownA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "GrownB.php", "namespace": "Acme\\Grown\\Beta", "class": "GrownB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-01"}]},
+                {"file": "GrownC.php", "namespace": "Acme\\Grown\\Gamma", "class": "GrownC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "LT-02"}]},
+                {"file": "GrownD.php", "namespace": "Acme\\Grown\\Delta", "class": "GrownD", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "LT-03"}]}
+            ],
+            "distractors": [
+                {"file": "GrownDistractor.php", "namespace": "Acme\\Grown\\Distract", "class": "GrownDistractor", "source": "nearmiss_invoice", "reason": "Near-miss: similar grown vocabulary"}
+            ],
+            "cleans": [
+                {"file": "GrownClean.php", "namespace": "Acme\\Grown\\Config", "class": "GrownClean", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L18-pg_growth_2-002",
+            "title": "Grown set with RN-05 rename across carriers",
+            "description": "Grown set with rename transformation across multiple carriers.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["identifiers"],
+            "rng_seed": 180202,
+            "notes": "L18: pg_growth_2 + RN-05 across 4 carriers.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.65, "min_members_for_credit": 3},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["identifier_canonicalization"],
+            "carriers": [
+                {"file": "GrownA.php", "namespace": "Acme\\Grown\\Alpha", "class": "GrownA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "GrownB.php", "namespace": "Acme\\Grown\\Beta", "class": "GrownB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-05"}]},
+                {"file": "GrownC.php", "namespace": "Acme\\Grown\\Gamma", "class": "GrownC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "RN-05"}, {"code": "CM-01"}]},
+                {"file": "GrownD.php", "namespace": "Acme\\Grown\\Delta", "class": "GrownD", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "RN-05"}, {"code": "LT-01"}]}
+            ],
+            "distractors": [
+                {"file": "GrownDistractor.php", "namespace": "Acme\\Grown\\Distract", "class": "GrownDistractor", "source": "nearmiss_access", "reason": "Near-miss: similar grown auth"}
+            ],
+            "cleans": [
+                {"file": "GrownClean.php", "namespace": "Acme\\Grown\\Config", "class": "GrownClean", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L18-pg_growth_2-003",
+            "title": "Grown set with all comment transforms",
+            "description": "Grown set with all comment transformations.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["comments", "identifiers"],
+            "rng_seed": 180203,
+            "notes": "L18: pg_growth_2 + CM-01 + CM-02 + CM-03.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 3},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["comment_stripping", "identifier_canonicalization"],
+            "carriers": [
+                {"file": "GrownA.php", "namespace": "Acme\\Grown\\Alpha", "class": "GrownA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "GrownB.php", "namespace": "Acme\\Grown\\Beta", "class": "GrownB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "CM-01"}]},
+                {"file": "GrownC.php", "namespace": "Acme\\Grown\\Gamma", "class": "GrownC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "CM-02"}]},
+                {"file": "GrownD.php", "namespace": "Acme\\Grown\\Delta", "class": "GrownD", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "CM-03"}, {"code": "LT-01"}]}
+            ],
+            "distractors": [
+                {"file": "GrownDistractor.php", "namespace": "Acme\\Grown\\Distract", "class": "GrownDistractor", "source": "nearmiss_invoice", "reason": "Near-miss: similar grown invoice"}
+            ],
+            "cleans": [
+                {"file": "GrownClean.php", "namespace": "Acme\\Grown\\Config", "class": "GrownClean", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L18-pg_growth_2-004",
+            "title": "Grown set with statement transforms",
+            "description": "Grown set with statement-level transformations.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["identifiers", "controlflow"],
+            "rng_seed": 180204,
+            "notes": "L18: pg_growth_2 + ST-01 + ST-02 + ST-05.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 3},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["ast_canonicalization", "identifier_canonicalization"],
+            "carriers": [
+                {"file": "GrownA.php", "namespace": "Acme\\Grown\\Alpha", "class": "GrownA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "GrownB.php", "namespace": "Acme\\Grown\\Beta", "class": "GrownB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-01"}]},
+                {"file": "GrownC.php", "namespace": "Acme\\Grown\\Gamma", "class": "GrownC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-02"}]},
+                {"file": "GrownD.php", "namespace": "Acme\\Grown\\Delta", "class": "GrownD", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-05"}, {"code": "RN-05"}]}
+            ],
+            "distractors": [
+                {"file": "GrownDistractor.php", "namespace": "Acme\\Grown\\Distract", "class": "GrownDistractor", "source": "nearmiss_access", "reason": "Near-miss: similar grown auth"}
+            ],
+            "cleans": [
+                {"file": "GrownClean.php", "namespace": "Acme\\Grown\\Config", "class": "GrownClean", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L18-pg_growth_2-005",
+            "title": "Grown set with combined transforms",
+            "description": "Grown set with extensive combined transformations.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["identifiers", "literals", "comments"],
+            "rng_seed": 180205,
+            "notes": "L18: pg_growth_2 combined RN-05 + LT + CM + ST.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.55, "min_members_for_credit": 4},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["identifier_canonicalization", "literal_abstraction", "comment_stripping", "ast_canonicalization"],
+            "carriers": [
+                {"file": "GrownA.php", "namespace": "Acme\\Grown\\Alpha", "class": "GrownA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "GrownB.php", "namespace": "Acme\\Grown\\Beta", "class": "GrownB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-05"}, {"code": "LT-01"}]},
+                {"file": "GrownC.php", "namespace": "Acme\\Grown\\Gamma", "class": "GrownC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "CM-03"}, {"code": "ST-08"}]},
+                {"file": "GrownD.php", "namespace": "Acme\\Grown\\Delta", "class": "GrownD", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "LT-02"}, {"code": "CM-01"}, {"code": "ST-09"}]}
+            ],
+            "distractors": [
+                {"file": "GrownDistractor.php", "namespace": "Acme\\Grown\\Distract", "class": "GrownDistractor", "source": "nearmiss_invoice", "reason": "Near-miss: similar grown invoice"}
+            ],
+            "cleans": [
+                {"file": "GrownClean.php", "namespace": "Acme\\Grown\\Config", "class": "GrownClean", "source": "clean_billing"}
+            ]
+        }
+    ]
+}

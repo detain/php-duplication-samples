@@ -1,0 +1,74 @@
+{
+    "schema_version": 2,
+    "set_id": "L05-rf_anti_refactor_controls-002",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-1",
+            "granularity": "method",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers",
+                "literals"
+            ],
+            "token_hash": "ab29c5185aec0112",
+            "normalized_hash": "c34a95ddc4a183a2",
+            "members": [
+                {
+                    "file": "src/PaymentChargeHandler.php",
+                    "start_line": 9,
+                    "end_line": 140,
+                    "symbol": "processPayment",
+                    "pristine": true,
+                    "group": "A",
+                    "seed": "payment_processor"
+                },
+                {
+                    "file": "src/PaymentRefundHandler.php",
+                    "start_line": 18,
+                    "end_line": 149,
+                    "symbol": "processPayment",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "payment_processor"
+                },
+                {
+                    "file": "src/PaymentWebhookRouter.php",
+                    "start_line": 24,
+                    "end_line": 155,
+                    "symbol": "processPayment",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "payment_processor"
+                }
+            ],
+            "detection_expectation": {
+                "text_based": true,
+                "token_based": true,
+                "ast_based": true
+            },
+            "notes": ""
+        }
+    ],
+    "non_duplicates": [
+        {
+            "file": "src/PaymentLogger.php",
+            "start_line": 9,
+            "end_line": 140,
+            "reason": "near-miss: similar transaction recording shape but only logs without state change",
+            "trap": true
+        }
+    ],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.6,
+        "min_members_for_credit": 2
+    },
+    "intended_refactoring": {
+        "kind": "none",
+        "advisability": "inadvisable",
+        "reason": "Carrier A (charge): CREATE transition — creates new transaction record, generates ID, records in ledger. Carrier B (refund): UPDATE transition — modifies existing transaction, has BUSINESS RULE constraint (refund_amount <= original_amount), creates new transaction record for refund. Carrier C (handleWebhook): PURE ROUTING — parses payload, dispatches to handlers, returns bool, NO state mutation in the router itself. Unifying would create a method that simultaneously performs CREATE, UPDATE, and PURE ROUTING — an IMPOSSIBLE contract that violates fundamental state machine semantics."
+    }
+}

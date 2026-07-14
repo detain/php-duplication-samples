@@ -1,0 +1,187 @@
+{
+    "schema_version": 2,
+    "set_id": "L04-ct_three_cluster-005",
+    "clusters": [
+        {
+            "id": "A",
+            "group_id": "A",
+            "clone_type": "type-3",
+            "granularity": "method",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers",
+                "literals"
+            ],
+            "token_hash": "f1e5708cf467f899",
+            "normalized_hash": "88b44d89704ac03f",
+            "members": [
+                {
+                    "file": "src/HeadOnlyA.php",
+                    "start_line": 9,
+                    "end_line": 33,
+                    "symbol": "computeTotals",
+                    "pristine": true,
+                    "group": "A",
+                    "seed": "invoice_totals"
+                },
+                {
+                    "file": "src/HeadOnlyB.php",
+                    "start_line": 18,
+                    "end_line": 38,
+                    "symbol": "computeTotals",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "invoice_totals"
+                },
+                {
+                    "file": "src/HeadOnlyC.php",
+                    "start_line": 24,
+                    "end_line": 43,
+                    "symbol": "computeTotals",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "invoice_totals"
+                }
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": true,
+                "semantic": true
+            },
+            "notes": "Same seed, three different modification strategies."
+        },
+        {
+            "id": "B",
+            "group_id": "B",
+            "clone_type": "type-3",
+            "granularity": "method",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers",
+                "literals"
+            ],
+            "token_hash": "f1e5708cf467f899",
+            "normalized_hash": "88b44d89704ac03f",
+            "members": [
+                {
+                    "file": "src/TailOnlyA.php",
+                    "start_line": 9,
+                    "end_line": 33,
+                    "symbol": "computeTotals",
+                    "pristine": true,
+                    "group": "B",
+                    "seed": "invoice_totals"
+                },
+                {
+                    "file": "src/TailOnlyB.php",
+                    "start_line": 18,
+                    "end_line": 38,
+                    "symbol": "computeTotals",
+                    "pristine": false,
+                    "group": "B",
+                    "seed": "invoice_totals"
+                },
+                {
+                    "file": "src/TailOnlyC.php",
+                    "start_line": 24,
+                    "end_line": 43,
+                    "symbol": "computeTotals",
+                    "pristine": false,
+                    "group": "B",
+                    "seed": "invoice_totals"
+                }
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": true,
+                "semantic": true
+            },
+            "notes": "Same seed, three different modification strategies."
+        },
+        {
+            "id": "C",
+            "group_id": "C",
+            "clone_type": "type-3",
+            "granularity": "method",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers",
+                "literals"
+            ],
+            "token_hash": "f1e5708cf467f899",
+            "normalized_hash": "88b44d89704ac03f",
+            "members": [
+                {
+                    "file": "src/BothA.php",
+                    "start_line": 9,
+                    "end_line": 33,
+                    "symbol": "computeTotals",
+                    "pristine": true,
+                    "group": "C",
+                    "seed": "invoice_totals"
+                },
+                {
+                    "file": "src/BothB.php",
+                    "start_line": 18,
+                    "end_line": 36,
+                    "symbol": "computeTotals",
+                    "pristine": false,
+                    "group": "C",
+                    "seed": "invoice_totals"
+                },
+                {
+                    "file": "src/BothC.php",
+                    "start_line": 24,
+                    "end_line": 40,
+                    "symbol": "computeTotals",
+                    "pristine": false,
+                    "group": "C",
+                    "seed": "invoice_totals"
+                }
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": true,
+                "semantic": true
+            },
+            "notes": "Same seed, three different modification strategies."
+        }
+    ],
+    "non_duplicates": [
+        {
+            "file": "src/Distractor1.php",
+            "start_line": 12,
+            "end_line": 28,
+            "reason": "near-miss",
+            "trap": true
+        },
+        {
+            "file": "src/Distractor2.php",
+            "start_line": 12,
+            "end_line": 28,
+            "reason": "near-miss",
+            "trap": true
+        },
+        {
+            "file": "src/Distractor3.php",
+            "start_line": 12,
+            "end_line": 28,
+            "reason": "near-miss",
+            "trap": true
+        }
+    ],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.6,
+        "min_members_for_credit": 2
+    }
+}

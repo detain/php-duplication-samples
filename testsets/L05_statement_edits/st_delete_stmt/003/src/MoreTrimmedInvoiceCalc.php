@@ -32,6 +32,7 @@ final class MoreTrimmedInvoiceCalc
             $subtotal += $lineTotal;
             $itemCount += (int) $quantity;
         }
+        $discount = round($subtotal * $discountRate, 2);
         $taxable = $subtotal - $discount;
         $tax = round($taxable * $taxRate, 2);
         $shipping = $subtotal > 100.0 ? 0.0 : 9.99;

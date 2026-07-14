@@ -51,6 +51,19 @@
     },
     "interference": [
         {
+            "code": "ST-01",
+            "name": "insert_logging",
+            "params": {
+                "lines": 1
+            },
+            "applied_to": [
+                "src/PristineInvoiceCalc.php",
+                "src/FourAxisCalc.php",
+                "src/FourAxisAltCalc.php"
+            ],
+            "intensity": 3
+        },
+        {
             "code": "RN-05",
             "name": "case_convention",
             "params": {
@@ -60,7 +73,8 @@
                 "src/PristineInvoiceCalc.php",
                 "src/FourAxisCalc.php",
                 "src/FourAxisAltCalc.php"
-            ]
+            ],
+            "intensity": 2
         },
         {
             "code": "WS-03",
@@ -72,7 +86,8 @@
                 "src/PristineInvoiceCalc.php",
                 "src/FourAxisCalc.php",
                 "src/FourAxisAltCalc.php"
-            ]
+            ],
+            "intensity": 1
         },
         {
             "code": "WS-06",
@@ -84,27 +99,16 @@
                 "src/PristineInvoiceCalc.php",
                 "src/FourAxisCalc.php",
                 "src/FourAxisAltCalc.php"
-            ]
-        },
-        {
-            "code": "ST-01",
-            "name": "insert_logging",
-            "params": {
-                "lines": 1
-            },
-            "applied_to": [
-                "src/PristineInvoiceCalc.php",
-                "src/FourAxisCalc.php",
-                "src/FourAxisAltCalc.php"
-            ]
+            ],
+            "intensity": 2
         }
     ],
     "difficulty": {
         "score": 100,
         "requires": [
+            "ast_canonicalization",
             "identifier_canonicalization",
-            "whitespace_normalization",
-            "ast_canonicalization"
+            "whitespace_normalization"
         ]
     },
     "generator": {

@@ -1,0 +1,162 @@
+{
+    "level": 5,
+    "level_name": "semantic_equivalence",
+    "level_dir": "L05_semantic_equivalence",
+    "family": "se_invoice_totals",
+    "sets": [
+        {
+            "set_id": "L05-se_invoice_totals-001",
+            "title": "Invoice totals: API abstraction equivalence - map vs loop vs recursion",
+            "description": "Three semantically equivalent invoice total calculations using different API styles: carrier A uses array_map with builtins (api_builtins variant), carrier B uses explicit foreach loops (api_map_loop variant), and carrier C uses recursion (api_recursion variant). All compute identical totals with tax and discounts.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-4",
+            "normalized_by": ["controlflow", "identifiers", "literals"],
+            "rng_seed": 50001,
+            "notes": "Set 001 of 7. API-01 (map_vs_loop) and API-04 (recursion_iteration) variants demonstrate equivalent business logic via different algorithmic approaches.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": false, "ast_based": false, "metric_based": false, "semantic": true},
+            "requires": ["semantic_reasoning", "api_abstraction"],
+            "carriers": [
+                {"file": "InvoiceCalculator.php", "namespace": "Acme\\Billing\\Invoice", "class": "InvoiceCalculator", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "OrderCalculator.php", "namespace": "Acme\\Billing\\Order", "class": "OrderCalculator", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "api_builtins", "transforms": [{"code": "API-06"}]},
+                {"file": "QuoteCalculator.php", "namespace": "Acme\\Billing\\Quote", "class": "QuoteCalculator", "scaffold": "method_gamma", "group": "A", "pristine": false, "variant": "api_recursion", "transforms": [{"code": "API-04"}]}
+            ],
+            "distractors": [
+                {"file": "ShippingCalculator.php", "namespace": "Acme\\Billing\\Shipping", "class": "ShippingCalculator", "source": "nearmiss_invoice", "reason": "near-miss: computes shipping cost with similar vocabulary but different formula"}
+            ],
+            "cleans": [
+                {"file": "DebugHelper.php", "namespace": "Acme\\Billing\\Debug", "class": "DebugHelper", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L05-se_invoice_totals-002",
+            "title": "Invoice totals: string vs regex API equivalence",
+            "description": "Three semantically equivalent invoice total calculations using different string processing APIs: carrier A uses direct string operations (pristine), carrier B uses regex (api_regex_string variant), and carrier C uses string function chain (api_strings variant).",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-4",
+            "normalized_by": ["controlflow", "identifiers", "literals"],
+            "rng_seed": 50002,
+            "notes": "Set 002 of 7. API-02 (string_fns) and API-03 (regex_vs_string) variants show equivalent parsing logic.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": false, "ast_based": false, "metric_based": false, "semantic": true},
+            "requires": ["semantic_reasoning", "api_abstraction"],
+            "carriers": [
+                {"file": "InvoiceCalculator.php", "namespace": "Acme\\Billing\\Invoice", "class": "InvoiceCalculator", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "OrderCalculator.php", "namespace": "Acme\\Billing\\Order", "class": "OrderCalculator", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "api_regex_string", "transforms": [{"code": "API-03"}]},
+                {"file": "QuoteCalculator.php", "namespace": "Acme\\Billing\\Quote", "class": "QuoteCalculator", "scaffold": "method_gamma", "group": "A", "pristine": false, "variant": "api_strings", "transforms": [{"code": "API-02"}]}
+            ]
+        },
+        {
+            "set_id": "L05-se_invoice_totals-003",
+            "title": "Invoice totals: table-driven vs procedural equivalence",
+            "description": "Three semantically equivalent invoice total calculations with different data structures: carrier A uses inline calculations, carrier B uses table-driven config (API-05), and carrier C uses serialization pattern (API-08).",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-4",
+            "normalized_by": ["controlflow", "identifiers", "literals"],
+            "rng_seed": 50003,
+            "notes": "Set 003 of 7. API-05 (table_driven) and API-08 (serialization) variants show equivalent logic via different data organization.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": false, "ast_based": false, "metric_based": false, "semantic": true},
+            "requires": ["semantic_reasoning", "api_abstraction"],
+            "carriers": [
+                {"file": "InvoiceCalculator.php", "namespace": "Acme\\Billing\\Invoice", "class": "InvoiceCalculator", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "OrderCalculator.php", "namespace": "Acme\\Billing\\Order", "class": "OrderCalculator", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "api_map_loop", "transforms": [{"code": "API-05"}]},
+                {"file": "QuoteCalculator.php", "namespace": "Acme\\Billing\\Quote", "class": "QuoteCalculator", "scaffold": "method_gamma", "group": "A", "pristine": false, "variant": "api_serialization", "transforms": [{"code": "API-08"}]}
+            ]
+        },
+        {
+            "set_id": "L05-se_invoice_totals-004",
+            "title": "Invoice totals: structural transforms + API equivalence",
+            "description": "Invoice totals computed identically despite structural differences introduced by ST-01 (insert_logging) and RN-01 (local_vars) transforms combined with API variants.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-4",
+            "normalized_by": ["controlflow", "identifiers", "literals"],
+            "rng_seed": 50004,
+            "notes": "Set 004 of 7. Combines ST-01 and RN-01 with API variants to create structural diversity while preserving semantics.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": false, "ast_based": false, "metric_based": false, "semantic": true},
+            "requires": ["semantic_reasoning", "api_abstraction", "ast_canonicalization"],
+            "carriers": [
+                {"file": "InvoiceCalculator.php", "namespace": "Acme\\Billing\\Invoice", "class": "InvoiceCalculator", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": [{"code": "ST-01"}]},
+                {"file": "OrderCalculator.php", "namespace": "Acme\\Billing\\Order", "class": "OrderCalculator", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "api_builtins", "transforms": [{"code": "API-06"}, {"code": "RN-01"}]},
+                {"file": "QuoteCalculator.php", "namespace": "Acme\\Billing\\Quote", "class": "QuoteCalculator", "scaffold": "method_gamma", "group": "A", "pristine": false, "variant": "api_recursion", "transforms": [{"code": "API-04"}, {"code": "ST-02"}]}
+            ]
+        },
+        {
+            "set_id": "L05-se_invoice_totals-005",
+            "title": "Invoice totals: whitespace and comment variations",
+            "description": "Invoice totals with equivalent logic but different formatting and commenting styles, demonstrating that textual differences dont affect semantic equivalence.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-4",
+            "normalized_by": ["controlflow", "identifiers", "literals"],
+            "rng_seed": 50005,
+            "notes": "Set 005 of 7. CM-05 (comment_remove) and WS-02 (blank_after) create textual diversity.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": false, "ast_based": false, "metric_based": false, "semantic": true},
+            "requires": ["semantic_reasoning"],
+            "carriers": [
+                {"file": "InvoiceCalculator.php", "namespace": "Acme\\Billing\\Invoice", "class": "InvoiceCalculator", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "OrderCalculator.php", "namespace": "Acme\\Billing\\Order", "class": "OrderCalculator", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "api_map_loop", "transforms": [{"code": "CM-05"}, {"code": "WS-02"}]},
+                {"file": "QuoteCalculator.php", "namespace": "Acme\\Billing\\Quote", "class": "QuoteCalculator", "scaffold": "method_gamma", "group": "A", "pristine": false, "variant": "api_strings", "transforms": [{"code": "CM-02"}, {"code": "WS-04"}]}
+            ]
+        },
+        {
+            "set_id": "L05-se_invoice_totals-006",
+            "title": "Invoice totals: rename + type hint variations",
+            "description": "Invoice totals with renamed variables and different type hints but identical computation logic.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-4",
+            "normalized_by": ["controlflow", "identifiers", "literals"],
+            "rng_seed": 50006,
+            "notes": "Set 006 of 7. RN-01 (local_vars) and TY-01 (type_hints) create identifier diversity.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": false, "ast_based": false, "metric_based": false, "semantic": true},
+            "requires": ["semantic_reasoning", "identifier_canonicalization"],
+            "carriers": [
+                {"file": "InvoiceCalculator.php", "namespace": "Acme\\Billing\\Invoice", "class": "InvoiceCalculator", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "OrderCalculator.php", "namespace": "Acme\\Billing\\Order", "class": "OrderCalculator", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "api_recursion", "transforms": [{"code": "RN-01"}, {"code": "TY-01"}]},
+                {"file": "QuoteCalculator.php", "namespace": "Acme\\Billing\\Quote", "class": "QuoteCalculator", "scaffold": "method_gamma", "group": "A", "pristine": false, "variant": "api_builtins", "transforms": [{"code": "RN-02"}, {"code": "TY-02"}]}
+            ]
+        },
+        {
+            "set_id": "L05-se_invoice_totals-007",
+            "title": "Invoice totals: full semantic equivalence with all API variants",
+            "description": "Complete equivalence test using all invoice_totals API variants: builtins, map_loop, recursion, regex_string, serialization, and strings. Multiple carriers showing full semantic equivalence.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-4",
+            "normalized_by": ["controlflow", "identifiers", "literals"],
+            "rng_seed": 50007,
+            "notes": "Set 007 of 7. Uses all 6 API variants to demonstrate maximum equivalence diversity.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": false, "ast_based": false, "metric_based": false, "semantic": true},
+            "requires": ["semantic_reasoning", "api_abstraction"],
+            "carriers": [
+                {"file": "InvoiceCalculatorA.php", "namespace": "Acme\\Billing\\Invoice", "class": "InvoiceCalculatorA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "InvoiceCalculatorB.php", "namespace": "Acme\\Billing\\Invoice", "class": "InvoiceCalculatorB", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "api_builtins", "transforms": [{"code": "API-06"}]},
+                {"file": "InvoiceCalculatorC.php", "namespace": "Acme\\Billing\\Invoice", "class": "InvoiceCalculatorC", "scaffold": "method_gamma", "group": "A", "pristine": false, "variant": "api_map_loop", "transforms": [{"code": "API-01"}]},
+                {"file": "InvoiceCalculatorD.php", "namespace": "Acme\\Billing\\Invoice", "class": "InvoiceCalculatorD", "scaffold": "method_alpha", "group": "A", "pristine": false, "variant": "api_recursion", "transforms": [{"code": "API-04"}]}
+            ]
+        }
+    ]
+}

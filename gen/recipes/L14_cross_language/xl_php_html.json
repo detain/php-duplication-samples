@@ -1,0 +1,139 @@
+{
+    "level": 14,
+    "level_name": "cross_language",
+    "level_dir": "L14_cross_language",
+    "family": "xl_php_html",
+    "sets": [
+        {
+            "set_id": "L14-xl_php_html-001",
+            "title": "PHP inside HTML templates - basic case",
+            "description": "Tests xl_php_html: PHP code fragments embedded in HTML templates. Infrastructure gap noted.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["identifiers", "literals"],
+            "rng_seed": 140101,
+            "notes": "L14: xl_php_html - PHP in HTML template context.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.7, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["identifier_canonicalization", "literal_abstraction"],
+            "carriers": [
+                {"file": "HtmlTemplateA.php", "namespace": "Acme\\Html\\TplA", "class": "HtmlTemplateA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "HtmlTemplateB.php", "namespace": "Acme\\Html\\TplB", "class": "HtmlTemplateB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-01"}]}
+            ],
+            "distractors": [
+                {"file": "HtmlTemplateDistractor.php", "namespace": "Acme\\Html\\Distract", "class": "HtmlTemplateDistractor", "source": "nearmiss_invoice", "reason": "Near-miss: similar invoice in HTML context"}
+            ],
+            "cleans": [
+                {"file": "HtmlTemplateClean.php", "namespace": "Acme\\Html\\Config", "class": "HtmlTemplateClean", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L14-xl_php_html-002",
+            "title": "PHP in HTML with RN-05 rename",
+            "description": "Case convention rename in HTML template PHP context.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["identifiers"],
+            "rng_seed": 140102,
+            "notes": "L14: xl_php_html + RN-05 rename.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.65, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["identifier_canonicalization"],
+            "carriers": [
+                {"file": "HtmlTemplateA.php", "namespace": "Acme\\Html\\TplA", "class": "HtmlTemplateA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "HtmlTemplateB.php", "namespace": "Acme\\Html\\TplB", "class": "HtmlTemplateB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-05"}, {"code": "CM-01"}]}
+            ],
+            "distractors": [
+                {"file": "HtmlTemplateDistractor.php", "namespace": "Acme\\Html\\Distract", "class": "HtmlTemplateDistractor", "source": "nearmiss_access", "reason": "Near-miss: similar auth in HTML context"}
+            ],
+            "cleans": [
+                {"file": "HtmlTemplateClean.php", "namespace": "Acme\\Html\\Config", "class": "HtmlTemplateClean", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L14-xl_php_html-003",
+            "title": "PHP in HTML with multiple transforms",
+            "description": "Three carriers with multiple transforms in HTML template context.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["identifiers", "literals", "comments"],
+            "rng_seed": 140103,
+            "notes": "L14: xl_php_html with multiple transforms.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 3},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["identifier_canonicalization", "literal_abstraction", "comment_stripping"],
+            "carriers": [
+                {"file": "HtmlTemplateA.php", "namespace": "Acme\\Html\\TplA", "class": "HtmlTemplateA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "HtmlTemplateB.php", "namespace": "Acme\\Html\\TplB", "class": "HtmlTemplateB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-02"}]},
+                {"file": "HtmlTemplateC.php", "namespace": "Acme\\Html\\TplC", "class": "HtmlTemplateC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "RN-05"}, {"code": "CM-03"}]}
+            ],
+            "distractors": [
+                {"file": "HtmlTemplateDistractor.php", "namespace": "Acme\\Html\\Distract", "class": "HtmlTemplateDistractor", "source": "nearmiss_invoice", "reason": "Near-miss: similar invoice in HTML"}
+            ],
+            "cleans": [
+                {"file": "HtmlTemplateClean.php", "namespace": "Acme\\Html\\Config", "class": "HtmlTemplateClean", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L14-xl_php_html-004",
+            "title": "PHP in HTML with ST-01 logging",
+            "description": "Logging insertion in PHP fragment within HTML template.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["identifiers"],
+            "rng_seed": 140104,
+            "notes": "L14: xl_php_html + ST-01 logging.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["identifier_canonicalization", "ast_canonicalization"],
+            "carriers": [
+                {"file": "HtmlTemplateA.php", "namespace": "Acme\\Html\\TplA", "class": "HtmlTemplateA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "HtmlTemplateB.php", "namespace": "Acme\\Html\\TplB", "class": "HtmlTemplateB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-01"}]}
+            ],
+            "distractors": [
+                {"file": "HtmlTemplateDistractor.php", "namespace": "Acme\\Html\\Distract", "class": "HtmlTemplateDistractor", "source": "nearmiss_access", "reason": "Near-miss: similar auth in HTML"}
+            ],
+            "cleans": [
+                {"file": "HtmlTemplateClean.php", "namespace": "Acme\\Html\\Config", "class": "HtmlTemplateClean", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L14-xl_php_html-005",
+            "title": "PHP in HTML with array transformation",
+            "description": "Array literal transformation in HTML template PHP context.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["literals"],
+            "rng_seed": 140105,
+            "notes": "L14: xl_php_html + LT-03 array transformation.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["literal_abstraction"],
+            "carriers": [
+                {"file": "HtmlTemplateA.php", "namespace": "Acme\\Html\\TplA", "class": "HtmlTemplateA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "HtmlTemplateB.php", "namespace": "Acme\\Html\\TplB", "class": "HtmlTemplateB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-03"}, {"code": "RN-05"}]}
+            ],
+            "distractors": [
+                {"file": "HtmlTemplateDistractor.php", "namespace": "Acme\\Html\\Distract", "class": "HtmlTemplateDistractor", "source": "nearmiss_invoice", "reason": "Near-miss: similar invoice in HTML"}
+            ],
+            "cleans": [
+                {"file": "HtmlTemplateClean.php", "namespace": "Acme\\Html\\Config", "class": "HtmlTemplateClean", "source": "clean_billing"}
+            ]
+        }
+    ]
+}

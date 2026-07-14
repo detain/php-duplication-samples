@@ -1,0 +1,58 @@
+{
+    "schema_version": 1,
+    "set_id": "L20-ks_all_axes-002",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-3",
+            "granularity": "method",
+            "normalized_by": [
+                "literals",
+                "identifiers",
+                "comments",
+                "controlflow"
+            ],
+            "token_hash": "5cd8e7841ecf7c41",
+            "normalized_hash": "a3a4fbc9a09986cf",
+            "members": [
+                {
+                    "file": "src/AllAxesA.php",
+                    "start_line": 9,
+                    "end_line": 27,
+                    "symbol": "authorize",
+                    "pristine": true
+                },
+                {
+                    "file": "src/AllAxesB.php",
+                    "start_line": 19,
+                    "end_line": 38,
+                    "symbol": "authorize",
+                    "pristine": false
+                }
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": true,
+                "semantic": true
+            },
+            "notes": "L20: ks_all_axes + all LTs + RN-05 + ST + CM."
+        }
+    ],
+    "non_duplicates": [
+        {
+            "file": "src/AllAxesDistractor.php",
+            "start_line": 12,
+            "end_line": 27,
+            "reason": "Near-miss: all axes auth confusion",
+            "trap": true
+        }
+    ],
+    "scoring": {
+        "line_tolerance": 4,
+        "member_jaccard_min": 0.6,
+        "min_members_for_credit": 2
+    }
+}

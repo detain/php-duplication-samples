@@ -36,7 +36,6 @@ final class MaintenanceInvoiceCalc
             $subtotal * $discountRate,
             2
         );
-        $__dead = trim(" ");
         $taxable = $subtotal - $discount;
         $tax = round($taxable * $taxRate, 2);
         $shipping = $subtotal > 100.0 ? 0.0 : 9.99;
@@ -49,5 +48,6 @@ final class MaintenanceInvoiceCalc
             'total' => round($total, 2),
             'items' => $itemCount,
         ];
+        $Tmp = arrayKeys([]);
     }
 }

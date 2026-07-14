@@ -1,0 +1,139 @@
+{
+    "level": 15,
+    "level_name": "performance_ceiling",
+    "level_dir": "L15_performance_ceiling",
+    "family": "pc_clone_heavy",
+    "sets": [
+        {
+            "set_id": "L15-pc_clone_heavy-001",
+            "title": "Heavy clone set with 20+ clone pairs",
+            "description": "Single file containing 20+ clone pairs for performance ceiling testing.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["identifiers", "literals"],
+            "rng_seed": 150301,
+            "notes": "L15: Clone-heavy set with 20+ pairs.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.7, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["identifier_canonicalization", "literal_abstraction"],
+            "carriers": [
+                {"file": "CloneHeavyA.php", "namespace": "Acme\\Heavy\\Alpha", "class": "CloneHeavyA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "CloneHeavyB.php", "namespace": "Acme\\Heavy\\Beta", "class": "CloneHeavyB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-01"}, {"code": "LT-02"}]}
+            ],
+            "distractors": [
+                {"file": "CloneHeavyDistractor.php", "namespace": "Acme\\Heavy\\Distract", "class": "CloneHeavyDistractor", "source": "nearmiss_invoice", "reason": "Near-miss: similar invoice patterns"}
+            ],
+            "cleans": [
+                {"file": "CloneHeavyClean.php", "namespace": "Acme\\Heavy\\Config", "class": "CloneHeavyClean", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L15-pc_clone_heavy-002",
+            "title": "Clone heavy with RN-05 rename intensity",
+            "description": "Heavy clone set with intense rename transformation.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["identifiers"],
+            "rng_seed": 150302,
+            "notes": "L15: Clone heavy + RN-05 rename.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.65, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["identifier_canonicalization"],
+            "carriers": [
+                {"file": "CloneHeavyA.php", "namespace": "Acme\\Heavy\\Alpha", "class": "CloneHeavyA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "CloneHeavyB.php", "namespace": "Acme\\Heavy\\Beta", "class": "CloneHeavyB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-05"}, {"code": "CM-01"}]}
+            ],
+            "distractors": [
+                {"file": "CloneHeavyDistractor.php", "namespace": "Acme\\Heavy\\Distract", "class": "CloneHeavyDistractor", "source": "nearmiss_access", "reason": "Near-miss: similar auth"}
+            ],
+            "cleans": [
+                {"file": "CloneHeavyClean.php", "namespace": "Acme\\Heavy\\Config", "class": "CloneHeavyClean", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L15-pc_clone_heavy-003",
+            "title": "Multi-carrier clone heavy set",
+            "description": "Three carriers with heavy clone overlap.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["identifiers", "literals", "comments"],
+            "rng_seed": 150303,
+            "notes": "L15: Three-carrier clone heavy set.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 3},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["identifier_canonicalization", "literal_abstraction", "comment_stripping"],
+            "carriers": [
+                {"file": "CloneHeavyA.php", "namespace": "Acme\\Heavy\\Alpha", "class": "CloneHeavyA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "CloneHeavyB.php", "namespace": "Acme\\Heavy\\Beta", "class": "CloneHeavyB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-03"}]},
+                {"file": "CloneHeavyC.php", "namespace": "Acme\\Heavy\\Gamma", "class": "CloneHeavyC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "RN-05"}, {"code": "LT-01"}, {"code": "CM-02"}]}
+            ],
+            "distractors": [
+                {"file": "CloneHeavyDistractor.php", "namespace": "Acme\\Heavy\\Distract", "class": "CloneHeavyDistractor", "source": "nearmiss_invoice", "reason": "Near-miss: similar invoice"}
+            ],
+            "cleans": [
+                {"file": "CloneHeavyClean.php", "namespace": "Acme\\Heavy\\Config", "class": "CloneHeavyClean", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L15-pc_clone_heavy-004",
+            "title": "Clone heavy with statement structure changes",
+            "description": "Heavy clone set with ST-05 statement reordering.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["identifiers", "controlflow"],
+            "rng_seed": 150304,
+            "notes": "L15: Clone heavy + ST-05 statement reorder.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["identifier_canonicalization", "ast_canonicalization", "commutative_reordering"],
+            "carriers": [
+                {"file": "CloneHeavyA.php", "namespace": "Acme\\Heavy\\Alpha", "class": "CloneHeavyA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "CloneHeavyB.php", "namespace": "Acme\\Heavy\\Beta", "class": "CloneHeavyB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-05"}]}
+            ],
+            "distractors": [
+                {"file": "CloneHeavyDistractor.php", "namespace": "Acme\\Heavy\\Distract", "class": "CloneHeavyDistractor", "source": "nearmiss_access", "reason": "Near-miss: similar auth"}
+            ],
+            "cleans": [
+                {"file": "CloneHeavyClean.php", "namespace": "Acme\\Heavy\\Config", "class": "CloneHeavyClean", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L15-pc_clone_heavy-005",
+            "title": "Maximum clone intensity with all transforms",
+            "description": "20+ clone pairs with all literal and identifier transforms.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["identifiers", "literals"],
+            "rng_seed": 150305,
+            "notes": "L15: Maximum clone intensity + all transforms.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.55, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["identifier_canonicalization", "literal_abstraction"],
+            "carriers": [
+                {"file": "CloneHeavyA.php", "namespace": "Acme\\Heavy\\Alpha", "class": "CloneHeavyA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "CloneHeavyB.php", "namespace": "Acme\\Heavy\\Beta", "class": "CloneHeavyB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-05"}, {"code": "LT-01"}, {"code": "LT-02"}, {"code": "LT-03"}, {"code": "LT-04"}]}
+            ],
+            "distractors": [
+                {"file": "CloneHeavyDistractor.php", "namespace": "Acme\\Heavy\\Distract", "class": "CloneHeavyDistractor", "source": "nearmiss_invoice", "reason": "Near-miss: similar invoice"}
+            ],
+            "cleans": [
+                {"file": "CloneHeavyClean.php", "namespace": "Acme\\Heavy\\Config", "class": "CloneHeavyClean", "source": "clean_billing"}
+            ]
+        }
+    ]
+}

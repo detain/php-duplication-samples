@@ -1,0 +1,74 @@
+{
+    "schema_version": 2,
+    "set_id": "L05-rf_anti_refactor_controls-003",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-1",
+            "granularity": "method",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers",
+                "literals"
+            ],
+            "token_hash": "3cfc94ec19116675",
+            "normalized_hash": "47058ee291aacafb",
+            "members": [
+                {
+                    "file": "src/EmailNotifier.php",
+                    "start_line": 9,
+                    "end_line": 67,
+                    "symbol": "notifyRecipient",
+                    "pristine": true,
+                    "group": "A",
+                    "seed": "notification_service"
+                },
+                {
+                    "file": "src/SmsNotifier.php",
+                    "start_line": 18,
+                    "end_line": 76,
+                    "symbol": "notifyRecipient",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "notification_service"
+                },
+                {
+                    "file": "src/PushNotifier.php",
+                    "start_line": 24,
+                    "end_line": 82,
+                    "symbol": "notifyRecipient",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "notification_service"
+                }
+            ],
+            "detection_expectation": {
+                "text_based": true,
+                "token_based": true,
+                "ast_based": true
+            },
+            "notes": ""
+        }
+    ],
+    "non_duplicates": [
+        {
+            "file": "src/NotificationLogger.php",
+            "start_line": 9,
+            "end_line": 67,
+            "reason": "near-miss: similar batching shape but only logs notifications without sending",
+            "trap": true
+        }
+    ],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.6,
+        "min_members_for_credit": 2
+    },
+    "intended_refactoring": {
+        "kind": "none",
+        "advisability": "inadvisable",
+        "reason": "Carrier A (sendEmail): validates using FILTER_VALIDATE_EMAIL (RFC 5321/5322 compliant). Carrier B (sendSms): validates using E.164 phone regex (^+?[1-9]\\d{6,14}$). Carrier C (sendPush): validates token length >= 10 chars. These validation functions are NOT interchangeable — email format has '@' and domain, phone has country code and digits only, push tokens have alphanumeric format requirements. There is NO common abstraction for 'recipient identifier' that captures all three without losing type safety."
+    }
+}

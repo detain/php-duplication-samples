@@ -1,0 +1,12 @@
+{
+    "domain": "tax_bracket",
+    "summary": "Tax bracket calculation with tiered rates.",
+    "size_class": "M",
+    "symbol": "calculateTax",
+    "line_count": 40,
+    "token_count": 290,
+    "required_symbols": ["calculateTax"],
+    "mount_modes": ["method"],
+    "compatible_interference": ["WS-03", "CM-03", "RN-01", "LT-01", "ST-01"],
+    "variants": []
+}

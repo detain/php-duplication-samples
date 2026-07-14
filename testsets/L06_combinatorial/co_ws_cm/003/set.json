@@ -1,0 +1,144 @@
+{
+    "schema_version": 2,
+    "set_id": "L06-co_ws_cm-003",
+    "level": 6,
+    "level_name": "combinatorial",
+    "family": "co_ws_cm",
+    "title": "Whitespace and comment interference (WS-06 + CM-07)",
+    "description": "Same computeTotals method. Carrier A applies WS-06 line_wrap; carrier B applies CM-07 commented_out_code; carrier C applies both. Tests line wrapping and commented code insertions.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "invoice_totals",
+    "difficulty_band": "very_hard",
+    "files": [
+        {
+            "path": "src/WrappedCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 42,
+            "region_sloc": {
+                "sloc": 28,
+                "duplicate": 28,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/CommentedCodeCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 74,
+            "region_sloc": {
+                "sloc": 55,
+                "duplicate": 25,
+                "unique": 30,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/BothWrappedCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 76,
+            "region_sloc": {
+                "sloc": 58,
+                "duplicate": 28,
+                "unique": 30,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/MarginSummarizer.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 30
+        },
+        {
+            "path": "src/TaxRateRepository.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-1",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "WS-06",
+            "name": "line_wrap",
+            "params": {
+                "occurrence": 1
+            },
+            "applied_to": [
+                "src/WrappedCalc.php",
+                "src/BothWrappedCalc.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "CM-07",
+            "name": "commented_out_code",
+            "params": {
+                "lines": 2
+            },
+            "applied_to": [
+                "src/CommentedCodeCalc.php",
+                "src/BothWrappedCalc.php"
+            ],
+            "intensity": 2
+        }
+    ],
+    "difficulty": {
+        "score": 68,
+        "requires": [
+            "whitespace_normalization",
+            "comment_stripping"
+        ],
+        "score_raw": 68,
+        "axes": {
+            "breadth": 2,
+            "intensity": 2,
+            "intensity_max": 2,
+            "semantic_depth": 0,
+            "partiality": 1
+        },
+        "application_count": 4,
+        "axis_count": 2
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L06_combinatorial/co_ws_cm.json",
+        "version": "2.0.0",
+        "rng_seed": 1601003
+    },
+    "interference_profile": {
+        "axis_count": 2,
+        "per_carrier_axes": {
+            "src/WrappedCalc.php": [
+                "WS-06"
+            ],
+            "src/CommentedCodeCalc.php": [
+                "CM-07"
+            ],
+            "src/BothWrappedCalc.php": [
+                "CM-07",
+                "WS-06"
+            ]
+        },
+        "groups_touched": [
+            "A"
+        ],
+        "stack_depth_max": 2,
+        "symmetric_overlap": 0,
+        "pairwise_overlap": 0.3333,
+        "combination_design": "textual_only"
+    },
+    "engine_features": [
+        "fragment_emission"
+    ]
+}

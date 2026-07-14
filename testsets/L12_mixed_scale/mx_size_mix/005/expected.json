@@ -1,0 +1,55 @@
+{
+    "schema_version": 1,
+    "set_id": "L12-mx_size_mix-005",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-3",
+            "granularity": "method",
+            "normalized_by": [
+                "identifiers"
+            ],
+            "token_hash": "5cd8e7841ecf7c41",
+            "normalized_hash": "89e09fba7eb77dcb",
+            "members": [
+                {
+                    "file": "src/SizeMixA.php",
+                    "start_line": 9,
+                    "end_line": 27,
+                    "symbol": "authorize",
+                    "pristine": true
+                },
+                {
+                    "file": "src/SizeMixB.php",
+                    "start_line": 18,
+                    "end_line": 37,
+                    "symbol": "authorize",
+                    "pristine": false
+                }
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": true,
+                "semantic": true
+            },
+            "notes": "L12: Size mix + ST-01 logging insertion."
+        }
+    ],
+    "non_duplicates": [
+        {
+            "file": "src/SizeMixDistractor.php",
+            "start_line": 12,
+            "end_line": 27,
+            "reason": "Near-miss: similar auth vocabulary",
+            "trap": true
+        }
+    ],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.6,
+        "min_members_for_credit": 2
+    }
+}

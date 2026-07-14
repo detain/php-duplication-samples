@@ -1,0 +1,82 @@
+{
+    "schema_version": 1,
+    "set_id": "L06-rw_auth_flow-002",
+    "level": 6,
+    "level_name": "realworld_scenarios",
+    "family": "rw_auth_flow",
+    "title": "Auth flow: OAuth2 with PKCE flow",
+    "description": "OAuth2 authentication with PKCE extension. Uses guard clauses for security checks and match expressions for flow control.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "auth_handler",
+    "difficulty_band": "expert",
+    "files": [
+        {
+            "path": "src/OAuthAuth.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 122
+        },
+        {
+            "path": "src/PkceHandler.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 129
+        },
+        {
+            "path": "src/TokenValidator.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 128
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-4",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "CF-02",
+            "name": "match_switch",
+            "params": {},
+            "applied_to": [
+                "src/PkceHandler.php"
+            ],
+            "intensity": 4
+        },
+        {
+            "code": "CF-05",
+            "name": "early_return",
+            "params": {},
+            "applied_to": [
+                "src/TokenValidator.php"
+            ],
+            "intensity": 4
+        },
+        {
+            "code": "BL-02",
+            "name": "split_combined",
+            "params": {},
+            "applied_to": [
+                "src/TokenValidator.php"
+            ],
+            "intensity": 4
+        }
+    ],
+    "difficulty": {
+        "score": 100,
+        "requires": [
+            "semantic_reasoning",
+            "controlflow_normalization"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L06_realworld/rw_auth_flow.json",
+        "version": "1.0.0",
+        "rng_seed": 60102
+    }
+}

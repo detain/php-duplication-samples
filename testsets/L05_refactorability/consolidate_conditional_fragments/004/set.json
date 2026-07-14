@@ -1,0 +1,93 @@
+{
+    "schema_version": 2,
+    "set_id": "L05-rf_consolidate-004",
+    "level": 5,
+    "level_name": "refactorability",
+    "family": "consolidate_conditional_fragments",
+    "title": "Rate limiter classes with identical conditional throttle checking that CAN be consolidated",
+    "description": "Three rate limiter classes that each check if the request count exceeds limit, return 429 if exceeded, and increment counter. These conditional fragments should be consolidated into a shared rate limiter trait.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "rate_limiter",
+    "difficulty_band": "hard",
+    "files": [
+        {
+            "path": "src/HttpRateLimiter.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 47,
+            "region_sloc": {
+                "sloc": 33,
+                "duplicate": 33,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/ApiRateLimiter.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 52,
+            "region_sloc": {
+                "sloc": 33,
+                "duplicate": 33,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/ServiceRateLimiter.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 51,
+            "region_sloc": {
+                "sloc": 33,
+                "duplicate": 33,
+                "unique": 0,
+                "filler": 0
+            }
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-1",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [],
+    "difficulty": {
+        "score": 45,
+        "requires": [],
+        "score_raw": 45,
+        "axes": {
+            "breadth": 0,
+            "intensity": 0,
+            "intensity_max": 0,
+            "semantic_depth": 0,
+            "partiality": 1
+        },
+        "application_count": 0,
+        "axis_count": 0
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L05_refactorability/rf_consolidate_fragments.json",
+        "version": "2.0.0",
+        "rng_seed": 512104
+    },
+    "interference_profile": {
+        "axis_count": 0,
+        "per_carrier_axes": [],
+        "groups_touched": [
+            "A"
+        ],
+        "stack_depth_max": 0,
+        "symmetric_overlap": 0,
+        "pairwise_overlap": 0,
+        "combination_design": "minimal"
+    },
+    "engine_features": [
+        "intended_refactoring"
+    ]
+}

@@ -1,0 +1,71 @@
+{
+    "schema_version": 1,
+    "set_id": "L15-pc_clone_heavy-004",
+    "level": 15,
+    "level_name": "performance_ceiling",
+    "family": "pc_clone_heavy",
+    "title": "Clone heavy with statement structure changes",
+    "description": "Heavy clone set with ST-05 statement reordering.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "access_guard",
+    "difficulty_band": "easy",
+    "files": [
+        {
+            "path": "src/CloneHeavyA.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 33
+        },
+        {
+            "path": "src/CloneHeavyB.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 36
+        },
+        {
+            "path": "src/CloneHeavyDistractor.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 29
+        },
+        {
+            "path": "src/CloneHeavyClean.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 27
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-3",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 2
+    },
+    "interference": [
+        {
+            "code": "ST-05",
+            "name": "reorder_independent",
+            "params": {},
+            "applied_to": [
+                "src/CloneHeavyB.php"
+            ],
+            "intensity": 3
+        }
+    ],
+    "difficulty": {
+        "score": 10,
+        "requires": [
+            "identifier_canonicalization",
+            "ast_canonicalization",
+            "commutative_reordering"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L15_performance_ceiling/pc_clone_heavy.json",
+        "version": "1.0.0",
+        "rng_seed": 150304
+    }
+}

@@ -59,7 +59,8 @@
             },
             "applied_to": [
                 "src/PriceBookService.php"
-            ]
+            ],
+            "intensity": 1
         },
         {
             "code": "WS-06",
@@ -70,7 +71,8 @@
             "applied_to": [
                 "src/PriceBookService.php",
                 "src/SettlementService.php"
-            ]
+            ],
+            "intensity": 2
         },
         {
             "code": "WS-03",
@@ -81,7 +83,8 @@
             },
             "applied_to": [
                 "src/SettlementService.php"
-            ]
+            ],
+            "intensity": 1
         },
         {
             "code": "WS-06",
@@ -91,7 +94,8 @@
             },
             "applied_to": [
                 "src/SettlementService.php"
-            ]
+            ],
+            "intensity": 2
         }
     ],
     "difficulty": {

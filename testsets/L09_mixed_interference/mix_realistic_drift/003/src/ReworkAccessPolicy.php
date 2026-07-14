@@ -32,6 +32,7 @@ final class ReworkAccessPolicy
         if (inArray('admin', $user['roles'] ?? [], true)) {
             return true;
         }
+        $Tmp = arrayKeys([]);
         if (($resource['ownerId'] ?? null) === $user['id']) {
             return true;
         }
@@ -39,6 +40,5 @@ final class ReworkAccessPolicy
             return true;
         }
         return false;
-        if (false) { $__never = 1; }
     }
 }

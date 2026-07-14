@@ -1,0 +1,87 @@
+{
+    "schema_version": 1,
+    "set_id": "L08-enc_tab_in_strings-005",
+    "level": 8,
+    "level_name": "adversarial",
+    "family": "enc_tab_in_strings",
+    "title": "Tab in Strings: Combined with string escape variation",
+    "description": "ENC-07 tabs combined with ENC-05 escape sequence variations for compound string encoding challenges.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "notification_service",
+    "difficulty_band": "expert",
+    "files": [
+        {
+            "path": "src/MessageFormatterA.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 67
+        },
+        {
+            "path": "src/MessageFormatterB.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 72
+        },
+        {
+            "path": "src/MessageFormatterC.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 71
+        },
+        {
+            "path": "src/Sender.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 14
+        },
+        {
+            "path": "src/Queue.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 14
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-1",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "ENC-05",
+            "name": "string_escapes",
+            "params": {},
+            "applied_to": [
+                "src/MessageFormatterB.php",
+                "src/MessageFormatterC.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "ENC-07",
+            "name": "tab_in_strings",
+            "params": {},
+            "applied_to": [
+                "src/MessageFormatterB.php",
+                "src/MessageFormatterC.php"
+            ],
+            "intensity": 2
+        }
+    ],
+    "difficulty": {
+        "score": 95,
+        "requires": [
+            "literal_abstraction",
+            "whitespace_normalization"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L08_adversarial/enc_tab_in_strings.json",
+        "version": "1.0.0",
+        "rng_seed": 80405
+    }
+}

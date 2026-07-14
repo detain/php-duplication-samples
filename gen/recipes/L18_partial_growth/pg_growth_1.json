@@ -1,0 +1,139 @@
+{
+    "level": 18,
+    "level_name": "partial_growth",
+    "level_dir": "L18_partial_growth",
+    "family": "pg_growth_1",
+    "sets": [
+        {
+            "set_id": "L18-pg_growth_1-001",
+            "title": "Initial small clone set - basic",
+            "description": "Tests pg_growth_1: initial small clone set for incremental growth testing.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["identifiers", "literals"],
+            "rng_seed": 180101,
+            "notes": "L18: pg_growth_1 - initial small clone set.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.7, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["identifier_canonicalization", "literal_abstraction"],
+            "carriers": [
+                {"file": "GrowthA.php", "namespace": "Acme\\Growth\\Alpha", "class": "GrowthA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "GrowthB.php", "namespace": "Acme\\Growth\\Beta", "class": "GrowthB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-01"}]}
+            ],
+            "distractors": [
+                {"file": "GrowthDistractor.php", "namespace": "Acme\\Growth\\Distract", "class": "GrowthDistractor", "source": "nearmiss_invoice", "reason": "Near-miss: similar growth vocabulary"}
+            ],
+            "cleans": [
+                {"file": "GrowthClean.php", "namespace": "Acme\\Growth\\Config", "class": "GrowthClean", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L18-pg_growth_1-002",
+            "title": "Initial growth with RN-05 rename",
+            "description": "Initial small set with case convention rename.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["identifiers"],
+            "rng_seed": 180102,
+            "notes": "L18: pg_growth_1 + RN-05 rename.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.65, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["identifier_canonicalization"],
+            "carriers": [
+                {"file": "GrowthA.php", "namespace": "Acme\\Growth\\Alpha", "class": "GrowthA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "GrowthB.php", "namespace": "Acme\\Growth\\Beta", "class": "GrowthB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-05"}, {"code": "CM-01"}]}
+            ],
+            "distractors": [
+                {"file": "GrowthDistractor.php", "namespace": "Acme\\Growth\\Distract", "class": "GrowthDistractor", "source": "nearmiss_access", "reason": "Near-miss: similar growth auth"}
+            ],
+            "cleans": [
+                {"file": "GrowthClean.php", "namespace": "Acme\\Growth\\Config", "class": "GrowthClean", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L18-pg_growth_1-003",
+            "title": "Initial growth three carriers",
+            "description": "Three carriers for initial growth set.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["identifiers", "literals", "comments"],
+            "rng_seed": 180103,
+            "notes": "L18: pg_growth_1 with three carriers.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 3},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["identifier_canonicalization", "literal_abstraction", "comment_stripping"],
+            "carriers": [
+                {"file": "GrowthA.php", "namespace": "Acme\\Growth\\Alpha", "class": "GrowthA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "GrowthB.php", "namespace": "Acme\\Growth\\Beta", "class": "GrowthB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-02"}, {"code": "CM-02"}]},
+                {"file": "GrowthC.php", "namespace": "Acme\\Growth\\Gamma", "class": "GrowthC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "RN-05"}, {"code": "LT-03"}, {"code": "CM-03"}]}
+            ],
+            "distractors": [
+                {"file": "GrowthDistractor.php", "namespace": "Acme\\Growth\\Distract", "class": "GrowthDistractor", "source": "nearmiss_invoice", "reason": "Near-miss: similar growth invoice"}
+            ],
+            "cleans": [
+                {"file": "GrowthClean.php", "namespace": "Acme\\Growth\\Config", "class": "GrowthClean", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L18-pg_growth_1-004",
+            "title": "Initial growth with ST-02 dead code",
+            "description": "Initial small set with dead code insertion.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["identifiers"],
+            "rng_seed": 180104,
+            "notes": "L18: pg_growth_1 + ST-02 dead code.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["ast_canonicalization", "deadcode_elimination", "identifier_canonicalization"],
+            "carriers": [
+                {"file": "GrowthA.php", "namespace": "Acme\\Growth\\Alpha", "class": "GrowthA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "GrowthB.php", "namespace": "Acme\\Growth\\Beta", "class": "GrowthB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-02"}]}
+            ],
+            "distractors": [
+                {"file": "GrowthDistractor.php", "namespace": "Acme\\Growth\\Distract", "class": "GrowthDistractor", "source": "nearmiss_access", "reason": "Near-miss: similar growth auth"}
+            ],
+            "cleans": [
+                {"file": "GrowthClean.php", "namespace": "Acme\\Growth\\Config", "class": "GrowthClean", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L18-pg_growth_1-005",
+            "title": "Initial growth with multiple literals",
+            "description": "Initial small set with all literal transformations.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["literals"],
+            "rng_seed": 180105,
+            "notes": "L18: pg_growth_1 + LT-01 + LT-02 + LT-03 + LT-04.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.55, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["literal_abstraction"],
+            "carriers": [
+                {"file": "GrowthA.php", "namespace": "Acme\\Growth\\Alpha", "class": "GrowthA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "GrowthB.php", "namespace": "Acme\\Growth\\Beta", "class": "GrowthB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-01"}, {"code": "LT-02"}, {"code": "LT-03"}, {"code": "LT-04"}]}
+            ],
+            "distractors": [
+                {"file": "GrowthDistractor.php", "namespace": "Acme\\Growth\\Distract", "class": "GrowthDistractor", "source": "nearmiss_invoice", "reason": "Near-miss: similar growth invoice"}
+            ],
+            "cleans": [
+                {"file": "GrowthClean.php", "namespace": "Acme\\Growth\\Config", "class": "GrowthClean", "source": "clean_billing"}
+            ]
+        }
+    ]
+}

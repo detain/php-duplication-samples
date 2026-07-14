@@ -1,0 +1,90 @@
+{
+    "schema_version": 2,
+    "set_id": "L05-rf_extractable_method-001",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-1",
+            "granularity": "method",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers",
+                "literals"
+            ],
+            "token_hash": "ee4840b7ae357774",
+            "normalized_hash": "ee4840b7ae357774",
+            "members": [
+                {
+                    "file": "src/StandardBilling.php",
+                    "start_line": 9,
+                    "end_line": 33,
+                    "symbol": "processLineItem",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "invoice_totals"
+                },
+                {
+                    "file": "src/PremiumBilling.php",
+                    "start_line": 18,
+                    "end_line": 42,
+                    "symbol": "processLineItem",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "invoice_totals"
+                },
+                {
+                    "file": "src/EnterpriseBilling.php",
+                    "start_line": 24,
+                    "end_line": 48,
+                    "symbol": "processLineItem",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "invoice_totals"
+                }
+            ],
+            "detection_expectation": {
+                "text_based": true,
+                "token_based": true,
+                "ast_based": true
+            },
+            "notes": ""
+        }
+    ],
+    "non_duplicates": [
+        {
+            "file": "src/ShippingCalculator.php",
+            "start_line": 12,
+            "end_line": 28,
+            "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total — a different result",
+            "trap": true
+        }
+    ],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.6,
+        "min_members_for_credit": 2
+    },
+    "intended_refactoring": {
+        "kind": "extract_method_with_holes",
+        "unified_symbol": "processLineItem",
+        "unified_signature": "processLineItem(item, config)",
+        "holes": [
+            {
+                "hole_id": "error_handling",
+                "description": "Missing exception handling for invalid item"
+            },
+            {
+                "hole_id": "logging",
+                "description": "No audit trail logging"
+            }
+        ],
+        "collapses": [
+            0,
+            1,
+            2
+        ],
+        "advisability": "recommended"
+    }
+}

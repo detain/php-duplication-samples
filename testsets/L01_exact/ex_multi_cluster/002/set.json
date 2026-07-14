@@ -51,7 +51,7 @@
             "path": "src/CsvDistractor.php",
             "role": "distractor",
             "duplicate_group": null,
-            "sloc": 28
+            "sloc": 63
         },
         {
             "path": "src/TotalsDistractor.php",
@@ -76,7 +76,7 @@
         "present": true,
         "clone_type": "type-1",
         "granularity": "function",
-        "clusters": 1,
+        "clusters": 2,
         "instances": 6
     },
     "interference": [],

@@ -1,0 +1,89 @@
+{
+    "schema_version": 1,
+    "set_id": "L19-ac_mixed_adversarial-002",
+    "level": 19,
+    "level_name": "adversarial_cluster",
+    "family": "ac_mixed_adversarial",
+    "title": "Mixed adversarial with comments and literals",
+    "description": "Multiple adversarial patterns with comment and literal transforms.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "access_guard",
+    "difficulty_band": "easy",
+    "files": [
+        {
+            "path": "src/MixedAdvA.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 33
+        },
+        {
+            "path": "src/MixedAdvB.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 39
+        },
+        {
+            "path": "src/MixedAdvDistractor.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 29
+        },
+        {
+            "path": "src/MixedAdvClean.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 27
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-2",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 2
+    },
+    "interference": [
+        {
+            "code": "LT-02",
+            "name": "string",
+            "params": {},
+            "applied_to": [
+                "src/MixedAdvB.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "RN-05",
+            "name": "case_convention",
+            "params": {},
+            "applied_to": [
+                "src/MixedAdvB.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "CM-01",
+            "name": "line_comment_add",
+            "params": {},
+            "applied_to": [
+                "src/MixedAdvB.php"
+            ],
+            "intensity": 1
+        }
+    ],
+    "difficulty": {
+        "score": 14,
+        "requires": [
+            "comment_stripping",
+            "literal_abstraction",
+            "identifier_canonicalization"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L19_adversarial_cluster/ac_mixed_adversarial.json",
+        "version": "1.0.0",
+        "rng_seed": 190202
+    }
+}

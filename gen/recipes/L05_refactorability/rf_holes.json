@@ -1,0 +1,172 @@
+{
+    "level": 5,
+    "level_name": "refactorability",
+    "level_dir": "L05_refactorability",
+    "family": "rf_holes",
+    "description": "Code clones that CAN be unified but have INTENTIONAL HOLES in the unified solution — gaps that need to be filled by the developer. Each set shows partial unification with missing pieces.",
+    "sets": [
+        {
+            "set_id": "L05-rf_holes-001",
+            "title": "Invoice total calculation with logging and error handling holes",
+            "description": "Three billing classes with identical calculateTotals methods that can be unified. The unified solution has deliberate gaps in logging and error handling.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "calculateTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "schema_version": 2,
+            "rng_seed": 509101,
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true},
+            "intended_refactoring": {
+                "kind": "extract_method_with_holes",
+                "unified_symbol": "calculateTotals",
+                "unified_signature": "calculateTotals(items, taxRate, discountRate)",
+                "holes": [
+                    {"hole_id": "logging", "description": "No audit trail for calculation steps"},
+                    {"hole_id": "error_handling", "description": "Missing exception handling for invalid item data"},
+                    {"hole_id": "validation", "description": "No validation for negative prices or quantities"}
+                ],
+                "collapses": [0, 1, 2],
+                "advisability": "recommended"
+            },
+            "solution": "<?php\\ndeclare(strict_types=1);\\n\\nnamespace Acme\\\\Billing\\\\Unified;\\n\\n/**\\n * Unified invoice total calculator \u2014 holes: logging, error_handling, validation\\n */\\nclass InvoiceTotalCalculator\\n{\\n    public function calculateTotals(array $items, float $taxRate, float $discountRate): array\\n    {\\n        // HOLE: error_handling \u2014 no try/catch for malformed item arrays\\n\\n        $subtotal = 0.0;\\n        $taxableAmount = 0.0;\\n\\n        foreach ($items as $item) {\\n            // HOLE: validation \u2014 no check for negative unit_price or quantity\\n            $qty = (int)($item['quantity'] ?? 0);\\n            $price = (float)($item['unit_price'] ?? 0.0);\\n            $lineTotal = $qty * $price;\\n            $subtotal += $lineTotal;\\n\\n            if (($item['taxable'] ?? true)) {\\n                $taxableAmount += $lineTotal;\\n            }\\n        }\\n\\n        $discount = $subtotal * $discountRate;\\n        $taxableAfterDiscount = $taxableAmount * (1 - $discountRate);\\n        $tax = $taxableAfterDiscount * $taxRate;\\n        $total = $subtotal - $discount + $tax;\\n\\n        // HOLE: logging \u2014 no audit trail for calculation (who calculated, when, what inputs)\\n\\n        return [\\n            'subtotal' => round($subtotal, 2),\\n            'discount' => round($discount, 2),\\n            'tax' => round($tax, 2),\\n            'total' => round($total, 2),\\n            'item_count' => count($items),\\n        ];\\n    }\\n}\n",
+            "carriers": [
+                {"file": "StandardBilling.php", "namespace": "Acme\\Billing\\Standard", "class": "StandardBilling", "scaffold": "method_alpha", "group": "A", "pristine": false, "transforms": []},
+                {"file": "PremiumBilling.php", "namespace": "Acme\\Billing\\Premium", "class": "PremiumBilling", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": []},
+                {"file": "EnterpriseBilling.php", "namespace": "Acme\\Billing\\Enterprise", "class": "EnterpriseBilling", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "ShippingCalculator.php", "namespace": "Acme\\Shipping", "class": "ShippingCalculator", "source": "nearmiss_invoice", "reason": "near-miss: similar foreach-over-items shape but computes weight/shipping instead of price/tax"}
+            ]
+        },
+        {
+            "set_id": "L05-rf_holes-002",
+            "title": "Cache manager with validation, TTL handling, and serialization holes",
+            "description": "Three cache classes with identical get/set methods that can be unified. The unified solution has deliberate gaps in validation, TTL bounds checking, and serialization handling.",
+            "seed": "cache_manager",
+            "mount": "method",
+            "clone_symbol": "getCached",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "schema_version": 2,
+            "rng_seed": 509102,
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true},
+            "intended_refactoring": {
+                "kind": "extract_method_with_holes",
+                "unified_symbol": "getCached",
+                "unified_signature": "getCached(key, ttl, fallback)",
+                "holes": [
+                    {"hole_id": "validation", "description": "No validation for empty or invalid cache keys"},
+                    {"hole_id": "ttl_bounds", "description": "Missing TTL range validation (e.g., max 86400 seconds)"},
+                    {"hole_id": "serialization", "description": "No handling for unserializable data types"}
+                ],
+                "collapses": [0, 1, 2],
+                "advisability": "recommended"
+            },
+            "solution": "lity\": \"recommended\"\n            },\n            \"solution\": \"<?php\\ndeclare(strict_types=1);\\n\\nnamespace Acme\\\\Cache\\\\Unified;\\n\\n/**\\n * Unified cache accessor \u2014 holes: validation, ttl_bounds, serialization\\n */\\nclass CacheAccessor\\n{\\n    private object $driver;\\n\\n    public function __construct(object $driver)\\n    {\\n        $this->driver = $driver;\\n    }\\n\\n    public function getCached(string $key, int $ttl, callable $fallback): mixed\\n    {\\n        // HOLE: validation \u2014 no check for empty key or key length limits\\n\\n        $value = $this->driver->fetch($key);\\n        if ($value !== null) {\\n            return $value;\\n        }\\n\\n        // HOLE: ttl_bounds \u2014 no validation that ttl is within acceptable range\\n        // HOLE: serialization \u2014 no check if result of fallback is serializable\\n\\n        $value = $fallback();\\n        $this->driver->store($key, $value, $ttl);\\n\\n        return $value;\\n    }\\n\\n    public function invalidate(string $key): bool\\n    {\\n        // HOLE: validation \u2014 no check for empt",
+            "carriers": [
+                {"file": "MemcachedCache.php", "namespace": "Acme\\Cache\\Memcached", "class": "MemcachedCache", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "RedisCache.php", "namespace": "Acme\\Cache\\Redis", "class": "RedisCache", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": []},
+                {"file": "FileCache.php", "namespace": "Acme\\Cache\\File", "class": "FileCache", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": []}
+            ]
+        },
+        {
+            "set_id": "L05-rf_holes-003",
+            "title": "Event dispatcher with async handling and priority queue holes",
+            "description": "Three event systems with identical dispatch methods that can be unified. The unified solution has deliberate gaps in async handling and listener priority ordering.",
+            "seed": "event_dispatcher",
+            "mount": "method",
+            "clone_symbol": "dispatch",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "schema_version": 2,
+            "rng_seed": 509103,
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true},
+            "intended_refactoring": {
+                "kind": "extract_method_with_holes",
+                "unified_symbol": "dispatch",
+                "unified_signature": "dispatch(eventName, payload, listeners)",
+                "holes": [
+                    {"hole_id": "async_handling", "description": "No support for async event listeners or deferred dispatch"},
+                    {"hole_id": "priority_queue", "description": "Listeners are called in registration order, not priority order"},
+                    {"hole_id": "error_isolation", "description": "One listener error stops all subsequent listeners"}
+                ],
+                "collapses": [0, 1, 2],
+                "advisability": "recommended"
+            },
+            "solution": "               \"collapses\": [0, 1, 2],\n                \"advisability\": \"recommended\"\n            },\n            \"solution\": \"<?php\\ndeclare(strict_types=1);\\n\\nnamespace Acme\\\\Events\\\\Unified;\\n\\n/**\\n * Unified event dispatcher \u2014 holes: async_handling, priority_queue, error_isolation\\n */\\nclass EventDispatcher\\n{\\n    public function dispatch(string $eventName, array $payload, array $listeners): array\\n    {\\n        // HOLE: priority_queue \u2014 listeners should be sorted by priority before calling\\n        // HOLE: async_handling \u2014 listeners marked as async should be queued, not run synchronously\\n\\n        $results = [];\\n\\n        foreach ($listeners as $listener) {\\n            // HOLE: error_isolation \u2014 if one listener throws, remaining listeners don't fire\\n            $results[] = $listener($eventName, $payload);\\n        }\\n\\n        return $results;\\n    }\\n\\n  ",
+            "carriers": [
+                {"file": "SimpleEventBus.php", "namespace": "Acme\\Events\\Simple", "class": "SimpleEventBus", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PsrEventBus.php", "namespace": "Acme\\Events\\Psr", "class": "PsrEventBus", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": []},
+                {"file": "CustomEventBus.php", "namespace": "Acme\\Events\\Custom", "class": "CustomEventBus", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": []}
+            ]
+        },
+        {
+            "set_id": "L05-rf_holes-004",
+            "title": "Validation rule with type coercion, message localization, and ruleset composition holes",
+            "description": "Three validation classes with identical validate methods that can be unified. The unified solution has deliberate gaps in type coercion, error message localization, and composing multiple rules.",
+            "seed": "validation_rule",
+            "mount": "method",
+            "clone_symbol": "validate",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "schema_version": 2,
+            "rng_seed": 509104,
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true},
+            "intended_refactoring": {
+                "kind": "extract_method_with_holes",
+                "unified_symbol": "validate",
+                "unified_signature": "validate(value, rules)",
+                "holes": [
+                    {"hole_id": "type_coercion", "description": "No automatic type coercion before validation (e.g., string '123' to int 123)"},
+                    {"hole_id": "message_localization", "description": "Error messages are hardcoded, not translatable"},
+                    {"hole_id": "ruleset_composition", "description": "Cannot compose multiple rule sets or nest rules"}
+                ],
+                "collapses": [0, 1, 2],
+                "advisability": "recommended"
+            },
+            "solution": "ltiple rule sets or nest rules\"}\n                ],\n                \"collapses\": [0, 1, 2],\n                \"advisability\": \"recommended\"\n            },\n            \"solution\": \"<?php\\ndeclare(strict_types=1);\\n\\nnamespace Acme\\\\Validation\\\\Unified;\\n\\n/**\\n * Unified validation runner \u2014 holes: type_coercion, message_localization, ruleset_composition\\n */\\nclass ValidationRunner\\n{\\n    public function validate(mixed $value, array $rules): array\\n    {\\n        // HOLE: type_coercion \u2014 should coerce types before validating (e.g., string to int)\\n\\n        $errors = [];\\n\\n        foreach ($rules as $rule) {\\n            $ruleName = $rule['name'] ?? 'unknown';\\n            $ruleParams = $rule['params'] ?? [];\\n\\n            if (!$this->checkRule($value, $ruleName, $ruleParams)) {\\n                // HOLE: message_localization \u2014 message should use _('') for gettext\\n                $errors[] = \\\"Validation failed for rule: {$ruleName}\\\";\\n            }\\n        }\\n\\n        return $errors;\\n    }\\n\\n    private function checkRule(mixed $value, string $ruleName, array $params): bool\\n    {\\n        // HOLE: ruleset_composition \u2014 no support for 'when', 'allOf', 'anyOf' compositions\\n\\n        return match ($ruleName) {\\n            'required' => $value !== null && $value !== '',\\n            'min_length' => is_string($value) && strlen($value) >= ($params[0] ?? 0),\\n            'max_length' => is_string($value) && strlen($value) <= ($params[0] ?? PHP_INT_MAX),\\n            'nume",
+            "carriers": [
+                {"file": "LegacyValidator.php", "namespace": "Acme\\Validation\\Legacy", "class": "LegacyValidator", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "ModernValidator.php", "namespace": "Acme\\Validation\\Modern", "class": "ModernValidator", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": []},
+                {"file": "ApiValidator.php", "namespace": "Acme\\Validation\\Api", "class": "ApiValidator", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": []}
+            ]
+        },
+        {
+            "set_id": "L05-rf_holes-005",
+            "title": "Query builder with SQL injection prevention, pagination, and query logging holes",
+            "description": "Three query builder classes with identical buildQuery methods that can be unified. The unified solution has deliberate gaps in SQL injection prevention, pagination bounds, and query logging.",
+            "seed": "query_builder",
+            "mount": "method",
+            "clone_symbol": "buildQuery",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "schema_version": 2,
+            "rng_seed": 509105,
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true},
+            "intended_refactoring": {
+                "kind": "extract_method_with_holes",
+                "unified_symbol": "buildQuery",
+                "unified_signature": "buildQuery(table, conditions, options)",
+                "holes": [
+                    {"hole_id": "sql_injection", "description": "No parameterized query preparation — direct string interpolation"},
+                    {"hole_id": "pagination_bounds", "description": "Missing validation for page/limit bounds (e.g., limit > 0, max 1000)"},
+                    {"hole_id": "query_logging", "description": "No slow query logging or query timing instrumentation"}
+                ],
+                "collapses": [0, 1, 2],
+                "advisability": "recommended"
+            },
+            "solution": "    {\"hole_id\": \"query_logging\", \"description\": \"No slow query logging or query timing instrumentation\"}\n                ],\n                \"collapses\": [0, 1, 2],\n                \"advisability\": \"recommended\"\n            },\n            \"solution\": \"<?php\\ndeclare(strict_types=1);\\n\\nnamespace Acme\\\\Database\\\\Unified;\\n\\n/**\\n * Unified query builder \u2014 holes: sql_injection, pagination_bounds, query_logging\\n */\\nclass QueryBuilder\\n{\\n    public function buildQuery(string $table, array $conditions, array $options): string\\n    {\\n        // HOLE: sql_injection \u2014 conditions should be escaped or use parameterized queries\\n\\n        $limit = $options['limit'] ?? 100;\\n        $offset = $options['offset'] ?? 0;\\n        $orderBy = $options['order_by'] ?? 'id';\\n\\n        // HOLE: pagination_bounds \u2014 no validation that limit > 0, offset >= 0, max limit enforced\\n        // HOLE: query_logging \u2014 no logging of slow queries or query execution time\\n\\n        $whereClause = '';\\n        if (!empty($conditions)) {\\n            $whereParts = [];\\n            foreach ($conditions as $key => $value) {\\n                // HOLE: sql_injection \u2014 $key and $value should be escaped\\n                $whereParts[] = \\\"{$key} = '{$value}'\\\";\\n            }\\n            $whereClause = 'WHERE ' . implode(' AND ', $whereParts);\\",
+            "carriers": [
+                {"file": "MysqlQueryBuilder.php", "namespace": "Acme\\Database\\Mysql", "class": "MysqlQueryBuilder", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PostgresQueryBuilder.php", "namespace": "Acme\\Database\\Postgres", "class": "PostgresQueryBuilder", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": []},
+                {"file": "SqliteQueryBuilder.php", "namespace": "Acme\\Database\\Sqlite", "class": "SqliteQueryBuilder", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": []}
+            ]
+        }
+    ]
+}

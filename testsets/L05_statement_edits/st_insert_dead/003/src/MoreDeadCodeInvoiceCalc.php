@@ -34,7 +34,7 @@ final class MoreDeadCodeInvoiceCalc
             $itemCount += (int) $quantity;
         }
         $discount = round($subtotal * $discountRate, 2);
-        $__unused = null;
+        $__tmp = array_keys([]);
         $taxable = $subtotal - $discount;
         $tax = round($taxable * $taxRate, 2);
         $shipping = $subtotal > 100.0 ? 0.0 : 9.99;

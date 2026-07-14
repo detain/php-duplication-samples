@@ -1,0 +1,137 @@
+{
+    "schema_version": 2,
+    "set_id": "L04-pd_middle_unique-002",
+    "level": 4,
+    "level_name": "partial_duplication",
+    "family": "pd_middle_unique",
+    "title": "Partial clone with larger unique middle section",
+    "description": "Carrier B and C have larger unique middle sections with only small head and tail shared.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "invoice_totals",
+    "difficulty_band": "medium",
+    "files": [
+        {
+            "path": "src/PristineInvoiceCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 39,
+            "region_sloc": {
+                "sloc": 25,
+                "duplicate": 25,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/LargeMidCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 32,
+            "region_sloc": {
+                "sloc": 13,
+                "duplicate": 13,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/LargeMid2Calc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 29,
+            "region_sloc": {
+                "sloc": 11,
+                "duplicate": 11,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/MarginSummarizer.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 30
+        },
+        {
+            "path": "src/TaxRateRepository.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-3",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "ST-07",
+            "name": "partial_fragment",
+            "params": {
+                "head_trim": 6,
+                "tail_trim": 6
+            },
+            "applied_to": [
+                "src/LargeMidCalc.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "ST-07",
+            "name": "partial_fragment",
+            "params": {
+                "head_trim": 7,
+                "tail_trim": 7
+            },
+            "applied_to": [
+                "src/LargeMid2Calc.php"
+            ],
+            "intensity": 3
+        }
+    ],
+    "difficulty": {
+        "score": 42,
+        "requires": [
+            "ast_canonicalization",
+            "deadcode_elimination"
+        ],
+        "score_raw": 42,
+        "axes": {
+            "breadth": 1,
+            "intensity": 3,
+            "intensity_max": 3,
+            "semantic_depth": 0,
+            "partiality": 1
+        },
+        "application_count": 2,
+        "axis_count": 1
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L04_partial_duplication/pd_middle_unique.json",
+        "version": "2.0.0",
+        "rng_seed": 104602
+    },
+    "interference_profile": {
+        "axis_count": 1,
+        "per_carrier_axes": {
+            "src/LargeMidCalc.php": [
+                "ST-07"
+            ],
+            "src/LargeMid2Calc.php": [
+                "ST-07"
+            ]
+        },
+        "groups_touched": [
+            "A"
+        ],
+        "stack_depth_max": 1,
+        "symmetric_overlap": 1,
+        "pairwise_overlap": 1,
+        "combination_design": "structural_only"
+    }
+}

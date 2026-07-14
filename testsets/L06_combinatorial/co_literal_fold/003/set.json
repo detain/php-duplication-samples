@@ -1,0 +1,253 @@
+{
+    "schema_version": 2,
+    "set_id": "L06-co_literal_fold-003",
+    "level": 6,
+    "level_name": "combinatorial",
+    "family": "co_literal_fold",
+    "title": "Heavy literal folding interference",
+    "description": "Same computeTotals method. Heavy literal folding combined with all LT and ST codes at maximum intensity.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "invoice_totals",
+    "difficulty_band": "expert",
+    "files": [
+        {
+            "path": "src/HeavyCalcA.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 40,
+            "region_sloc": {
+                "sloc": 26,
+                "duplicate": 24,
+                "unique": 2,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/HeavyCalcB.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 42,
+            "region_sloc": {
+                "sloc": 23,
+                "duplicate": 21,
+                "unique": 2,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/HeavyCalcC.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 46,
+            "region_sloc": {
+                "sloc": 28,
+                "duplicate": 24,
+                "unique": 4,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/MarginSummarizer.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 30
+        },
+        {
+            "path": "src/TaxRateRepository.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-3",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "ST-01",
+            "name": "insert_logging",
+            "params": {
+                "lines": 1
+            },
+            "applied_to": [
+                "src/HeavyCalcA.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "LT-04",
+            "name": "const_vs_literal",
+            "params": {
+                "style": "const_literal"
+            },
+            "applied_to": [
+                "src/HeavyCalcA.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "WS-01",
+            "name": "blank_before",
+            "params": {
+                "blank_lines": 1
+            },
+            "applied_to": [
+                "src/HeavyCalcA.php",
+                "src/HeavyCalcC.php"
+            ],
+            "intensity": 1
+        },
+        {
+            "code": "ST-05",
+            "name": "reorder_independent",
+            "params": {
+                "reorder_level": 1
+            },
+            "applied_to": [
+                "src/HeavyCalcB.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "LT-01",
+            "name": "numeric",
+            "params": {
+                "format": "binary"
+            },
+            "applied_to": [
+                "src/HeavyCalcB.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "LT-02",
+            "name": "string",
+            "params": {
+                "style": "single_quotes"
+            },
+            "applied_to": [
+                "src/HeavyCalcB.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "LT-03",
+            "name": "array_values",
+            "params": {
+                "style": "short_array"
+            },
+            "applied_to": [
+                "src/HeavyCalcB.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "WS-01",
+            "name": "blank_before",
+            "params": {
+                "blank_lines": 2
+            },
+            "applied_to": [
+                "src/HeavyCalcB.php"
+            ],
+            "intensity": 1
+        },
+        {
+            "code": "ST-09",
+            "name": "expr_tweak",
+            "params": {
+                "tweak_level": 1
+            },
+            "applied_to": [
+                "src/HeavyCalcC.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "ST-02",
+            "name": "insert_dead",
+            "params": {
+                "lines": 1
+            },
+            "applied_to": [
+                "src/HeavyCalcC.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "LT-04",
+            "name": "const_vs_literal",
+            "params": {
+                "style": "inline_literal"
+            },
+            "applied_to": [
+                "src/HeavyCalcC.php"
+            ],
+            "intensity": 2
+        }
+    ],
+    "difficulty": {
+        "score": 100,
+        "requires": [
+            "ast_canonicalization",
+            "literal_abstraction",
+            "whitespace_normalization",
+            "commutative_reordering",
+            "deadcode_elimination"
+        ],
+        "score_raw": 126,
+        "axes": {
+            "breadth": 9,
+            "intensity": 2.18,
+            "intensity_max": 3,
+            "semantic_depth": 0,
+            "partiality": 1
+        },
+        "application_count": 12,
+        "axis_count": 9
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L06_combinatorial/co_literal_fold.json",
+        "version": "2.0.0",
+        "rng_seed": 1612003
+    },
+    "interference_profile": {
+        "axis_count": 9,
+        "per_carrier_axes": {
+            "src/HeavyCalcA.php": [
+                "ST-01",
+                "LT-04",
+                "WS-01"
+            ],
+            "src/HeavyCalcB.php": [
+                "ST-05",
+                "LT-01",
+                "LT-02",
+                "LT-03",
+                "WS-01"
+            ],
+            "src/HeavyCalcC.php": [
+                "ST-09",
+                "ST-02",
+                "LT-04",
+                "WS-01"
+            ]
+        },
+        "groups_touched": [
+            "A"
+        ],
+        "stack_depth_max": 5,
+        "symmetric_overlap": 1,
+        "pairwise_overlap": 0.2226,
+        "combination_design": "type2_plus_type1"
+    },
+    "engine_features": [
+        "fragment_emission"
+    ]
+}

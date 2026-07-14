@@ -1,0 +1,78 @@
+{
+    "schema_version": 2,
+    "set_id": "L05-rf_extractable_method-003",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-1",
+            "granularity": "method",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers",
+                "literals"
+            ],
+            "token_hash": "5cd8e7841ecf7c41",
+            "normalized_hash": "a3a4fbc9a09986cf",
+            "members": [
+                {
+                    "file": "src/BasicAuth.php",
+                    "start_line": 9,
+                    "end_line": 27,
+                    "symbol": "hasPermission",
+                    "pristine": true,
+                    "group": "A",
+                    "seed": "access_guard"
+                },
+                {
+                    "file": "src/AdvancedAuth.php",
+                    "start_line": 18,
+                    "end_line": 36,
+                    "symbol": "hasPermission",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "access_guard"
+                },
+                {
+                    "file": "src/EnterpriseAuth.php",
+                    "start_line": 24,
+                    "end_line": 42,
+                    "symbol": "hasPermission",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "access_guard"
+                }
+            ],
+            "detection_expectation": {
+                "text_based": true,
+                "token_based": true,
+                "ast_based": true
+            },
+            "notes": ""
+        }
+    ],
+    "non_duplicates": [],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.6,
+        "min_members_for_credit": 2
+    },
+    "intended_refactoring": {
+        "kind": "extract_method_with_holes",
+        "unified_symbol": "hasPermission",
+        "unified_signature": "hasPermission(user, resource, action)",
+        "holes": [
+            {
+                "hole_id": "role_hierarchy",
+                "description": "No role hierarchy consideration"
+            }
+        ],
+        "collapses": [
+            0,
+            1,
+            2
+        ],
+        "advisability": "recommended"
+    }
+}

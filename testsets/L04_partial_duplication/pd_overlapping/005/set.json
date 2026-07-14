@@ -1,0 +1,219 @@
+{
+    "schema_version": 2,
+    "set_id": "L04-pd_overlapping-005",
+    "level": 4,
+    "level_name": "partial_duplication",
+    "family": "pd_overlapping",
+    "title": "Near-overlapping clusters with different seeds",
+    "description": "Clusters that are close to overlapping but use different seeds creating boundary cases.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "invoice_totals",
+    "difficulty_band": "medium",
+    "files": [
+        {
+            "path": "src/InvA.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 39,
+            "region_sloc": {
+                "sloc": 25,
+                "duplicate": 25,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/InvB.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 36,
+            "region_sloc": {
+                "sloc": 17,
+                "duplicate": 17,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/InvC.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 35,
+            "region_sloc": {
+                "sloc": 17,
+                "duplicate": 17,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/CsvA.php",
+            "role": "carrier",
+            "duplicate_group": "B",
+            "sloc": 37,
+            "region_sloc": {
+                "sloc": 23,
+                "duplicate": 23,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/CsvB.php",
+            "role": "carrier",
+            "duplicate_group": "B",
+            "sloc": 38,
+            "region_sloc": {
+                "sloc": 19,
+                "duplicate": 19,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/CsvC.php",
+            "role": "carrier",
+            "duplicate_group": "B",
+            "sloc": 35,
+            "region_sloc": {
+                "sloc": 17,
+                "duplicate": 17,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/DistInv.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 30
+        },
+        {
+            "path": "src/DistCsv.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 63
+        },
+        {
+            "path": "src/CleanInv.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        },
+        {
+            "path": "src/CleanCsv.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 22
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-3",
+        "granularity": "method",
+        "clusters": 2,
+        "instances": 6
+    },
+    "interference": [
+        {
+            "code": "ST-07",
+            "name": "partial_fragment",
+            "params": {
+                "head_trim": 4,
+                "tail_trim": 4
+            },
+            "applied_to": [
+                "src/InvB.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "ST-07",
+            "name": "partial_fragment",
+            "params": {
+                "head_trim": 5,
+                "tail_trim": 3
+            },
+            "applied_to": [
+                "src/InvC.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "ST-07",
+            "name": "partial_fragment",
+            "params": {
+                "head_trim": 2,
+                "tail_trim": 2
+            },
+            "applied_to": [
+                "src/CsvB.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "ST-07",
+            "name": "partial_fragment",
+            "params": {
+                "head_trim": 3,
+                "tail_trim": 3
+            },
+            "applied_to": [
+                "src/CsvC.php"
+            ],
+            "intensity": 3
+        }
+    ],
+    "difficulty": {
+        "score": 42,
+        "requires": [
+            "ast_canonicalization",
+            "deadcode_elimination"
+        ],
+        "score_raw": 42,
+        "axes": {
+            "breadth": 1,
+            "intensity": 3,
+            "intensity_max": 3,
+            "semantic_depth": 0,
+            "partiality": 1
+        },
+        "application_count": 4,
+        "axis_count": 1
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L04_partial_duplication/pd_overlapping.json",
+        "version": "2.0.0",
+        "rng_seed": 105105
+    },
+    "interference_profile": {
+        "axis_count": 1,
+        "per_carrier_axes": {
+            "src/InvB.php": [
+                "ST-07"
+            ],
+            "src/InvC.php": [
+                "ST-07"
+            ],
+            "src/CsvB.php": [
+                "ST-07"
+            ],
+            "src/CsvC.php": [
+                "ST-07"
+            ]
+        },
+        "groups_touched": [
+            "A",
+            "B"
+        ],
+        "stack_depth_max": 1,
+        "symmetric_overlap": 1,
+        "pairwise_overlap": 1,
+        "combination_design": "structural_only"
+    },
+    "engine_features": [
+        "multi_cluster"
+    ]
+}

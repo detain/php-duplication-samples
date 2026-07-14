@@ -1,0 +1,90 @@
+{
+    "schema_version": 1,
+    "set_id": "L05-se_invoice_totals-005",
+    "level": 5,
+    "level_name": "semantic_equivalence",
+    "family": "se_invoice_totals",
+    "title": "Invoice totals: whitespace and comment variations",
+    "description": "Invoice totals with equivalent logic but different formatting and commenting styles, demonstrating that textual differences dont affect semantic equivalence.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "invoice_totals",
+    "difficulty_band": "hard",
+    "files": [
+        {
+            "path": "src/InvoiceCalculator.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 39
+        },
+        {
+            "path": "src/OrderCalculator.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 46
+        },
+        {
+            "path": "src/QuoteCalculator.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 46
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-4",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "CM-05",
+            "name": "comment_remove",
+            "params": {},
+            "applied_to": [
+                "src/OrderCalculator.php"
+            ],
+            "intensity": 1
+        },
+        {
+            "code": "WS-02",
+            "name": "blank_after",
+            "params": {},
+            "applied_to": [
+                "src/OrderCalculator.php"
+            ],
+            "intensity": 1
+        },
+        {
+            "code": "CM-02",
+            "name": "block_comment_add",
+            "params": {},
+            "applied_to": [
+                "src/QuoteCalculator.php"
+            ],
+            "intensity": 1
+        },
+        {
+            "code": "WS-04",
+            "name": "operator_spacing",
+            "params": {},
+            "applied_to": [
+                "src/QuoteCalculator.php"
+            ],
+            "intensity": 1
+        }
+    ],
+    "difficulty": {
+        "score": 55,
+        "requires": [
+            "semantic_reasoning"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L05_semantic_equivalence/se_invoice_totals.json",
+        "version": "1.0.0",
+        "rng_seed": 50005
+    }
+}

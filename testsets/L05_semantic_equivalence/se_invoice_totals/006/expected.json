@@ -1,0 +1,56 @@
+{
+    "schema_version": 1,
+    "set_id": "L05-se_invoice_totals-006",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-4",
+            "granularity": "method",
+            "normalized_by": [
+                "controlflow",
+                "identifiers",
+                "literals"
+            ],
+            "token_hash": "f1e5708cf467f899",
+            "normalized_hash": "88b44d89704ac03f",
+            "members": [
+                {
+                    "file": "src/InvoiceCalculator.php",
+                    "start_line": 9,
+                    "end_line": 33,
+                    "symbol": "computeTotals",
+                    "pristine": true
+                },
+                {
+                    "file": "src/OrderCalculator.php",
+                    "start_line": 18,
+                    "end_line": 49,
+                    "symbol": "computeTotals",
+                    "pristine": false
+                },
+                {
+                    "file": "src/QuoteCalculator.php",
+                    "start_line": 24,
+                    "end_line": 51,
+                    "symbol": "computeTotals",
+                    "pristine": false
+                }
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": false,
+                "ast_based": false,
+                "metric_based": false,
+                "semantic": true
+            },
+            "notes": "Set 006 of 7. RN-01 (local_vars) and TY-01 (type_hints) create identifier diversity."
+        }
+    ],
+    "non_duplicates": [],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.6,
+        "min_members_for_credit": 2
+    }
+}

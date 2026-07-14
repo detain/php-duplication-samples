@@ -1,0 +1,56 @@
+{
+    "schema_version": 1,
+    "set_id": "L05-se_query_builder-002",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-4",
+            "granularity": "method",
+            "normalized_by": [
+                "controlflow",
+                "identifiers",
+                "literals"
+            ],
+            "token_hash": "ed70dc8295c7c4c4",
+            "normalized_hash": "d1ab909add4d1550",
+            "members": [
+                {
+                    "file": "src/DirectQuery.php",
+                    "start_line": 9,
+                    "end_line": 55,
+                    "symbol": "buildQuery",
+                    "pristine": true
+                },
+                {
+                    "file": "src/DeadQuery.php",
+                    "start_line": 18,
+                    "end_line": 63,
+                    "symbol": "buildQuery",
+                    "pristine": false
+                },
+                {
+                    "file": "src/InsertQuery.php",
+                    "start_line": 24,
+                    "end_line": 72,
+                    "symbol": "buildQuery",
+                    "pristine": false
+                }
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": false,
+                "ast_based": false,
+                "metric_based": false,
+                "semantic": true
+            },
+            "notes": "Set 002 of 5. Uses ST-02, ST-04, ST-09 for structural diversity."
+        }
+    ],
+    "non_duplicates": [],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.6,
+        "min_members_for_credit": 2
+    }
+}

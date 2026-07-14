@@ -1,0 +1,139 @@
+{
+    "level": 13,
+    "level_name": "semantic_depth",
+    "level_dir": "L13_semantic_depth",
+    "family": "sm_type_inference",
+    "sets": [
+        {
+            "set_id": "L13-sm_type_inference-001",
+            "title": "Type-aware clone detection with numeric literals",
+            "description": "Tests type_inference: type-aware detection when numeric literals vary by type.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["literals"],
+            "rng_seed": 130101,
+            "notes": "L13: Type inference - numeric literal type variation.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.7, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["literal_abstraction"],
+            "carriers": [
+                {"file": "TypeInfA.php", "namespace": "Acme\\TypeInf\\Alpha", "class": "TypeInfA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "TypeInfB.php", "namespace": "Acme\\TypeInf\\Beta", "class": "TypeInfB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-01"}]}
+            ],
+            "distractors": [
+                {"file": "TypeInfDistractor.php", "namespace": "Acme\\TypeInf\\Distract", "class": "TypeInfDistractor", "source": "nearmiss_invoice", "reason": "Near-miss: similar calculation vocabulary"}
+            ],
+            "cleans": [
+                {"file": "TypeInfClean.php", "namespace": "Acme\\TypeInf\\Config", "class": "TypeInfClean", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L13-sm_type_inference-002",
+            "title": "Type inference with string type changes",
+            "description": "Type-aware detection with string literal type variations.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["literals"],
+            "rng_seed": 130102,
+            "notes": "L13: Type inference with string types.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.65, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["literal_abstraction"],
+            "carriers": [
+                {"file": "TypeInfA.php", "namespace": "Acme\\TypeInf\\Alpha", "class": "TypeInfA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "TypeInfB.php", "namespace": "Acme\\TypeInf\\Beta", "class": "TypeInfB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-02"}]}
+            ],
+            "distractors": [
+                {"file": "TypeInfDistractor.php", "namespace": "Acme\\TypeInf\\Distract", "class": "TypeInfDistractor", "source": "nearmiss_invoice", "reason": "Near-miss: similar vocabulary"}
+            ],
+            "cleans": [
+                {"file": "TypeInfClean.php", "namespace": "Acme\\TypeInf\\Config", "class": "TypeInfClean", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L13-sm_type_inference-003",
+            "title": "Type inference with combined literal transforms",
+            "description": "Type-aware detection with multiple literal type transformations.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["literals", "identifiers"],
+            "rng_seed": 130103,
+            "notes": "L13: Type inference + multiple literal transforms.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["literal_abstraction", "identifier_canonicalization"],
+            "carriers": [
+                {"file": "TypeInfA.php", "namespace": "Acme\\TypeInf\\Alpha", "class": "TypeInfA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "TypeInfB.php", "namespace": "Acme\\TypeInf\\Beta", "class": "TypeInfB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-01"}, {"code": "LT-02"}, {"code": "RN-05"}]}
+            ],
+            "distractors": [
+                {"file": "TypeInfDistractor.php", "namespace": "Acme\\TypeInf\\Distract", "class": "TypeInfDistractor", "source": "nearmiss_access", "reason": "Near-miss: similar auth vocabulary"}
+            ],
+            "cleans": [
+                {"file": "TypeInfClean.php", "namespace": "Acme\\TypeInf\\Config", "class": "TypeInfClean", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L13-sm_type_inference-004",
+            "title": "Type inference three carriers with type variants",
+            "description": "Three carriers with different type transformations.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["literals"],
+            "rng_seed": 130104,
+            "notes": "L13: Three carriers with type inference.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 3},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["literal_abstraction"],
+            "carriers": [
+                {"file": "TypeInfA.php", "namespace": "Acme\\TypeInf\\Alpha", "class": "TypeInfA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "TypeInfB.php", "namespace": "Acme\\TypeInf\\Beta", "class": "TypeInfB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-01"}]},
+                {"file": "TypeInfC.php", "namespace": "Acme\\TypeInf\\Gamma", "class": "TypeInfC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "LT-02"}, {"code": "LT-03"}]}
+            ],
+            "distractors": [
+                {"file": "TypeInfDistractor.php", "namespace": "Acme\\TypeInf\\Distract", "class": "TypeInfDistractor", "source": "nearmiss_invoice", "reason": "Near-miss: similar invoice"}
+            ],
+            "cleans": [
+                {"file": "TypeInfClean.php", "namespace": "Acme\\TypeInf\\Config", "class": "TypeInfClean", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L13-sm_type_inference-005",
+            "title": "Type inference with array type transformation",
+            "description": "Array literal type transformation for type-aware detection.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["literals"],
+            "rng_seed": 130105,
+            "notes": "L13: Type inference with LT-03 array transformation.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["literal_abstraction"],
+            "carriers": [
+                {"file": "TypeInfA.php", "namespace": "Acme\\TypeInf\\Alpha", "class": "TypeInfA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "TypeInfB.php", "namespace": "Acme\\TypeInf\\Beta", "class": "TypeInfB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-03"}]}
+            ],
+            "distractors": [
+                {"file": "TypeInfDistractor.php", "namespace": "Acme\\TypeInf\\Distract", "class": "TypeInfDistractor", "source": "nearmiss_access", "reason": "Near-miss: similar auth vocabulary"}
+            ],
+            "cleans": [
+                {"file": "TypeInfClean.php", "namespace": "Acme\\TypeInf\\Config", "class": "TypeInfClean", "source": "clean_auth"}
+            ]
+        }
+    ]
+}

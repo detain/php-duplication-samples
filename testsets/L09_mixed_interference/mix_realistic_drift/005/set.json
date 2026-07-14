@@ -15,7 +15,7 @@
             "path": "src/OriginalInvoiceCalc.php",
             "role": "carrier",
             "duplicate_group": "A",
-            "sloc": 39
+            "sloc": 40
         },
         {
             "path": "src/LoggingInvoiceCalc.php",
@@ -51,6 +51,17 @@
     },
     "interference": [
         {
+            "code": "ST-04",
+            "name": "delete_stmt",
+            "params": {
+                "count": 1
+            },
+            "applied_to": [
+                "src/OriginalInvoiceCalc.php"
+            ],
+            "intensity": 3
+        },
+        {
             "code": "CM-03",
             "name": "docblock",
             "params": {
@@ -59,17 +70,8 @@
             "applied_to": [
                 "src/OriginalInvoiceCalc.php",
                 "src/RefactoredInvoiceCalc.php"
-            ]
-        },
-        {
-            "code": "ST-04",
-            "name": "delete_stmt",
-            "params": {
-                "count": 1
-            },
-            "applied_to": [
-                "src/OriginalInvoiceCalc.php"
-            ]
+            ],
+            "intensity": 1
         },
         {
             "code": "ST-01",
@@ -79,7 +81,8 @@
             },
             "applied_to": [
                 "src/LoggingInvoiceCalc.php"
-            ]
+            ],
+            "intensity": 3
         },
         {
             "code": "CM-03",
@@ -89,27 +92,8 @@
             },
             "applied_to": [
                 "src/LoggingInvoiceCalc.php"
-            ]
-        },
-        {
-            "code": "RN-05",
-            "name": "case_convention",
-            "params": {
-                "direction": "camel_to_snake"
-            },
-            "applied_to": [
-                "src/RefactoredInvoiceCalc.php"
-            ]
-        },
-        {
-            "code": "WS-06",
-            "name": "line_wrap",
-            "params": {
-                "occurrence": 2
-            },
-            "applied_to": [
-                "src/RefactoredInvoiceCalc.php"
-            ]
+            ],
+            "intensity": 1
         },
         {
             "code": "ST-02",
@@ -119,7 +103,8 @@
             },
             "applied_to": [
                 "src/RefactoredInvoiceCalc.php"
-            ]
+            ],
+            "intensity": 3
         },
         {
             "code": "ST-01",
@@ -129,17 +114,40 @@
             },
             "applied_to": [
                 "src/RefactoredInvoiceCalc.php"
-            ]
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "RN-05",
+            "name": "case_convention",
+            "params": {
+                "direction": "camel_to_snake"
+            },
+            "applied_to": [
+                "src/RefactoredInvoiceCalc.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "WS-06",
+            "name": "line_wrap",
+            "params": {
+                "occurrence": 2
+            },
+            "applied_to": [
+                "src/RefactoredInvoiceCalc.php"
+            ],
+            "intensity": 2
         }
     ],
     "difficulty": {
         "score": 100,
         "requires": [
-            "comment_stripping",
             "ast_canonicalization",
+            "comment_stripping",
+            "deadcode_elimination",
             "identifier_canonicalization",
-            "whitespace_normalization",
-            "deadcode_elimination"
+            "whitespace_normalization"
         ]
     },
     "generator": {

@@ -1,0 +1,148 @@
+{
+    "level": 15,
+    "level_name": "performance_ceiling",
+    "level_dir": "L15_performance_ceiling",
+    "family": "pc_many_clones",
+    "sets": [
+        {
+            "set_id": "L15-pc_many_clones-001",
+            "title": "Many clone pairs stress test",
+            "description": "Tests pc_many_clones: 20+ clone pairs in one file to stress test detection tools.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["identifiers", "literals"],
+            "rng_seed": 150201,
+            "notes": "L15: pc_many_clones - many clone pairs stress.",
+            "scoring": {"line_tolerance": 3, "member_jaccard_min": 0.65, "min_members_for_credit": 3},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["identifier_canonicalization", "literal_abstraction"],
+            "carriers": [
+                {"file": "ManyCloneA.php", "namespace": "Acme\\Many\\Alpha", "class": "ManyCloneA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "ManyCloneB.php", "namespace": "Acme\\Many\\Beta", "class": "ManyCloneB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-01"}]},
+                {"file": "ManyCloneC.php", "namespace": "Acme\\Many\\Gamma", "class": "ManyCloneC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "LT-02"}]},
+                {"file": "ManyCloneD.php", "namespace": "Acme\\Many\\Delta", "class": "ManyCloneD", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "LT-03"}]}
+            ],
+            "distractors": [
+                {"file": "ManyCloneDistractor.php", "namespace": "Acme\\Many\\Distract", "class": "ManyCloneDistractor", "source": "nearmiss_invoice", "reason": "Near-miss: similar invoice vocabulary"}
+            ],
+            "cleans": [
+                {"file": "ManyCloneClean.php", "namespace": "Acme\\Many\\Config", "class": "ManyCloneClean", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L15-pc_many_clones-002",
+            "title": "Many clones with RN-05 rename",
+            "description": "Many clone pairs with case convention rename.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["identifiers"],
+            "rng_seed": 150202,
+            "notes": "L15: pc_many_clones + RN-05.",
+            "scoring": {"line_tolerance": 3, "member_jaccard_min": 0.65, "min_members_for_credit": 3},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["identifier_canonicalization"],
+            "carriers": [
+                {"file": "ManyCloneA.php", "namespace": "Acme\\Many\\Alpha", "class": "ManyCloneA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "ManyCloneB.php", "namespace": "Acme\\Many\\Beta", "class": "ManyCloneB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-05"}]},
+                {"file": "ManyCloneC.php", "namespace": "Acme\\Many\\Gamma", "class": "ManyCloneC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "RN-05"}, {"code": "CM-01"}]},
+                {"file": "ManyCloneD.php", "namespace": "Acme\\Many\\Delta", "class": "ManyCloneD", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "RN-05"}, {"code": "LT-01"}]}
+            ],
+            "distractors": [
+                {"file": "ManyCloneDistractor.php", "namespace": "Acme\\Many\\Distract", "class": "ManyCloneDistractor", "source": "nearmiss_access", "reason": "Near-miss: similar auth vocabulary"}
+            ],
+            "cleans": [
+                {"file": "ManyCloneClean.php", "namespace": "Acme\\Many\\Config", "class": "ManyCloneClean", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L15-pc_many_clones-003",
+            "title": "Many clones with comment transforms",
+            "description": "Many clone pairs with various comment transformations.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["comments", "identifiers"],
+            "rng_seed": 150203,
+            "notes": "L15: pc_many_clones + CM-01 + CM-02 + CM-03.",
+            "scoring": {"line_tolerance": 3, "member_jaccard_min": 0.6, "min_members_for_credit": 3},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["comment_stripping", "identifier_canonicalization"],
+            "carriers": [
+                {"file": "ManyCloneA.php", "namespace": "Acme\\Many\\Alpha", "class": "ManyCloneA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "ManyCloneB.php", "namespace": "Acme\\Many\\Beta", "class": "ManyCloneB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "CM-01"}]},
+                {"file": "ManyCloneC.php", "namespace": "Acme\\Many\\Gamma", "class": "ManyCloneC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "CM-02"}]},
+                {"file": "ManyCloneD.php", "namespace": "Acme\\Many\\Delta", "class": "ManyCloneD", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "CM-03"}, {"code": "LT-01"}]}
+            ],
+            "distractors": [
+                {"file": "ManyCloneDistractor.php", "namespace": "Acme\\Many\\Distract", "class": "ManyCloneDistractor", "source": "nearmiss_invoice", "reason": "Near-miss: similar invoice"}
+            ],
+            "cleans": [
+                {"file": "ManyCloneClean.php", "namespace": "Acme\\Many\\Config", "class": "ManyCloneClean", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L15-pc_many_clones-004",
+            "title": "Many clones with statement transforms",
+            "description": "Many clone pairs with statement-level modifications.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["identifiers", "controlflow"],
+            "rng_seed": 150204,
+            "notes": "L15: pc_many_clones + ST-01 + ST-02 + ST-05.",
+            "scoring": {"line_tolerance": 3, "member_jaccard_min": 0.6, "min_members_for_credit": 3},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["ast_canonicalization", "identifier_canonicalization"],
+            "carriers": [
+                {"file": "ManyCloneA.php", "namespace": "Acme\\Many\\Alpha", "class": "ManyCloneA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "ManyCloneB.php", "namespace": "Acme\\Many\\Beta", "class": "ManyCloneB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-01"}]},
+                {"file": "ManyCloneC.php", "namespace": "Acme\\Many\\Gamma", "class": "ManyCloneC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-02"}]},
+                {"file": "ManyCloneD.php", "namespace": "Acme\\Many\\Delta", "class": "ManyCloneD", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-05"}, {"code": "RN-05"}]}
+            ],
+            "distractors": [
+                {"file": "ManyCloneDistractor.php", "namespace": "Acme\\Many\\Distract", "class": "ManyCloneDistractor", "source": "nearmiss_access", "reason": "Near-miss: similar auth"}
+            ],
+            "cleans": [
+                {"file": "ManyCloneClean.php", "namespace": "Acme\\Many\\Config", "class": "ManyCloneClean", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L15-pc_many_clones-005",
+            "title": "Many clones with combined transforms",
+            "description": "Many clone pairs with extensive combined transformations.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["identifiers", "literals", "comments"],
+            "rng_seed": 150205,
+            "notes": "L15: pc_many_clones with combined RN-05 + LT + CM + ST.",
+            "scoring": {"line_tolerance": 3, "member_jaccard_min": 0.55, "min_members_for_credit": 4},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["identifier_canonicalization", "literal_abstraction", "comment_stripping", "ast_canonicalization"],
+            "carriers": [
+                {"file": "ManyCloneA.php", "namespace": "Acme\\Many\\Alpha", "class": "ManyCloneA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "ManyCloneB.php", "namespace": "Acme\\Many\\Beta", "class": "ManyCloneB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-05"}, {"code": "LT-01"}]},
+                {"file": "ManyCloneC.php", "namespace": "Acme\\Many\\Gamma", "class": "ManyCloneC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "CM-03"}, {"code": "ST-08"}]},
+                {"file": "ManyCloneD.php", "namespace": "Acme\\Many\\Delta", "class": "ManyCloneD", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "LT-02"}, {"code": "CM-01"}, {"code": "ST-09"}]}
+            ],
+            "distractors": [
+                {"file": "ManyCloneDistractor.php", "namespace": "Acme\\Many\\Distract", "class": "ManyCloneDistractor", "source": "nearmiss_invoice", "reason": "Near-miss: similar invoice"}
+            ],
+            "cleans": [
+                {"file": "ManyCloneClean.php", "namespace": "Acme\\Many\\Config", "class": "ManyCloneClean", "source": "clean_billing"}
+            ]
+        }
+    ]
+}

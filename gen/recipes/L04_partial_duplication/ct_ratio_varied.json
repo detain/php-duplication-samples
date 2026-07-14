@@ -1,0 +1,187 @@
+{
+    "level": 4,
+    "level_name": "partial_duplication",
+    "level_dir": "L04_partial_duplication",
+    "family": "ct_ratio_varied",
+    "sets": [
+        {
+            "set_id": "L04-ct_ratio_varied-001",
+            "title": "Two clusters with very different duplication ratios",
+            "description": "Cluster A has high duplication (90%), Cluster B has low duplication (35%).",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "schema_version": 2,
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "rng_seed": 105501,
+            "role_composition": {"carrier": 6, "distractor": 2, "clean": 2},
+            "notes": "High vs low duplication ratio clusters.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "difficulty": {"complexity": 6, "partiality": "mixed"},
+            "duplication": {"cluster_ratios": {"A": 0.9, "B": 0.35}},
+            "carriers": [
+                {"file": "HighRatioA.php", "namespace": "Acme\\High\\Ratio", "class": "HighRatioA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": [], "cluster": "A"},
+                {"file": "HighRatioB.php", "namespace": "Acme\\High\\Ratio", "class": "HighRatioB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 1, "tail_trim": 0}}], "cluster": "A"},
+                {"file": "HighRatioC.php", "namespace": "Acme\\High\\Ratio", "class": "HighRatioC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 0, "tail_trim": 1}}], "cluster": "A"},
+                {"file": "LowRatioA.php", "namespace": "Acme\\Low\\Ratio", "class": "LowRatioA", "scaffold": "method_alpha", "group": "B", "pristine": true, "transforms": [], "cluster": "B"},
+                {"file": "LowRatioB.php", "namespace": "Acme\\Low\\Ratio", "class": "LowRatioB", "scaffold": "method_beta", "group": "B", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 7, "tail_trim": 7}}], "cluster": "B"},
+                {"file": "LowRatioC.php", "namespace": "Acme\\Low\\Ratio", "class": "LowRatioC", "scaffold": "method_gamma", "group": "B", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 8, "tail_trim": 6}}], "cluster": "B"}
+            ],
+            "distractors": [
+                {"file": "DistHigh.php", "namespace": "Acme\\High\\Reports", "class": "DistHigh", "source": "nearmiss_invoice", "reason": "near-miss"},
+                {"file": "DistLow.php", "namespace": "Acme\\Low\\Reports", "class": "DistLow", "source": "nearmiss_invoice", "reason": "near-miss"}
+            ],
+            "cleans": [
+                {"file": "CleanHigh.php", "namespace": "Acme\\High\\Config", "class": "CleanHigh", "source": "clean_billing"},
+                {"file": "CleanLow.php", "namespace": "Acme\\Low\\Config", "class": "CleanLow", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L04-ct_ratio_varied-002",
+            "title": "Three clusters with graduated ratios",
+            "description": "Three clusters with high (85%), medium (60%), and low (40%) duplication.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "schema_version": 2,
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "rng_seed": 105502,
+            "role_composition": {"carrier": 9, "distractor": 3, "clean": 3},
+            "notes": "Graduated duplication ratios.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "difficulty": {"complexity": 6, "partiality": "mixed"},
+            "duplication": {"cluster_ratios": {"A": 0.85, "B": 0.6, "C": 0.4}},
+            "carriers": [
+                {"file": "HighA.php", "namespace": "Acme\\High\\Grad", "class": "HighA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": [], "cluster": "A"},
+                {"file": "HighB.php", "namespace": "Acme\\High\\Grad", "class": "HighB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 1, "tail_trim": 0}}], "cluster": "A"},
+                {"file": "HighC.php", "namespace": "Acme\\High\\Grad", "class": "HighC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 0, "tail_trim": 1}}], "cluster": "A"},
+                {"file": "MedA.php", "namespace": "Acme\\Med\\Grad", "class": "MedA", "scaffold": "method_alpha", "group": "B", "pristine": true, "transforms": [], "cluster": "B"},
+                {"file": "MedB.php", "namespace": "Acme\\Med\\Grad", "class": "MedB", "scaffold": "method_beta", "group": "B", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 4, "tail_trim": 4}}], "cluster": "B"},
+                {"file": "MedC.php", "namespace": "Acme\\Med\\Grad", "class": "MedC", "scaffold": "method_gamma", "group": "B", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 5, "tail_trim": 3}}], "cluster": "B"},
+                {"file": "LowA.php", "namespace": "Acme\\Low\\Grad", "class": "LowA", "scaffold": "method_alpha", "group": "C", "pristine": true, "transforms": [], "cluster": "C"},
+                {"file": "LowB.php", "namespace": "Acme\\Low\\Grad", "class": "LowB", "scaffold": "method_beta", "group": "C", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 6, "tail_trim": 6}}], "cluster": "C"},
+                {"file": "LowC.php", "namespace": "Acme\\Low\\Grad", "class": "LowC", "scaffold": "method_gamma", "group": "C", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 7, "tail_trim": 5}}], "cluster": "C"}
+            ],
+            "distractors": [
+                {"file": "Dist1.php", "namespace": "Acme\\High\\Reports", "class": "Dist1", "source": "nearmiss_invoice", "reason": "near-miss"},
+                {"file": "Dist2.php", "namespace": "Acme\\Med\\Reports", "class": "Dist2", "source": "nearmiss_invoice", "reason": "near-miss"},
+                {"file": "Dist3.php", "namespace": "Acme\\Low\\Reports", "class": "Dist3", "source": "nearmiss_invoice", "reason": "near-miss"}
+            ],
+            "cleans": [
+                {"file": "Clean1.php", "namespace": "Acme\\High\\Config", "class": "Clean1", "source": "clean_billing"},
+                {"file": "Clean2.php", "namespace": "Acme\\Med\\Config", "class": "Clean2", "source": "clean_billing"},
+                {"file": "Clean3.php", "namespace": "Acme\\Low\\Config", "class": "Clean3", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L04-ct_ratio_varied-003",
+            "title": "Extreme ratio difference within same set",
+            "description": "One cluster nearly exact, another severely fragmented.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "schema_version": 2,
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "rng_seed": 105503,
+            "role_composition": {"carrier": 6, "distractor": 2, "clean": 2},
+            "notes": "Extreme ratio contrast.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "difficulty": {"complexity": 7, "partiality": "extreme"},
+            "duplication": {"cluster_ratios": {"A": 0.95, "B": 0.25}},
+            "carriers": [
+                {"file": "ExactA.php", "namespace": "Acme\\Exact\\Var", "class": "ExactA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": [], "cluster": "A"},
+                {"file": "ExactB.php", "namespace": "Acme\\Exact\\Var", "class": "ExactB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 0, "tail_trim": 1}}], "cluster": "A"},
+                {"file": "ExactC.php", "namespace": "Acme\\Exact\\Var", "class": "ExactC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 1, "tail_trim": 0}}], "cluster": "A"},
+                {"file": "FragA.php", "namespace": "Acme\\Frag\\Var", "class": "FragA", "scaffold": "method_alpha", "group": "B", "pristine": true, "transforms": [], "cluster": "B"},
+                {"file": "FragB.php", "namespace": "Acme\\Frag\\Var", "class": "FragB", "scaffold": "method_beta", "group": "B", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 9, "tail_trim": 9}}], "cluster": "B"},
+                {"file": "FragC.php", "namespace": "Acme\\Frag\\Var", "class": "FragC", "scaffold": "method_gamma", "group": "B", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 10, "tail_trim": 8}}], "cluster": "B"}
+            ],
+            "distractors": [
+                {"file": "DistExact.php", "namespace": "Acme\\Exact\\Reports", "class": "DistExact", "source": "nearmiss_invoice", "reason": "near-miss"},
+                {"file": "DistFrag.php", "namespace": "Acme\\Frag\\Reports", "class": "DistFrag", "source": "nearmiss_invoice", "reason": "near-miss"}
+            ],
+            "cleans": [
+                {"file": "CleanExact.php", "namespace": "Acme\\Exact\\Config", "class": "CleanExact", "source": "clean_billing"},
+                {"file": "CleanFrag.php", "namespace": "Acme\\Frag\\Config", "class": "CleanFrag", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L04-ct_ratio_varied-004",
+            "title": "Ratio variation using different seeds",
+            "description": "Different seeds naturally produce different ratios.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "schema_version": 2,
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "rng_seed": 105504,
+            "role_composition": {"carrier": 6, "distractor": 2, "clean": 2},
+            "notes": "Cross-seed ratio variation.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "difficulty": {"complexity": 5, "partiality": "mixed"},
+            "carriers": [
+                {"file": "InvA.php", "namespace": "Acme\\Inv\\Ratio", "class": "InvA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": [], "cluster": "A"},
+                {"file": "InvB.php", "namespace": "Acme\\Inv\\Ratio", "class": "InvB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 2, "tail_trim": 2}}], "cluster": "A"},
+                {"file": "InvC.php", "namespace": "Acme\\Inv\\Ratio", "class": "InvC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 3, "tail_trim": 3}}], "cluster": "A"},
+                {"file": "AuthA.php", "namespace": "Acme\\Auth\\Ratio", "class": "AuthA", "scaffold": "method_alpha", "group": "B", "pristine": true, "transforms": [], "seed": "access_guard", "cluster": "B"},
+                {"file": "AuthB.php", "namespace": "Acme\\Auth\\Ratio", "class": "AuthB", "scaffold": "method_beta", "group": "B", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 3, "tail_trim": 2}}], "seed": "access_guard", "cluster": "B"},
+                {"file": "AuthC.php", "namespace": "Acme\\Auth\\Ratio", "class": "AuthC", "scaffold": "method_gamma", "group": "B", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 2, "tail_trim": 3}}], "seed": "access_guard", "cluster": "B"}
+            ],
+            "distractors": [
+                {"file": "DistInv.php", "namespace": "Acme\\Inv\\Reports", "class": "DistInv", "source": "nearmiss_invoice", "reason": "near-miss"},
+                {"file": "DistAuth.php", "namespace": "Acme\\Auth\\Audit", "class": "DistAuth", "source": "nearmiss_access", "reason": "near-miss"}
+            ],
+            "cleans": [
+                {"file": "CleanInv.php", "namespace": "Acme\\Inv\\Config", "class": "CleanInv", "source": "clean_billing"},
+                {"file": "CleanAuth.php", "namespace": "Acme\\Auth\\Config", "class": "CleanAuth", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L04-ct_ratio_varied-005",
+            "title": "All clusters with unique ratios",
+            "description": "Each of three clusters has a different duplication ratio.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "schema_version": 2,
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "rng_seed": 105505,
+            "role_composition": {"carrier": 9, "distractor": 3, "clean": 3},
+            "notes": "Each cluster gets unique ratio via different trim values.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "difficulty": {"complexity": 6, "partiality": "mixed"},
+            "duplication": {"cluster_ratios": {"A": 0.8, "B": 0.55, "C": 0.3}},
+            "carriers": [
+                {"file": "RatA_A.php", "namespace": "Acme\\RA\\Cluster", "class": "RatA_A", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": [], "cluster": "A"},
+                {"file": "RatA_B.php", "namespace": "Acme\\RA\\Cluster", "class": "RatA_B", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 2, "tail_trim": 0}}], "cluster": "A"},
+                {"file": "RatA_C.php", "namespace": "Acme\\RA\\Cluster", "class": "RatA_C", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 0, "tail_trim": 2}}], "cluster": "A"},
+                {"file": "RatB_A.php", "namespace": "Acme\\RB\\Cluster", "class": "RatB_A", "scaffold": "method_alpha", "group": "B", "pristine": true, "transforms": [], "cluster": "B"},
+                {"file": "RatB_B.php", "namespace": "Acme\\RB\\Cluster", "class": "RatB_B", "scaffold": "method_beta", "group": "B", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 4, "tail_trim": 4}}], "cluster": "B"},
+                {"file": "RatB_C.php", "namespace": "Acme\\RB\\Cluster", "class": "RatB_C", "scaffold": "method_gamma", "group": "B", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 5, "tail_trim": 5}}], "cluster": "B"},
+                {"file": "RatC_A.php", "namespace": "Acme\\RC\\Cluster", "class": "RatC_A", "scaffold": "method_alpha", "group": "C", "pristine": true, "transforms": [], "cluster": "C"},
+                {"file": "RatC_B.php", "namespace": "Acme\\RC\\Cluster", "class": "RatC_B", "scaffold": "method_beta", "group": "C", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 7, "tail_trim": 7}}], "cluster": "C"},
+                {"file": "RatC_C.php", "namespace": "Acme\\RC\\Cluster", "class": "RatC_C", "scaffold": "method_gamma", "group": "C", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 8, "tail_trim": 8}}], "cluster": "C"}
+            ],
+            "distractors": [
+                {"file": "Dist1.php", "namespace": "Acme\\RA\\Reports", "class": "Dist1", "source": "nearmiss_invoice", "reason": "near-miss"},
+                {"file": "Dist2.php", "namespace": "Acme\\RB\\Reports", "class": "Dist2", "source": "nearmiss_invoice", "reason": "near-miss"},
+                {"file": "Dist3.php", "namespace": "Acme\\RC\\Reports", "class": "Dist3", "source": "nearmiss_invoice", "reason": "near-miss"}
+            ],
+            "cleans": [
+                {"file": "Clean1.php", "namespace": "Acme\\RA\\Config", "class": "Clean1", "source": "clean_billing"},
+                {"file": "Clean2.php", "namespace": "Acme\\RB\\Config", "class": "Clean2", "source": "clean_billing"},
+                {"file": "Clean3.php", "namespace": "Acme\\RC\\Config", "class": "Clean3", "source": "clean_billing"}
+            ]
+        }
+    ]
+}

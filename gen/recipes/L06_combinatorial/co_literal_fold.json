@@ -1,0 +1,210 @@
+{
+    "level": 6,
+    "level_name": "combinatorial",
+    "level_dir": "L06_combinatorial",
+    "family": "co_literal_fold",
+    "sets": [
+        {
+            "set_id": "L06-co_literal_fold-001",
+            "schema_version": 2,
+            "title": "Literal folding with structural changes",
+            "description": "Same computeTotals method. Tests literal folding (LT-04 const_vs_literal) combined with structural statement changes.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "case_convention", "literals"],
+            "rng_seed": 1612001,
+            "interference_profile": {
+                "axis_count": 2,
+                "axes": ["literals", "statements"],
+                "groups_applied": ["lt", "st"]
+            },
+            "difficulty": {
+                "complexity": 7,
+                "axes": {
+                    "literals": 7,
+                    "statements": 9
+                }
+            },
+            "notes": "Literal folding with structural changes. Tests const vs literal abstraction with statement-level modifications.",
+            "scoring": {"line_tolerance": 3, "member_jaccard_min": 0.5, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineInvoiceCalc.php", "namespace": "Acme\\Billing\\Pristine", "class": "PristineInvoiceCalc", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "LiteralFoldCalc.php", "namespace": "Acme\\Billing\\LiteralFold", "class": "LiteralFoldCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-04", "params": {"style": "const_literal"}}]},
+                {"file": "LiteralFoldStCalc.php", "namespace": "Acme\\Billing\\LiteralFoldSt", "class": "LiteralFoldStCalc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "LT-04", "params": {"style": "inline_literal"}}, {"code": "ST-01", "params": {"lines": 1}}]}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L06-co_literal_fold-002",
+            "schema_version": 2,
+            "title": "Literal folding with whitespace and comments",
+            "description": "Same computeTotals method. Tests LT-04 combined with WS and CM. Literal folding with formatting changes.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "case_convention", "literals"],
+            "rng_seed": 1612002,
+            "interference_profile": {
+                "axis_count": 3,
+                "axes": ["literals", "whitespace", "statements"],
+                "groups_applied": ["lt", "ws", "st"]
+            },
+            "difficulty": {
+                "complexity": 7,
+                "axes": {
+                    "literals": 7,
+                    "whitespace": 3,
+                    "statements": 8
+                }
+            },
+            "notes": "Literal folding with WS-01 and ST. Tests const/literal abstraction with formatting normalization.",
+            "scoring": {"line_tolerance": 3, "member_jaccard_min": 0.5, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "WsCmLiteralCalc.php", "namespace": "Acme\\Billing\\WsCmLiteral", "class": "WsCmLiteralCalc", "scaffold": "method_alpha", "group": "A", "pristine": false, "transforms": [{"code": "WS-01", "params": {"blank_lines": 1}}, {"code": "ST-01", "params": {"lines": 1}}]},
+                {"file": "LiteralFoldCalc.php", "namespace": "Acme\\Billing\\LiteralFold", "class": "LiteralFoldCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-04", "params": {"style": "const_literal"}}]},
+                {"file": "AllLiteralCalc.php", "namespace": "Acme\\Billing\\AllLiteral", "class": "AllLiteralCalc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "WS-01", "params": {"blank_lines": 2}}, {"code": "LT-04", "params": {"style": "inline_literal"}}, {"code": "LT-01", "params": {"format": "hex"}}, {"code": "ST-05", "params": {"reorder_level": 1}}]}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L06-co_literal_fold-003",
+            "schema_version": 2,
+            "title": "Heavy literal folding interference",
+            "description": "Same computeTotals method. Heavy literal folding combined with all LT and ST codes at maximum intensity.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "case_convention", "literals"],
+            "rng_seed": 1612003,
+            "interference_profile": {
+                "axis_count": 3,
+                "axes": ["literals", "statements", "whitespace"],
+                "groups_applied": ["lt", "st", "ws"]
+            },
+            "difficulty": {
+                "complexity": 9,
+                "axes": {
+                    "literals": 8,
+                    "statements": 10,
+                    "whitespace": 4
+                }
+            },
+            "notes": "Heavy literal folding interference: LT-01+LT-02+LT-03+LT-04 combined with ST-01+ST-05+ST-09 and WS-01. Tests comprehensive literal normalization ceiling.",
+            "scoring": {"line_tolerance": 4, "member_jaccard_min": 0.45, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "HeavyCalcA.php", "namespace": "Acme\\Billing\\Heavy", "class": "HeavyCalcA", "scaffold": "method_alpha", "group": "A", "pristine": false, "transforms": [{"code": "LT-04", "params": {"style": "const_literal"}}, {"code": "ST-01", "params": {"lines": 1}}, {"code": "WS-01", "params": {"blank_lines": 1}}]},
+                {"file": "HeavyCalcB.php", "namespace": "Acme\\Billing\\Heavy", "class": "HeavyCalcB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-01", "params": {"format": "binary"}}, {"code": "LT-02", "params": {"style": "single_quotes"}}, {"code": "LT-03", "params": {"style": "short_array"}}, {"code": "ST-05", "params": {"reorder_level": 1}}, {"code": "WS-01", "params": {"blank_lines": 2}}]},
+                {"file": "HeavyCalcC.php", "namespace": "Acme\\Billing\\Heavy", "class": "HeavyCalcC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "LT-04", "params": {"style": "inline_literal"}}, {"code": "ST-09", "params": {"tweak_level": 1}}, {"code": "ST-02", "params": {"lines": 1}}, {"code": "WS-01", "params": {"blank_lines": 1}}]}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L06-co_literal_fold-004",
+            "schema_version": 2,
+            "title": "Literal folding with rename",
+            "description": "Same computeTotals method. Tests literal folding combined with identifier renaming. Full normalization pipeline.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "case_convention", "literals"],
+            "rng_seed": 1612004,
+            "interference_profile": {
+                "axis_count": 4,
+                "axes": ["literals", "identifiers", "whitespace", "statements"],
+                "groups_applied": ["lt", "rn", "ws", "st"]
+            },
+            "difficulty": {
+                "complexity": 10,
+                "axes": {
+                    "literals": 8,
+                    "identifiers": 7,
+                    "whitespace": 4,
+                    "statements": 10
+                }
+            },
+            "notes": "Literal folding with rename. Uses RN-05 (case_convention) instead of RN-01/02. Tests comprehensive literal and identifier normalization pipeline.",
+            "scoring": {"line_tolerance": 4, "member_jaccard_min": 0.4, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "LiteralRenameCalc.php", "namespace": "Acme\\Billing\\LiteralRename", "class": "LiteralRenameCalc", "scaffold": "method_alpha", "group": "A", "pristine": false, "transforms": [{"code": "LT-04", "params": {"style": "const_literal"}}, {"code": "RN-05", "params": {"direction": "camel_to_snake"}}]},
+                {"file": "FullLiteralCalc.php", "namespace": "Acme\\Billing\\FullLiteral", "class": "FullLiteralCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-01", "params": {"format": "hex"}}, {"code": "LT-02", "params": {"style": "double_quotes"}}, {"code": "RN-05", "params": {"direction": "snake_to_camel"}}, {"code": "WS-01", "params": {"blank_lines": 1}}, {"code": "ST-01", "params": {"lines": 1}}]},
+                {"file": "MaxLiteralCalc.php", "namespace": "Acme\\Billing\\MaxLiteral", "class": "MaxLiteralCalc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "LT-04", "params": {"style": "inline_literal"}}, {"code": "LT-03", "params": {"style": "long_array"}}, {"code": "RN-05", "params": {"direction": "camel_to_snake"}}, {"code": "WS-01", "params": {"blank_lines": 1}}, {"code": "ST-05", "params": {"reorder_level": 2}}]}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L06-co_literal_fold-005",
+            "schema_version": 2,
+            "title": "Maximum literal folding interference",
+            "description": "Same computeTotals method. All literal transforms combined with all statement transforms. Tests ceiling of literal abstraction.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "case_convention", "literals"],
+            "rng_seed": 1612005,
+            "interference_profile": {
+                "axis_count": 5,
+                "axes": ["literals", "statements", "whitespace", "identifiers", "types"],
+                "groups_applied": ["lt", "st", "ws", "rn", "ty"]
+            },
+            "difficulty": {
+                "complexity": 12,
+                "axes": {
+                    "literals": 8,
+                    "statements": 12,
+                    "whitespace": 5,
+                    "identifiers": 8,
+                    "types": 6
+                }
+            },
+            "notes": "Maximum literal folding interference using working transforms: LT + ST + WS-01 + RN-05 + TY. Tests comprehensive literal abstraction ceiling.",
+            "scoring": {"line_tolerance": 4, "member_jaccard_min": 0.35, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "MaxCalcA.php", "namespace": "Acme\\Billing\\Max", "class": "MaxCalcA", "scaffold": "method_alpha", "group": "A", "pristine": false, "transforms": [{"code": "LT-01", "params": {"format": "binary"}}, {"code": "LT-04", "params": {"style": "const_literal"}}, {"code": "ST-01", "params": {"lines": 2}}, {"code": "WS-01", "params": {"blank_lines": 1}}, {"code": "RN-05", "params": {"direction": "camel_to_snake"}}]},
+                {"file": "MaxCalcB.php", "namespace": "Acme\\Billing\\Max", "class": "MaxCalcB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-02", "params": {"style": "single_quotes"}}, {"code": "LT-03", "params": {"style": "short_array"}}, {"code": "ST-05", "params": {"reorder_level": 2}}, {"code": "WS-01", "params": {"blank_lines": 2}}, {"code": "WS-01", "params": {"blank_lines": 3}}, {"code": "RN-05", "params": {"direction": "snake_to_camel"}}]},
+                {"file": "MaxCalcC.php", "namespace": "Acme\\Billing\\Max", "class": "MaxCalcC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "LT-04", "params": {"style": "inline_literal"}}, {"code": "ST-02", "params": {"lines": 1}}, {"code": "ST-09", "params": {"tweak_level": 1}}]}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        }
+    ]
+}

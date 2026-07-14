@@ -3,7 +3,7 @@
     "set_id": "L01-ex_multi_cluster-002",
     "clusters": [
         {
-            "id": "c1",
+            "id": "A",
             "group_id": "A",
             "clone_type": "type-1",
             "granularity": "function",
@@ -34,7 +34,29 @@
                     "end_line": 40,
                     "symbol": "parseRow",
                     "pristine": true
-                },
+                }
+            ],
+            "detection_expectation": {
+                "text_based": true,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": true,
+                "semantic": true
+            },
+            "notes": "Two clusters: csv_import and invoice_totals. 3 carriers each."
+        },
+        {
+            "id": "B",
+            "group_id": "B",
+            "clone_type": "type-1",
+            "granularity": "function",
+            "normalized_by": [
+                "whitespace",
+                "comments"
+            ],
+            "token_hash": "37c4250b0b6b5242",
+            "normalized_hash": "98017a00ba44e1cc",
+            "members": [
                 {
                     "file": "src/TotalsCalcA.php",
                     "start_line": 9,
@@ -70,8 +92,8 @@
     "non_duplicates": [
         {
             "file": "src/CsvDistractor.php",
-            "start_line": 12,
-            "end_line": 26,
+            "start_line": 9,
+            "end_line": 78,
             "reason": "near-miss: similar parsing vocabulary but different logic",
             "trap": true
         },

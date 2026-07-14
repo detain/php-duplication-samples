@@ -1,0 +1,139 @@
+{
+    "level": 17,
+    "level_name": "refactor_fork",
+    "level_dir": "L17_refactor_fork",
+    "family": "rf_incomplete",
+    "sets": [
+        {
+            "set_id": "L17-rf_incomplete-001",
+            "title": "Incomplete refactoring states - basic",
+            "description": "Tests rf_incomplete: incomplete refactoring states showing mid-transform clones.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["identifiers"],
+            "rng_seed": 170201,
+            "notes": "L17: rf_incomplete - incomplete refactoring.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.7, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["identifier_canonicalization"],
+            "carriers": [
+                {"file": "IncompleteRefactorA.php", "namespace": "Acme\\Incomplete\\Alpha", "class": "IncompleteRefactorA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "IncompleteRefactorB.php", "namespace": "Acme\\Incomplete\\Beta", "class": "IncompleteRefactorB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-05"}]}
+            ],
+            "distractors": [
+                {"file": "IncompleteRefactorDistractor.php", "namespace": "Acme\\Incomplete\\Distract", "class": "IncompleteRefactorDistractor", "source": "nearmiss_invoice", "reason": "Near-miss: similar incomplete refactor vocabulary"}
+            ],
+            "cleans": [
+                {"file": "IncompleteRefactorClean.php", "namespace": "Acme\\Incomplete\\Config", "class": "IncompleteRefactorClean", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L17-rf_incomplete-002",
+            "title": "Incomplete refactor with literal transforms",
+            "description": "Incomplete refactoring with literal transformations.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["literals", "identifiers"],
+            "rng_seed": 170202,
+            "notes": "L17: rf_incomplete + LT-01 + LT-02.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.65, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["literal_abstraction", "identifier_canonicalization"],
+            "carriers": [
+                {"file": "IncompleteRefactorA.php", "namespace": "Acme\\Incomplete\\Alpha", "class": "IncompleteRefactorA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "IncompleteRefactorB.php", "namespace": "Acme\\Incomplete\\Beta", "class": "IncompleteRefactorB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-01"}, {"code": "LT-02"}, {"code": "RN-05"}]}
+            ],
+            "distractors": [
+                {"file": "IncompleteRefactorDistractor.php", "namespace": "Acme\\Incomplete\\Distract", "class": "IncompleteRefactorDistractor", "source": "nearmiss_access", "reason": "Near-miss: similar incomplete auth"}
+            ],
+            "cleans": [
+                {"file": "IncompleteRefactorClean.php", "namespace": "Acme\\Incomplete\\Config", "class": "IncompleteRefactorClean", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L17-rf_incomplete-003",
+            "title": "Incomplete refactor three carriers",
+            "description": "Three carriers at different stages of incomplete refactoring.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["identifiers", "literals", "comments"],
+            "rng_seed": 170203,
+            "notes": "L17: rf_incomplete with three carriers.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 3},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["identifier_canonicalization", "literal_abstraction", "comment_stripping"],
+            "carriers": [
+                {"file": "IncompleteRefactorA.php", "namespace": "Acme\\Incomplete\\Alpha", "class": "IncompleteRefactorA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "IncompleteRefactorB.php", "namespace": "Acme\\Incomplete\\Beta", "class": "IncompleteRefactorB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-05"}, {"code": "CM-01"}]},
+                {"file": "IncompleteRefactorC.php", "namespace": "Acme\\Incomplete\\Gamma", "class": "IncompleteRefactorC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "LT-03"}, {"code": "CM-03"}]}
+            ],
+            "distractors": [
+                {"file": "IncompleteRefactorDistractor.php", "namespace": "Acme\\Incomplete\\Distract", "class": "IncompleteRefactorDistractor", "source": "nearmiss_invoice", "reason": "Near-miss: similar incomplete invoice"}
+            ],
+            "cleans": [
+                {"file": "IncompleteRefactorClean.php", "namespace": "Acme\\Incomplete\\Config", "class": "IncompleteRefactorClean", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L17-rf_incomplete-004",
+            "title": "Incomplete refactor with ST-09 expr tweak",
+            "description": "Incomplete refactoring with expression tweaks.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["identifiers"],
+            "rng_seed": 170204,
+            "notes": "L17: rf_incomplete + ST-09 expr tweak.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["ast_canonicalization", "identifier_canonicalization"],
+            "carriers": [
+                {"file": "IncompleteRefactorA.php", "namespace": "Acme\\Incomplete\\Alpha", "class": "IncompleteRefactorA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "IncompleteRefactorB.php", "namespace": "Acme\\Incomplete\\Beta", "class": "IncompleteRefactorB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-09"}, {"code": "RN-05"}]}
+            ],
+            "distractors": [
+                {"file": "IncompleteRefactorDistractor.php", "namespace": "Acme\\Incomplete\\Distract", "class": "IncompleteRefactorDistractor", "source": "nearmiss_access", "reason": "Near-miss: similar incomplete auth"}
+            ],
+            "cleans": [
+                {"file": "IncompleteRefactorClean.php", "namespace": "Acme\\Incomplete\\Config", "class": "IncompleteRefactorClean", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L17-rf_incomplete-005",
+            "title": "Incomplete refactor with array and const transforms",
+            "description": "Incomplete refactoring with array and constant transforms.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["literals"],
+            "rng_seed": 170205,
+            "notes": "L17: rf_incomplete + LT-03 + LT-04.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["literal_abstraction"],
+            "carriers": [
+                {"file": "IncompleteRefactorA.php", "namespace": "Acme\\Incomplete\\Alpha", "class": "IncompleteRefactorA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "IncompleteRefactorB.php", "namespace": "Acme\\Incomplete\\Beta", "class": "IncompleteRefactorB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-03"}, {"code": "LT-04"}, {"code": "RN-05"}]}
+            ],
+            "distractors": [
+                {"file": "IncompleteRefactorDistractor.php", "namespace": "Acme\\Incomplete\\Distract", "class": "IncompleteRefactorDistractor", "source": "nearmiss_invoice", "reason": "Near-miss: similar incomplete invoice"}
+            ],
+            "cleans": [
+                {"file": "IncompleteRefactorClean.php", "namespace": "Acme\\Incomplete\\Config", "class": "IncompleteRefactorClean", "source": "clean_billing"}
+            ]
+        }
+    ]
+}

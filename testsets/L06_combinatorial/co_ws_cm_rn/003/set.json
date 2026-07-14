@@ -1,0 +1,179 @@
+{
+    "schema_version": 2,
+    "set_id": "L06-co_ws_cm_rn-003",
+    "level": 6,
+    "level_name": "combinatorial",
+    "family": "co_ws_cm_rn",
+    "title": "3-axis interference (WS-06 + CM-07 + RN-02)",
+    "description": "Same computeTotals method. Carrier A applies WS-06; carrier B applies CM-07 + RN-02; carrier C applies all three. Tests line wrap, commented code, and parameter rename.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "invoice_totals",
+    "difficulty_band": "very_hard",
+    "files": [
+        {
+            "path": "src/WrappedCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 42,
+            "region_sloc": {
+                "sloc": 28,
+                "duplicate": 28,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/CmRnCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 74,
+            "region_sloc": {
+                "sloc": 55,
+                "duplicate": 25,
+                "unique": 30,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/AllThreeCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 61,
+            "region_sloc": {
+                "sloc": 43,
+                "duplicate": 28,
+                "unique": 15,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/MarginSummarizer.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 30
+        },
+        {
+            "path": "src/TaxRateRepository.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-2",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "WS-06",
+            "name": "line_wrap",
+            "params": {
+                "occurrence": 1
+            },
+            "applied_to": [
+                "src/WrappedCalc.php",
+                "src/AllThreeCalc.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "RN-02",
+            "name": "params",
+            "params": {
+                "style": "to_snake"
+            },
+            "applied_to": [
+                "src/CmRnCalc.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "CM-07",
+            "name": "commented_out_code",
+            "params": {
+                "lines": 2
+            },
+            "applied_to": [
+                "src/CmRnCalc.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "RN-02",
+            "name": "params",
+            "params": {
+                "style": "to_camel"
+            },
+            "applied_to": [
+                "src/AllThreeCalc.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "CM-07",
+            "name": "commented_out_code",
+            "params": {
+                "lines": 1
+            },
+            "applied_to": [
+                "src/AllThreeCalc.php"
+            ],
+            "intensity": 2
+        }
+    ],
+    "difficulty": {
+        "score": 74,
+        "requires": [
+            "whitespace_normalization",
+            "identifier_canonicalization",
+            "comment_stripping"
+        ],
+        "score_raw": 74,
+        "axes": {
+            "breadth": 3,
+            "intensity": 2,
+            "intensity_max": 2,
+            "semantic_depth": 0,
+            "partiality": 1
+        },
+        "application_count": 6,
+        "axis_count": 3
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L06_combinatorial/co_ws_cm_rn.json",
+        "version": "2.0.0",
+        "rng_seed": 1604003
+    },
+    "interference_profile": {
+        "axis_count": 3,
+        "per_carrier_axes": {
+            "src/WrappedCalc.php": [
+                "WS-06"
+            ],
+            "src/CmRnCalc.php": [
+                "RN-02",
+                "CM-07"
+            ],
+            "src/AllThreeCalc.php": [
+                "RN-02",
+                "CM-07",
+                "WS-06"
+            ]
+        },
+        "groups_touched": [
+            "A"
+        ],
+        "stack_depth_max": 3,
+        "symmetric_overlap": 0,
+        "pairwise_overlap": 0.3333,
+        "combination_design": "type2_plus_type1"
+    },
+    "engine_features": [
+        "fragment_emission"
+    ]
+}

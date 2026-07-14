@@ -1,0 +1,164 @@
+{
+    "schema_version": 2,
+    "set_id": "L06-co_api_idiom_stack-001",
+    "level": 6,
+    "level_name": "combinatorial",
+    "family": "co_api_idiom_stack",
+    "title": "API idiom stacking (map vs loop)",
+    "description": "Same computeTotals method. Tests API idioms stacked with whitespace and comments. Uses API-01 (map_vs_loop) combined with formatting changes.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "invoice_totals",
+    "difficulty_band": "expert",
+    "files": [
+        {
+            "path": "src/PristineInvoiceCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 39,
+            "region_sloc": {
+                "sloc": 25,
+                "duplicate": 25,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/ApiIdiomCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 45,
+            "region_sloc": {
+                "sloc": 26,
+                "duplicate": 25,
+                "unique": 1,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/ApiWsCmCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 41,
+            "region_sloc": {
+                "sloc": 23,
+                "duplicate": 22,
+                "unique": 1,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/MarginSummarizer.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 30
+        },
+        {
+            "path": "src/TaxRateRepository.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-3",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "ST-01",
+            "name": "insert_logging",
+            "params": {
+                "lines": 1
+            },
+            "applied_to": [
+                "src/ApiIdiomCalc.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "ST-05",
+            "name": "reorder_independent",
+            "params": {
+                "reorder_level": 1
+            },
+            "applied_to": [
+                "src/ApiWsCmCalc.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "LT-01",
+            "name": "numeric",
+            "params": {
+                "format": "hex"
+            },
+            "applied_to": [
+                "src/ApiWsCmCalc.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "WS-01",
+            "name": "blank_before",
+            "params": {
+                "blank_lines": 1
+            },
+            "applied_to": [
+                "src/ApiWsCmCalc.php"
+            ],
+            "intensity": 1
+        }
+    ],
+    "difficulty": {
+        "score": 87,
+        "requires": [
+            "ast_canonicalization",
+            "commutative_reordering",
+            "literal_abstraction",
+            "whitespace_normalization"
+        ],
+        "score_raw": 87,
+        "axes": {
+            "breadth": 4,
+            "intensity": 2.25,
+            "intensity_max": 3,
+            "semantic_depth": 0,
+            "partiality": 1
+        },
+        "application_count": 4,
+        "axis_count": 4
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L06_combinatorial/co_api_idiom_stack.json",
+        "version": "2.0.0",
+        "rng_seed": 1613001
+    },
+    "interference_profile": {
+        "axis_count": 4,
+        "per_carrier_axes": {
+            "src/ApiIdiomCalc.php": [
+                "ST-01"
+            ],
+            "src/ApiWsCmCalc.php": [
+                "ST-05",
+                "LT-01",
+                "WS-01"
+            ]
+        },
+        "groups_touched": [
+            "A"
+        ],
+        "stack_depth_max": 3,
+        "symmetric_overlap": 0,
+        "pairwise_overlap": 0,
+        "combination_design": "type2_plus_type1"
+    },
+    "engine_features": [
+        "fragment_emission"
+    ]
+}

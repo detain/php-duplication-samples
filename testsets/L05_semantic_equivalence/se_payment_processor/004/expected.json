@@ -1,0 +1,56 @@
+{
+    "schema_version": 1,
+    "set_id": "L05-se_payment_processor-004",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-4",
+            "granularity": "method",
+            "normalized_by": [
+                "controlflow",
+                "identifiers",
+                "literals"
+            ],
+            "token_hash": "bb875acb0fd05c38",
+            "normalized_hash": "032b251ba99ab653",
+            "members": [
+                {
+                    "file": "src/DirectPayment.php",
+                    "start_line": 9,
+                    "end_line": 141,
+                    "symbol": "processPayment",
+                    "pristine": true
+                },
+                {
+                    "file": "src/DeletePayment.php",
+                    "start_line": 18,
+                    "end_line": 149,
+                    "symbol": "processPayment",
+                    "pristine": false
+                },
+                {
+                    "file": "src/ExprPayment.php",
+                    "start_line": 24,
+                    "end_line": 158,
+                    "symbol": "processPayment",
+                    "pristine": false
+                }
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": false,
+                "ast_based": false,
+                "metric_based": false,
+                "semantic": true
+            },
+            "notes": "Set 004 of 5. ST-01, ST-04, ST-09 combined with CF and BL."
+        }
+    ],
+    "non_duplicates": [],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.6,
+        "min_members_for_credit": 2
+    }
+}

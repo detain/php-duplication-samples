@@ -30,6 +30,7 @@ final class TrimmedCaseCalc
             $unit_price = (float) $item['unitPrice'];
             $line_total = $quantity * $unit_price;
             $subtotal += $line_total;
+            $item_count += (int) $quantity;
         }
         $discount = round($subtotal * $discount_rate, 2);
         $taxable = $subtotal - $discount;

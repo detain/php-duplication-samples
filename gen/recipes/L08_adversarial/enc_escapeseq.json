@@ -1,0 +1,133 @@
+{
+    "level": 8,
+    "level_name": "adversarial",
+    "level_dir": "L08_adversarial",
+    "family": "enc_escapeseq",
+    "sets": [
+        {
+            "set_id": "L08-enc_escapeseq-001",
+            "title": "String Escapes: \\n vs newline literal",
+            "description": "Tests string escape sequence variations. Same visual newline but different encoding.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments", "identifiers"],
+            "rng_seed": 80701,
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.7, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": false},
+            "carriers": [
+                {"file": "TotalsCalculatorA.php", "namespace": "Acme\\Billing\\TotalsA", "class": "TotalsCalculatorA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "TotalsCalculatorB.php", "namespace": "Acme\\Billing\\TotalsB", "class": "TotalsCalculatorB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ENC-05"}]},
+                {"file": "TotalsCalculatorC.php", "namespace": "Acme\\Billing\\TotalsC", "class": "TotalsCalculatorC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ENC-05"}]}
+            ],
+            "distractors": [
+                {"file": "Validator.php", "namespace": "Acme\\Billing\\Validate", "class": "Validator", "source": "clean_billing", "reason": "Clean distractor - unrelated billing logic"}
+            ],
+            "cleans": [
+                {"file": "SchemaMapper.php", "namespace": "Acme\\Billing\\Schema", "class": "SchemaMapper", "source": "clean_parsing"}
+            ]
+        },
+        {
+            "set_id": "L08-enc_escapeseq-002",
+            "title": "String Escapes: Hex vs octal escape codes",
+            "description": "Tests whether different escape sequence representations (\\x00 vs \\0) confuse detection.",
+            "seed": "csv_processor",
+            "mount": "method",
+            "clone_symbol": "processRow",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments", "identifiers"],
+            "rng_seed": 80702,
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.7, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": false},
+            "carriers": [
+                {"file": "RowProcessorA.php", "namespace": "Acme\\Data\\ProcessA", "class": "RowProcessorA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "RowProcessorB.php", "namespace": "Acme\\Data\\ProcessB", "class": "RowProcessorB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ENC-05"}]},
+                {"file": "RowProcessorC.php", "namespace": "Acme\\Data\\ProcessC", "class": "RowProcessorC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ENC-05"}]}
+            ],
+            "distractors": [
+                {"file": "Filter.php", "namespace": "Acme\\Data\\Filter", "class": "RowFilter", "source": "clean_csv", "reason": "Clean distractor - different processing logic"}
+            ],
+            "cleans": [
+                {"file": "Mapper.php", "namespace": "Acme\\Data\\Map", "class": "RowMapper", "source": "clean_csv"}
+            ]
+        },
+        {
+            "set_id": "L08-enc_escapeseq-003",
+            "title": "String Escapes: Single vs double quotes with escapes",
+            "description": "Single-quoted strings use different escapes than double-quoted. Same value, different token.",
+            "seed": "logger",
+            "mount": "method",
+            "clone_symbol": "logMessage",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments", "identifiers"],
+            "rng_seed": 80703,
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.7, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": false},
+            "carriers": [
+                {"file": "LoggerA.php", "namespace": "Acme\\Log\\LoggerA", "class": "LoggerA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "LoggerB.php", "namespace": "Acme\\Log\\LoggerB", "class": "LoggerB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ENC-05"}]},
+                {"file": "LoggerC.php", "namespace": "Acme\\Log\\LoggerC", "class": "LoggerC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ENC-05"}]}
+            ],
+            "distractors": [
+                {"file": "Handler.php", "namespace": "Acme\\Log\\Handler", "class": "LogHandler", "source": "clean_logger", "reason": "Clean distractor - log handling"}
+            ],
+            "cleans": [
+                {"file": "Formatter.php", "namespace": "Acme\\Log\\Format", "class": "LogFormatter", "source": "clean_logger"}
+            ]
+        },
+        {
+            "set_id": "L08-enc_escapeseq-004",
+            "title": "String Escapes: Unicode escape sequences",
+            "description": "Tests Unicode escape sequences (\\u0000) vs literal characters.",
+            "seed": "serializer",
+            "mount": "method",
+            "clone_symbol": "serialize",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments", "identifiers"],
+            "rng_seed": 80704,
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.7, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": false},
+            "carriers": [
+                {"file": "SerializerA.php", "namespace": "Acme\\Util\\SerA", "class": "SerializerA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "SerializerB.php", "namespace": "Acme\\Util\\SerB", "class": "SerializerB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ENC-05"}]},
+                {"file": "SerializerC.php", "namespace": "Acme\\Util\\SerC", "class": "SerializerC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ENC-05"}]}
+            ],
+            "distractors": [
+                {"file": "Deserializer.php", "namespace": "Acme\\Util\\Deser", "class": "Deserializer", "source": "clean_serializer", "reason": "Clean distractor - deserialization logic"}
+            ],
+            "cleans": [
+                {"file": "Validator.php", "namespace": "Acme\\Util\\Valid", "class": "DataValidator", "source": "clean_serializer"}
+            ]
+        },
+        {
+            "set_id": "L08-enc_escapeseq-005",
+            "title": "String Escapes: Combined with heredoc",
+            "description": "ENC-05 escape variations combined with ENC-06 heredoc for compound string encoding challenges.",
+            "seed": "notification_service",
+            "mount": "method",
+            "clone_symbol": "formatMessage",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments", "identifiers"],
+            "rng_seed": 80705,
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.65, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": false},
+            "carriers": [
+                {"file": "MessageFormatterA.php", "namespace": "Acme\\Notify\\FormatA", "class": "MessageFormatterA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "MessageFormatterB.php", "namespace": "Acme\\Notify\\FormatB", "class": "MessageFormatterB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ENC-05"}, {"code": "ENC-06"}]},
+                {"file": "MessageFormatterC.php", "namespace": "Acme\\Notify\\FormatC", "class": "MessageFormatterC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ENC-05"}, {"code": "ENC-06"}]}
+            ],
+            "distractors": [
+                {"file": "Sender.php", "namespace": "Acme\\Notify\\Send", "class": "MessageSender", "source": "clean_notification", "reason": "Clean distractor - notification sending"}
+            ],
+            "cleans": [
+                {"file": "Queue.php", "namespace": "Acme\\Notify\\Queue", "class": "NotificationQueue", "source": "clean_notification"}
+            ]
+        }
+    ]
+}

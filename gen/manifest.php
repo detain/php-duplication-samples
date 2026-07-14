@@ -34,6 +34,16 @@ $levelTitles = [
     8 => 'Semantic / architectural duplication',
     9 => 'Compound interference (mixed)',
     10 => 'Adversarial edge cases & topology',
+    11 => 'Cross-file scatter & inheritance chains',
+    12 => 'Deep refactoring & partial duplication',
+    13 => 'Cross-seed & multi-domain clones',
+    14 => 'Semantic equivalence variants',
+    15 => 'Composed selectors & API hybrids',
+    16 => 'Behavioral equivalence & proof obligations',
+    17 => 'Genealogical drift chains',
+    18 => 'Fragment-level partial duplication',
+    19 => 'Budget-constrained edit synthesis',
+    20 => 'Adversarial anti-detection patterns',
 ];
 
 $setJsonFiles = glob($root . '/testsets/L*/*/*/set.json') ?: [];

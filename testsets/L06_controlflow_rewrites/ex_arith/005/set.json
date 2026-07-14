@@ -58,7 +58,8 @@
             },
             "applied_to": [
                 "src/FolderAccessPolicy.php"
-            ]
+            ],
+            "intensity": 4
         },
         {
             "code": "CF-03",
@@ -68,7 +69,8 @@
             },
             "applied_to": [
                 "src/ProjectAccessPolicy.php"
-            ]
+            ],
+            "intensity": 4
         }
     ],
     "difficulty": {

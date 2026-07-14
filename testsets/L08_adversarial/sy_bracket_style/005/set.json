@@ -1,0 +1,86 @@
+{
+    "schema_version": 1,
+    "set_id": "L08-sy_bracket_style-005",
+    "level": 8,
+    "level_name": "adversarial",
+    "family": "sy_bracket_style",
+    "title": "Bracket Style: Combined with operator spacing",
+    "description": "WS-11 brace style combined with WS-04 operator spacing for comprehensive style variation.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "permission_checker",
+    "difficulty_band": "expert",
+    "files": [
+        {
+            "path": "src/AccessCheckerA.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 53
+        },
+        {
+            "path": "src/AccessCheckerB.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 58
+        },
+        {
+            "path": "src/AccessCheckerC.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 57
+        },
+        {
+            "path": "src/RoleManager.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 14
+        },
+        {
+            "path": "src/Grant.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 14
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-1",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "WS-11",
+            "name": "brace_style",
+            "params": {},
+            "applied_to": [
+                "src/AccessCheckerB.php",
+                "src/AccessCheckerC.php"
+            ],
+            "intensity": 1
+        },
+        {
+            "code": "WS-04",
+            "name": "operator_spacing",
+            "params": {},
+            "applied_to": [
+                "src/AccessCheckerB.php",
+                "src/AccessCheckerC.php"
+            ],
+            "intensity": 1
+        }
+    ],
+    "difficulty": {
+        "score": 91,
+        "requires": [
+            "whitespace_normalization"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L08_adversarial/sy_bracket_style.json",
+        "version": "1.0.0",
+        "rng_seed": 81105
+    }
+}

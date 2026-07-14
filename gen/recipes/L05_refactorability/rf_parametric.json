@@ -1,0 +1,427 @@
+{
+  "level": 5,
+  "level_name": "refactorability",
+  "level_dir": "L05_refactorability",
+  "family": "rf_parametric",
+  "sets": [
+    {
+      "set_id": "L05-rf_parametric-001",
+      "title": "Basket pricing clones that CAN be unified via parameterization",
+      "description": "Three pricing functions that differ only in discount rate and type literal values. These CAN be unified by introducing a rate parameter.",
+      "seed": "basket_pricing",
+      "mount": "method",
+      "clone_symbol": "calculatePrice",
+      "granularity": "method",
+      "clone_type": "type-2",
+      "schema_version": 2,
+      "rng_seed": 502101,
+      "normalized_by": [
+        "whitespace",
+        "comments",
+        "identifiers",
+        "literals"
+      ],
+      "detection_expectation": {
+        "text_based": true,
+        "token_based": true,
+        "ast_based": true
+      },
+      "intended_refactoring": {
+        "kind": "parameterize_literal",
+        "unified_symbol": "calculatePrice",
+        "unified_signature": "calculatePrice(amount, rate, type)",
+        "parameterized_literals": [
+          {
+            "position": "rate",
+            "description": "Discount rate (0.05, 0.10, 0.15)"
+          },
+          {
+            "position": "type",
+            "description": "Pricing type ('standard', 'premium', 'bulk')"
+          }
+        ],
+        "collapses": [
+          0,
+          1,
+          2
+        ],
+        "advisability": "recommended"
+      },
+      "solution": "<?php\\ndeclare(strict_types=1);\\n\\nnamespace Acme\\\\Pricing\\\\Unified;\\n\\n/**\\n * Unified basket pricing \u2014 rate and type are now parameters\\n */\\nclass BasketPricing\\n{\\n    public function calculatePrice(float $amount, float $rate, string $type): array\\n    {\\n        $discount = $amount * $rate;\\n        $discounted = $amount - $discount;\\n        $tax = $discounted * 0.08;\\n        $total = $discounted + $tax;\\n\\n        return [\\n            'original' => $amount,\\n            'discount' => $discount,\\n            'discounted' => $discounted,\\n            'tax' => $tax,\\n            'total' => $total,\\n            'type' => $type,\\n        ];\\n    }\\n}\n",
+      "carriers": [
+        {
+          "file": "StandardPricing.php",
+          "namespace": "Acme\\Pricing\\Standard",
+          "class": "StandardPricing",
+          "scaffold": "method_alpha",
+          "group": "A",
+          "pristine": false,
+          "transforms": []
+        },
+        {
+          "file": "PremiumPricing.php",
+          "namespace": "Acme\\Pricing\\Premium",
+          "class": "PremiumPricing",
+          "scaffold": "method_beta",
+          "group": "A",
+          "pristine": false,
+          "transforms": []
+        },
+        {
+          "file": "BulkPricing.php",
+          "namespace": "Acme\\Pricing\\Bulk",
+          "class": "BulkPricing",
+          "scaffold": "method_gamma",
+          "group": "A",
+          "pristine": false,
+          "transforms": []
+        }
+      ],
+      "distractors": []
+    },
+    {
+      "set_id": "L05-rf_parametric-002",
+      "title": "Tax bracket clones that CAN be unified via parameterization",
+      "description": "Three tax calculation functions that differ only in bracket thresholds and rates. These CAN be unified by introducing a bracket configuration parameter.",
+      "seed": "tax_bracket",
+      "mount": "method",
+      "clone_symbol": "calculateTax",
+      "granularity": "method",
+      "clone_type": "type-2",
+      "schema_version": 2,
+      "rng_seed": 502102,
+      "normalized_by": [
+        "whitespace",
+        "comments",
+        "identifiers",
+        "literals"
+      ],
+      "detection_expectation": {
+        "text_based": true,
+        "token_based": true,
+        "ast_based": true
+      },
+      "intended_refactoring": {
+        "kind": "introduce_parameter_object",
+        "unified_symbol": "calculateTax",
+        "unified_signature": "calculateTax(income, brackets)",
+        "parameterized_literals": [
+          {
+            "position": "brackets",
+            "description": "Tax bracket configuration array with thresholds and rates"
+          }
+        ],
+        "collapses": [
+          0,
+          1,
+          2
+        ],
+        "advisability": "recommended"
+      },
+      "solution": "      },\n            \"solution\": \"<?php\\ndeclare(strict_types=1);\\n\\nnamespace Acme\\\\Tax\\\\Unified;\\n\\n/**\\n * Unified tax calculator \u2014 brackets are now a parameter\\n */\\nclass TaxCalculator\\n{\\n    public function calculateTax(float $income, array $brackets): array\\n    {\\n        $totalTax = 0.0;\\n        $remaining = $income;\\n        $effectiveRate = 0.0;\\n\\n        foreach ($brackets as $bracket) {\\n            if ($remaining <= 0) {\\n                break;\\n            }\\n            $threshold = $bracket['threshold'];\\n            $rate = $bracket['rate'];\\n            $taxable = min($remaining, $threshold);\\n            $tax = $taxable * $rate;\\n            $totalTax += $tax;\\n            $remaining -= $taxable;\\n        }\\n\\n        if ($income > 0) {\\n            $effectiveRate = $totalTax / $income;\\n        }\\n\\n        return [\\n            'income' => $income,\\n            'total_tax' => $totalTax,\\n            'effective_rate' => $effectiveRate,\\n            'net_income' => $income -",
+      "carriers": [
+        {
+          "file": "FederalTax.php",
+          "namespace": "Acme\\Tax\\Federal",
+          "class": "FederalTax",
+          "scaffold": "method_alpha",
+          "group": "A",
+          "pristine": false,
+          "transforms": [
+            {
+              "code": "LT-01"
+            }
+          ]
+        },
+        {
+          "file": "StateTax.php",
+          "namespace": "Acme\\Tax\\State",
+          "class": "StateTax",
+          "scaffold": "method_beta",
+          "group": "A",
+          "pristine": false,
+          "transforms": [
+            {
+              "code": "LT-01"
+            }
+          ]
+        },
+        {
+          "file": "MunicipalTax.php",
+          "namespace": "Acme\\Tax\\Municipal",
+          "class": "MunicipalTax",
+          "scaffold": "method_gamma",
+          "group": "A",
+          "pristine": false,
+          "transforms": [
+            {
+              "code": "LT-01"
+            }
+          ]
+        }
+      ],
+      "distractors": [
+        {
+          "file": "SalesTax.php",
+          "namespace": "Acme\\Tax\\Sales",
+          "class": "SalesTax",
+          "source": "nearmiss_tax",
+          "reason": "near-miss: similar progressive calculation but applies to sales transactions instead of income"
+        }
+      ]
+    },
+    {
+      "set_id": "L05-rf_parametric-003",
+      "title": "Config loader clones that CAN be unified via parameterization",
+      "description": "Three configuration loaders that differ only in default paths and key names. These CAN be unified by introducing a config parameters object.",
+      "seed": "config_loader",
+      "mount": "method",
+      "clone_symbol": "loadConfig",
+      "granularity": "method",
+      "clone_type": "type-2",
+      "schema_version": 2,
+      "rng_seed": 502103,
+      "normalized_by": [
+        "whitespace",
+        "comments",
+        "identifiers",
+        "literals"
+      ],
+      "detection_expectation": {
+        "text_based": true,
+        "token_based": true,
+        "ast_based": true
+      },
+      "intended_refactoring": {
+        "kind": "introduce_parameter_object",
+        "unified_symbol": "loadConfig",
+        "unified_signature": "loadConfig(path, key, default, required)",
+        "parameterized_literals": [
+          {
+            "position": "path",
+            "description": "Configuration file path"
+          },
+          {
+            "position": "key",
+            "description": "Configuration key name"
+          },
+          {
+            "position": "default",
+            "description": "Default value if key not found"
+          }
+        ],
+        "collapses": [
+          0,
+          1,
+          2
+        ],
+        "advisability": "recommended"
+      },
+      "solution": "           \"advisability\": \"recommended\"\n            },\n            \"solution\": \"<?php\\ndeclare(strict_types=1);\\n\\nnamespace Acme\\\\Config\\\\Unified;\\n\\n/**\\n * Unified config loader \u2014 path, key, and defaults are now parameters\\n */\\nclass ConfigLoader\\n{\\n    public function loadConfig(string $path, string $key, mixed $default = null, bool $required = false): mixed\\n    {\\n        if (!file_exists($path)) {\\n            if ($required) {\\n                throw new \\\\RuntimeException(\\\"Config file not found: {$path}\\\");\\n            }\\n            return $default;\\n        }\\n\\n        $config = include $path;\\n        if (!is_array($config)) {\\n            if ($required) {\\n                throw new \\\\RuntimeException(\\\"Config file must return array: {$path}\\\");\\n            }\\n            return $default;\\n        }\\n\\n        $value = $config[$key] ?? $default;\\n\\n        if ($value === null && $required) {\\n            throw new \\\\RuntimeException(\\\"Required",
+      "carriers": [
+        {
+          "file": "AppConfigLoader.php",
+          "namespace": "Acme\\Config\\App",
+          "class": "AppConfigLoader",
+          "scaffold": "method_alpha",
+          "group": "A",
+          "pristine": false,
+          "transforms": []
+        },
+        {
+          "file": "DbConfigLoader.php",
+          "namespace": "Acme\\Config\\Db",
+          "class": "DbConfigLoader",
+          "scaffold": "method_beta",
+          "group": "A",
+          "pristine": false,
+          "transforms": []
+        },
+        {
+          "file": "CacheConfigLoader.php",
+          "namespace": "Acme\\Config\\Cache",
+          "class": "CacheConfigLoader",
+          "scaffold": "method_gamma",
+          "group": "A",
+          "pristine": false,
+          "transforms": []
+        }
+      ],
+      "distractors": [
+        {
+          "file": "EnvLoader.php",
+          "namespace": "Acme\\Config\\Env",
+          "class": "EnvLoader",
+          "source": "nearmiss_config",
+          "reason": "near-miss: loads from environment variables instead of PHP include files"
+        }
+      ]
+    },
+    {
+      "set_id": "L05-rf_parametric-004",
+      "title": "Rate limiter clones that CAN be unified via parameterization",
+      "description": "Three rate limiter functions that differ only in max requests and window size. These CAN be unified by introducing a limit configuration parameter.",
+      "seed": "rate_limiter",
+      "mount": "method",
+      "clone_symbol": "checkRateLimit",
+      "granularity": "method",
+      "clone_type": "type-2",
+      "schema_version": 2,
+      "rng_seed": 502104,
+      "normalized_by": [
+        "whitespace",
+        "comments",
+        "identifiers",
+        "literals"
+      ],
+      "detection_expectation": {
+        "text_based": true,
+        "token_based": true,
+        "ast_based": true
+      },
+      "intended_refactoring": {
+        "kind": "parameterize_literal",
+        "unified_symbol": "checkRateLimit",
+        "unified_signature": "checkRateLimit(clientId, maxRequests, windowSeconds)",
+        "parameterized_literals": [
+          {
+            "position": "maxRequests",
+            "description": "Maximum requests allowed per window"
+          },
+          {
+            "position": "windowSeconds",
+            "description": "Time window in seconds"
+          }
+        ],
+        "collapses": [
+          0,
+          1,
+          2
+        ],
+        "advisability": "recommended"
+      },
+      "solution": "              ],\n                \"collapses\": [0, 1, 2],\n                \"advisability\": \"recommended\"\n            },\n            \"solution\": \"<?php\\ndeclare(strict_types=1);\\n\\nnamespace Acme\\\\RateLimit\\\\Unified;\\n\\n/**\\n * Unified rate limiter \u2014 max requests and window are now parameters\\n */\\nclass RateLimiter\\n{\\n    private array $requests = [];\\n\\n    public function checkRateLimit(string $clientId, int $maxRequests, int $windowSeconds): array\\n    {\\n        $now = time();\\n        $windowStart = $now - $windowSeconds;\\n\\n        if (!isset($this->requests[$clientId])) {\\n            $this->requests[$clientId] = [];\\n        }\\n\\n        $this->requests[$clientId] = array_values(\\n            array_filter(\\n                $this->requests[$clientId],\\n                fn($timestamp) => $timestamp > $windowStart\\n            )\\n        );\\n\\n        $currentCount = count($this->requests[$clientId]);\\n        $allowed = $currentCount < $maxRequests;\\n\\n        if ($allowed) {\\n            $this->requests[$clientId][] = $now;\\n        }\\n\\n        $remaining = max(0, $maxRequests - $currentCount - ($allowed ? 1 : 0));\\n        $resetAt = $allowed ? $now + $windowSeconds : ($this->requests[$clientId][0] ?? $now) + $windowSeconds;\\n\\n        return [\\n            'allowed' => $allowed,\\n  ",
+      "carriers": [
+        {
+          "file": "ApiRateLimiter.php",
+          "namespace": "Acme\\RateLimit\\Api",
+          "class": "ApiRateLimiter",
+          "scaffold": "method_alpha",
+          "group": "A",
+          "pristine": false,
+          "transforms": []
+        },
+        {
+          "file": "WebRateLimiter.php",
+          "namespace": "Acme\\RateLimit\\Web",
+          "class": "WebRateLimiter",
+          "scaffold": "method_beta",
+          "group": "A",
+          "pristine": false,
+          "transforms": []
+        },
+        {
+          "file": "BatchRateLimiter.php",
+          "namespace": "Acme\\RateLimit\\Batch",
+          "class": "BatchRateLimiter",
+          "scaffold": "method_gamma",
+          "group": "A",
+          "pristine": false,
+          "transforms": []
+        }
+      ],
+      "distractors": [
+        {
+          "file": "TokenBucketLimiter.php",
+          "namespace": "Acme\\RateLimit\\TokenBucket",
+          "class": "TokenBucketLimiter",
+          "source": "nearmiss_rate",
+          "reason": "near-miss: uses token bucket algorithm instead of fixed window counter"
+        }
+      ]
+    },
+    {
+      "set_id": "L05-rf_parametric-005",
+      "title": "Pagination clones that CAN be unified via parameterization",
+      "description": "Three pagination functions that differ only in default page size and max items per page. These CAN be unified by introducing a size configuration parameter.",
+      "seed": "pagination",
+      "mount": "method",
+      "clone_symbol": "paginate",
+      "granularity": "method",
+      "clone_type": "type-2",
+      "schema_version": 2,
+      "rng_seed": 502105,
+      "normalized_by": [
+        "whitespace",
+        "comments",
+        "identifiers",
+        "literals"
+      ],
+      "detection_expectation": {
+        "text_based": true,
+        "token_based": true,
+        "ast_based": true
+      },
+      "intended_refactoring": {
+        "kind": "parameterize_literal",
+        "unified_symbol": "paginate",
+        "unified_signature": "paginate(items, page, pageSize, maxPageSize)",
+        "parameterized_literals": [
+          {
+            "position": "pageSize",
+            "description": "Default number of items per page"
+          },
+          {
+            "position": "maxPageSize",
+            "description": "Maximum allowed items per page"
+          }
+        ],
+        "collapses": [
+          0,
+          1,
+          2
+        ],
+        "advisability": "recommended"
+      },
+      "solution": "geSize\", \"description\": \"Maximum allowed items per page\"}\n                ],\n                \"collapses\": [0, 1, 2],\n                \"advisability\": \"recommended\"\n            },\n            \"solution\": \"<?php\\ndeclare(strict_types=1);\\n\\nnamespace Acme\\\\Pagination\\\\Unified;\\n\\n/**\\n * Unified pagination \u2014 page size and max are now parameters\\n */\\nclass PaginationHelper\\n{\\n    public function paginate(array $items, int $page = 1, int $pageSize = 20, int $maxPageSize = 100): array\\n    {\\n        $total = count($items);\\n        $page = max(1, $page);\\n        $pageSize = max(1, min($pageSize, $maxPageSize));\\n\\n        $totalPages = (int) ceil($total / $pageSize);\\n        $offset = ($page - 1) * $pageSize;\\n\\n        $paginatedItems = array_slice($items, $offset, $pageSize);\\n\\n        return [\\n            'items' => $paginatedItems,\\n            'pagination' => [\\n                'current_page' => $page,\\n                'page_size' => $pageSize,\\n                'total_items' => $total,\\n             ",
+      "carriers": [
+        {
+          "file": "ArticlePagination.php",
+          "namespace": "Acme\\Pagination\\Article",
+          "class": "ArticlePagination",
+          "scaffold": "method_alpha",
+          "group": "A",
+          "pristine": false,
+          "transforms": []
+        },
+        {
+          "file": "CommentPagination.php",
+          "namespace": "Acme\\Pagination\\Comment",
+          "class": "CommentPagination",
+          "scaffold": "method_beta",
+          "group": "A",
+          "pristine": false,
+          "transforms": []
+        },
+        {
+          "file": "SearchPagination.php",
+          "namespace": "Acme\\Pagination\\Search",
+          "class": "SearchPagination",
+          "scaffold": "method_gamma",
+          "group": "A",
+          "pristine": false,
+          "transforms": []
+        }
+      ],
+      "distractors": [
+        {
+          "file": "CursorPagination.php",
+          "namespace": "Acme\\Pagination\\Cursor",
+          "class": "CursorPagination",
+          "source": "nearmiss_pagination",
+          "reason": "near-miss: uses cursor-based pagination instead of offset-based"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,214 @@
+{
+    "schema_version": 2,
+    "set_id": "L06-co_cm_rn-005",
+    "level": 6,
+    "level_name": "combinatorial",
+    "family": "co_cm_rn",
+    "title": "Maximum comment and rename interference",
+    "description": "Same computeTotals method. All major CM and RN transforms stacked at maximum intensity. Tests the ceiling of type-2 clone detection.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "invoice_totals",
+    "difficulty_band": "expert",
+    "files": [
+        {
+            "path": "src/MaxCalcA.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 43,
+            "region_sloc": {
+                "sloc": 26,
+                "duplicate": 22,
+                "unique": 4,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/MaxCalcB.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 74,
+            "region_sloc": {
+                "sloc": 55,
+                "duplicate": 25,
+                "unique": 30,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/MaxCalcC.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 43,
+            "region_sloc": {
+                "sloc": 25,
+                "duplicate": 25,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/MarginSummarizer.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 30
+        },
+        {
+            "path": "src/TaxRateRepository.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-2",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "RN-05",
+            "name": "case_convention",
+            "params": {
+                "direction": "camel_to_snake"
+            },
+            "applied_to": [
+                "src/MaxCalcA.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "CM-01",
+            "name": "line_comment_add",
+            "params": {
+                "position": "after_statement"
+            },
+            "applied_to": [
+                "src/MaxCalcA.php"
+            ],
+            "intensity": 1
+        },
+        {
+            "code": "CM-03",
+            "name": "docblock",
+            "params": {
+                "style": "docblock"
+            },
+            "applied_to": [
+                "src/MaxCalcA.php"
+            ],
+            "intensity": 1
+        },
+        {
+            "code": "RN-01",
+            "name": "local_vars",
+            "params": {
+                "style": "add_prefix",
+                "prefix": "tmp"
+            },
+            "applied_to": [
+                "src/MaxCalcB.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "RN-02",
+            "name": "params",
+            "params": {
+                "style": "to_snake"
+            },
+            "applied_to": [
+                "src/MaxCalcB.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "CM-07",
+            "name": "commented_out_code",
+            "params": {
+                "lines": 2
+            },
+            "applied_to": [
+                "src/MaxCalcB.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "RN-05",
+            "name": "case_convention",
+            "params": {
+                "direction": "snake_to_camel"
+            },
+            "applied_to": [
+                "src/MaxCalcC.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "RN-01",
+            "name": "local_vars",
+            "params": {
+                "style": "add_suffix",
+                "suffix": "_val"
+            },
+            "applied_to": [
+                "src/MaxCalcC.php"
+            ],
+            "intensity": 2
+        }
+    ],
+    "difficulty": {
+        "score": 87,
+        "requires": [
+            "identifier_canonicalization",
+            "comment_stripping"
+        ],
+        "score_raw": 87,
+        "axes": {
+            "breadth": 6,
+            "intensity": 1.75,
+            "intensity_max": 2,
+            "semantic_depth": 0,
+            "partiality": 1
+        },
+        "application_count": 8,
+        "axis_count": 6
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L06_combinatorial/co_cm_rn.json",
+        "version": "2.0.0",
+        "rng_seed": 1603005
+    },
+    "interference_profile": {
+        "axis_count": 6,
+        "per_carrier_axes": {
+            "src/MaxCalcA.php": [
+                "RN-05",
+                "CM-01",
+                "CM-03"
+            ],
+            "src/MaxCalcB.php": [
+                "RN-01",
+                "RN-02",
+                "CM-07"
+            ],
+            "src/MaxCalcC.php": [
+                "RN-05",
+                "RN-01"
+            ]
+        },
+        "groups_touched": [
+            "A"
+        ],
+        "stack_depth_max": 3,
+        "symmetric_overlap": 0,
+        "pairwise_overlap": 0.1667,
+        "combination_design": "type2_plus_type1"
+    },
+    "engine_features": [
+        "fragment_emission"
+    ]
+}

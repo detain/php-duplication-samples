@@ -1,0 +1,114 @@
+{
+    "level": 5,
+    "level_name": "semantic_equivalence",
+    "level_dir": "L05_semantic_equivalence",
+    "family": "se_user_repository",
+    "sets": [
+        {
+            "set_id": "L05-se_user_repository-001",
+            "title": "User repository: table-driven vs procedural equivalence",
+            "description": "User lookup with different data access patterns: carrier A uses basic lookup, carrier B uses table-driven config (table_driven variant), carrier C uses set syntax (set_syntax variant).",
+            "seed": "user_repository",
+            "mount": "method",
+            "clone_symbol": "findUser",
+            "granularity": "method",
+            "clone_type": "type-4",
+            "normalized_by": ["controlflow", "identifiers", "literals"],
+            "rng_seed": 50801,
+            "notes": "Set 001 of 5. Uses table_driven and set_syntax variants with API-05.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": false, "ast_based": false, "metric_based": false, "semantic": true},
+            "requires": ["semantic_reasoning", "api_abstraction"],
+            "carriers": [
+                {"file": "BasicRepository.php", "namespace": "Acme\\User\\Basic", "class": "BasicRepository", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "TableRepository.php", "namespace": "Acme\\User\\Table", "class": "TableRepository", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "table_driven", "transforms": [{"code": "API-05"}]},
+                {"file": "SetRepository.php", "namespace": "Acme\\User\\Set", "class": "SetRepository", "scaffold": "method_gamma", "group": "A", "pristine": false, "variant": "set_syntax", "transforms": [{"code": "API-01"}]}
+            ]
+        },
+        {
+            "set_id": "L05-se_user_repository-002",
+            "title": "User repository: control flow variants",
+            "description": "User lookup with different control flow patterns: guard clauses and match expressions.",
+            "seed": "user_repository",
+            "mount": "method",
+            "clone_symbol": "findUser",
+            "granularity": "method",
+            "clone_type": "type-4",
+            "normalized_by": ["controlflow", "identifiers", "literals"],
+            "rng_seed": 50802,
+            "notes": "Set 002 of 5. CF-01, CF-05 combined with variants.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": false, "ast_based": false, "metric_based": false, "semantic": true},
+            "requires": ["semantic_reasoning", "controlflow_normalization"],
+            "carriers": [
+                {"file": "BasicRepository.php", "namespace": "Acme\\User\\Basic", "class": "BasicRepository", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "GuardRepository.php", "namespace": "Acme\\User\\Guard", "class": "GuardRepository", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "table_driven", "transforms": [{"code": "CF-05"}]},
+                {"file": "MatchRepository.php", "namespace": "Acme\\User\\Match", "class": "MatchRepository", "scaffold": "method_gamma", "group": "A", "pristine": false, "variant": "set_syntax", "transforms": [{"code": "CF-02"}]}
+            ]
+        },
+        {
+            "set_id": "L05-se_user_repository-003",
+            "title": "User repository: structural transforms",
+            "description": "User lookup with structural diversity (ST-01, ST-05, ST-08).",
+            "seed": "user_repository",
+            "mount": "method",
+            "clone_symbol": "findUser",
+            "granularity": "method",
+            "clone_type": "type-4",
+            "normalized_by": ["controlflow", "identifiers", "literals"],
+            "rng_seed": 50803,
+            "notes": "Set 003 of 5. ST-01, ST-05, ST-08 combined with CF and BL.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": false, "ast_based": false, "metric_based": false, "semantic": true},
+            "requires": ["semantic_reasoning", "ast_canonicalization"],
+            "carriers": [
+                {"file": "BasicRepository.php", "namespace": "Acme\\User\\Basic", "class": "BasicRepository", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": [{"code": "ST-01"}]},
+                {"file": "ReorderRepository.php", "namespace": "Acme\\User\\Reorder", "class": "ReorderRepository", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "table_driven", "transforms": [{"code": "ST-05"}, {"code": "CF-01"}]},
+                {"file": "ParamRepository.php", "namespace": "Acme\\User\\Param", "class": "ParamRepository", "scaffold": "method_gamma", "group": "A", "pristine": false, "variant": "set_syntax", "transforms": [{"code": "ST-08"}, {"code": "BL-01"}]}
+            ]
+        },
+        {
+            "set_id": "L05-se_user_repository-004",
+            "title": "User repository: rename and whitespace diversity",
+            "description": "User lookup with renamed variables and whitespace variations (no TY transforms due to known issues).",
+            "seed": "user_repository",
+            "mount": "method",
+            "clone_symbol": "findUser",
+            "granularity": "method",
+            "clone_type": "type-4",
+            "normalized_by": ["controlflow", "identifiers", "literals"],
+            "rng_seed": 50804,
+            "notes": "Set 004 of 5. RN-01, RN-02, WS-02 combined with variants (TY-01/TY-02 excluded due to NullableType issues).",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": false, "ast_based": false, "metric_based": false, "semantic": true},
+            "requires": ["semantic_reasoning", "identifier_canonicalization"],
+            "carriers": [
+                {"file": "BasicRepository.php", "namespace": "Acme\\User\\Basic", "class": "BasicRepository", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "RenamedRepository.php", "namespace": "Acme\\User\\Renamed", "class": "RenamedRepository", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "table_driven", "transforms": [{"code": "RN-01"}, {"code": "RN-02"}]},
+                {"file": "SpacedRepository.php", "namespace": "Acme\\User\\Spaced", "class": "SpacedRepository", "scaffold": "method_gamma", "group": "A", "pristine": false, "variant": "set_syntax", "transforms": [{"code": "WS-02"}, {"code": "ST-01"}]}
+            ]
+        },
+        {
+            "set_id": "L05-se_user_repository-005",
+            "title": "User repository: full equivalence suite",
+            "description": "Complete user repository equivalence using multiple transform combinations.",
+            "seed": "user_repository",
+            "mount": "method",
+            "clone_symbol": "findUser",
+            "granularity": "method",
+            "clone_type": "type-4",
+            "normalized_by": ["controlflow", "identifiers", "literals"],
+            "rng_seed": 50805,
+            "notes": "Set 005 of 5. Combines API-05, CF-01, BL-01, ST-01, RN-01 for maximum diversity (no TY due to NullableType issues).",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": false, "ast_based": false, "metric_based": false, "semantic": true},
+            "requires": ["semantic_reasoning", "api_abstraction", "ast_canonicalization"],
+            "carriers": [
+                {"file": "BasicRepository.php", "namespace": "Acme\\User\\Basic", "class": "BasicRepository", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "TableRepository.php", "namespace": "Acme\\User\\Table", "class": "TableRepository", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "table_driven", "transforms": [{"code": "API-05"}, {"code": "CF-01"}]},
+                {"file": "SetRepository.php", "namespace": "Acme\\User\\Set", "class": "SetRepository", "scaffold": "method_gamma", "group": "A", "pristine": false, "variant": "set_syntax", "transforms": [{"code": "BL-01"}, {"code": "ST-01"}]},
+                {"file": "FullRepository.php", "namespace": "Acme\\User\\Full", "class": "FullRepository", "scaffold": "method_alpha", "group": "A", "pristine": false, "variant": "table_driven", "transforms": [{"code": "RN-01"}, {"code": "LT-01"}]}
+            ]
+        }
+    ]
+}

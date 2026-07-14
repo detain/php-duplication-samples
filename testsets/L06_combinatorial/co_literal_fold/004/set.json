@@ -1,0 +1,243 @@
+{
+    "schema_version": 2,
+    "set_id": "L06-co_literal_fold-004",
+    "level": 6,
+    "level_name": "combinatorial",
+    "family": "co_literal_fold",
+    "title": "Literal folding with rename",
+    "description": "Same computeTotals method. Tests literal folding combined with identifier renaming. Full normalization pipeline.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "invoice_totals",
+    "difficulty_band": "expert",
+    "files": [
+        {
+            "path": "src/LiteralRenameCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 39,
+            "region_sloc": {
+                "sloc": 25,
+                "duplicate": 25,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/FullLiteralCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 45,
+            "region_sloc": {
+                "sloc": 26,
+                "duplicate": 24,
+                "unique": 2,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/MaxLiteralCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 41,
+            "region_sloc": {
+                "sloc": 23,
+                "duplicate": 22,
+                "unique": 1,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/MarginSummarizer.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 30
+        },
+        {
+            "path": "src/TaxRateRepository.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-3",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "LT-04",
+            "name": "const_vs_literal",
+            "params": {
+                "style": "const_literal"
+            },
+            "applied_to": [
+                "src/LiteralRenameCalc.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "RN-05",
+            "name": "case_convention",
+            "params": {
+                "direction": "camel_to_snake"
+            },
+            "applied_to": [
+                "src/LiteralRenameCalc.php",
+                "src/MaxLiteralCalc.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "ST-01",
+            "name": "insert_logging",
+            "params": {
+                "lines": 1
+            },
+            "applied_to": [
+                "src/FullLiteralCalc.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "LT-01",
+            "name": "numeric",
+            "params": {
+                "format": "hex"
+            },
+            "applied_to": [
+                "src/FullLiteralCalc.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "LT-02",
+            "name": "string",
+            "params": {
+                "style": "double_quotes"
+            },
+            "applied_to": [
+                "src/FullLiteralCalc.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "RN-05",
+            "name": "case_convention",
+            "params": {
+                "direction": "snake_to_camel"
+            },
+            "applied_to": [
+                "src/FullLiteralCalc.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "WS-01",
+            "name": "blank_before",
+            "params": {
+                "blank_lines": 1
+            },
+            "applied_to": [
+                "src/FullLiteralCalc.php",
+                "src/MaxLiteralCalc.php"
+            ],
+            "intensity": 1
+        },
+        {
+            "code": "ST-05",
+            "name": "reorder_independent",
+            "params": {
+                "reorder_level": 2
+            },
+            "applied_to": [
+                "src/MaxLiteralCalc.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "LT-04",
+            "name": "const_vs_literal",
+            "params": {
+                "style": "inline_literal"
+            },
+            "applied_to": [
+                "src/MaxLiteralCalc.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "LT-03",
+            "name": "array_values",
+            "params": {
+                "style": "long_array"
+            },
+            "applied_to": [
+                "src/MaxLiteralCalc.php"
+            ],
+            "intensity": 2
+        }
+    ],
+    "difficulty": {
+        "score": 100,
+        "requires": [
+            "literal_abstraction",
+            "identifier_canonicalization",
+            "ast_canonicalization",
+            "whitespace_normalization",
+            "commutative_reordering"
+        ],
+        "score_raw": 112,
+        "axes": {
+            "breadth": 8,
+            "intensity": 2.1,
+            "intensity_max": 3,
+            "semantic_depth": 0,
+            "partiality": 1
+        },
+        "application_count": 12,
+        "axis_count": 8
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L06_combinatorial/co_literal_fold.json",
+        "version": "2.0.0",
+        "rng_seed": 1612004
+    },
+    "interference_profile": {
+        "axis_count": 8,
+        "per_carrier_axes": {
+            "src/LiteralRenameCalc.php": [
+                "LT-04",
+                "RN-05"
+            ],
+            "src/FullLiteralCalc.php": [
+                "ST-01",
+                "LT-01",
+                "LT-02",
+                "RN-05",
+                "WS-01"
+            ],
+            "src/MaxLiteralCalc.php": [
+                "ST-05",
+                "LT-04",
+                "LT-03",
+                "RN-05",
+                "WS-01"
+            ]
+        },
+        "groups_touched": [
+            "A"
+        ],
+        "stack_depth_max": 5,
+        "symmetric_overlap": 1,
+        "pairwise_overlap": 0.2722,
+        "combination_design": "type2_plus_type1"
+    },
+    "engine_features": [
+        "fragment_emission"
+    ]
+}

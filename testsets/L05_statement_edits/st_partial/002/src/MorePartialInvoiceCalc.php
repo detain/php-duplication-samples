@@ -24,7 +24,7 @@ final class MorePartialInvoiceCalc
     public function computeTotals(array $lineItems, float $taxRate, float $discountRate): array
     {
         $subtotal = 0.0;
-        $__flag = false;
+        $__tmp = array_keys([]);
         $itemCount = 0;
         error_log('log');
         foreach ($lineItems as $item) {

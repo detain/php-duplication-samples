@@ -1,0 +1,55 @@
+{
+    "schema_version": 1,
+    "set_id": "L08-noise_assertions-005",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-3",
+            "granularity": "method",
+            "normalized_by": [
+                "whitespace",
+                "comments"
+            ],
+            "token_hash": "36de6bc19f7f6542",
+            "normalized_hash": "102fe700a351e1d6",
+            "members": [
+                {
+                    "file": "src/ConfigLoaderA.php",
+                    "start_line": 9,
+                    "end_line": 75,
+                    "symbol": "loadConfig",
+                    "pristine": true
+                },
+                {
+                    "file": "src/ConfigLoaderB.php",
+                    "start_line": 18,
+                    "end_line": 87,
+                    "symbol": "loadConfig",
+                    "pristine": false
+                },
+                {
+                    "file": "src/ConfigLoaderC.php",
+                    "start_line": 24,
+                    "end_line": 93,
+                    "symbol": "loadConfig",
+                    "pristine": false
+                }
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": false,
+                "ast_based": true,
+                "metric_based": false,
+                "semantic": true
+            },
+            "notes": ""
+        }
+    ],
+    "non_duplicates": [],
+    "scoring": {
+        "line_tolerance": 5,
+        "member_jaccard_min": 0.5,
+        "min_members_for_credit": 2
+    }
+}

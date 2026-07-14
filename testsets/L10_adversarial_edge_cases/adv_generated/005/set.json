@@ -51,22 +51,24 @@
     },
     "interference": [
         {
-            "code": "WS-03",
-            "name": "blank_inside",
-            "params": {},
-            "applied_to": [
-                "src/CompiledAccessB.php",
-                "src/CompiledAccessC.php"
-            ]
-        },
-        {
             "code": "CM-03",
             "name": "docblock",
             "params": {},
             "applied_to": [
                 "src/CompiledAccessB.php",
                 "src/CompiledAccessC.php"
-            ]
+            ],
+            "intensity": 1
+        },
+        {
+            "code": "WS-03",
+            "name": "blank_inside",
+            "params": {},
+            "applied_to": [
+                "src/CompiledAccessB.php",
+                "src/CompiledAccessC.php"
+            ],
+            "intensity": 1
         },
         {
             "code": "LT-02",
@@ -74,14 +76,15 @@
             "params": {},
             "applied_to": [
                 "src/CompiledAccessC.php"
-            ]
+            ],
+            "intensity": 2
         }
     ],
     "difficulty": {
         "score": 94,
         "requires": [
-            "whitespace_normalization",
             "comment_stripping",
+            "whitespace_normalization",
             "literal_abstraction"
         ]
     },

@@ -59,7 +59,8 @@
             "applied_to": [
                 "src/PristineInvoiceCalc.php",
                 "src/FullMixAltCalc.php"
-            ]
+            ],
+            "intensity": 2
         },
         {
             "code": "CM-03",
@@ -70,7 +71,8 @@
             "applied_to": [
                 "src/PristineInvoiceCalc.php",
                 "src/FullMixAltCalc.php"
-            ]
+            ],
+            "intensity": 1
         },
         {
             "code": "WS-03",
@@ -80,7 +82,8 @@
             },
             "applied_to": [
                 "src/PristineInvoiceCalc.php"
-            ]
+            ],
+            "intensity": 1
         },
         {
             "code": "RN-05",
@@ -90,7 +93,8 @@
             },
             "applied_to": [
                 "src/FullMixCalc.php"
-            ]
+            ],
+            "intensity": 2
         },
         {
             "code": "CM-03",
@@ -100,7 +104,8 @@
             },
             "applied_to": [
                 "src/FullMixCalc.php"
-            ]
+            ],
+            "intensity": 1
         },
         {
             "code": "WS-03",
@@ -110,7 +115,8 @@
             },
             "applied_to": [
                 "src/FullMixCalc.php"
-            ]
+            ],
+            "intensity": 1
         },
         {
             "code": "WS-03",
@@ -120,7 +126,8 @@
             },
             "applied_to": [
                 "src/FullMixAltCalc.php"
-            ]
+            ],
+            "intensity": 1
         }
     ],
     "difficulty": {

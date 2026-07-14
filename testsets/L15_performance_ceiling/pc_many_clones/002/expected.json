@@ -1,0 +1,69 @@
+{
+    "schema_version": 1,
+    "set_id": "L15-pc_many_clones-002",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-2",
+            "granularity": "method",
+            "normalized_by": [
+                "identifiers"
+            ],
+            "token_hash": "5cd8e7841ecf7c41",
+            "normalized_hash": "89e09fba7eb77dcb",
+            "members": [
+                {
+                    "file": "src/ManyCloneA.php",
+                    "start_line": 9,
+                    "end_line": 27,
+                    "symbol": "authorize",
+                    "pristine": true
+                },
+                {
+                    "file": "src/ManyCloneB.php",
+                    "start_line": 18,
+                    "end_line": 36,
+                    "symbol": "authorize",
+                    "pristine": false
+                },
+                {
+                    "file": "src/ManyCloneC.php",
+                    "start_line": 24,
+                    "end_line": 43,
+                    "symbol": "authorize",
+                    "pristine": false
+                },
+                {
+                    "file": "src/ManyCloneD.php",
+                    "start_line": 24,
+                    "end_line": 42,
+                    "symbol": "authorize",
+                    "pristine": false
+                }
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": true,
+                "semantic": true
+            },
+            "notes": "L15: pc_many_clones + RN-05."
+        }
+    ],
+    "non_duplicates": [
+        {
+            "file": "src/ManyCloneDistractor.php",
+            "start_line": 12,
+            "end_line": 27,
+            "reason": "Near-miss: similar auth vocabulary",
+            "trap": true
+        }
+    ],
+    "scoring": {
+        "line_tolerance": 3,
+        "member_jaccard_min": 0.65,
+        "min_members_for_credit": 3
+    }
+}

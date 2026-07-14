@@ -1,0 +1,55 @@
+{
+    "schema_version": 1,
+    "set_id": "L08-enc_tab_in_strings-003",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-1",
+            "granularity": "method",
+            "normalized_by": [
+                "whitespace",
+                "comments"
+            ],
+            "token_hash": "b5abdc64e1245cc5",
+            "normalized_hash": "2f480987812ba52f",
+            "members": [
+                {
+                    "file": "src/LoggerA.php",
+                    "start_line": 9,
+                    "end_line": 84,
+                    "symbol": "logMessage",
+                    "pristine": true
+                },
+                {
+                    "file": "src/LoggerB.php",
+                    "start_line": 18,
+                    "end_line": 93,
+                    "symbol": "logMessage",
+                    "pristine": false
+                },
+                {
+                    "file": "src/LoggerC.php",
+                    "start_line": 24,
+                    "end_line": 99,
+                    "symbol": "logMessage",
+                    "pristine": false
+                }
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": false,
+                "semantic": false
+            },
+            "notes": ""
+        }
+    ],
+    "non_duplicates": [],
+    "scoring": {
+        "line_tolerance": 1,
+        "member_jaccard_min": 0.9,
+        "min_members_for_credit": 2
+    }
+}

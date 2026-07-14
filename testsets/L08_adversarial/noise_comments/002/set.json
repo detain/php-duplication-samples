@@ -1,0 +1,76 @@
+{
+    "schema_version": 1,
+    "set_id": "L08-noise_comments-002",
+    "level": 8,
+    "level_name": "adversarial",
+    "family": "noise_comments",
+    "title": "Noise Comments: License header insertion",
+    "description": "Tests license header noise (CM-09) around clones.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "csv_processor",
+    "difficulty_band": "expert",
+    "files": [
+        {
+            "path": "src/RowProcessorA.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 71
+        },
+        {
+            "path": "src/RowProcessorB.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 77
+        },
+        {
+            "path": "src/RowProcessorC.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 76
+        },
+        {
+            "path": "src/Filter.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 15
+        },
+        {
+            "path": "src/Mapper.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 15
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-1",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "CM-09",
+            "name": "license_header",
+            "params": {},
+            "applied_to": [
+                "src/RowProcessorB.php",
+                "src/RowProcessorC.php"
+            ],
+            "intensity": 1
+        }
+    ],
+    "difficulty": {
+        "score": 88,
+        "requires": [
+            "comment_stripping"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L08_adversarial/noise_comments.json",
+        "version": "1.0.0",
+        "rng_seed": 81902
+    }
+}

@@ -157,6 +157,10 @@ function runJsCpd(string $jscpdBin, array $files): string
 
     $tmpDir = sys_get_temp_dir() . '/jscpd-run-' . bin2hex(random_bytes(4));
     @mkdir($tmpDir, 0755, true);
+    // Bug 8 fix: ensure temp dir cleanup on any fatal exit
+    register_shutdown_function(function() use ($tmpDir) {
+        @exec('rm -rf ' . escapeshellarg($tmpDir));
+    });
     @mkdir($tmpDir . '/report', 0755, true);
 
     // Create a temporary directory with symlinks to files

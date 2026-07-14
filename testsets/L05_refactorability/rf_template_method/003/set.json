@@ -1,0 +1,93 @@
+{
+    "schema_version": 2,
+    "set_id": "L05-rf_template_method-003",
+    "level": 5,
+    "level_name": "refactorability",
+    "family": "rf_template_method",
+    "title": "Payment processor clones with flow skeleton",
+    "description": "Three payment processor classes that follow the same flow: authorize -> capture -> settle -> refund. Each step has different payment gateway logic but the overall flow remains identical. CAN be unified via Template Method pattern.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "payment_processor",
+    "difficulty_band": "hard",
+    "files": [
+        {
+            "path": "src/StripePaymentProcessor.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 125,
+            "region_sloc": {
+                "sloc": 111,
+                "duplicate": 111,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/PayPalPaymentProcessor.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 130,
+            "region_sloc": {
+                "sloc": 111,
+                "duplicate": 111,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/SquarePaymentProcessor.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 129,
+            "region_sloc": {
+                "sloc": 111,
+                "duplicate": 111,
+                "unique": 0,
+                "filler": 0
+            }
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-2",
+        "granularity": "class",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [],
+    "difficulty": {
+        "score": 45,
+        "requires": [],
+        "score_raw": 45,
+        "axes": {
+            "breadth": 0,
+            "intensity": 0,
+            "intensity_max": 0,
+            "semantic_depth": 0,
+            "partiality": 1
+        },
+        "application_count": 0,
+        "axis_count": 0
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L05_refactorability/rf_template_method.json",
+        "version": "2.0.0",
+        "rng_seed": 510103
+    },
+    "interference_profile": {
+        "axis_count": 0,
+        "per_carrier_axes": [],
+        "groups_touched": [
+            "A"
+        ],
+        "stack_depth_max": 0,
+        "symmetric_overlap": 0,
+        "pairwise_overlap": 0,
+        "combination_design": "minimal"
+    },
+    "engine_features": [
+        "intended_refactoring"
+    ]
+}

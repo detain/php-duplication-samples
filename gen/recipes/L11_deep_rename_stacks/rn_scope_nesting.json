@@ -1,0 +1,140 @@
+{
+    "level": 11,
+    "level_name": "deep_rename_stacks",
+    "level_dir": "L11_deep_rename_stacks",
+    "family": "rn_scope_nesting",
+    "sets": [
+        {
+            "set_id": "L11-rn_scope_nesting-001",
+            "title": "Method-scope rename with nested function vars",
+            "description": "Tests RN-05 rename at method scope with local variable renaming nested inside.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["identifiers"],
+            "rng_seed": 110301,
+            "notes": "L11: Scope-nested rename - method scope with local vars.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.7, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["identifier_canonicalization"],
+            "carriers": [
+                {"file": "ScopeNestA.php", "namespace": "Acme\\Scope\\Alpha", "class": "ScopeNestA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "ScopeNestB.php", "namespace": "Acme\\Scope\\Beta", "class": "ScopeNestB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-05"}]}
+            ],
+            "distractors": [
+                {"file": "ScopeNestDistractor.php", "namespace": "Acme\\Scope\\Distract", "class": "ScopeNestDistractor", "source": "nearmiss_access", "reason": "Near-miss: similar auth vocabulary"}
+            ],
+            "cleans": [
+                {"file": "ScopeNestClean.php", "namespace": "Acme\\Scope\\Config", "class": "ScopeNestClean", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L11-rn_scope_nesting-002",
+            "title": "Class + method scope rename stack",
+            "description": "Rename applied at both class and method scope levels in same carrier.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["identifiers"],
+            "rng_seed": 110302,
+            "notes": "L11: Class + method scope stacked rename.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.65, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["identifier_canonicalization"],
+            "carriers": [
+                {"file": "ScopeNestA.php", "namespace": "Acme\\Scope\\Alpha", "class": "ScopeNestA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "ScopeNestB.php", "namespace": "Acme\\Scope\\Beta", "class": "ScopeNestB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-05"}, {"code": "LT-01"}]}
+            ],
+            "distractors": [
+                {"file": "ScopeNestDistractor.php", "namespace": "Acme\\Scope\\Distract", "class": "ScopeNestDistractor", "source": "nearmiss_invoice", "reason": "Near-miss: similar invoice calculation"}
+            ],
+            "cleans": [
+                {"file": "ScopeNestClean.php", "namespace": "Acme\\Scope\\Config", "class": "ScopeNestClean", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L11-rn_scope_nesting-003",
+            "title": "Four-level scope rename progression",
+            "description": "Four carriers with progressive scope nesting depth.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["identifiers", "comments"],
+            "rng_seed": 110303,
+            "notes": "L11: Four-level scope nesting from global to local.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.55, "min_members_for_credit": 4},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["identifier_canonicalization", "comment_stripping"],
+            "carriers": [
+                {"file": "ScopeNestA.php", "namespace": "Acme\\Scope\\Alpha", "class": "ScopeNestA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "ScopeNestB.php", "namespace": "Acme\\Scope\\Beta", "class": "ScopeNestB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-05"}]},
+                {"file": "ScopeNestC.php", "namespace": "Acme\\Scope\\Gamma", "class": "ScopeNestC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "RN-05"}, {"code": "CM-01"}]},
+                {"file": "ScopeNestD.php", "namespace": "Acme\\Scope\\Delta", "class": "ScopeNestD", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "RN-05"}, {"code": "CM-01"}, {"code": "LT-02"}]}
+            ],
+            "distractors": [
+                {"file": "ScopeNestDistractor.php", "namespace": "Acme\\Scope\\Distract", "class": "ScopeNestDistractor", "source": "nearmiss_access", "reason": "Near-miss: similar auth patterns"}
+            ],
+            "cleans": [
+                {"file": "ScopeNestClean.php", "namespace": "Acme\\Scope\\Config", "class": "ScopeNestClean", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L11-rn_scope_nesting-004",
+            "title": "Scope rename with ST-09 wrapper insertion",
+            "description": "RN-05 scope rename combined with ST-09 wrapper statement insertion.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["identifiers", "controlflow"],
+            "rng_seed": 110304,
+            "notes": "L11: RN-05 scope + ST-09 wrapper.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["identifier_canonicalization", "ast_canonicalization"],
+            "carriers": [
+                {"file": "ScopeNestA.php", "namespace": "Acme\\Scope\\Alpha", "class": "ScopeNestA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "ScopeNestB.php", "namespace": "Acme\\Scope\\Beta", "class": "ScopeNestB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-05"}, {"code": "ST-09"}]}
+            ],
+            "distractors": [
+                {"file": "ScopeNestDistractor.php", "namespace": "Acme\\Scope\\Distract", "class": "ScopeNestDistractor", "source": "nearmiss_invoice", "reason": "Near-miss: similar calculation"}
+            ],
+            "cleans": [
+                {"file": "ScopeNestClean.php", "namespace": "Acme\\Scope\\Config", "class": "ScopeNestClean", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L11-rn_scope_nesting-005",
+            "title": "Scope rename with multi-literal transform",
+            "description": "RN-05 scope rename combined with multiple literal transforms.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["identifiers", "literals"],
+            "rng_seed": 110305,
+            "notes": "L11: RN-05 scope + LT-02 + LT-03 multi-literal.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["identifier_canonicalization", "literal_abstraction"],
+            "carriers": [
+                {"file": "ScopeNestA.php", "namespace": "Acme\\Scope\\Alpha", "class": "ScopeNestA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "ScopeNestB.php", "namespace": "Acme\\Scope\\Beta", "class": "ScopeNestB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-05"}, {"code": "LT-02"}, {"code": "LT-03"}]}
+            ],
+            "distractors": [
+                {"file": "ScopeNestDistractor.php", "namespace": "Acme\\Scope\\Distract", "class": "ScopeNestDistractor", "source": "nearmiss_access", "reason": "Near-miss: similar auth"}
+            ],
+            "cleans": [
+                {"file": "ScopeNestClean.php", "namespace": "Acme\\Scope\\Config", "class": "ScopeNestClean", "source": "clean_auth"}
+            ]
+        }
+    ]
+}

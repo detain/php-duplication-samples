@@ -1,0 +1,74 @@
+{
+    "schema_version": 2,
+    "set_id": "L05-rf_anti_refactor_controls-005",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-1",
+            "granularity": "method",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers",
+                "literals"
+            ],
+            "token_hash": "57cdc3210ce61576",
+            "normalized_hash": "eeafebfd89dd0c63",
+            "members": [
+                {
+                    "file": "src/HttpGetClient.php",
+                    "start_line": 9,
+                    "end_line": 63,
+                    "symbol": "makeHttpCall",
+                    "pristine": true,
+                    "group": "A",
+                    "seed": "http_client"
+                },
+                {
+                    "file": "src/HttpPostClient.php",
+                    "start_line": 18,
+                    "end_line": 72,
+                    "symbol": "makeHttpCall",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "http_client"
+                },
+                {
+                    "file": "src/HttpFlexibleClient.php",
+                    "start_line": 24,
+                    "end_line": 78,
+                    "symbol": "makeHttpCall",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "http_client"
+                }
+            ],
+            "detection_expectation": {
+                "text_based": true,
+                "token_based": true,
+                "ast_based": true
+            },
+            "notes": ""
+        }
+    ],
+    "non_duplicates": [
+        {
+            "file": "src/HttpLogger.php",
+            "start_line": 9,
+            "end_line": 63,
+            "reason": "near-miss: similar curl setup shape but only logs requests without sending",
+            "trap": true
+        }
+    ],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.6,
+        "min_members_for_credit": 2
+    },
+    "intended_refactoring": {
+        "kind": "none",
+        "advisability": "inadvisable",
+        "reason": "Carrier A (request with GET): idempotent, read-only, should never mutate data on server. Carrier B (request with POST): NOT idempotent, creates new resource, may cause duplicate creation on retry. Carrier C (request with custom method): semantic depends on method — PUT is idempotent update, DELETE is idempotent delete, PATCH is non-idempotent update. Unifying these would create an HTTP client method where the SAME code path (curl_setopt_array) could produce either idempotent or non-idempotent behavior depending on the method string. This is DANGEROUS because callers cannot reason about retry safety."
+    }
+}

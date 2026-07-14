@@ -25,7 +25,7 @@ final class FullComboInvoiceCalc
     {
         $subtotal = 0.0;
         error_log('step');
-        if (false) { $__never = 1; }
+        $__tmp = array_keys([]);
         $itemCount = 0;
         foreach ($lineItems as $item) {
             $quantity = (float) $item['qty'];

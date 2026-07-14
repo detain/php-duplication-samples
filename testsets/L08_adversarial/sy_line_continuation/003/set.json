@@ -1,0 +1,76 @@
+{
+    "schema_version": 1,
+    "set_id": "L08-sy_line_continuation-003",
+    "level": 8,
+    "level_name": "adversarial",
+    "family": "sy_line_continuation",
+    "title": "Line Continuation: Function call chaining",
+    "description": "Tests method chaining continuation styles.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "query_builder",
+    "difficulty_band": "expert",
+    "files": [
+        {
+            "path": "src/QueryBuilderA.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 54
+        },
+        {
+            "path": "src/QueryBuilderB.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 58
+        },
+        {
+            "path": "src/QueryBuilderC.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 57
+        },
+        {
+            "path": "src/Escaper.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 14
+        },
+        {
+            "path": "src/Compiler.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 14
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-1",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "WS-07",
+            "name": "line_join",
+            "params": {},
+            "applied_to": [
+                "src/QueryBuilderB.php",
+                "src/QueryBuilderC.php"
+            ],
+            "intensity": 2
+        }
+    ],
+    "difficulty": {
+        "score": 89,
+        "requires": [
+            "whitespace_normalization"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L08_adversarial/sy_line_continuation.json",
+        "version": "1.0.0",
+        "rng_seed": 81203
+    }
+}

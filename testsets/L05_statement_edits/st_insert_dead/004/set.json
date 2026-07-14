@@ -61,7 +61,8 @@
             },
             "applied_to": [
                 "src/DeadCodeInvoiceCalc.php"
-            ]
+            ],
+            "intensity": 3
         },
         {
             "code": "ST-02",
@@ -75,7 +76,8 @@
             },
             "applied_to": [
                 "src/MoreDeadCodeInvoiceCalc.php"
-            ]
+            ],
+            "intensity": 3
         }
     ],
     "difficulty": {

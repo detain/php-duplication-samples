@@ -1,0 +1,64 @@
+{
+    "schema_version": 1,
+    "set_id": "L16-am_strategy-003",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-2",
+            "granularity": "method",
+            "normalized_by": [
+                "identifiers",
+                "literals",
+                "comments"
+            ],
+            "token_hash": "5cd8e7841ecf7c41",
+            "normalized_hash": "a3a4fbc9a09986cf",
+            "members": [
+                {
+                    "file": "src/StrategyA.php",
+                    "start_line": 9,
+                    "end_line": 27,
+                    "symbol": "authorize",
+                    "pristine": true
+                },
+                {
+                    "file": "src/StrategyB.php",
+                    "start_line": 18,
+                    "end_line": 39,
+                    "symbol": "authorize",
+                    "pristine": false
+                },
+                {
+                    "file": "src/StrategyC.php",
+                    "start_line": 25,
+                    "end_line": 43,
+                    "symbol": "authorize",
+                    "pristine": false
+                }
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": true,
+                "semantic": true
+            },
+            "notes": "L16: Multi-strategy variant set."
+        }
+    ],
+    "non_duplicates": [
+        {
+            "file": "src/StrategyDistractor.php",
+            "start_line": 12,
+            "end_line": 27,
+            "reason": "Near-miss: similar auth strategy",
+            "trap": true
+        }
+    ],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.6,
+        "min_members_for_credit": 3
+    }
+}

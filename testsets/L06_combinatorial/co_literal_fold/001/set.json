@@ -1,0 +1,150 @@
+{
+    "schema_version": 2,
+    "set_id": "L06-co_literal_fold-001",
+    "level": 6,
+    "level_name": "combinatorial",
+    "family": "co_literal_fold",
+    "title": "Literal folding with structural changes",
+    "description": "Same computeTotals method. Tests literal folding (LT-04 const_vs_literal) combined with structural statement changes.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "invoice_totals",
+    "difficulty_band": "very_hard",
+    "files": [
+        {
+            "path": "src/PristineInvoiceCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 39,
+            "region_sloc": {
+                "sloc": 25,
+                "duplicate": 25,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/LiteralFoldCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 44,
+            "region_sloc": {
+                "sloc": 25,
+                "duplicate": 25,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/LiteralFoldStCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 44,
+            "region_sloc": {
+                "sloc": 26,
+                "duplicate": 25,
+                "unique": 1,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/MarginSummarizer.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 30
+        },
+        {
+            "path": "src/TaxRateRepository.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-3",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "LT-04",
+            "name": "const_vs_literal",
+            "params": {
+                "style": "const_literal"
+            },
+            "applied_to": [
+                "src/LiteralFoldCalc.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "ST-01",
+            "name": "insert_logging",
+            "params": {
+                "lines": 1
+            },
+            "applied_to": [
+                "src/LiteralFoldStCalc.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "LT-04",
+            "name": "const_vs_literal",
+            "params": {
+                "style": "inline_literal"
+            },
+            "applied_to": [
+                "src/LiteralFoldStCalc.php"
+            ],
+            "intensity": 2
+        }
+    ],
+    "difficulty": {
+        "score": 76,
+        "requires": [
+            "literal_abstraction",
+            "ast_canonicalization"
+        ],
+        "score_raw": 76,
+        "axes": {
+            "breadth": 2,
+            "intensity": 2.33,
+            "intensity_max": 3,
+            "semantic_depth": 0,
+            "partiality": 1
+        },
+        "application_count": 3,
+        "axis_count": 2
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L06_combinatorial/co_literal_fold.json",
+        "version": "2.0.0",
+        "rng_seed": 1612001
+    },
+    "interference_profile": {
+        "axis_count": 2,
+        "per_carrier_axes": {
+            "src/LiteralFoldCalc.php": [
+                "LT-04"
+            ],
+            "src/LiteralFoldStCalc.php": [
+                "ST-01",
+                "LT-04"
+            ]
+        },
+        "groups_touched": [
+            "A"
+        ],
+        "stack_depth_max": 2,
+        "symmetric_overlap": 1,
+        "pairwise_overlap": 0.5,
+        "combination_design": "structural_only"
+    },
+    "engine_features": [
+        "fragment_emission"
+    ]
+}

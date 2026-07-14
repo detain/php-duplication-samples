@@ -58,7 +58,8 @@
             },
             "applied_to": [
                 "src/InvoiceComputeFunctional.php"
-            ]
+            ],
+            "intensity": 4
         },
         {
             "code": "API-01",
@@ -68,7 +69,8 @@
             },
             "applied_to": [
                 "src/InvoiceComputeAlternative.php"
-            ]
+            ],
+            "intensity": 4
         }
     ],
     "difficulty": {

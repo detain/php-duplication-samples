@@ -1,0 +1,109 @@
+{
+    "schema_version": 1,
+    "set_id": "L18-pg_growth_2-004",
+    "level": 18,
+    "level_name": "partial_growth",
+    "family": "pg_growth_2",
+    "title": "Grown set with statement transforms",
+    "description": "Grown set with statement-level transformations.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "access_guard",
+    "difficulty_band": "medium",
+    "files": [
+        {
+            "path": "src/GrownA.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 33
+        },
+        {
+            "path": "src/GrownB.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 39
+        },
+        {
+            "path": "src/GrownC.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 40
+        },
+        {
+            "path": "src/GrownD.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 35
+        },
+        {
+            "path": "src/GrownDistractor.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 29
+        },
+        {
+            "path": "src/GrownClean.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 27
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-3",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 4
+    },
+    "interference": [
+        {
+            "code": "ST-01",
+            "name": "insert_logging",
+            "params": {},
+            "applied_to": [
+                "src/GrownB.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "ST-02",
+            "name": "insert_dead",
+            "params": {},
+            "applied_to": [
+                "src/GrownC.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "ST-05",
+            "name": "reorder_independent",
+            "params": {},
+            "applied_to": [
+                "src/GrownD.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "RN-05",
+            "name": "case_convention",
+            "params": {},
+            "applied_to": [
+                "src/GrownD.php"
+            ],
+            "intensity": 2
+        }
+    ],
+    "difficulty": {
+        "score": 35,
+        "requires": [
+            "ast_canonicalization",
+            "identifier_canonicalization"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L18_partial_growth/pg_growth_2.json",
+        "version": "1.0.0",
+        "rng_seed": 180204
+    }
+}

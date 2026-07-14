@@ -1,0 +1,134 @@
+{
+    "schema_version": 1,
+    "set_id": "L19-ac_noise_cluster-005",
+    "level": 19,
+    "level_name": "adversarial_cluster",
+    "family": "ac_noise_cluster",
+    "title": "Maximum noise cluster complexity",
+    "description": "Noise cluster with all literal and comment transforms.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "invoice_totals",
+    "difficulty_band": "medium",
+    "files": [
+        {
+            "path": "src/NoiseClusterA.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 39
+        },
+        {
+            "path": "src/NoiseClusterB.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 49
+        },
+        {
+            "path": "src/NoiseClusterDistractor.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 30
+        },
+        {
+            "path": "src/NoiseClusterClean.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-2",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 2
+    },
+    "interference": [
+        {
+            "code": "RN-05",
+            "name": "case_convention",
+            "params": {},
+            "applied_to": [
+                "src/NoiseClusterB.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "LT-01",
+            "name": "numeric",
+            "params": {},
+            "applied_to": [
+                "src/NoiseClusterB.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "LT-02",
+            "name": "string",
+            "params": {},
+            "applied_to": [
+                "src/NoiseClusterB.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "LT-03",
+            "name": "array_values",
+            "params": {},
+            "applied_to": [
+                "src/NoiseClusterB.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "LT-04",
+            "name": "const_vs_literal",
+            "params": {},
+            "applied_to": [
+                "src/NoiseClusterB.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "CM-01",
+            "name": "line_comment_add",
+            "params": {},
+            "applied_to": [
+                "src/NoiseClusterB.php"
+            ],
+            "intensity": 1
+        },
+        {
+            "code": "CM-02",
+            "name": "block_comment_add",
+            "params": {},
+            "applied_to": [
+                "src/NoiseClusterB.php"
+            ],
+            "intensity": 1
+        },
+        {
+            "code": "CM-03",
+            "name": "docblock",
+            "params": {},
+            "applied_to": [
+                "src/NoiseClusterB.php"
+            ],
+            "intensity": 1
+        }
+    ],
+    "difficulty": {
+        "score": 39,
+        "requires": [
+            "identifier_canonicalization",
+            "literal_abstraction",
+            "comment_stripping"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L19_adversarial_cluster/ac_noise_cluster.json",
+        "version": "1.0.0",
+        "rng_seed": 190305
+    }
+}

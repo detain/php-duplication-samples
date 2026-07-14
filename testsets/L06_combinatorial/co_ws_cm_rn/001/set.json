@@ -1,0 +1,175 @@
+{
+    "schema_version": 2,
+    "set_id": "L06-co_ws_cm_rn-001",
+    "level": 6,
+    "level_name": "combinatorial",
+    "family": "co_ws_cm_rn",
+    "title": "Whitespace, comment and rename interference (3-axis)",
+    "description": "Same computeTotals method across three billing classes. Carrier A applies WS-01; carrier B applies CM-01 + RN-05; carrier C applies WS-01 + CM-01 + RN-05. Tests 3-axis interference.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "invoice_totals",
+    "difficulty_band": "very_hard",
+    "files": [
+        {
+            "path": "src/PristineInvoiceCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 39,
+            "region_sloc": {
+                "sloc": 25,
+                "duplicate": 25,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/CmRnCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 45,
+            "region_sloc": {
+                "sloc": 26,
+                "duplicate": 25,
+                "unique": 1,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/WsCmRnCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 44,
+            "region_sloc": {
+                "sloc": 26,
+                "duplicate": 24,
+                "unique": 2,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/MarginSummarizer.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 30
+        },
+        {
+            "path": "src/TaxRateRepository.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-2",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "RN-05",
+            "name": "case_convention",
+            "params": {
+                "direction": "camel_to_snake"
+            },
+            "applied_to": [
+                "src/CmRnCalc.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "CM-01",
+            "name": "line_comment_add",
+            "params": {
+                "position": "after_statement"
+            },
+            "applied_to": [
+                "src/CmRnCalc.php"
+            ],
+            "intensity": 1
+        },
+        {
+            "code": "RN-05",
+            "name": "case_convention",
+            "params": {
+                "direction": "snake_to_camel"
+            },
+            "applied_to": [
+                "src/WsCmRnCalc.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "CM-01",
+            "name": "line_comment_add",
+            "params": {
+                "position": "inline"
+            },
+            "applied_to": [
+                "src/WsCmRnCalc.php"
+            ],
+            "intensity": 1
+        },
+        {
+            "code": "WS-01",
+            "name": "blank_before",
+            "params": {
+                "blank_lines": 1
+            },
+            "applied_to": [
+                "src/WsCmRnCalc.php"
+            ],
+            "intensity": 1
+        }
+    ],
+    "difficulty": {
+        "score": 70,
+        "requires": [
+            "identifier_canonicalization",
+            "comment_stripping",
+            "whitespace_normalization"
+        ],
+        "score_raw": 70,
+        "axes": {
+            "breadth": 3,
+            "intensity": 1.4,
+            "intensity_max": 2,
+            "semantic_depth": 0,
+            "partiality": 1
+        },
+        "application_count": 5,
+        "axis_count": 3
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L06_combinatorial/co_ws_cm_rn.json",
+        "version": "2.0.0",
+        "rng_seed": 1604001
+    },
+    "interference_profile": {
+        "axis_count": 3,
+        "per_carrier_axes": {
+            "src/CmRnCalc.php": [
+                "RN-05",
+                "CM-01"
+            ],
+            "src/WsCmRnCalc.php": [
+                "RN-05",
+                "CM-01",
+                "WS-01"
+            ]
+        },
+        "groups_touched": [
+            "A"
+        ],
+        "stack_depth_max": 3,
+        "symmetric_overlap": 2,
+        "pairwise_overlap": 0.6667,
+        "combination_design": "type2_plus_type1"
+    },
+    "engine_features": [
+        "fragment_emission"
+    ]
+}

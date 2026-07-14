@@ -1,0 +1,6 @@
+    {"hole_id": "query_logging", "description": "No slow query logging or query timing instrumentation"}
+                ],
+                "collapses": [0, 1, 2],
+                "advisability": "recommended"
+            },
+            "solution": "<?php\ndeclare(strict_types=1);\n\nnamespace Acme\\Database\\Unified;\n\n/**\n * Unified query builder — holes: sql_injection, pagination_bounds, query_logging\n */\nclass QueryBuilder\n{\n    public function buildQuery(string $table, array $conditions, array $options): string\n    {\n        // HOLE: sql_injection — conditions should be escaped or use parameterized queries\n\n        $limit = $options['limit'] ?? 100;\n        $offset = $options['offset'] ?? 0;\n        $orderBy = $options['order_by'] ?? 'id';\n\n        // HOLE: pagination_bounds — no validation that limit > 0, offset >= 0, max limit enforced\n        // HOLE: query_logging — no logging of slow queries or query execution time\n\n        $whereClause = '';\n        if (!empty($conditions)) {\n            $whereParts = [];\n            foreach ($conditions as $key => $value) {\n                // HOLE: sql_injection — $key and $value should be escaped\n                $whereParts[] = \"{$key} = '{$value}'\";\n            }\n            $whereClause = 'WHERE ' . implode(' AND ', $whereParts);\

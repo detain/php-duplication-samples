@@ -58,7 +58,8 @@
             },
             "applied_to": [
                 "src/RenamedBlankCalc.php"
-            ]
+            ],
+            "intensity": 2
         },
         {
             "code": "WS-03",
@@ -68,7 +69,8 @@
             },
             "applied_to": [
                 "src/RenamedBlankCalc.php"
-            ]
+            ],
+            "intensity": 1
         },
         {
             "code": "RN-05",
@@ -78,7 +80,8 @@
             },
             "applied_to": [
                 "src/RenamedWrapCalc.php"
-            ]
+            ],
+            "intensity": 2
         },
         {
             "code": "WS-06",
@@ -88,7 +91,8 @@
             },
             "applied_to": [
                 "src/RenamedWrapCalc.php"
-            ]
+            ],
+            "intensity": 2
         }
     ],
     "difficulty": {

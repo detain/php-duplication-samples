@@ -58,27 +58,8 @@
             },
             "applied_to": [
                 "src/BugfixInvoiceCalc.php"
-            ]
-        },
-        {
-            "code": "WS-06",
-            "name": "line_wrap",
-            "params": {
-                "occurrence": 1
-            },
-            "applied_to": [
-                "src/MaintenanceInvoiceCalc.php"
-            ]
-        },
-        {
-            "code": "RN-05",
-            "name": "case_convention",
-            "params": {
-                "direction": "snake_to_camel"
-            },
-            "applied_to": [
-                "src/MaintenanceInvoiceCalc.php"
-            ]
+            ],
+            "intensity": 3
         },
         {
             "code": "ST-02",
@@ -88,16 +69,39 @@
             },
             "applied_to": [
                 "src/MaintenanceInvoiceCalc.php"
-            ]
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "RN-05",
+            "name": "case_convention",
+            "params": {
+                "direction": "snake_to_camel"
+            },
+            "applied_to": [
+                "src/MaintenanceInvoiceCalc.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "WS-06",
+            "name": "line_wrap",
+            "params": {
+                "occurrence": 1
+            },
+            "applied_to": [
+                "src/MaintenanceInvoiceCalc.php"
+            ],
+            "intensity": 2
         }
     ],
     "difficulty": {
         "score": 100,
         "requires": [
             "ast_canonicalization",
-            "whitespace_normalization",
+            "deadcode_elimination",
             "identifier_canonicalization",
-            "deadcode_elimination"
+            "whitespace_normalization"
         ]
     },
     "generator": {

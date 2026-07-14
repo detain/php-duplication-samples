@@ -1,0 +1,143 @@
+{
+  "level": 5,
+  "level_name": "refactorability",
+  "level_dir": "L05_refactorability",
+  "family": "rf_class_hierarchy",
+  "sets": [
+    {
+      "set_id": "L05-rf_class_hierarchy-001",
+      "title": "Payment processor clones with extractable validate() method",
+      "description": "Three payment processor classes with identical validate() methods that can be pulled up to an abstract base class.",
+      "seed": "payment_processor",
+      "mount": "method",
+      "clone_symbol": "validate",
+      "granularity": "method",
+      "clone_type": "type-2",
+      "schema_version": 2,
+      "rng_seed": 503101,
+      "normalized_by": ["whitespace", "comments", "identifiers"],
+      "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true},
+      "intended_refactoring": {
+        "kind": "pull_up_method",
+        "unified_symbol": "validate",
+        "unified_signature": "validate(): bool",
+        "collapses": [0, 1, 2],
+        "advisability": "recommended"
+      },
+      "solution": "<?php\\ndeclare(strict_types=1);\\n\\nnamespace Acme\\Payment\\Unified;\\n\\nabstract class AbstractPaymentProcessor\\n{\\n    protected float $amount;\\n    protected string $currency;\\n\\n    protected function validate(): bool\\n    {\\n        if (empty($this->amount) || $this->amount <= 0) {\\n            throw new \\InvalidArgumentException('Invalid amount');\\n        }\\n        if (empty($this->currency)) {\\n            throw new \\InvalidArgumentException('Currency required');\\n        }\\n        return true;\\n    }\\n}\\n",
+      "carriers": [
+        {"file": "CreditCardProcessor.php", "namespace": "Acme\\Payment\\CreditCard", "class": "CreditCardProcessor", "scaffold": "method_alpha", "group": "A", "pristine": false, "transforms": []},
+        {"file": "PayPalProcessor.php", "namespace": "Acme\\Payment\\PayPal", "class": "PayPalProcessor", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": []},
+        {"file": "BankTransferProcessor.php", "namespace": "Acme\\Payment\\BankTransfer", "class": "BankTransferProcessor", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": []}
+      ]
+    },
+    {
+      "set_id": "L05-rf_class_hierarchy-002",
+      "title": "Notification service clones with extractable send() method",
+      "description": "Three notifier classes with identical send() methods that can be extracted into a trait.",
+      "seed": "notification_service",
+      "mount": "method",
+      "clone_symbol": "send",
+      "granularity": "method",
+      "clone_type": "type-2",
+      "schema_version": 2,
+      "rng_seed": 503102,
+      "normalized_by": ["whitespace", "comments", "identifiers"],
+      "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true},
+      "intended_refactoring": {
+        "kind": "extract_trait",
+        "unified_symbol": "send",
+        "unified_signature": "send(): bool",
+        "collapses": [0, 1, 2],
+        "advisability": "recommended"
+      },
+      "solution": "<?php\\ndeclare(strict_types=1);\\n\\ntrait NotifiableTrait\\n{\\n    abstract protected function getApiKey(): string;\\n    abstract protected function getRecipient(): string;\\n    abstract protected function getMessage(): string;\\n    abstract protected function getEndpoint(): string;\\n\\n    public function send(): bool\\n    {\\n        $headers = ['Content-Type' => 'application/json', 'Authorization' => 'Bearer ' . $this->getApiKey()];\\n        $payload = json_encode(['recipient' => $this->getRecipient(), 'message' => $this->getMessage()]);\\n        $ch = curl_init($this->getEndpoint());\\n        curl_setopt_array($ch, [\\n            CURLOPT_POST => true,\\n            CURLOPT_POSTFIELDS => $payload,\\n            CURLOPT_HTTPHEADER => $this->buildHeaders($headers),\\n            CURLOPT_RETURNTRANSFER => true,\\n            CURLOPT_TIMEOUT => 30\\n        ]);\\n        $response = curl_exec($ch);\\n        if (curl_errno($ch)) {\\n            throw new \\RuntimeException('Send failed: ' . curl_error($ch));\\n        }\\n        curl_close($ch);\\n        return json_decode($response, true);\\n    }\\n}\\n",
+      "carriers": [
+        {"file": "EmailNotifier.php", "namespace": "Acme\\Notification\\Email", "class": "EmailNotifier", "scaffold": "method_alpha", "group": "A", "pristine": false, "transforms": []},
+        {"file": "SmsNotifier.php", "namespace": "Acme\\Notification\\Sms", "class": "SmsNotifier", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": []},
+        {"file": "PushNotifier.php", "namespace": "Acme\\Notification\\Push", "class": "PushNotifier", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": []}
+      ]
+    },
+    {
+      "set_id": "L05-rf_class_hierarchy-003",
+      "title": "Report builder clones with extractable base class",
+      "description": "Three report builder classes with duplicate setTitle, setDateRange, addFilter, and generate methods that can be pulled up to an abstract base class.",
+      "seed": "report_builder",
+      "mount": "method",
+      "clone_symbol": "generate",
+      "granularity": "method",
+      "clone_type": "type-2",
+      "schema_version": 2,
+      "rng_seed": 503103,
+      "normalized_by": ["whitespace", "comments", "identifiers"],
+      "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true},
+      "intended_refactoring": {
+        "kind": "extract_base_class",
+        "unified_symbol": "generate",
+        "unified_signature": "generate(): array",
+        "collapses": [0, 1, 2],
+        "advisability": "recommended"
+      },
+      "solution": "<?php\\ndeclare(strict_types=1);\\n\\nabstract class AbstractReportBuilder\\n{\\n    protected string $title;\\n    protected string $dateRange;\\n    protected array $filters = [];\\n\\n    public function setTitle(string $title): self\\n    {\\n        $this->title = $title;\\n        return $this;\\n    }\\n\\n    public function setDateRange(string $dateRange): self\\n    {\\n        $this->dateRange = $dateRange;\\n        return $this;\\n    }\\n\\n    public function addFilter(string $filter): self\\n    {\\n        $this->filters[] = $filter;\\n        return $this;\\n    }\\n\\n    public function generate(): array\\n    {\\n        $data = $this->fetchData();\\n        $this->validateData($data);\\n        return $this->formatOutput($data);\\n    }\\n\\n    abstract protected function fetchData(): array;\\n    abstract protected function formatOutput(array $data): array;\\n\\n    protected function validateData(array $data): void\\n    {\\n        if (empty($this->title)) {\\n            throw new \\RuntimeException('Report title is required');\\n        }\\n        if (empty($this->dateRange)) {\\n            throw new \\RuntimeException('Date range is required');\\n        }\\n    }\\n}\\n",
+      "carriers": [
+        {"file": "SalesReportBuilder.php", "namespace": "Acme\\Report\\Sales", "class": "SalesReportBuilder", "scaffold": "method_alpha", "group": "A", "pristine": false, "transforms": []},
+        {"file": "InventoryReportBuilder.php", "namespace": "Acme\\Report\\Inventory", "class": "InventoryReportBuilder", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": []},
+        {"file": "UserActivityReportBuilder.php", "namespace": "Acme\\Report\\UserActivity", "class": "UserActivityReportBuilder", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": []}
+      ]
+    },
+    {
+      "set_id": "L05-rf_class_hierarchy-004",
+      "title": "Form field clones with extractable trait methods",
+      "description": "Three form field classes with duplicate render() and validate() methods that can be extracted into a trait.",
+      "seed": "form_builder",
+      "mount": "method",
+      "clone_symbol": "render",
+      "granularity": "method",
+      "clone_type": "type-2",
+      "schema_version": 2,
+      "rng_seed": 503104,
+      "normalized_by": ["whitespace", "comments", "identifiers"],
+      "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true},
+      "intended_refactoring": {
+        "kind": "extract_trait",
+        "unified_symbol": "render",
+        "unified_signature": "render(): string",
+        "collapses": [0, 1, 2],
+        "advisability": "recommended"
+      },
+      "solution": "<?php\\ndeclare(strict_types=1);\\n\\ntrait FormFieldTrait\\n{\\n    protected string $id;\\n    protected string $name;\\n    protected string $type;\\n    protected string $label;\\n    protected string $value;\\n    protected bool $required;\\n    protected int $minLength;\\n    protected int $maxLength;\\n    protected string $pattern;\\n\\n    public function render(): string\\n    {\\n        $html = '<div class=\"form-group\">';\\n        $html .= '<label for=\"' . $this->id . '\">' . $this->label . '</label>';\\n        $html .= '<input type=\"' . $this->type . '\" name=\"' . $this->name . '\" id=\"' . $this->id . '\"';\\n        if ($this->required) { $html .= ' required'; }\\n        $html .= ' value=\"' . htmlspecialchars($this->value) . '\"';\\n        $html .= ' class=\"form-control\" />';\\n        $html .= '</div>';\\n        return $html;\\n    }\\n\\n    public function validate(): bool\\n    {\\n        if ($this->required && empty($this->value)) { return false; }\\n        if ($this->minLength && strlen($this->value) < $this->minLength) { return false; }\\n        if ($this->maxLength && strlen($this->value) > $this->maxLength) { return false; }\\n        if ($this->pattern && !preg_match($this->pattern, $this->value)) { return false; }\\n        return true;\\n    }\\n}\\n",
+      "carriers": [
+        {"file": "TextFormField.php", "namespace": "Acme\\Form\\Text", "class": "TextFormField", "scaffold": "method_alpha", "group": "A", "pristine": false, "transforms": []},
+        {"file": "EmailFormField.php", "namespace": "Acme\\Form\\Email", "class": "EmailFormField", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": []},
+        {"file": "PasswordFormField.php", "namespace": "Acme\\Form\\Password", "class": "PasswordFormField", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": []}
+      ]
+    },
+    {
+      "set_id": "L05-rf_class_hierarchy-005",
+      "title": "State machine clones with extractable transition methods",
+      "description": "Three state machine classes with duplicate canTransition() and transition() methods that can be pulled up to an abstract base class.",
+      "seed": "state_machine",
+      "mount": "method",
+      "clone_symbol": "canTransition",
+      "granularity": "method",
+      "clone_type": "type-2",
+      "schema_version": 2,
+      "rng_seed": 503105,
+      "normalized_by": ["whitespace", "comments", "identifiers"],
+      "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true},
+      "intended_refactoring": {
+        "kind": "pull_up_method",
+        "unified_symbol": "canTransition",
+        "unified_signature": "canTransition(string $toState): bool",
+        "collapses": [0, 1, 2],
+        "advisability": "recommended"
+      },
+      "solution": "<?php\\ndeclare(strict_types=1);\\n\\nabstract class AbstractStateMachine\\n{\\n    protected string $currentState;\\n    protected array $transitions = [];\\n\\n    public function canTransition(string $toState): bool\\n    {\\n        return isset($this->transitions[$this->currentState])\\n            && in_array($toState, $this->transitions[$this->currentState]);\\n    }\\n\\n    public function transition(string $toState): bool\\n    {\\n        if (!$this->canTransition($toState)) {\\n            throw new \\InvalidOperationException(\\n                'Invalid transition from ' . $this->currentState . ' to ' . $toState\\n            );\\n        }\\n        $this->currentState = $toState;\\n        $this->onTransition($toState);\\n        return true;\\n    }\\n\\n    protected function onTransition(string $toState): void\\n    {\\n        // Hook for subclasses\\n    }\\n}\\n",
+      "carriers": [
+        {"file": "OrderStateMachine.php", "namespace": "Acme\\Workflow\\Order", "class": "OrderStateMachine", "scaffold": "method_alpha", "group": "A", "pristine": false, "transforms": []},
+        {"file": "DocumentWorkflowMachine.php", "namespace": "Acme\\Workflow\\Document", "class": "DocumentWorkflowMachine", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": []},
+        {"file": "TaskStateMachine.php", "namespace": "Acme\\Workflow\\Task", "class": "TaskStateMachine", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": []}
+      ]
+    }
+  ]
+}

@@ -1,0 +1,74 @@
+{
+    "schema_version": 2,
+    "set_id": "L05-rf_non_extractable-003",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-1",
+            "granularity": "method",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers",
+                "literals"
+            ],
+            "token_hash": "1f6ea280b2b533ea",
+            "normalized_hash": "f8fd14b107015e86",
+            "members": [
+                {
+                    "file": "src/SyncEventDispatcher.php",
+                    "start_line": 9,
+                    "end_line": 62,
+                    "symbol": "processEvent",
+                    "pristine": true,
+                    "group": "A",
+                    "seed": "event_dispatcher"
+                },
+                {
+                    "file": "src/AsyncEventQueue.php",
+                    "start_line": 18,
+                    "end_line": 71,
+                    "symbol": "processEvent",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "event_dispatcher"
+                },
+                {
+                    "file": "src/EventFilter.php",
+                    "start_line": 24,
+                    "end_line": 77,
+                    "symbol": "processEvent",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "event_dispatcher"
+                }
+            ],
+            "detection_expectation": {
+                "text_based": true,
+                "token_based": true,
+                "ast_based": true
+            },
+            "notes": ""
+        }
+    ],
+    "non_duplicates": [
+        {
+            "file": "src/EventListenerRegistry.php",
+            "start_line": 9,
+            "end_line": 62,
+            "reason": "near-miss: similar registration pattern but manages listener subscriptions not processing",
+            "trap": true
+        }
+    ],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.6,
+        "min_members_for_credit": 2
+    },
+    "intended_refactoring": {
+        "kind": "none",
+        "advisability": "inadvisable",
+        "reason": "Carrier A dispatches events synchronously (fires handlers immediately, blocks), Carrier B queues events for async processing (returns job ID, non-blocking), Carrier C filters/modifies events (transforms payload, returns new event). Unifying would destroy their distinct purposes."
+    }
+}

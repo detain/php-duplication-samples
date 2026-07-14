@@ -1,0 +1,109 @@
+{
+    "schema_version": 1,
+    "set_id": "L18-pg_growth_2-003",
+    "level": 18,
+    "level_name": "partial_growth",
+    "family": "pg_growth_2",
+    "title": "Grown set with all comment transforms",
+    "description": "Grown set with all comment transformations.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "invoice_totals",
+    "difficulty_band": "easy",
+    "files": [
+        {
+            "path": "src/GrownA.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 39
+        },
+        {
+            "path": "src/GrownB.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 45
+        },
+        {
+            "path": "src/GrownC.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 46
+        },
+        {
+            "path": "src/GrownD.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 44
+        },
+        {
+            "path": "src/GrownDistractor.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 30
+        },
+        {
+            "path": "src/GrownClean.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-2",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 4
+    },
+    "interference": [
+        {
+            "code": "CM-01",
+            "name": "line_comment_add",
+            "params": {},
+            "applied_to": [
+                "src/GrownB.php"
+            ],
+            "intensity": 1
+        },
+        {
+            "code": "CM-02",
+            "name": "block_comment_add",
+            "params": {},
+            "applied_to": [
+                "src/GrownC.php"
+            ],
+            "intensity": 1
+        },
+        {
+            "code": "LT-01",
+            "name": "numeric",
+            "params": {},
+            "applied_to": [
+                "src/GrownD.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "CM-03",
+            "name": "docblock",
+            "params": {},
+            "applied_to": [
+                "src/GrownD.php"
+            ],
+            "intensity": 1
+        }
+    ],
+    "difficulty": {
+        "score": 14,
+        "requires": [
+            "comment_stripping",
+            "identifier_canonicalization"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L18_partial_growth/pg_growth_2.json",
+        "version": "1.0.0",
+        "rng_seed": 180203
+    }
+}

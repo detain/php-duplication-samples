@@ -1,0 +1,193 @@
+{
+    "schema_version": 2,
+    "set_id": "L06-co_class_rename-002",
+    "level": 6,
+    "level_name": "combinatorial",
+    "family": "co_class_rename",
+    "title": "Case convention with literal interference",
+    "description": "Same computeTotals method. Tests case convention combined with literal changes.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "invoice_totals",
+    "difficulty_band": "expert",
+    "files": [
+        {
+            "path": "src/FullStackCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 39,
+            "region_sloc": {
+                "sloc": 25,
+                "duplicate": 25,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/ClassLiteralCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 45,
+            "region_sloc": {
+                "sloc": 26,
+                "duplicate": 25,
+                "unique": 1,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/MaxClassCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 44,
+            "region_sloc": {
+                "sloc": 26,
+                "duplicate": 25,
+                "unique": 1,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/MarginSummarizer.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 30
+        },
+        {
+            "path": "src/TaxRateRepository.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-3",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "RN-05",
+            "name": "case_convention",
+            "params": {
+                "direction": "snake_to_camel"
+            },
+            "applied_to": [
+                "src/FullStackCalc.php",
+                "src/MaxClassCalc.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "LT-01",
+            "name": "numeric",
+            "params": {
+                "format": "hex"
+            },
+            "applied_to": [
+                "src/FullStackCalc.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "ST-01",
+            "name": "insert_logging",
+            "params": {
+                "lines": 1
+            },
+            "applied_to": [
+                "src/ClassLiteralCalc.php",
+                "src/MaxClassCalc.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "RN-05",
+            "name": "case_convention",
+            "params": {
+                "direction": "camel_to_snake"
+            },
+            "applied_to": [
+                "src/ClassLiteralCalc.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "LT-02",
+            "name": "string",
+            "params": {
+                "style": "double_quotes"
+            },
+            "applied_to": [
+                "src/ClassLiteralCalc.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "LT-01",
+            "name": "numeric",
+            "params": {
+                "format": "binary"
+            },
+            "applied_to": [
+                "src/MaxClassCalc.php"
+            ],
+            "intensity": 2
+        }
+    ],
+    "difficulty": {
+        "score": 87,
+        "requires": [
+            "identifier_canonicalization",
+            "literal_abstraction",
+            "ast_canonicalization"
+        ],
+        "score_raw": 87,
+        "axes": {
+            "breadth": 4,
+            "intensity": 2.17,
+            "intensity_max": 3,
+            "semantic_depth": 0,
+            "partiality": 1
+        },
+        "application_count": 8,
+        "axis_count": 4
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L06_combinatorial/co_class_rename.json",
+        "version": "2.0.0",
+        "rng_seed": 1611002
+    },
+    "interference_profile": {
+        "axis_count": 4,
+        "per_carrier_axes": {
+            "src/FullStackCalc.php": [
+                "RN-05",
+                "LT-01"
+            ],
+            "src/ClassLiteralCalc.php": [
+                "ST-01",
+                "RN-05",
+                "LT-02"
+            ],
+            "src/MaxClassCalc.php": [
+                "ST-01",
+                "RN-05",
+                "LT-01"
+            ]
+        },
+        "groups_touched": [
+            "A"
+        ],
+        "stack_depth_max": 3,
+        "symmetric_overlap": 1,
+        "pairwise_overlap": 0.4722,
+        "combination_design": "structural_only"
+    },
+    "engine_features": [
+        "fragment_emission"
+    ]
+}

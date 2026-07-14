@@ -1,0 +1,138 @@
+{
+    "level": 5,
+    "level_name": "semantic_equivalence",
+    "level_dir": "L05_semantic_equivalence",
+    "family": "se_auth_flow",
+    "sets": [
+        {
+            "set_id": "L05-se_auth_flow-001",
+            "title": "Auth flow: if-ternary vs guard-clause vs match equivalence",
+            "description": "Three semantically equivalent authentication decision flows: carrier A uses if-ternary (CF-01), carrier B uses guard-clause with early return (CF-05), and carrier C uses match expression (CF-02). All compute identical auth results.",
+            "seed": "auth_handler",
+            "mount": "method",
+            "clone_symbol": "authenticate",
+            "granularity": "method",
+            "clone_type": "type-4",
+            "normalized_by": ["controlflow", "identifiers", "literals"],
+            "rng_seed": 50101,
+            "notes": "Set 001 of 6. CF-01 (if_ternary), CF-02 (match_switch), and CF-05 (early_return) variants.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": false, "ast_based": false, "metric_based": false, "semantic": true},
+            "requires": ["semantic_reasoning", "controlflow_normalization"],
+            "carriers": [
+                {"file": "SessionAuth.php", "namespace": "Acme\\Auth\\Session", "class": "SessionAuth", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "JwtAuth.php", "namespace": "Acme\\Auth\\Jwt", "class": "JwtAuth", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "jwt_only", "transforms": [{"code": "CF-01"}]},
+                {"file": "OAuthAuth.php", "namespace": "Acme\\Auth\\OAuth", "class": "OAuthAuth", "scaffold": "method_gamma", "group": "A", "pristine": false, "variant": "jwt_only", "transforms": [{"code": "CF-05"}]}
+            ],
+            "distractors": [
+                {"file": "AnonAuth.php", "namespace": "Acme\\Auth\\Anonymous", "class": "AnonAuth", "source": "nearmiss_auth", "reason": "near-miss: guest access pattern that returns allow but with different token logic"}
+            ]
+        },
+        {
+            "set_id": "L05-se_auth_flow-002",
+            "title": "Auth flow: De Morgan equivalence with different control flow",
+            "description": "Authentication logic using Boolean equivalence: carrier A uses direct conditions, carrier B applies De Morgan transformation (BL-01), and carrier C uses split combined form (BL-02).",
+            "seed": "auth_handler",
+            "mount": "method",
+            "clone_symbol": "authenticate",
+            "granularity": "method",
+            "clone_type": "type-4",
+            "normalized_by": ["controlflow", "identifiers", "literals"],
+            "rng_seed": 50102,
+            "notes": "Set 002 of 6. BL-01 (demorgan), BL-02 (split_combined), BL-03 (commutative) variants.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": false, "ast_based": false, "metric_based": false, "semantic": true},
+            "requires": ["semantic_reasoning", "controlflow_normalization"],
+            "carriers": [
+                {"file": "SessionAuth.php", "namespace": "Acme\\Auth\\Session", "class": "SessionAuth", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "JwtAuth.php", "namespace": "Acme\\Auth\\Jwt", "class": "JwtAuth", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "jwt_only", "transforms": [{"code": "BL-01"}]},
+                {"file": "OAuthAuth.php", "namespace": "Acme\\Auth\\OAuth", "class": "OAuthAuth", "scaffold": "method_gamma", "group": "A", "pristine": false, "variant": "jwt_only", "transforms": [{"code": "BL-02"}]}
+            ]
+        },
+        {
+            "set_id": "L05-se_auth_flow-003",
+            "title": "Auth flow: null-safe operations equivalence",
+            "description": "Authentication with different null handling styles: carrier A uses explicit null checks, carrier B uses null-safe operator (NU-01), and carrier C combines null ops with guard clauses.",
+            "seed": "auth_handler",
+            "mount": "method",
+            "clone_symbol": "authenticate",
+            "granularity": "method",
+            "clone_type": "type-4",
+            "normalized_by": ["controlflow", "identifiers", "literals"],
+            "rng_seed": 50103,
+            "notes": "Set 003 of 6. NU-01 (null_ops) combined with CF-05 (early_return).",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": false, "ast_based": false, "metric_based": false, "semantic": true},
+            "requires": ["semantic_reasoning", "controlflow_normalization"],
+            "carriers": [
+                {"file": "SessionAuth.php", "namespace": "Acme\\Auth\\Session", "class": "SessionAuth", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "JwtAuth.php", "namespace": "Acme\\Auth\\Jwt", "class": "JwtAuth", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "jwt_only", "transforms": [{"code": "NU-01"}, {"code": "CF-05"}]},
+                {"file": "OAuthAuth.php", "namespace": "Acme\\Auth\\OAuth", "class": "OAuthAuth", "scaffold": "method_gamma", "group": "A", "pristine": false, "variant": "jwt_only", "transforms": [{"code": "BL-03"}, {"code": "NU-01"}]}
+            ]
+        },
+        {
+            "set_id": "L05-se_auth_flow-004",
+            "title": "Auth flow: arithmetic rewrite equivalence",
+            "description": "Authentication with equivalent arithmetic expressions: carrier A uses direct computation, carrier B uses commutative reordering (BL-03), and carrier C uses expression rewrite (EX-01).",
+            "seed": "auth_handler",
+            "mount": "method",
+            "clone_symbol": "authenticate",
+            "granularity": "method",
+            "clone_type": "type-4",
+            "normalized_by": ["controlflow", "identifiers", "literals"],
+            "rng_seed": 50104,
+            "notes": "Set 004 of 6. EX-01 (arith_rewrite) and BL-03 (commutative) for expression equivalence.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": false, "ast_based": false, "metric_based": false, "semantic": true},
+            "requires": ["semantic_reasoning"],
+            "carriers": [
+                {"file": "SessionAuth.php", "namespace": "Acme\\Auth\\Session", "class": "SessionAuth", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "JwtAuth.php", "namespace": "Acme\\Auth\\Jwt", "class": "JwtAuth", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "jwt_only", "transforms": [{"code": "EX-01"}]},
+                {"file": "OAuthAuth.php", "namespace": "Acme\\Auth\\OAuth", "class": "OAuthAuth", "scaffold": "method_gamma", "group": "A", "pristine": false, "variant": "jwt_only", "transforms": [{"code": "BL-03"}, {"code": "CF-01"}]}
+            ]
+        },
+        {
+            "set_id": "L05-se_auth_flow-005",
+            "title": "Auth flow: structural diversity with semantic preservation",
+            "description": "Authentication with structural transforms (ST-01 insert_logging, ST-04 delete_stmt) that preserve semantics while changing structure.",
+            "seed": "auth_handler",
+            "mount": "method",
+            "clone_symbol": "authenticate",
+            "granularity": "method",
+            "clone_type": "type-4",
+            "normalized_by": ["controlflow", "identifiers", "literals"],
+            "rng_seed": 50105,
+            "notes": "Set 005 of 6. ST-01, ST-04, ST-05 combined with CF variants.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": false, "ast_based": false, "metric_based": false, "semantic": true},
+            "requires": ["semantic_reasoning", "ast_canonicalization"],
+            "carriers": [
+                {"file": "SessionAuth.php", "namespace": "Acme\\Auth\\Session", "class": "SessionAuth", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": [{"code": "ST-01"}]},
+                {"file": "JwtAuth.php", "namespace": "Acme\\Auth\\Jwt", "class": "JwtAuth", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "jwt_only", "transforms": [{"code": "ST-04"}, {"code": "CF-05"}]},
+                {"file": "OAuthAuth.php", "namespace": "Acme\\Auth\\OAuth", "class": "OAuthAuth", "scaffold": "method_gamma", "group": "A", "pristine": false, "variant": "jwt_only", "transforms": [{"code": "ST-05"}, {"code": "BL-01"}]}
+            ]
+        },
+        {
+            "set_id": "L05-se_auth_flow-006",
+            "title": "Auth flow: full CF/BL equivalence suite",
+            "description": "Complete auth flow equivalence using all control flow variants: if-ternary, match, guard, loop forms, De Morgan, split-combined, and commutative.",
+            "seed": "auth_handler",
+            "mount": "method",
+            "clone_symbol": "authenticate",
+            "granularity": "method",
+            "clone_type": "type-4",
+            "normalized_by": ["controlflow", "identifiers", "literals"],
+            "rng_seed": 50106,
+            "notes": "Set 006 of 6. All CF and BL variants demonstrating maximum control flow diversity.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": false, "ast_based": false, "metric_based": false, "semantic": true},
+            "requires": ["semantic_reasoning", "controlflow_normalization"],
+            "carriers": [
+                {"file": "SessionAuth.php", "namespace": "Acme\\Auth\\Session", "class": "SessionAuth", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "JwtAuth.php", "namespace": "Acme\\Auth\\Jwt", "class": "JwtAuth", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "jwt_only", "transforms": [{"code": "CF-01"}, {"code": "BL-01"}]},
+                {"file": "OAuthAuth.php", "namespace": "Acme\\Auth\\OAuth", "class": "OAuthAuth", "scaffold": "method_gamma", "group": "A", "pristine": false, "variant": "jwt_only", "transforms": [{"code": "CF-03"}, {"code": "BL-02"}]},
+                {"file": "ApiAuth.php", "namespace": "Acme\\Auth\\Api", "class": "ApiAuth", "scaffold": "method_alpha", "group": "A", "pristine": false, "variant": "jwt_only", "transforms": [{"code": "CF-04"}, {"code": "BL-03"}]}
+            ]
+        }
+    ]
+}

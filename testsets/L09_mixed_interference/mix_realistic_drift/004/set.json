@@ -15,7 +15,7 @@
             "path": "src/TeamAInvoiceCalc.php",
             "role": "carrier",
             "duplicate_group": "A",
-            "sloc": 39
+            "sloc": 40
         },
         {
             "path": "src/TeamBInvoiceCalc.php",
@@ -51,16 +51,6 @@
     },
     "interference": [
         {
-            "code": "CM-03",
-            "name": "docblock",
-            "params": {
-                "style": "minimal"
-            },
-            "applied_to": [
-                "src/TeamAInvoiceCalc.php"
-            ]
-        },
-        {
             "code": "ST-04",
             "name": "delete_stmt",
             "params": {
@@ -68,7 +58,19 @@
             },
             "applied_to": [
                 "src/TeamAInvoiceCalc.php"
-            ]
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "CM-03",
+            "name": "docblock",
+            "params": {
+                "style": "minimal"
+            },
+            "applied_to": [
+                "src/TeamAInvoiceCalc.php"
+            ],
+            "intensity": 1
         },
         {
             "code": "ST-01",
@@ -78,7 +80,8 @@
             },
             "applied_to": [
                 "src/TeamBInvoiceCalc.php"
-            ]
+            ],
+            "intensity": 3
         },
         {
             "code": "CM-03",
@@ -89,27 +92,8 @@
             "applied_to": [
                 "src/TeamBInvoiceCalc.php",
                 "src/TeamCInvoiceCalc.php"
-            ]
-        },
-        {
-            "code": "RN-05",
-            "name": "case_convention",
-            "params": {
-                "direction": "snake_to_camel"
-            },
-            "applied_to": [
-                "src/TeamCInvoiceCalc.php"
-            ]
-        },
-        {
-            "code": "WS-06",
-            "name": "line_wrap",
-            "params": {
-                "occurrence": 1
-            },
-            "applied_to": [
-                "src/TeamCInvoiceCalc.php"
-            ]
+            ],
+            "intensity": 1
         },
         {
             "code": "ST-02",
@@ -119,17 +103,40 @@
             },
             "applied_to": [
                 "src/TeamCInvoiceCalc.php"
-            ]
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "RN-05",
+            "name": "case_convention",
+            "params": {
+                "direction": "snake_to_camel"
+            },
+            "applied_to": [
+                "src/TeamCInvoiceCalc.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "WS-06",
+            "name": "line_wrap",
+            "params": {
+                "occurrence": 1
+            },
+            "applied_to": [
+                "src/TeamCInvoiceCalc.php"
+            ],
+            "intensity": 2
         }
     ],
     "difficulty": {
         "score": 100,
         "requires": [
-            "comment_stripping",
             "ast_canonicalization",
+            "comment_stripping",
+            "deadcode_elimination",
             "identifier_canonicalization",
-            "whitespace_normalization",
-            "deadcode_elimination"
+            "whitespace_normalization"
         ]
     },
     "generator": {

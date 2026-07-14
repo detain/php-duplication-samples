@@ -1,0 +1,125 @@
+{
+    "schema_version": 2,
+    "set_id": "L06-co_variant_selector-004",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-3",
+            "granularity": "method",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers",
+                "case_convention",
+                "controlflow",
+                "literals"
+            ],
+            "token_hash": "4a2dbd905287e75a",
+            "normalized_hash": "4a2dbd905287e75a",
+            "members": [
+                {
+                    "file": "src/HeavyCfCalcA.php",
+                    "start_line": 9,
+                    "end_line": 29,
+                    "symbol": "authorize",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "access_guard",
+                    "fragments": [
+                        {
+                            "start_line": 18,
+                            "end_line": 22
+                        },
+                        {
+                            "start_line": 24,
+                            "end_line": 37
+                        }
+                    ],
+                    "unique_segments": [
+                        {
+                            "start_line": 17,
+                            "end_line": 23
+                        }
+                    ]
+                },
+                {
+                    "file": "src/HeavyCfCalcB.php",
+                    "start_line": 18,
+                    "end_line": 38,
+                    "symbol": "authorize",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "access_guard",
+                    "fragments": [
+                        {
+                            "start_line": 37,
+                            "end_line": 55
+                        }
+                    ],
+                    "unique_segments": [
+                        {
+                            "start_line": 35,
+                            "end_line": 36
+                        }
+                    ]
+                },
+                {
+                    "file": "src/HeavyCfCalcC.php",
+                    "start_line": 24,
+                    "end_line": 46,
+                    "symbol": "authorize",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "access_guard",
+                    "fragments": [
+                        {
+                            "start_line": 48,
+                            "end_line": 52
+                        },
+                        {
+                            "start_line": 54,
+                            "end_line": 62
+                        },
+                        {
+                            "start_line": 64,
+                            "end_line": 67
+                        },
+                        {
+                            "start_line": 69,
+                            "end_line": 69
+                        }
+                    ],
+                    "unique_segments": [
+                        {
+                            "start_line": 47,
+                            "end_line": 68
+                        }
+                    ]
+                }
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": true,
+                "semantic": true
+            },
+            "notes": "Heavy selector stacking using working transforms only: ST + WS-01 + LT + RN-05 + TY. Tests comprehensive normalization ceiling."
+        }
+    ],
+    "non_duplicates": [
+        {
+            "file": "src/TrustScorer.php",
+            "start_line": 12,
+            "end_line": 27,
+            "reason": "near-miss: same auth vocabulary but computes numeric trust score instead of boolean decision",
+            "trap": true
+        }
+    ],
+    "scoring": {
+        "line_tolerance": 4,
+        "member_jaccard_min": 0.4,
+        "min_members_for_credit": 2
+    }
+}

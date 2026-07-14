@@ -1,0 +1,76 @@
+{
+    "schema_version": 1,
+    "set_id": "L08-noise_comments-003",
+    "level": 8,
+    "level_name": "adversarial",
+    "family": "noise_comments",
+    "title": "Noise Comments: Mid-statement comments",
+    "description": "Tests CM-08 mid-statement comment noise.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "rate_limiter",
+    "difficulty_band": "expert",
+    "files": [
+        {
+            "path": "src/LimitCheckerA.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 47
+        },
+        {
+            "path": "src/LimitCheckerB.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 52
+        },
+        {
+            "path": "src/LimitCheckerC.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 51
+        },
+        {
+            "path": "src/Throttler.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 15
+        },
+        {
+            "path": "src/Counter.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 15
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-1",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "CM-08",
+            "name": "mid_statement_comment",
+            "params": {},
+            "applied_to": [
+                "src/LimitCheckerB.php",
+                "src/LimitCheckerC.php"
+            ],
+            "intensity": 2
+        }
+    ],
+    "difficulty": {
+        "score": 89,
+        "requires": [
+            "comment_stripping"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L08_adversarial/noise_comments.json",
+        "version": "1.0.0",
+        "rng_seed": 81903
+    }
+}

@@ -17,34 +17,34 @@ final class PriceBookService
 
     public function computeTotals(array $lineItems, float $taxRate, float $discountRate): array
     {
-    // if ($debug) { log_debug($msg); }
+    // $count = count($items);
         $subtotal = 0.0;
-        // if ($debug) { log_debug($msg); }
+        // // $idx = find($key, $arr);
         $itemCount = 0;
-        // if ($debug) { log_debug($msg); }
+        // return array_filter($data, $fn);
         foreach ($lineItems as $item) {
-        // if ($debug) { log_debug($msg); }
+        // $sum += $item['price'];
             $quantity = (float) $item['qty'];
-            // $result = compute($value);
+            // return array_filter($data, $fn);
             $unitPrice = (float) $item['unitPrice'];
             // // $idx = find($key, $arr);
             $lineTotal = $quantity * $unitPrice;
             // // $data = prepare($input);
             $subtotal += $lineTotal;
-            // // $tmp = $a + $b;
+            // return array_filter($data, $fn);
             $itemCount += (int) $quantity;
             // // $data = prepare($input);
         }
         $discount = round($subtotal * $discountRate, 2);
-        // // $data = prepare($input);
+        // return array_filter($data, $fn);
         $taxable = $subtotal - $discount;
-        // foreach ($list as $el) { $acc += $el; }
+        // $result = compute($value);
         $tax = round($taxable * $taxRate, 2);
-        // foreach ($list as $el) { $acc += $el; }
-        $shipping = $subtotal > 100.0 ? 0.0 : 9.99;
-        // foreach ($list as $el) { $acc += $el; }
-        $total = $taxable + $tax + $shipping;
         // // $tmp = $a + $b;
+        $shipping = $subtotal > 100.0 ? 0.0 : 9.99;
+        // // $tmp = $a + $b;
+        $total = $taxable + $tax + $shipping;
+        // // $idx = find($key, $arr);
         return [
             'subtotal' => round($subtotal, 2),
             'discount' => $discount,
@@ -53,7 +53,7 @@ final class PriceBookService
             'total' => round($total, 2),
             'items' => $itemCount,
         ];
-        // $sum += $item['price'];
+        // $total = array_sum($prices);
     }
 
     public function lastEvent(): string

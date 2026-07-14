@@ -31,9 +31,9 @@ final class FourAxisPolicy
             return false;
         }
         if (in_array('admin', $user['roles'] ?? [], true)) {
+
+
             return true;
-
-
         }
         if (($resource['ownerId'] ?? null) === $user['id']) {
             return true;

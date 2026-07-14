@@ -1,0 +1,209 @@
+{
+    "level": 6,
+    "level_name": "combinatorial",
+    "level_dir": "L06_combinatorial",
+    "family": "co_method_rename",
+    "sets": [
+        {
+            "set_id": "L06-co_method_rename-001",
+            "schema_version": 2,
+            "title": "Case convention with whitespace interference",
+            "description": "Same computeTotals method across three billing classes. Tests case convention changes combined with whitespace changes.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments", "identifiers", "case_convention"],
+            "rng_seed": 1610001,
+            "interference_profile": {
+                "axis_count": 2,
+                "axes": ["identifiers", "whitespace"],
+                "groups_applied": ["rn", "ws"]
+            },
+            "difficulty": {
+                "complexity": 6,
+                "axes": {
+                    "identifiers": 7,
+                    "whitespace": 3
+                }
+            },
+            "notes": "Case convention (RN-05) combined with whitespace changes. Tests symbol-level rename normalization.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.55, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineInvoiceCalc.php", "namespace": "Acme\\Billing\\Pristine", "class": "PristineInvoiceCalc", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "MethodRenamedCalc.php", "namespace": "Acme\\Billing\\Renamed", "class": "MethodRenamedCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-05", "params": {"direction": "snake_to_camel"}}]},
+                {"file": "MethodWsCalc.php", "namespace": "Acme\\Billing\\MethodWs", "class": "MethodWsCalc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "RN-05", "params": {"direction": "camel_to_snake"}}, {"code": "WS-01", "params": {"blank_lines": 1}}]}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L06-co_method_rename-002",
+            "schema_version": 2,
+            "title": "Case convention with literal interference",
+            "description": "Same computeTotals method. Tests case convention combined with literal changes.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments", "identifiers", "case_convention", "literals"],
+            "rng_seed": 1610002,
+            "interference_profile": {
+                "axis_count": 2,
+                "axes": ["identifiers", "literals"],
+                "groups_applied": ["rn", "lt"]
+            },
+            "difficulty": {
+                "complexity": 6,
+                "axes": {
+                    "identifiers": 7,
+                    "literals": 6
+                }
+            },
+            "notes": "Case convention with literal changes. Tests symbol rename with literal normalization.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.55, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "LiteralCalc.php", "namespace": "Acme\\Billing\\Literal", "class": "LiteralCalc", "scaffold": "method_alpha", "group": "A", "pristine": false, "transforms": [{"code": "LT-01", "params": {"format": "hex"}}]},
+                {"file": "MethodRenamedCalc.php", "namespace": "Acme\\Billing\\Renamed", "class": "MethodRenamedCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-05", "params": {"direction": "snake_to_camel"}}]},
+                {"file": "MethodLiteralCalc.php", "namespace": "Acme\\Billing\\MethodLiteral", "class": "MethodLiteralCalc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "RN-05", "params": {"direction": "camel_to_snake"}}, {"code": "LT-02", "params": {"style": "double_quotes"}}]}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L06-co_method_rename-003",
+            "schema_version": 2,
+            "title": "Case convention with statement interference",
+            "description": "Same computeTotals method. Tests case convention combined with statement-level changes.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "case_convention", "literals"],
+            "rng_seed": 1610003,
+            "interference_profile": {
+                "axis_count": 3,
+                "axes": ["identifiers", "whitespace", "statements"],
+                "groups_applied": ["rn", "ws", "st"]
+            },
+            "difficulty": {
+                "complexity": 8,
+                "axes": {
+                    "identifiers": 7,
+                    "whitespace": 3,
+                    "statements": 9
+                }
+            },
+            "notes": "Case convention with statement interference. Tests comprehensive symbol-level normalization.",
+            "scoring": {"line_tolerance": 3, "member_jaccard_min": 0.5, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "FullStackCalc.php", "namespace": "Acme\\Billing\\FullStack", "class": "FullStackCalc", "scaffold": "method_alpha", "group": "A", "pristine": false, "transforms": [{"code": "RN-05", "params": {"direction": "snake_to_camel"}}, {"code": "WS-01", "params": {"blank_lines": 1}}, {"code": "ST-01", "params": {"lines": 1}}]},
+                {"file": "MethodStCalc.php", "namespace": "Acme\\Billing\\MethodSt", "class": "MethodStCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-05", "params": {"direction": "camel_to_snake"}}, {"code": "LT-01", "params": {"format": "hex"}}, {"code": "ST-01", "params": {"lines": 1}}]},
+                {"file": "MaxMethodCalc.php", "namespace": "Acme\\Billing\\MaxMethod", "class": "MaxMethodCalc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "RN-05", "params": {"direction": "snake_to_camel"}}, {"code": "WS-01", "params": {"blank_lines": 2}}, {"code": "LT-01", "params": {"format": "binary"}}, {"code": "ST-01", "params": {"lines": 1}}]}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L06-co_method_rename-004",
+            "schema_version": 2,
+            "title": "Heavy case convention interference",
+            "description": "Same computeTotals method. Heavy case convention combined with WS + LT + ST at maximum intensity.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "case_convention", "literals"],
+            "rng_seed": 1610004,
+            "interference_profile": {
+                "axis_count": 4,
+                "axes": ["identifiers", "whitespace", "literals", "statements"],
+                "groups_applied": ["rn", "ws", "lt", "st"]
+            },
+            "difficulty": {
+                "complexity": 10,
+                "axes": {
+                    "identifiers": 8,
+                    "whitespace": 4,
+                    "literals": 7,
+                    "statements": 10
+                }
+            },
+            "notes": "Heavy case convention interference: RN-05 combined with WS-01, LT-01+LT-02, ST-01. Tests comprehensive symbol-level normalization.",
+            "scoring": {"line_tolerance": 4, "member_jaccard_min": 0.45, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "HeavyCalcA.php", "namespace": "Acme\\Billing\\Heavy", "class": "HeavyCalcA", "scaffold": "method_alpha", "group": "A", "pristine": false, "transforms": [{"code": "RN-05", "params": {"direction": "snake_to_camel"}}, {"code": "WS-01", "params": {"blank_lines": 1}}, {"code": "LT-01", "params": {"format": "hex"}}, {"code": "ST-01", "params": {"lines": 1}}]},
+                {"file": "HeavyCalcB.php", "namespace": "Acme\\Billing\\Heavy", "class": "HeavyCalcB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-05", "params": {"direction": "camel_to_snake"}}, {"code": "WS-01", "params": {"blank_lines": 2}}, {"code": "LT-02", "params": {"style": "double_quotes"}}, {"code": "ST-01", "params": {"lines": 1}}]},
+                {"file": "HeavyCalcC.php", "namespace": "Acme\\Billing\\Heavy", "class": "HeavyCalcC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "RN-05", "params": {"direction": "snake_to_camel"}}, {"code": "LT-03", "params": {"style": "short_array"}}, {"code": "ST-05", "params": {"reorder_level": 1}}]}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L06-co_method_rename-005",
+            "schema_version": 2,
+            "title": "Maximum case convention interference",
+            "description": "Same computeTotals method. Maximum case convention with all transform types stacked. Tests the ceiling of symbol-level clone detection.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "case_convention", "literals"],
+            "rng_seed": 1610005,
+            "interference_profile": {
+                "axis_count": 5,
+                "axes": ["identifiers", "whitespace", "literals", "statements", "types"],
+                "groups_applied": ["rn", "ws", "lt", "st", "ty"]
+            },
+            "difficulty": {
+                "complexity": 12,
+                "axes": {
+                    "identifiers": 8,
+                    "whitespace": 5,
+                    "literals": 7,
+                    "statements": 12,
+                    "types": 6
+                }
+            },
+            "notes": "Maximum case convention interference: RN-05 with all major WS, LT, ST, TY codes. Tests comprehensive symbol-level normalization ceiling.",
+            "scoring": {"line_tolerance": 4, "member_jaccard_min": 0.4, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "MaxCalcA.php", "namespace": "Acme\\Billing\\Max", "class": "MaxCalcA", "scaffold": "method_alpha", "group": "A", "pristine": false, "transforms": [{"code": "RN-05", "params": {"direction": "snake_to_camel"}}, {"code": "WS-01", "params": {"blank_lines": 1}}, {"code": "LT-01", "params": {"format": "binary"}}, {"code": "ST-01", "params": {"lines": 2}}]},
+                {"file": "MaxCalcB.php", "namespace": "Acme\\Billing\\Max", "class": "MaxCalcB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-05", "params": {"direction": "camel_to_snake"}}, {"code": "LT-02", "params": {"style": "single_quotes"}}, {"code": "LT-03", "params": {"style": "long_array"}}]},
+                {"file": "MaxCalcC.php", "namespace": "Acme\\Billing\\Max", "class": "MaxCalcC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "RN-05", "params": {"direction": "snake_to_camel"}}, {"code": "ST-05", "params": {"reorder_level": 2}}, {"code": "LT-04", "params": {"style": "const_literal"}}]}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        }
+    ]
+}

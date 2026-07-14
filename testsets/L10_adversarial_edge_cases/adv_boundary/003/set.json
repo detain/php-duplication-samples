@@ -58,7 +58,8 @@
             },
             "applied_to": [
                 "src/TotalsCalculatorB.php"
-            ]
+            ],
+            "intensity": 2
         },
         {
             "code": "LT-03",
@@ -68,7 +69,8 @@
             },
             "applied_to": [
                 "src/TotalsCalculatorC.php"
-            ]
+            ],
+            "intensity": 2
         }
     ],
     "difficulty": {

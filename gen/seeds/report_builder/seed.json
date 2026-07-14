@@ -1,0 +1,14 @@
+{
+    "domain": "report_builder",
+    "summary": "Report generation with header, body, and footer composition.",
+    "size_class": "L",
+    "symbol": "generate",
+    "line_count": 92,
+    "token_count": 640,
+    "required_symbols": ["generate", "renderHeader", "renderBody", "renderFooter"],
+    "mount_modes": ["method"],
+    "compatible_interference": ["WS-03", "WS-06", "CM-03", "RN-01", "LT-02", "ST-01", "CF-05"],
+    "variants": [
+        {"file": "template_method.php", "code": "API-02", "name": "template_method"}
+    ]
+}

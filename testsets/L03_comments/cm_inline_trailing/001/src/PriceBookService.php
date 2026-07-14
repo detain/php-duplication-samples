@@ -15,8 +15,8 @@ final class PriceBookService
         $this->auditTrail[] = sprintf('%d:%s', count($this->auditTrail), $event);
     }
 
-    public function computeTotals(array $lineItems, float $taxRate, float $discountRate): array// NOCOMMIT 
-    {// TODO 
+    public function computeTotals(array $lineItems, float $taxRate, float $discountRate): array// REVIEW 
+    {// REVIEW 
         $subtotal = 0.0;
         $itemCount = 0;
         foreach ($lineItems as $item) {

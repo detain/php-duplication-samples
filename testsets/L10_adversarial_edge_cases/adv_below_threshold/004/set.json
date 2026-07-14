@@ -57,7 +57,8 @@
             "applied_to": [
                 "src/TotalsCalculatorB.php",
                 "src/TotalsCalculatorC.php"
-            ]
+            ],
+            "intensity": 1
         },
         {
             "code": "CM-03",
@@ -65,7 +66,8 @@
             "params": {},
             "applied_to": [
                 "src/TotalsCalculatorC.php"
-            ]
+            ],
+            "intensity": 1
         }
     ],
     "difficulty": {

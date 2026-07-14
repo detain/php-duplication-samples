@@ -1,0 +1,5 @@
+hared_helper": "RateLimiterTrait::assertWithinLimit()",
+                "collapses": [0, 1, 2],
+                "advisability": "recommended"
+            },
+            "solution": "<?php\ndeclare(strict_types=1);\n\nnamespace Acme\\Http\\Consolidated;\n\ntrait RateLimiterTrait\n{\n    protected array $requestCounts = [];\n    protected int $limit = 100;\n\n    public function assertWithinLimit(string $key): void\n    {\n        $count = $this->getRequestCount($key);\n        if ($count >= $this->limit) {\n            throw new \\RuntimeException('Rate limit exceeded', 429);\n        }\n        $this->incrementRequestCount($key);\n    }\n\n    protected function getRequestCount(string $key): int\n    {\n        return $this->requestCounts[$key] ?? 0;\n    }\n\n    protected function incrementRequestCount(string $key): void\n    {\n        $this->requestCounts[$key] = $this->getRequestCount($key) + 1;\n    }\n\n    public function setLimit(int $limit): void\n    {\n        $this->limit = $limit;\n    }\n}\n\nclass ApiR

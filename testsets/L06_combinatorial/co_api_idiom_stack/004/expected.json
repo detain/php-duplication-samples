@@ -1,0 +1,124 @@
+{
+    "schema_version": 2,
+    "set_id": "L06-co_api_idiom_stack-004",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-3",
+            "granularity": "method",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers",
+                "case_convention",
+                "literals"
+            ],
+            "token_hash": "e2c6d2de09404029",
+            "normalized_hash": "d5da572207f4bce3",
+            "members": [
+                {
+                    "file": "src/HeavyApiCalcA.php",
+                    "start_line": 9,
+                    "end_line": 35,
+                    "symbol": "computeTotals",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "invoice_totals",
+                    "fragments": [
+                        {
+                            "start_line": 18,
+                            "end_line": 20
+                        },
+                        {
+                            "start_line": 22,
+                            "end_line": 43
+                        }
+                    ],
+                    "unique_segments": [
+                        {
+                            "start_line": 17,
+                            "end_line": 21
+                        }
+                    ]
+                },
+                {
+                    "file": "src/HeavyApiCalcB.php",
+                    "start_line": 18,
+                    "end_line": 44,
+                    "symbol": "computeTotals",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "invoice_totals",
+                    "fragments": [
+                        {
+                            "start_line": 37,
+                            "end_line": 61
+                        }
+                    ],
+                    "unique_segments": [
+                        {
+                            "start_line": 35,
+                            "end_line": 36
+                        }
+                    ]
+                },
+                {
+                    "file": "src/HeavyApiCalcC.php",
+                    "start_line": 24,
+                    "end_line": 52,
+                    "symbol": "computeTotals",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "invoice_totals",
+                    "fragments": [
+                        {
+                            "start_line": 48,
+                            "end_line": 50
+                        },
+                        {
+                            "start_line": 52,
+                            "end_line": 59
+                        },
+                        {
+                            "start_line": 61,
+                            "end_line": 64
+                        },
+                        {
+                            "start_line": 66,
+                            "end_line": 75
+                        }
+                    ],
+                    "unique_segments": [
+                        {
+                            "start_line": 47,
+                            "end_line": 65
+                        }
+                    ]
+                }
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": true,
+                "semantic": true
+            },
+            "notes": "Heavy idiom stacking: ST + WS-01 + LT + RN-05 + TY transforms combined. Tests comprehensive structural normalization ceiling."
+        }
+    ],
+    "non_duplicates": [
+        {
+            "file": "src/MarginSummarizer.php",
+            "start_line": 12,
+            "end_line": 28,
+            "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total",
+            "trap": true
+        }
+    ],
+    "scoring": {
+        "line_tolerance": 4,
+        "member_jaccard_min": 0.4,
+        "min_members_for_credit": 2
+    }
+}

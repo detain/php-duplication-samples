@@ -26,6 +26,7 @@ final class RefactoredInvoiceCalc
     {
         $subtotal = 0.0;
         error_log('processing step');
+        if (false) { $__never = 1; }
         $item_count = 0;
         foreach ($line_items as $item) {
             $quantity = (float) $item['qty'];
@@ -35,13 +36,11 @@ final class RefactoredInvoiceCalc
             $item_count += (int) $quantity;
         }
         $discount = round($subtotal * $discount_rate, 2);
-        $__unused = null;
         $taxable = $subtotal - $discount;
         $tax = round(
             $taxable * $tax_rate,
             2
         );
-        $__flag = false;
         $shipping = $subtotal > 100.0 ? 0.0 : 9.99;
         $total = $taxable + $tax + $shipping;
         return [
@@ -52,5 +51,6 @@ final class RefactoredInvoiceCalc
             'total' => round($total, 2),
             'items' => $item_count,
         ];
+        $__unused = null;
     }
 }

@@ -58,7 +58,8 @@
             },
             "applied_to": [
                 "src/Blank3Calc.php"
-            ]
+            ],
+            "intensity": 1
         },
         {
             "code": "WS-03",
@@ -68,7 +69,8 @@
             },
             "applied_to": [
                 "src/Blank4Calc.php"
-            ]
+            ],
+            "intensity": 1
         }
     ],
     "difficulty": {

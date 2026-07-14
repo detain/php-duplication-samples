@@ -1,0 +1,163 @@
+{
+    "schema_version": 2,
+    "set_id": "L06-co_class_rename-004",
+    "level": 6,
+    "level_name": "combinatorial",
+    "family": "co_class_rename",
+    "title": "Case convention with type changes",
+    "description": "Same computeTotals method. Tests case convention combined with type hint changes.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "invoice_totals",
+    "difficulty_band": "very_hard",
+    "files": [
+        {
+            "path": "src/TypeCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 39,
+            "region_sloc": {
+                "sloc": 25,
+                "duplicate": 25,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/FullHierarchyCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 44,
+            "region_sloc": {
+                "sloc": 25,
+                "duplicate": 25,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/MaxHierarchyCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 43,
+            "region_sloc": {
+                "sloc": 25,
+                "duplicate": 25,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/MarginSummarizer.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 30
+        },
+        {
+            "path": "src/TaxRateRepository.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-3",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "RN-05",
+            "name": "case_convention",
+            "params": {
+                "direction": "snake_to_camel"
+            },
+            "applied_to": [
+                "src/TypeCalc.php",
+                "src/MaxHierarchyCalc.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "RN-05",
+            "name": "case_convention",
+            "params": {
+                "direction": "camel_to_snake"
+            },
+            "applied_to": [
+                "src/FullHierarchyCalc.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "LT-01",
+            "name": "numeric",
+            "params": {
+                "format": "hex"
+            },
+            "applied_to": [
+                "src/FullHierarchyCalc.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "LT-04",
+            "name": "const_vs_literal",
+            "params": {
+                "style": "const_literal"
+            },
+            "applied_to": [
+                "src/MaxHierarchyCalc.php"
+            ],
+            "intensity": 2
+        }
+    ],
+    "difficulty": {
+        "score": 79,
+        "requires": [
+            "identifier_canonicalization",
+            "literal_abstraction"
+        ],
+        "score_raw": 79,
+        "axes": {
+            "breadth": 3,
+            "intensity": 2,
+            "intensity_max": 2,
+            "semantic_depth": 0,
+            "partiality": 1
+        },
+        "application_count": 5,
+        "axis_count": 3
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L06_combinatorial/co_class_rename.json",
+        "version": "2.0.0",
+        "rng_seed": 1611004
+    },
+    "interference_profile": {
+        "axis_count": 3,
+        "per_carrier_axes": {
+            "src/TypeCalc.php": [
+                "RN-05"
+            ],
+            "src/FullHierarchyCalc.php": [
+                "RN-05",
+                "LT-01"
+            ],
+            "src/MaxHierarchyCalc.php": [
+                "RN-05",
+                "LT-04"
+            ]
+        },
+        "groups_touched": [
+            "A"
+        ],
+        "stack_depth_max": 2,
+        "symmetric_overlap": 1,
+        "pairwise_overlap": 0.4444,
+        "combination_design": "structural_only"
+    }
+}

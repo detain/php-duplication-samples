@@ -1,0 +1,100 @@
+{
+    "schema_version": 1,
+    "set_id": "L15-pc_many_clones-001",
+    "level": 15,
+    "level_name": "performance_ceiling",
+    "family": "pc_many_clones",
+    "title": "Many clone pairs stress test",
+    "description": "Tests pc_many_clones: 20+ clone pairs in one file to stress test detection tools.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "invoice_totals",
+    "difficulty_band": "easy",
+    "files": [
+        {
+            "path": "src/ManyCloneA.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 39
+        },
+        {
+            "path": "src/ManyCloneB.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 44
+        },
+        {
+            "path": "src/ManyCloneC.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 43
+        },
+        {
+            "path": "src/ManyCloneD.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 43
+        },
+        {
+            "path": "src/ManyCloneDistractor.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 30
+        },
+        {
+            "path": "src/ManyCloneClean.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-2",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 4
+    },
+    "interference": [
+        {
+            "code": "LT-01",
+            "name": "numeric",
+            "params": {},
+            "applied_to": [
+                "src/ManyCloneB.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "LT-02",
+            "name": "string",
+            "params": {},
+            "applied_to": [
+                "src/ManyCloneC.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "LT-03",
+            "name": "array_values",
+            "params": {},
+            "applied_to": [
+                "src/ManyCloneD.php"
+            ],
+            "intensity": 2
+        }
+    ],
+    "difficulty": {
+        "score": 18,
+        "requires": [
+            "identifier_canonicalization",
+            "literal_abstraction"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L15_performance_ceiling/pc_many_clones.json",
+        "version": "1.0.0",
+        "rng_seed": 150201
+    }
+}

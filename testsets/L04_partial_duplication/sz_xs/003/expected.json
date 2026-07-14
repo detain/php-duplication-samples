@@ -1,0 +1,71 @@
+{
+    "schema_version": 2,
+    "set_id": "L04-sz_xs-003",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-3",
+            "granularity": "method",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers",
+                "literals"
+            ],
+            "token_hash": "4ffb959f327d1b8c",
+            "normalized_hash": "5015f13c10f8031c",
+            "members": [
+                {
+                    "file": "src/TinyCloneA.php",
+                    "start_line": 9,
+                    "end_line": 31,
+                    "symbol": "parseRow",
+                    "pristine": true,
+                    "group": "A",
+                    "seed": "csv_import"
+                },
+                {
+                    "file": "src/TinyCloneB.php",
+                    "start_line": 18,
+                    "end_line": 30,
+                    "symbol": "parseRow",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "csv_import"
+                },
+                {
+                    "file": "src/TinyCloneC.php",
+                    "start_line": 24,
+                    "end_line": 34,
+                    "symbol": "parseRow",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "csv_import"
+                }
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": true,
+                "semantic": true
+            },
+            "notes": "Tiny shared region via extensive trimming."
+        }
+    ],
+    "non_duplicates": [
+        {
+            "file": "src/XmlImportService.php",
+            "start_line": 9,
+            "end_line": 78,
+            "reason": "near-miss: similar parsing vocabulary but handles XML",
+            "trap": true
+        }
+    ],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.6,
+        "min_members_for_credit": 2
+    }
+}

@@ -18,7 +18,7 @@ final class DeadCodeInvoiceCalc
     public function computeTotals(array $lineItems, float $taxRate, float $discountRate): array
     {
         $subtotal = 0.0;
-        $__dead = trim(" ");
+        $__tmp = array_keys([]);
         $itemCount = 0;
         foreach ($lineItems as $item) {
             $quantity = (float) $item['qty'];

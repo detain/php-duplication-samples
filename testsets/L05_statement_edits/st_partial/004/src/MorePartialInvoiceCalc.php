@@ -33,7 +33,7 @@ final class MorePartialInvoiceCalc
             $subtotal += $lineTotal;
             $itemCount += (int) $quantity;
         }
-        $__unused = null;
+        $__tmp = array_keys([]);
         $discount = round($subtotal * $discountRate, 2);
         $taxable = $subtotal - $discount;
         $tax = round($taxable * $taxRate, 2);

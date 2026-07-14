@@ -1,0 +1,139 @@
+{
+    "level": 19,
+    "level_name": "adversarial_cluster",
+    "level_dir": "L19_adversarial_cluster",
+    "family": "ac_mixed_adversarial",
+    "sets": [
+        {
+            "set_id": "L19-ac_mixed_adversarial-001",
+            "title": "Multiple adversarial patterns - basic",
+            "description": "Tests ac_mixed_adversarial: multiple adversarial patterns combined.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["identifiers", "literals", "comments"],
+            "rng_seed": 190201,
+            "notes": "L19: ac_mixed_adversarial - mixed adversarial patterns.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.7, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["identifier_canonicalization", "literal_abstraction", "comment_stripping"],
+            "carriers": [
+                {"file": "MixedAdvA.php", "namespace": "Acme\\MixedAdv\\Alpha", "class": "MixedAdvA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "MixedAdvB.php", "namespace": "Acme\\MixedAdv\\Beta", "class": "MixedAdvB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-05"}, {"code": "LT-01"}]}
+            ],
+            "distractors": [
+                {"file": "MixedAdvDistractor.php", "namespace": "Acme\\MixedAdv\\Distract", "class": "MixedAdvDistractor", "source": "nearmiss_invoice", "reason": "Near-miss: mixed adversarial confusion"}
+            ],
+            "cleans": [
+                {"file": "MixedAdvClean.php", "namespace": "Acme\\MixedAdv\\Config", "class": "MixedAdvClean", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L19-ac_mixed_adversarial-002",
+            "title": "Mixed adversarial with comments and literals",
+            "description": "Multiple adversarial patterns with comment and literal transforms.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["comments", "literals", "identifiers"],
+            "rng_seed": 190202,
+            "notes": "L19: ac_mixed_adversarial + CM + LT transforms.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.65, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["comment_stripping", "literal_abstraction", "identifier_canonicalization"],
+            "carriers": [
+                {"file": "MixedAdvA.php", "namespace": "Acme\\MixedAdv\\Alpha", "class": "MixedAdvA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "MixedAdvB.php", "namespace": "Acme\\MixedAdv\\Beta", "class": "MixedAdvB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "CM-01"}, {"code": "LT-02"}, {"code": "RN-05"}]}
+            ],
+            "distractors": [
+                {"file": "MixedAdvDistractor.php", "namespace": "Acme\\MixedAdv\\Distract", "class": "MixedAdvDistractor", "source": "nearmiss_access", "reason": "Near-miss: mixed adversarial auth confusion"}
+            ],
+            "cleans": [
+                {"file": "MixedAdvClean.php", "namespace": "Acme\\MixedAdv\\Config", "class": "MixedAdvClean", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L19-ac_mixed_adversarial-003",
+            "title": "Mixed adversarial three carriers",
+            "description": "Three carriers with different adversarial pattern combinations.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["identifiers", "literals", "comments"],
+            "rng_seed": 190203,
+            "notes": "L19: ac_mixed_adversarial with three carriers.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 3},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["identifier_canonicalization", "literal_abstraction", "comment_stripping"],
+            "carriers": [
+                {"file": "MixedAdvA.php", "namespace": "Acme\\MixedAdv\\Alpha", "class": "MixedAdvA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "MixedAdvB.php", "namespace": "Acme\\MixedAdv\\Beta", "class": "MixedAdvB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-03"}, {"code": "CM-02"}]},
+                {"file": "MixedAdvC.php", "namespace": "Acme\\MixedAdv\\Gamma", "class": "MixedAdvC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "RN-05"}, {"code": "LT-01"}, {"code": "CM-03"}]}
+            ],
+            "distractors": [
+                {"file": "MixedAdvDistractor.php", "namespace": "Acme\\MixedAdv\\Distract", "class": "MixedAdvDistractor", "source": "nearmiss_invoice", "reason": "Near-miss: mixed adversarial invoice confusion"}
+            ],
+            "cleans": [
+                {"file": "MixedAdvClean.php", "namespace": "Acme\\MixedAdv\\Config", "class": "MixedAdvClean", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L19-ac_mixed_adversarial-004",
+            "title": "Mixed adversarial with statement transforms",
+            "description": "Multiple adversarial patterns with statement-level changes.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["identifiers", "controlflow"],
+            "rng_seed": 190204,
+            "notes": "L19: ac_mixed_adversarial + ST-05 + ST-09.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["ast_canonicalization", "identifier_canonicalization", "commutative_reordering"],
+            "carriers": [
+                {"file": "MixedAdvA.php", "namespace": "Acme\\MixedAdv\\Alpha", "class": "MixedAdvA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "MixedAdvB.php", "namespace": "Acme\\MixedAdv\\Beta", "class": "MixedAdvB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-05"}, {"code": "RN-05"}]}
+            ],
+            "distractors": [
+                {"file": "MixedAdvDistractor.php", "namespace": "Acme\\MixedAdv\\Distract", "class": "MixedAdvDistractor", "source": "nearmiss_access", "reason": "Near-miss: mixed adversarial auth confusion"}
+            ],
+            "cleans": [
+                {"file": "MixedAdvClean.php", "namespace": "Acme\\MixedAdv\\Config", "class": "MixedAdvClean", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L19-ac_mixed_adversarial-005",
+            "title": "Mixed adversarial with extensive transforms",
+            "description": "Multiple adversarial patterns with all transform types.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["identifiers", "literals", "comments"],
+            "rng_seed": 190205,
+            "notes": "L19: ac_mixed_adversarial extensive combined transforms.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.55, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["identifier_canonicalization", "literal_abstraction", "comment_stripping"],
+            "carriers": [
+                {"file": "MixedAdvA.php", "namespace": "Acme\\MixedAdv\\Alpha", "class": "MixedAdvA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "MixedAdvB.php", "namespace": "Acme\\MixedAdv\\Beta", "class": "MixedAdvB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-05"}, {"code": "LT-01"}, {"code": "LT-02"}, {"code": "CM-01"}, {"code": "CM-03"}]}
+            ],
+            "distractors": [
+                {"file": "MixedAdvDistractor.php", "namespace": "Acme\\MixedAdv\\Distract", "class": "MixedAdvDistractor", "source": "nearmiss_invoice", "reason": "Near-miss: mixed adversarial invoice confusion"}
+            ],
+            "cleans": [
+                {"file": "MixedAdvClean.php", "namespace": "Acme\\MixedAdv\\Config", "class": "MixedAdvClean", "source": "clean_billing"}
+            ]
+        }
+    ]
+}

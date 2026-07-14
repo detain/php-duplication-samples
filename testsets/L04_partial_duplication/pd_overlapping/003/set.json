@@ -1,0 +1,200 @@
+{
+    "schema_version": 2,
+    "set_id": "L04-pd_overlapping-003",
+    "level": 4,
+    "level_name": "partial_duplication",
+    "family": "pd_overlapping",
+    "title": "Overlapping with scattered insertions in overlapping regions",
+    "description": "Creates complex overlapping patterns with scattered unique insertions.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "invoice_totals",
+    "difficulty_band": "very_hard",
+    "files": [
+        {
+            "path": "src/CloneA1.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 39,
+            "region_sloc": {
+                "sloc": 25,
+                "duplicate": 25,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/CloneA2.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 46,
+            "region_sloc": {
+                "sloc": 27,
+                "duplicate": 25,
+                "unique": 2,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/CloneB1.php",
+            "role": "carrier",
+            "duplicate_group": "B",
+            "sloc": 39,
+            "region_sloc": {
+                "sloc": 25,
+                "duplicate": 25,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/CloneB2.php",
+            "role": "carrier",
+            "duplicate_group": "B",
+            "sloc": 43,
+            "region_sloc": {
+                "sloc": 24,
+                "duplicate": 23,
+                "unique": 1,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/Dist1.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 30
+        },
+        {
+            "path": "src/Dist2.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 30
+        },
+        {
+            "path": "src/Clean1.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        },
+        {
+            "path": "src/Clean2.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-3",
+        "granularity": "method",
+        "clusters": 2,
+        "instances": 4
+    },
+    "interference": [
+        {
+            "code": "ST-01",
+            "name": "insert_logging",
+            "params": {
+                "after": [
+                    5
+                ],
+                "message": "log1",
+                "call": "error_log"
+            },
+            "applied_to": [
+                "src/CloneA2.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "ST-02",
+            "name": "insert_dead",
+            "params": {
+                "count": 1,
+                "after": [
+                    10
+                ]
+            },
+            "applied_to": [
+                "src/CloneA2.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "ST-01",
+            "name": "insert_logging",
+            "params": {
+                "after": [
+                    3
+                ],
+                "message": "log2",
+                "call": "error_log"
+            },
+            "applied_to": [
+                "src/CloneB2.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "ST-07",
+            "name": "partial_fragment",
+            "params": {
+                "head_trim": 2,
+                "tail_trim": 0
+            },
+            "applied_to": [
+                "src/CloneB2.php"
+            ],
+            "intensity": 3
+        }
+    ],
+    "difficulty": {
+        "score": 61,
+        "requires": [
+            "ast_canonicalization",
+            "deadcode_elimination"
+        ],
+        "score_raw": 61,
+        "axes": {
+            "breadth": 3,
+            "intensity": 3,
+            "intensity_max": 3,
+            "semantic_depth": 0,
+            "partiality": 1
+        },
+        "application_count": 4,
+        "axis_count": 3
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L04_partial_duplication/pd_overlapping.json",
+        "version": "2.0.0",
+        "rng_seed": 105103
+    },
+    "interference_profile": {
+        "axis_count": 3,
+        "per_carrier_axes": {
+            "src/CloneA2.php": [
+                "ST-01",
+                "ST-02"
+            ],
+            "src/CloneB2.php": [
+                "ST-01",
+                "ST-07"
+            ]
+        },
+        "groups_touched": [
+            "A",
+            "B"
+        ],
+        "stack_depth_max": 2,
+        "symmetric_overlap": 1,
+        "pairwise_overlap": 0.3333,
+        "combination_design": "structural_only"
+    },
+    "engine_features": [
+        "fragment_emission",
+        "multi_cluster"
+    ]
+}

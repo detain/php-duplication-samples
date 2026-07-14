@@ -59,7 +59,8 @@
             },
             "applied_to": [
                 "src/StepInvoiceCalc.php"
-            ]
+            ],
+            "intensity": 3
         },
         {
             "code": "ST-03",
@@ -70,7 +71,8 @@
             },
             "applied_to": [
                 "src/StepperInvoiceCalc.php"
-            ]
+            ],
+            "intensity": 3
         }
     ],
     "difficulty": {

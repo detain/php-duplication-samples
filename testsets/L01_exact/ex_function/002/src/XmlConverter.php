@@ -4,29 +4,76 @@ declare(strict_types=1);
 
 namespace Acme\Data\Transforms;
 
-/**
- * Measures per-column character widths for a delimited row.
- */
 final class XmlConverter
 {
-    public function measureRow(string $line, string $delimiter): array
+    public function process(string $content, array $config = []): array
     {
-        $columns = explode($delimiter, $line);
-        $widths = array_map(
-            static fn (string $column): int => mb_strlen(trim($column)),
-            $columns
-        );
-        $report = [];
-        foreach ($widths as $index => $width) {
-            $report['col_' . $index] = $width;
+        $delimiter = $config['delimiter'] ?? ',';
+        $hasHeader = $config['has_header'] ?? true;
+        $trim = $config['trim'] ?? true;
+
+        $lines = explode("\n", trim($content));
+        if (empty($lines)) {
+            return [];
         }
-        $report['__total'] = array_sum($widths);
-        $report['__max'] = $widths === [] ? 0 : max($widths);
-        return $report;
+
+        $header = null;
+        $rows = [];
+
+        foreach ($lines as $index => $line) {
+            if ($trim) {
+                $line = trim($line);
+            }
+            if ($line === '') {
+                continue;
+            }
+
+            $columns = str_getcsv($line, $delimiter);
+            if ($trim) {
+                $columns = array_map('trim', $columns);
+            }
+
+            if ($hasHeader && $index === 0) {
+                $header = $columns;
+                continue;
+            }
+
+            if ($header !== null) {
+                $row = [];
+                foreach ($header as $i => $colName) {
+                    $row[$colName] = $columns[$i] ?? null;
+                }
+                $rows[] = $row;
+            } else {
+                $rows[] = $columns;
+            }
+        }
+
+        return $rows;
     }
 
-    public function delimiterName(string $delimiter): string
+    public function toCsv(array $data, array $config = []): string
     {
-        return $delimiter === "\t" ? 'tab' : 'char';
+        $delimiter = $config['delimiter'] ?? ',';
+        $includeHeader = $config['include_header'] ?? true;
+
+        if (empty($data)) {
+            return '';
+        }
+
+        $lines = [];
+        $firstRow = $data[0];
+        $columns = is_array($firstRow) ? array_keys($firstRow) : range(0, count($firstRow) - 1);
+
+        if ($includeHeader && is_array($firstRow)) {
+            $lines[] = implode($delimiter, array_map(fn($c) => '"' . str_replace('"', '""', $c) . '"', $columns));
+        }
+
+        foreach ($data as $row) {
+            $values = is_array($row) ? array_values($row) : $row;
+            $lines[] = implode($delimiter, array_map(fn($v) => '"' . str_replace('"', '""', (string) $v) . '"', $values));
+        }
+
+        return implode("\n", $lines);
     }
 }

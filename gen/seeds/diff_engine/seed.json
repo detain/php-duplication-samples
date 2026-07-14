@@ -1,0 +1,12 @@
+{
+    "domain": "diff_engine",
+    "summary": "Text/array differ with semantic diff output.",
+    "size_class": "M",
+    "symbol": "diff",
+    "line_count": 100,
+    "token_count": 680,
+    "required_symbols": ["diff", "apply", "render"],
+    "mount_modes": ["method"],
+    "compatible_interference": ["WS-03", "CM-03", "RN-01", "LT-02", "CF-05"],
+    "variants": []
+}

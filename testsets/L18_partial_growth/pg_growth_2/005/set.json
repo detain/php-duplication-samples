@@ -1,0 +1,138 @@
+{
+    "schema_version": 1,
+    "set_id": "L18-pg_growth_2-005",
+    "level": 18,
+    "level_name": "partial_growth",
+    "family": "pg_growth_2",
+    "title": "Grown set with combined transforms",
+    "description": "Grown set with extensive combined transformations.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "invoice_totals",
+    "difficulty_band": "medium",
+    "files": [
+        {
+            "path": "src/GrownA.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 39
+        },
+        {
+            "path": "src/GrownB.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 44
+        },
+        {
+            "path": "src/GrownC.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 44
+        },
+        {
+            "path": "src/GrownD.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 44
+        },
+        {
+            "path": "src/GrownDistractor.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 30
+        },
+        {
+            "path": "src/GrownClean.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-2",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 4
+    },
+    "interference": [
+        {
+            "code": "RN-05",
+            "name": "case_convention",
+            "params": {},
+            "applied_to": [
+                "src/GrownB.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "LT-01",
+            "name": "numeric",
+            "params": {},
+            "applied_to": [
+                "src/GrownB.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "ST-08",
+            "name": "param_reorder",
+            "params": {},
+            "applied_to": [
+                "src/GrownC.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "CM-03",
+            "name": "docblock",
+            "params": {},
+            "applied_to": [
+                "src/GrownC.php"
+            ],
+            "intensity": 1
+        },
+        {
+            "code": "ST-09",
+            "name": "expr_tweak",
+            "params": {},
+            "applied_to": [
+                "src/GrownD.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "LT-02",
+            "name": "string",
+            "params": {},
+            "applied_to": [
+                "src/GrownD.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "CM-01",
+            "name": "line_comment_add",
+            "params": {},
+            "applied_to": [
+                "src/GrownD.php"
+            ],
+            "intensity": 1
+        }
+    ],
+    "difficulty": {
+        "score": 43,
+        "requires": [
+            "identifier_canonicalization",
+            "literal_abstraction",
+            "comment_stripping",
+            "ast_canonicalization"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L18_partial_growth/pg_growth_2.json",
+        "version": "1.0.0",
+        "rng_seed": 180205
+    }
+}

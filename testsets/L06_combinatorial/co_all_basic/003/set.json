@@ -1,0 +1,202 @@
+{
+    "schema_version": 2,
+    "set_id": "L06-co_all_basic-003",
+    "level": 6,
+    "level_name": "combinatorial",
+    "family": "co_all_basic",
+    "title": "All basic types with type hint changes",
+    "description": "Same computeTotals method. Tests WS + CM + RN + LT + ST + TY combination with comprehensive type hint modifications.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "invoice_totals",
+    "difficulty_band": "expert",
+    "files": [
+        {
+            "path": "src/TypedCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 39,
+            "region_sloc": {
+                "sloc": 25,
+                "duplicate": 25,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/AllBasicCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 42,
+            "region_sloc": {
+                "sloc": 23,
+                "duplicate": 22,
+                "unique": 1,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/AllBasicAltCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 46,
+            "region_sloc": {
+                "sloc": 28,
+                "duplicate": 25,
+                "unique": 3,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/MarginSummarizer.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 30
+        },
+        {
+            "path": "src/TaxRateRepository.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-3",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "ST-05",
+            "name": "reorder_independent",
+            "params": {
+                "reorder_level": 1
+            },
+            "applied_to": [
+                "src/AllBasicCalc.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "RN-05",
+            "name": "case_convention",
+            "params": {
+                "direction": "camel_to_snake"
+            },
+            "applied_to": [
+                "src/AllBasicCalc.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "LT-01",
+            "name": "numeric",
+            "params": {
+                "format": "hex"
+            },
+            "applied_to": [
+                "src/AllBasicCalc.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "WS-01",
+            "name": "blank_before",
+            "params": {
+                "blank_lines": 1
+            },
+            "applied_to": [
+                "src/AllBasicCalc.php"
+            ],
+            "intensity": 1
+        },
+        {
+            "code": "ST-02",
+            "name": "insert_dead",
+            "params": {
+                "lines": 1
+            },
+            "applied_to": [
+                "src/AllBasicAltCalc.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "RN-05",
+            "name": "case_convention",
+            "params": {
+                "direction": "snake_to_camel"
+            },
+            "applied_to": [
+                "src/AllBasicAltCalc.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "LT-03",
+            "name": "array_values",
+            "params": {
+                "style": "long_array"
+            },
+            "applied_to": [
+                "src/AllBasicAltCalc.php"
+            ],
+            "intensity": 2
+        }
+    ],
+    "difficulty": {
+        "score": 100,
+        "requires": [
+            "ast_canonicalization",
+            "commutative_reordering",
+            "identifier_canonicalization",
+            "literal_abstraction",
+            "whitespace_normalization",
+            "deadcode_elimination"
+        ],
+        "score_raw": 100,
+        "axes": {
+            "breadth": 6,
+            "intensity": 2.14,
+            "intensity_max": 3,
+            "semantic_depth": 0,
+            "partiality": 1
+        },
+        "application_count": 7,
+        "axis_count": 6
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L06_combinatorial/co_all_basic.json",
+        "version": "2.0.0",
+        "rng_seed": 1609003
+    },
+    "interference_profile": {
+        "axis_count": 6,
+        "per_carrier_axes": {
+            "src/AllBasicCalc.php": [
+                "ST-05",
+                "RN-05",
+                "LT-01",
+                "WS-01"
+            ],
+            "src/AllBasicAltCalc.php": [
+                "ST-02",
+                "RN-05",
+                "LT-03"
+            ]
+        },
+        "groups_touched": [
+            "A"
+        ],
+        "stack_depth_max": 4,
+        "symmetric_overlap": 1,
+        "pairwise_overlap": 0.1667,
+        "combination_design": "type2_plus_type1"
+    },
+    "engine_features": [
+        "fragment_emission"
+    ]
+}

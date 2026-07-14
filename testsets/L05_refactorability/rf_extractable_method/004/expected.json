@@ -1,0 +1,82 @@
+{
+    "schema_version": 2,
+    "set_id": "L05-rf_extractable_method-004",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-1",
+            "granularity": "method",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers",
+                "literals"
+            ],
+            "token_hash": "1f6ea280b2b533ea",
+            "normalized_hash": "f8fd14b107015e86",
+            "members": [
+                {
+                    "file": "src/SyncEventDispatcher.php",
+                    "start_line": 9,
+                    "end_line": 62,
+                    "symbol": "buildEvent",
+                    "pristine": true,
+                    "group": "A",
+                    "seed": "event_dispatcher"
+                },
+                {
+                    "file": "src/AsyncEventDispatcher.php",
+                    "start_line": 18,
+                    "end_line": 71,
+                    "symbol": "buildEvent",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "event_dispatcher"
+                },
+                {
+                    "file": "src/BatchEventDispatcher.php",
+                    "start_line": 24,
+                    "end_line": 77,
+                    "symbol": "buildEvent",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "event_dispatcher"
+                }
+            ],
+            "detection_expectation": {
+                "text_based": true,
+                "token_based": true,
+                "ast_based": true
+            },
+            "notes": ""
+        }
+    ],
+    "non_duplicates": [],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.6,
+        "min_members_for_credit": 2
+    },
+    "intended_refactoring": {
+        "kind": "extract_method_with_holes",
+        "unified_symbol": "buildEvent",
+        "unified_signature": "buildEvent(type, payload, metadata)",
+        "holes": [
+            {
+                "hole_id": "timestamp",
+                "description": "No automatic timestamp injection"
+            },
+            {
+                "hole_id": "validation",
+                "description": "No event type validation"
+            }
+        ],
+        "collapses": [
+            0,
+            1,
+            2
+        ],
+        "advisability": "recommended"
+    }
+}

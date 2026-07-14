@@ -33,7 +33,7 @@
             "path": "src/PayrollAccessLogger.php",
             "role": "distractor",
             "duplicate_group": null,
-            "sloc": 28
+            "sloc": 63
         },
         {
             "path": "src/SessionValidator.php",
@@ -58,7 +58,8 @@
             },
             "applied_to": [
                 "src/AccessControlDataShape.php"
-            ]
+            ],
+            "intensity": 4
         }
     ],
     "difficulty": {

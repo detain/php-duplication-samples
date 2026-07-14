@@ -1,5 +1,5 @@
 {
-    "schema_version": 1,
+    "schema_version": 2,
     "set_id": "L03-cm_line_added-004",
     "clusters": [
         {
@@ -19,21 +19,55 @@
                     "start_line": 9,
                     "end_line": 27,
                     "symbol": "authorize",
-                    "pristine": true
+                    "pristine": true,
+                    "group": "A",
+                    "seed": "access_guard"
                 },
                 {
                     "file": "src/AccessServiceDecorated.php",
                     "start_line": 18,
                     "end_line": 40,
                     "symbol": "authorize",
-                    "pristine": false
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "access_guard",
+                    "fragments": [
+                        {
+                            "start_line": 35,
+                            "end_line": 37
+                        },
+                        {
+                            "start_line": 39,
+                            "end_line": 45
+                        },
+                        {
+                            "start_line": 47,
+                            "end_line": 50
+                        },
+                        {
+                            "start_line": 52,
+                            "end_line": 54
+                        },
+                        {
+                            "start_line": 56,
+                            "end_line": 57
+                        }
+                    ],
+                    "unique_segments": [
+                        {
+                            "start_line": 38,
+                            "end_line": 55
+                        }
+                    ]
                 },
                 {
                     "file": "src/ThirdService.php",
                     "start_line": 24,
                     "end_line": 42,
                     "symbol": "authorize",
-                    "pristine": true
+                    "pristine": true,
+                    "group": "A",
+                    "seed": "access_guard"
                 }
             ],
             "detection_expectation": {

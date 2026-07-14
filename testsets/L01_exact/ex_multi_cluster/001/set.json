@@ -76,7 +76,7 @@
         "present": true,
         "clone_type": "type-1",
         "granularity": "function",
-        "clusters": 1,
+        "clusters": 2,
         "instances": 6
     },
     "interference": [],

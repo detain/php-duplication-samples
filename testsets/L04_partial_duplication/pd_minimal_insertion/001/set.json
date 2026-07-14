@@ -1,0 +1,137 @@
+{
+    "schema_version": 2,
+    "set_id": "L04-pd_minimal_insertion-001",
+    "level": 4,
+    "level_name": "partial_duplication",
+    "family": "pd_minimal_insertion",
+    "title": "Partial clone with minimal head insertion (1-2 lines)",
+    "description": "The same computeTotals method in three billing classes. Carrier B and C have 1-2 unique lines inserted at the start, creating a partial clone where most lines are shared but the head differs slightly.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "invoice_totals",
+    "difficulty_band": "medium",
+    "files": [
+        {
+            "path": "src/PristineInvoiceCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 39,
+            "region_sloc": {
+                "sloc": 25,
+                "duplicate": 25,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/MinimalHeadInsertCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 43,
+            "region_sloc": {
+                "sloc": 24,
+                "duplicate": 24,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/MinimalHeadInsert2Calc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 41,
+            "region_sloc": {
+                "sloc": 23,
+                "duplicate": 23,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/MarginSummarizer.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 30
+        },
+        {
+            "path": "src/TaxRateRepository.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-3",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "ST-07",
+            "name": "partial_fragment",
+            "params": {
+                "head_trim": 1,
+                "tail_trim": 0
+            },
+            "applied_to": [
+                "src/MinimalHeadInsertCalc.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "ST-07",
+            "name": "partial_fragment",
+            "params": {
+                "head_trim": 2,
+                "tail_trim": 0
+            },
+            "applied_to": [
+                "src/MinimalHeadInsert2Calc.php"
+            ],
+            "intensity": 3
+        }
+    ],
+    "difficulty": {
+        "score": 42,
+        "requires": [
+            "ast_canonicalization",
+            "deadcode_elimination"
+        ],
+        "score_raw": 42,
+        "axes": {
+            "breadth": 1,
+            "intensity": 3,
+            "intensity_max": 3,
+            "semantic_depth": 0,
+            "partiality": 1
+        },
+        "application_count": 2,
+        "axis_count": 1
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L04_partial_duplication/pd_minimal_insertion.json",
+        "version": "2.0.0",
+        "rng_seed": 104101
+    },
+    "interference_profile": {
+        "axis_count": 1,
+        "per_carrier_axes": {
+            "src/MinimalHeadInsertCalc.php": [
+                "ST-07"
+            ],
+            "src/MinimalHeadInsert2Calc.php": [
+                "ST-07"
+            ]
+        },
+        "groups_touched": [
+            "A"
+        ],
+        "stack_depth_max": 1,
+        "symmetric_overlap": 1,
+        "pairwise_overlap": 1,
+        "combination_design": "structural_only"
+    }
+}

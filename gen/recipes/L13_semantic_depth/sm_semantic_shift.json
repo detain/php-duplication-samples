@@ -1,0 +1,139 @@
+{
+    "level": 13,
+    "level_name": "semantic_depth",
+    "level_dir": "L13_semantic_depth",
+    "family": "sm_semantic_shift",
+    "sets": [
+        {
+            "set_id": "L13-sm_semantic_shift-001",
+            "title": "Semantic shift via literal meaning change",
+            "description": "Same code structure but literals change the semantic domain (numbers as codes vs counts).",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["identifiers"],
+            "rng_seed": 130301,
+            "notes": "L13: Semantic shift via literal transformation.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.7, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["identifier_canonicalization", "literal_abstraction"],
+            "carriers": [
+                {"file": "SemanticShiftA.php", "namespace": "Acme\\Semantic\\Alpha", "class": "SemanticShiftA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "SemanticShiftB.php", "namespace": "Acme\\Semantic\\Beta", "class": "SemanticShiftB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-01"}, {"code": "LT-02"}]}
+            ],
+            "distractors": [
+                {"file": "SemanticShiftDistractor.php", "namespace": "Acme\\Semantic\\Distract", "class": "SemanticShiftDistractor", "source": "nearmiss_access", "reason": "Near-miss: similar auth structure"}
+            ],
+            "cleans": [
+                {"file": "SemanticShiftClean.php", "namespace": "Acme\\Semantic\\Config", "class": "SemanticShiftClean", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L13-sm_semantic_shift-002",
+            "title": "Semantic shift with RN-05 identifier rename",
+            "description": "Identifier rename combined with literal shift for semantic drift.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["identifiers"],
+            "rng_seed": 130302,
+            "notes": "L13: Semantic shift + RN-05 rename.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.65, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["identifier_canonicalization"],
+            "carriers": [
+                {"file": "SemanticShiftA.php", "namespace": "Acme\\Semantic\\Alpha", "class": "SemanticShiftA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "SemanticShiftB.php", "namespace": "Acme\\Semantic\\Beta", "class": "SemanticShiftB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-05"}]}
+            ],
+            "distractors": [
+                {"file": "SemanticShiftDistractor.php", "namespace": "Acme\\Semantic\\Distract", "class": "SemanticShiftDistractor", "source": "nearmiss_invoice", "reason": "Near-miss: similar calculation"}
+            ],
+            "cleans": [
+                {"file": "SemanticShiftClean.php", "namespace": "Acme\\Semantic\\Config", "class": "SemanticShiftClean", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L13-sm_semantic_shift-003",
+            "title": "Multi-carrier semantic drift",
+            "description": "Three carriers showing progressive semantic drift through transforms.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["identifiers", "literals", "comments"],
+            "rng_seed": 130303,
+            "notes": "L13: Three-carrier progressive semantic drift.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 3},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["identifier_canonicalization", "literal_abstraction", "comment_stripping"],
+            "carriers": [
+                {"file": "SemanticShiftA.php", "namespace": "Acme\\Semantic\\Alpha", "class": "SemanticShiftA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "SemanticShiftB.php", "namespace": "Acme\\Semantic\\Beta", "class": "SemanticShiftB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-03"}]},
+                {"file": "SemanticShiftC.php", "namespace": "Acme\\Semantic\\Gamma", "class": "SemanticShiftC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "RN-05"}, {"code": "LT-01"}, {"code": "CM-03"}]}
+            ],
+            "distractors": [
+                {"file": "SemanticShiftDistractor.php", "namespace": "Acme\\Semantic\\Distract", "class": "SemanticShiftDistractor", "source": "nearmiss_access", "reason": "Near-miss: similar auth pattern"}
+            ],
+            "cleans": [
+                {"file": "SemanticShiftClean.php", "namespace": "Acme\\Semantic\\Config", "class": "SemanticShiftClean", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L13-sm_semantic_shift-004",
+            "title": "Semantic shift with statement structure change",
+            "description": "ST-05 statement reordering creates semantic structure change.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["identifiers", "controlflow"],
+            "rng_seed": 130304,
+            "notes": "L13: Semantic shift + ST-05 reorder.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["identifier_canonicalization", "ast_canonicalization", "commutative_reordering"],
+            "carriers": [
+                {"file": "SemanticShiftA.php", "namespace": "Acme\\Semantic\\Alpha", "class": "SemanticShiftA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "SemanticShiftB.php", "namespace": "Acme\\Semantic\\Beta", "class": "SemanticShiftB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-05"}]}
+            ],
+            "distractors": [
+                {"file": "SemanticShiftDistractor.php", "namespace": "Acme\\Semantic\\Distract", "class": "SemanticShiftDistractor", "source": "nearmiss_invoice", "reason": "Near-miss: similar invoice"}
+            ],
+            "cleans": [
+                {"file": "SemanticShiftClean.php", "namespace": "Acme\\Semantic\\Config", "class": "SemanticShiftClean", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L13-sm_semantic_shift-005",
+            "title": "Full semantic shift with all transform axes",
+            "description": "All literal and identifier transforms for maximum semantic drift.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["identifiers", "literals"],
+            "rng_seed": 130305,
+            "notes": "L13: Full semantic shift - LT-01 through LT-04 + RN-05.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.55, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["identifier_canonicalization", "literal_abstraction"],
+            "carriers": [
+                {"file": "SemanticShiftA.php", "namespace": "Acme\\Semantic\\Alpha", "class": "SemanticShiftA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "SemanticShiftB.php", "namespace": "Acme\\Semantic\\Beta", "class": "SemanticShiftB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-05"}, {"code": "LT-01"}, {"code": "LT-02"}, {"code": "LT-03"}, {"code": "LT-04"}]}
+            ],
+            "distractors": [
+                {"file": "SemanticShiftDistractor.php", "namespace": "Acme\\Semantic\\Distract", "class": "SemanticShiftDistractor", "source": "nearmiss_access", "reason": "Near-miss: similar auth"}
+            ],
+            "cleans": [
+                {"file": "SemanticShiftClean.php", "namespace": "Acme\\Semantic\\Config", "class": "SemanticShiftClean", "source": "clean_auth"}
+            ]
+        }
+    ]
+}

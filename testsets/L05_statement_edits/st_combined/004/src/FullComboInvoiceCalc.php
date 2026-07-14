@@ -37,7 +37,7 @@ final class FullComboInvoiceCalc
         error_log('info');
         $discount = round($subtotal * $discountRate, 2);
         $taxable = $subtotal - $discount;
-        if (false) { $__never = 1; }
+        $__tmp = array_keys([]);
         $tax = round($taxable * $taxRate, 2);
         $shipping = $subtotal > 100.0 ? 0.0 : 9.99;
         $total = $taxable + $tax + $shipping;

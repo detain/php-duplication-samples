@@ -52,8 +52,8 @@
         },
         {
             "file": "src/PayrollAccessLogger.php",
-            "start_line": 12,
-            "end_line": 26,
+            "start_line": 9,
+            "end_line": 78,
             "reason": "near-miss: same authorization vocabulary but logs access attempts to payroll systems — a different concern (audit logging) not authorization decisions",
             "trap": true
         }

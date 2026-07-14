@@ -1,0 +1,140 @@
+{
+    "level": 11,
+    "level_name": "deep_rename_stacks",
+    "level_dir": "L11_deep_rename_stacks",
+    "family": "rn_chain",
+    "sets": [
+        {
+            "set_id": "L11-rn_chain-001",
+            "title": "Chained rename: method then class",
+            "description": "Tests RN-05 chained across method AND class level - rename propagates through hierarchy.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["identifiers"],
+            "rng_seed": 110201,
+            "notes": "L11: Chained rename - method to class level.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.7, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["identifier_canonicalization"],
+            "carriers": [
+                {"file": "ChainRenameA.php", "namespace": "Acme\\Chain\\Alpha", "class": "ChainRenameA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "ChainRenameB.php", "namespace": "Acme\\Chain\\Beta", "class": "ChainRenameB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-05"}, {"code": "LT-01"}]}
+            ],
+            "distractors": [
+                {"file": "ChainRenameDistractor.php", "namespace": "Acme\\Chain\\Distract", "class": "ChainRenameDistractor", "source": "nearmiss_invoice", "reason": "Near-miss: similar calculation vocabulary"}
+            ],
+            "cleans": [
+                {"file": "ChainRenameClean.php", "namespace": "Acme\\Chain\\Config", "class": "ChainRenameClean", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L11-rn_chain-002",
+            "title": "Chained rename with CM-03 docblock",
+            "description": "Chain rename combined with docblock transformation.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["identifiers", "comments"],
+            "rng_seed": 110202,
+            "notes": "L11: RN-05 chain + CM-03 docblock.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.65, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["identifier_canonicalization", "comment_stripping"],
+            "carriers": [
+                {"file": "ChainRenameA.php", "namespace": "Acme\\Chain\\Alpha", "class": "ChainRenameA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "ChainRenameB.php", "namespace": "Acme\\Chain\\Beta", "class": "ChainRenameB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-05"}, {"code": "CM-03"}]}
+            ],
+            "distractors": [
+                {"file": "ChainRenameDistractor.php", "namespace": "Acme\\Chain\\Distract", "class": "ChainRenameDistractor", "source": "nearmiss_access", "reason": "Near-miss: similar auth vocabulary"}
+            ],
+            "cleans": [
+                {"file": "ChainRenameClean.php", "namespace": "Acme\\Chain\\Config", "class": "ChainRenameClean", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L11-rn_chain-003",
+            "title": "Four-stage chained rename",
+            "description": "Four carriers with progressively deeper chained renames.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["identifiers"],
+            "rng_seed": 110203,
+            "notes": "L11: Four-stage chained rename progression.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.55, "min_members_for_credit": 4},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["identifier_canonicalization"],
+            "carriers": [
+                {"file": "ChainRenameA.php", "namespace": "Acme\\Chain\\Alpha", "class": "ChainRenameA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "ChainRenameB.php", "namespace": "Acme\\Chain\\Beta", "class": "ChainRenameB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-05"}]},
+                {"file": "ChainRenameC.php", "namespace": "Acme\\Chain\\Gamma", "class": "ChainRenameC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "RN-05"}, {"code": "LT-01"}]},
+                {"file": "ChainRenameD.php", "namespace": "Acme\\Chain\\Delta", "class": "ChainRenameD", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "RN-05"}, {"code": "LT-01"}, {"code": "CM-01"}]}
+            ],
+            "distractors": [
+                {"file": "ChainRenameDistractor.php", "namespace": "Acme\\Chain\\Distract", "class": "ChainRenameDistractor", "source": "nearmiss_invoice", "reason": "Near-miss: similar vocabulary"}
+            ],
+            "cleans": [
+                {"file": "ChainRenameClean.php", "namespace": "Acme\\Chain\\Config", "class": "ChainRenameClean", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L11-rn_chain-004",
+            "title": "Chain rename with ST-08 param reorder",
+            "description": "Chain rename combined with parameter reordering.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["identifiers", "controlflow"],
+            "rng_seed": 110204,
+            "notes": "L11: RN-05 chain + ST-08 param reorder.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["identifier_canonicalization", "ast_canonicalization", "commutative_reordering"],
+            "carriers": [
+                {"file": "ChainRenameA.php", "namespace": "Acme\\Chain\\Alpha", "class": "ChainRenameA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "ChainRenameB.php", "namespace": "Acme\\Chain\\Beta", "class": "ChainRenameB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-05"}, {"code": "ST-08"}]}
+            ],
+            "distractors": [
+                {"file": "ChainRenameDistractor.php", "namespace": "Acme\\Chain\\Distract", "class": "ChainRenameDistractor", "source": "nearmiss_invoice", "reason": "Near-miss: similar vocabulary"}
+            ],
+            "cleans": [
+                {"file": "ChainRenameClean.php", "namespace": "Acme\\Chain\\Config", "class": "ChainRenameClean", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L11-rn_chain-005",
+            "title": "Chain rename with multiple literal transforms",
+            "description": "Chain rename combined with LT-02 string and LT-03 array transforms.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["identifiers", "literals"],
+            "rng_seed": 110205,
+            "notes": "L11: RN-05 chain + LT-02 + LT-03 multi-literal.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["identifier_canonicalization", "literal_abstraction"],
+            "carriers": [
+                {"file": "ChainRenameA.php", "namespace": "Acme\\Chain\\Alpha", "class": "ChainRenameA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "ChainRenameB.php", "namespace": "Acme\\Chain\\Beta", "class": "ChainRenameB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-05"}, {"code": "LT-02"}, {"code": "LT-03"}]}
+            ],
+            "distractors": [
+                {"file": "ChainRenameDistractor.php", "namespace": "Acme\\Chain\\Distract", "class": "ChainRenameDistractor", "source": "nearmiss_access", "reason": "Near-miss: similar auth vocabulary"}
+            ],
+            "cleans": [
+                {"file": "ChainRenameClean.php", "namespace": "Acme\\Chain\\Config", "class": "ChainRenameClean", "source": "clean_auth"}
+            ]
+        }
+    ]
+}

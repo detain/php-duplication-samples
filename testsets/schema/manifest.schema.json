@@ -9,7 +9,7 @@
     "properties": {
         "schema_version": {
             "type": "integer",
-            "const": 1
+            "enum": [1, 2]
         },
         "generated_at": {
             "$comment": "Free-form provenance marker (a git commit ref when known, else an ISO date or 'uncommitted').",
@@ -46,7 +46,7 @@
                 "additionalProperties": false,
                 "required": ["level", "dir", "title", "families"],
                 "properties": {
-                    "level": {"type": "integer", "minimum": 0, "maximum": 10},
+                    "level": {"type": "integer", "minimum": 0, "maximum": 20},
                     "dir": {"type": "string"},
                     "title": {"type": "string"},
                     "families": {
@@ -72,7 +72,29 @@
                                             "dir": {"type": "string"},
                                             "clusters": {"type": "integer", "minimum": 0},
                                             "files": {"type": "integer", "minimum": 0},
-                                            "difficulty": {"type": "integer", "minimum": 0, "maximum": 100}
+                                            "difficulty": {"type": "integer", "minimum": 0, "maximum": 100},
+                                            "min_php": {
+                                                "$comment": "E-16: Minimum PHP version.",
+                                                "type": "string"
+                                            },
+                                            "max_php": {
+                                                "$comment": "E-16: Maximum PHP version.",
+                                                "type": "string"
+                                            },
+                                            "probe_family": {
+                                                "$comment": "E-16: Probe family if capability probe.",
+                                                "type": "string"
+                                            },
+                                            "pack_memberships": {
+                                                "$comment": "E-16: Packs this set belongs to.",
+                                                "type": "array",
+                                                "items": {"type": "string"}
+                                            },
+                                            "composable_with": {
+                                                "$comment": "E-16: Sets this set can be composed with.",
+                                                "type": "array",
+                                                "items": {"type": "string"}
+                                            }
                                         }
                                     }
                                 }

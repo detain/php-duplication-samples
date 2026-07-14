@@ -27,7 +27,7 @@
             "path": "src/MoreTrimmedInvoiceCalc.php",
             "role": "carrier",
             "duplicate_group": "A",
-            "sloc": 42
+            "sloc": 43
         },
         {
             "path": "src/MarginSummarizer.php",
@@ -58,7 +58,8 @@
             },
             "applied_to": [
                 "src/TrimmedInvoiceCalc.php"
-            ]
+            ],
+            "intensity": 3
         },
         {
             "code": "ST-04",
@@ -68,7 +69,8 @@
             },
             "applied_to": [
                 "src/MoreTrimmedInvoiceCalc.php"
-            ]
+            ],
+            "intensity": 3
         }
     ],
     "difficulty": {

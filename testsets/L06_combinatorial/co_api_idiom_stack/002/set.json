@@ -1,0 +1,215 @@
+{
+    "schema_version": 2,
+    "set_id": "L06-co_api_idiom_stack-002",
+    "level": 6,
+    "level_name": "combinatorial",
+    "family": "co_api_idiom_stack",
+    "title": "API idiom stacking (string functions)",
+    "description": "Same computeTotals method. Tests API-02 (string_fns) combined with literal and whitespace changes.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "invoice_totals",
+    "difficulty_band": "expert",
+    "files": [
+        {
+            "path": "src/StringApiCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 39,
+            "region_sloc": {
+                "sloc": 25,
+                "duplicate": 25,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/ApiLiteralCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 47,
+            "region_sloc": {
+                "sloc": 28,
+                "duplicate": 24,
+                "unique": 4,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/MaxApiCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 41,
+            "region_sloc": {
+                "sloc": 23,
+                "duplicate": 21,
+                "unique": 2,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/MarginSummarizer.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 30
+        },
+        {
+            "path": "src/TaxRateRepository.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-3",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "LT-01",
+            "name": "numeric",
+            "params": {
+                "format": "hex"
+            },
+            "applied_to": [
+                "src/StringApiCalc.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "ST-02",
+            "name": "insert_dead",
+            "params": {
+                "lines": 1
+            },
+            "applied_to": [
+                "src/ApiLiteralCalc.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "LT-02",
+            "name": "string",
+            "params": {
+                "style": "double_quotes"
+            },
+            "applied_to": [
+                "src/ApiLiteralCalc.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "WS-01",
+            "name": "blank_before",
+            "params": {
+                "blank_lines": 1
+            },
+            "applied_to": [
+                "src/ApiLiteralCalc.php"
+            ],
+            "intensity": 1
+        },
+        {
+            "code": "ST-05",
+            "name": "reorder_independent",
+            "params": {
+                "reorder_level": 1
+            },
+            "applied_to": [
+                "src/MaxApiCalc.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "LT-01",
+            "name": "numeric",
+            "params": {
+                "format": "binary"
+            },
+            "applied_to": [
+                "src/MaxApiCalc.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "LT-02",
+            "name": "string",
+            "params": {
+                "style": "single_quotes"
+            },
+            "applied_to": [
+                "src/MaxApiCalc.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "WS-01",
+            "name": "blank_before",
+            "params": {
+                "blank_lines": 2
+            },
+            "applied_to": [
+                "src/MaxApiCalc.php"
+            ],
+            "intensity": 1
+        }
+    ],
+    "difficulty": {
+        "score": 94,
+        "requires": [
+            "literal_abstraction",
+            "ast_canonicalization",
+            "deadcode_elimination",
+            "whitespace_normalization",
+            "commutative_reordering"
+        ],
+        "score_raw": 94,
+        "axes": {
+            "breadth": 5,
+            "intensity": 2,
+            "intensity_max": 3,
+            "semantic_depth": 0,
+            "partiality": 1
+        },
+        "application_count": 8,
+        "axis_count": 5
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L06_combinatorial/co_api_idiom_stack.json",
+        "version": "2.0.0",
+        "rng_seed": 1613002
+    },
+    "interference_profile": {
+        "axis_count": 5,
+        "per_carrier_axes": {
+            "src/StringApiCalc.php": [
+                "LT-01"
+            ],
+            "src/ApiLiteralCalc.php": [
+                "ST-02",
+                "LT-02",
+                "WS-01"
+            ],
+            "src/MaxApiCalc.php": [
+                "ST-05",
+                "LT-01",
+                "LT-02",
+                "WS-01"
+            ]
+        },
+        "groups_touched": [
+            "A"
+        ],
+        "stack_depth_max": 4,
+        "symmetric_overlap": 0,
+        "pairwise_overlap": 0.2167,
+        "combination_design": "type2_plus_type1"
+    },
+    "engine_features": [
+        "fragment_emission"
+    ]
+}

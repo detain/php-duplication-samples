@@ -56,7 +56,8 @@
             "params": {},
             "applied_to": [
                 "src/InvoiceCalculatorB.php"
-            ]
+            ],
+            "intensity": 2
         },
         {
             "code": "CM-03",
@@ -64,7 +65,8 @@
             "params": {},
             "applied_to": [
                 "src/InvoiceCalculatorC.php"
-            ]
+            ],
+            "intensity": 1
         }
     ],
     "difficulty": {

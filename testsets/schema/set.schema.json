@@ -25,9 +25,9 @@
     ],
     "properties": {
         "schema_version": {
-            "$comment": "Schema revision; bump on any breaking field change.",
+            "$comment": "Schema revision; bump on any breaking field change. v1=original, v2=optional E-1..E-18 fields.",
             "type": "integer",
-            "const": 1
+            "enum": [1, 2]
         },
         "set_id": {
             "$comment": "Canonical id: L{NN}-{family}-{NNN}. Must match the directory path.",
@@ -35,10 +35,10 @@
             "pattern": "^L[0-9]{2}-[a-z0-9_]+-[0-9]{3}$"
         },
         "level": {
-            "$comment": "Difficulty tier 0-10.",
+            "$comment": "Difficulty tier 0-20 (L11-L20 are extended tiers).",
             "type": "integer",
             "minimum": 0,
-            "maximum": 10
+            "maximum": 20
         },
         "level_name": {
             "type": "string"
@@ -63,6 +63,10 @@
         "min_php": {
             "type": "string"
         },
+        "max_php": {
+            "$comment": "E-16: Maximum PHP version this set is compatible with.",
+            "type": "string"
+        },
         "seed": {
             "$comment": "Seed domain name (gen/seeds/<seed>) the cloned region came from; null for L0 sets that assemble only distractors/clean fillers.",
             "type": ["string", "null"]
@@ -71,6 +75,10 @@
             "$comment": "Coarse human label derived mechanically from difficulty.score cutoffs (§7.1, §15).",
             "type": "string",
             "enum": ["baseline", "trivial", "easy", "medium", "hard", "very_hard", "expert"]
+        },
+        "probe_family": {
+            "$comment": "E-16: If this is a capability probe set, the probe family it belongs to.",
+            "type": "string"
         },
         "files": {
             "type": "array",
@@ -87,15 +95,26 @@
                     },
                     "role": {
                         "type": "string",
-                        "enum": ["carrier", "distractor", "clean"]
+                        "enum": ["carrier", "distractor", "clean", "support"]
                     },
                     "duplicate_group": {
-                        "$comment": "Short label (A, B, ...) grouping carriers that share a cluster; null for distractor/clean.",
+                        "$comment": "Short label (A, B, ...) grouping carriers that share a cluster; null for distractor/clean/support.",
                         "type": ["string", "null"]
                     },
                     "sloc": {
                         "type": "integer",
                         "minimum": 0
+                    },
+                    "region_sloc": {
+                        "$comment": "E-1: Per-file duplicate/unique/filler line accounting. Invariant: duplicate + unique = SLOC of [start_line, end_line]; filler = sloc - duplicate - unique.",
+                        "type": "object",
+                        "additionalProperties": false,
+                        "properties": {
+                            "sloc": {"type": "integer", "minimum": 0},
+                            "duplicate": {"type": "integer", "minimum": 0},
+                            "unique": {"type": "integer", "minimum": 0},
+                            "filler": {"type": "integer", "minimum": 0}
+                        }
                     }
                 }
             }
@@ -124,6 +143,57 @@
                 "instances": {
                     "type": "integer",
                     "minimum": 0
+                },
+                "duplication_ratio": {
+                    "$comment": "E-3: round(Σ duplicate region_sloc ÷ Σ (duplicate+unique) region_sloc, 2)",
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1
+                },
+                "uniqueness_budget": {
+                    "$comment": "E-2: Declared MIN/MAX unique-code budget + actuals.",
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "per_carrier_unique_lines": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "properties": {
+                                "min": {"type": "integer", "minimum": 0},
+                                "max": {"type": "integer", "minimum": 0}
+                            }
+                        },
+                        "per_carrier_segments": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "properties": {
+                                "min": {"type": "integer", "minimum": 0},
+                                "max": {"type": "integer", "minimum": 0}
+                            }
+                        },
+                        "carriers_with_unique_code": {"type": "integer", "minimum": 0},
+                        "actual": {
+                            "type": "array",
+                            "items": {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "properties": {
+                                    "file": {"type": "string"},
+                                    "unique_lines": {"type": "integer", "minimum": 0},
+                                    "segments": {"type": "integer", "minimum": 0}
+                                }
+                            }
+                        }
+                    }
+                },
+                "cluster_topology": {
+                    "$comment": "E-10: Multi-cluster topology. cluster_topology enum: single | disjoint | nested | overlapping | chained | braided",
+                    "type": "string",
+                    "enum": ["single", "disjoint", "nested", "overlapping", "chained", "braided"]
+                },
+                "cross_seed": {
+                    "$comment": "E-10: True if clusters span multiple seeds.",
+                    "type": "boolean"
                 }
             }
         },
@@ -155,6 +225,32 @@
                 }
             }
         },
+        "interference_profile": {
+            "$comment": "E-7: Stack-depth/axis-count accounting.",
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "axis_count": {"type": "integer", "minimum": 0},
+                "distinct_codes": {
+                    "type": "array",
+                    "items": {"type": "string"}
+                },
+                "groups_touched": {
+                    "type": "array",
+                    "items": {"type": "string"}
+                },
+                "per_carrier_axes": {
+                    "type": "object",
+                    "additionalProperties": {"type": "integer", "minimum": 0}
+                },
+                "stack_depth_max": {"type": "integer", "minimum": 0},
+                "symmetric": {"type": "boolean"},
+                "symmetric_overlap": {"type": "number", "minimum": 0},
+                "pairwise_overlap": {"type": "number", "minimum": 0},
+                "combination_design": {"type": "string"},
+                "pack": {"type": "string"}
+            }
+        },
         "difficulty": {
             "type": "object",
             "additionalProperties": false,
@@ -165,6 +261,35 @@
                     "type": "integer",
                     "minimum": 0,
                     "maximum": 100
+                },
+                "score_raw": {
+                    "$comment": "E-8: Pre-normalization raw score for 2-D difficulty.",
+                    "type": "integer",
+                    "minimum": 0
+                },
+                "axis_count": {
+                    "$comment": "E-22: Number of distinct interference axes applied.",
+                    "type": "integer",
+                    "minimum": 0
+                },
+                "application_count": {
+                    "$comment": "E-22: Total number of interference applications across all carriers.",
+                    "type": "integer",
+                    "minimum": 0
+                },
+                "axes": {
+                    "$comment": "E-8: Two-dimensional difficulty axes for score saturation fix.",
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "breadth": {"type": "integer", "minimum": 0},
+                        "intensity": {"type": "integer", "minimum": 0},
+                        "intensity_max": {"type": "integer", "minimum": 0},
+                        "axis_count": {"type": "integer", "minimum": 0},
+                        "application_count": {"type": "integer", "minimum": 0},
+                        "semantic_depth": {"type": "integer", "minimum": 0},
+                        "partiality": {"type": "number", "minimum": 0, "maximum": 1}
+                    }
                 },
                 "requires": {
                     "type": "array",
@@ -182,10 +307,137 @@
                             "api_abstraction",
                             "inline_expansion",
                             "cfg_comparison",
-                            "semantic_reasoning"
+                            "semantic_reasoning",
+                            "encoding_normalization",
+                            "gap_tolerance",
+                            "boundary_precision",
+                            "noise_filtering",
+                            "multi_cluster_reporting",
+                            "refactoring_synthesis"
                         ]
                     }
                 }
+            }
+        },
+        "progression": {
+            "$comment": "E-9: Rung labels and walkable ladder.",
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "rung": {"type": "integer", "minimum": 0},
+                "rung_label": {
+                    "type": "string",
+                    "enum": ["minimal", "light", "moderate", "heavy", "combined"]
+                },
+                "axis_arc": {"type": "string"},
+                "grid_position": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "axis": {"type": "string"},
+                        "rung": {"type": "integer", "minimum": 0}
+                    }
+                },
+                "prev_set": {"type": ["string", "null"]},
+                "next_set": {"type": ["string", "null"]},
+                "prerequisites": {
+                    "type": "array",
+                    "items": {"type": "string"}
+                },
+                "bridge_pair": {"type": ["string", "null"]}
+            }
+        },
+        "intended_refactoring": {
+            "$comment": "E-6: Goal-3 refactoring object.",
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "kind": {
+                    "type": "string",
+                    "enum": [
+                        "parameterize_literal",
+                        "parameter_toggle_boolean",
+                        "parameter_toggle_enum",
+                        "introduce_parameter_object",
+                        "extract_function",
+                        "extract_method_with_holes",
+                        "extract_closure_hole",
+                        "strategy_object",
+                        "template_method",
+                        "pull_up_method",
+                        "pull_up_field",
+                        "replace_conditional_with_polymorphism",
+                        "consolidate_conditional_fragments",
+                        "extract_trait",
+                        "extract_base_class",
+                        "table_driven_config",
+                        "none"
+                    ]
+                },
+                "advisability": {
+                    "type": "string",
+                    "enum": ["recommended", "neutral", "inadvisable"]
+                },
+                "unified_symbol": {"type": "string"},
+                "unified_signature": {"type": "string"},
+                "holes": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "properties": {
+                            "hole_id": {"type": "string"},
+                            "kind": {
+                                "type": "string",
+                                "enum": ["literal", "identifier", "behavior_toggle", "expression", "strategy", "type"]
+                            },
+                            "name": {"type": "string"},
+                            "php_type": {"type": "string"},
+                            "site": {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "properties": {
+                                    "file": {"type": "string"},
+                                    "start_line": {"type": "integer", "minimum": 1},
+                                    "end_line": {"type": "integer", "minimum": 1}
+                                }
+                            },
+                            "values_by_member": {
+                                "type": "object",
+                                "additionalProperties": {"type": "string"}
+                            }
+                        }
+                    }
+                },
+                "hole_count": {"type": "integer", "minimum": 0},
+                "collapses": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "properties": {
+                            "file": {"type": "string"},
+                            "symbol": {"type": "string"}
+                        }
+                    }
+                },
+                "residual_unique_lines": {"type": "integer", "minimum": 0},
+                "refactor_difficulty": {
+                    "type": "string",
+                    "enum": ["trivial", "easy", "moderate", "hard", "architectural"]
+                },
+                "solution_path": {"type": "string"},
+                "proof": {"type": "string"}
+            }
+        },
+        "related": {
+            "$comment": "E-18: Set-level provenance links.",
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "variant_of": {"type": ["string", "null"]},
+                "old_corpus_ref": {"type": ["string", "null"]},
+                "mirror_of": {"type": ["string", "null"]}
             }
         },
         "expected_detection_by_tool": {
@@ -211,6 +463,22 @@
                 },
                 "rng_seed": {
                     "type": "integer"
+                },
+                "intensity_dial": {
+                    "$comment": "E-17: Generator intensity dial 0-8.",
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 8
+                },
+                "packs": {
+                    "$comment": "E-17: Pack memberships for this set.",
+                    "type": "array",
+                    "items": {"type": "string"}
+                },
+                "engine_features": {
+                    "$comment": "E-17: Engine features used (e.g. ['fragments','multi_cluster']).",
+                    "type": "array",
+                    "items": {"type": "string"}
                 }
             }
         },
@@ -223,6 +491,21 @@
                 "distractor": {"type": "integer", "minimum": 0},
                 "clean":      {"type": "integer", "minimum": 1}
             }
+        },
+        "pack_memberships": {
+            "$comment": "E-16: Packs this set belongs to.",
+            "type": "array",
+            "items": {"type": "string"}
+        },
+        "composable_with": {
+            "$comment": "E-16: Sets this set can be composed with for mixed-scale testing.",
+            "type": "array",
+            "items": {"type": "string"}
+        },
+        "engine_features": {
+            "$comment": "E-21: Engine features active for this set (e.g. ['multi_cluster','fragment_emission']).",
+            "type": "array",
+            "items": {"type": "string"}
         }
     }
 }

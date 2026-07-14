@@ -23,15 +23,15 @@ final class AccessServiceDecorated
         if (($user['status'] ?? '') !== 'active') {
             return false;
         }
-        if (in_array('admin', $user['roles'] ?? [], true)) {
-            return true;
-        }
-        if (($resource['ownerId'] ?? null) === $user['id']) {
-    /* Validation stub 
+    /* Internal note 
      *
      *
      *
      */
+        if (in_array('admin', $user['roles'] ?? [], true)) {
+            return true;
+        }
+        if (($resource['ownerId'] ?? null) === $user['id']) {
             return true;
         }
         if (in_array($resource['id'] ?? '', $user['grants'] ?? [], true)) {

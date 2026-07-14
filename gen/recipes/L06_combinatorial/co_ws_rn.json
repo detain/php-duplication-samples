@@ -1,0 +1,203 @@
+{
+    "level": 6,
+    "level_name": "combinatorial",
+    "level_dir": "L06_combinatorial",
+    "family": "co_ws_rn",
+    "sets": [
+        {
+            "set_id": "L06-co_ws_rn-001",
+            "schema_version": 2,
+            "title": "Whitespace and rename interference (WS-01 + RN-05)",
+            "description": "Same computeTotals method across three billing classes. Carrier A applies WS-01 blank_before; carrier B applies RN-05 case_convention; carrier C applies both. Type-2 clone requiring identifier canonicalization.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments", "identifiers", "case_convention"],
+            "rng_seed": 1602001,
+            "interference_profile": {
+                "axis_count": 2,
+                "axes": ["whitespace", "identifiers"],
+                "groups_applied": ["ws", "rn"]
+            },
+            "difficulty": {
+                "complexity": 5,
+                "axes": {
+                    "whitespace": 2,
+                    "identifiers": 6
+                }
+            },
+            "notes": "WS-01 (blank_before) is type-1. RN-05 (case_convention) is type-2, changing camelCase to snake_case and vice versa. Both normalized by token-based detectors.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineInvoiceCalc.php", "namespace": "Acme\\Billing\\Pristine", "class": "PristineInvoiceCalc", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "RenamedCalc.php", "namespace": "Acme\\Billing\\Renamed", "class": "RenamedCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-05", "params": {"direction": "camel_to_snake"}}]},
+                {"file": "WsRnCalc.php", "namespace": "Acme\\Billing\\WsRn", "class": "WsRnCalc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "WS-01", "params": {"blank_lines": 1}}, {"code": "RN-05", "params": {"direction": "snake_to_camel"}}]}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L06-co_ws_rn-002",
+            "schema_version": 2,
+            "title": "Whitespace and rename interference (WS-03 + RN-01)",
+            "description": "Same computeTotals method. Carrier A applies WS-03 blank_inside; carrier B applies RN-01 local_vars rename; carrier C applies both. Tests local variable renaming with whitespace changes.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments", "identifiers", "case_convention"],
+            "rng_seed": 1602002,
+            "interference_profile": {
+                "axis_count": 2,
+                "axes": ["whitespace", "identifiers"],
+                "groups_applied": ["ws", "rn"]
+            },
+            "difficulty": {
+                "complexity": 5,
+                "axes": {
+                    "whitespace": 3,
+                    "identifiers": 6
+                }
+            },
+            "notes": "RN-01 renames local variables while preserving control flow. WS-03 adds internal blank lines. Combined they test identifier normalization plus whitespace handling.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "BlankInsideCalc.php", "namespace": "Acme\\Billing\\Blank", "class": "BlankInsideCalc", "scaffold": "method_alpha", "group": "A", "pristine": false, "transforms": [{"code": "WS-03", "params": {"blank_lines": 2}}]},
+                {"file": "LocalVarCalc.php", "namespace": "Acme\\Billing\\LocalVar", "class": "LocalVarCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-01", "params": {"style": "add_prefix", "prefix": "tmp"}}]},
+                {"file": "BothCalc.php", "namespace": "Acme\\Billing\\Both", "class": "BothCalc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "WS-03", "params": {"blank_lines": 2}}, {"code": "RN-01", "params": {"style": "add_suffix", "suffix": "_val"}}]}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L06-co_ws_rn-003",
+            "schema_version": 2,
+            "title": "Whitespace and rename interference (WS-06 + RN-02)",
+            "description": "Same computeTotals method. Carrier A applies WS-06 line_wrap; carrier B applies RN-02 params rename; carrier C applies both. Tests parameter renaming with line wrapping.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments", "identifiers", "case_convention"],
+            "rng_seed": 1602003,
+            "interference_profile": {
+                "axis_count": 2,
+                "axes": ["whitespace", "identifiers"],
+                "groups_applied": ["ws", "rn"]
+            },
+            "difficulty": {
+                "complexity": 5,
+                "axes": {
+                    "whitespace": 4,
+                    "identifiers": 6
+                }
+            },
+            "notes": "RN-02 renames function parameters. WS-06 wraps long argument lists. Combined they test structural and identifier normalization.",
+            "scoring": {"line_tolerance": 3, "member_jaccard_min": 0.55, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "WrappedCalc.php", "namespace": "Acme\\Billing\\Wrap", "class": "WrappedCalc", "scaffold": "method_alpha", "group": "A", "pristine": false, "transforms": [{"code": "WS-06", "params": {"occurrence": 1}}]},
+                {"file": "ParamRenamedCalc.php", "namespace": "Acme\\Billing\\ParamRename", "class": "ParamRenamedCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-02", "params": {"style": "to_snake"}}]},
+                {"file": "BothCalc.php", "namespace": "Acme\\Billing\\Both", "class": "BothCalc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "WS-06", "params": {"occurrence": 1}}, {"code": "RN-02", "params": {"style": "to_camel"}}]}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L06-co_ws_rn-004",
+            "schema_version": 2,
+            "title": "Heavy whitespace and rename interference",
+            "description": "Same computeTotals method. Multiple WS and RN transforms combined at higher intensity. Tests detector robustness under heavy identifier and whitespace changes.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments", "identifiers", "case_convention"],
+            "rng_seed": 1602004,
+            "interference_profile": {
+                "axis_count": 2,
+                "axes": ["whitespace", "identifiers"],
+                "groups_applied": ["ws", "rn"]
+            },
+            "difficulty": {
+                "complexity": 6,
+                "axes": {
+                    "whitespace": 4,
+                    "identifiers": 7
+                }
+            },
+            "notes": "Heavy WS+RN interference: WS-01+WS-03+WS-06 combined with RN-01+RN-05. Tests comprehensive whitespace and identifier normalization.",
+            "scoring": {"line_tolerance": 3, "member_jaccard_min": 0.5, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "HeavyCalcA.php", "namespace": "Acme\\Billing\\Heavy", "class": "HeavyCalcA", "scaffold": "method_alpha", "group": "A", "pristine": false, "transforms": [{"code": "WS-01", "params": {"blank_lines": 1}}, {"code": "RN-05", "params": {"direction": "camel_to_snake"}}]},
+                {"file": "HeavyCalcB.php", "namespace": "Acme\\Billing\\Heavy", "class": "HeavyCalcB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "WS-03", "params": {"blank_lines": 2}}, {"code": "WS-06", "params": {"occurrence": 1}}, {"code": "RN-01", "params": {"style": "add_suffix", "suffix": "_temp"}}]},
+                {"file": "HeavyCalcC.php", "namespace": "Acme\\Billing\\Heavy", "class": "HeavyCalcC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "RN-02", "params": {"style": "to_snake"}}, {"code": "RN-05", "params": {"direction": "snake_to_camel"}}]}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L06-co_ws_rn-005",
+            "schema_version": 2,
+            "title": "Maximum whitespace and rename interference",
+            "description": "Same computeTotals method. All major WS and RN transforms stacked at maximum intensity. Tests the ceiling of type-2 clone detection.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments", "identifiers", "case_convention"],
+            "rng_seed": 1602005,
+            "interference_profile": {
+                "axis_count": 2,
+                "axes": ["whitespace", "identifiers"],
+                "groups_applied": ["ws", "rn"]
+            },
+            "difficulty": {
+                "complexity": 7,
+                "axes": {
+                    "whitespace": 5,
+                    "identifiers": 8
+                }
+            },
+            "notes": "Maximum WS+RN interference: WS-01+WS-03+WS-06 combined with RN-01+RN-02+RN-05. Tests full identifier canonicalization pipeline under heavy whitespace interference.",
+            "scoring": {"line_tolerance": 4, "member_jaccard_min": 0.45, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "MaxCalcA.php", "namespace": "Acme\\Billing\\Max", "class": "MaxCalcA", "scaffold": "method_alpha", "group": "A", "pristine": false, "transforms": [{"code": "WS-01", "params": {"blank_lines": 1}}, {"code": "WS-03", "params": {"blank_lines": 2}}, {"code": "RN-05", "params": {"direction": "camel_to_snake"}}]},
+                {"file": "MaxCalcB.php", "namespace": "Acme\\Billing\\Max", "class": "MaxCalcB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "WS-06", "params": {"occurrence": 1}}, {"code": "RN-01", "params": {"style": "add_prefix", "prefix": "tmp"}}, {"code": "RN-02", "params": {"style": "to_snake"}}]},
+                {"file": "MaxCalcC.php", "namespace": "Acme\\Billing\\Max", "class": "MaxCalcC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "RN-05", "params": {"direction": "snake_to_camel"}}, {"code": "RN-01", "params": {"style": "add_suffix", "suffix": "_val"}}]}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        }
+    ]
+}

@@ -1,0 +1,90 @@
+{
+    "schema_version": 2,
+    "set_id": "L05-rf_parametric-004",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-2",
+            "granularity": "method",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers",
+                "literals"
+            ],
+            "token_hash": "33babbd220d36a70",
+            "normalized_hash": "33babbd220d36a70",
+            "members": [
+                {
+                    "file": "src/ApiRateLimiter.php",
+                    "start_line": 9,
+                    "end_line": 50,
+                    "symbol": "checkRateLimit",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "rate_limiter"
+                },
+                {
+                    "file": "src/WebRateLimiter.php",
+                    "start_line": 18,
+                    "end_line": 59,
+                    "symbol": "checkRateLimit",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "rate_limiter"
+                },
+                {
+                    "file": "src/BatchRateLimiter.php",
+                    "start_line": 24,
+                    "end_line": 65,
+                    "symbol": "checkRateLimit",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "rate_limiter"
+                }
+            ],
+            "detection_expectation": {
+                "text_based": true,
+                "token_based": true,
+                "ast_based": true
+            },
+            "notes": ""
+        }
+    ],
+    "non_duplicates": [
+        {
+            "file": "src/TokenBucketLimiter.php",
+            "start_line": 9,
+            "end_line": 50,
+            "reason": "near-miss: uses token bucket algorithm instead of fixed window counter",
+            "trap": true
+        }
+    ],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.6,
+        "min_members_for_credit": 2
+    },
+    "intended_refactoring": {
+        "kind": "parameterize_literal",
+        "unified_symbol": "checkRateLimit",
+        "unified_signature": "checkRateLimit(clientId, maxRequests, windowSeconds)",
+        "parameterized_literals": [
+            {
+                "position": "maxRequests",
+                "description": "Maximum requests allowed per window"
+            },
+            {
+                "position": "windowSeconds",
+                "description": "Time window in seconds"
+            }
+        ],
+        "collapses": [
+            0,
+            1,
+            2
+        ],
+        "advisability": "recommended"
+    }
+}

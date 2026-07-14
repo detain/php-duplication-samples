@@ -1,0 +1,76 @@
+{
+    "schema_version": 1,
+    "set_id": "L08-noise_logging-002",
+    "level": 8,
+    "level_name": "adversarial",
+    "family": "noise_logging",
+    "title": "Noise Logging: Multiple logging points",
+    "description": "Tests multiple logging insertions around clone.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "csv_processor",
+    "difficulty_band": "expert",
+    "files": [
+        {
+            "path": "src/RowProcessorA.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 71
+        },
+        {
+            "path": "src/RowProcessorB.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 78
+        },
+        {
+            "path": "src/RowProcessorC.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 77
+        },
+        {
+            "path": "src/Filter.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 15
+        },
+        {
+            "path": "src/Mapper.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 15
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-3",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "NZ-01",
+            "name": "logging",
+            "params": {},
+            "applied_to": [
+                "src/RowProcessorB.php",
+                "src/RowProcessorC.php"
+            ],
+            "intensity": 3
+        }
+    ],
+    "difficulty": {
+        "score": 94,
+        "requires": [
+            "ast_canonicalization"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L08_adversarial/noise_logging.json",
+        "version": "1.0.0",
+        "rng_seed": 82202
+    }
+}

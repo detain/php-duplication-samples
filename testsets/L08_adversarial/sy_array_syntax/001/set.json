@@ -1,0 +1,76 @@
+{
+    "schema_version": 1,
+    "set_id": "L08-sy_array_syntax-001",
+    "level": 8,
+    "level_name": "adversarial",
+    "family": "sy_array_syntax",
+    "title": "Array Syntax: array() vs []",
+    "description": "Tests array syntax variation: array(1, 2, 3) vs [1, 2, 3].",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "invoice_totals",
+    "difficulty_band": "expert",
+    "files": [
+        {
+            "path": "src/TotalsCalculatorA.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 39
+        },
+        {
+            "path": "src/TotalsCalculatorB.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 43
+        },
+        {
+            "path": "src/TotalsCalculatorC.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 42
+        },
+        {
+            "path": "src/Validator.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 28
+        },
+        {
+            "path": "src/SchemaMapper.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 22
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-1",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "SY-04",
+            "name": "array_to_short",
+            "params": {},
+            "applied_to": [
+                "src/TotalsCalculatorB.php",
+                "src/TotalsCalculatorC.php"
+            ],
+            "intensity": 1
+        }
+    ],
+    "difficulty": {
+        "score": 89,
+        "requires": [
+            "whitespace_normalization"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L08_adversarial/sy_array_syntax.json",
+        "version": "1.0.0",
+        "rng_seed": 81401
+    }
+}

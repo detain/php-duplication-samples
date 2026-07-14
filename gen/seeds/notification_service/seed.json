@@ -1,0 +1,14 @@
+{
+    "domain": "notification_service",
+    "summary": "Multi-channel notification: email, SMS, push with batch support.",
+    "size_class": "L",
+    "symbol": "send",
+    "line_count": 72,
+    "token_count": 480,
+    "required_symbols": ["send", "sendBatch"],
+    "mount_modes": ["method"],
+    "compatible_interference": ["WS-03", "CM-03", "RN-01", "LT-02", "ST-01", "CF-05"],
+    "variants": [
+        {"file": "queue_based.php", "code": "API-06", "name": "queue_based"}
+    ]
+}

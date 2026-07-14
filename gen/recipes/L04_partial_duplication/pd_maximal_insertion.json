@@ -1,0 +1,148 @@
+{
+    "level": 4,
+    "level_name": "partial_duplication",
+    "level_dir": "L04_partial_duplication",
+    "family": "pd_maximal_insertion",
+    "sets": [
+        {
+            "set_id": "L04-pd_maximal_insertion-001",
+            "title": "Partial clone with large head insertion (40%+)",
+            "description": "The same computeTotals method where carrier B and C have over 40% of lines trimmed from the head, creating massive unique segments.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "schema_version": 2,
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "rng_seed": 104201,
+            "notes": "Large unique segments via significant head_trim (40%+ of lines).",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "difficulty": {"complexity": 6, "partiality": "very_high"},
+            "duplication": {"uniqueness_budget": {"min": 8, "max": 12}, "duplication_ratio": 0.4},
+            "carriers": [
+                {"file": "PristineInvoiceCalc.php", "namespace": "Acme\\Billing\\Pristine", "class": "PristineInvoiceCalc", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "MaxHeadInsertCalc.php", "namespace": "Acme\\Billing\\MaxHead", "class": "MaxHeadInsertCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 8, "tail_trim": 0}}]},
+                {"file": "MaxHeadInsert2Calc.php", "namespace": "Acme\\Billing\\MaxHead2", "class": "MaxHeadInsert2Calc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 9, "tail_trim": 0}}]}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss: same invoice vocabulary but computes margins"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L04-pd_maximal_insertion-002",
+            "title": "Partial clone with large tail insertion (40%+)",
+            "description": "The same computeTotals method where carrier B and C have over 40% trimmed from the tail.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "schema_version": 2,
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "rng_seed": 104202,
+            "notes": "Large unique segments via significant tail_trim.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "difficulty": {"complexity": 6, "partiality": "very_high"},
+            "duplication": {"uniqueness_budget": {"min": 8, "max": 12}, "duplication_ratio": 0.4},
+            "carriers": [
+                {"file": "PristineInvoiceCalc.php", "namespace": "Acme\\Billing\\Pristine", "class": "PristineInvoiceCalc", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "MaxTailInsertCalc.php", "namespace": "Acme\\Billing\\MaxTail", "class": "MaxTailInsertCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 0, "tail_trim": 8}}]},
+                {"file": "MaxTailInsert2Calc.php", "namespace": "Acme\\Billing\\MaxTail2", "class": "MaxTailInsert2Calc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 0, "tail_trim": 9}}]}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss: same invoice vocabulary but computes margins"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L04-pd_maximal_insertion-003",
+            "title": "Partial clone with symmetric large insertions (both ends)",
+            "description": "Large insertions at both head and tail, keeping only a small central fragment shared.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "schema_version": 2,
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "rng_seed": 104203,
+            "notes": "Only 40-60% of lines remain shared (central fragment).",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "difficulty": {"complexity": 6, "partiality": "very_high"},
+            "duplication": {"uniqueness_budget": {"min": 10, "max": 14}, "duplication_ratio": 0.5},
+            "carriers": [
+                {"file": "PristineInvoiceCalc.php", "namespace": "Acme\\Billing\\Pristine", "class": "PristineInvoiceCalc", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "SymmetricInsertCalc.php", "namespace": "Acme\\Billing\\Symmetric", "class": "SymmetricInsertCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 5, "tail_trim": 5}}]},
+                {"file": "SymmetricInsert2Calc.php", "namespace": "Acme\\Billing\\Symmetric2", "class": "SymmetricInsert2Calc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 6, "tail_trim": 6}}]}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss: same invoice vocabulary but computes margins"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L04-pd_maximal_insertion-004",
+            "title": "Partial clone using access_guard with large insertions",
+            "description": "The same authorize method with massive unique segments across security classes.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "schema_version": 2,
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "rng_seed": 104204,
+            "notes": "access_guard with large head/tail insertions.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "difficulty": {"complexity": 6, "partiality": "very_high"},
+            "duplication": {"uniqueness_budget": {"min": 6, "max": 10}, "duplication_ratio": 0.45},
+            "carriers": [
+                {"file": "PristineAuthGuard.php", "namespace": "Acme\\Security\\Pristine", "class": "PristineAuthGuard", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "MaxInsertAuth.php", "namespace": "Acme\\Security\\MaxInsert", "class": "MaxInsertAuth", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 5, "tail_trim": 3}}]},
+                {"file": "MaxInsert2Auth.php", "namespace": "Acme\\Security\\MaxInsert2", "class": "MaxInsert2Auth", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 4, "tail_trim": 4}}]}
+            ],
+            "distractors": [
+                {"file": "AuditTrailService.php", "namespace": "Acme\\Security\\Audit", "class": "AuditTrailService", "source": "nearmiss_access", "reason": "near-miss: similar authorization vocabulary but performs auditing"}
+            ],
+            "cleans": [
+                {"file": "TokenValidationService.php", "namespace": "Acme\\Security\\Tokens", "class": "TokenValidationService", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L04-pd_maximal_insertion-005",
+            "title": "Partial clone using csv_import with large insertions",
+            "description": "The same parseRow method with massive unique segments across data import classes.",
+            "seed": "csv_import",
+            "mount": "method",
+            "clone_symbol": "parseRow",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "schema_version": 2,
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "rng_seed": 104205,
+            "notes": "csv_import with large head/tail insertions.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "difficulty": {"complexity": 6, "partiality": "very_high"},
+            "duplication": {"uniqueness_budget": {"min": 6, "max": 10}, "duplication_ratio": 0.45},
+            "carriers": [
+                {"file": "PristineCsvImport.php", "namespace": "Acme\\Import\\Pristine", "class": "PristineCsvImport", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "MaxInsertCsv.php", "namespace": "Acme\\Import\\MaxInsert", "class": "MaxInsertCsv", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 4, "tail_trim": 4}}]},
+                {"file": "MaxInsert2Csv.php", "namespace": "Acme\\Import\\MaxInsert2", "class": "MaxInsert2Csv", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 5, "tail_trim": 3}}]}
+            ],
+            "distractors": [
+                {"file": "XmlImportService.php", "namespace": "Acme\\Import\\Xml", "class": "XmlImportService", "source": "nearmiss_csv", "reason": "near-miss: similar parsing vocabulary but handles XML"}
+            ],
+            "cleans": [
+                {"file": "DataValidationService.php", "namespace": "Acme\\Import\\Validation", "class": "DataValidationService", "source": "clean_parsing"}
+            ]
+        }
+    ]
+}

@@ -1,5 +1,5 @@
 {
-    "schema_version": 1,
+    "schema_version": 2,
     "set_id": "L03-cm_line_added-004",
     "level": 3,
     "level_name": "comments_variation",
@@ -15,19 +15,37 @@
             "path": "src/AccessServiceBase.php",
             "role": "carrier",
             "duplicate_group": "A",
-            "sloc": 33
+            "sloc": 33,
+            "region_sloc": {
+                "sloc": 19,
+                "duplicate": 19,
+                "unique": 0,
+                "filler": 0
+            }
         },
         {
             "path": "src/AccessServiceDecorated.php",
             "role": "carrier",
             "duplicate_group": "A",
-            "sloc": 42
+            "sloc": 42,
+            "region_sloc": {
+                "sloc": 23,
+                "duplicate": 19,
+                "unique": 4,
+                "filler": 0
+            }
         },
         {
             "path": "src/ThirdService.php",
             "role": "carrier",
             "duplicate_group": "A",
-            "sloc": 37
+            "sloc": 37,
+            "region_sloc": {
+                "sloc": 19,
+                "duplicate": 19,
+                "unique": 0,
+                "filler": 0
+            }
         },
         {
             "path": "src/MarginReporter.php",
@@ -59,21 +77,50 @@
             },
             "applied_to": [
                 "src/AccessServiceDecorated.php"
-            ]
+            ],
+            "intensity": 1
         }
     ],
     "difficulty": {
         "score": 17,
         "requires": [
             "comment_stripping"
-        ]
+        ],
+        "score_raw": 17,
+        "axes": {
+            "breadth": 1,
+            "intensity": 1,
+            "intensity_max": 1,
+            "semantic_depth": 0,
+            "partiality": 1
+        },
+        "application_count": 1,
+        "axis_count": 1
     },
     "generator": {
         "tool": "gen/build.php",
         "recipe": "gen/recipes/L03_comments/cm_line_added.json",
-        "version": "1.0.0",
+        "version": "2.0.0",
         "rng_seed": 103104
     },
+    "interference_profile": {
+        "axis_count": 1,
+        "per_carrier_axes": {
+            "src/AccessServiceDecorated.php": [
+                "CM-01"
+            ]
+        },
+        "groups_touched": [
+            "A"
+        ],
+        "stack_depth_max": 1,
+        "symmetric_overlap": 0,
+        "pairwise_overlap": 0,
+        "combination_design": "textual_only"
+    },
+    "engine_features": [
+        "fragment_emission"
+    ],
     "role_composition": {
         "carrier": 3,
         "distractor": 1,

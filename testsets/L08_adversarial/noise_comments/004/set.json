@@ -1,0 +1,96 @@
+{
+    "schema_version": 1,
+    "set_id": "L08-noise_comments-004",
+    "level": 8,
+    "level_name": "adversarial",
+    "family": "noise_comments",
+    "title": "Noise Comments: Combined comment styles",
+    "description": "Multiple comment style variations combined for heavy noise.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "query_builder",
+    "difficulty_band": "expert",
+    "files": [
+        {
+            "path": "src/QueryBuilderA.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 54
+        },
+        {
+            "path": "src/QueryBuilderB.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 63
+        },
+        {
+            "path": "src/QueryBuilderC.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 62
+        },
+        {
+            "path": "src/Escaper.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 14
+        },
+        {
+            "path": "src/Compiler.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 14
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-1",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "CM-01",
+            "name": "line_comment_add",
+            "params": {},
+            "applied_to": [
+                "src/QueryBuilderB.php",
+                "src/QueryBuilderC.php"
+            ],
+            "intensity": 1
+        },
+        {
+            "code": "CM-02",
+            "name": "block_comment_add",
+            "params": {},
+            "applied_to": [
+                "src/QueryBuilderB.php",
+                "src/QueryBuilderC.php"
+            ],
+            "intensity": 1
+        },
+        {
+            "code": "CM-08",
+            "name": "mid_statement_comment",
+            "params": {},
+            "applied_to": [
+                "src/QueryBuilderB.php",
+                "src/QueryBuilderC.php"
+            ],
+            "intensity": 2
+        }
+    ],
+    "difficulty": {
+        "score": 94,
+        "requires": [
+            "comment_stripping"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L08_adversarial/noise_comments.json",
+        "version": "1.0.0",
+        "rng_seed": 81904
+    }
+}

@@ -1,0 +1,12 @@
+{
+    "domain": "serializer",
+    "summary": "JSON/XML/PHP serialization with type preservation.",
+    "size_class": "M",
+    "symbol": "serialize",
+    "line_count": 78,
+    "token_count": 520,
+    "required_symbols": ["serialize", "deserialize"],
+    "mount_modes": ["method"],
+    "compatible_interference": ["WS-03", "CM-03", "RN-01", "LT-02"],
+    "variants": []
+}

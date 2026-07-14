@@ -28,7 +28,7 @@ final class ComboInvoiceCalc
             $subtotal += $lineTotal;
             $itemCount += (int) $quantity;
         }
-        $__flag = false;
+        $__tmp = array_keys([]);
         $discount = round($subtotal * $discountRate, 2);
         $taxable = $subtotal - $discount;
         $tax = round($taxable * $taxRate, 2);

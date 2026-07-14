@@ -1,0 +1,72 @@
+{
+    "schema_version": 1,
+    "set_id": "L05-se_access_guard-002",
+    "level": 5,
+    "level_name": "semantic_equivalence",
+    "family": "se_access_guard",
+    "title": "Access guard: error style, DI style, and rule variants",
+    "description": "Uses sem_error_style, sem_di_style, and sem_rule variants demonstrating different error handling and DI patterns.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "access_guard",
+    "difficulty_band": "expert",
+    "files": [
+        {
+            "path": "src/DocumentAccessPolicy.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 33
+        },
+        {
+            "path": "src/ErrorAccessPolicy.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 43
+        },
+        {
+            "path": "src/DiAccessPolicy.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 40
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-4",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "SEM-04",
+            "name": "error_style",
+            "params": {},
+            "applied_to": [
+                "src/ErrorAccessPolicy.php"
+            ],
+            "intensity": 4
+        },
+        {
+            "code": "SEM-05",
+            "name": "di_variants",
+            "params": {},
+            "applied_to": [
+                "src/DiAccessPolicy.php"
+            ],
+            "intensity": 4
+        }
+    ],
+    "difficulty": {
+        "score": 87,
+        "requires": [
+            "semantic_reasoning"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L05_semantic_equivalence/se_access_guard.json",
+        "version": "1.0.0",
+        "rng_seed": 50902
+    }
+}

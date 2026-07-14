@@ -20,7 +20,7 @@
                 {
                     "file": "src/TeamAInvoiceCalc.php",
                     "start_line": 10,
-                    "end_line": 33,
+                    "end_line": 34,
                     "symbol": "computeTotals",
                     "pristine": false
                 },

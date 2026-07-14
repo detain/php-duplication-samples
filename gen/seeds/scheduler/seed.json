@@ -1,0 +1,12 @@
+{
+    "domain": "scheduler",
+    "summary": "Cron/job scheduling with recurrence rules and next-run calculation.",
+    "size_class": "M",
+    "symbol": "nextRun",
+    "line_count": 120,
+    "token_count": 810,
+    "required_symbols": ["nextRun", "isDue", "validate"],
+    "mount_modes": ["method"],
+    "compatible_interference": ["WS-03", "CM-03", "RN-01", "LT-02", "CF-05"],
+    "variants": []
+}

@@ -1,0 +1,71 @@
+{
+    "schema_version": 1,
+    "set_id": "L18-pg_growth_1-004",
+    "level": 18,
+    "level_name": "partial_growth",
+    "family": "pg_growth_1",
+    "title": "Initial growth with ST-02 dead code",
+    "description": "Initial small set with dead code insertion.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "access_guard",
+    "difficulty_band": "easy",
+    "files": [
+        {
+            "path": "src/GrowthA.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 33
+        },
+        {
+            "path": "src/GrowthB.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 41
+        },
+        {
+            "path": "src/GrowthDistractor.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 29
+        },
+        {
+            "path": "src/GrowthClean.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 27
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-3",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 2
+    },
+    "interference": [
+        {
+            "code": "ST-02",
+            "name": "insert_dead",
+            "params": {},
+            "applied_to": [
+                "src/GrowthB.php"
+            ],
+            "intensity": 3
+        }
+    ],
+    "difficulty": {
+        "score": 10,
+        "requires": [
+            "ast_canonicalization",
+            "deadcode_elimination",
+            "identifier_canonicalization"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L18_partial_growth/pg_growth_1.json",
+        "version": "1.0.0",
+        "rng_seed": 180104
+    }
+}

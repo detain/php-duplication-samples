@@ -1,5 +1,5 @@
 {
-    "schema_version": 1,
+    "schema_version": 2,
     "set_id": "L03-cm_line_added-002",
     "clusters": [
         {
@@ -19,21 +19,51 @@
                     "start_line": 9,
                     "end_line": 33,
                     "symbol": "computeTotals",
-                    "pristine": true
+                    "pristine": true,
+                    "group": "A",
+                    "seed": "invoice_totals"
                 },
                 {
                     "file": "src/PriceBookService.php",
                     "start_line": 18,
                     "end_line": 45,
                     "symbol": "computeTotals",
-                    "pristine": false
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "invoice_totals",
+                    "fragments": [
+                        {
+                            "start_line": 35,
+                            "end_line": 52
+                        },
+                        {
+                            "start_line": 54,
+                            "end_line": 57
+                        },
+                        {
+                            "start_line": 59,
+                            "end_line": 59
+                        },
+                        {
+                            "start_line": 61,
+                            "end_line": 62
+                        }
+                    ],
+                    "unique_segments": [
+                        {
+                            "start_line": 53,
+                            "end_line": 60
+                        }
+                    ]
                 },
                 {
                     "file": "src/ThirdService.php",
                     "start_line": 24,
                     "end_line": 48,
                     "symbol": "computeTotals",
-                    "pristine": true
+                    "pristine": true,
+                    "group": "A",
+                    "seed": "invoice_totals"
                 }
             ],
             "detection_expectation": {

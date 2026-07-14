@@ -58,7 +58,8 @@
             },
             "applied_to": [
                 "src/BugfixAccessPolicy.php"
-            ]
+            ],
+            "intensity": 3
         },
         {
             "code": "CM-03",
@@ -68,27 +69,8 @@
             },
             "applied_to": [
                 "src/BugfixAccessPolicy.php"
-            ]
-        },
-        {
-            "code": "RN-05",
-            "name": "case_convention",
-            "params": {
-                "direction": "snake_to_camel"
-            },
-            "applied_to": [
-                "src/ReworkAccessPolicy.php"
-            ]
-        },
-        {
-            "code": "WS-06",
-            "name": "line_wrap",
-            "params": {
-                "occurrence": 1
-            },
-            "applied_to": [
-                "src/ReworkAccessPolicy.php"
-            ]
+            ],
+            "intensity": 1
         },
         {
             "code": "ST-02",
@@ -98,7 +80,30 @@
             },
             "applied_to": [
                 "src/ReworkAccessPolicy.php"
-            ]
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "RN-05",
+            "name": "case_convention",
+            "params": {
+                "direction": "snake_to_camel"
+            },
+            "applied_to": [
+                "src/ReworkAccessPolicy.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "WS-06",
+            "name": "line_wrap",
+            "params": {
+                "occurrence": 1
+            },
+            "applied_to": [
+                "src/ReworkAccessPolicy.php"
+            ],
+            "intensity": 2
         }
     ],
     "difficulty": {
@@ -106,9 +111,9 @@
         "requires": [
             "ast_canonicalization",
             "comment_stripping",
+            "deadcode_elimination",
             "identifier_canonicalization",
-            "whitespace_normalization",
-            "deadcode_elimination"
+            "whitespace_normalization"
         ]
     },
     "generator": {

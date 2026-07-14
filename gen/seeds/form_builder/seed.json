@@ -1,0 +1,14 @@
+{
+    "domain": "form_builder",
+    "summary": "HTML form construction with field types and validation rules.",
+    "size_class": "L",
+    "symbol": "build",
+    "line_count": 104,
+    "token_count": 700,
+    "required_symbols": ["build", "renderField", "validate"],
+    "mount_modes": ["method"],
+    "compatible_interference": ["WS-03", "CM-03", "RN-01", "LT-02", "CF-05"],
+    "variants": [
+        {"file": "data_driven.php", "code": "API-04", "name": "data_driven"}
+    ]
+}

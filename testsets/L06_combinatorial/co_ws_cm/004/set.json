@@ -1,0 +1,200 @@
+{
+    "schema_version": 2,
+    "set_id": "L06-co_ws_cm-004",
+    "level": 6,
+    "level_name": "combinatorial",
+    "family": "co_ws_cm",
+    "title": "Heavy whitespace and comment interference",
+    "description": "Same computeTotals method. All carriers apply multiple WS and CM transforms at higher intensity. Tests detector robustness under heavy but uniform interference.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "invoice_totals",
+    "difficulty_band": "very_hard",
+    "files": [
+        {
+            "path": "src/HeavyCalcA.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 40,
+            "region_sloc": {
+                "sloc": 26,
+                "duplicate": 23,
+                "unique": 3,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/HeavyCalcB.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 50,
+            "region_sloc": {
+                "sloc": 28,
+                "duplicate": 25,
+                "unique": 3,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/HeavyCalcC.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 47,
+            "region_sloc": {
+                "sloc": 29,
+                "duplicate": 25,
+                "unique": 4,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/MarginSummarizer.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 30
+        },
+        {
+            "path": "src/TaxRateRepository.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-1",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "CM-01",
+            "name": "line_comment_add",
+            "params": {
+                "position": "after_statement"
+            },
+            "applied_to": [
+                "src/HeavyCalcA.php"
+            ],
+            "intensity": 1
+        },
+        {
+            "code": "WS-03",
+            "name": "blank_inside",
+            "params": {
+                "blank_lines": 2
+            },
+            "applied_to": [
+                "src/HeavyCalcA.php"
+            ],
+            "intensity": 1
+        },
+        {
+            "code": "CM-03",
+            "name": "docblock",
+            "params": {
+                "style": "docblock"
+            },
+            "applied_to": [
+                "src/HeavyCalcB.php"
+            ],
+            "intensity": 1
+        },
+        {
+            "code": "WS-06",
+            "name": "line_wrap",
+            "params": {
+                "occurrence": 1
+            },
+            "applied_to": [
+                "src/HeavyCalcB.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "CM-01",
+            "name": "line_comment_add",
+            "params": {
+                "position": "inline"
+            },
+            "applied_to": [
+                "src/HeavyCalcC.php"
+            ],
+            "intensity": 1
+        },
+        {
+            "code": "WS-03",
+            "name": "blank_inside",
+            "params": {
+                "blank_lines": 3
+            },
+            "applied_to": [
+                "src/HeavyCalcC.php"
+            ],
+            "intensity": 1
+        },
+        {
+            "code": "WS-06",
+            "name": "line_wrap",
+            "params": {
+                "occurrence": 2
+            },
+            "applied_to": [
+                "src/HeavyCalcC.php"
+            ],
+            "intensity": 2
+        }
+    ],
+    "difficulty": {
+        "score": 72,
+        "requires": [
+            "comment_stripping",
+            "whitespace_normalization"
+        ],
+        "score_raw": 72,
+        "axes": {
+            "breadth": 4,
+            "intensity": 1.29,
+            "intensity_max": 2,
+            "semantic_depth": 0,
+            "partiality": 1
+        },
+        "application_count": 7,
+        "axis_count": 4
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L06_combinatorial/co_ws_cm.json",
+        "version": "2.0.0",
+        "rng_seed": 1601004
+    },
+    "interference_profile": {
+        "axis_count": 4,
+        "per_carrier_axes": {
+            "src/HeavyCalcA.php": [
+                "CM-01",
+                "WS-03"
+            ],
+            "src/HeavyCalcB.php": [
+                "CM-03",
+                "WS-06"
+            ],
+            "src/HeavyCalcC.php": [
+                "CM-01",
+                "WS-03",
+                "WS-06"
+            ]
+        },
+        "groups_touched": [
+            "A"
+        ],
+        "stack_depth_max": 3,
+        "symmetric_overlap": 0,
+        "pairwise_overlap": 0.3056,
+        "combination_design": "textual_only"
+    },
+    "engine_features": [
+        "fragment_emission"
+    ]
+}

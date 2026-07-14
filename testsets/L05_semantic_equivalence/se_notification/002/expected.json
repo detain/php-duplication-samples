@@ -1,0 +1,56 @@
+{
+    "schema_version": 1,
+    "set_id": "L05-se_notification-002",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-4",
+            "granularity": "method",
+            "normalized_by": [
+                "controlflow",
+                "identifiers",
+                "literals"
+            ],
+            "token_hash": "3cfc94ec19116675",
+            "normalized_hash": "47058ee291aacafb",
+            "members": [
+                {
+                    "file": "src/DirectNotifier.php",
+                    "start_line": 9,
+                    "end_line": 67,
+                    "symbol": "sendNotification",
+                    "pristine": true
+                },
+                {
+                    "file": "src/GuardNotifier.php",
+                    "start_line": 18,
+                    "end_line": 76,
+                    "symbol": "sendNotification",
+                    "pristine": false
+                },
+                {
+                    "file": "src/LoopNotifier.php",
+                    "start_line": 24,
+                    "end_line": 82,
+                    "symbol": "sendNotification",
+                    "pristine": false
+                }
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": false,
+                "ast_based": false,
+                "metric_based": false,
+                "semantic": true
+            },
+            "notes": "Set 002 of 5. CF-01, CF-04, CF-05 combined with queue_based variant."
+        }
+    ],
+    "non_duplicates": [],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.6,
+        "min_members_for_credit": 2
+    }
+}

@@ -1,0 +1,12 @@
+{
+    "domain": "cache_manager",
+    "summary": "Cache-aside pattern: get, set, invalidate, TTL, and prune operations.",
+    "size_class": "M",
+    "symbol": "get",
+    "line_count": 48,
+    "token_count": 320,
+    "required_symbols": ["get", "set", "invalidate", "clear", "prune"],
+    "mount_modes": ["method"],
+    "compatible_interference": ["WS-03", "CM-03", "RN-01", "ST-01"],
+    "variants": []
+}

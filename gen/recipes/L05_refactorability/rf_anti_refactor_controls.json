@@ -1,0 +1,299 @@
+{
+    "level": 5,
+    "level_name": "refactorability",
+    "level_dir": "L05_refactorability",
+    "family": "rf_anti_refactor_controls",
+    "description": "Strong negative controls — cases where code duplication detection tools MUST NOT suggest unification. These carriers have duplicated code patterns but unifying them would catastrophically violate single responsibility, create inappropriate coupling, or introduce dangerous ambiguity. Unlike rf_non_extractable (advisable: no), these represent scenarios where naive refactoring tools would cause catastrophic harm.",
+    "sets": [
+        {
+            "set_id": "L05-rf_anti_refactor_controls-001",
+            "title": "Auth handler methods with OPPOSITE side-effect contracts — CANNOT be unified",
+            "description": "Three auth methods that LOOK similar (all deal with tokens) but have fundamentally incompatible contracts: authenticate makes external calls (DB write, logging), refresh is pure token exchange with no side effects, validate is read-only with no side effects. Unifying would VIOLATE the Command-Query Separation principle catastrophically.",
+            "seed": "auth_handler",
+            "mount": "method",
+            "clone_symbol": "handleAuth",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "schema_version": 2,
+            "rng_seed": 508101,
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true},
+            "intended_refactoring": {
+                "kind": "none",
+                "advisability": "inadvisable",
+                "reason": "Carrier A (authenticate): command that changes system state (DB write for last_login, token generation, user record mutation). Carrier B (refresh): query that returns new token but has NO side effects (pure function). Carrier C (validate): query that only reads/decodes token, returns metadata, NO side effects. Unifying these into one method would create a VIOLATION of Command-Query Separation — callers expect either state change OR read-only result, not both. This is a CATASTROPHIC anti-pattern."
+            },
+            "solution": "// CATASTROPHIC ANTI-PATTERN: attempting to unify these violates Command-Query Separation\n// Carrier A (authenticate): COMMAND — changes state (recordLogin, token generation, user lookup)\n// Carrier B (refresh): QUERY — pure token exchange, NO side effects, returns new token pair\n// Carrier C (validate): QUERY — read-only token decode + expiry check, returns user_id/roles\n//\n// These MUST remain separate because:\n// 1. Side-effect profiles are incompatible (write vs read-only)\n// 2. Error handling strategies differ (authenticate: null return, refresh: null return, validate: null return)\n// 3. Return type semantics differ (authenticate: auth context, refresh: new tokens, validate: authorization claims)\n// 4. Unifying would make the method's contract UNDEFINED — callers cannot predict behavior\n//\n// This is STRONGER than rf_non_extractable — rf_non_extractable shows incompatible semantics,\n// but THIS shows violation of a fundamental software design principle (CQS) that would\n// cause UNDEFINED BEHAVIOR at call sites.",
+            "carriers": [
+                {
+                    "file": "CredentialAuthenticator.php",
+                    "namespace": "Acme\\Auth\\Credentials",
+                    "class": "CredentialAuthenticator",
+                    "scaffold": "method_alpha",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                },
+                {
+                    "file": "TokenRefresher.php",
+                    "namespace": "Acme\\Auth\\Refresh",
+                    "class": "TokenRefresher",
+                    "scaffold": "method_beta",
+                    "group": "A",
+                    "pristine": false,
+                    "transforms": []
+                },
+                {
+                    "file": "TokenValidator.php",
+                    "namespace": "Acme\\Auth\\Validate",
+                    "class": "TokenValidator",
+                    "scaffold": "method_gamma",
+                    "group": "A",
+                    "pristine": false,
+                    "transforms": []
+                }
+            ],
+            "distractors": [
+                {
+                    "file": "SessionManager.php",
+                    "namespace": "Acme\\Session",
+                    "class": "SessionManager",
+                    "source": "nearmiss_auth",
+                    "reason": "near-miss: similar token-handling shape but manages session lifecycle not authentication"
+                }
+            ]
+        },
+        {
+            "set_id": "L05-rf_anti_refactor_controls-002",
+            "title": "Payment processor methods with INCOMPATIBLE state transitions — CANNOT be unified",
+            "description": "Three payment methods that LOOK similar (all interact with payment state) but perform fundamentally different state transitions: charge CREATES new state, refund MODIFIES existing state (with business rule constraints), handleWebhook is a pure ROUTING function that dispatches without state mutation. Unifying would VIOLATE the Open/Closed principle and create dangerous ambiguity in transaction state.",
+            "seed": "payment_processor",
+            "mount": "method",
+            "clone_symbol": "processPayment",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "schema_version": 2,
+            "rng_seed": 508102,
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true},
+            "intended_refactoring": {
+                "kind": "none",
+                "advisability": "inadvisable",
+                "reason": "Carrier A (charge): CREATE transition — creates new transaction record, generates ID, records in ledger. Carrier B (refund): UPDATE transition — modifies existing transaction, has BUSINESS RULE constraint (refund_amount <= original_amount), creates new transaction record for refund. Carrier C (handleWebhook): PURE ROUTING — parses payload, dispatches to handlers, returns bool, NO state mutation in the router itself. Unifying would create a method that simultaneously performs CREATE, UPDATE, and PURE ROUTING — an IMPOSSIBLE contract that violates fundamental state machine semantics."
+            },
+            "solution": "// CATASTROPHIC ANTI-PATTERN: attempting to unify these violates State Machine semantics\n// Carrier A (charge): CREATE — creates new 'charge' transaction with unique ID\n// Carrier B (refund): UPDATE — modifies existing transaction state, enforces business rule\n// Carrier C (handleWebhook): PURE ROUTING — no state change, dispatches to handlers\n//\n// These MUST remain separate because:\n// 1. State transition types are incompatible (Create vs Update vs Query/Routing)\n// 2. Business rule enforcement differs (refund has amount validation against original)\n// 3. Idempotency guarantees differ (charge: not idempotent, refund: partially idempotent, webhook: must be idempotent)\n// 4. Unifying would create an IMPOSSIBLE method contract — a single interface cannot express\n//    'create OR update OR route depending on type' without becoming a confused abstraction\n//\n// This is STRONGER than rf_non_extractable — the state machine violation means call sites\n// would have UNDEFINED BEHAVIOR depending on which code path executes.",
+            "carriers": [
+                {
+                    "file": "PaymentChargeHandler.php",
+                    "namespace": "Acme\\Payment\\Charge",
+                    "class": "PaymentChargeHandler",
+                    "scaffold": "method_alpha",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                },
+                {
+                    "file": "PaymentRefundHandler.php",
+                    "namespace": "Acme\\Payment\\Refund",
+                    "class": "PaymentRefundHandler",
+                    "scaffold": "method_beta",
+                    "group": "A",
+                    "pristine": false,
+                    "transforms": []
+                },
+                {
+                    "file": "PaymentWebhookRouter.php",
+                    "namespace": "Acme\\Payment\\Webhook",
+                    "class": "PaymentWebhookRouter",
+                    "scaffold": "method_gamma",
+                    "group": "A",
+                    "pristine": false,
+                    "transforms": []
+                }
+            ],
+            "distractors": [
+                {
+                    "file": "PaymentLogger.php",
+                    "namespace": "Acme\\Payment\\Log",
+                    "class": "PaymentLogger",
+                    "source": "nearmiss_payment",
+                    "reason": "near-miss: similar transaction recording shape but only logs without state change"
+                }
+            ]
+        },
+        {
+            "set_id": "L05-rf_anti_refactor_controls-003",
+            "title": "Notification methods with channel-specific validation that CANNOT be abstracted",
+            "description": "Three notification methods that LOOK similar (all validate recipient format) but validation is CHANNEL-SPECIFIC and fundamentally incompatible: email uses RFC-compliant email validation, SMS uses E.164 phone validation, push uses token format validation. Unifying would create an IMPOSSIBLE validation contract — there is no universal recipient format.",
+            "seed": "notification_service",
+            "mount": "method",
+            "clone_symbol": "notifyRecipient",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "schema_version": 2,
+            "rng_seed": 508103,
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true},
+            "intended_refactoring": {
+                "kind": "none",
+                "advisability": "inadvisable",
+                "reason": "Carrier A (sendEmail): validates using FILTER_VALIDATE_EMAIL (RFC 5321/5322 compliant). Carrier B (sendSms): validates using E.164 phone regex (^+?[1-9]\\d{6,14}$). Carrier C (sendPush): validates token length >= 10 chars. These validation functions are NOT interchangeable — email format has '@' and domain, phone has country code and digits only, push tokens have alphanumeric format requirements. There is NO common abstraction for 'recipient identifier' that captures all three without losing type safety."
+            },
+            "solution": "// CATASTROPHIC ANTI-PATTERN: attempting to unify these creates an IMPOSSIBLE type contract\n// Carrier A (sendEmail): recipient = email address, validated via FILTER_VALIDATE_EMAIL\n// Carrier B (sendSms): recipient = E.164 phone number, validated via phone regex\n// Carrier C (sendPush): recipient = push token, validated via length >= 10\n//\n// These MUST remain separate because:\n// 1. Validation logic is channel-specific with NO common interface\n// 2. Error messages are channel-specific ('Invalid email' vs 'Invalid phone' vs 'Invalid token')\n// 3. Sanitization requirements differ (email: no HTML, phone: digits/+ only, push: alphanumeric)\n// 4. Unifying would require 'any string' validation which provides ZERO type safety — callers\n//    would pass wrong recipient types and receive confusing errors at runtime\n//\n// This is STRONGER than rf_non_extractable — it shows that some duplicated validation\n// patterns are INHERENTLY channel-specific and CANNOT be abstracted without destroying\n// the type safety that makes the validation valuable.",
+            "carriers": [
+                {
+                    "file": "EmailNotifier.php",
+                    "namespace": "Acme\\Notify\\Email",
+                    "class": "EmailNotifier",
+                    "scaffold": "method_alpha",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                },
+                {
+                    "file": "SmsNotifier.php",
+                    "namespace": "Acme\\Notify\\Sms",
+                    "class": "SmsNotifier",
+                    "scaffold": "method_beta",
+                    "group": "A",
+                    "pristine": false,
+                    "transforms": []
+                },
+                {
+                    "file": "PushNotifier.php",
+                    "namespace": "Acme\\Notify\\Push",
+                    "class": "PushNotifier",
+                    "scaffold": "method_gamma",
+                    "group": "A",
+                    "pristine": false,
+                    "transforms": []
+                }
+            ],
+            "distractors": [
+                {
+                    "file": "NotificationLogger.php",
+                    "namespace": "Acme\\Notify\\Log",
+                    "class": "NotificationLogger",
+                    "source": "nearmiss_notification",
+                    "reason": "near-miss: similar batching shape but only logs notifications without sending"
+                }
+            ]
+        },
+        {
+            "set_id": "L05-rf_anti_refactor_controls-004",
+            "title": "File storage methods that violate Command-Query Separation — CANNOT be unified",
+            "description": "Three file storage methods that LOOK similar (all perform file operations) but violate Command-Query Separation in different ways: url() is a QUERY that has a side effect (generates signed URL with expiry), upload() is a COMMAND that changes state, download() is a COMMAND that changes state. Unifying queries and commands would make the API's behavior UNPREDICTABLE.",
+            "seed": "file_storage",
+            "mount": "method",
+            "clone_symbol": "manageFile",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "schema_version": 2,
+            "rng_seed": 508104,
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true},
+            "intended_refactoring": {
+                "kind": "none",
+                "advisability": "inadvisable",
+                "reason": "Carrier A (url): QUERY that returns a signed URL — it has a side effect (generates signature with expiry), but conceptually it's a query operation. Carrier B (upload): COMMAND that creates/changes file state in storage. Carrier C (download): COMMAND that retrieves file to local path. These violate CQS in different directions: url() is a query with hidden side effect (signature generation), while upload/download are pure commands. Even more critically, url() might be called for a file that doesn't exist yet (to pre-generate URL before upload), but exists() is a separate query. Unifying these would create a method that is simultaneously query-and-command — a VIOLATION of CQS."
+            },
+            "solution": "// CATASTROPHIC ANTI-PATTERN: attempting to unify these violates Command-Query Separation\n// Carrier A (url): QUERY — returns signed URL, conceptually read-only (signature is just encoding)\n// Carrier B (upload): COMMAND — creates/overwrites file in storage, changes system state\n// Carrier C (download): COMMAND — copies file to local path, changes system state\n//\n// These MUST remain separate because:\n// 1. Command vs Query distinction is FUNDAMENTAL — callers must know if method changes state\n// 2. url() could conceptually be called before a file exists (pre-signed URL for future upload)\n// 3. upload/download return success/failure AND change state, while url() returns URL with no state change\n// 4. Unifying would create a method with SCHIZOPHRENIC contract — sometimes mutating, sometimes not,\n//    based on hidden internal logic that callers cannot predict\n//\n// This is STRONGER than rf_non_extractable — the CQS violation here creates a method that\n// VIOLATES a fundamental principle that most developers rely on for reasoning about code.",
+            "carriers": [
+                {
+                    "file": "PublicUrlGenerator.php",
+                    "namespace": "Acme\\Storage\\Url",
+                    "class": "PublicUrlGenerator",
+                    "scaffold": "method_alpha",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                },
+                {
+                    "file": "FileUploader.php",
+                    "namespace": "Acme\\Storage\\Upload",
+                    "class": "FileUploader",
+                    "scaffold": "method_beta",
+                    "group": "A",
+                    "pristine": false,
+                    "transforms": []
+                },
+                {
+                    "file": "FileDownloader.php",
+                    "namespace": "Acme\\Storage\\Download",
+                    "class": "FileDownloader",
+                    "scaffold": "method_gamma",
+                    "group": "A",
+                    "pristine": false,
+                    "transforms": []
+                }
+            ],
+            "distractors": [
+                {
+                    "file": "StorageMetrics.php",
+                    "namespace": "Acme\\Storage\\Metrics",
+                    "class": "StorageMetrics",
+                    "source": "nearmiss_storage",
+                    "reason": "near-miss: similar file path handling but only collects metrics without operations"
+                }
+            ]
+        },
+        {
+            "set_id": "L05-rf_anti_refactor_controls-005",
+            "title": "HTTP client methods with different idempotency guarantees that CANNOT be unified",
+            "description": "Three HTTP client methods that LOOK similar (all use curl) but have fundamentally different idempotency guarantees and semantic contracts: GET is idempotent (read-only), POST is NOT idempotent (creates resource), and the request method conditionally sets CURLOPT_POSTFIELDS based on body presence. Unifying would create an HTTP client with AMBIGUOUS idempotency — the most dangerous anti-pattern in API design.",
+            "seed": "http_client",
+            "mount": "method",
+            "clone_symbol": "makeHttpCall",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "schema_version": 2,
+            "rng_seed": 508105,
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true},
+            "intended_refactoring": {
+                "kind": "none",
+                "advisability": "inadvisable",
+                "reason": "Carrier A (request with GET): idempotent, read-only, should never mutate data on server. Carrier B (request with POST): NOT idempotent, creates new resource, may cause duplicate creation on retry. Carrier C (request with custom method): semantic depends on method — PUT is idempotent update, DELETE is idempotent delete, PATCH is non-idempotent update. Unifying these would create an HTTP client method where the SAME code path (curl_setopt_array) could produce either idempotent or non-idempotent behavior depending on the method string. This is DANGEROUS because callers cannot reason about retry safety."
+            },
+            "solution": "// CATASTROPHIC ANTI-PATTERN: attempting to unify these creates AMBIGUOUS idempotency\n// Carrier A (GET requests): IDEMPOTENT — read-only, safe to retry automatically\n// Carrier B (POST requests): NOT IDEMPOTENT — creates data, retry may cause duplicates\n// Carrier C (PUT/DELETE/PATCH): VARIABLE — PUT is idempotent, DELETE is idempotent, PATCH is not\n//\n// These MUST remain separate because:\n// 1. Idempotency determines retry safety — unifying would make retry behavior UNDEFINED\n// 2. HTTP semantics are method-specific and CANNOT be abstracted without losing semantics\n// 3. Callers rely on idempotency guarantees for circuit breaker patterns, retry queues, etc.\n// 4. Unifying would create a 'makeHttpCall' method where callers cannot predict if it's safe to retry\n//    without knowing internal implementation details\n//\n// This is STRONGER than rf_non_extractable — the idempotency ambiguity would cause\n// REAL PRODUCTION BUGS: callers would implement wrong retry logic and cause data duplication\n// or missed operations depending on which code path executes.",
+            "carriers": [
+                {
+                    "file": "HttpGetClient.php",
+                    "namespace": "Acme\\Http\\Get",
+                    "class": "HttpGetClient",
+                    "scaffold": "method_alpha",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                },
+                {
+                    "file": "HttpPostClient.php",
+                    "namespace": "Acme\\Http\\Post",
+                    "class": "HttpPostClient",
+                    "scaffold": "method_beta",
+                    "group": "A",
+                    "pristine": false,
+                    "transforms": []
+                },
+                {
+                    "file": "HttpFlexibleClient.php",
+                    "namespace": "Acme\\Http\\Flexible",
+                    "class": "HttpFlexibleClient",
+                    "scaffold": "method_gamma",
+                    "group": "A",
+                    "pristine": false,
+                    "transforms": []
+                }
+            ],
+            "distractors": [
+                {
+                    "file": "HttpLogger.php",
+                    "namespace": "Acme\\Http\\Log",
+                    "class": "HttpLogger",
+                    "source": "nearmiss_http",
+                    "reason": "near-miss: similar curl setup shape but only logs requests without sending"
+                }
+            ]
+        }
+    ]
+}

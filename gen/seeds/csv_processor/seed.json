@@ -1,0 +1,12 @@
+{
+    "domain": "csv_processor",
+    "summary": "CSV parsing and transformation pipeline.",
+    "size_class": "M",
+    "symbol": "process",
+    "line_count": 62,
+    "token_count": 420,
+    "required_symbols": ["process", "toCsv"],
+    "mount_modes": ["method"],
+    "compatible_interference": ["WS-03", "CM-03", "RN-01", "LT-02", "ST-01"],
+    "variants": []
+}

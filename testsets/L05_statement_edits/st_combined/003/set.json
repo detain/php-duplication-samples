@@ -62,7 +62,8 @@
             },
             "applied_to": [
                 "src/ComboInvoiceCalc.php"
-            ]
+            ],
+            "intensity": 3
         },
         {
             "code": "ST-02",
@@ -76,7 +77,8 @@
             },
             "applied_to": [
                 "src/ComboInvoiceCalc.php"
-            ]
+            ],
+            "intensity": 3
         },
         {
             "code": "ST-01",
@@ -92,7 +94,8 @@
             },
             "applied_to": [
                 "src/FullComboInvoiceCalc.php"
-            ]
+            ],
+            "intensity": 3
         },
         {
             "code": "ST-02",
@@ -105,7 +108,8 @@
             },
             "applied_to": [
                 "src/FullComboInvoiceCalc.php"
-            ]
+            ],
+            "intensity": 3
         },
         {
             "code": "ST-09",
@@ -126,7 +130,8 @@
             },
             "applied_to": [
                 "src/FullComboInvoiceCalc.php"
-            ]
+            ],
+            "intensity": 3
         }
     ],
     "difficulty": {

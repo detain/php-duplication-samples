@@ -58,37 +58,8 @@
             },
             "applied_to": [
                 "src/SixMonthCalc.php"
-            ]
-        },
-        {
-            "code": "RN-05",
-            "name": "case_convention",
-            "params": {
-                "direction": "camel_to_snake"
-            },
-            "applied_to": [
-                "src/TwelveMonthCalc.php"
-            ]
-        },
-        {
-            "code": "CM-03",
-            "name": "docblock",
-            "params": {
-                "style": "standard"
-            },
-            "applied_to": [
-                "src/TwelveMonthCalc.php"
-            ]
-        },
-        {
-            "code": "WS-06",
-            "name": "line_wrap",
-            "params": {
-                "occurrence": 1
-            },
-            "applied_to": [
-                "src/TwelveMonthCalc.php"
-            ]
+            ],
+            "intensity": 3
         },
         {
             "code": "ST-02",
@@ -98,17 +69,51 @@
             },
             "applied_to": [
                 "src/TwelveMonthCalc.php"
-            ]
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "RN-05",
+            "name": "case_convention",
+            "params": {
+                "direction": "camel_to_snake"
+            },
+            "applied_to": [
+                "src/TwelveMonthCalc.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "CM-03",
+            "name": "docblock",
+            "params": {
+                "style": "standard"
+            },
+            "applied_to": [
+                "src/TwelveMonthCalc.php"
+            ],
+            "intensity": 1
+        },
+        {
+            "code": "WS-06",
+            "name": "line_wrap",
+            "params": {
+                "occurrence": 1
+            },
+            "applied_to": [
+                "src/TwelveMonthCalc.php"
+            ],
+            "intensity": 2
         }
     ],
     "difficulty": {
         "score": 100,
         "requires": [
             "ast_canonicalization",
+            "deadcode_elimination",
             "identifier_canonicalization",
             "comment_stripping",
-            "whitespace_normalization",
-            "deadcode_elimination"
+            "whitespace_normalization"
         ]
     },
     "generator": {

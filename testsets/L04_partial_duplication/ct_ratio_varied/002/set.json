@@ -1,0 +1,303 @@
+{
+    "schema_version": 2,
+    "set_id": "L04-ct_ratio_varied-002",
+    "level": 4,
+    "level_name": "partial_duplication",
+    "family": "ct_ratio_varied",
+    "title": "Three clusters with graduated ratios",
+    "description": "Three clusters with high (85%), medium (60%), and low (40%) duplication.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "invoice_totals",
+    "difficulty_band": "medium",
+    "files": [
+        {
+            "path": "src/HighA.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 39,
+            "region_sloc": {
+                "sloc": 25,
+                "duplicate": 25,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/HighB.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 43,
+            "region_sloc": {
+                "sloc": 24,
+                "duplicate": 24,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/HighC.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 42,
+            "region_sloc": {
+                "sloc": 24,
+                "duplicate": 24,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/MedA.php",
+            "role": "carrier",
+            "duplicate_group": "B",
+            "sloc": 39,
+            "region_sloc": {
+                "sloc": 25,
+                "duplicate": 25,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/MedB.php",
+            "role": "carrier",
+            "duplicate_group": "B",
+            "sloc": 36,
+            "region_sloc": {
+                "sloc": 17,
+                "duplicate": 17,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/MedC.php",
+            "role": "carrier",
+            "duplicate_group": "B",
+            "sloc": 35,
+            "region_sloc": {
+                "sloc": 17,
+                "duplicate": 17,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/LowA.php",
+            "role": "carrier",
+            "duplicate_group": "C",
+            "sloc": 39,
+            "region_sloc": {
+                "sloc": 25,
+                "duplicate": 25,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/LowB.php",
+            "role": "carrier",
+            "duplicate_group": "C",
+            "sloc": 32,
+            "region_sloc": {
+                "sloc": 13,
+                "duplicate": 13,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/LowC.php",
+            "role": "carrier",
+            "duplicate_group": "C",
+            "sloc": 31,
+            "region_sloc": {
+                "sloc": 13,
+                "duplicate": 13,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/Dist1.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 30
+        },
+        {
+            "path": "src/Dist2.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 30
+        },
+        {
+            "path": "src/Dist3.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 30
+        },
+        {
+            "path": "src/Clean1.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        },
+        {
+            "path": "src/Clean2.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        },
+        {
+            "path": "src/Clean3.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-3",
+        "granularity": "method",
+        "clusters": 3,
+        "instances": 9
+    },
+    "interference": [
+        {
+            "code": "ST-07",
+            "name": "partial_fragment",
+            "params": {
+                "head_trim": 1,
+                "tail_trim": 0
+            },
+            "applied_to": [
+                "src/HighB.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "ST-07",
+            "name": "partial_fragment",
+            "params": {
+                "head_trim": 0,
+                "tail_trim": 1
+            },
+            "applied_to": [
+                "src/HighC.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "ST-07",
+            "name": "partial_fragment",
+            "params": {
+                "head_trim": 4,
+                "tail_trim": 4
+            },
+            "applied_to": [
+                "src/MedB.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "ST-07",
+            "name": "partial_fragment",
+            "params": {
+                "head_trim": 5,
+                "tail_trim": 3
+            },
+            "applied_to": [
+                "src/MedC.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "ST-07",
+            "name": "partial_fragment",
+            "params": {
+                "head_trim": 6,
+                "tail_trim": 6
+            },
+            "applied_to": [
+                "src/LowB.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "ST-07",
+            "name": "partial_fragment",
+            "params": {
+                "head_trim": 7,
+                "tail_trim": 5
+            },
+            "applied_to": [
+                "src/LowC.php"
+            ],
+            "intensity": 3
+        }
+    ],
+    "difficulty": {
+        "score": 42,
+        "requires": [
+            "ast_canonicalization",
+            "deadcode_elimination"
+        ],
+        "score_raw": 42,
+        "axes": {
+            "breadth": 1,
+            "intensity": 3,
+            "intensity_max": 3,
+            "semantic_depth": 0,
+            "partiality": 1
+        },
+        "application_count": 6,
+        "axis_count": 1
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L04_partial_duplication/ct_ratio_varied.json",
+        "version": "2.0.0",
+        "rng_seed": 105502
+    },
+    "interference_profile": {
+        "axis_count": 1,
+        "per_carrier_axes": {
+            "src/HighB.php": [
+                "ST-07"
+            ],
+            "src/HighC.php": [
+                "ST-07"
+            ],
+            "src/MedB.php": [
+                "ST-07"
+            ],
+            "src/MedC.php": [
+                "ST-07"
+            ],
+            "src/LowB.php": [
+                "ST-07"
+            ],
+            "src/LowC.php": [
+                "ST-07"
+            ]
+        },
+        "groups_touched": [
+            "A",
+            "B",
+            "C"
+        ],
+        "stack_depth_max": 1,
+        "symmetric_overlap": 1,
+        "pairwise_overlap": 1,
+        "combination_design": "structural_only"
+    },
+    "engine_features": [
+        "multi_cluster"
+    ],
+    "role_composition": {
+        "carrier": 9,
+        "distractor": 3,
+        "clean": 3
+    }
+}

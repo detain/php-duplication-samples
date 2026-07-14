@@ -1,0 +1,56 @@
+{
+    "schema_version": 1,
+    "set_id": "L05-se_state_machine-004",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-4",
+            "granularity": "method",
+            "normalized_by": [
+                "controlflow",
+                "identifiers",
+                "literals"
+            ],
+            "token_hash": "5a1df59bd93d82d2",
+            "normalized_hash": "5cf2db2c7a0066fe",
+            "members": [
+                {
+                    "file": "src/SimpleStateMachine.php",
+                    "start_line": 9,
+                    "end_line": 48,
+                    "symbol": "processTransition",
+                    "pristine": true
+                },
+                {
+                    "file": "src/FullStateMachine.php",
+                    "start_line": 18,
+                    "end_line": 58,
+                    "symbol": "processTransition",
+                    "pristine": false
+                },
+                {
+                    "file": "src/ComplexStateMachine.php",
+                    "start_line": 24,
+                    "end_line": 63,
+                    "symbol": "processTransition",
+                    "pristine": false
+                }
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": false,
+                "ast_based": false,
+                "metric_based": false,
+                "semantic": true
+            },
+            "notes": "Set 004 of 5. Combines ST-01, ST-05, RN-01, LT-01 for maximum diversity (no TY-01 due to known issues)."
+        }
+    ],
+    "non_duplicates": [],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.6,
+        "min_members_for_credit": 2
+    }
+}

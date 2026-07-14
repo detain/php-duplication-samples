@@ -1,0 +1,69 @@
+{
+    "schema_version": 1,
+    "set_id": "L17-rf_incomplete-001",
+    "level": 17,
+    "level_name": "refactor_fork",
+    "family": "rf_incomplete",
+    "title": "Incomplete refactoring states - basic",
+    "description": "Tests rf_incomplete: incomplete refactoring states showing mid-transform clones.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "invoice_totals",
+    "difficulty_band": "trivial",
+    "files": [
+        {
+            "path": "src/IncompleteRefactorA.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 39
+        },
+        {
+            "path": "src/IncompleteRefactorB.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 44
+        },
+        {
+            "path": "src/IncompleteRefactorDistractor.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 30
+        },
+        {
+            "path": "src/IncompleteRefactorClean.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-2",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 2
+    },
+    "interference": [
+        {
+            "code": "RN-05",
+            "name": "case_convention",
+            "params": {},
+            "applied_to": [
+                "src/IncompleteRefactorB.php"
+            ],
+            "intensity": 2
+        }
+    ],
+    "difficulty": {
+        "score": 6,
+        "requires": [
+            "identifier_canonicalization"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L17_refactor_fork/rf_incomplete.json",
+        "version": "1.0.0",
+        "rng_seed": 170201
+    }
+}

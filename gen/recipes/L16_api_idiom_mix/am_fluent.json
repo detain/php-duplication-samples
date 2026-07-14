@@ -1,0 +1,139 @@
+{
+    "level": 16,
+    "level_name": "api_idiom_mix",
+    "level_dir": "L16_api_idiom_mix",
+    "family": "am_fluent",
+    "sets": [
+        {
+            "set_id": "L16-am_fluent-001",
+            "title": "Fluent interface chaining with LT-01",
+            "description": "Tests am_fluent: fluent interface chaining idiom with literal transforms.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["literals"],
+            "rng_seed": 160101,
+            "notes": "L16: am_fluent - fluent interface chaining.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.7, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["literal_abstraction"],
+            "carriers": [
+                {"file": "FluentA.php", "namespace": "Acme\\Fluent\\Alpha", "class": "FluentA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "FluentB.php", "namespace": "Acme\\Fluent\\Beta", "class": "FluentB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-01"}]}
+            ],
+            "distractors": [
+                {"file": "FluentDistractor.php", "namespace": "Acme\\Fluent\\Distract", "class": "FluentDistractor", "source": "nearmiss_invoice", "reason": "Near-miss: similar fluent vocabulary"}
+            ],
+            "cleans": [
+                {"file": "FluentClean.php", "namespace": "Acme\\Fluent\\Config", "class": "FluentClean", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L16-am_fluent-002",
+            "title": "Fluent chaining with RN-05 rename",
+            "description": "Fluent interface with case convention rename.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["identifiers"],
+            "rng_seed": 160102,
+            "notes": "L16: am_fluent + RN-05 rename.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.65, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["identifier_canonicalization"],
+            "carriers": [
+                {"file": "FluentA.php", "namespace": "Acme\\Fluent\\Alpha", "class": "FluentA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "FluentB.php", "namespace": "Acme\\Fluent\\Beta", "class": "FluentB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-05"}, {"code": "CM-01"}]}
+            ],
+            "distractors": [
+                {"file": "FluentDistractor.php", "namespace": "Acme\\Fluent\\Distract", "class": "FluentDistractor", "source": "nearmiss_access", "reason": "Near-miss: similar auth fluent"}
+            ],
+            "cleans": [
+                {"file": "FluentClean.php", "namespace": "Acme\\Fluent\\Config", "class": "FluentClean", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L16-am_fluent-003",
+            "title": "Fluent chaining with multiple transforms",
+            "description": "Three carriers with multiple transforms in fluent context.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["identifiers", "literals", "comments"],
+            "rng_seed": 160103,
+            "notes": "L16: am_fluent with multiple transforms.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 3},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["identifier_canonicalization", "literal_abstraction", "comment_stripping"],
+            "carriers": [
+                {"file": "FluentA.php", "namespace": "Acme\\Fluent\\Alpha", "class": "FluentA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "FluentB.php", "namespace": "Acme\\Fluent\\Beta", "class": "FluentB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-02"}, {"code": "CM-02"}]},
+                {"file": "FluentC.php", "namespace": "Acme\\Fluent\\Gamma", "class": "FluentC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "RN-05"}, {"code": "LT-03"}, {"code": "CM-03"}]}
+            ],
+            "distractors": [
+                {"file": "FluentDistractor.php", "namespace": "Acme\\Fluent\\Distract", "class": "FluentDistractor", "source": "nearmiss_invoice", "reason": "Near-miss: similar fluent invoice"}
+            ],
+            "cleans": [
+                {"file": "FluentClean.php", "namespace": "Acme\\Fluent\\Config", "class": "FluentClean", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L16-am_fluent-004",
+            "title": "Fluent chaining with ST-01 logging",
+            "description": "Fluent interface with logging insertion.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["identifiers"],
+            "rng_seed": 160104,
+            "notes": "L16: am_fluent + ST-01 logging.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["identifier_canonicalization", "ast_canonicalization"],
+            "carriers": [
+                {"file": "FluentA.php", "namespace": "Acme\\Fluent\\Alpha", "class": "FluentA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "FluentB.php", "namespace": "Acme\\Fluent\\Beta", "class": "FluentB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-01"}]}
+            ],
+            "distractors": [
+                {"file": "FluentDistractor.php", "namespace": "Acme\\Fluent\\Distract", "class": "FluentDistractor", "source": "nearmiss_access", "reason": "Near-miss: similar auth fluent"}
+            ],
+            "cleans": [
+                {"file": "FluentClean.php", "namespace": "Acme\\Fluent\\Config", "class": "FluentClean", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L16-am_fluent-005",
+            "title": "Fluent chaining with all literal transforms",
+            "description": "Fluent interface with all literal type transformations.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["literals"],
+            "rng_seed": 160105,
+            "notes": "L16: am_fluent + LT-01 + LT-02 + LT-03 + LT-04.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.55, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["literal_abstraction"],
+            "carriers": [
+                {"file": "FluentA.php", "namespace": "Acme\\Fluent\\Alpha", "class": "FluentA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "FluentB.php", "namespace": "Acme\\Fluent\\Beta", "class": "FluentB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-01"}, {"code": "LT-02"}, {"code": "LT-03"}, {"code": "LT-04"}]}
+            ],
+            "distractors": [
+                {"file": "FluentDistractor.php", "namespace": "Acme\\Fluent\\Distract", "class": "FluentDistractor", "source": "nearmiss_invoice", "reason": "Near-miss: similar fluent invoice"}
+            ],
+            "cleans": [
+                {"file": "FluentClean.php", "namespace": "Acme\\Fluent\\Config", "class": "FluentClean", "source": "clean_billing"}
+            ]
+        }
+    ]
+}

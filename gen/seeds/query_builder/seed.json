@@ -1,0 +1,12 @@
+{
+    "domain": "query_builder",
+    "summary": "SQL query builder with chainable methods.",
+    "size_class": "M",
+    "symbol": "select",
+    "line_count": 50,
+    "token_count": 340,
+    "required_symbols": ["select", "where", "orderBy", "limit", "build"],
+    "mount_modes": ["method"],
+    "compatible_interference": ["WS-03", "CM-03", "RN-01", "LT-02"],
+    "variants": []
+}

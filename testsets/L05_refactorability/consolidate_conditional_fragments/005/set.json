@@ -1,0 +1,93 @@
+{
+    "schema_version": 2,
+    "set_id": "L05-rf_consolidate-005",
+    "level": 5,
+    "level_name": "refactorability",
+    "family": "consolidate_conditional_fragments",
+    "title": "Logger classes with identical conditional log level checking that CAN be consolidated",
+    "description": "Three logger classes that each check if the message level meets the threshold, format the message, and write to output. These conditional fragments should be consolidated into a shared logger base class.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "logger",
+    "difficulty_band": "hard",
+    "files": [
+        {
+            "path": "src/ConsoleLogger.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 80,
+            "region_sloc": {
+                "sloc": 66,
+                "duplicate": 66,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/FileLogger.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 85,
+            "region_sloc": {
+                "sloc": 66,
+                "duplicate": 66,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/SyslogLogger.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 84,
+            "region_sloc": {
+                "sloc": 66,
+                "duplicate": 66,
+                "unique": 0,
+                "filler": 0
+            }
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-1",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [],
+    "difficulty": {
+        "score": 45,
+        "requires": [],
+        "score_raw": 45,
+        "axes": {
+            "breadth": 0,
+            "intensity": 0,
+            "intensity_max": 0,
+            "semantic_depth": 0,
+            "partiality": 1
+        },
+        "application_count": 0,
+        "axis_count": 0
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L05_refactorability/rf_consolidate_fragments.json",
+        "version": "2.0.0",
+        "rng_seed": 512105
+    },
+    "interference_profile": {
+        "axis_count": 0,
+        "per_carrier_axes": [],
+        "groups_touched": [
+            "A"
+        ],
+        "stack_depth_max": 0,
+        "symmetric_overlap": 0,
+        "pairwise_overlap": 0,
+        "combination_design": "minimal"
+    },
+    "engine_features": [
+        "intended_refactoring"
+    ]
+}

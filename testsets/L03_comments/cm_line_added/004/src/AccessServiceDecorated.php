@@ -16,11 +16,10 @@ final class AccessServiceDecorated
     }
 
     public function authorize(array $user, array $resource): bool
-    // TEMP 
     {
         if (!isset($user['id'])) {
+    // TEMP 
             return false;
-    // WIP 
         }
         if (($user['status'] ?? '') !== 'active') {
             return false;
@@ -32,10 +31,11 @@ final class AccessServiceDecorated
         if (($resource['ownerId'] ?? null) === $user['id']) {
             return true;
         }
+    // NOCOMMIT 
         if (in_array($resource['id'] ?? '', $user['grants'] ?? [], true)) {
             return true;
-    // TODO 
         }
+    // HACK 
         return false;
     }
 

@@ -87,7 +87,8 @@
                     "class": "TaxRateRepository",
                     "source": "clean_auth"
                 }
-            ]
+            ],
+            "schema_version": 2
         },
         {
             "set_id": "L03-cm_line_added-002",
@@ -172,7 +173,8 @@
                     "class": "TaxRateRepository",
                     "source": "clean_auth"
                 }
-            ]
+            ],
+            "schema_version": 2
         },
         {
             "set_id": "L03-cm_line_added-003",
@@ -257,7 +259,8 @@
                     "class": "TaxRateRepository",
                     "source": "clean_auth"
                 }
-            ]
+            ],
+            "schema_version": 2
         },
         {
             "set_id": "L03-cm_line_added-004",
@@ -342,7 +345,8 @@
                     "class": "TaxRateRepository",
                     "source": "clean_auth"
                 }
-            ]
+            ],
+            "schema_version": 2
         },
         {
             "set_id": "L03-cm_line_added-005",
@@ -427,7 +431,8 @@
                     "class": "TaxRateRepository",
                     "source": "clean_auth"
                 }
-            ]
+            ],
+            "schema_version": 2
         }
     ]
 }

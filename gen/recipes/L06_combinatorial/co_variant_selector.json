@@ -1,0 +1,211 @@
+{
+    "level": 6,
+    "level_name": "combinatorial",
+    "level_dir": "L06_combinatorial",
+    "family": "co_variant_selector",
+    "sets": [
+        {
+            "set_id": "L06-co_variant_selector-001",
+            "schema_version": 2,
+            "title": "Selector variants stacked with whitespace",
+            "description": "Same authorize method. Tests selector variants (CF-01, CF-05) stacked with whitespace changes. Control flow rewrite variants.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "case_convention", "controlflow"],
+            "rng_seed": 1614001,
+            "interference_profile": {
+                "axis_count": 2,
+                "axes": ["whitespace", "literals"],
+                "groups_applied": ["ws", "lt"]
+            },
+            "difficulty": {
+                "complexity": 7,
+                "axes": {
+                    "whitespace": 3,
+                    "literals": 5
+                }
+            },
+            "notes": "Selector-style interference using statement reorder + literal transforms. Replaces CF variants which require variant files.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.55, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineAccessPolicy.php", "namespace": "Acme\\Access\\Pristine", "class": "PristineAccessPolicy", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "TernaryPolicy.php", "namespace": "Acme\\Access\\Ternary", "class": "TernaryPolicy", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-05", "params": {"reorder_level": 1}}]},
+                {"file": "TernaryWsPolicy.php", "namespace": "Acme\\Access\\TernaryWs", "class": "TernaryWsPolicy", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "WS-01", "params": {"blank_lines": 1}}, {"code": "LT-01", "params": {"format": "hex"}}]}
+            ],
+            "distractors": [
+                {"file": "TrustScorer.php", "namespace": "Acme\\Access\\Scoring", "class": "TrustScorer", "source": "nearmiss_access", "reason": "near-miss: same auth vocabulary but computes numeric trust score instead of boolean decision"}
+            ],
+            "cleans": [
+                {"file": "RoleHierarchy.php", "namespace": "Acme\\Access\\Roles", "class": "RoleHierarchy", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L06-co_variant_selector-002",
+            "schema_version": 2,
+            "title": "Selector variants stacked with comments",
+            "description": "Same authorize method. Tests CF variants combined with comment changes. Control flow with documentation.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "case_convention", "controlflow"],
+            "rng_seed": 1614002,
+            "interference_profile": {
+                "axis_count": 2,
+                "axes": ["statements", "literals"],
+                "groups_applied": ["st", "lt"]
+            },
+            "difficulty": {
+                "complexity": 7,
+                "axes": {
+                    "statements": 8,
+                    "literals": 5
+                }
+            },
+            "notes": "Selector-style interference using statement reorder + literal transforms. Replaces CF/CM variants which require variant files.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.55, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "DocPolicy.php", "namespace": "Acme\\Access\\Doc", "class": "DocPolicy", "scaffold": "method_alpha", "group": "A", "pristine": false, "transforms": [{"code": "LT-02", "params": {"style": "double_quotes"}}]},
+                {"file": "EarlyReturnPolicy.php", "namespace": "Acme\\Access\\EarlyReturn", "class": "EarlyReturnPolicy", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-01", "params": {"lines": 1}}]},
+                {"file": "CfDocPolicy.php", "namespace": "Acme\\Access\\CfDoc", "class": "CfDocPolicy", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-05", "params": {"reorder_level": 1}}, {"code": "LT-01", "params": {"format": "hex"}}]}
+            ],
+            "distractors": [
+                {"file": "TrustScorer.php", "namespace": "Acme\\Access\\Scoring", "class": "TrustScorer", "source": "nearmiss_access", "reason": "near-miss: same auth vocabulary but computes numeric trust score instead of boolean decision"}
+            ],
+            "cleans": [
+                {"file": "RoleHierarchy.php", "namespace": "Acme\\Access\\Roles", "class": "RoleHierarchy", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L06-co_variant_selector-003",
+            "schema_version": 2,
+            "title": "Multiple selector variants stacked",
+            "description": "Same authorize method. Tests multiple CF variants combined (CF-01 + CF-02 + CF-05) with full interference stack.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "case_convention", "controlflow"],
+            "rng_seed": 1614003,
+            "interference_profile": {
+                "axis_count": 4,
+                "axes": ["statements", "whitespace", "literals", "identifiers"],
+                "groups_applied": ["st", "ws", "lt", "rn"]
+            },
+            "difficulty": {
+                "complexity": 10,
+                "axes": {
+                    "statements": 9,
+                    "whitespace": 3,
+                    "literals": 5,
+                    "identifiers": 6
+                }
+            },
+            "notes": "Multiple selector-style transforms stacked: ST + WS-01 + LT + RN-05. Tests comprehensive normalization without CF/CM variants.",
+            "scoring": {"line_tolerance": 3, "member_jaccard_min": 0.5, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "MatchSwitchPolicy.php", "namespace": "Acme\\Access\\MatchSwitch", "class": "MatchSwitchPolicy", "scaffold": "method_alpha", "group": "A", "pristine": false, "transforms": [{"code": "ST-09", "params": {"tweak_level": 1}}]},
+                {"file": "FullCfCalc.php", "namespace": "Acme\\Access\\FullCf", "class": "FullCfCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "WS-01", "params": {"blank_lines": 1}}, {"code": "LT-01", "params": {"format": "hex"}}, {"code": "RN-05", "params": {"direction": "camel_to_snake"}}]},
+                {"file": "MaxCfPolicy.php", "namespace": "Acme\\Access\\MaxCf", "class": "MaxCfPolicy", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-01", "params": {"lines": 1}}, {"code": "ST-05", "params": {"reorder_level": 1}}, {"code": "WS-01", "params": {"blank_lines": 2}}, {"code": "LT-02", "params": {"style": "double_quotes"}}, {"code": "RN-05", "params": {"direction": "snake_to_camel"}}]}
+            ],
+            "distractors": [
+                {"file": "TrustScorer.php", "namespace": "Acme\\Access\\Scoring", "class": "TrustScorer", "source": "nearmiss_access", "reason": "near-miss: same auth vocabulary but computes numeric trust score instead of boolean decision"}
+            ],
+            "cleans": [
+                {"file": "RoleHierarchy.php", "namespace": "Acme\\Access\\Roles", "class": "RoleHierarchy", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L06-co_variant_selector-004",
+            "schema_version": 2,
+            "title": "Heavy selector variant stacking",
+            "description": "Same authorize method. All CF variants combined with all basic transforms at heavy intensity.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "case_convention", "controlflow", "literals"],
+            "rng_seed": 1614004,
+            "interference_profile": {
+                "axis_count": 5,
+                "axes": ["statements", "whitespace", "literals", "identifiers", "types"],
+                "groups_applied": ["st", "ws", "lt", "rn", "ty"]
+            },
+            "difficulty": {
+                "complexity": 12,
+                "axes": {
+                    "statements": 10,
+                    "whitespace": 4,
+                    "literals": 6,
+                    "identifiers": 7,
+                    "types": 6
+                }
+            },
+            "notes": "Heavy selector stacking using working transforms only: ST + WS-01 + LT + RN-05 + TY. Tests comprehensive normalization ceiling.",
+            "scoring": {"line_tolerance": 4, "member_jaccard_min": 0.4, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "HeavyCfCalcA.php", "namespace": "Acme\\Access\\HeavyCf", "class": "HeavyCfCalcA", "scaffold": "method_alpha", "group": "A", "pristine": false, "transforms": [{"code": "ST-01", "params": {"lines": 1}}, {"code": "WS-01", "params": {"blank_lines": 1}}, {"code": "RN-05", "params": {"direction": "camel_to_snake"}}, {"code": "LT-01", "params": {"format": "hex"}}]},
+                {"file": "HeavyCfCalcB.php", "namespace": "Acme\\Access\\HeavyCf", "class": "HeavyCfCalcB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-05", "params": {"reorder_level": 1}}, {"code": "WS-01", "params": {"blank_lines": 2}}, {"code": "LT-02", "params": {"style": "double_quotes"}}, {"code": "RN-05", "params": {"direction": "snake_to_camel"}}]},
+                {"file": "HeavyCfCalcC.php", "namespace": "Acme\\Access\\HeavyCf", "class": "HeavyCfCalcC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-02", "params": {"lines": 1}}, {"code": "ST-09", "params": {"tweak_level": 1}}, {"code": "WS-01", "params": {"blank_lines": 1}}, {"code": "LT-03", "params": {"style": "short_array"}}]}
+            ],
+            "distractors": [
+                {"file": "TrustScorer.php", "namespace": "Acme\\Access\\Scoring", "class": "TrustScorer", "source": "nearmiss_access", "reason": "near-miss: same auth vocabulary but computes numeric trust score instead of boolean decision"}
+            ],
+            "cleans": [
+                {"file": "RoleHierarchy.php", "namespace": "Acme\\Access\\Roles", "class": "RoleHierarchy", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L06-co_variant_selector-005",
+            "schema_version": 2,
+            "title": "Maximum selector variant stacking",
+            "description": "Same authorize method. All selector variants combined with all transforms. Tests ceiling of control flow clone detection.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "case_convention", "controlflow", "literals"],
+            "rng_seed": 1614005,
+            "interference_profile": {
+                "axis_count": 5,
+                "axes": ["statements", "whitespace", "literals", "identifiers", "types"],
+                "groups_applied": ["st", "ws", "lt", "rn", "ty"]
+            },
+            "difficulty": {
+                "complexity": 13,
+                "axes": {
+                    "statements": 10,
+                    "whitespace": 5,
+                    "literals": 7,
+                    "identifiers": 8,
+                    "types": 6
+                }
+            },
+            "notes": "Maximum selector stacking using working transforms only: ST + WS-01 + LT + RN-05 + TY. Tests comprehensive normalization ceiling.",
+            "scoring": {"line_tolerance": 5, "member_jaccard_min": 0.35, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "MaxCfCalcA.php", "namespace": "Acme\\Access\\MaxCf", "class": "MaxCfCalcA", "scaffold": "method_alpha", "group": "A", "pristine": false, "transforms": [{"code": "ST-01", "params": {"lines": 2}}, {"code": "WS-01", "params": {"blank_lines": 1}}, {"code": "WS-01", "params": {"blank_lines": 2}}, {"code": "RN-05", "params": {"direction": "camel_to_snake"}}, {"code": "LT-01", "params": {"format": "binary"}}]},
+                {"file": "MaxCfCalcB.php", "namespace": "Acme\\Access\\MaxCf", "class": "MaxCfCalcB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-05", "params": {"reorder_level": 2}}, {"code": "WS-01", "params": {"blank_lines": 3}}, {"code": "LT-02", "params": {"style": "single_quotes"}}, {"code": "LT-03", "params": {"style": "long_array"}}, {"code": "RN-05", "params": {"direction": "snake_to_camel"}}]},
+                {"file": "MaxCfCalcC.php", "namespace": "Acme\\Access\\MaxCf", "class": "MaxCfCalcC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-02", "params": {"lines": 1}}, {"code": "ST-09", "params": {"tweak_level": 1}}, {"code": "LT-04", "params": {"style": "const_literal"}}]}
+            ],
+            "distractors": [
+                {"file": "TrustScorer.php", "namespace": "Acme\\Access\\Scoring", "class": "TrustScorer", "source": "nearmiss_access", "reason": "near-miss: same auth vocabulary but computes numeric trust score instead of boolean decision"}
+            ],
+            "cleans": [
+                {"file": "RoleHierarchy.php", "namespace": "Acme\\Access\\Roles", "class": "RoleHierarchy", "source": "clean_auth"}
+            ]
+        }
+    ]
+}

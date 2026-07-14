@@ -1,0 +1,242 @@
+{
+    "schema_version": 2,
+    "set_id": "L06-co_api_idiom_stack-004",
+    "level": 6,
+    "level_name": "combinatorial",
+    "family": "co_api_idiom_stack",
+    "title": "Heavy API idiom stacking",
+    "description": "Same computeTotals method. Multiple API idioms combined with all basic transforms at heavy intensity.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "invoice_totals",
+    "difficulty_band": "expert",
+    "files": [
+        {
+            "path": "src/HeavyApiCalcA.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 40,
+            "region_sloc": {
+                "sloc": 26,
+                "duplicate": 24,
+                "unique": 2,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/HeavyApiCalcB.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 42,
+            "region_sloc": {
+                "sloc": 23,
+                "duplicate": 21,
+                "unique": 2,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/HeavyApiCalcC.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 46,
+            "region_sloc": {
+                "sloc": 28,
+                "duplicate": 24,
+                "unique": 4,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/MarginSummarizer.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 30
+        },
+        {
+            "path": "src/TaxRateRepository.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-3",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "ST-01",
+            "name": "insert_logging",
+            "params": {
+                "lines": 1
+            },
+            "applied_to": [
+                "src/HeavyApiCalcA.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "LT-01",
+            "name": "numeric",
+            "params": {
+                "format": "hex"
+            },
+            "applied_to": [
+                "src/HeavyApiCalcA.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "WS-01",
+            "name": "blank_before",
+            "params": {
+                "blank_lines": 1
+            },
+            "applied_to": [
+                "src/HeavyApiCalcA.php",
+                "src/HeavyApiCalcC.php"
+            ],
+            "intensity": 1
+        },
+        {
+            "code": "ST-05",
+            "name": "reorder_independent",
+            "params": {
+                "reorder_level": 1
+            },
+            "applied_to": [
+                "src/HeavyApiCalcB.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "LT-02",
+            "name": "string",
+            "params": {
+                "style": "double_quotes"
+            },
+            "applied_to": [
+                "src/HeavyApiCalcB.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "RN-05",
+            "name": "case_convention",
+            "params": {
+                "direction": "camel_to_snake"
+            },
+            "applied_to": [
+                "src/HeavyApiCalcB.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "WS-01",
+            "name": "blank_before",
+            "params": {
+                "blank_lines": 2
+            },
+            "applied_to": [
+                "src/HeavyApiCalcB.php"
+            ],
+            "intensity": 1
+        },
+        {
+            "code": "ST-02",
+            "name": "insert_dead",
+            "params": {
+                "lines": 1
+            },
+            "applied_to": [
+                "src/HeavyApiCalcC.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "ST-09",
+            "name": "expr_tweak",
+            "params": {
+                "tweak_level": 1
+            },
+            "applied_to": [
+                "src/HeavyApiCalcC.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "LT-03",
+            "name": "array_values",
+            "params": {
+                "style": "short_array"
+            },
+            "applied_to": [
+                "src/HeavyApiCalcC.php"
+            ],
+            "intensity": 2
+        }
+    ],
+    "difficulty": {
+        "score": 100,
+        "requires": [
+            "ast_canonicalization",
+            "literal_abstraction",
+            "whitespace_normalization",
+            "commutative_reordering",
+            "identifier_canonicalization",
+            "deadcode_elimination"
+        ],
+        "score_raw": 125,
+        "axes": {
+            "breadth": 9,
+            "intensity": 2.2,
+            "intensity_max": 3,
+            "semantic_depth": 0,
+            "partiality": 1
+        },
+        "application_count": 11,
+        "axis_count": 9
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L06_combinatorial/co_api_idiom_stack.json",
+        "version": "2.0.0",
+        "rng_seed": 1613004
+    },
+    "interference_profile": {
+        "axis_count": 9,
+        "per_carrier_axes": {
+            "src/HeavyApiCalcA.php": [
+                "ST-01",
+                "LT-01",
+                "WS-01"
+            ],
+            "src/HeavyApiCalcB.php": [
+                "ST-05",
+                "LT-02",
+                "RN-05",
+                "WS-01"
+            ],
+            "src/HeavyApiCalcC.php": [
+                "ST-02",
+                "ST-09",
+                "LT-03",
+                "WS-01"
+            ]
+        },
+        "groups_touched": [
+            "A"
+        ],
+        "stack_depth_max": 4,
+        "symmetric_overlap": 1,
+        "pairwise_overlap": 0.1587,
+        "combination_design": "type2_plus_type1"
+    },
+    "engine_features": [
+        "fragment_emission"
+    ]
+}

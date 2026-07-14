@@ -3,7 +3,7 @@
     "set_id": "L01-ex_multi_cluster-003",
     "clusters": [
         {
-            "id": "c1",
+            "id": "A",
             "group_id": "A",
             "clone_type": "type-1",
             "granularity": "function",
@@ -34,7 +34,29 @@
                     "end_line": 42,
                     "symbol": "authorize",
                     "pristine": true
-                },
+                }
+            ],
+            "detection_expectation": {
+                "text_based": true,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": true,
+                "semantic": true
+            },
+            "notes": "Two clusters: access_guard and csv_import. 3 carriers each."
+        },
+        {
+            "id": "B",
+            "group_id": "B",
+            "clone_type": "type-1",
+            "granularity": "function",
+            "normalized_by": [
+                "whitespace",
+                "comments"
+            ],
+            "token_hash": "f262d16d9ea9e138",
+            "normalized_hash": "3f80d5e6ceb3e1fb",
+            "members": [
                 {
                     "file": "src/DataParseA.php",
                     "start_line": 7,
@@ -77,8 +99,8 @@
         },
         {
             "file": "src/DataDistractor.php",
-            "start_line": 12,
-            "end_line": 26,
+            "start_line": 9,
+            "end_line": 78,
             "reason": "near-miss: similar parse vocabulary but different logic",
             "trap": true
         }

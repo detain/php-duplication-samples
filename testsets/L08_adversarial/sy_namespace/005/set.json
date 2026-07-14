@@ -1,0 +1,86 @@
+{
+    "schema_version": 1,
+    "set_id": "L08-sy_namespace-005",
+    "level": 8,
+    "level_name": "adversarial",
+    "family": "sy_namespace",
+    "title": "Namespace: Alias usage variations",
+    "description": "Tests namespace aliasing with 'use X as Y' patterns.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "serializer",
+    "difficulty_band": "expert",
+    "files": [
+        {
+            "path": "src/SerializerA.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 86
+        },
+        {
+            "path": "src/SerializerB.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 91
+        },
+        {
+            "path": "src/SerializerC.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 90
+        },
+        {
+            "path": "src/Deserializer.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 14
+        },
+        {
+            "path": "src/Validator.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 14
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-2",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "NS-01",
+            "name": "imports",
+            "params": {},
+            "applied_to": [
+                "src/SerializerB.php",
+                "src/SerializerC.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "NS-02",
+            "name": "namespace_depth",
+            "params": {},
+            "applied_to": [
+                "src/SerializerB.php",
+                "src/SerializerC.php"
+            ],
+            "intensity": 2
+        }
+    ],
+    "difficulty": {
+        "score": 97,
+        "requires": [
+            "identifier_canonicalization"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L08_adversarial/sy_namespace.json",
+        "version": "1.0.0",
+        "rng_seed": 81705
+    }
+}

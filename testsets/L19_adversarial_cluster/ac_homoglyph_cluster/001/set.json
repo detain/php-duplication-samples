@@ -1,0 +1,79 @@
+{
+    "schema_version": 1,
+    "set_id": "L19-ac_homoglyph_cluster-001",
+    "level": 19,
+    "level_name": "adversarial_cluster",
+    "family": "ac_homoglyph_cluster",
+    "title": "Homoglyph confusion cluster - basic",
+    "description": "Tests ac_homoglyph_cluster: cluster with homoglyph confusion to challenge detectors.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "invoice_totals",
+    "difficulty_band": "easy",
+    "files": [
+        {
+            "path": "src/HomoglyphA.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 39
+        },
+        {
+            "path": "src/HomoglyphB.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 44
+        },
+        {
+            "path": "src/HomoglyphDistractor.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 30
+        },
+        {
+            "path": "src/HomoglyphClean.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-2",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 2
+    },
+    "interference": [
+        {
+            "code": "LT-01",
+            "name": "numeric",
+            "params": {},
+            "applied_to": [
+                "src/HomoglyphB.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "LT-02",
+            "name": "string",
+            "params": {},
+            "applied_to": [
+                "src/HomoglyphB.php"
+            ],
+            "intensity": 2
+        }
+    ],
+    "difficulty": {
+        "score": 12,
+        "requires": [
+            "identifier_canonicalization",
+            "literal_abstraction"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L19_adversarial_cluster/ac_homoglyph_cluster.json",
+        "version": "1.0.0",
+        "rng_seed": 190101
+    }
+}

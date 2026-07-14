@@ -1,0 +1,124 @@
+{
+    "schema_version": 2,
+    "set_id": "L06-co_ws_lt_st-004",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-3",
+            "granularity": "method",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers",
+                "case_convention",
+                "literals"
+            ],
+            "token_hash": "e2c6d2de09404029",
+            "normalized_hash": "d5da572207f4bce3",
+            "members": [
+                {
+                    "file": "src/HeavyCalcA.php",
+                    "start_line": 9,
+                    "end_line": 35,
+                    "symbol": "computeTotals",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "invoice_totals",
+                    "fragments": [
+                        {
+                            "start_line": 18,
+                            "end_line": 20
+                        },
+                        {
+                            "start_line": 22,
+                            "end_line": 43
+                        }
+                    ],
+                    "unique_segments": [
+                        {
+                            "start_line": 17,
+                            "end_line": 21
+                        }
+                    ]
+                },
+                {
+                    "file": "src/HeavyCalcB.php",
+                    "start_line": 18,
+                    "end_line": 44,
+                    "symbol": "computeTotals",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "invoice_totals",
+                    "fragments": [
+                        {
+                            "start_line": 37,
+                            "end_line": 61
+                        }
+                    ],
+                    "unique_segments": [
+                        {
+                            "start_line": 35,
+                            "end_line": 36
+                        }
+                    ]
+                },
+                {
+                    "file": "src/HeavyCalcC.php",
+                    "start_line": 24,
+                    "end_line": 52,
+                    "symbol": "computeTotals",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "invoice_totals",
+                    "fragments": [
+                        {
+                            "start_line": 47,
+                            "end_line": 49
+                        },
+                        {
+                            "start_line": 52,
+                            "end_line": 59
+                        },
+                        {
+                            "start_line": 61,
+                            "end_line": 64
+                        },
+                        {
+                            "start_line": 66,
+                            "end_line": 75
+                        }
+                    ],
+                    "unique_segments": [
+                        {
+                            "start_line": 50,
+                            "end_line": 65
+                        }
+                    ]
+                }
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": true,
+                "semantic": true
+            },
+            "notes": "Heavy 3-axis interference: WS-01 combined with LT-01+LT-02+LT-03 and ST-01+ST-05. Tests comprehensive normalization pipeline."
+        }
+    ],
+    "non_duplicates": [
+        {
+            "file": "src/MarginSummarizer.php",
+            "start_line": 12,
+            "end_line": 28,
+            "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total",
+            "trap": true
+        }
+    ],
+    "scoring": {
+        "line_tolerance": 4,
+        "member_jaccard_min": 0.45,
+        "min_members_for_credit": 2
+    }
+}

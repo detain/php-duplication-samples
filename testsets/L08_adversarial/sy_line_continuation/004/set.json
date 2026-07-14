@@ -1,0 +1,86 @@
+{
+    "schema_version": 1,
+    "set_id": "L08-sy_line_continuation-004",
+    "level": 8,
+    "level_name": "adversarial",
+    "family": "sy_line_continuation",
+    "title": "Line Continuation: Array initialization multi-line",
+    "description": "Tests multi-line array initialization continuation.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "config_loader",
+    "difficulty_band": "expert",
+    "files": [
+        {
+            "path": "src/ConfigLoaderA.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 74
+        },
+        {
+            "path": "src/ConfigLoaderB.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 81
+        },
+        {
+            "path": "src/ConfigLoaderC.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 80
+        },
+        {
+            "path": "src/Validator.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 14
+        },
+        {
+            "path": "src/Merger.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 14
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-1",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "WS-06",
+            "name": "line_wrap",
+            "params": {},
+            "applied_to": [
+                "src/ConfigLoaderB.php",
+                "src/ConfigLoaderC.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "WS-07",
+            "name": "line_join",
+            "params": {},
+            "applied_to": [
+                "src/ConfigLoaderB.php",
+                "src/ConfigLoaderC.php"
+            ],
+            "intensity": 2
+        }
+    ],
+    "difficulty": {
+        "score": 93,
+        "requires": [
+            "whitespace_normalization"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L08_adversarial/sy_line_continuation.json",
+        "version": "1.0.0",
+        "rng_seed": 81204
+    }
+}

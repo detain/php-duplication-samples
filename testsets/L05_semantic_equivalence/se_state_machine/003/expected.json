@@ -1,0 +1,56 @@
+{
+    "schema_version": 1,
+    "set_id": "L05-se_state_machine-003",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-4",
+            "granularity": "method",
+            "normalized_by": [
+                "controlflow",
+                "identifiers",
+                "literals"
+            ],
+            "token_hash": "5a1df59bd93d82d2",
+            "normalized_hash": "5cf2db2c7a0066fe",
+            "members": [
+                {
+                    "file": "src/SimpleStateMachine.php",
+                    "start_line": 9,
+                    "end_line": 48,
+                    "symbol": "processTransition",
+                    "pristine": true
+                },
+                {
+                    "file": "src/RenamedStateMachine.php",
+                    "start_line": 18,
+                    "end_line": 57,
+                    "symbol": "processTransition",
+                    "pristine": false
+                },
+                {
+                    "file": "src/LiteralStateMachine.php",
+                    "start_line": 24,
+                    "end_line": 63,
+                    "symbol": "processTransition",
+                    "pristine": false
+                }
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": false,
+                "ast_based": false,
+                "metric_based": false,
+                "semantic": true
+            },
+            "notes": "Set 003 of 5. Uses RN-01, RN-02, LT-01, LT-02 for identifier and literal diversity."
+        }
+    ],
+    "non_duplicates": [],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.6,
+        "min_members_for_credit": 2
+    }
+}

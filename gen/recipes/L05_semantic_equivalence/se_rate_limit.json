@@ -1,0 +1,113 @@
+{
+    "level": 5,
+    "level_name": "semantic_equivalence",
+    "level_dir": "L05_semantic_equivalence",
+    "family": "se_rate_limit",
+    "sets": [
+        {
+            "set_id": "L05-se_rate_limit-001",
+            "title": "Rate limiter: token bucket vs sliding window equivalence",
+            "description": "Rate limiting with different algorithms using structural transforms: carrier A uses basic token counting, carrier B uses insert_logging (ST-01), carrier C uses reorder_independent (ST-05).",
+            "seed": "rate_limiter",
+            "mount": "method",
+            "clone_symbol": "checkRateLimit",
+            "granularity": "method",
+            "clone_type": "type-4",
+            "normalized_by": ["controlflow", "identifiers", "literals"],
+            "rng_seed": 50601,
+            "notes": "Set 001 of 5. Uses only non-selector ST-* transforms (rate_limiter has no variants).",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": false, "ast_based": false, "metric_based": false, "semantic": true},
+            "requires": ["semantic_reasoning", "ast_canonicalization"],
+            "carriers": [
+                {"file": "BasicLimiter.php", "namespace": "Acme\\Rate\\Basic", "class": "BasicLimiter", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "LoggedLimiter.php", "namespace": "Acme\\Rate\\Logged", "class": "LoggedLimiter", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-01"}]},
+                {"file": "ReorderedLimiter.php", "namespace": "Acme\\Rate\\Reordered", "class": "ReorderedLimiter", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-05"}]}
+            ]
+        },
+        {
+            "set_id": "L05-se_rate_limit-002",
+            "title": "Rate limiter: structural diversity with ST transforms",
+            "description": "Rate limiting with ST-04 (delete_stmt), ST-09 (expr_tweak), and ST-08 (param_reorder).",
+            "seed": "rate_limiter",
+            "mount": "method",
+            "clone_symbol": "checkRateLimit",
+            "granularity": "method",
+            "clone_type": "type-4",
+            "normalized_by": ["controlflow", "identifiers", "literals"],
+            "rng_seed": 50602,
+            "notes": "Set 002 of 5. Uses ST-04, ST-09, ST-08 for structural diversity.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": false, "ast_based": false, "metric_based": false, "semantic": true},
+            "requires": ["semantic_reasoning", "ast_canonicalization"],
+            "carriers": [
+                {"file": "BasicLimiter.php", "namespace": "Acme\\Rate\\Basic", "class": "BasicLimiter", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "DeleteLimiter.php", "namespace": "Acme\\Rate\\Delete", "class": "DeleteLimiter", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-04"}]},
+                {"file": "ExprLimiter.php", "namespace": "Acme\\Rate\\Expr", "class": "ExprLimiter", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-09"}]}
+            ]
+        },
+        {
+            "set_id": "L05-se_rate_limit-003",
+            "title": "Rate limiter: rename and literal variations",
+            "description": "Rate limiting with renamed variables and different literal representations.",
+            "seed": "rate_limiter",
+            "mount": "method",
+            "clone_symbol": "checkRateLimit",
+            "granularity": "method",
+            "clone_type": "type-4",
+            "normalized_by": ["controlflow", "identifiers", "literals"],
+            "rng_seed": 50603,
+            "notes": "Set 003 of 5. Uses RN-01, RN-02, LT-01, LT-02 for identifier and literal diversity.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": false, "ast_based": false, "metric_based": false, "semantic": true},
+            "requires": ["semantic_reasoning", "identifier_canonicalization", "literal_abstraction"],
+            "carriers": [
+                {"file": "BasicLimiter.php", "namespace": "Acme\\Rate\\Basic", "class": "BasicLimiter", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "RenamedLimiter.php", "namespace": "Acme\\Rate\\Renamed", "class": "RenamedLimiter", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-01"}, {"code": "RN-02"}]},
+                {"file": "LiteralLimiter.php", "namespace": "Acme\\Rate\\Literal", "class": "LiteralLimiter", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "LT-01"}, {"code": "LT-02"}]}
+            ]
+        },
+        {
+            "set_id": "L05-se_rate_limit-004",
+            "title": "Rate limiter: comment and whitespace variations",
+            "description": "Rate limiting with comment and whitespace variations.",
+            "seed": "rate_limiter",
+            "mount": "method",
+            "clone_symbol": "checkRateLimit",
+            "granularity": "method",
+            "clone_type": "type-4",
+            "normalized_by": ["controlflow", "identifiers", "literals"],
+            "rng_seed": 50604,
+            "notes": "Set 004 of 5. Uses CM-02, WS-02, WS-04 for textual diversity.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": false, "ast_based": false, "metric_based": false, "semantic": true},
+            "requires": ["semantic_reasoning"],
+            "carriers": [
+                {"file": "BasicLimiter.php", "namespace": "Acme\\Rate\\Basic", "class": "BasicLimiter", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "CommentedLimiter.php", "namespace": "Acme\\Rate\\Commented", "class": "CommentedLimiter", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "CM-02"}]},
+                {"file": "SpacedLimiter.php", "namespace": "Acme\\Rate\\Spaced", "class": "SpacedLimiter", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "WS-02"}, {"code": "WS-04"}]}
+            ]
+        },
+        {
+            "set_id": "L05-se_rate_limit-005",
+            "title": "Rate limiter: full structural equivalence suite",
+            "description": "Complete rate limiter equivalence with maximum structural diversity using ST, RN, LT transforms.",
+            "seed": "rate_limiter",
+            "mount": "method",
+            "clone_symbol": "checkRateLimit",
+            "granularity": "method",
+            "clone_type": "type-4",
+            "normalized_by": ["controlflow", "identifiers", "literals"],
+            "rng_seed": 50605,
+            "notes": "Set 005 of 5. Combines ST-01, ST-05, RN-01, LT-01 for maximum diversity.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": false, "ast_based": false, "metric_based": false, "semantic": true},
+            "requires": ["semantic_reasoning", "ast_canonicalization", "identifier_canonicalization"],
+            "carriers": [
+                {"file": "BasicLimiter.php", "namespace": "Acme\\Rate\\Basic", "class": "BasicLimiter", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "FullLimiter.php", "namespace": "Acme\\Rate\\Full", "class": "FullLimiter", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-01"}, {"code": "RN-01"}, {"code": "LT-01"}]},
+                {"file": "ComplexLimiter.php", "namespace": "Acme\\Rate\\Complex", "class": "ComplexLimiter", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-05"}, {"code": "RN-02"}, {"code": "LT-02"}]}
+            ]
+        }
+    ]
+}

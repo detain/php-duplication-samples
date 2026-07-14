@@ -1,0 +1,113 @@
+{
+    "level": 5,
+    "level_name": "semantic_equivalence",
+    "level_dir": "L05_semantic_equivalence",
+    "family": "se_notification",
+    "sets": [
+        {
+            "set_id": "L05-se_notification-001",
+            "title": "Notification: queue-based vs direct equivalence",
+            "description": "Notification dispatch with different delivery mechanisms: carrier A uses direct sending, carrier B uses queue-based approach (queue_based variant), and carrier C uses API abstraction (API-01).",
+            "seed": "notification_service",
+            "mount": "method",
+            "clone_symbol": "sendNotification",
+            "granularity": "method",
+            "clone_type": "type-4",
+            "normalized_by": ["controlflow", "identifiers", "literals"],
+            "rng_seed": 50401,
+            "notes": "Set 001 of 5. Uses queue_based variant with API-01 (map_vs_loop).",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": false, "ast_based": false, "metric_based": false, "semantic": true},
+            "requires": ["semantic_reasoning", "api_abstraction"],
+            "carriers": [
+                {"file": "DirectNotifier.php", "namespace": "Acme\\Notify\\Direct", "class": "DirectNotifier", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "QueueNotifier.php", "namespace": "Acme\\Notify\\Queue", "class": "QueueNotifier", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "queue_based", "transforms": [{"code": "API-01"}]},
+                {"file": "BatchNotifier.php", "namespace": "Acme\\Notify\\Batch", "class": "BatchNotifier", "scaffold": "method_gamma", "group": "A", "pristine": false, "variant": "queue_based", "transforms": [{"code": "API-04"}]}
+            ]
+        },
+        {
+            "set_id": "L05-se_notification-002",
+            "title": "Notification: control flow variants",
+            "description": "Notification dispatch with different control flow patterns: guard clauses, match expressions, and early returns.",
+            "seed": "notification_service",
+            "mount": "method",
+            "clone_symbol": "sendNotification",
+            "granularity": "method",
+            "clone_type": "type-4",
+            "normalized_by": ["controlflow", "identifiers", "literals"],
+            "rng_seed": 50402,
+            "notes": "Set 002 of 5. CF-01, CF-04, CF-05 combined with queue_based variant.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": false, "ast_based": false, "metric_based": false, "semantic": true},
+            "requires": ["semantic_reasoning", "controlflow_normalization"],
+            "carriers": [
+                {"file": "DirectNotifier.php", "namespace": "Acme\\Notify\\Direct", "class": "DirectNotifier", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "GuardNotifier.php", "namespace": "Acme\\Notify\\Guard", "class": "GuardNotifier", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "queue_based", "transforms": [{"code": "CF-05"}]},
+                {"file": "LoopNotifier.php", "namespace": "Acme\\Notify\\Loop", "class": "LoopNotifier", "scaffold": "method_gamma", "group": "A", "pristine": false, "variant": "queue_based", "transforms": [{"code": "CF-04"}]}
+            ]
+        },
+        {
+            "set_id": "L05-se_notification-003",
+            "title": "Notification: boolean logic equivalence",
+            "description": "Notification filtering with De Morgan and split-combined Boolean logic.",
+            "seed": "notification_service",
+            "mount": "method",
+            "clone_symbol": "sendNotification",
+            "granularity": "method",
+            "clone_type": "type-4",
+            "normalized_by": ["controlflow", "identifiers", "literals"],
+            "rng_seed": 50403,
+            "notes": "Set 003 of 5. BL-01, BL-02 combined with queue_based variant.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": false, "ast_based": false, "metric_based": false, "semantic": true},
+            "requires": ["semantic_reasoning", "controlflow_normalization"],
+            "carriers": [
+                {"file": "DirectNotifier.php", "namespace": "Acme\\Notify\\Direct", "class": "DirectNotifier", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "DeMorganNotifier.php", "namespace": "Acme\\Notify\\DeMorgan", "class": "DeMorganNotifier", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "queue_based", "transforms": [{"code": "BL-01"}]},
+                {"file": "SplitNotifier.php", "namespace": "Acme\\Notify\\Split", "class": "SplitNotifier", "scaffold": "method_gamma", "group": "A", "pristine": false, "variant": "queue_based", "transforms": [{"code": "BL-02"}]}
+            ]
+        },
+        {
+            "set_id": "L05-se_notification-004",
+            "title": "Notification: structural diversity",
+            "description": "Notification with structural transforms (ST-01, ST-03, ST-05) that preserve semantics.",
+            "seed": "notification_service",
+            "mount": "method",
+            "clone_symbol": "sendNotification",
+            "granularity": "method",
+            "clone_type": "type-4",
+            "normalized_by": ["controlflow", "identifiers", "literals"],
+            "rng_seed": 50404,
+            "notes": "Set 004 of 5. ST-01, ST-03, ST-05 combined with CF and BL variants.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": false, "ast_based": false, "metric_based": false, "semantic": true},
+            "requires": ["semantic_reasoning", "ast_canonicalization"],
+            "carriers": [
+                {"file": "DirectNotifier.php", "namespace": "Acme\\Notify\\Direct", "class": "DirectNotifier", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": [{"code": "ST-01"}]},
+                {"file": "FunctionalNotifier.php", "namespace": "Acme\\Notify\\Functional", "class": "FunctionalNotifier", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "queue_based", "transforms": [{"code": "ST-03"}, {"code": "CF-01"}]},
+                {"file": "ReorderNotifier.php", "namespace": "Acme\\Notify\\Reorder", "class": "ReorderNotifier", "scaffold": "method_gamma", "group": "A", "pristine": false, "variant": "queue_based", "transforms": [{"code": "ST-05"}, {"code": "BL-01"}]}
+            ]
+        },
+        {
+            "set_id": "L05-se_notification-005",
+            "title": "Notification: API abstraction equivalence",
+            "description": "Notification using different API styles: map vs loop, table-driven, and datetime APIs.",
+            "seed": "notification_service",
+            "mount": "method",
+            "clone_symbol": "sendNotification",
+            "granularity": "method",
+            "clone_type": "type-4",
+            "normalized_by": ["controlflow", "identifiers", "literals"],
+            "rng_seed": 50405,
+            "notes": "Set 005 of 5. API-01, API-05, API-09 combined with queue_based variant.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": false, "ast_based": false, "metric_based": false, "semantic": true},
+            "requires": ["semantic_reasoning", "api_abstraction"],
+            "carriers": [
+                {"file": "DirectNotifier.php", "namespace": "Acme\\Notify\\Direct", "class": "DirectNotifier", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "TableNotifier.php", "namespace": "Acme\\Notify\\Table", "class": "TableNotifier", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "queue_based", "transforms": [{"code": "API-05"}]},
+                {"file": "DateTimeNotifier.php", "namespace": "Acme\\Notify\\DateTime", "class": "DateTimeNotifier", "scaffold": "method_gamma", "group": "A", "pristine": false, "variant": "queue_based", "transforms": [{"code": "API-09"}]}
+            ]
+        }
+    ]
+}

@@ -1,0 +1,203 @@
+{
+    "level": 6,
+    "level_name": "combinatorial",
+    "level_dir": "L06_combinatorial",
+    "family": "co_lt_st",
+    "sets": [
+        {
+            "set_id": "L06-co_lt_st-001",
+            "schema_version": 2,
+            "title": "Literal and statement interference (LT-01 + ST-01)",
+            "description": "Same computeTotals method across three billing classes. Carrier A applies LT-01 numeric; carrier B applies ST-01 insert_logging; carrier C applies both. Type-3 clone with literal changes and added statements.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "case_convention", "literals"],
+            "rng_seed": 1605001,
+            "interference_profile": {
+                "axis_count": 2,
+                "axes": ["literals", "statements"],
+                "groups_applied": ["lt", "st"]
+            },
+            "difficulty": {
+                "complexity": 6,
+                "axes": {
+                    "literals": 6,
+                    "statements": 9
+                }
+            },
+            "notes": "LT-01 (numeric) changes number formats. ST-01 (insert_logging) adds statement-level logging. Both type-3 transforms affect clone detection differently.",
+            "scoring": {"line_tolerance": 3, "member_jaccard_min": 0.5, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineInvoiceCalc.php", "namespace": "Acme\\Billing\\Pristine", "class": "PristineInvoiceCalc", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "LiteralCalc.php", "namespace": "Acme\\Billing\\Literal", "class": "LiteralCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-01", "params": {"format": "hex"}}]},
+                {"file": "LtStCalc.php", "namespace": "Acme\\Billing\\LtSt", "class": "LtStCalc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "LT-01", "params": {"format": "binary"}}, {"code": "ST-01", "params": {"lines": 1}}]}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L06-co_lt_st-002",
+            "schema_version": 2,
+            "title": "Literal and statement interference (LT-02 + ST-02)",
+            "description": "Same computeTotals method. Carrier A applies LT-02 string; carrier B applies ST-02 insert_dead; carrier C applies both. Tests string literal and dead code insertion.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "case_convention", "literals"],
+            "rng_seed": 1605002,
+            "interference_profile": {
+                "axis_count": 2,
+                "axes": ["literals", "statements"],
+                "groups_applied": ["lt", "st"]
+            },
+            "difficulty": {
+                "complexity": 7,
+                "axes": {
+                    "literals": 6,
+                    "statements": 10
+                }
+            },
+            "notes": "LT-02 (string) changes string quote styles. ST-02 (insert_dead) adds unreachable code. Combined they test literal and dead code handling.",
+            "scoring": {"line_tolerance": 3, "member_jaccard_min": 0.5, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "StringCalc.php", "namespace": "Acme\\Billing\\String", "class": "StringCalc", "scaffold": "method_alpha", "group": "A", "pristine": false, "transforms": [{"code": "LT-02", "params": {"style": "double_quotes"}}]},
+                {"file": "DeadCodeCalc.php", "namespace": "Acme\\Billing\\Dead", "class": "DeadCodeCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-02", "params": {"lines": 1}}]},
+                {"file": "BothCalc.php", "namespace": "Acme\\Billing\\Both", "class": "BothCalc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "LT-02", "params": {"style": "single_quotes"}}, {"code": "ST-02", "params": {"lines": 2}}]}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L06-co_lt_st-003",
+            "schema_version": 2,
+            "title": "Literal and statement interference (LT-03 + ST-05)",
+            "description": "Same computeTotals method. Carrier A applies LT-03 array_values; carrier B applies ST-05 reorder_independent; carrier C applies both. Tests array literal and statement reordering.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "case_convention", "literals"],
+            "rng_seed": 1605003,
+            "interference_profile": {
+                "axis_count": 2,
+                "axes": ["literals", "statements"],
+                "groups_applied": ["lt", "st"]
+            },
+            "difficulty": {
+                "complexity": 6,
+                "axes": {
+                    "literals": 6,
+                    "statements": 10
+                }
+            },
+            "notes": "LT-03 (array_values) changes array construction syntax. ST-05 (reorder_independent) reorders independent statements. Combined they test structural changes.",
+            "scoring": {"line_tolerance": 3, "member_jaccard_min": 0.5, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "ArrayCalc.php", "namespace": "Acme\\Billing\\Array", "class": "ArrayCalc", "scaffold": "method_alpha", "group": "A", "pristine": false, "transforms": [{"code": "LT-03", "params": {"style": "short_array"}}]},
+                {"file": "ReorderedCalc.php", "namespace": "Acme\\Billing\\Reordered", "class": "ReorderedCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-05", "params": {"reorder_level": 1}}]},
+                {"file": "BothCalc.php", "namespace": "Acme\\Billing\\Both", "class": "BothCalc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "LT-03", "params": {"style": "long_array"}}, {"code": "ST-05", "params": {"reorder_level": 2}}]}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L06-co_lt_st-004",
+            "schema_version": 2,
+            "title": "Heavy literal and statement interference",
+            "description": "Same computeTotals method. Multiple LT and ST transforms combined at higher intensity. Tests detector robustness under heavy literal and statement changes.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "case_convention", "literals"],
+            "rng_seed": 1605004,
+            "interference_profile": {
+                "axis_count": 2,
+                "axes": ["literals", "statements"],
+                "groups_applied": ["lt", "st"]
+            },
+            "difficulty": {
+                "complexity": 7,
+                "axes": {
+                    "literals": 7,
+                    "statements": 10
+                }
+            },
+            "notes": "Heavy LT+ST interference: LT-01+LT-02+LT-03 combined with ST-01+ST-05. Tests comprehensive literal abstraction and statement normalization.",
+            "scoring": {"line_tolerance": 4, "member_jaccard_min": 0.45, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "HeavyCalcA.php", "namespace": "Acme\\Billing\\Heavy", "class": "HeavyCalcA", "scaffold": "method_alpha", "group": "A", "pristine": false, "transforms": [{"code": "LT-01", "params": {"format": "hex"}}, {"code": "ST-01", "params": {"lines": 1}}]},
+                {"file": "HeavyCalcB.php", "namespace": "Acme\\Billing\\Heavy", "class": "HeavyCalcB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-02", "params": {"style": "double_quotes"}}, {"code": "LT-03", "params": {"style": "short_array"}}, {"code": "ST-05", "params": {"reorder_level": 1}}]},
+                {"file": "HeavyCalcC.php", "namespace": "Acme\\Billing\\Heavy", "class": "HeavyCalcC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-02", "params": {"lines": 2}}, {"code": "ST-01", "params": {"lines": 1}}]}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L06-co_lt_st-005",
+            "schema_version": 2,
+            "title": "Maximum literal and statement interference",
+            "description": "Same computeTotals method. All major LT and ST transforms stacked at maximum intensity. Tests the ceiling of type-3 clone detection.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "case_convention", "literals"],
+            "rng_seed": 1605005,
+            "interference_profile": {
+                "axis_count": 2,
+                "axes": ["literals", "statements"],
+                "groups_applied": ["lt", "st"]
+            },
+            "difficulty": {
+                "complexity": 8,
+                "axes": {
+                    "literals": 7,
+                    "statements": 12
+                }
+            },
+            "notes": "Maximum LT+ST interference: LT-01+LT-02+LT-03+LT-04 combined with ST-01+ST-02+ST-05+ST-09. Tests the ceiling of comprehensive statement and literal normalization.",
+            "scoring": {"line_tolerance": 4, "member_jaccard_min": 0.4, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "MaxCalcA.php", "namespace": "Acme\\Billing\\Max", "class": "MaxCalcA", "scaffold": "method_alpha", "group": "A", "pristine": false, "transforms": [{"code": "LT-01", "params": {"format": "binary"}}, {"code": "LT-02", "params": {"style": "single_quotes"}}, {"code": "ST-01", "params": {"lines": 2}}]},
+                {"file": "MaxCalcB.php", "namespace": "Acme\\Billing\\Max", "class": "MaxCalcB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-03", "params": {"style": "short_array"}}, {"code": "LT-04", "params": {"style": "const_literal"}}, {"code": "ST-05", "params": {"reorder_level": 2}}, {"code": "ST-09", "params": {"tweak_level": 1}}]},
+                {"file": "MaxCalcC.php", "namespace": "Acme\\Billing\\Max", "class": "MaxCalcC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-02", "params": {"lines": 1}}, {"code": "ST-01", "params": {"lines": 1}}]}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        }
+    ]
+}

@@ -1,0 +1,14 @@
+{
+    "domain": "payment_processor",
+    "summary": "Payment flow: validate, charge, refund, webhook handling.",
+    "size_class": "L",
+    "symbol": "charge",
+    "line_count": 122,
+    "token_count": 820,
+    "required_symbols": ["charge", "refund", "handleWebhook"],
+    "mount_modes": ["method"],
+    "compatible_interference": ["WS-03", "WS-06", "CM-03", "RN-01", "LT-02", "ST-01", "CF-05"],
+    "variants": [
+        {"file": "strategy_object.php", "code": "API-03", "name": "strategy_object"}
+    ]
+}

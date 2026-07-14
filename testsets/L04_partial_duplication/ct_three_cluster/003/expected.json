@@ -1,0 +1,153 @@
+{
+    "schema_version": 2,
+    "set_id": "L04-ct_three_cluster-003",
+    "clusters": [
+        {
+            "id": "A",
+            "group_id": "A",
+            "clone_type": "type-3",
+            "granularity": "method",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers",
+                "literals"
+            ],
+            "token_hash": "5cd8e7841ecf7c41",
+            "normalized_hash": "a3a4fbc9a09986cf",
+            "members": [
+                {
+                    "file": "src/Cluster1A.php",
+                    "start_line": 9,
+                    "end_line": 27,
+                    "symbol": "authorize",
+                    "pristine": true,
+                    "group": "A",
+                    "seed": "access_guard"
+                },
+                {
+                    "file": "src/Cluster1B.php",
+                    "start_line": 18,
+                    "end_line": 34,
+                    "symbol": "authorize",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "access_guard"
+                }
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": true,
+                "semantic": true
+            },
+            "notes": "Three clusters with 2 carriers each (minimum detection threshold)."
+        },
+        {
+            "id": "B",
+            "group_id": "B",
+            "clone_type": "type-3",
+            "granularity": "method",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers",
+                "literals"
+            ],
+            "token_hash": "5cd8e7841ecf7c41",
+            "normalized_hash": "a3a4fbc9a09986cf",
+            "members": [
+                {
+                    "file": "src/Cluster2A.php",
+                    "start_line": 9,
+                    "end_line": 27,
+                    "symbol": "authorize",
+                    "pristine": true,
+                    "group": "B",
+                    "seed": "access_guard"
+                },
+                {
+                    "file": "src/Cluster2B.php",
+                    "start_line": 18,
+                    "end_line": 34,
+                    "symbol": "authorize",
+                    "pristine": false,
+                    "group": "B",
+                    "seed": "access_guard"
+                }
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": true,
+                "semantic": true
+            },
+            "notes": "Three clusters with 2 carriers each (minimum detection threshold)."
+        },
+        {
+            "id": "C",
+            "group_id": "C",
+            "clone_type": "type-3",
+            "granularity": "method",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers",
+                "literals"
+            ],
+            "token_hash": "5cd8e7841ecf7c41",
+            "normalized_hash": "a3a4fbc9a09986cf",
+            "members": [
+                {
+                    "file": "src/Cluster3A.php",
+                    "start_line": 24,
+                    "end_line": 42,
+                    "symbol": "authorize",
+                    "pristine": true,
+                    "group": "C",
+                    "seed": "access_guard"
+                },
+                {
+                    "file": "src/Cluster3B.php",
+                    "start_line": 24,
+                    "end_line": 40,
+                    "symbol": "authorize",
+                    "pristine": false,
+                    "group": "C",
+                    "seed": "access_guard"
+                }
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": true,
+                "semantic": true
+            },
+            "notes": "Three clusters with 2 carriers each (minimum detection threshold)."
+        }
+    ],
+    "non_duplicates": [
+        {
+            "file": "src/Distractor1.php",
+            "start_line": 12,
+            "end_line": 27,
+            "reason": "near-miss: similar vocabulary",
+            "trap": true
+        },
+        {
+            "file": "src/Distractor2.php",
+            "start_line": 12,
+            "end_line": 27,
+            "reason": "near-miss: similar vocabulary",
+            "trap": true
+        }
+    ],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.6,
+        "min_members_for_credit": 2
+    }
+}

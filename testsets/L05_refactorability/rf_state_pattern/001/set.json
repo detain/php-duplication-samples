@@ -1,0 +1,93 @@
+{
+    "schema_version": 2,
+    "set_id": "L05-rf_state_pattern-001",
+    "level": 5,
+    "level_name": "refactorability",
+    "family": "rf_state_pattern",
+    "title": "Order processing state handlers with similar structure but different behavior",
+    "description": "Three order processor classes with identical handleState methods that differ only in state-specific behavior. CAN be refactored to State pattern with separate state classes.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "state_machine",
+    "difficulty_band": "hard",
+    "files": [
+        {
+            "path": "src/DomesticOrderProcessor.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 49,
+            "region_sloc": {
+                "sloc": 35,
+                "duplicate": 35,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/InternationalOrderProcessor.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 54,
+            "region_sloc": {
+                "sloc": 35,
+                "duplicate": 35,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/BulkOrderProcessor.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 53,
+            "region_sloc": {
+                "sloc": 35,
+                "duplicate": 35,
+                "unique": 0,
+                "filler": 0
+            }
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-1",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [],
+    "difficulty": {
+        "score": 45,
+        "requires": [],
+        "score_raw": 45,
+        "axes": {
+            "breadth": 0,
+            "intensity": 0,
+            "intensity_max": 0,
+            "semantic_depth": 0,
+            "partiality": 1
+        },
+        "application_count": 0,
+        "axis_count": 0
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L05_refactorability/rf_state_pattern.json",
+        "version": "2.0.0",
+        "rng_seed": 504101
+    },
+    "interference_profile": {
+        "axis_count": 0,
+        "per_carrier_axes": [],
+        "groups_touched": [
+            "A"
+        ],
+        "stack_depth_max": 0,
+        "symmetric_overlap": 0,
+        "pairwise_overlap": 0,
+        "combination_design": "minimal"
+    },
+    "engine_features": [
+        "intended_refactoring"
+    ]
+}

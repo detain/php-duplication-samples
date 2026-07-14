@@ -1,0 +1,4 @@
+               "collapses": [0, 1, 2],
+                "advisability": "recommended"
+            },
+            "solution": "<?php\ndeclare(strict_types=1);\n\nnamespace Acme\\Events\\Unified;\n\n/**\n * Unified event dispatcher — holes: async_handling, priority_queue, error_isolation\n */\nclass EventDispatcher\n{\n    public function dispatch(string $eventName, array $payload, array $listeners): array\n    {\n        // HOLE: priority_queue — listeners should be sorted by priority before calling\n        // HOLE: async_handling — listeners marked as async should be queued, not run synchronously\n\n        $results = [];\n\n        foreach ($listeners as $listener) {\n            // HOLE: error_isolation — if one listener throws, remaining listeners don't fire\n            $results[] = $listener($eventName, $payload);\n        }\n\n        return $results;\n    }\n\n  

@@ -1,0 +1,137 @@
+{
+    "schema_version": 2,
+    "set_id": "L04-pd_head_unique-004",
+    "level": 4,
+    "level_name": "partial_duplication",
+    "family": "pd_head_unique",
+    "title": "Partial clone using csv_import with unique head",
+    "description": "The same parseRow method with unique head sections.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "csv_import",
+    "difficulty_band": "medium",
+    "files": [
+        {
+            "path": "src/PristineCsvImport.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 37,
+            "region_sloc": {
+                "sloc": 23,
+                "duplicate": 23,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/HeadUniqueCsv.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 39,
+            "region_sloc": {
+                "sloc": 20,
+                "duplicate": 20,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/HeadUnique2Csv.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 37,
+            "region_sloc": {
+                "sloc": 19,
+                "duplicate": 19,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/XmlImportService.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 63
+        },
+        {
+            "path": "src/DataValidationService.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 22
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-3",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "ST-07",
+            "name": "partial_fragment",
+            "params": {
+                "head_trim": 3,
+                "tail_trim": 0
+            },
+            "applied_to": [
+                "src/HeadUniqueCsv.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "ST-07",
+            "name": "partial_fragment",
+            "params": {
+                "head_trim": 4,
+                "tail_trim": 0
+            },
+            "applied_to": [
+                "src/HeadUnique2Csv.php"
+            ],
+            "intensity": 3
+        }
+    ],
+    "difficulty": {
+        "score": 42,
+        "requires": [
+            "ast_canonicalization",
+            "deadcode_elimination"
+        ],
+        "score_raw": 42,
+        "axes": {
+            "breadth": 1,
+            "intensity": 3,
+            "intensity_max": 3,
+            "semantic_depth": 0,
+            "partiality": 1
+        },
+        "application_count": 2,
+        "axis_count": 1
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L04_partial_duplication/pd_head_unique.json",
+        "version": "2.0.0",
+        "rng_seed": 104404
+    },
+    "interference_profile": {
+        "axis_count": 1,
+        "per_carrier_axes": {
+            "src/HeadUniqueCsv.php": [
+                "ST-07"
+            ],
+            "src/HeadUnique2Csv.php": [
+                "ST-07"
+            ]
+        },
+        "groups_touched": [
+            "A"
+        ],
+        "stack_depth_max": 1,
+        "symmetric_overlap": 1,
+        "pairwise_overlap": 1,
+        "combination_design": "structural_only"
+    }
+}

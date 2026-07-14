@@ -1,0 +1,73 @@
+{
+    "schema_version": 1,
+    "set_id": "L05-se_notification-005",
+    "level": 5,
+    "level_name": "semantic_equivalence",
+    "family": "se_notification",
+    "title": "Notification: API abstraction equivalence",
+    "description": "Notification using different API styles: map vs loop, table-driven, and datetime APIs.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "notification_service",
+    "difficulty_band": "very_hard",
+    "files": [
+        {
+            "path": "src/DirectNotifier.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 67
+        },
+        {
+            "path": "src/TableNotifier.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 72
+        },
+        {
+            "path": "src/DateTimeNotifier.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 71
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-4",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "API-05",
+            "name": "table_driven",
+            "params": {},
+            "applied_to": [
+                "src/TableNotifier.php"
+            ],
+            "intensity": 4
+        },
+        {
+            "code": "API-09",
+            "name": "datetime",
+            "params": {},
+            "applied_to": [
+                "src/DateTimeNotifier.php"
+            ],
+            "intensity": 4
+        }
+    ],
+    "difficulty": {
+        "score": 77,
+        "requires": [
+            "semantic_reasoning",
+            "api_abstraction"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L05_semantic_equivalence/se_notification.json",
+        "version": "1.0.0",
+        "rng_seed": 50405
+    }
+}

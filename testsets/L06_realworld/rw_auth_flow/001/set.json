@@ -1,0 +1,82 @@
+{
+    "schema_version": 1,
+    "set_id": "L06-rw_auth_flow-001",
+    "level": 6,
+    "level_name": "realworld_scenarios",
+    "family": "rw_auth_flow",
+    "title": "Auth flow: session-based authentication",
+    "description": "Authentication flow using auth_handler seed with session-based approach. Demonstrates JWT validation, token refresh, and logout patterns.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "auth_handler",
+    "difficulty_band": "expert",
+    "files": [
+        {
+            "path": "src/SessionAuth.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 122
+        },
+        {
+            "path": "src/JwtAuth.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 129
+        },
+        {
+            "path": "src/TokenRefresh.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 128
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-4",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "CF-01",
+            "name": "if_ternary",
+            "params": {},
+            "applied_to": [
+                "src/JwtAuth.php"
+            ],
+            "intensity": 4
+        },
+        {
+            "code": "BL-01",
+            "name": "demorgan",
+            "params": {},
+            "applied_to": [
+                "src/TokenRefresh.php"
+            ],
+            "intensity": 4
+        },
+        {
+            "code": "CF-05",
+            "name": "early_return",
+            "params": {},
+            "applied_to": [
+                "src/TokenRefresh.php"
+            ],
+            "intensity": 4
+        }
+    ],
+    "difficulty": {
+        "score": 100,
+        "requires": [
+            "semantic_reasoning",
+            "controlflow_normalization"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L06_realworld/rw_auth_flow.json",
+        "version": "1.0.0",
+        "rng_seed": 60101
+    }
+}

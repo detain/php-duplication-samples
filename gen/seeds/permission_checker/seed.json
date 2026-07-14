@@ -1,0 +1,12 @@
+{
+    "domain": "permission_checker",
+    "summary": "RBAC permission check with role hierarchy and context awareness.",
+    "size_class": "M",
+    "symbol": "check",
+    "line_count": 46,
+    "token_count": 310,
+    "required_symbols": ["check"],
+    "mount_modes": ["method"],
+    "compatible_interference": ["WS-03", "CM-03", "RN-01", "CF-05"],
+    "variants": []
+}

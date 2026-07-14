@@ -89,7 +89,15 @@ foreach ($sets as [$setId, $setDir]) {
 
 $resultsDir = $root . '/bench/results';
 @mkdir($resultsDir, 0o775, true);
-$label = $opts['set'] ?? ($opts['level'] !== null ? 'level' . $opts['level'] : 'all');
+if ($opts['set'] !== null) {
+    $label = $opts['set'];
+} elseif ($opts['family'] !== null) {
+    $label = 'family-' . $opts['family'];
+} elseif ($opts['level'] !== null) {
+    $label = 'level' . $opts['level'];
+} else {
+    $label = 'all';
+}
 $outFile = $resultsDir . '/testsets-' . $label . '.json';
 file_put_contents($outFile, json_encode([
     'generated_at' => date('c'),
@@ -223,6 +231,10 @@ function runJscpd(string $bin, string $srcDir): array
 {
     $out = sys_get_temp_dir() . '/tjscpd-' . bin2hex(random_bytes(4));
     @mkdir($out, 0o775, true);
+    // Bug 5 fix: ensure temp dir cleanup on any fatal exit
+    register_shutdown_function(function() use ($out) {
+        @exec('rm -rf ' . escapeshellarg($out));
+    });
     @exec(sprintf('%s --formats-exts php:php --min-lines 5 --min-tokens 50 --reporters json --silent --output %s %s 2>/dev/null',
         escapeshellarg($bin), escapeshellarg($out), escapeshellarg($srcDir)), $_, $rc);
     $groups = [];
@@ -268,20 +280,22 @@ function toolVersion(string $cmd): ?string
     return $line !== false ? trim($line) : null;
 }
 
-/** @return array{set:?string,level:?int,all:bool} */
+/** @return array{set:?string,level:?int,family:?string,all:bool} */
 function parseArgs(array $argv): array
 {
-    $o = ['set' => null, 'level' => null, 'all' => false];
+    $o = ['set' => null, 'level' => null, 'family' => null, 'all' => false];
     foreach (array_slice($argv, 1) as $arg) {
         if (str_starts_with($arg, '--set=')) {
             $o['set'] = substr($arg, 6);
         } elseif (str_starts_with($arg, '--level=')) {
             $o['level'] = (int)substr($arg, 8);
+        } elseif (str_starts_with($arg, '--family=')) {
+            $o['family'] = substr($arg, 9);
         } elseif ($arg === '--all') {
             $o['all'] = true;
         }
     }
-    if ($o['set'] === null && $o['level'] === null) {
+    if ($o['set'] === null && $o['level'] === null && $o['family'] === null) {
         $o['all'] = true;
     }
     return $o;
@@ -301,6 +315,9 @@ function discoverSets(string $root, array $opts): array
             continue;
         }
         if ($opts['level'] !== null && (int)$setJson['level'] !== $opts['level']) {
+            continue;
+        }
+        if ($opts['family'] !== null && (string)$setJson['family'] !== $opts['family']) {
             continue;
         }
         $out[] = [$setId, dirname($setJsonFile)];

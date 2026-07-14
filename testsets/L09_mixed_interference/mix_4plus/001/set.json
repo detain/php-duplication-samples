@@ -59,7 +59,8 @@
             "applied_to": [
                 "src/PristineInvoiceCalc.php",
                 "src/FourAxisCalc.php"
-            ]
+            ],
+            "intensity": 2
         },
         {
             "code": "RN-05",
@@ -69,7 +70,8 @@
             },
             "applied_to": [
                 "src/RenamedBlankCalc.php"
-            ]
+            ],
+            "intensity": 2
         },
         {
             "code": "WS-03",
@@ -79,17 +81,8 @@
             },
             "applied_to": [
                 "src/RenamedBlankCalc.php"
-            ]
-        },
-        {
-            "code": "WS-06",
-            "name": "line_wrap",
-            "params": {
-                "occurrence": 1
-            },
-            "applied_to": [
-                "src/FourAxisCalc.php"
-            ]
+            ],
+            "intensity": 1
         },
         {
             "code": "ST-01",
@@ -99,7 +92,19 @@
             },
             "applied_to": [
                 "src/FourAxisCalc.php"
-            ]
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "WS-06",
+            "name": "line_wrap",
+            "params": {
+                "occurrence": 1
+            },
+            "applied_to": [
+                "src/FourAxisCalc.php"
+            ],
+            "intensity": 2
         }
     ],
     "difficulty": {

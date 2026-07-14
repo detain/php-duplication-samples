@@ -34,7 +34,7 @@
                 {
                     "file": "src/TrimmedCaseCalc.php",
                     "start_line": 24,
-                    "end_line": 47,
+                    "end_line": 48,
                     "symbol": "computeTotals",
                     "pristine": false
                 }

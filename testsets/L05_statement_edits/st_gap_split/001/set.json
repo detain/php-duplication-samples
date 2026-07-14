@@ -59,7 +59,8 @@
             },
             "applied_to": [
                 "src/GappedInvoiceCalc.php"
-            ]
+            ],
+            "intensity": 3
         },
         {
             "code": "ST-06",
@@ -70,7 +71,8 @@
             },
             "applied_to": [
                 "src/MoreGappedInvoiceCalc.php"
-            ]
+            ],
+            "intensity": 3
         }
     ],
     "difficulty": {

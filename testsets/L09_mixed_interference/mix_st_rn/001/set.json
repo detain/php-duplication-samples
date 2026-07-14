@@ -27,7 +27,7 @@
             "path": "src/TrimmedCaseCalc.php",
             "role": "carrier",
             "duplicate_group": "A",
-            "sloc": 42
+            "sloc": 43
         },
         {
             "path": "src/MarginSummarizer.php",
@@ -58,7 +58,8 @@
             },
             "applied_to": [
                 "src/PristineInvoiceCalc.php"
-            ]
+            ],
+            "intensity": 2
         },
         {
             "code": "RN-05",
@@ -69,7 +70,8 @@
             "applied_to": [
                 "src/SnakeCaseCalc.php",
                 "src/TrimmedCaseCalc.php"
-            ]
+            ],
+            "intensity": 2
         },
         {
             "code": "ST-04",
@@ -79,7 +81,8 @@
             },
             "applied_to": [
                 "src/TrimmedCaseCalc.php"
-            ]
+            ],
+            "intensity": 3
         }
     ],
     "difficulty": {

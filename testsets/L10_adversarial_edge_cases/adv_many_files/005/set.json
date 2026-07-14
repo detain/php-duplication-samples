@@ -69,7 +69,8 @@
             "applied_to": [
                 "src/AccessCheckerB.php",
                 "src/AccessCheckerC.php"
-            ]
+            ],
+            "intensity": 2
         },
         {
             "code": "CM-03",
@@ -78,7 +79,8 @@
             "applied_to": [
                 "src/AccessCheckerB.php",
                 "src/AccessCheckerC.php"
-            ]
+            ],
+            "intensity": 1
         },
         {
             "code": "RN-01",
@@ -86,7 +88,8 @@
             "params": {},
             "applied_to": [
                 "src/AccessCheckerC.php"
-            ]
+            ],
+            "intensity": 2
         }
     ],
     "difficulty": {

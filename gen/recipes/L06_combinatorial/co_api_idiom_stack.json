@@ -1,0 +1,213 @@
+{
+    "level": 6,
+    "level_name": "combinatorial",
+    "level_dir": "L06_combinatorial",
+    "family": "co_api_idiom_stack",
+    "sets": [
+        {
+            "set_id": "L06-co_api_idiom_stack-001",
+            "schema_version": 2,
+            "title": "API idiom stacking (map vs loop)",
+            "description": "Same computeTotals method. Tests API idioms stacked with whitespace and comments. Uses API-01 (map_vs_loop) combined with formatting changes.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "case_convention", "literals"],
+            "rng_seed": 1613001,
+            "interference_profile": {
+                "axis_count": 3,
+                "axes": ["whitespace", "literals", "statements"],
+                "groups_applied": ["ws", "lt", "st"]
+            },
+            "difficulty": {
+                "complexity": 8,
+                "axes": {
+                    "whitespace": 3,
+                    "literals": 6,
+                    "statements": 8
+                }
+            },
+            "notes": "Idiom stacking using statement-level transforms (ST) instead of API variants. Combines whitespace and literal transforms.",
+            "scoring": {"line_tolerance": 3, "member_jaccard_min": 0.5, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineInvoiceCalc.php", "namespace": "Acme\\Billing\\Pristine", "class": "PristineInvoiceCalc", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "ApiIdiomCalc.php", "namespace": "Acme\\Billing\\ApiIdiom", "class": "ApiIdiomCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-01", "params": {"lines": 1}}]},
+                {"file": "ApiWsCmCalc.php", "namespace": "Acme\\Billing\\ApiWsCm", "class": "ApiWsCmCalc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "WS-01", "params": {"blank_lines": 1}}, {"code": "LT-01", "params": {"format": "hex"}}, {"code": "ST-05", "params": {"reorder_level": 1}}]}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L06-co_api_idiom_stack-002",
+            "schema_version": 2,
+            "title": "API idiom stacking (string functions)",
+            "description": "Same computeTotals method. Tests API-02 (string_fns) combined with literal and whitespace changes.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "case_convention", "literals"],
+            "rng_seed": 1613002,
+            "interference_profile": {
+                "axis_count": 3,
+                "axes": ["whitespace", "literals", "statements"],
+                "groups_applied": ["ws", "lt", "st"]
+            },
+            "difficulty": {
+                "complexity": 8,
+                "axes": {
+                    "whitespace": 3,
+                    "literals": 6,
+                    "statements": 8
+                }
+            },
+            "notes": "Idiom stacking: statement reordering + literal transforms combined with whitespace. Tests idiom-like structural changes.",
+            "scoring": {"line_tolerance": 3, "member_jaccard_min": 0.5, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "StringApiCalc.php", "namespace": "Acme\\Billing\\StringApi", "class": "StringApiCalc", "scaffold": "method_alpha", "group": "A", "pristine": false, "transforms": [{"code": "LT-01", "params": {"format": "hex"}}]},
+                {"file": "ApiLiteralCalc.php", "namespace": "Acme\\Billing\\ApiLiteral", "class": "ApiLiteralCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-02", "params": {"style": "double_quotes"}}, {"code": "WS-01", "params": {"blank_lines": 1}}, {"code": "ST-02", "params": {"lines": 1}}]},
+                {"file": "MaxApiCalc.php", "namespace": "Acme\\Billing\\MaxApi", "class": "MaxApiCalc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "LT-01", "params": {"format": "binary"}}, {"code": "LT-02", "params": {"style": "single_quotes"}}, {"code": "WS-01", "params": {"blank_lines": 2}}, {"code": "ST-05", "params": {"reorder_level": 1}}]}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L06-co_api_idiom_stack-003",
+            "schema_version": 2,
+            "title": "API idiom stacking with statement interference",
+            "description": "Same computeTotals method. Tests multiple API idioms combined with statement-level transforms.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "case_convention", "literals"],
+            "rng_seed": 1613003,
+            "interference_profile": {
+                "axis_count": 4,
+                "axes": ["statements", "whitespace", "literals", "identifiers"],
+                "groups_applied": ["st", "ws", "lt", "rn"]
+            },
+            "difficulty": {
+                "complexity": 10,
+                "axes": {
+                    "statements": 10,
+                    "whitespace": 4,
+                    "literals": 6,
+                    "identifiers": 6
+                }
+            },
+            "notes": "Idiom stacking with statement interference. Tests comprehensive structural normalization with RN-05 + ST + LT + WS.",
+            "scoring": {"line_tolerance": 4, "member_jaccard_min": 0.45, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "ApiStCalc.php", "namespace": "Acme\\Billing\\ApiSt", "class": "ApiStCalc", "scaffold": "method_alpha", "group": "A", "pristine": false, "transforms": [{"code": "ST-01", "params": {"lines": 1}}, {"code": "RN-05", "params": {"direction": "camel_to_snake"}}]},
+                {"file": "FullApiCalc.php", "namespace": "Acme\\Billing\\FullApi", "class": "FullApiCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-05", "params": {"reorder_level": 1}}, {"code": "WS-01", "params": {"blank_lines": 2}}, {"code": "LT-01", "params": {"format": "hex"}}]},
+                {"file": "MaxApiCalc.php", "namespace": "Acme\\Billing\\MaxApi", "class": "MaxApiCalc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-01", "params": {"lines": 2}}, {"code": "ST-02", "params": {"lines": 1}}, {"code": "WS-01", "params": {"blank_lines": 1}}, {"code": "LT-02", "params": {"style": "double_quotes"}}, {"code": "RN-05", "params": {"direction": "snake_to_camel"}}]}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L06-co_api_idiom_stack-004",
+            "schema_version": 2,
+            "title": "Heavy API idiom stacking",
+            "description": "Same computeTotals method. Multiple API idioms combined with all basic transforms at heavy intensity.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "case_convention", "literals"],
+            "rng_seed": 1613004,
+            "interference_profile": {
+                "axis_count": 5,
+                "axes": ["statements", "whitespace", "literals", "identifiers", "types"],
+                "groups_applied": ["st", "ws", "lt", "rn", "ty"]
+            },
+            "difficulty": {
+                "complexity": 12,
+                "axes": {
+                    "statements": 10,
+                    "whitespace": 4,
+                    "literals": 7,
+                    "identifiers": 6,
+                    "types": 6
+                }
+            },
+            "notes": "Heavy idiom stacking: ST + WS-01 + LT + RN-05 + TY transforms combined. Tests comprehensive structural normalization ceiling.",
+            "scoring": {"line_tolerance": 4, "member_jaccard_min": 0.4, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "HeavyApiCalcA.php", "namespace": "Acme\\Billing\\HeavyApi", "class": "HeavyApiCalcA", "scaffold": "method_alpha", "group": "A", "pristine": false, "transforms": [{"code": "ST-01", "params": {"lines": 1}}, {"code": "WS-01", "params": {"blank_lines": 1}}, {"code": "LT-01", "params": {"format": "hex"}}]},
+                {"file": "HeavyApiCalcB.php", "namespace": "Acme\\Billing\\HeavyApi", "class": "HeavyApiCalcB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-05", "params": {"reorder_level": 1}}, {"code": "WS-01", "params": {"blank_lines": 2}}, {"code": "LT-02", "params": {"style": "double_quotes"}}, {"code": "RN-05", "params": {"direction": "camel_to_snake"}}]},
+                {"file": "HeavyApiCalcC.php", "namespace": "Acme\\Billing\\HeavyApi", "class": "HeavyApiCalcC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-02", "params": {"lines": 1}}, {"code": "ST-09", "params": {"tweak_level": 1}}, {"code": "WS-01", "params": {"blank_lines": 1}}, {"code": "LT-03", "params": {"style": "short_array"}}]}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L06-co_api_idiom_stack-005",
+            "schema_version": 2,
+            "title": "Maximum API idiom stacking",
+            "description": "Same computeTotals method. All API idioms combined with all basic transforms. Tests the ceiling of API-level clone detection.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "case_convention", "literals"],
+            "rng_seed": 1613005,
+            "interference_profile": {
+                "axis_count": 6,
+                "axes": ["statements", "whitespace", "literals", "identifiers", "types", "whitespace"],
+                "groups_applied": ["st", "ws", "lt", "rn", "ty", "ws"]
+            },
+            "difficulty": {
+                "complexity": 14,
+                "axes": {
+                    "statements": 12,
+                    "whitespace": 5,
+                    "literals": 7,
+                    "identifiers": 8,
+                    "types": 6
+                }
+            },
+            "notes": "Maximum idiom stacking: ST + WS-01 + LT + RN-05 + TY all stacked. Tests comprehensive structural normalization ceiling.",
+            "scoring": {"line_tolerance": 5, "member_jaccard_min": 0.35, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "MaxApiCalcA.php", "namespace": "Acme\\Billing\\MaxApi", "class": "MaxApiCalcA", "scaffold": "method_alpha", "group": "A", "pristine": false, "transforms": [{"code": "ST-01", "params": {"lines": 2}}, {"code": "WS-01", "params": {"blank_lines": 1}}, {"code": "WS-01", "params": {"blank_lines": 2}}, {"code": "LT-01", "params": {"format": "binary"}}, {"code": "RN-05", "params": {"direction": "camel_to_snake"}}]},
+                {"file": "MaxApiCalcB.php", "namespace": "Acme\\Billing\\MaxApi", "class": "MaxApiCalcB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-05", "params": {"reorder_level": 2}}, {"code": "WS-01", "params": {"blank_lines": 3}}, {"code": "LT-02", "params": {"style": "single_quotes"}}, {"code": "LT-03", "params": {"style": "long_array"}}, {"code": "RN-05", "params": {"direction": "snake_to_camel"}}]},
+                {"file": "MaxApiCalcC.php", "namespace": "Acme\\Billing\\MaxApi", "class": "MaxApiCalcC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-02", "params": {"lines": 1}}, {"code": "ST-09", "params": {"tweak_level": 1}}, {"code": "LT-04", "params": {"style": "const_literal"}}]}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        }
+    ]
+}

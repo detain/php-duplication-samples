@@ -1,0 +1,56 @@
+{
+    "schema_version": 1,
+    "set_id": "L12-mx_complexity_mix-001",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-2",
+            "granularity": "method",
+            "normalized_by": [
+                "identifiers",
+                "literals"
+            ],
+            "token_hash": "f1e5708cf467f899",
+            "normalized_hash": "88b44d89704ac03f",
+            "members": [
+                {
+                    "file": "src/ComplexMixA.php",
+                    "start_line": 9,
+                    "end_line": 33,
+                    "symbol": "computeTotals",
+                    "pristine": true
+                },
+                {
+                    "file": "src/ComplexMixB.php",
+                    "start_line": 18,
+                    "end_line": 42,
+                    "symbol": "computeTotals",
+                    "pristine": false
+                }
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": true,
+                "semantic": true
+            },
+            "notes": "L12: Complexity spectrum XS to XL."
+        }
+    ],
+    "non_duplicates": [
+        {
+            "file": "src/ComplexMixDistractor.php",
+            "start_line": 12,
+            "end_line": 28,
+            "reason": "Near-miss: similar invoice",
+            "trap": true
+        }
+    ],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.7,
+        "min_members_for_credit": 2
+    }
+}

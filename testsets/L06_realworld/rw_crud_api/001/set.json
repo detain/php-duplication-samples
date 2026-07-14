@@ -1,0 +1,73 @@
+{
+    "schema_version": 1,
+    "set_id": "L06-rw_crud_api-001",
+    "level": 6,
+    "level_name": "realworld_scenarios",
+    "family": "rw_crud_api",
+    "title": "CRUD API: REST resource handlers",
+    "description": "RESTful API resource handlers for user_repository seed. Demonstrates create, read, update, delete operations with different implementation styles.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "user_repository",
+    "difficulty_band": "expert",
+    "files": [
+        {
+            "path": "src/UserHandler.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 74
+        },
+        {
+            "path": "src/UserRepository.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 78
+        },
+        {
+            "path": "src/UserService.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 72
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-4",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "API-05",
+            "name": "table_driven",
+            "params": {},
+            "applied_to": [
+                "src/UserRepository.php"
+            ],
+            "intensity": 4
+        },
+        {
+            "code": "CF-01",
+            "name": "if_ternary",
+            "params": {},
+            "applied_to": [
+                "src/UserService.php"
+            ],
+            "intensity": 4
+        }
+    ],
+    "difficulty": {
+        "score": 90,
+        "requires": [
+            "semantic_reasoning",
+            "api_abstraction"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L06_realworld/rw_crud_api.json",
+        "version": "1.0.0",
+        "rng_seed": 60201
+    }
+}

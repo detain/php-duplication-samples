@@ -1,0 +1,151 @@
+{
+    "schema_version": 2,
+    "set_id": "L06-co_ws_rn-003",
+    "level": 6,
+    "level_name": "combinatorial",
+    "family": "co_ws_rn",
+    "title": "Whitespace and rename interference (WS-06 + RN-02)",
+    "description": "Same computeTotals method. Carrier A applies WS-06 line_wrap; carrier B applies RN-02 params rename; carrier C applies both. Tests parameter renaming with line wrapping.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "invoice_totals",
+    "difficulty_band": "very_hard",
+    "files": [
+        {
+            "path": "src/WrappedCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 42,
+            "region_sloc": {
+                "sloc": 28,
+                "duplicate": 28,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/ParamRenamedCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 44,
+            "region_sloc": {
+                "sloc": 25,
+                "duplicate": 25,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/BothCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 46,
+            "region_sloc": {
+                "sloc": 28,
+                "duplicate": 28,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/MarginSummarizer.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 30
+        },
+        {
+            "path": "src/TaxRateRepository.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-2",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "WS-06",
+            "name": "line_wrap",
+            "params": {
+                "occurrence": 1
+            },
+            "applied_to": [
+                "src/WrappedCalc.php",
+                "src/BothCalc.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "RN-02",
+            "name": "params",
+            "params": {
+                "style": "to_snake"
+            },
+            "applied_to": [
+                "src/ParamRenamedCalc.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "RN-02",
+            "name": "params",
+            "params": {
+                "style": "to_camel"
+            },
+            "applied_to": [
+                "src/BothCalc.php"
+            ],
+            "intensity": 2
+        }
+    ],
+    "difficulty": {
+        "score": 70,
+        "requires": [
+            "whitespace_normalization",
+            "identifier_canonicalization"
+        ],
+        "score_raw": 70,
+        "axes": {
+            "breadth": 2,
+            "intensity": 2,
+            "intensity_max": 2,
+            "semantic_depth": 0,
+            "partiality": 1
+        },
+        "application_count": 4,
+        "axis_count": 2
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L06_combinatorial/co_ws_rn.json",
+        "version": "2.0.0",
+        "rng_seed": 1602003
+    },
+    "interference_profile": {
+        "axis_count": 2,
+        "per_carrier_axes": {
+            "src/WrappedCalc.php": [
+                "WS-06"
+            ],
+            "src/ParamRenamedCalc.php": [
+                "RN-02"
+            ],
+            "src/BothCalc.php": [
+                "RN-02",
+                "WS-06"
+            ]
+        },
+        "groups_touched": [
+            "A"
+        ],
+        "stack_depth_max": 2,
+        "symmetric_overlap": 0,
+        "pairwise_overlap": 0.3333,
+        "combination_design": "type2_plus_type1"
+    }
+}

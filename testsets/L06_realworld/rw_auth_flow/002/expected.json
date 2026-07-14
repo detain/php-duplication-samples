@@ -1,0 +1,56 @@
+{
+    "schema_version": 1,
+    "set_id": "L06-rw_auth_flow-002",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-4",
+            "granularity": "method",
+            "normalized_by": [
+                "controlflow",
+                "identifiers",
+                "literals"
+            ],
+            "token_hash": "f7f75e03a039cfea",
+            "normalized_hash": "b0eaa1d75d637961",
+            "members": [
+                {
+                    "file": "src/OAuthAuth.php",
+                    "start_line": 9,
+                    "end_line": 136,
+                    "symbol": "authenticate",
+                    "pristine": true
+                },
+                {
+                    "file": "src/PkceHandler.php",
+                    "start_line": 18,
+                    "end_line": 147,
+                    "symbol": "authenticate",
+                    "pristine": false
+                },
+                {
+                    "file": "src/TokenValidator.php",
+                    "start_line": 24,
+                    "end_line": 153,
+                    "symbol": "authenticate",
+                    "pristine": false
+                }
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": false,
+                "ast_based": false,
+                "metric_based": false,
+                "semantic": true
+            },
+            "notes": "Set 002 of 5. OAuth2 PKCE with CF-02 (match), CF-05 (guard) variants."
+        }
+    ],
+    "non_duplicates": [],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.6,
+        "min_members_for_credit": 2
+    }
+}

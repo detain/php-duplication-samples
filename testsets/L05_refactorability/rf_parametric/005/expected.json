@@ -1,0 +1,90 @@
+{
+    "schema_version": 2,
+    "set_id": "L05-rf_parametric-005",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-2",
+            "granularity": "method",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers",
+                "literals"
+            ],
+            "token_hash": "9b5357c3d652b8c9",
+            "normalized_hash": "9b5357c3d652b8c9",
+            "members": [
+                {
+                    "file": "src/ArticlePagination.php",
+                    "start_line": 9,
+                    "end_line": 65,
+                    "symbol": "paginate",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "pagination"
+                },
+                {
+                    "file": "src/CommentPagination.php",
+                    "start_line": 18,
+                    "end_line": 74,
+                    "symbol": "paginate",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "pagination"
+                },
+                {
+                    "file": "src/SearchPagination.php",
+                    "start_line": 24,
+                    "end_line": 80,
+                    "symbol": "paginate",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "pagination"
+                }
+            ],
+            "detection_expectation": {
+                "text_based": true,
+                "token_based": true,
+                "ast_based": true
+            },
+            "notes": ""
+        }
+    ],
+    "non_duplicates": [
+        {
+            "file": "src/CursorPagination.php",
+            "start_line": 9,
+            "end_line": 65,
+            "reason": "near-miss: uses cursor-based pagination instead of offset-based",
+            "trap": true
+        }
+    ],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.6,
+        "min_members_for_credit": 2
+    },
+    "intended_refactoring": {
+        "kind": "parameterize_literal",
+        "unified_symbol": "paginate",
+        "unified_signature": "paginate(items, page, pageSize, maxPageSize)",
+        "parameterized_literals": [
+            {
+                "position": "pageSize",
+                "description": "Default number of items per page"
+            },
+            {
+                "position": "maxPageSize",
+                "description": "Maximum allowed items per page"
+            }
+        ],
+        "collapses": [
+            0,
+            1,
+            2
+        ],
+        "advisability": "recommended"
+    }
+}

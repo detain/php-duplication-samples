@@ -1,0 +1,163 @@
+{
+    "schema_version": 2,
+    "set_id": "L06-co_ws_cm_rn-005",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-2",
+            "granularity": "method",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers",
+                "case_convention"
+            ],
+            "token_hash": "e2c6d2de09404029",
+            "normalized_hash": "d5da572207f4bce3",
+            "members": [
+                {
+                    "file": "src/MaxCalcA.php",
+                    "start_line": 9,
+                    "end_line": 37,
+                    "symbol": "computeTotals",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "invoice_totals",
+                    "fragments": [
+                        {
+                            "start_line": 18,
+                            "end_line": 26
+                        },
+                        {
+                            "start_line": 29,
+                            "end_line": 37
+                        },
+                        {
+                            "start_line": 39,
+                            "end_line": 45
+                        }
+                    ],
+                    "unique_segments": [
+                        {
+                            "start_line": 17,
+                            "end_line": 38
+                        }
+                    ]
+                },
+                {
+                    "file": "src/MaxCalcB.php",
+                    "start_line": 21,
+                    "end_line": 63,
+                    "symbol": "computeTotals",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "invoice_totals",
+                    "fragments": [
+                        {
+                            "start_line": 44,
+                            "end_line": 45
+                        },
+                        {
+                            "start_line": 47,
+                            "end_line": 47
+                        },
+                        {
+                            "start_line": 49,
+                            "end_line": 49
+                        },
+                        {
+                            "start_line": 51,
+                            "end_line": 51
+                        },
+                        {
+                            "start_line": 53,
+                            "end_line": 53
+                        },
+                        {
+                            "start_line": 55,
+                            "end_line": 55
+                        },
+                        {
+                            "start_line": 57,
+                            "end_line": 57
+                        },
+                        {
+                            "start_line": 59,
+                            "end_line": 59
+                        },
+                        {
+                            "start_line": 61,
+                            "end_line": 61
+                        },
+                        {
+                            "start_line": 63,
+                            "end_line": 67
+                        },
+                        {
+                            "start_line": 69,
+                            "end_line": 69
+                        },
+                        {
+                            "start_line": 71,
+                            "end_line": 71
+                        },
+                        {
+                            "start_line": 73,
+                            "end_line": 73
+                        },
+                        {
+                            "start_line": 75,
+                            "end_line": 75
+                        },
+                        {
+                            "start_line": 77,
+                            "end_line": 84
+                        },
+                        {
+                            "start_line": 86,
+                            "end_line": 86
+                        }
+                    ],
+                    "unique_segments": [
+                        {
+                            "start_line": 41,
+                            "end_line": 85
+                        }
+                    ]
+                },
+                {
+                    "file": "src/MaxCalcC.php",
+                    "start_line": 24,
+                    "end_line": 48,
+                    "symbol": "computeTotals",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "invoice_totals"
+                }
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": true,
+                "semantic": true
+            },
+            "notes": "Maximum 3-axis interference: WS-01+WS-03+WS-06 combined with CM-01+CM-03+CM-07 and RN-01+RN-02+RN-05. Tests the ceiling of comprehensive normalization."
+        }
+    ],
+    "non_duplicates": [
+        {
+            "file": "src/MarginSummarizer.php",
+            "start_line": 12,
+            "end_line": 28,
+            "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total",
+            "trap": true
+        }
+    ],
+    "scoring": {
+        "line_tolerance": 4,
+        "member_jaccard_min": 0.45,
+        "min_members_for_credit": 2
+    }
+}

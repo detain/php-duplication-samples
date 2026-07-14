@@ -13,21 +13,80 @@
             "clone_symbol": "computeTotals",
             "granularity": "method",
             "clone_type": "type-1",
-            "normalized_by": ["whitespace", "comments"],
+            "normalized_by": [
+                "whitespace",
+                "comments"
+            ],
             "rng_seed": 102161,
             "notes": "Trailing whitespace (WS-09). Token-based detectors should match all three; text-based will not.",
-            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": true,
+                "semantic": true
+            },
             "carriers": [
-                {"file": "LedgerPostingService.php", "namespace": "Acme\\Ledger\\Posting", "class": "LedgerPostingService", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
-                {"file": "PriceBookService.php", "namespace": "Acme\\Ledger\\Pricing", "class": "PriceBookService", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "WS-09", "params": {"count": 3}}]},
-                {"file": "SettlementService.php", "namespace": "Acme\\Ledger\\Settlement", "class": "SettlementService", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "WS-09", "params": {"count": 6}}]}
+                {
+                    "file": "LedgerPostingService.php",
+                    "namespace": "Acme\\Ledger\\Posting",
+                    "class": "LedgerPostingService",
+                    "scaffold": "method_alpha",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                },
+                {
+                    "file": "PriceBookService.php",
+                    "namespace": "Acme\\Ledger\\Pricing",
+                    "class": "PriceBookService",
+                    "scaffold": "method_beta",
+                    "group": "A",
+                    "pristine": false,
+                    "transforms": [
+                        {
+                            "code": "WS-09",
+                            "params": {
+                                "count": 3
+                            }
+                        }
+                    ]
+                },
+                {
+                    "file": "SettlementService.php",
+                    "namespace": "Acme\\Ledger\\Settlement",
+                    "class": "SettlementService",
+                    "scaffold": "method_gamma",
+                    "group": "A",
+                    "pristine": false,
+                    "transforms": [
+                        {
+                            "code": "WS-09",
+                            "params": {
+                                "count": 6
+                            }
+                        }
+                    ]
+                }
             ],
             "distractors": [
-                {"file": "MarginReporter.php", "namespace": "Acme\\Ledger\\Reporting", "class": "MarginReporter", "source": "nearmiss_invoice", "reason": "near-miss: same invoice vocabulary and foreach shape, but computes revenue/cost margins and a ratio — a different result"}
+                {
+                    "file": "MarginReporter.php",
+                    "namespace": "Acme\\Ledger\\Reporting",
+                    "class": "MarginReporter",
+                    "source": "nearmiss_invoice",
+                    "reason": "near-miss: same invoice vocabulary and foreach shape, but computes revenue/cost margins and a ratio \u2014 a different result"
+                }
             ],
             "cleans": [
-                {"file": "TaxRateRepository.php", "namespace": "Acme\\Ledger\\Catalog", "class": "TaxRateRepository", "source": "clean_billing"}
-            ]
+                {
+                    "file": "TaxRateRepository.php",
+                    "namespace": "Acme\\Ledger\\Catalog",
+                    "class": "TaxRateRepository",
+                    "source": "clean_billing"
+                }
+            ],
+            "schema_version": 2
         },
         {
             "set_id": "L02-ws_trailing-002",
@@ -38,21 +97,80 @@
             "clone_symbol": "computeTotals",
             "granularity": "method",
             "clone_type": "type-1",
-            "normalized_by": ["whitespace", "comments"],
+            "normalized_by": [
+                "whitespace",
+                "comments"
+            ],
             "rng_seed": 102162,
             "notes": "Trailing whitespace (WS-09). Token-based detectors should match all three; text-based will not.",
-            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": true,
+                "semantic": true
+            },
             "carriers": [
-                {"file": "LedgerPostingService.php", "namespace": "Acme\\Ledger\\Posting", "class": "LedgerPostingService", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
-                {"file": "PriceBookService.php", "namespace": "Acme\\Ledger\\Pricing", "class": "PriceBookService", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "WS-09", "params": {"count": 3}}]},
-                {"file": "SettlementService.php", "namespace": "Acme\\Ledger\\Settlement", "class": "SettlementService", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "WS-09", "params": {"count": 6}}]}
+                {
+                    "file": "LedgerPostingService.php",
+                    "namespace": "Acme\\Ledger\\Posting",
+                    "class": "LedgerPostingService",
+                    "scaffold": "method_alpha",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                },
+                {
+                    "file": "PriceBookService.php",
+                    "namespace": "Acme\\Ledger\\Pricing",
+                    "class": "PriceBookService",
+                    "scaffold": "method_beta",
+                    "group": "A",
+                    "pristine": false,
+                    "transforms": [
+                        {
+                            "code": "WS-09",
+                            "params": {
+                                "count": 3
+                            }
+                        }
+                    ]
+                },
+                {
+                    "file": "SettlementService.php",
+                    "namespace": "Acme\\Ledger\\Settlement",
+                    "class": "SettlementService",
+                    "scaffold": "method_gamma",
+                    "group": "A",
+                    "pristine": false,
+                    "transforms": [
+                        {
+                            "code": "WS-09",
+                            "params": {
+                                "count": 6
+                            }
+                        }
+                    ]
+                }
             ],
             "distractors": [
-                {"file": "MarginReporter.php", "namespace": "Acme\\Ledger\\Reporting", "class": "MarginReporter", "source": "nearmiss_invoice", "reason": "near-miss: same invoice vocabulary and foreach shape, but computes revenue/cost margins and a ratio — a different result"}
+                {
+                    "file": "MarginReporter.php",
+                    "namespace": "Acme\\Ledger\\Reporting",
+                    "class": "MarginReporter",
+                    "source": "nearmiss_invoice",
+                    "reason": "near-miss: same invoice vocabulary and foreach shape, but computes revenue/cost margins and a ratio \u2014 a different result"
+                }
             ],
             "cleans": [
-                {"file": "TaxRateRepository.php", "namespace": "Acme\\Ledger\\Catalog", "class": "TaxRateRepository", "source": "clean_billing"}
-            ]
+                {
+                    "file": "TaxRateRepository.php",
+                    "namespace": "Acme\\Ledger\\Catalog",
+                    "class": "TaxRateRepository",
+                    "source": "clean_billing"
+                }
+            ],
+            "schema_version": 2
         },
         {
             "set_id": "L02-ws_trailing-003",
@@ -63,21 +181,80 @@
             "clone_symbol": "computeTotals",
             "granularity": "method",
             "clone_type": "type-1",
-            "normalized_by": ["whitespace", "comments"],
+            "normalized_by": [
+                "whitespace",
+                "comments"
+            ],
             "rng_seed": 102163,
             "notes": "Trailing whitespace (WS-09). Token-based detectors should match all three; text-based will not.",
-            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": true,
+                "semantic": true
+            },
             "carriers": [
-                {"file": "LedgerPostingService.php", "namespace": "Acme\\Ledger\\Posting", "class": "LedgerPostingService", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
-                {"file": "PriceBookService.php", "namespace": "Acme\\Ledger\\Pricing", "class": "PriceBookService", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "WS-09", "params": {"count": 3}}]},
-                {"file": "SettlementService.php", "namespace": "Acme\\Ledger\\Settlement", "class": "SettlementService", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "WS-09", "params": {"count": 6}}]}
+                {
+                    "file": "LedgerPostingService.php",
+                    "namespace": "Acme\\Ledger\\Posting",
+                    "class": "LedgerPostingService",
+                    "scaffold": "method_alpha",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                },
+                {
+                    "file": "PriceBookService.php",
+                    "namespace": "Acme\\Ledger\\Pricing",
+                    "class": "PriceBookService",
+                    "scaffold": "method_beta",
+                    "group": "A",
+                    "pristine": false,
+                    "transforms": [
+                        {
+                            "code": "WS-09",
+                            "params": {
+                                "count": 3
+                            }
+                        }
+                    ]
+                },
+                {
+                    "file": "SettlementService.php",
+                    "namespace": "Acme\\Ledger\\Settlement",
+                    "class": "SettlementService",
+                    "scaffold": "method_gamma",
+                    "group": "A",
+                    "pristine": false,
+                    "transforms": [
+                        {
+                            "code": "WS-09",
+                            "params": {
+                                "count": 6
+                            }
+                        }
+                    ]
+                }
             ],
             "distractors": [
-                {"file": "MarginReporter.php", "namespace": "Acme\\Ledger\\Reporting", "class": "MarginReporter", "source": "nearmiss_invoice", "reason": "near-miss: same invoice vocabulary and foreach shape, but computes revenue/cost margins and a ratio — a different result"}
+                {
+                    "file": "MarginReporter.php",
+                    "namespace": "Acme\\Ledger\\Reporting",
+                    "class": "MarginReporter",
+                    "source": "nearmiss_invoice",
+                    "reason": "near-miss: same invoice vocabulary and foreach shape, but computes revenue/cost margins and a ratio \u2014 a different result"
+                }
             ],
             "cleans": [
-                {"file": "TaxRateRepository.php", "namespace": "Acme\\Ledger\\Catalog", "class": "TaxRateRepository", "source": "clean_billing"}
-            ]
+                {
+                    "file": "TaxRateRepository.php",
+                    "namespace": "Acme\\Ledger\\Catalog",
+                    "class": "TaxRateRepository",
+                    "source": "clean_billing"
+                }
+            ],
+            "schema_version": 2
         },
         {
             "set_id": "L02-ws_trailing-004",
@@ -88,21 +265,80 @@
             "clone_symbol": "computeTotals",
             "granularity": "method",
             "clone_type": "type-1",
-            "normalized_by": ["whitespace", "comments"],
+            "normalized_by": [
+                "whitespace",
+                "comments"
+            ],
             "rng_seed": 102164,
             "notes": "Trailing whitespace (WS-09). Token-based detectors should match all three; text-based will not.",
-            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": true,
+                "semantic": true
+            },
             "carriers": [
-                {"file": "LedgerPostingService.php", "namespace": "Acme\\Ledger\\Posting", "class": "LedgerPostingService", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
-                {"file": "PriceBookService.php", "namespace": "Acme\\Ledger\\Pricing", "class": "PriceBookService", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "WS-09", "params": {"count": 3}}]},
-                {"file": "SettlementService.php", "namespace": "Acme\\Ledger\\Settlement", "class": "SettlementService", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "WS-09", "params": {"count": 6}}]}
+                {
+                    "file": "LedgerPostingService.php",
+                    "namespace": "Acme\\Ledger\\Posting",
+                    "class": "LedgerPostingService",
+                    "scaffold": "method_alpha",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                },
+                {
+                    "file": "PriceBookService.php",
+                    "namespace": "Acme\\Ledger\\Pricing",
+                    "class": "PriceBookService",
+                    "scaffold": "method_beta",
+                    "group": "A",
+                    "pristine": false,
+                    "transforms": [
+                        {
+                            "code": "WS-09",
+                            "params": {
+                                "count": 3
+                            }
+                        }
+                    ]
+                },
+                {
+                    "file": "SettlementService.php",
+                    "namespace": "Acme\\Ledger\\Settlement",
+                    "class": "SettlementService",
+                    "scaffold": "method_gamma",
+                    "group": "A",
+                    "pristine": false,
+                    "transforms": [
+                        {
+                            "code": "WS-09",
+                            "params": {
+                                "count": 6
+                            }
+                        }
+                    ]
+                }
             ],
             "distractors": [
-                {"file": "MarginReporter.php", "namespace": "Acme\\Ledger\\Reporting", "class": "MarginReporter", "source": "nearmiss_invoice", "reason": "near-miss: same invoice vocabulary and foreach shape, but computes revenue/cost margins and a ratio — a different result"}
+                {
+                    "file": "MarginReporter.php",
+                    "namespace": "Acme\\Ledger\\Reporting",
+                    "class": "MarginReporter",
+                    "source": "nearmiss_invoice",
+                    "reason": "near-miss: same invoice vocabulary and foreach shape, but computes revenue/cost margins and a ratio \u2014 a different result"
+                }
             ],
             "cleans": [
-                {"file": "TaxRateRepository.php", "namespace": "Acme\\Ledger\\Catalog", "class": "TaxRateRepository", "source": "clean_billing"}
-            ]
+                {
+                    "file": "TaxRateRepository.php",
+                    "namespace": "Acme\\Ledger\\Catalog",
+                    "class": "TaxRateRepository",
+                    "source": "clean_billing"
+                }
+            ],
+            "schema_version": 2
         },
         {
             "set_id": "L02-ws_trailing-005",
@@ -113,21 +349,80 @@
             "clone_symbol": "computeTotals",
             "granularity": "method",
             "clone_type": "type-1",
-            "normalized_by": ["whitespace", "comments"],
+            "normalized_by": [
+                "whitespace",
+                "comments"
+            ],
             "rng_seed": 102165,
             "notes": "Trailing whitespace (WS-09). Token-based detectors should match all three; text-based will not.",
-            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": true,
+                "semantic": true
+            },
             "carriers": [
-                {"file": "LedgerPostingService.php", "namespace": "Acme\\Ledger\\Posting", "class": "LedgerPostingService", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
-                {"file": "PriceBookService.php", "namespace": "Acme\\Ledger\\Pricing", "class": "PriceBookService", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "WS-09", "params": {"count": 3}}]},
-                {"file": "SettlementService.php", "namespace": "Acme\\Ledger\\Settlement", "class": "SettlementService", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "WS-09", "params": {"count": 6}}]}
+                {
+                    "file": "LedgerPostingService.php",
+                    "namespace": "Acme\\Ledger\\Posting",
+                    "class": "LedgerPostingService",
+                    "scaffold": "method_alpha",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                },
+                {
+                    "file": "PriceBookService.php",
+                    "namespace": "Acme\\Ledger\\Pricing",
+                    "class": "PriceBookService",
+                    "scaffold": "method_beta",
+                    "group": "A",
+                    "pristine": false,
+                    "transforms": [
+                        {
+                            "code": "WS-09",
+                            "params": {
+                                "count": 3
+                            }
+                        }
+                    ]
+                },
+                {
+                    "file": "SettlementService.php",
+                    "namespace": "Acme\\Ledger\\Settlement",
+                    "class": "SettlementService",
+                    "scaffold": "method_gamma",
+                    "group": "A",
+                    "pristine": false,
+                    "transforms": [
+                        {
+                            "code": "WS-09",
+                            "params": {
+                                "count": 6
+                            }
+                        }
+                    ]
+                }
             ],
             "distractors": [
-                {"file": "MarginReporter.php", "namespace": "Acme\\Ledger\\Reporting", "class": "MarginReporter", "source": "nearmiss_invoice", "reason": "near-miss: same invoice vocabulary and foreach shape, but computes revenue/cost margins and a ratio — a different result"}
+                {
+                    "file": "MarginReporter.php",
+                    "namespace": "Acme\\Ledger\\Reporting",
+                    "class": "MarginReporter",
+                    "source": "nearmiss_invoice",
+                    "reason": "near-miss: same invoice vocabulary and foreach shape, but computes revenue/cost margins and a ratio \u2014 a different result"
+                }
             ],
             "cleans": [
-                {"file": "TaxRateRepository.php", "namespace": "Acme\\Ledger\\Catalog", "class": "TaxRateRepository", "source": "clean_billing"}
-            ]
+                {
+                    "file": "TaxRateRepository.php",
+                    "namespace": "Acme\\Ledger\\Catalog",
+                    "class": "TaxRateRepository",
+                    "source": "clean_billing"
+                }
+            ],
+            "schema_version": 2
         }
     ]
 }

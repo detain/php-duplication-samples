@@ -1,0 +1,263 @@
+{
+    "schema_version": 2,
+    "set_id": "L06-co_4_axis-004",
+    "level": 6,
+    "level_name": "combinatorial",
+    "family": "co_4_axis",
+    "title": "Heavy 4-axis interference",
+    "description": "Same computeTotals method. Multiple transforms from each axis combined at higher intensity. Tests detector robustness under heavy 4-axis interference.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "invoice_totals",
+    "difficulty_band": "expert",
+    "files": [
+        {
+            "path": "src/HeavyCalcA.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 40,
+            "region_sloc": {
+                "sloc": 26,
+                "duplicate": 24,
+                "unique": 2,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/HeavyCalcB.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 47,
+            "region_sloc": {
+                "sloc": 25,
+                "duplicate": 20,
+                "unique": 5,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/HeavyCalcC.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 76,
+            "region_sloc": {
+                "sloc": 58,
+                "duplicate": 28,
+                "unique": 30,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/MarginSummarizer.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 30
+        },
+        {
+            "path": "src/TaxRateRepository.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-3",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "RN-05",
+            "name": "case_convention",
+            "params": {
+                "direction": "camel_to_snake"
+            },
+            "applied_to": [
+                "src/HeavyCalcA.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "LT-01",
+            "name": "numeric",
+            "params": {
+                "format": "hex"
+            },
+            "applied_to": [
+                "src/HeavyCalcA.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "CM-01",
+            "name": "line_comment_add",
+            "params": {
+                "position": "after_statement"
+            },
+            "applied_to": [
+                "src/HeavyCalcA.php"
+            ],
+            "intensity": 1
+        },
+        {
+            "code": "WS-01",
+            "name": "blank_before",
+            "params": {
+                "blank_lines": 1
+            },
+            "applied_to": [
+                "src/HeavyCalcA.php"
+            ],
+            "intensity": 1
+        },
+        {
+            "code": "RN-01",
+            "name": "local_vars",
+            "params": {
+                "style": "add_suffix",
+                "suffix": "_temp"
+            },
+            "applied_to": [
+                "src/HeavyCalcB.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "LT-02",
+            "name": "string",
+            "params": {
+                "style": "double_quotes"
+            },
+            "applied_to": [
+                "src/HeavyCalcB.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "CM-03",
+            "name": "docblock",
+            "params": {
+                "style": "docblock"
+            },
+            "applied_to": [
+                "src/HeavyCalcB.php"
+            ],
+            "intensity": 1
+        },
+        {
+            "code": "WS-03",
+            "name": "blank_inside",
+            "params": {
+                "blank_lines": 2
+            },
+            "applied_to": [
+                "src/HeavyCalcB.php"
+            ],
+            "intensity": 1
+        },
+        {
+            "code": "RN-02",
+            "name": "params",
+            "params": {
+                "style": "to_snake"
+            },
+            "applied_to": [
+                "src/HeavyCalcC.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "LT-01",
+            "name": "numeric",
+            "params": {
+                "format": "binary"
+            },
+            "applied_to": [
+                "src/HeavyCalcC.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "CM-07",
+            "name": "commented_out_code",
+            "params": {
+                "lines": 2
+            },
+            "applied_to": [
+                "src/HeavyCalcC.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "WS-06",
+            "name": "line_wrap",
+            "params": {
+                "occurrence": 1
+            },
+            "applied_to": [
+                "src/HeavyCalcC.php"
+            ],
+            "intensity": 2
+        }
+    ],
+    "difficulty": {
+        "score": 100,
+        "requires": [
+            "identifier_canonicalization",
+            "literal_abstraction",
+            "comment_stripping",
+            "whitespace_normalization"
+        ],
+        "score_raw": 108,
+        "axes": {
+            "breadth": 11,
+            "intensity": 1.67,
+            "intensity_max": 2,
+            "semantic_depth": 0,
+            "partiality": 1
+        },
+        "application_count": 12,
+        "axis_count": 11
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L06_combinatorial/co_4_axis.json",
+        "version": "2.0.0",
+        "rng_seed": 1607004
+    },
+    "interference_profile": {
+        "axis_count": 11,
+        "per_carrier_axes": {
+            "src/HeavyCalcA.php": [
+                "RN-05",
+                "LT-01",
+                "CM-01",
+                "WS-01"
+            ],
+            "src/HeavyCalcB.php": [
+                "RN-01",
+                "LT-02",
+                "CM-03",
+                "WS-03"
+            ],
+            "src/HeavyCalcC.php": [
+                "RN-02",
+                "LT-01",
+                "CM-07",
+                "WS-06"
+            ]
+        },
+        "groups_touched": [
+            "A"
+        ],
+        "stack_depth_max": 4,
+        "symmetric_overlap": 0,
+        "pairwise_overlap": 0.0476,
+        "combination_design": "type2_plus_type1"
+    },
+    "engine_features": [
+        "fragment_emission"
+    ]
+}

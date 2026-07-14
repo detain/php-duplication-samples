@@ -58,7 +58,8 @@
             },
             "applied_to": [
                 "src/SnakeCaseCalc.php"
-            ]
+            ],
+            "intensity": 2
         },
         {
             "code": "RN-05",
@@ -68,7 +69,8 @@
             },
             "applied_to": [
                 "src/CamelCaseCalc.php"
-            ]
+            ],
+            "intensity": 2
         },
         {
             "code": "WS-06",
@@ -78,7 +80,8 @@
             },
             "applied_to": [
                 "src/CamelCaseCalc.php"
-            ]
+            ],
+            "intensity": 2
         }
     ],
     "difficulty": {

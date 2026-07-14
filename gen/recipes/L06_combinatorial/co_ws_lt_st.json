@@ -1,0 +1,208 @@
+{
+    "level": 6,
+    "level_name": "combinatorial",
+    "level_dir": "L06_combinatorial",
+    "family": "co_ws_lt_st",
+    "sets": [
+        {
+            "set_id": "L06-co_ws_lt_st-001",
+            "schema_version": 2,
+            "title": "3-axis interference (WS + LT + ST)",
+            "description": "Same computeTotals method across three billing classes. Carrier A applies WS-01; carrier B applies LT-01 + ST-01; carrier C applies WS-01 + LT-01 + ST-01. Tests 3-axis interference including whitespace, literals, and statements.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "case_convention", "literals"],
+            "rng_seed": 1606001,
+            "interference_profile": {
+                "axis_count": 3,
+                "axes": ["whitespace", "literals", "statements"],
+                "groups_applied": ["ws", "lt", "st"]
+            },
+            "difficulty": {
+                "complexity": 7,
+                "axes": {
+                    "whitespace": 2,
+                    "literals": 6,
+                    "statements": 9
+                }
+            },
+            "notes": "3-axis interference: WS-01 (type-1) + LT-01 (type-2) + ST-01 (type-3). Tests comprehensive normalization across whitespace, literals, and statements.",
+            "scoring": {"line_tolerance": 3, "member_jaccard_min": 0.5, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineInvoiceCalc.php", "namespace": "Acme\\Billing\\Pristine", "class": "PristineInvoiceCalc", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "LtStCalc.php", "namespace": "Acme\\Billing\\LtSt", "class": "LtStCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-01", "params": {"format": "hex"}}, {"code": "ST-01", "params": {"lines": 1}}]},
+                {"file": "WsLtStCalc.php", "namespace": "Acme\\Billing\\WsLtSt", "class": "WsLtStCalc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "WS-01", "params": {"blank_lines": 1}}, {"code": "LT-01", "params": {"format": "binary"}}, {"code": "ST-01", "params": {"lines": 2}}]}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L06-co_ws_lt_st-002",
+            "schema_version": 2,
+            "title": "3-axis interference (WS-01 + LT-02 + ST-02)",
+            "description": "Same computeTotals method. Carrier A applies WS-01; carrier B applies LT-02 + ST-02; carrier C applies all three. Tests blank lines, string literals, and dead code.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "case_convention", "literals"],
+            "rng_seed": 1606002,
+            "interference_profile": {
+                "axis_count": 3,
+                "axes": ["whitespace", "literals", "statements"],
+                "groups_applied": ["ws", "lt", "st"]
+            },
+            "difficulty": {
+                "complexity": 7,
+                "axes": {
+                    "whitespace": 3,
+                    "literals": 6,
+                    "statements": 10
+                }
+            },
+            "notes": "3-axis interference: WS-01 (blank_before) + LT-02 (string) + ST-02 (insert_dead). Tests comprehensive normalization across all three axes.",
+            "scoring": {"line_tolerance": 3, "member_jaccard_min": 0.5, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "BlankBeforeCalc.php", "namespace": "Acme\\Billing\\Blank", "class": "BlankBeforeCalc", "scaffold": "method_alpha", "group": "A", "pristine": false, "transforms": [{"code": "WS-01", "params": {"blank_lines": 2}}]},
+                {"file": "LtStCalc.php", "namespace": "Acme\\Billing\\LtSt", "class": "LtStCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-02", "params": {"style": "double_quotes"}}, {"code": "ST-02", "params": {"lines": 1}}]},
+                {"file": "AllThreeCalc.php", "namespace": "Acme\\Billing\\AllThree", "class": "AllThreeCalc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "WS-01", "params": {"blank_lines": 3}}, {"code": "LT-02", "params": {"style": "single_quotes"}}, {"code": "ST-02", "params": {"lines": 2}}]}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L06-co_ws_lt_st-003",
+            "schema_version": 2,
+            "title": "3-axis interference (WS-01 + LT-03 + ST-05)",
+            "description": "Same computeTotals method. Carrier A applies WS-01; carrier B applies LT-03 + ST-05; carrier C applies all three. Tests blank lines, array literals, and statement reordering.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "case_convention", "literals"],
+            "rng_seed": 1606003,
+            "interference_profile": {
+                "axis_count": 3,
+                "axes": ["whitespace", "literals", "statements"],
+                "groups_applied": ["ws", "lt", "st"]
+            },
+            "difficulty": {
+                "complexity": 7,
+                "axes": {
+                    "whitespace": 4,
+                    "literals": 6,
+                    "statements": 10
+                }
+            },
+            "notes": "3-axis interference: WS-01 (blank_before) + LT-03 (array_values) + ST-05 (reorder_independent). Tests structural normalization across all axes.",
+            "scoring": {"line_tolerance": 3, "member_jaccard_min": 0.5, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "BlankLinesCalc.php", "namespace": "Acme\\Billing\\Wrap", "class": "BlankLinesCalc", "scaffold": "method_alpha", "group": "A", "pristine": false, "transforms": [{"code": "WS-01", "params": {"blank_lines": 4}}]},
+                {"file": "LtStCalc.php", "namespace": "Acme\\Billing\\LtSt", "class": "LtStCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-03", "params": {"style": "short_array"}}, {"code": "ST-05", "params": {"reorder_level": 1}}]},
+                {"file": "AllThreeCalc.php", "namespace": "Acme\\Billing\\AllThree", "class": "AllThreeCalc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "WS-01", "params": {"blank_lines": 3}}, {"code": "LT-03", "params": {"style": "long_array"}}, {"code": "ST-05", "params": {"reorder_level": 2}}]}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L06-co_ws_lt_st-004",
+            "schema_version": 2,
+            "title": "Heavy 3-axis interference",
+            "description": "Same computeTotals method. Multiple WS, LT, and ST transforms combined at higher intensity. Tests detector robustness under heavy 3-axis interference.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "case_convention", "literals"],
+            "rng_seed": 1606004,
+            "interference_profile": {
+                "axis_count": 3,
+                "axes": ["whitespace", "literals", "statements"],
+                "groups_applied": ["ws", "lt", "st"]
+            },
+            "difficulty": {
+                "complexity": 8,
+                "axes": {
+                    "whitespace": 4,
+                    "literals": 7,
+                    "statements": 10
+                }
+            },
+            "notes": "Heavy 3-axis interference: WS-01 combined with LT-01+LT-02+LT-03 and ST-01+ST-05. Tests comprehensive normalization pipeline.",
+            "scoring": {"line_tolerance": 4, "member_jaccard_min": 0.45, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "HeavyCalcA.php", "namespace": "Acme\\Billing\\Heavy", "class": "HeavyCalcA", "scaffold": "method_alpha", "group": "A", "pristine": false, "transforms": [{"code": "WS-01", "params": {"blank_lines": 1}}, {"code": "LT-01", "params": {"format": "hex"}}, {"code": "ST-01", "params": {"lines": 1}}]},
+                {"file": "HeavyCalcB.php", "namespace": "Acme\\Billing\\Heavy", "class": "HeavyCalcB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "WS-01", "params": {"blank_lines": 2}}, {"code": "LT-02", "params": {"style": "double_quotes"}}, {"code": "LT-03", "params": {"style": "short_array"}}, {"code": "ST-05", "params": {"reorder_level": 1}}]},
+                {"file": "HeavyCalcC.php", "namespace": "Acme\\Billing\\Heavy", "class": "HeavyCalcC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-02", "params": {"lines": 2}}, {"code": "ST-01", "params": {"lines": 1}}]}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L06-co_ws_lt_st-005",
+            "schema_version": 2,
+            "title": "Maximum 3-axis interference",
+            "description": "Same computeTotals method. All major WS, LT, and ST transforms stacked at maximum intensity. Tests the ceiling of 3-axis type-3 clone detection.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "case_convention", "literals"],
+            "rng_seed": 1606005,
+            "interference_profile": {
+                "axis_count": 3,
+                "axes": ["whitespace", "literals", "statements"],
+                "groups_applied": ["ws", "lt", "st"]
+            },
+            "difficulty": {
+                "complexity": 9,
+                "axes": {
+                    "whitespace": 5,
+                    "literals": 7,
+                    "statements": 12
+                }
+            },
+            "notes": "Maximum 3-axis interference: WS-01 combined with LT-01+LT-02+LT-03+LT-04 and ST-01+ST-02+ST-05+ST-09. Tests the ceiling of comprehensive normalization.",
+            "scoring": {"line_tolerance": 4, "member_jaccard_min": 0.4, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "MaxCalcA.php", "namespace": "Acme\\Billing\\Max", "class": "MaxCalcA", "scaffold": "method_alpha", "group": "A", "pristine": false, "transforms": [{"code": "WS-01", "params": {"blank_lines": 1}}, {"code": "LT-01", "params": {"format": "binary"}}, {"code": "ST-01", "params": {"lines": 2}}]},
+                {"file": "MaxCalcB.php", "namespace": "Acme\\Billing\\Max", "class": "MaxCalcB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-02", "params": {"style": "single_quotes"}}, {"code": "LT-03", "params": {"style": "long_array"}}, {"code": "LT-04", "params": {"style": "const_literal"}}, {"code": "ST-05", "params": {"reorder_level": 2}}]},
+                {"file": "MaxCalcC.php", "namespace": "Acme\\Billing\\Max", "class": "MaxCalcC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-02", "params": {"lines": 1}}, {"code": "ST-09", "params": {"tweak_level": 1}}, {"code": "ST-01", "params": {"lines": 1}}]}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        }
+    ]
+}

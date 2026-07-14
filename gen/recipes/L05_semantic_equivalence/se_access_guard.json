@@ -1,0 +1,113 @@
+{
+    "level": 5,
+    "level_name": "semantic_equivalence",
+    "level_dir": "L05_semantic_equivalence",
+    "family": "se_access_guard",
+    "sets": [
+        {
+            "set_id": "L05-se_access_guard-001",
+            "title": "Access guard: existing semantic variants - scatter, state machine, config driven",
+            "description": "Uses access_guard seed with its existing semantic variants: sem_scatter (SEM-08), sem_state_machine (SEM-09), and sem_config_driven (SEM-10) to demonstrate semantic equivalence.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-4",
+            "normalized_by": ["controlflow", "identifiers", "literals"],
+            "rng_seed": 50901,
+            "notes": "Set 001 of 5. Uses existing semantic variants from access_guard seed.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": false, "ast_based": false, "metric_based": false, "semantic": true},
+            "requires": ["semantic_reasoning"],
+            "carriers": [
+                {"file": "DocumentAccessPolicy.php", "namespace": "Acme\\Access\\Documents", "class": "DocumentAccessPolicy", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "ScatteredAccessPolicy.php", "namespace": "Acme\\Access\\Scattered", "class": "ScatteredAccessPolicy", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "sem_scatter", "transforms": [{"code": "SEM-08"}]},
+                {"file": "StateMachineAccessPolicy.php", "namespace": "Acme\\Access\\State", "class": "StateMachineAccessPolicy", "scaffold": "method_gamma", "group": "A", "pristine": false, "variant": "sem_state_machine", "transforms": [{"code": "SEM-09"}]}
+            ]
+        },
+        {
+            "set_id": "L05-se_access_guard-002",
+            "title": "Access guard: error style, DI style, and rule variants",
+            "description": "Uses sem_error_style, sem_di_style, and sem_rule variants demonstrating different error handling and DI patterns.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-4",
+            "normalized_by": ["controlflow", "identifiers", "literals"],
+            "rng_seed": 50902,
+            "notes": "Set 002 of 5. Uses sem_error_style (SEM-04), sem_di_style (SEM-05), sem_rule (SEM-01).",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": false, "ast_based": false, "metric_based": false, "semantic": true},
+            "requires": ["semantic_reasoning"],
+            "carriers": [
+                {"file": "DocumentAccessPolicy.php", "namespace": "Acme\\Access\\Documents", "class": "DocumentAccessPolicy", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "ErrorAccessPolicy.php", "namespace": "Acme\\Access\\Error", "class": "ErrorAccessPolicy", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "sem_error_style", "transforms": [{"code": "SEM-04"}]},
+                {"file": "DiAccessPolicy.php", "namespace": "Acme\\Access\\Di", "class": "DiAccessPolicy", "scaffold": "method_gamma", "group": "A", "pristine": false, "variant": "sem_di_style", "transforms": [{"code": "SEM-05"}]}
+            ]
+        },
+        {
+            "set_id": "L05-se_access_guard-003",
+            "title": "Access guard: ORM vs SQL, event, and inline extract variants",
+            "description": "Uses sem_orm_sql, sem_event, and sem_inline_extract variants demonstrating different architectural patterns.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-4",
+            "normalized_by": ["controlflow", "identifiers", "literals"],
+            "rng_seed": 50903,
+            "notes": "Set 003 of 5. Uses sem_orm_sql (SEM-07), sem_event (SEM-06), sem_inline_extract (SEM-02).",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": false, "ast_based": false, "metric_based": false, "semantic": true},
+            "requires": ["semantic_reasoning"],
+            "carriers": [
+                {"file": "DocumentAccessPolicy.php", "namespace": "Acme\\Access\\Documents", "class": "DocumentAccessPolicy", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "OrmAccessPolicy.php", "namespace": "Acme\\Access\\Orm", "class": "OrmAccessPolicy", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "sem_orm_sql", "transforms": [{"code": "SEM-07"}]},
+                {"file": "EventAccessPolicy.php", "namespace": "Acme\\Access\\Event", "class": "EventAccessPolicy", "scaffold": "method_gamma", "group": "A", "pristine": false, "variant": "sem_event", "transforms": [{"code": "SEM-06"}]}
+            ]
+        },
+        {
+            "set_id": "L05-se_access_guard-004",
+            "title": "Access guard: combined CF/BL with semantic variants",
+            "description": "Combines control flow (CF-05) and boolean logic (BL-02) transforms with semantic variants (using non-selector transforms on pristine carrier).",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-4",
+            "normalized_by": ["controlflow", "identifiers", "literals"],
+            "rng_seed": 50904,
+            "notes": "Set 004 of 5. Uses ST-01/RN-01 on pristine carrier, CF-05/BL-02 on variants.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": false, "ast_based": false, "metric_based": false, "semantic": true},
+            "requires": ["semantic_reasoning", "controlflow_normalization"],
+            "carriers": [
+                {"file": "DocumentAccessPolicy.php", "namespace": "Acme\\Access\\Documents", "class": "DocumentAccessPolicy", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": [{"code": "ST-01"}, {"code": "RN-01"}]},
+                {"file": "ScatteredAccessPolicy.php", "namespace": "Acme\\Access\\Scattered", "class": "ScatteredAccessPolicy", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "sem_scatter", "transforms": [{"code": "SEM-08"}, {"code": "CF-05"}]},
+                {"file": "StateMachineAccessPolicy.php", "namespace": "Acme\\Access\\State", "class": "StateMachineAccessPolicy", "scaffold": "method_gamma", "group": "A", "pristine": false, "variant": "sem_state_machine", "transforms": [{"code": "SEM-09"}, {"code": "BL-02"}]}
+            ]
+        },
+        {
+            "set_id": "L05-se_access_guard-005",
+            "title": "Access guard: structural transforms with semantic preservation",
+            "description": "Uses ST-01, ST-05, ST-08 (structural transforms) with semantic variants for maximum diversity.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-4",
+            "normalized_by": ["controlflow", "identifiers", "literals"],
+            "rng_seed": 50905,
+            "notes": "Set 005 of 5. Combines structural transforms with SEM variants.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": false, "ast_based": false, "metric_based": false, "semantic": true},
+            "requires": ["semantic_reasoning", "ast_canonicalization"],
+            "carriers": [
+                {"file": "DocumentAccessPolicy.php", "namespace": "Acme\\Access\\Documents", "class": "DocumentAccessPolicy", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": [{"code": "ST-01"}]},
+                {"file": "ScatteredAccessPolicy.php", "namespace": "Acme\\Access\\Scattered", "class": "ScatteredAccessPolicy", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "sem_scatter", "transforms": [{"code": "SEM-08"}, {"code": "ST-05"}]},
+                {"file": "ConfigAccessPolicy.php", "namespace": "Acme\\Access\\Config", "class": "ConfigAccessPolicy", "scaffold": "method_gamma", "group": "A", "pristine": false, "variant": "sem_config_driven", "transforms": [{"code": "SEM-10"}, {"code": "ST-08"}]}
+            ]
+        }
+    ]
+}

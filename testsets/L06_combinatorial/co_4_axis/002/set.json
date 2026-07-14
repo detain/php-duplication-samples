@@ -1,0 +1,206 @@
+{
+    "schema_version": 2,
+    "set_id": "L06-co_4_axis-002",
+    "level": 6,
+    "level_name": "combinatorial",
+    "family": "co_4_axis",
+    "title": "4-axis with statement interference",
+    "description": "Same computeTotals method. Tests WS + CM + RN + ST combination. Adds statement-level interference to the 4-axis mix.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "invoice_totals",
+    "difficulty_band": "expert",
+    "files": [
+        {
+            "path": "src/BlankDocCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 42,
+            "region_sloc": {
+                "sloc": 25,
+                "duplicate": 20,
+                "unique": 5,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/RnStCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 45,
+            "region_sloc": {
+                "sloc": 26,
+                "duplicate": 25,
+                "unique": 1,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/FourAxisCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 47,
+            "region_sloc": {
+                "sloc": 26,
+                "duplicate": 19,
+                "unique": 7,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/MarginSummarizer.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 30
+        },
+        {
+            "path": "src/TaxRateRepository.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-3",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "CM-03",
+            "name": "docblock",
+            "params": {
+                "style": "docblock"
+            },
+            "applied_to": [
+                "src/BlankDocCalc.php",
+                "src/FourAxisCalc.php"
+            ],
+            "intensity": 1
+        },
+        {
+            "code": "WS-03",
+            "name": "blank_inside",
+            "params": {
+                "blank_lines": 2
+            },
+            "applied_to": [
+                "src/BlankDocCalc.php"
+            ],
+            "intensity": 1
+        },
+        {
+            "code": "ST-01",
+            "name": "insert_logging",
+            "params": {
+                "lines": 1
+            },
+            "applied_to": [
+                "src/RnStCalc.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "RN-01",
+            "name": "local_vars",
+            "params": {
+                "style": "add_prefix",
+                "prefix": "tmp"
+            },
+            "applied_to": [
+                "src/RnStCalc.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "ST-01",
+            "name": "insert_logging",
+            "params": {
+                "lines": 2
+            },
+            "applied_to": [
+                "src/FourAxisCalc.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "RN-01",
+            "name": "local_vars",
+            "params": {
+                "style": "add_suffix",
+                "suffix": "_val"
+            },
+            "applied_to": [
+                "src/FourAxisCalc.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "WS-03",
+            "name": "blank_inside",
+            "params": {
+                "blank_lines": 3
+            },
+            "applied_to": [
+                "src/FourAxisCalc.php"
+            ],
+            "intensity": 1
+        }
+    ],
+    "difficulty": {
+        "score": 81,
+        "requires": [
+            "comment_stripping",
+            "whitespace_normalization",
+            "ast_canonicalization",
+            "identifier_canonicalization"
+        ],
+        "score_raw": 81,
+        "axes": {
+            "breadth": 4,
+            "intensity": 1.86,
+            "intensity_max": 3,
+            "semantic_depth": 0,
+            "partiality": 1
+        },
+        "application_count": 8,
+        "axis_count": 4
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L06_combinatorial/co_4_axis.json",
+        "version": "2.0.0",
+        "rng_seed": 1607002
+    },
+    "interference_profile": {
+        "axis_count": 4,
+        "per_carrier_axes": {
+            "src/BlankDocCalc.php": [
+                "CM-03",
+                "WS-03"
+            ],
+            "src/RnStCalc.php": [
+                "ST-01",
+                "RN-01"
+            ],
+            "src/FourAxisCalc.php": [
+                "ST-01",
+                "RN-01",
+                "CM-03",
+                "WS-03"
+            ]
+        },
+        "groups_touched": [
+            "A"
+        ],
+        "stack_depth_max": 4,
+        "symmetric_overlap": 0,
+        "pairwise_overlap": 0.3333,
+        "combination_design": "type2_plus_type1"
+    },
+    "engine_features": [
+        "fragment_emission"
+    ]
+}

@@ -1,0 +1,86 @@
+{
+    "schema_version": 1,
+    "set_id": "L08-noise_assertions-003",
+    "level": 8,
+    "level_name": "adversarial",
+    "family": "noise_assertions",
+    "title": "Noise Assertions: Combined security noise",
+    "description": "NZ-03 security + NZ-08 env checks combined.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "rate_limiter",
+    "difficulty_band": "expert",
+    "files": [
+        {
+            "path": "src/LimitCheckerA.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 47
+        },
+        {
+            "path": "src/LimitCheckerB.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 54
+        },
+        {
+            "path": "src/LimitCheckerC.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 53
+        },
+        {
+            "path": "src/Throttler.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 15
+        },
+        {
+            "path": "src/Counter.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 15
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-3",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "NZ-03",
+            "name": "security",
+            "params": {},
+            "applied_to": [
+                "src/LimitCheckerB.php",
+                "src/LimitCheckerC.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "NZ-08",
+            "name": "env_checks",
+            "params": {},
+            "applied_to": [
+                "src/LimitCheckerB.php",
+                "src/LimitCheckerC.php"
+            ],
+            "intensity": 3
+        }
+    ],
+    "difficulty": {
+        "score": 100,
+        "requires": [
+            "ast_canonicalization"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L08_adversarial/noise_assertions.json",
+        "version": "1.0.0",
+        "rng_seed": 82303
+    }
+}

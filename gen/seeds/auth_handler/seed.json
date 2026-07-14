@@ -1,0 +1,14 @@
+{
+    "domain": "auth_handler",
+    "summary": "Authentication flow: credential validation, token generation, and refresh.",
+    "size_class": "L",
+    "symbol": "authenticate",
+    "line_count": 120,
+    "token_count": 800,
+    "required_symbols": ["authenticate", "refresh", "validate"],
+    "mount_modes": ["method"],
+    "compatible_interference": ["WS-03", "WS-06", "CM-03", "RN-01", "LT-02", "ST-01", "CF-05"],
+    "variants": [
+        {"file": "jwt_only.php", "code": "API-05", "name": "jwt_only"}
+    ]
+}

@@ -1,0 +1,133 @@
+{
+    "level": 8,
+    "level_name": "adversarial",
+    "level_dir": "L08_adversarial",
+    "family": "rn_case_style",
+    "sets": [
+        {
+            "set_id": "L08-rn_case_style-001",
+            "title": "Rename: Case convention variations",
+            "description": "Tests identifier case convention transforms.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 83401,
+            "scoring": {"line_tolerance": 1, "member_jaccard_min": 0.9, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": false},
+            "carriers": [
+                {"file": "TotalsCalculatorA.php", "namespace": "Acme\\Billing\\TotalsA", "class": "TotalsCalculatorA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "TotalsCalculatorB.php", "namespace": "Acme\\Billing\\TotalsB", "class": "TotalsCalculatorB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-05"}]},
+                {"file": "TotalsCalculatorC.php", "namespace": "Acme\\Billing\\TotalsC", "class": "TotalsCalculatorC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "RN-05"}]}
+            ],
+            "distractors": [
+                {"file": "Validator.php", "namespace": "Acme\\Billing\\Validate", "class": "Validator", "source": "clean_billing", "reason": "Clean distractor - unrelated billing logic"}
+            ],
+            "cleans": [
+                {"file": "SchemaMapper.php", "namespace": "Acme\\Billing\\Schema", "class": "SchemaMapper", "source": "clean_parsing"}
+            ]
+        },
+        {
+            "set_id": "L08-rn_case_style-002",
+            "title": "Rename: camelCase vs snake_case",
+            "description": "Tests case style conversion.",
+            "seed": "csv_processor",
+            "mount": "method",
+            "clone_symbol": "processRow",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 83402,
+            "scoring": {"line_tolerance": 1, "member_jaccard_min": 0.9, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": false},
+            "carriers": [
+                {"file": "RowProcessorA.php", "namespace": "Acme\\Data\\ProcessA", "class": "RowProcessorA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "RowProcessorB.php", "namespace": "Acme\\Data\\ProcessB", "class": "RowProcessorB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-05"}]},
+                {"file": "RowProcessorC.php", "namespace": "Acme\\Data\\ProcessC", "class": "RowProcessorC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "RN-05"}]}
+            ],
+            "distractors": [
+                {"file": "Filter.php", "namespace": "Acme\\Data\\Filter", "class": "RowFilter", "source": "clean_csv", "reason": "Clean distractor - different processing logic"}
+            ],
+            "cleans": [
+                {"file": "Mapper.php", "namespace": "Acme\\Data\\Map", "class": "RowMapper", "source": "clean_csv"}
+            ]
+        },
+        {
+            "set_id": "L08-rn_case_style-003",
+            "title": "Rename: PascalCase variations",
+            "description": "Tests class name case variations.",
+            "seed": "rate_limiter",
+            "mount": "method",
+            "clone_symbol": "checkLimit",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 83403,
+            "scoring": {"line_tolerance": 1, "member_jaccard_min": 0.9, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": false},
+            "carriers": [
+                {"file": "LimitCheckerA.php", "namespace": "Acme\\Core\\LimitA", "class": "LimitCheckerA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "LimitCheckerB.php", "namespace": "Acme\\Core\\LimitB", "class": "LimitCheckerB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-05"}]},
+                {"file": "LimitCheckerC.php", "namespace": "Acme\\Core\\LimitC", "class": "LimitCheckerC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "RN-05"}]}
+            ],
+            "distractors": [
+                {"file": "Throttler.php", "namespace": "Acme\\Core\\Throttle", "class": "Throttler", "source": "clean_rate", "reason": "Clean distractor - rate limiting logic"}
+            ],
+            "cleans": [
+                {"file": "Counter.php", "namespace": "Acme\\Core\\Count", "class": "HitCounter", "source": "clean_rate"}
+            ]
+        },
+        {
+            "set_id": "L08-rn_case_style-004",
+            "title": "Rename: UPPER_CASE constants",
+            "description": "Tests constant naming conventions.",
+            "seed": "query_builder",
+            "mount": "method",
+            "clone_symbol": "buildQuery",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 83404,
+            "scoring": {"line_tolerance": 1, "member_jaccard_min": 0.9, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": false},
+            "carriers": [
+                {"file": "QueryBuilderA.php", "namespace": "Acme\\Db\\QueryA", "class": "QueryBuilderA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "QueryBuilderB.php", "namespace": "Acme\\Db\\QueryB", "class": "QueryBuilderB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-05"}]},
+                {"file": "QueryBuilderC.php", "namespace": "Acme\\Db\\QueryC", "class": "QueryBuilderC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "RN-05"}]}
+            ],
+            "distractors": [
+                {"file": "Escaper.php", "namespace": "Acme\\Db\\Esc", "class": "QueryEscaper", "source": "clean_query", "reason": "Clean distractor - escaping logic"}
+            ],
+            "cleans": [
+                {"file": "Compiler.php", "namespace": "Acme\\Db\\Comp", "class": "SqlCompiler", "source": "clean_query"}
+            ]
+        },
+        {
+            "set_id": "L08-rn_case_style-005",
+            "title": "Rename: Combined with whitespace",
+            "description": "Tests case style with whitespace transforms.",
+            "seed": "serializer",
+            "mount": "method",
+            "clone_symbol": "serialize",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 83405,
+            "scoring": {"line_tolerance": 1, "member_jaccard_min": 0.85, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": false},
+            "carriers": [
+                {"file": "SerializerA.php", "namespace": "Acme\\Util\\SerA", "class": "SerializerA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "SerializerB.php", "namespace": "Acme\\Util\\SerB", "class": "SerializerB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-05"}, {"code": "WS-09"}]},
+                {"file": "SerializerC.php", "namespace": "Acme\\Util\\SerC", "class": "SerializerC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "RN-05"}, {"code": "WS-09"}]}
+            ],
+            "distractors": [
+                {"file": "Deserializer.php", "namespace": "Acme\\Util\\Deser", "class": "Deserializer", "source": "clean_serializer", "reason": "Clean distractor - deserialization logic"}
+            ],
+            "cleans": [
+                {"file": "Validator.php", "namespace": "Acme\\Util\\Valid", "class": "DataValidator", "source": "clean_serializer"}
+            ]
+        }
+    ]
+}

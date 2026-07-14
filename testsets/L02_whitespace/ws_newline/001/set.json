@@ -58,7 +58,8 @@
             },
             "applied_to": [
                 "src/PriceBookService.php"
-            ]
+            ],
+            "intensity": 1
         },
         {
             "code": "WS-10",
@@ -68,7 +69,8 @@
             },
             "applied_to": [
                 "src/SettlementService.php"
-            ]
+            ],
+            "intensity": 1
         }
     ],
     "difficulty": {

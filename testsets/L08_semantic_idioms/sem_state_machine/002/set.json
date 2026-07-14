@@ -58,7 +58,8 @@
             },
             "applied_to": [
                 "src/StateMachineAccessPolicy.php"
-            ]
+            ],
+            "intensity": 4
         },
         {
             "code": "SEM-08",
@@ -68,7 +69,8 @@
             },
             "applied_to": [
                 "src/ScatteredAccessPolicy.php"
-            ]
+            ],
+            "intensity": 4
         }
     ],
     "difficulty": {

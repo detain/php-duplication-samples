@@ -1,0 +1,107 @@
+{
+    "schema_version": 1,
+    "set_id": "L20-ks_all-004",
+    "level": 20,
+    "level_name": "kitchen_sink",
+    "family": "ks_all",
+    "title": "Kitchen sink with statement transforms",
+    "description": "All statement-level transformations combined.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "access_guard",
+    "difficulty_band": "hard",
+    "files": [
+        {
+            "path": "src/KitchenSinkA.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 33
+        },
+        {
+            "path": "src/KitchenSinkB.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 38
+        },
+        {
+            "path": "src/KitchenSinkDistractor.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 29
+        },
+        {
+            "path": "src/KitchenSinkClean.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 27
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-3",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 2
+    },
+    "interference": [
+        {
+            "code": "ST-01",
+            "name": "insert_logging",
+            "params": {},
+            "applied_to": [
+                "src/KitchenSinkB.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "ST-02",
+            "name": "insert_dead",
+            "params": {},
+            "applied_to": [
+                "src/KitchenSinkB.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "ST-05",
+            "name": "reorder_independent",
+            "params": {},
+            "applied_to": [
+                "src/KitchenSinkB.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "ST-08",
+            "name": "param_reorder",
+            "params": {},
+            "applied_to": [
+                "src/KitchenSinkB.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "ST-09",
+            "name": "expr_tweak",
+            "params": {},
+            "applied_to": [
+                "src/KitchenSinkB.php"
+            ],
+            "intensity": 3
+        }
+    ],
+    "difficulty": {
+        "score": 49,
+        "requires": [
+            "ast_canonicalization",
+            "identifier_canonicalization",
+            "commutative_reordering"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L20_kitchen_sink/ks_all.json",
+        "version": "1.0.0",
+        "rng_seed": 200104
+    }
+}

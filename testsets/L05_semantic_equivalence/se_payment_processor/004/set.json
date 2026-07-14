@@ -1,0 +1,100 @@
+{
+    "schema_version": 1,
+    "set_id": "L05-se_payment_processor-004",
+    "level": 5,
+    "level_name": "semantic_equivalence",
+    "family": "se_payment_processor",
+    "title": "Payment processor: structural diversity",
+    "description": "Payment with structural transforms (ST-01, ST-04, ST-09) that preserve semantics.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "payment_processor",
+    "difficulty_band": "expert",
+    "files": [
+        {
+            "path": "src/DirectPayment.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 126
+        },
+        {
+            "path": "src/DeletePayment.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 128
+        },
+        {
+            "path": "src/ExprPayment.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 129
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-4",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "ST-01",
+            "name": "insert_logging",
+            "params": {},
+            "applied_to": [
+                "src/DirectPayment.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "CF-01",
+            "name": "if_ternary",
+            "params": {},
+            "applied_to": [
+                "src/DeletePayment.php"
+            ],
+            "intensity": 4
+        },
+        {
+            "code": "ST-04",
+            "name": "delete_stmt",
+            "params": {},
+            "applied_to": [
+                "src/DeletePayment.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "BL-01",
+            "name": "demorgan",
+            "params": {},
+            "applied_to": [
+                "src/ExprPayment.php"
+            ],
+            "intensity": 4
+        },
+        {
+            "code": "ST-09",
+            "name": "expr_tweak",
+            "params": {},
+            "applied_to": [
+                "src/ExprPayment.php"
+            ],
+            "intensity": 3
+        }
+    ],
+    "difficulty": {
+        "score": 100,
+        "requires": [
+            "semantic_reasoning",
+            "ast_canonicalization"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L05_semantic_equivalence/se_payment_processor.json",
+        "version": "1.0.0",
+        "rng_seed": 50304
+    }
+}

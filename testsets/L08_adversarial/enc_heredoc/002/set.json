@@ -1,0 +1,76 @@
+{
+    "schema_version": 1,
+    "set_id": "L08-enc_heredoc-002",
+    "level": 8,
+    "level_name": "adversarial",
+    "family": "enc_heredoc",
+    "title": "Heredoc: Nowdoc variant",
+    "description": "Uses nowdoc syntax (single quotes) vs heredoc (double quotes) for the same content.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "logger",
+    "difficulty_band": "expert",
+    "files": [
+        {
+            "path": "src/LoggerA.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 80
+        },
+        {
+            "path": "src/LoggerB.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 85
+        },
+        {
+            "path": "src/LoggerC.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 84
+        },
+        {
+            "path": "src/Handler.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 14
+        },
+        {
+            "path": "src/Formatter.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 14
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-2",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "ENC-06",
+            "name": "heredoc",
+            "params": {},
+            "applied_to": [
+                "src/LoggerB.php",
+                "src/LoggerC.php"
+            ],
+            "intensity": 2
+        }
+    ],
+    "difficulty": {
+        "score": 91,
+        "requires": [
+            "literal_abstraction"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L08_adversarial/enc_heredoc.json",
+        "version": "1.0.0",
+        "rng_seed": 80602
+    }
+}

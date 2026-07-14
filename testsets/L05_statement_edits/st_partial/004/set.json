@@ -62,7 +62,8 @@
             "applied_to": [
                 "src/PartialInvoiceCalc.php",
                 "src/MorePartialInvoiceCalc.php"
-            ]
+            ],
+            "intensity": 3
         },
         {
             "code": "ST-01",
@@ -77,7 +78,8 @@
             "applied_to": [
                 "src/PartialInvoiceCalc.php",
                 "src/MorePartialInvoiceCalc.php"
-            ]
+            ],
+            "intensity": 3
         }
     ],
     "difficulty": {

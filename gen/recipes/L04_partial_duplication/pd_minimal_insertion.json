@@ -1,0 +1,148 @@
+{
+    "level": 4,
+    "level_name": "partial_duplication",
+    "level_dir": "L04_partial_duplication",
+    "family": "pd_minimal_insertion",
+    "sets": [
+        {
+            "set_id": "L04-pd_minimal_insertion-001",
+            "title": "Partial clone with minimal head insertion (1-2 lines)",
+            "description": "The same computeTotals method in three billing classes. Carrier B and C have 1-2 unique lines inserted at the start, creating a partial clone where most lines are shared but the head differs slightly.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "schema_version": 2,
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "rng_seed": 104101,
+            "notes": "Minimal insertion via head_trim. Only 1-2 lines differ at the start.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "difficulty": {"complexity": 4, "partiality": "high"},
+            "duplication": {"uniqueness_budget": {"min": 1, "max": 3}},
+            "carriers": [
+                {"file": "PristineInvoiceCalc.php", "namespace": "Acme\\Billing\\Pristine", "class": "PristineInvoiceCalc", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "MinimalHeadInsertCalc.php", "namespace": "Acme\\Billing\\Minimal", "class": "MinimalHeadInsertCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 1, "tail_trim": 0}}]},
+                {"file": "MinimalHeadInsert2Calc.php", "namespace": "Acme\\Billing\\Minimal2", "class": "MinimalHeadInsert2Calc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 2, "tail_trim": 0}}]}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss: same invoice vocabulary but computes margins instead of totals"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L04-pd_minimal_insertion-002",
+            "title": "Partial clone with minimal tail insertion (1-2 lines)",
+            "description": "The same computeTotals method in three billing classes. Carrier B and C have 1-2 unique lines inserted at the end.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "schema_version": 2,
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "rng_seed": 104102,
+            "notes": "Minimal insertion via tail_trim. Only 1-2 lines differ at the end.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "difficulty": {"complexity": 4, "partiality": "high"},
+            "duplication": {"uniqueness_budget": {"min": 1, "max": 3}},
+            "carriers": [
+                {"file": "PristineInvoiceCalc.php", "namespace": "Acme\\Billing\\Pristine", "class": "PristineInvoiceCalc", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "MinimalTailInsertCalc.php", "namespace": "Acme\\Billing\\Minimal", "class": "MinimalTailInsertCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 0, "tail_trim": 1}}]},
+                {"file": "MinimalTailInsert2Calc.php", "namespace": "Acme\\Billing\\Minimal2", "class": "MinimalTailInsert2Calc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 0, "tail_trim": 2}}]}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss: same invoice vocabulary but computes margins instead of totals"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L04-pd_minimal_insertion-003",
+            "title": "Partial clone with both head and tail minimal insertions",
+            "description": "The same computeTotals method with small insertions at both head and tail.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "schema_version": 2,
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "rng_seed": 104103,
+            "notes": "Small insertions at both head and tail.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "difficulty": {"complexity": 4, "partiality": "high"},
+            "duplication": {"uniqueness_budget": {"min": 2, "max": 4}},
+            "carriers": [
+                {"file": "PristineInvoiceCalc.php", "namespace": "Acme\\Billing\\Pristine", "class": "PristineInvoiceCalc", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "BothInsertCalc.php", "namespace": "Acme\\Billing\\Both", "class": "BothInsertCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 1, "tail_trim": 1}}]},
+                {"file": "BothInsert2Calc.php", "namespace": "Acme\\Billing\\Both2", "class": "BothInsert2Calc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 1, "tail_trim": 2}}]}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss: same invoice vocabulary but computes margins instead of totals"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L04-pd_minimal_insertion-004",
+            "title": "Partial clone using access_guard seed with minimal insertions",
+            "description": "The same authorize method with minimal head/tail insertions across security classes.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "schema_version": 2,
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "rng_seed": 104104,
+            "notes": "access_guard seed variant with minimal insertions.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "difficulty": {"complexity": 4, "partiality": "high"},
+            "duplication": {"uniqueness_budget": {"min": 1, "max": 3}},
+            "carriers": [
+                {"file": "PristineAuthGuard.php", "namespace": "Acme\\Security\\Pristine", "class": "PristineAuthGuard", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "MinimalInsertAuth.php", "namespace": "Acme\\Security\\Minimal", "class": "MinimalInsertAuth", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 1, "tail_trim": 0}}]},
+                {"file": "MinimalInsert2Auth.php", "namespace": "Acme\\Security\\Minimal2", "class": "MinimalInsert2Auth", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 0, "tail_trim": 1}}]}
+            ],
+            "distractors": [
+                {"file": "AuditTrailService.php", "namespace": "Acme\\Security\\Audit", "class": "AuditTrailService", "source": "nearmiss_access", "reason": "near-miss: similar authorization vocabulary but performs auditing"}
+            ],
+            "cleans": [
+                {"file": "TokenValidationService.php", "namespace": "Acme\\Security\\Tokens", "class": "TokenValidationService", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L04-pd_minimal_insertion-005",
+            "title": "Partial clone using csv_import seed with minimal insertions",
+            "description": "The same parseRow method with minimal insertions across data import classes.",
+            "seed": "csv_import",
+            "mount": "method",
+            "clone_symbol": "parseRow",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "schema_version": 2,
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "rng_seed": 104105,
+            "notes": "csv_import seed variant with minimal insertions.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "difficulty": {"complexity": 4, "partiality": "high"},
+            "duplication": {"uniqueness_budget": {"min": 1, "max": 3}},
+            "carriers": [
+                {"file": "PristineCsvImport.php", "namespace": "Acme\\Import\\Pristine", "class": "PristineCsvImport", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "MinimalInsertCsv.php", "namespace": "Acme\\Import\\Minimal", "class": "MinimalInsertCsv", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 1, "tail_trim": 0}}]},
+                {"file": "MinimalInsert2Csv.php", "namespace": "Acme\\Import\\Minimal2", "class": "MinimalInsert2Csv", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 0, "tail_trim": 1}}]}
+            ],
+            "distractors": [
+                {"file": "XmlImportService.php", "namespace": "Acme\\Import\\Xml", "class": "XmlImportService", "source": "nearmiss_csv", "reason": "near-miss: similar parsing vocabulary but handles XML"}
+            ],
+            "cleans": [
+                {"file": "DataValidationService.php", "namespace": "Acme\\Import\\Validation", "class": "DataValidationService", "source": "clean_parsing"}
+            ]
+        }
+    ]
+}

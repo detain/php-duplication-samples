@@ -58,7 +58,8 @@
             },
             "applied_to": [
                 "src/AccessServiceDecorated.php"
-            ]
+            ],
+            "intensity": 1
         }
     ],
     "difficulty": {

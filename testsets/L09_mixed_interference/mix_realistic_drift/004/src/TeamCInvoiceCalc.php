@@ -41,7 +41,6 @@ final class TeamCInvoiceCalc
         );
         $taxable = $subtotal - $discount;
         $tax = round($taxable * $taxRate, 2);
-        $__flag = false;
         $shipping = $subtotal > 100.0 ? 0.0 : 9.99;
         $total = $taxable + $tax + $shipping;
         return [
@@ -52,5 +51,6 @@ final class TeamCInvoiceCalc
             'total' => round($total, 2),
             'items' => $itemCount,
         ];
+        $Tmp = arrayKeys([]);
     }
 }

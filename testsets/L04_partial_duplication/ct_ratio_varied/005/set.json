@@ -1,0 +1,303 @@
+{
+    "schema_version": 2,
+    "set_id": "L04-ct_ratio_varied-005",
+    "level": 4,
+    "level_name": "partial_duplication",
+    "family": "ct_ratio_varied",
+    "title": "All clusters with unique ratios",
+    "description": "Each of three clusters has a different duplication ratio.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "invoice_totals",
+    "difficulty_band": "medium",
+    "files": [
+        {
+            "path": "src/RatA_A.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 39,
+            "region_sloc": {
+                "sloc": 25,
+                "duplicate": 25,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/RatA_B.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 42,
+            "region_sloc": {
+                "sloc": 23,
+                "duplicate": 23,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/RatA_C.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 41,
+            "region_sloc": {
+                "sloc": 23,
+                "duplicate": 23,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/RatB_A.php",
+            "role": "carrier",
+            "duplicate_group": "B",
+            "sloc": 39,
+            "region_sloc": {
+                "sloc": 25,
+                "duplicate": 25,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/RatB_B.php",
+            "role": "carrier",
+            "duplicate_group": "B",
+            "sloc": 36,
+            "region_sloc": {
+                "sloc": 17,
+                "duplicate": 17,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/RatB_C.php",
+            "role": "carrier",
+            "duplicate_group": "B",
+            "sloc": 33,
+            "region_sloc": {
+                "sloc": 15,
+                "duplicate": 15,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/RatC_A.php",
+            "role": "carrier",
+            "duplicate_group": "C",
+            "sloc": 39,
+            "region_sloc": {
+                "sloc": 25,
+                "duplicate": 25,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/RatC_B.php",
+            "role": "carrier",
+            "duplicate_group": "C",
+            "sloc": 30,
+            "region_sloc": {
+                "sloc": 11,
+                "duplicate": 11,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/RatC_C.php",
+            "role": "carrier",
+            "duplicate_group": "C",
+            "sloc": 27,
+            "region_sloc": {
+                "sloc": 9,
+                "duplicate": 9,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/Dist1.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 30
+        },
+        {
+            "path": "src/Dist2.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 30
+        },
+        {
+            "path": "src/Dist3.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 30
+        },
+        {
+            "path": "src/Clean1.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        },
+        {
+            "path": "src/Clean2.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        },
+        {
+            "path": "src/Clean3.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-3",
+        "granularity": "method",
+        "clusters": 3,
+        "instances": 9
+    },
+    "interference": [
+        {
+            "code": "ST-07",
+            "name": "partial_fragment",
+            "params": {
+                "head_trim": 2,
+                "tail_trim": 0
+            },
+            "applied_to": [
+                "src/RatA_B.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "ST-07",
+            "name": "partial_fragment",
+            "params": {
+                "head_trim": 0,
+                "tail_trim": 2
+            },
+            "applied_to": [
+                "src/RatA_C.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "ST-07",
+            "name": "partial_fragment",
+            "params": {
+                "head_trim": 4,
+                "tail_trim": 4
+            },
+            "applied_to": [
+                "src/RatB_B.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "ST-07",
+            "name": "partial_fragment",
+            "params": {
+                "head_trim": 5,
+                "tail_trim": 5
+            },
+            "applied_to": [
+                "src/RatB_C.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "ST-07",
+            "name": "partial_fragment",
+            "params": {
+                "head_trim": 7,
+                "tail_trim": 7
+            },
+            "applied_to": [
+                "src/RatC_B.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "ST-07",
+            "name": "partial_fragment",
+            "params": {
+                "head_trim": 8,
+                "tail_trim": 8
+            },
+            "applied_to": [
+                "src/RatC_C.php"
+            ],
+            "intensity": 3
+        }
+    ],
+    "difficulty": {
+        "score": 42,
+        "requires": [
+            "ast_canonicalization",
+            "deadcode_elimination"
+        ],
+        "score_raw": 42,
+        "axes": {
+            "breadth": 1,
+            "intensity": 3,
+            "intensity_max": 3,
+            "semantic_depth": 0,
+            "partiality": 1
+        },
+        "application_count": 6,
+        "axis_count": 1
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L04_partial_duplication/ct_ratio_varied.json",
+        "version": "2.0.0",
+        "rng_seed": 105505
+    },
+    "interference_profile": {
+        "axis_count": 1,
+        "per_carrier_axes": {
+            "src/RatA_B.php": [
+                "ST-07"
+            ],
+            "src/RatA_C.php": [
+                "ST-07"
+            ],
+            "src/RatB_B.php": [
+                "ST-07"
+            ],
+            "src/RatB_C.php": [
+                "ST-07"
+            ],
+            "src/RatC_B.php": [
+                "ST-07"
+            ],
+            "src/RatC_C.php": [
+                "ST-07"
+            ]
+        },
+        "groups_touched": [
+            "A",
+            "B",
+            "C"
+        ],
+        "stack_depth_max": 1,
+        "symmetric_overlap": 1,
+        "pairwise_overlap": 1,
+        "combination_design": "structural_only"
+    },
+    "engine_features": [
+        "multi_cluster"
+    ],
+    "role_composition": {
+        "carrier": 9,
+        "distractor": 3,
+        "clean": 3
+    }
+}

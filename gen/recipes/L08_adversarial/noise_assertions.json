@@ -1,0 +1,133 @@
+{
+    "level": 8,
+    "level_name": "adversarial",
+    "level_dir": "L08_adversarial",
+    "family": "noise_assertions",
+    "sets": [
+        {
+            "set_id": "L08-noise_assertions-001",
+            "title": "Noise Assertions: Security assertion noise",
+            "description": "Tests security assertion noise (NZ-03) around clones.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 82301,
+            "scoring": {"line_tolerance": 3, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": false, "ast_based": true, "metric_based": false, "semantic": true},
+            "carriers": [
+                {"file": "TotalsCalculatorA.php", "namespace": "Acme\\Billing\\TotalsA", "class": "TotalsCalculatorA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "TotalsCalculatorB.php", "namespace": "Acme\\Billing\\TotalsB", "class": "TotalsCalculatorB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "NZ-03"}]},
+                {"file": "TotalsCalculatorC.php", "namespace": "Acme\\Billing\\TotalsC", "class": "TotalsCalculatorC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "NZ-03"}]}
+            ],
+            "distractors": [
+                {"file": "Validator.php", "namespace": "Acme\\Billing\\Validate", "class": "Validator", "source": "clean_billing", "reason": "Clean distractor - unrelated billing logic"}
+            ],
+            "cleans": [
+                {"file": "SchemaMapper.php", "namespace": "Acme\\Billing\\Schema", "class": "SchemaMapper", "source": "clean_parsing"}
+            ]
+        },
+        {
+            "set_id": "L08-noise_assertions-002",
+            "title": "Noise Assertions: Env check noise",
+            "description": "Tests environment check noise (NZ-08) around clones.",
+            "seed": "csv_processor",
+            "mount": "method",
+            "clone_symbol": "processRow",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 82302,
+            "scoring": {"line_tolerance": 3, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": false, "ast_based": true, "metric_based": false, "semantic": true},
+            "carriers": [
+                {"file": "RowProcessorA.php", "namespace": "Acme\\Data\\ProcessA", "class": "RowProcessorA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "RowProcessorB.php", "namespace": "Acme\\Data\\ProcessB", "class": "RowProcessorB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "NZ-08"}]},
+                {"file": "RowProcessorC.php", "namespace": "Acme\\Data\\ProcessC", "class": "RowProcessorC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "NZ-08"}]}
+            ],
+            "distractors": [
+                {"file": "Filter.php", "namespace": "Acme\\Data\\Filter", "class": "RowFilter", "source": "clean_csv", "reason": "Clean distractor - different processing logic"}
+            ],
+            "cleans": [
+                {"file": "Mapper.php", "namespace": "Acme\\Data\\Map", "class": "RowMapper", "source": "clean_csv"}
+            ]
+        },
+        {
+            "set_id": "L08-noise_assertions-003",
+            "title": "Noise Assertions: Combined security noise",
+            "description": "NZ-03 security + NZ-08 env checks combined.",
+            "seed": "rate_limiter",
+            "mount": "method",
+            "clone_symbol": "checkLimit",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 82303,
+            "scoring": {"line_tolerance": 4, "member_jaccard_min": 0.55, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": false, "ast_based": true, "metric_based": false, "semantic": true},
+            "carriers": [
+                {"file": "LimitCheckerA.php", "namespace": "Acme\\Core\\LimitA", "class": "LimitCheckerA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "LimitCheckerB.php", "namespace": "Acme\\Core\\LimitB", "class": "LimitCheckerB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "NZ-03"}, {"code": "NZ-08"}]},
+                {"file": "LimitCheckerC.php", "namespace": "Acme\\Core\\LimitC", "class": "LimitCheckerC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "NZ-03"}, {"code": "NZ-08"}]}
+            ],
+            "distractors": [
+                {"file": "Throttler.php", "namespace": "Acme\\Core\\Throttle", "class": "Throttler", "source": "clean_rate", "reason": "Clean distractor - rate limiting logic"}
+            ],
+            "cleans": [
+                {"file": "Counter.php", "namespace": "Acme\\Core\\Count", "class": "HitCounter", "source": "clean_rate"}
+            ]
+        },
+        {
+            "set_id": "L08-noise_assertions-004",
+            "title": "Noise Assertions: Debug assertion noise",
+            "description": "Debug assertions (NZ-07) as noise around clones.",
+            "seed": "query_builder",
+            "mount": "method",
+            "clone_symbol": "buildQuery",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 82304,
+            "scoring": {"line_tolerance": 3, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": false, "ast_based": true, "metric_based": false, "semantic": true},
+            "carriers": [
+                {"file": "QueryBuilderA.php", "namespace": "Acme\\Db\\QueryA", "class": "QueryBuilderA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "QueryBuilderB.php", "namespace": "Acme\\Db\\QueryB", "class": "QueryBuilderB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "NZ-07"}]},
+                {"file": "QueryBuilderC.php", "namespace": "Acme\\Db\\QueryC", "class": "QueryBuilderC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "NZ-07"}]}
+            ],
+            "distractors": [
+                {"file": "Escaper.php", "namespace": "Acme\\Db\\Esc", "class": "QueryEscaper", "source": "clean_query", "reason": "Clean distractor - escaping logic"}
+            ],
+            "cleans": [
+                {"file": "Compiler.php", "namespace": "Acme\\Db\\Comp", "class": "SqlCompiler", "source": "clean_query"}
+            ]
+        },
+        {
+            "set_id": "L08-noise_assertions-005",
+            "title": "Noise Assertions: Compound assertion noise",
+            "description": "Multiple assertion types (NZ-03, NZ-07, NZ-08) combined.",
+            "seed": "config_loader",
+            "mount": "method",
+            "clone_symbol": "loadConfig",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 82305,
+            "scoring": {"line_tolerance": 5, "member_jaccard_min": 0.5, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": false, "ast_based": true, "metric_based": false, "semantic": true},
+            "carriers": [
+                {"file": "ConfigLoaderA.php", "namespace": "Acme\\Config\\LoadA", "class": "ConfigLoaderA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "ConfigLoaderB.php", "namespace": "Acme\\Config\\LoadB", "class": "ConfigLoaderB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "NZ-03"}, {"code": "NZ-07"}, {"code": "NZ-08"}]},
+                {"file": "ConfigLoaderC.php", "namespace": "Acme\\Config\\LoadC", "class": "ConfigLoaderC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "NZ-03"}, {"code": "NZ-07"}, {"code": "NZ-08"}]}
+            ],
+            "distractors": [
+                {"file": "Validator.php", "namespace": "Acme\\Config\\Valid", "class": "ConfigValidator", "source": "clean_config", "reason": "Clean distractor - validation logic"}
+            ],
+            "cleans": [
+                {"file": "Merger.php", "namespace": "Acme\\Config\\Merge", "class": "ConfigMerger", "source": "clean_config"}
+            ]
+        }
+    ]
+}

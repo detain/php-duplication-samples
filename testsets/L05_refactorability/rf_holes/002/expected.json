@@ -1,0 +1,86 @@
+{
+    "schema_version": 2,
+    "set_id": "L05-rf_holes-002",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-1",
+            "granularity": "method",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers",
+                "literals"
+            ],
+            "token_hash": "016c9d9d39d2491b",
+            "normalized_hash": "6aabedd96e48d2b8",
+            "members": [
+                {
+                    "file": "src/MemcachedCache.php",
+                    "start_line": 9,
+                    "end_line": 59,
+                    "symbol": "getCached",
+                    "pristine": true,
+                    "group": "A",
+                    "seed": "cache_manager"
+                },
+                {
+                    "file": "src/RedisCache.php",
+                    "start_line": 18,
+                    "end_line": 68,
+                    "symbol": "getCached",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "cache_manager"
+                },
+                {
+                    "file": "src/FileCache.php",
+                    "start_line": 24,
+                    "end_line": 74,
+                    "symbol": "getCached",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "cache_manager"
+                }
+            ],
+            "detection_expectation": {
+                "text_based": true,
+                "token_based": true,
+                "ast_based": true
+            },
+            "notes": ""
+        }
+    ],
+    "non_duplicates": [],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.6,
+        "min_members_for_credit": 2
+    },
+    "intended_refactoring": {
+        "kind": "extract_method_with_holes",
+        "unified_symbol": "getCached",
+        "unified_signature": "getCached(key, ttl, fallback)",
+        "holes": [
+            {
+                "hole_id": "validation",
+                "description": "No validation for empty or invalid cache keys"
+            },
+            {
+                "hole_id": "ttl_bounds",
+                "description": "Missing TTL range validation (e.g., max 86400 seconds)"
+            },
+            {
+                "hole_id": "serialization",
+                "description": "No handling for unserializable data types"
+            }
+        ],
+        "collapses": [
+            0,
+            1,
+            2
+        ],
+        "advisability": "recommended"
+    }
+}

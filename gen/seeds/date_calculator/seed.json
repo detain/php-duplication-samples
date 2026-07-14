@@ -1,0 +1,12 @@
+{
+    "domain": "date_calculator",
+    "summary": "Date/time math: diff, add, format, and timezone conversions.",
+    "size_class": "M",
+    "symbol": "diff",
+    "line_count": 72,
+    "token_count": 480,
+    "required_symbols": ["diff", "add", "format", "timezoneConvert"],
+    "mount_modes": ["method"],
+    "compatible_interference": ["WS-03", "CM-03", "RN-01", "LT-02"],
+    "variants": []
+}

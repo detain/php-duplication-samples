@@ -33,7 +33,7 @@
             "path": "src/JsonDecoder.php",
             "role": "distractor",
             "duplicate_group": null,
-            "sloc": 28
+            "sloc": 63
         },
         {
             "path": "src/SheetFormatter.php",

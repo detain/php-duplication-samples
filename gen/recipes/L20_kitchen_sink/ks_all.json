@@ -1,0 +1,139 @@
+{
+    "level": 20,
+    "level_name": "kitchen_sink",
+    "level_dir": "L20_kitchen_sink",
+    "family": "ks_all",
+    "sets": [
+        {
+            "set_id": "L20-ks_all-001",
+            "title": "Every transform type combined - basic",
+            "description": "Tests ks_all: every transform type combined in one demanding set.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["identifiers", "literals", "comments"],
+            "rng_seed": 200101,
+            "notes": "L20: ks_all - all transform types combined.",
+            "scoring": {"line_tolerance": 3, "member_jaccard_min": 0.65, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["identifier_canonicalization", "literal_abstraction", "comment_stripping", "ast_canonicalization"],
+            "carriers": [
+                {"file": "KitchenSinkA.php", "namespace": "Acme\\KitchenSink\\Alpha", "class": "KitchenSinkA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "KitchenSinkB.php", "namespace": "Acme\\KitchenSink\\Beta", "class": "KitchenSinkB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-05"}, {"code": "LT-01"}, {"code": "CM-01"}]}
+            ],
+            "distractors": [
+                {"file": "KitchenSinkDistractor.php", "namespace": "Acme\\KitchenSink\\Distract", "class": "KitchenSinkDistractor", "source": "nearmiss_invoice", "reason": "Near-miss: kitchen sink confusion"}
+            ],
+            "cleans": [
+                {"file": "KitchenSinkClean.php", "namespace": "Acme\\KitchenSink\\Config", "class": "KitchenSinkClean", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L20-ks_all-002",
+            "title": "Kitchen sink with all literal transforms",
+            "description": "All literal type transformations combined.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["literals", "identifiers"],
+            "rng_seed": 200102,
+            "notes": "L20: ks_all + all LT transforms + RN-05.",
+            "scoring": {"line_tolerance": 3, "member_jaccard_min": 0.65, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["literal_abstraction", "identifier_canonicalization"],
+            "carriers": [
+                {"file": "KitchenSinkA.php", "namespace": "Acme\\KitchenSink\\Alpha", "class": "KitchenSinkA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "KitchenSinkB.php", "namespace": "Acme\\KitchenSink\\Beta", "class": "KitchenSinkB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-01"}, {"code": "LT-02"}, {"code": "LT-03"}, {"code": "LT-04"}, {"code": "RN-05"}]}
+            ],
+            "distractors": [
+                {"file": "KitchenSinkDistractor.php", "namespace": "Acme\\KitchenSink\\Distract", "class": "KitchenSinkDistractor", "source": "nearmiss_access", "reason": "Near-miss: kitchen sink auth confusion"}
+            ],
+            "cleans": [
+                {"file": "KitchenSinkClean.php", "namespace": "Acme\\KitchenSink\\Config", "class": "KitchenSinkClean", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L20-ks_all-003",
+            "title": "Kitchen sink three carriers with all comment types",
+            "description": "Three carriers with all comment transformation types.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["comments", "identifiers", "literals"],
+            "rng_seed": 200103,
+            "notes": "L20: ks_all + all CM transforms across carriers.",
+            "scoring": {"line_tolerance": 3, "member_jaccard_min": 0.6, "min_members_for_credit": 3},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["comment_stripping", "identifier_canonicalization", "literal_abstraction"],
+            "carriers": [
+                {"file": "KitchenSinkA.php", "namespace": "Acme\\KitchenSink\\Alpha", "class": "KitchenSinkA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "KitchenSinkB.php", "namespace": "Acme\\KitchenSink\\Beta", "class": "KitchenSinkB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "CM-01"}]},
+                {"file": "KitchenSinkC.php", "namespace": "Acme\\KitchenSink\\Gamma", "class": "KitchenSinkC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "CM-02"}, {"code": "CM-03"}, {"code": "RN-05"}, {"code": "LT-01"}]}
+            ],
+            "distractors": [
+                {"file": "KitchenSinkDistractor.php", "namespace": "Acme\\KitchenSink\\Distract", "class": "KitchenSinkDistractor", "source": "nearmiss_invoice", "reason": "Near-miss: kitchen sink invoice confusion"}
+            ],
+            "cleans": [
+                {"file": "KitchenSinkClean.php", "namespace": "Acme\\KitchenSink\\Config", "class": "KitchenSinkClean", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L20-ks_all-004",
+            "title": "Kitchen sink with statement transforms",
+            "description": "All statement-level transformations combined.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["identifiers", "controlflow"],
+            "rng_seed": 200104,
+            "notes": "L20: ks_all + ST-01 + ST-02 + ST-05 + ST-08 + ST-09.",
+            "scoring": {"line_tolerance": 3, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["ast_canonicalization", "identifier_canonicalization", "commutative_reordering"],
+            "carriers": [
+                {"file": "KitchenSinkA.php", "namespace": "Acme\\KitchenSink\\Alpha", "class": "KitchenSinkA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "KitchenSinkB.php", "namespace": "Acme\\KitchenSink\\Beta", "class": "KitchenSinkB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-01"}, {"code": "ST-02"}, {"code": "ST-05"}, {"code": "ST-08"}, {"code": "ST-09"}]}
+            ],
+            "distractors": [
+                {"file": "KitchenSinkDistractor.php", "namespace": "Acme\\KitchenSink\\Distract", "class": "KitchenSinkDistractor", "source": "nearmiss_access", "reason": "Near-miss: kitchen sink auth confusion"}
+            ],
+            "cleans": [
+                {"file": "KitchenSinkClean.php", "namespace": "Acme\\KitchenSink\\Config", "class": "KitchenSinkClean", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L20-ks_all-005",
+            "title": "Kitchen sink maximum chaos",
+            "description": "Maximum transform combination for ultimate stress test.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["identifiers", "literals", "comments"],
+            "rng_seed": 200105,
+            "notes": "L20: ks_all maximum chaos - RN-05 + all LTs + all CMs.",
+            "scoring": {"line_tolerance": 3, "member_jaccard_min": 0.55, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["identifier_canonicalization", "literal_abstraction", "comment_stripping"],
+            "carriers": [
+                {"file": "KitchenSinkA.php", "namespace": "Acme\\KitchenSink\\Alpha", "class": "KitchenSinkA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "KitchenSinkB.php", "namespace": "Acme\\KitchenSink\\Beta", "class": "KitchenSinkB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-05"}, {"code": "LT-01"}, {"code": "LT-02"}, {"code": "LT-03"}, {"code": "LT-04"}, {"code": "CM-01"}, {"code": "CM-02"}, {"code": "CM-03"}]}
+            ],
+            "distractors": [
+                {"file": "KitchenSinkDistractor.php", "namespace": "Acme\\KitchenSink\\Distract", "class": "KitchenSinkDistractor", "source": "nearmiss_invoice", "reason": "Near-miss: kitchen sink maximum confusion"}
+            ],
+            "cleans": [
+                {"file": "KitchenSinkClean.php", "namespace": "Acme\\KitchenSink\\Config", "class": "KitchenSinkClean", "source": "clean_billing"}
+            ]
+        }
+    ]
+}

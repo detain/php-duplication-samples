@@ -1,0 +1,139 @@
+{
+    "level": 14,
+    "level_name": "cross_language",
+    "level_dir": "L14_cross_language",
+    "family": "xl_php_js",
+    "sets": [
+        {
+            "set_id": "L14-xl_php_js-001",
+            "title": "PHP generating JavaScript - basic case",
+            "description": "Tests xl_php_js: PHP code that generates JavaScript output. Infrastructure gap noted.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["identifiers", "literals"],
+            "rng_seed": 140201,
+            "notes": "L14: xl_php_js - PHP generating JavaScript context.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.7, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["identifier_canonicalization", "literal_abstraction"],
+            "carriers": [
+                {"file": "JsGeneratorA.php", "namespace": "Acme\\JsGen\\Alpha", "class": "JsGeneratorA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "JsGeneratorB.php", "namespace": "Acme\\JsGen\\Beta", "class": "JsGeneratorB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-02"}]}
+            ],
+            "distractors": [
+                {"file": "JsGeneratorDistractor.php", "namespace": "Acme\\JsGen\\Distract", "class": "JsGeneratorDistractor", "source": "nearmiss_invoice", "reason": "Near-miss: similar invoice JS generation"}
+            ],
+            "cleans": [
+                {"file": "JsGeneratorClean.php", "namespace": "Acme\\JsGen\\Config", "class": "JsGeneratorClean", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L14-xl_php_js-002",
+            "title": "PHP JS generation with RN-05 rename",
+            "description": "Case convention rename in PHP JS generation context.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["identifiers"],
+            "rng_seed": 140202,
+            "notes": "L14: xl_php_js + RN-05 rename.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.65, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["identifier_canonicalization"],
+            "carriers": [
+                {"file": "JsGeneratorA.php", "namespace": "Acme\\JsGen\\Alpha", "class": "JsGeneratorA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "JsGeneratorB.php", "namespace": "Acme\\JsGen\\Beta", "class": "JsGeneratorB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-05"}, {"code": "CM-02"}]}
+            ],
+            "distractors": [
+                {"file": "JsGeneratorDistractor.php", "namespace": "Acme\\JsGen\\Distract", "class": "JsGeneratorDistractor", "source": "nearmiss_access", "reason": "Near-miss: similar auth JS generation"}
+            ],
+            "cleans": [
+                {"file": "JsGeneratorClean.php", "namespace": "Acme\\JsGen\\Config", "class": "JsGeneratorClean", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L14-xl_php_js-003",
+            "title": "PHP JS generation with multiple transforms",
+            "description": "Three carriers with multiple transforms in JS generation context.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["identifiers", "literals", "comments"],
+            "rng_seed": 140203,
+            "notes": "L14: xl_php_js with multiple transforms.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 3},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["identifier_canonicalization", "literal_abstraction", "comment_stripping"],
+            "carriers": [
+                {"file": "JsGeneratorA.php", "namespace": "Acme\\JsGen\\Alpha", "class": "JsGeneratorA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "JsGeneratorB.php", "namespace": "Acme\\JsGen\\Beta", "class": "JsGeneratorB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-01"}, {"code": "CM-01"}]},
+                {"file": "JsGeneratorC.php", "namespace": "Acme\\JsGen\\Gamma", "class": "JsGeneratorC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-05"}, {"code": "RN-05"}]}
+            ],
+            "distractors": [
+                {"file": "JsGeneratorDistractor.php", "namespace": "Acme\\JsGen\\Distract", "class": "JsGeneratorDistractor", "source": "nearmiss_invoice", "reason": "Near-miss: similar invoice JS"}
+            ],
+            "cleans": [
+                {"file": "JsGeneratorClean.php", "namespace": "Acme\\JsGen\\Config", "class": "JsGeneratorClean", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L14-xl_php_js-004",
+            "title": "PHP JS generation with ST-02 dead code",
+            "description": "Dead code insertion in PHP JS generation context.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["identifiers"],
+            "rng_seed": 140204,
+            "notes": "L14: xl_php_js + ST-02 dead code.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["identifier_canonicalization", "ast_canonicalization", "deadcode_elimination"],
+            "carriers": [
+                {"file": "JsGeneratorA.php", "namespace": "Acme\\JsGen\\Alpha", "class": "JsGeneratorA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "JsGeneratorB.php", "namespace": "Acme\\JsGen\\Beta", "class": "JsGeneratorB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-02"}]}
+            ],
+            "distractors": [
+                {"file": "JsGeneratorDistractor.php", "namespace": "Acme\\JsGen\\Distract", "class": "JsGeneratorDistractor", "source": "nearmiss_access", "reason": "Near-miss: similar auth JS"}
+            ],
+            "cleans": [
+                {"file": "JsGeneratorClean.php", "namespace": "Acme\\JsGen\\Config", "class": "JsGeneratorClean", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L14-xl_php_js-005",
+            "title": "PHP JS generation with string and array transforms",
+            "description": "String and array transformations in JS generation context.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["literals"],
+            "rng_seed": 140205,
+            "notes": "L14: xl_php_js + LT-02 + LT-03.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["literal_abstraction"],
+            "carriers": [
+                {"file": "JsGeneratorA.php", "namespace": "Acme\\JsGen\\Alpha", "class": "JsGeneratorA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "JsGeneratorB.php", "namespace": "Acme\\JsGen\\Beta", "class": "JsGeneratorB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-02"}, {"code": "LT-03"}]}
+            ],
+            "distractors": [
+                {"file": "JsGeneratorDistractor.php", "namespace": "Acme\\JsGen\\Distract", "class": "JsGeneratorDistractor", "source": "nearmiss_invoice", "reason": "Near-miss: similar invoice JS"}
+            ],
+            "cleans": [
+                {"file": "JsGeneratorClean.php", "namespace": "Acme\\JsGen\\Config", "class": "JsGeneratorClean", "source": "clean_billing"}
+            ]
+        }
+    ]
+}

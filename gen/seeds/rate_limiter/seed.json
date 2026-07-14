@@ -1,0 +1,12 @@
+{
+    "domain": "rate_limiter",
+    "summary": "Token bucket rate limiting with sliding window.",
+    "size_class": "S",
+    "symbol": "attempt",
+    "line_count": 35,
+    "token_count": 220,
+    "required_symbols": ["attempt", "remaining"],
+    "mount_modes": ["method"],
+    "compatible_interference": ["WS-03", "CM-03", "RN-01"],
+    "variants": []
+}

@@ -1,0 +1,94 @@
+{
+    "schema_version": 2,
+    "set_id": "L05-rf_holes-001",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-1",
+            "granularity": "method",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers",
+                "literals"
+            ],
+            "token_hash": "0042b3fc031f0b40",
+            "normalized_hash": "0042b3fc031f0b40",
+            "members": [
+                {
+                    "file": "src/StandardBilling.php",
+                    "start_line": 9,
+                    "end_line": 33,
+                    "symbol": "calculateTotals",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "invoice_totals"
+                },
+                {
+                    "file": "src/PremiumBilling.php",
+                    "start_line": 18,
+                    "end_line": 42,
+                    "symbol": "calculateTotals",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "invoice_totals"
+                },
+                {
+                    "file": "src/EnterpriseBilling.php",
+                    "start_line": 24,
+                    "end_line": 48,
+                    "symbol": "calculateTotals",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "invoice_totals"
+                }
+            ],
+            "detection_expectation": {
+                "text_based": true,
+                "token_based": true,
+                "ast_based": true
+            },
+            "notes": ""
+        }
+    ],
+    "non_duplicates": [
+        {
+            "file": "src/ShippingCalculator.php",
+            "start_line": 12,
+            "end_line": 28,
+            "reason": "near-miss: similar foreach-over-items shape but computes weight/shipping instead of price/tax",
+            "trap": true
+        }
+    ],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.6,
+        "min_members_for_credit": 2
+    },
+    "intended_refactoring": {
+        "kind": "extract_method_with_holes",
+        "unified_symbol": "calculateTotals",
+        "unified_signature": "calculateTotals(items, taxRate, discountRate)",
+        "holes": [
+            {
+                "hole_id": "logging",
+                "description": "No audit trail for calculation steps"
+            },
+            {
+                "hole_id": "error_handling",
+                "description": "Missing exception handling for invalid item data"
+            },
+            {
+                "hole_id": "validation",
+                "description": "No validation for negative prices or quantities"
+            }
+        ],
+        "collapses": [
+            0,
+            1,
+            2
+        ],
+        "advisability": "recommended"
+    }
+}

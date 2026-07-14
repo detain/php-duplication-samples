@@ -58,7 +58,8 @@
             },
             "applied_to": [
                 "src/InvoiceTemplateB.php"
-            ]
+            ],
+            "intensity": 2
         }
     ],
     "difficulty": {

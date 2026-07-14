@@ -58,7 +58,8 @@
             },
             "applied_to": [
                 "src/InvoiceCalculatorB.php"
-            ]
+            ],
+            "intensity": 2
         },
         {
             "code": "LT-03",
@@ -68,7 +69,8 @@
             },
             "applied_to": [
                 "src/InvoiceCalculatorC.php"
-            ]
+            ],
+            "intensity": 2
         }
     ],
     "difficulty": {

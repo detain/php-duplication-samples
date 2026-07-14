@@ -59,7 +59,8 @@
             },
             "applied_to": [
                 "src/UseShortCalc.php"
-            ]
+            ],
+            "intensity": 2
         },
         {
             "code": "NS-01",
@@ -71,7 +72,8 @@
             },
             "applied_to": [
                 "src/AliasedCalc.php"
-            ]
+            ],
+            "intensity": 2
         }
     ],
     "difficulty": {

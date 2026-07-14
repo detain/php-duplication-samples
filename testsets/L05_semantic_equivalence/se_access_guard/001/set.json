@@ -1,0 +1,72 @@
+{
+    "schema_version": 1,
+    "set_id": "L05-se_access_guard-001",
+    "level": 5,
+    "level_name": "semantic_equivalence",
+    "family": "se_access_guard",
+    "title": "Access guard: existing semantic variants - scatter, state machine, config driven",
+    "description": "Uses access_guard seed with its existing semantic variants: sem_scatter (SEM-08), sem_state_machine (SEM-09), and sem_config_driven (SEM-10) to demonstrate semantic equivalence.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "access_guard",
+    "difficulty_band": "expert",
+    "files": [
+        {
+            "path": "src/DocumentAccessPolicy.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 33
+        },
+        {
+            "path": "src/ScatteredAccessPolicy.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 44
+        },
+        {
+            "path": "src/StateMachineAccessPolicy.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 81
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-4",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "SEM-08",
+            "name": "cross_file_scatter",
+            "params": {},
+            "applied_to": [
+                "src/ScatteredAccessPolicy.php"
+            ],
+            "intensity": 4
+        },
+        {
+            "code": "SEM-09",
+            "name": "state_machine",
+            "params": {},
+            "applied_to": [
+                "src/StateMachineAccessPolicy.php"
+            ],
+            "intensity": 4
+        }
+    ],
+    "difficulty": {
+        "score": 92,
+        "requires": [
+            "semantic_reasoning"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L05_semantic_equivalence/se_access_guard.json",
+        "version": "1.0.0",
+        "rng_seed": 50901
+    }
+}

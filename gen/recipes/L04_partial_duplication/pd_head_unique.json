@@ -1,0 +1,92 @@
+{
+    "level": 4,
+    "level_name": "partial_duplication",
+    "level_dir": "L04_partial_duplication",
+    "family": "pd_head_unique",
+    "sets": [
+        {
+            "set_id": "L04-pd_head_unique-001",
+            "title": "Partial clone with unique head (shared tail)",
+            "description": "The same computeTotals method where carrier B and C have unique head sections but share the tail. Type-3 clone with asymmetric shared region.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "schema_version": 2,
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "rng_seed": 104401,
+            "notes": "head_trim to create unique head, shared tail region.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "difficulty": {"complexity": 5, "partiality": "medium"},
+            "duplication": {"uniqueness_budget": {"min": 3, "max": 6}},
+            "carriers": [
+                {"file": "PristineInvoiceCalc.php", "namespace": "Acme\\Billing\\Pristine", "class": "PristineInvoiceCalc", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "HeadUniqueCalc.php", "namespace": "Acme\\Billing\\HeadUnique", "class": "HeadUniqueCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 4, "tail_trim": 0}}]},
+                {"file": "HeadUnique2Calc.php", "namespace": "Acme\\Billing\\HeadUnique2", "class": "HeadUnique2Calc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 5, "tail_trim": 0}}]}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss: same invoice vocabulary but computes margins"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L04-pd_head_unique-002",
+            "title": "Partial clone with larger unique head section",
+            "description": "Carrier B and C have larger unique head sections with only the core calculation logic shared.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "schema_version": 2,
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "rng_seed": 104402,
+            "notes": "Larger head_trim creating more unique content at start.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "difficulty": {"complexity": 5, "partiality": "medium"},
+            "duplication": {"uniqueness_budget": {"min": 5, "max": 8}},
+            "carriers": [
+                {"file": "PristineInvoiceCalc.php", "namespace": "Acme\\Billing\\Pristine", "class": "PristineInvoiceCalc", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "LargeHeadCalc.php", "namespace": "Acme\\Billing\\LargeHead", "class": "LargeHeadCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 6, "tail_trim": 0}}]},
+                {"file": "LargeHead2Calc.php", "namespace": "Acme\\Billing\\LargeHead2", "class": "LargeHead2Calc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 7, "tail_trim": 0}}]}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss: same invoice vocabulary but computes margins"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L04-pd_head_unique-003",
+            "title": "Partial clone using access_guard with unique head",
+            "description": "The same authorize method with unique head sections.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "schema_version": 2,
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "rng_seed": 104403,
+            "notes": "access_guard with head_trim for unique head.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "difficulty": {"complexity": 5, "partiality": "medium"},
+            "duplication": {"uniqueness_budget": {"min": 3, "max": 5}},
+            "carriers": [
+                {"file": "PristineAuthGuard.php", "namespace": "Acme\\Security\\Pristine", "class": "PristineAuthGuard", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "HeadUniqueAuth.php", "namespace": "Acme\\Security\\HeadUnique", "class": "HeadUniqueAuth", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 3, "tail_trim": 0}}]},
+                {"file": "HeadUnique2Auth.php", "namespace": "Acme\\Security\\HeadUnique2", "class": "HeadUnique2Auth", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 4, "tail_trim": 0}}]}
+            ],
+            "distractors": [
+                {"file": "AuditTrailService.php", "namespace": "Acme\\Security\\Audit", "class": "AuditTrailService", "source": "nearmiss_access", "reason": "near-miss: similar authorization vocabulary but performs auditing"}
+            ],
+            "cleans": [
+                {"file": "TokenValidationService.php", "namespace": "Acme\\Security\\Tokens", "class": "TokenValidationService", "source": "clean_auth"}
+            ]
+        }
+    ]
+}

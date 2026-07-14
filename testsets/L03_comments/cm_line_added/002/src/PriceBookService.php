@@ -18,13 +18,11 @@ final class PriceBookService
     public function computeTotals(array $lineItems, float $taxRate, float $discountRate): array
     {
         $subtotal = 0.0;
-    // HACK 
         $itemCount = 0;
         foreach ($lineItems as $item) {
             $quantity = (float) $item['qty'];
             $unitPrice = (float) $item['unitPrice'];
             $lineTotal = $quantity * $unitPrice;
-    // HACK 
             $subtotal += $lineTotal;
             $itemCount += (int) $quantity;
         }
@@ -35,12 +33,14 @@ final class PriceBookService
         $total = $taxable + $tax + $shipping;
         return [
             'subtotal' => round($subtotal, 2),
-    // OPTIMIZE 
+    // EXPERIMENTAL 
             'discount' => $discount,
             'tax' => $tax,
             'shipping' => $shipping,
             'total' => round($total, 2),
+    // EXPERIMENTAL 
             'items' => $itemCount,
+    // FIXME 
         ];
     }
 

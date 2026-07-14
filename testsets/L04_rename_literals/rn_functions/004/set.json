@@ -58,7 +58,8 @@
             },
             "applied_to": [
                 "src/RenamedCalc.php"
-            ]
+            ],
+            "intensity": 2
         },
         {
             "code": "RN-03",
@@ -68,7 +69,8 @@
             },
             "applied_to": [
                 "src/FullyRenamedCalc.php"
-            ]
+            ],
+            "intensity": 2
         }
     ],
     "difficulty": {

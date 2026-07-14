@@ -51,8 +51,8 @@
     "non_duplicates": [
         {
             "file": "src/RowWidthProfiler.php",
-            "start_line": 12,
-            "end_line": 26,
+            "start_line": 9,
+            "end_line": 78,
             "reason": "near-miss: same CSV vocabulary and foreach-over-columns shape, but builds a column-width histogram — a different result",
             "trap": true
         }

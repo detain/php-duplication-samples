@@ -1,0 +1,224 @@
+{
+    "schema_version": 2,
+    "set_id": "L04-ct_ratio_varied-003",
+    "level": 4,
+    "level_name": "partial_duplication",
+    "family": "ct_ratio_varied",
+    "title": "Extreme ratio difference within same set",
+    "description": "One cluster nearly exact, another severely fragmented.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "invoice_totals",
+    "difficulty_band": "medium",
+    "files": [
+        {
+            "path": "src/ExactA.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 39,
+            "region_sloc": {
+                "sloc": 25,
+                "duplicate": 25,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/ExactB.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 43,
+            "region_sloc": {
+                "sloc": 24,
+                "duplicate": 24,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/ExactC.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 42,
+            "region_sloc": {
+                "sloc": 24,
+                "duplicate": 24,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/FragA.php",
+            "role": "carrier",
+            "duplicate_group": "B",
+            "sloc": 39,
+            "region_sloc": {
+                "sloc": 25,
+                "duplicate": 25,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/FragB.php",
+            "role": "carrier",
+            "duplicate_group": "B",
+            "sloc": 26,
+            "region_sloc": {
+                "sloc": 7,
+                "duplicate": 7,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/FragC.php",
+            "role": "carrier",
+            "duplicate_group": "B",
+            "sloc": 25,
+            "region_sloc": {
+                "sloc": 7,
+                "duplicate": 7,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/DistExact.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 30
+        },
+        {
+            "path": "src/DistFrag.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 30
+        },
+        {
+            "path": "src/CleanExact.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        },
+        {
+            "path": "src/CleanFrag.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-3",
+        "granularity": "method",
+        "clusters": 2,
+        "instances": 6
+    },
+    "interference": [
+        {
+            "code": "ST-07",
+            "name": "partial_fragment",
+            "params": {
+                "head_trim": 0,
+                "tail_trim": 1
+            },
+            "applied_to": [
+                "src/ExactB.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "ST-07",
+            "name": "partial_fragment",
+            "params": {
+                "head_trim": 1,
+                "tail_trim": 0
+            },
+            "applied_to": [
+                "src/ExactC.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "ST-07",
+            "name": "partial_fragment",
+            "params": {
+                "head_trim": 9,
+                "tail_trim": 9
+            },
+            "applied_to": [
+                "src/FragB.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "ST-07",
+            "name": "partial_fragment",
+            "params": {
+                "head_trim": 10,
+                "tail_trim": 8
+            },
+            "applied_to": [
+                "src/FragC.php"
+            ],
+            "intensity": 3
+        }
+    ],
+    "difficulty": {
+        "score": 42,
+        "requires": [
+            "ast_canonicalization",
+            "deadcode_elimination"
+        ],
+        "score_raw": 42,
+        "axes": {
+            "breadth": 1,
+            "intensity": 3,
+            "intensity_max": 3,
+            "semantic_depth": 0,
+            "partiality": 1
+        },
+        "application_count": 4,
+        "axis_count": 1
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L04_partial_duplication/ct_ratio_varied.json",
+        "version": "2.0.0",
+        "rng_seed": 105503
+    },
+    "interference_profile": {
+        "axis_count": 1,
+        "per_carrier_axes": {
+            "src/ExactB.php": [
+                "ST-07"
+            ],
+            "src/ExactC.php": [
+                "ST-07"
+            ],
+            "src/FragB.php": [
+                "ST-07"
+            ],
+            "src/FragC.php": [
+                "ST-07"
+            ]
+        },
+        "groups_touched": [
+            "A",
+            "B"
+        ],
+        "stack_depth_max": 1,
+        "symmetric_overlap": 1,
+        "pairwise_overlap": 1,
+        "combination_design": "structural_only"
+    },
+    "engine_features": [
+        "multi_cluster"
+    ],
+    "role_composition": {
+        "carrier": 6,
+        "distractor": 2,
+        "clean": 2
+    }
+}

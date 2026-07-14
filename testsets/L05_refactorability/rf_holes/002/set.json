@@ -1,0 +1,93 @@
+{
+    "schema_version": 2,
+    "set_id": "L05-rf_holes-002",
+    "level": 5,
+    "level_name": "refactorability",
+    "family": "rf_holes",
+    "title": "Cache manager with validation, TTL handling, and serialization holes",
+    "description": "Three cache classes with identical get/set methods that can be unified. The unified solution has deliberate gaps in validation, TTL bounds checking, and serialization handling.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "cache_manager",
+    "difficulty_band": "hard",
+    "files": [
+        {
+            "path": "src/MemcachedCache.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 60,
+            "region_sloc": {
+                "sloc": 46,
+                "duplicate": 46,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/RedisCache.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 65,
+            "region_sloc": {
+                "sloc": 46,
+                "duplicate": 46,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/FileCache.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 64,
+            "region_sloc": {
+                "sloc": 46,
+                "duplicate": 46,
+                "unique": 0,
+                "filler": 0
+            }
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-1",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [],
+    "difficulty": {
+        "score": 45,
+        "requires": [],
+        "score_raw": 45,
+        "axes": {
+            "breadth": 0,
+            "intensity": 0,
+            "intensity_max": 0,
+            "semantic_depth": 0,
+            "partiality": 1
+        },
+        "application_count": 0,
+        "axis_count": 0
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L05_refactorability/rf_holes.json",
+        "version": "2.0.0",
+        "rng_seed": 509102
+    },
+    "interference_profile": {
+        "axis_count": 0,
+        "per_carrier_axes": [],
+        "groups_touched": [
+            "A"
+        ],
+        "stack_depth_max": 0,
+        "symmetric_overlap": 0,
+        "pairwise_overlap": 0,
+        "combination_design": "minimal"
+    },
+    "engine_features": [
+        "intended_refactoring"
+    ]
+}

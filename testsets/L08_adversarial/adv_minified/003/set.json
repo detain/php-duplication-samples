@@ -1,0 +1,98 @@
+{
+    "schema_version": 1,
+    "set_id": "L08-adv_minified-003",
+    "level": 8,
+    "level_name": "adversarial",
+    "family": "adv_minified",
+    "title": "Minified: Multiple whitespace transforms combined",
+    "description": "Tests heavily minified code with multiple whitespace transforms.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "rate_limiter",
+    "difficulty_band": "expert",
+    "files": [
+        {
+            "path": "src/LimitCheckerA.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 47
+        },
+        {
+            "path": "src/LimitCheckerB.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 52
+        },
+        {
+            "path": "src/LimitCheckerC.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 51
+        },
+        {
+            "path": "src/Throttler.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 15
+        },
+        {
+            "path": "src/Counter.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 15
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-1",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "WS-04",
+            "name": "operator_spacing",
+            "params": {
+                "style": "tight"
+            },
+            "applied_to": [
+                "src/LimitCheckerB.php",
+                "src/LimitCheckerC.php"
+            ],
+            "intensity": 1
+        },
+        {
+            "code": "WS-08",
+            "name": "tabs",
+            "params": {},
+            "applied_to": [
+                "src/LimitCheckerB.php",
+                "src/LimitCheckerC.php"
+            ],
+            "intensity": 1
+        },
+        {
+            "code": "WS-09",
+            "name": "trailing_space",
+            "params": {},
+            "applied_to": [
+                "src/LimitCheckerB.php",
+                "src/LimitCheckerC.php"
+            ],
+            "intensity": 1
+        }
+    ],
+    "difficulty": {
+        "score": 92,
+        "requires": [
+            "whitespace_normalization"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L08_adversarial/adv_minified.json",
+        "version": "1.0.0",
+        "rng_seed": 82403
+    }
+}

@@ -1,0 +1,139 @@
+{
+    "level": 14,
+    "level_name": "cross_language",
+    "level_dir": "L14_cross_language",
+    "family": "xl_template_mix",
+    "sets": [
+        {
+            "set_id": "L14-xl_template_mix-001",
+            "title": "PHP in HTML template context",
+            "description": "PHP code clones embedded in HTML template structure with LT-03 string transforms.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["literals"],
+            "rng_seed": 140301,
+            "notes": "L14: Cross-language PHP in HTML with LT-03.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.7, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["literal_abstraction"],
+            "carriers": [
+                {"file": "TemplateMixA.php", "namespace": "Acme\\Template\\Alpha", "class": "TemplateMixA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "TemplateMixB.php", "namespace": "Acme\\Template\\Beta", "class": "TemplateMixB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-03"}]}
+            ],
+            "distractors": [
+                {"file": "TemplateMixDistractor.php", "namespace": "Acme\\Template\\Distract", "class": "TemplateMixDistractor", "source": "nearmiss_invoice", "reason": "Near-miss: similar template logic"}
+            ],
+            "cleans": [
+                {"file": "TemplateMixClean.php", "namespace": "Acme\\Template\\Config", "class": "TemplateMixClean", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L14-xl_template_mix-002",
+            "title": "Template mix with RN-05 identifier rename",
+            "description": "Cross-language context with case convention rename in PHP blocks.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["identifiers"],
+            "rng_seed": 140302,
+            "notes": "L14: Template mix + RN-05 rename.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.65, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["identifier_canonicalization"],
+            "carriers": [
+                {"file": "TemplateMixA.php", "namespace": "Acme\\Template\\Alpha", "class": "TemplateMixA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "TemplateMixB.php", "namespace": "Acme\\Template\\Beta", "class": "TemplateMixB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-05"}]}
+            ],
+            "distractors": [
+                {"file": "TemplateMixDistractor.php", "namespace": "Acme\\Template\\Distract", "class": "TemplateMixDistractor", "source": "nearmiss_access", "reason": "Near-miss: similar auth template"}
+            ],
+            "cleans": [
+                {"file": "TemplateMixClean.php", "namespace": "Acme\\Template\\Config", "class": "TemplateMixClean", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L14-xl_template_mix-003",
+            "title": "Multi-carrier template cross-language",
+            "description": "Three PHP blocks in HTML templates with varied transforms.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["identifiers", "literals", "comments"],
+            "rng_seed": 140303,
+            "notes": "L14: Multi-carrier cross-language template mix.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 3},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["identifier_canonicalization", "literal_abstraction", "comment_stripping"],
+            "carriers": [
+                {"file": "TemplateMixA.php", "namespace": "Acme\\Template\\Alpha", "class": "TemplateMixA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "TemplateMixB.php", "namespace": "Acme\\Template\\Beta", "class": "TemplateMixB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-02"}]},
+                {"file": "TemplateMixC.php", "namespace": "Acme\\Template\\Gamma", "class": "TemplateMixC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "RN-05"}, {"code": "LT-01"}, {"code": "CM-01"}]}
+            ],
+            "distractors": [
+                {"file": "TemplateMixDistractor.php", "namespace": "Acme\\Template\\Distract", "class": "TemplateMixDistractor", "source": "nearmiss_invoice", "reason": "Near-miss: similar template"}
+            ],
+            "cleans": [
+                {"file": "TemplateMixClean.php", "namespace": "Acme\\Template\\Config", "class": "TemplateMixClean", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L14-xl_template_mix-004",
+            "title": "Template mix with ST-01 logging insertion",
+            "description": "Cross-language template with logging insertion in PHP block.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["identifiers"],
+            "rng_seed": 140304,
+            "notes": "L14: Template mix + ST-01 logging.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["identifier_canonicalization", "ast_canonicalization"],
+            "carriers": [
+                {"file": "TemplateMixA.php", "namespace": "Acme\\Template\\Alpha", "class": "TemplateMixA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "TemplateMixB.php", "namespace": "Acme\\Template\\Beta", "class": "TemplateMixB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-01"}]}
+            ],
+            "distractors": [
+                {"file": "TemplateMixDistractor.php", "namespace": "Acme\\Template\\Distract", "class": "TemplateMixDistractor", "source": "nearmiss_access", "reason": "Near-miss: similar auth template"}
+            ],
+            "cleans": [
+                {"file": "TemplateMixClean.php", "namespace": "Acme\\Template\\Config", "class": "TemplateMixClean", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L14-xl_template_mix-005",
+            "title": "Template mix with all literal transforms",
+            "description": "Cross-language PHP in HTML with all literal type transformations.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["literals"],
+            "rng_seed": 140305,
+            "notes": "L14: Template mix + LT-01 + LT-02 + LT-03 + LT-04.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.55, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["literal_abstraction"],
+            "carriers": [
+                {"file": "TemplateMixA.php", "namespace": "Acme\\Template\\Alpha", "class": "TemplateMixA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "TemplateMixB.php", "namespace": "Acme\\Template\\Beta", "class": "TemplateMixB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-01"}, {"code": "LT-02"}, {"code": "LT-03"}, {"code": "LT-04"}]}
+            ],
+            "distractors": [
+                {"file": "TemplateMixDistractor.php", "namespace": "Acme\\Template\\Distract", "class": "TemplateMixDistractor", "source": "nearmiss_invoice", "reason": "Near-miss: similar template"}
+            ],
+            "cleans": [
+                {"file": "TemplateMixClean.php", "namespace": "Acme\\Template\\Config", "class": "TemplateMixClean", "source": "clean_billing"}
+            ]
+        }
+    ]
+}

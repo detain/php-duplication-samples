@@ -1,0 +1,84 @@
+{
+    "schema_version": 1,
+    "set_id": "L08-sy_array_syntax-004",
+    "level": 8,
+    "level_name": "adversarial",
+    "family": "sy_array_syntax",
+    "title": "Array Syntax: Array destructuring",
+    "description": "Tests list() vs [] destructuring syntax.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "query_builder",
+    "difficulty_band": "expert",
+    "files": [
+        {
+            "path": "src/QueryBuilderA.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 54
+        },
+        {
+            "path": "src/QueryBuilderB.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 57
+        },
+        {
+            "path": "src/QueryBuilderC.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 58
+        },
+        {
+            "path": "src/Escaper.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 14
+        },
+        {
+            "path": "src/Compiler.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 14
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-1",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "SY-04",
+            "name": "array_to_short",
+            "params": {},
+            "applied_to": [
+                "src/QueryBuilderB.php"
+            ],
+            "intensity": 1
+        },
+        {
+            "code": "SY-09",
+            "name": "list_to_array_destructure",
+            "params": {},
+            "applied_to": [
+                "src/QueryBuilderC.php"
+            ],
+            "intensity": 2
+        }
+    ],
+    "difficulty": {
+        "score": 94,
+        "requires": [
+            "whitespace_normalization"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L08_adversarial/sy_array_syntax.json",
+        "version": "1.0.0",
+        "rng_seed": 81404
+    }
+}

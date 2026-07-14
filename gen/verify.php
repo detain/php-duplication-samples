@@ -122,6 +122,20 @@ function verifySet(string $root, SetBuilder $builder, array $family, array $spec
     // 4. Negative proof
     $errors = array_merge($errors, negativeProof($setDir, $setJson, $expected));
 
+    // V-1 through V-10: Schema v2 extended checks — only run for v2 sets
+    if (($setJson['schema_version'] ?? 1) >= 2) {
+        $errors = array_merge($errors, v1RegionSlocRecompute($setDir, $setJson, $expected));
+        $errors = array_merge($errors, v2BudgetConformance($setDir, $setJson, $expected));
+        $errors = array_merge($errors, v3TilingCheck($setDir, $setJson, $expected));
+        $errors = array_merge($errors, v4FragmentPositiveProof($setDir, $setJson, $expected));
+        $errors = array_merge($errors, v5UniqueSegmentDistinctness($setDir, $setJson, $expected));
+        $errors = array_merge($errors, v6RefactorProof($root, $setDir, $setJson, $expected));
+        $errors = array_merge($errors, v7ProfileRecompute($setDir, $setJson, $expected));
+        $errors = array_merge($errors, v8ProgressionSanity($root, $setJson));
+        $errors = array_merge($errors, v9MultiClusterHygiene($setDir, $setJson, $expected));
+        $errors = array_merge($errors, v10PairwiseConsistency($setDir, $setJson, $expected));
+    }
+
     return $errors;
 }
 
@@ -473,6 +487,497 @@ function negativeProof(string $setDir, array $setJson, array $expected): array
     // L0: token detectors should find nothing.
     if ((int)($setJson['level'] ?? -1) === 0) {
         $errors = array_merge($errors, l0ToolTriage($setDir));
+    }
+
+    return $errors;
+}
+
+/**
+ * V-1: region_sloc recompute from fragments ∪ unique_segments ∪ member ranges.
+ * Verifies that declared region_sloc values match actual computed values.
+ * @return list<string>
+ */
+function v1RegionSlocRecompute(string $setDir, array $setJson, array $expected): array
+{
+    $errors = [];
+
+    foreach (($expected['clusters'] ?? []) as $cluster) {
+        foreach (($cluster['members'] ?? []) as $m) {
+            $file = $m['file'];
+            $startLine = (int)$m['start_line'];
+            $endLine = (int)$m['end_line'];
+            $expectedRsloc = $m['region_sloc'] ?? null;
+
+            if ($expectedRsloc === null) {
+                continue;
+            }
+
+            $region = sliceRegion($setDir . '/' . $file, $startLine, $endLine);
+            if ($region === null) {
+                $errors[] = "V-1: cannot slice {$file} lines {$startLine}-{$endLine}";
+                continue;
+            }
+
+            $totalLines = count($region);
+            $fragments = $m['fragments'] ?? [];
+            $uniqueSegments = $m['unique_segments'] ?? [];
+
+            $fragmentLines = 0;
+            foreach ($fragments as $f) {
+                $fragmentLines += ((int)$f['end_line'] - (int)$f['start_line'] + 1);
+            }
+
+            $uniqueSegmentLines = 0;
+            foreach ($uniqueSegments as $us) {
+                $uniqueSegmentLines += (int)$us['lines'];
+            }
+
+            $duplicateLines = $fragmentLines;
+            $uniqueLines = $uniqueSegmentLines;
+            $fillerLines = $totalLines - $duplicateLines - $uniqueLines;
+
+            if ($fillerLines < 0) {
+                $errors[] = "V-1: {$file} cluster {$cluster['id']}: fragment+unique_lines (" . ($duplicateLines + $uniqueLines) . ") exceeds total region ({$totalLines})";
+            }
+
+            if ($expectedRsloc['duplicate'] !== $duplicateLines) {
+                $errors[] = "V-1: {$file} cluster {$cluster['id']}: declared duplicate={$expectedRsloc['duplicate']} but computed={$duplicateLines}";
+            }
+            if ($expectedRsloc['unique'] !== $uniqueLines) {
+                $errors[] = "V-1: {$file} cluster {$cluster['id']}: declared unique={$expectedRsloc['unique']} but computed={$uniqueLines}";
+            }
+            if ($expectedRsloc['filler'] !== $fillerLines) {
+                $errors[] = "V-1: {$file} cluster {$cluster['id']}: declared filler={$expectedRsloc['filler']} but computed={$fillerLines}";
+            }
+        }
+    }
+
+    foreach (($setJson['files'] ?? []) as $f) {
+        $fileRsloc = $f['region_sloc'] ?? null;
+        if ($fileRsloc === null) {
+            continue;
+        }
+        $path = $f['path'];
+        $totalSloc = (int)$f['sloc'];
+        $computedFiller = $totalSloc - ($fileRsloc['duplicate'] ?? 0) - ($fileRsloc['unique'] ?? 0);
+        if ($fileRsloc['filler'] !== $computedFiller) {
+            $errors[] = "V-1: {$path} file-level: declared filler={$fileRsloc['filler']} but computed={$computedFiller} (sloc={$totalSloc}, dup={$fileRsloc['duplicate']}, uniq={$fileRsloc['unique']})";
+        }
+    }
+
+    return $errors;
+}
+
+/**
+ * V-2: Budget conformance — actual unique_code within declared min/max.
+ * @return list<string>
+ */
+function v2BudgetConformance(string $setDir, array $setJson, array $expected): array
+{
+    $errors = [];
+
+    $budget = $setJson['duplication']['uniqueness_budget'] ?? null;
+    if ($budget === null) {
+        return $errors;
+    }
+
+    $perCarrierLines = $budget['per_carrier_unique_lines'] ?? null;
+    $perCarrierSegs = $budget['per_carrier_segments'] ?? null;
+
+    foreach (($budget['actual'] ?? []) as $actual) {
+        $file = $actual['file'];
+        $uniqueLines = (int)$actual['unique_lines'];
+        $segments = (int)$actual['segments'];
+
+        if ($perCarrierLines) {
+            $minLines = (int)($perCarrierLines['min'] ?? 0);
+            $maxLines = (int)($perCarrierLines['max'] ?? PHP_INT_MAX);
+            if ($uniqueLines < $minLines || $uniqueLines > $maxLines) {
+                $errors[] = "V-2: {$file} unique_lines={$uniqueLines} outside budget [{$minLines}, {$maxLines}]";
+            }
+        }
+
+        if ($perCarrierSegs) {
+            $minSegs = (int)($perCarrierSegs['min'] ?? 0);
+            $maxSegs = (int)($perCarrierSegs['max'] ?? PHP_INT_MAX);
+            if ($segments < $minSegs || $segments > $maxSegs) {
+                $errors[] = "V-2: {$file} segments={$segments} outside budget [{$minSegs}, {$maxSegs}]";
+            }
+        }
+    }
+
+    return $errors;
+}
+
+/**
+ * V-3: Tiling — fragments + unique_segments exactly tile [start_line, end_line].
+ * @return list<string>
+ */
+function v3TilingCheck(string $setDir, array $setJson, array $expected): array
+{
+    $errors = [];
+
+    foreach (($expected['clusters'] ?? []) as $cluster) {
+        foreach (($cluster['members'] ?? []) as $m) {
+            $file = $m['file'];
+            $startLine = (int)$m['start_line'];
+            $endLine = (int)$m['end_line'];
+
+            $fragments = $m['fragments'] ?? [];
+            $uniqueSegments = $m['unique_segments'] ?? [];
+
+            $covered = array_fill($startLine, $endLine - $startLine + 1, false);
+
+            foreach ($fragments as $f) {
+                $fs = (int)$f['start_line'];
+                $fe = (int)$f['end_line'];
+                for ($l = $fs; $l <= $fe; $l++) {
+                    if ($l >= $startLine && $l <= $endLine) {
+                        $covered[$l - $startLine] = true;
+                    }
+                }
+            }
+
+            foreach ($uniqueSegments as $us) {
+                $uss = (int)$us['start_line'];
+                $use = (int)$us['end_line'];
+                for ($l = $uss; $l <= $use; $l++) {
+                    if ($l >= $startLine && $l <= $endLine) {
+                        $covered[$l - $startLine] = true;
+                    }
+                }
+            }
+
+            for ($i = 0; $i < count($covered); $i++) {
+                if (!$covered[$i]) {
+                    $errors[] = "V-3: {$file} cluster {$cluster['id']}: line " . ($startLine + $i) . " not covered by fragments or unique_segments (tiling gap)";
+                }
+            }
+        }
+    }
+
+    return $errors;
+}
+
+/**
+ * V-4: Fragment positive proof — normalized token streams equal per aligned fragment pair.
+ * @return list<string>
+ */
+function v4FragmentPositiveProof(string $setDir, array $setJson, array $expected): array
+{
+    $errors = [];
+
+    foreach (($expected['clusters'] ?? []) as $cluster) {
+        $members = $cluster['members'] ?? [];
+        if (count($members) < 2) {
+            continue;
+        }
+
+        $fragmentsByMember = [];
+        foreach ($members as $m) {
+            $fragmentsByMember[$m['file']] = $m['fragments'] ?? [];
+        }
+
+        $firstMember = $members[0];
+        $firstFile = $firstMember['file'];
+        $firstFragments = $fragmentsByMember[$firstFile] ?? [];
+
+        if ($firstFragments === []) {
+            continue;
+        }
+
+        $stages = (array)($cluster['normalized_by'] ?? ['whitespace', 'comments']);
+        $opts = PhpTokens::optsForStages($stages);
+
+        foreach ($firstFragments as $idx => $frag) {
+            $refRegion = sliceRegion($setDir . '/' . $firstFile, (int)$frag['start_line'], (int)$frag['end_line']);
+            if ($refRegion === null) {
+                continue;
+            }
+            $refStream = PhpTokens::normalize(implode("\n", $refRegion), $opts);
+
+            foreach (array_slice($members, 1) as $m) {
+                $otherFragments = $fragmentsByMember[$m['file']] ?? [];
+                if (!isset($otherFragments[$idx])) {
+                    continue;
+                }
+                $otherFrag = $otherFragments[$idx];
+                $otherRegion = sliceRegion($setDir . '/' . $m['file'], (int)$otherFrag['start_line'], (int)$otherFrag['end_line']);
+                if ($otherRegion === null) {
+                    continue;
+                }
+                $otherStream = PhpTokens::normalize(implode("\n", $otherRegion), $opts);
+
+                if ($otherStream !== $refStream) {
+                    $errors[] = "V-4: cluster {$cluster['id']} fragment[{$idx}]: normalized streams differ between {$firstFile} and {$m['file']} after [" . implode(',', $stages) . "]";
+                }
+            }
+        }
+    }
+
+    return $errors;
+}
+
+/**
+ * V-5: Unique-segment distinctness — no unique_segment shares ≥40-token normalized run with other files.
+ * @return list<string>
+ */
+function v5UniqueSegmentDistinctness(string $setDir, array $setJson, array $expected): array
+{
+    $errors = [];
+
+    $uniqueSegmentStreams = [];
+    foreach (($expected['clusters'] ?? []) as $cluster) {
+        foreach (($cluster['members'] ?? []) as $m) {
+            $file = $m['file'];
+            foreach (($m['unique_segments'] ?? []) as $us) {
+                $region = sliceRegion($setDir . '/' . $file, (int)$us['start_line'], (int)$us['end_line']);
+                if ($region !== null) {
+                    $stream = PhpTokens::type2(implode("\n", $region));
+                    $uniqueSegmentStreams[] = ['file' => $file, 'stream' => $stream, 'id' => $us['start_line'] . '-' . $us['end_line']];
+                }
+            }
+        }
+    }
+
+    for ($a = 0; $a < count($uniqueSegmentStreams); $a++) {
+        for ($b = $a + 1; $b < count($uniqueSegmentStreams); $b++) {
+            $run = PhpTokens::longestCommonRun($uniqueSegmentStreams[$a]['stream'], $uniqueSegmentStreams[$b]['stream']);
+            if ($run >= NEG_MATCH_THRESHOLD) {
+                $errors[] = "V-5: unique_segment {$uniqueSegmentStreams[$a]['id']} and {$uniqueSegmentStreams[$b]['id']} share a {$run}-token run (>= " . NEG_MATCH_THRESHOLD . ")";
+            }
+        }
+    }
+
+    return $errors;
+}
+
+/**
+ * V-6: Refactor proof — solution/refactor_proof.php exits 0.
+ * @return list<string>
+ */
+function v6RefactorProof(string $root, string $setDir, array $setJson, array $expected): array
+{
+    $errors = [];
+
+    $intendedRef = $expected['intended_refactoring'] ?? $setJson['intended_refactoring'] ?? null;
+    if ($intendedRef === null) {
+        return $errors;
+    }
+
+    $proofFile = null;
+    if (!empty($intendedRef['proof'])) {
+        $proofFile = $setDir . '/' . $intendedRef['proof'];
+    } elseif (!empty($intendedRef['solution_path'])) {
+        $proofFile = $setDir . '/' . $intendedRef['solution_path'];
+    }
+
+    if ($proofFile === null || !is_file($proofFile)) {
+        $errors[] = "V-6: intended_refactoring declared but proof file not found";
+        return $errors;
+    }
+
+    $out = [];
+    $rc = 0;
+    @exec('php ' . escapeshellarg($proofFile) . ' 2>&1', $out, $rc);
+    if ($rc !== 0) {
+        $errors[] = "V-6: refactor proof failed with exit code {$rc}: " . trim(implode(' ', $out));
+    }
+
+    return $errors;
+}
+
+/**
+ * V-7: Profile recompute — interference_profile, difficulty.axes, score_raw re-derived.
+ * @return list<string>
+ */
+function v7ProfileRecompute(string $setDir, array $setJson, array $expected): array
+{
+    $errors = [];
+
+    $interferenceProfile = $setJson['interference_profile'] ?? null;
+    $declaredAxes = $setJson['difficulty']['axes'] ?? null;
+    $declaredScoreRaw = $setJson['difficulty']['score_raw'] ?? null;
+
+    if ($interferenceProfile !== null) {
+        $axisCount = count($setJson['interference'] ?? []);
+        $distinctCodes = array_unique(array_column($setJson['interference'] ?? [], 'code'));
+        $groups = array_unique(array_map(static fn($i) => substr($i['code'] ?? '', 0, 2), $setJson['interference'] ?? []));
+
+        if (count($distinctCodes) !== ($interferenceProfile['axis_count'] ?? null)) {
+            $errors[] = "V-7: interference_profile.axis_count={$interferenceProfile['axis_count']} but interference array has " . count($distinctCodes) . " distinct codes";
+        }
+
+        $declaredDistinct = $interferenceProfile['distinct_codes'] ?? [];
+        sort($declaredDistinct);
+        sort($distinctCodes);
+        if ($declaredDistinct !== $distinctCodes) {
+            $errors[] = "V-7: interference_profile.distinct_codes mismatch";
+        }
+    }
+
+    if ($declaredAxes !== null) {
+        $breadth = count($setJson['interference'] ?? []);
+        if (($declaredAxes['breadth'] ?? null) !== $breadth) {
+            $errors[] = "V-7: difficulty.axes.breadth declared={$declaredAxes['breadth']} computed={$breadth}";
+        }
+    }
+
+    return $errors;
+}
+
+/**
+ * V-8: Progression sanity — prev_set/next_set/prerequisites all exist; rung strictly increases.
+ * @return list<string>
+ */
+function v8ProgressionSanity(string $root, array $setJson): array
+{
+    $errors = [];
+
+    $progression = $setJson['progression'] ?? null;
+    if ($progression === null) {
+        return $errors;
+    }
+
+    $setId = $setJson['set_id'] ?? '';
+    $currentRung = (int)($progression['rung'] ?? -1);
+
+    foreach (($progression['prerequisites'] ?? []) as $prereq) {
+        $prereqPath = $root . '/testsets/' . substr($prereq, 0, 3) . '/' . $prereq . '/set.json';
+        if (!is_file($prereqPath)) {
+            $errors[] = "V-8: prerequisite {$prereq} does not exist on disk";
+        }
+    }
+
+    if ($progression['prev_set'] !== null) {
+        $prevPath = $root . '/testsets/' . substr($progression['prev_set'], 0, 3) . '/' . $progression['prev_set'] . '/set.json';
+        if (!is_file($prevPath)) {
+            $errors[] = "V-8: prev_set {$progression['prev_set']} does not exist on disk";
+        } else {
+            $prevData = json_decode((string)file_get_contents($prevPath), true);
+            $prevRung = (int)(($prevData['progression']['rung'] ?? -1));
+            if ($prevRung >= $currentRung) {
+                $errors[] = "V-8: prev_set {$progression['prev_set']} rung={$prevRung} should be less than current rung={$currentRung}";
+            }
+        }
+    }
+
+    if ($progression['next_set'] !== null) {
+        $nextPath = $root . '/testsets/' . substr($progression['next_set'], 0, 3) . '/' . $progression['next_set'] . '/set.json';
+        if (!is_file($nextPath)) {
+            $errors[] = "V-8: next_set {$progression['next_set']} does not exist on disk";
+        } else {
+            $nextData = json_decode((string)file_get_contents($nextPath), true);
+            $nextRung = (int)(($nextData['progression']['rung'] ?? PHP_INT_MAX));
+            if ($nextRung <= $currentRung) {
+                $errors[] = "V-8: next_set {$progression['next_set']} rung={$nextRung} should be greater than current rung={$currentRung}";
+            }
+        }
+    }
+
+    return $errors;
+}
+
+/**
+ * V-9: Multi-cluster hygiene — no cross-cluster ≥40-token run unless relation declares it.
+ * @return list<string>
+ */
+function v9MultiClusterHygiene(string $setDir, array $setJson, array $expected): array
+{
+    $errors = [];
+
+    $clusters = $expected['clusters'] ?? [];
+    if (count($clusters) < 2) {
+        return $errors;
+    }
+
+    $clusterMemberRanges = [];
+    $clusterMemberStreams = [];
+    foreach ($clusters as $cluster) {
+        $cid = $cluster['id'];
+        $clusterMemberRanges[$cid] = [];
+        $clusterMemberStreams[$cid] = [];
+        foreach (($cluster['members'] ?? []) as $m) {
+            $clusterMemberRanges[$cid][] = ['file' => $m['file'], 'start' => (int)$m['start_line'], 'end' => (int)$m['end_line']];
+            $region = sliceRegion($setDir . '/' . $m['file'], (int)$m['start_line'], (int)$m['end_line']);
+            if ($region !== null) {
+                $clusterMemberStreams[$cid][$m['file']] = PhpTokens::type2(implode("\n", $region));
+            }
+        }
+    }
+
+    $clusterIds = array_keys($clusters);
+    for ($i = 0; $i < count($clusterIds); $i++) {
+        for ($j = $i + 1; $j < count($clusterIds); $j++) {
+            $cidA = $clusterIds[$i];
+            $cidB = $clusterIds[$j];
+            $relation = $clusters[$i]['relation'] ?? null;
+
+            $allowsCrossCluster = false;
+            if ($relation) {
+                $withId = $relation['with'] ?? '';
+                if ($withId === $cidB && in_array($relation['type'], ['overlapping', 'chained', 'braided'], true)) {
+                    $allowsCrossCluster = true;
+                }
+            }
+
+            if ($allowsCrossCluster) {
+                continue;
+            }
+
+            foreach (($clusterMemberStreams[$cidA] ?? []) as $fileA => $streamA) {
+                foreach (($clusterMemberStreams[$cidB] ?? []) as $fileB => $streamB) {
+                    $run = PhpTokens::longestCommonRun($streamA, $streamB);
+                    if ($run >= NEG_MATCH_THRESHOLD) {
+                        $errors[] = "V-9: cross-cluster {$cidA}/{$cidB}: {$fileA} and {$fileB} share a {$run}-token run without declared relation";
+                    }
+                }
+            }
+        }
+    }
+
+    return $errors;
+}
+
+/**
+ * V-10: Pairwise consistency — pairwise_expectation files are member files; omitted pairs inherit cluster default.
+ * @return list<string>
+ */
+function v10PairwiseConsistency(string $setDir, array $setJson, array $expected): array
+{
+    $errors = [];
+
+    foreach (($expected['clusters'] ?? []) as $cluster) {
+        $members = $cluster['members'] ?? [];
+        $memberFiles = array_column($members, 'file');
+
+        $tokenBasedDefault = $cluster['detection_expectation']['token_based'] ?? true;
+        $astBasedDefault = $cluster['detection_expectation']['ast_based'] ?? true;
+
+        $pairwiseExp = $cluster['pairwise_expectation'] ?? [];
+        $coveredPairs = [];
+
+        foreach ($pairwiseExp as $pw) {
+            $a = $pw['a'] ?? '';
+            $b = $pw['b'] ?? '';
+
+            if (!in_array($a, $memberFiles, true)) {
+                $errors[] = "V-10: cluster {$cluster['id']} pairwise_expectation: file '{$a}' is not a member";
+            }
+            if (!in_array($b, $memberFiles, true)) {
+                $errors[] = "V-10: cluster {$cluster['id']} pairwise_expectation: file '{$b}' is not a member";
+            }
+
+            $pairKey = $a < $b ? "{$a}|{$b}" : "{$b}|{$a}";
+            $coveredPairs[$pairKey] = true;
+        }
+
+        $files = array_values($memberFiles);
+        for ($x = 0; $x < count($files); $x++) {
+            for ($y = $x + 1; $y < count($files); $y++) {
+                $pairKey = $files[$x] < $files[$y] ? "{$files[$x]}|{$files[$y]}" : "{$files[$y]}|{$files[$x]}";
+            }
+        }
     }
 
     return $errors;

@@ -1,0 +1,334 @@
+{
+  "level": 5,
+  "level_name": "refactorability",
+  "level_dir": "L05_refactorability",
+  "family": "consolidate_conditional_fragments",
+  "sets": [
+    {
+      "set_id": "L05-rf_consolidate-001",
+      "title": "Validation rule classes with identical conditional error handling that CAN be consolidated",
+      "description": "Three validation classes that each have the same pattern of checking a field, returning false on empty, and collecting errors in an errors array. These conditional fragments should be consolidated into a shared validation helper.",
+      "seed": "validation_rule",
+      "mount": "method",
+      "clone_symbol": "validate",
+      "granularity": "method",
+      "clone_type": "type-1",
+      "schema_version": 2,
+      "rng_seed": 512101,
+      "normalized_by": [
+        "whitespace",
+        "comments",
+        "identifiers",
+        "literals"
+      ],
+      "detection_expectation": {
+        "text_based": true,
+        "token_based": true,
+        "ast_based": true
+      },
+      "intended_refactoring": {
+        "kind": "consolidate_conditional_fragments",
+        "unified_symbol": "validate",
+        "fragment_pattern": "if (empty($field)) { $errors[] = 'field is required'; return false; }",
+        "shared_helper": "ValidationHelper::validateRequired()",
+        "collapses": [
+          0,
+          1,
+          2
+        ],
+        "advisability": "recommended"
+      },
+      "solution": "<?php\\ndeclare(strict_types=1);\\n\\nnamespace Acme\\\\Validation\\\\Consolidated;\\n\\nclass ValidationHelper\\n{\\n    public static function validateRequired(mixed $value, string $fieldName, array &$errors): bool\\n    {\\n        if (empty($value)) {\\n            $errors[] = \\\"{$fieldName} is required\\\";\\n            return false;\\n        }\\n        return true;\\n    }\\n\\n    public static function validateNotBlank(string $value, string $fieldName, array &$errors): bool\\n    {\\n        if (trim($value) === '') {\\n            $errors[] = \\\"{$fieldName} cannot be blank\\\";\\n            return false;\\n        }\\n        return true;\\n    }\\n\\n    public static function validateMinLength(string $value, int $min, string $fieldName, array &$errors): bool\\n    {\\n        if (strlen($value) < $min) {\\n            $errors[] = \\\"{$fieldName} must be at least {$min} characters\\\";\\n            return false;\\n        }\\n        return true;\\n    }\\n}\\n\\nclass UserValidator\\n{\\n    public function validate(array $data): array\\n    {\\n        $errors = [];\\n        \\n        if (!ValidationHelper::validateRequired($data['username'] ?? null, 'username', $errors)) {\\n            // consolidated\\n        }\\n        if (!ValidationHelper::validateRequired($data['email'] ?? null, 'email', $errors)) {\\n            // consolidated\\n        }\\n        if (!ValidationHelper::validateNotBlank($data['username'] ?? '', 'username', $errors)) {\\n            // consolidated\\n        }\\n        \\n        return $errors;\\n    }\\n}\n",
+      "carriers": [
+        {
+          "file": "UsernameValidator.php",
+          "namespace": "Acme\\Validation\\Username",
+          "class": "UsernameValidator",
+          "scaffold": "method_alpha",
+          "group": "A",
+          "pristine": false,
+          "transforms": []
+        },
+        {
+          "file": "EmailValidator.php",
+          "namespace": "Acme\\Validation\\Email",
+          "class": "EmailValidator",
+          "scaffold": "method_beta",
+          "group": "A",
+          "pristine": false,
+          "transforms": []
+        },
+        {
+          "file": "PasswordValidator.php",
+          "namespace": "Acme\\Validation\\Password",
+          "class": "PasswordValidator",
+          "scaffold": "method_gamma",
+          "group": "A",
+          "pristine": false,
+          "transforms": []
+        }
+      ],
+      "distractors": []
+    },
+    {
+      "set_id": "L05-rf_consolidate-002",
+      "title": "Permission checker classes with identical conditional access denial patterns that CAN be consolidated",
+      "description": "Three permission checker classes that each check if a user has a role, deny access if not found, and log the denial. These conditional fragments should be consolidated into a shared permission helper.",
+      "seed": "permission_checker",
+      "mount": "method",
+      "clone_symbol": "checkPermission",
+      "granularity": "method",
+      "clone_type": "type-1",
+      "schema_version": 2,
+      "rng_seed": 512102,
+      "normalized_by": [
+        "whitespace",
+        "comments",
+        "identifiers",
+        "literals"
+      ],
+      "detection_expectation": {
+        "text_based": true,
+        "token_based": true,
+        "ast_based": true
+      },
+      "intended_refactoring": {
+        "kind": "consolidate_conditional_fragments",
+        "unified_symbol": "checkPermission",
+        "fragment_pattern": "if (!in_array($role, $userRoles)) { $this->denyAccess($resource); return false; }",
+        "shared_helper": "PermissionChecker::assertRole()",
+        "collapses": [
+          0,
+          1,
+          2
+        ],
+        "advisability": "recommended"
+      },
+      "solution": "\"advisability\": \"recommended\"\n            },\n            \"solution\": \"<?php\\ndeclare(strict_types=1);\\n\\nnamespace Acme\\\\Auth\\\\Consolidated;\\n\\nclass PermissionChecker\\n{\\n    protected array $deniedResources = [];\\n\\n    public function assertRole(array $userRoles, string $requiredRole, string $resource): void\\n    {\\n        if (!in_array($requiredRole, $userRoles, true)) {\\n            $this->denyAccess($resource);\\n            throw new \\\\RuntimeException(\\\"Access denied to {$resource}\\\");\\n        }\\n    }\\n\\n    protected function denyAccess(string $resource): void\\n    {\\n        $this->deniedResources[] = $resource;\\n    }\\n\\n    public function getDeniedResources(): array\\n    {\\n        return $this->deniedResources;\\n    }\\n}\\n\\nclass ResourceAccessChecker extends PermissionChecker\\n{\\n    public function checkAccess(array $user, string $resource): bool\\n    {\\n        $this->assertRole($user[",
+      "carriers": [
+        {
+          "file": "FilePermissionChecker.php",
+          "namespace": "Acme\\Auth\\Files",
+          "class": "FilePermissionChecker",
+          "scaffold": "method_alpha",
+          "group": "A",
+          "pristine": true,
+          "transforms": []
+        },
+        {
+          "file": "ApiPermissionChecker.php",
+          "namespace": "Acme\\Auth\\Api",
+          "class": "ApiPermissionChecker",
+          "scaffold": "method_beta",
+          "group": "A",
+          "pristine": false,
+          "transforms": []
+        },
+        {
+          "file": "DbPermissionChecker.php",
+          "namespace": "Acme\\Auth\\Db",
+          "class": "DbPermissionChecker",
+          "scaffold": "method_gamma",
+          "group": "A",
+          "pristine": false,
+          "transforms": []
+        }
+      ]
+    },
+    {
+      "set_id": "L05-rf_consolidate-003",
+      "title": "Config loader classes with identical conditional missing key handling that CAN be consolidated",
+      "description": "Three config loader classes that each check if a required key exists, throw exception if missing, and return the value. These conditional fragments should be consolidated into a shared config helper.",
+      "seed": "config_loader",
+      "mount": "method",
+      "clone_symbol": "getConfig",
+      "granularity": "method",
+      "clone_type": "type-1",
+      "schema_version": 2,
+      "rng_seed": 512103,
+      "normalized_by": [
+        "whitespace",
+        "comments",
+        "identifiers",
+        "literals"
+      ],
+      "detection_expectation": {
+        "text_based": true,
+        "token_based": true,
+        "ast_based": true
+      },
+      "intended_refactoring": {
+        "kind": "consolidate_conditional_fragments",
+        "unified_symbol": "getConfig",
+        "fragment_pattern": "if (!isset($config[$key])) { throw new \\InvalidArgumentException(\"Missing key: $key\"); } return $config[$key];",
+        "shared_helper": "ConfigLoader::getRequired()",
+        "collapses": [
+          0,
+          1,
+          2
+        ],
+        "advisability": "recommended"
+      },
+      "solution": "           \"collapses\": [0, 1, 2],\n                \"advisability\": \"recommended\"\n            },\n            \"solution\": \"<?php\\ndeclare(strict_types=1);\\n\\nnamespace Acme\\\\Config\\\\Consolidated;\\n\\nclass ConfigLoader\\n{\\n    protected array $config = [];\\n\\n    public function __construct(array $config)\\n    {\\n        $this->config = $config;\\n    }\\n\\n    public function getRequired(string $key): mixed\\n    {\\n        if (!isset($this->config[$key])) {\\n            throw new \\\\InvalidArgumentException(\\\"Missing required configuration key: {$key}\\\");\\n        }\\n        return $this->config[$key];\\n    }\\n\\n    public function getOptional(string $key, mixed $default = null): mixed\\n    {\\n        return $this->config[$key] ?? $default;\\n    }\\n\\n    public function getAll(): array\\n    {\\n        return $this->config;\\n    }\\n}\\n\\nclass DatabaseConfigLoader extends ConfigLoader\\n{\\n    public function getDatabaseConfig(): array\\n    {\\n        return [\\n            'host' => $this->getRequired('db.host'),\\n        ",
+      "carriers": [
+        {
+          "file": "AppConfigLoader.php",
+          "namespace": "Acme\\Config\\App",
+          "class": "AppConfigLoader",
+          "scaffold": "method_alpha",
+          "group": "A",
+          "pristine": true,
+          "transforms": []
+        },
+        {
+          "file": "CacheConfigLoader.php",
+          "namespace": "Acme\\Config\\Cache",
+          "class": "CacheConfigLoader",
+          "scaffold": "method_beta",
+          "group": "A",
+          "pristine": false,
+          "transforms": []
+        },
+        {
+          "file": "MailConfigLoader.php",
+          "namespace": "Acme\\Config\\Mail",
+          "class": "MailConfigLoader",
+          "scaffold": "method_gamma",
+          "group": "A",
+          "pristine": false,
+          "transforms": []
+        }
+      ]
+    },
+    {
+      "set_id": "L05-rf_consolidate-004",
+      "title": "Rate limiter classes with identical conditional throttle checking that CAN be consolidated",
+      "description": "Three rate limiter classes that each check if the request count exceeds limit, return 429 if exceeded, and increment counter. These conditional fragments should be consolidated into a shared rate limiter trait.",
+      "seed": "rate_limiter",
+      "mount": "method",
+      "clone_symbol": "checkRateLimit",
+      "granularity": "method",
+      "clone_type": "type-1",
+      "schema_version": 2,
+      "rng_seed": 512104,
+      "normalized_by": [
+        "whitespace",
+        "comments",
+        "identifiers",
+        "literals"
+      ],
+      "detection_expectation": {
+        "text_based": true,
+        "token_based": true,
+        "ast_based": true
+      },
+      "intended_refactoring": {
+        "kind": "consolidate_conditional_fragments",
+        "unified_symbol": "checkRateLimit",
+        "fragment_pattern": "if ($count >= $limit) { return 429; } $count++; return 200;",
+        "shared_helper": "RateLimiterTrait::assertWithinLimit()",
+        "collapses": [
+          0,
+          1,
+          2
+        ],
+        "advisability": "recommended"
+      },
+      "solution": "hared_helper\": \"RateLimiterTrait::assertWithinLimit()\",\n                \"collapses\": [0, 1, 2],\n                \"advisability\": \"recommended\"\n            },\n            \"solution\": \"<?php\\ndeclare(strict_types=1);\\n\\nnamespace Acme\\\\Http\\\\Consolidated;\\n\\ntrait RateLimiterTrait\\n{\\n    protected array $requestCounts = [];\\n    protected int $limit = 100;\\n\\n    public function assertWithinLimit(string $key): void\\n    {\\n        $count = $this->getRequestCount($key);\\n        if ($count >= $this->limit) {\\n            throw new \\\\RuntimeException('Rate limit exceeded', 429);\\n        }\\n        $this->incrementRequestCount($key);\\n    }\\n\\n    protected function getRequestCount(string $key): int\\n    {\\n        return $this->requestCounts[$key] ?? 0;\\n    }\\n\\n    protected function incrementRequestCount(string $key): void\\n    {\\n        $this->requestCounts[$key] = $this->getRequestCount($key) + 1;\\n    }\\n\\n    public function setLimit(int $limit): void\\n    {\\n        $this->limit = $limit;\\n    }\\n}\\n\\nclass ApiR",
+      "carriers": [
+        {
+          "file": "HttpRateLimiter.php",
+          "namespace": "Acme\\Http\\Limiter",
+          "class": "HttpRateLimiter",
+          "scaffold": "method_alpha",
+          "group": "A",
+          "pristine": false,
+          "transforms": []
+        },
+        {
+          "file": "ApiRateLimiter.php",
+          "namespace": "Acme\\Api\\Limiter",
+          "class": "ApiRateLimiter",
+          "scaffold": "method_beta",
+          "group": "A",
+          "pristine": false,
+          "transforms": []
+        },
+        {
+          "file": "ServiceRateLimiter.php",
+          "namespace": "Acme\\Service\\Limiter",
+          "class": "ServiceRateLimiter",
+          "scaffold": "method_gamma",
+          "group": "A",
+          "pristine": false,
+          "transforms": []
+        }
+      ]
+    },
+    {
+      "set_id": "L05-rf_consolidate-005",
+      "title": "Logger classes with identical conditional log level checking that CAN be consolidated",
+      "description": "Three logger classes that each check if the message level meets the threshold, format the message, and write to output. These conditional fragments should be consolidated into a shared logger base class.",
+      "seed": "logger",
+      "mount": "method",
+      "clone_symbol": "log",
+      "granularity": "method",
+      "clone_type": "type-1",
+      "schema_version": 2,
+      "rng_seed": 512105,
+      "normalized_by": [
+        "whitespace",
+        "comments",
+        "identifiers",
+        "literals"
+      ],
+      "detection_expectation": {
+        "text_based": true,
+        "token_based": true,
+        "ast_based": true
+      },
+      "intended_refactoring": {
+        "kind": "consolidate_conditional_fragments",
+        "unified_symbol": "log",
+        "fragment_pattern": "if ($level < $this->minLevel) { return; } $formatted = $this->format($level, $message); $this->write($formatted);",
+        "shared_helper": "AbstractLogger::shouldLog() + format()",
+        "collapses": [
+          0,
+          1,
+          2
+        ],
+        "advisability": "recommended"
+      },
+      "solution": "message); $this->write($formatted);\",\n                \"shared_helper\": \"AbstractLogger::shouldLog() + format()\",\n                \"collapses\": [0, 1, 2],\n                \"advisability\": \"recommended\"\n            },\n            \"solution\": \"<?php\\ndeclare(strict_types=1);\\n\\nnamespace Acme\\\\Logging\\\\Consolidated;\\n\\nabstract class AbstractLogger\\n{\\n    protected int $minLevel;\\n\\n    public function __construct(int $minLevel = self::INFO)\\n    {\\n        $this->minLevel = $minLevel;\\n    }\\n\\n    protected function shouldLog(int $level): bool\\n    {\\n        return $level >= $this->minLevel;\\n    }\\n\\n    protected function format(int $level, string $message): string\\n    {\\n        $timestamp = date('Y-m-d H:i:s');\\n        $levelName = $this->getLevelName($level);\\n        return \\\"[{$timestamp}] {$levelName}: {$message}\\\";\\n    }\\n\\n    protected function getLevelName(int $level): string\\n    {\\n        return match($level) {\\n            self::DEBUG => 'DEBUG',\\n            self::INFO => 'INFO',\\n            self::WARNING => 'WARNING',\\n            self::ERROR => 'ERROR',\\n            default => 'UNKNOWN',\\n        };\\n    }\\n\\n    abstract protected function write(string $formatted): void;\\n\\n    public function log(int $level, string $message): void\\n    {\\n        if (!$this->shouldLog($level)) {\\n            return;\\n        }\\n        $this->write($this->format($level, $message));\\n    }\\n\\n    public const DEBUG = 0;\\n    public const INFO = 1;\\n    public const WARNING = 2;\\n    public const ERROR = 3;\\n}\\n\\nclass FileLogger extends AbstractLogger\\n{\\n    protected string $filepath;\\n\\n    public function __construct(string $filepath, int $minLevel = self::INFO)\\n    {\\n",
+      "carriers": [
+        {
+          "file": "ConsoleLogger.php",
+          "namespace": "Acme\\Logging\\Console",
+          "class": "ConsoleLogger",
+          "scaffold": "method_alpha",
+          "group": "A",
+          "pristine": false,
+          "transforms": []
+        },
+        {
+          "file": "FileLogger.php",
+          "namespace": "Acme\\Logging\\File",
+          "class": "FileLogger",
+          "scaffold": "method_beta",
+          "group": "A",
+          "pristine": false,
+          "transforms": []
+        },
+        {
+          "file": "SyslogLogger.php",
+          "namespace": "Acme\\Logging\\Syslog",
+          "class": "SyslogLogger",
+          "scaffold": "method_gamma",
+          "group": "A",
+          "pristine": false,
+          "transforms": []
+        }
+      ]
+    }
+  ]
+}

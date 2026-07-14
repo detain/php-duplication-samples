@@ -1,0 +1,148 @@
+{
+    "level": 4,
+    "level_name": "partial_duplication",
+    "level_dir": "L04_partial_duplication",
+    "family": "pd_boundary",
+    "sets": [
+        {
+            "set_id": "L04-pd_boundary-001",
+            "title": "Partial clone with insertion at clone boundary (start)",
+            "description": "Unique content inserted exactly at the start of the clone region, testing boundary detection.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "schema_version": 2,
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "rng_seed": 105401,
+            "notes": "head_trim=1 to test boundary insertion at start.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "difficulty": {"complexity": 4, "partiality": "high"},
+            "duplication": {"uniqueness_budget": {"min": 1, "max": 2}},
+            "carriers": [
+                {"file": "BoundaryCalcA.php", "namespace": "Acme\\Billing\\Boundary", "class": "BoundaryCalcA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "BoundaryCalcB.php", "namespace": "Acme\\Billing\\Boundary", "class": "BoundaryCalcB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 1, "tail_trim": 0}}]},
+                {"file": "BoundaryCalcC.php", "namespace": "Acme\\Billing\\Boundary", "class": "BoundaryCalcC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 2, "tail_trim": 0}}]}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L04-pd_boundary-002",
+            "title": "Partial clone with insertion at clone boundary (end)",
+            "description": "Unique content inserted exactly at the end of the clone region.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "schema_version": 2,
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "rng_seed": 105402,
+            "notes": "tail_trim=1 to test boundary insertion at end.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "difficulty": {"complexity": 4, "partiality": "high"},
+            "duplication": {"uniqueness_budget": {"min": 1, "max": 2}},
+            "carriers": [
+                {"file": "BoundaryCalcA.php", "namespace": "Acme\\Billing\\Boundary", "class": "BoundaryCalcA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "BoundaryCalcB.php", "namespace": "Acme\\Billing\\Boundary", "class": "BoundaryCalcB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 0, "tail_trim": 1}}]},
+                {"file": "BoundaryCalcC.php", "namespace": "Acme\\Billing\\Boundary", "class": "BoundaryCalcC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 0, "tail_trim": 2}}]}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L04-pd_boundary-003",
+            "title": "Boundary insertions using access_guard",
+            "description": "Boundary insertions with access_guard seed.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "schema_version": 2,
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "rng_seed": 105403,
+            "notes": "access_guard with boundary trim.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "difficulty": {"complexity": 4, "partiality": "high"},
+            "duplication": {"uniqueness_budget": {"min": 1, "max": 2}},
+            "carriers": [
+                {"file": "BoundaryAuthA.php", "namespace": "Acme\\Security\\Boundary", "class": "BoundaryAuthA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "BoundaryAuthB.php", "namespace": "Acme\\Security\\Boundary", "class": "BoundaryAuthB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 1, "tail_trim": 0}}]},
+                {"file": "BoundaryAuthC.php", "namespace": "Acme\\Security\\Boundary", "class": "BoundaryAuthC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 0, "tail_trim": 1}}]}
+            ],
+            "distractors": [
+                {"file": "AuditTrailService.php", "namespace": "Acme\\Security\\Audit", "class": "AuditTrailService", "source": "nearmiss_access", "reason": "near-miss"}
+            ],
+            "cleans": [
+                {"file": "TokenValidationService.php", "namespace": "Acme\\Security\\Tokens", "class": "TokenValidationService", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L04-pd_boundary-004",
+            "title": "Boundary insertions using csv_import",
+            "description": "Boundary insertions with csv_import seed.",
+            "seed": "csv_import",
+            "mount": "method",
+            "clone_symbol": "parseRow",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "schema_version": 2,
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "rng_seed": 105404,
+            "notes": "csv_import with boundary trim.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "difficulty": {"complexity": 4, "partiality": "high"},
+            "duplication": {"uniqueness_budget": {"min": 1, "max": 2}},
+            "carriers": [
+                {"file": "BoundaryCsvA.php", "namespace": "Acme\\Import\\Boundary", "class": "BoundaryCsvA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "BoundaryCsvB.php", "namespace": "Acme\\Import\\Boundary", "class": "BoundaryCsvB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 1, "tail_trim": 0}}]},
+                {"file": "BoundaryCsvC.php", "namespace": "Acme\\Import\\Boundary", "class": "BoundaryCsvC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 0, "tail_trim": 1}}]}
+            ],
+            "distractors": [
+                {"file": "XmlImportService.php", "namespace": "Acme\\Import\\Xml", "class": "XmlImportService", "source": "nearmiss_csv", "reason": "near-miss"}
+            ],
+            "cleans": [
+                {"file": "DataValidationService.php", "namespace": "Acme\\Import\\Validation", "class": "DataValidationService", "source": "clean_parsing"}
+            ]
+        },
+        {
+            "set_id": "L04-pd_boundary-005",
+            "title": "Boundary insertions at both ends",
+            "description": "Unique content inserted at both start and end boundaries.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "schema_version": 2,
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "rng_seed": 105405,
+            "notes": "Symmetric boundary trimming.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "difficulty": {"complexity": 4, "partiality": "medium"},
+            "duplication": {"uniqueness_budget": {"min": 2, "max": 4}},
+            "carriers": [
+                {"file": "BothBoundaryA.php", "namespace": "Acme\\Billing\\BothBoundary", "class": "BothBoundaryA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "BothBoundaryB.php", "namespace": "Acme\\Billing\\BothBoundary", "class": "BothBoundaryB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 1, "tail_trim": 1}}]},
+                {"file": "BothBoundaryC.php", "namespace": "Acme\\Billing\\BothBoundary", "class": "BothBoundaryC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 2, "tail_trim": 2}}]}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        }
+    ]
+}

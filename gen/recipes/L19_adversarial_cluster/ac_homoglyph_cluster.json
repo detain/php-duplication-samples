@@ -1,0 +1,139 @@
+{
+    "level": 19,
+    "level_name": "adversarial_cluster",
+    "level_dir": "L19_adversarial_cluster",
+    "family": "ac_homoglyph_cluster",
+    "sets": [
+        {
+            "set_id": "L19-ac_homoglyph_cluster-001",
+            "title": "Homoglyph confusion cluster - basic",
+            "description": "Tests ac_homoglyph_cluster: cluster with homoglyph confusion to challenge detectors.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["identifiers", "literals"],
+            "rng_seed": 190101,
+            "notes": "L19: ac_homoglyph_cluster - homoglyph adversarial.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.7, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["identifier_canonicalization", "literal_abstraction"],
+            "carriers": [
+                {"file": "HomoglyphA.php", "namespace": "Acme\\Homoglyph\\Alpha", "class": "HomoglyphA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "HomoglyphB.php", "namespace": "Acme\\Homoglyph\\Beta", "class": "HomoglyphB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-01"}, {"code": "LT-02"}]}
+            ],
+            "distractors": [
+                {"file": "HomoglyphDistractor.php", "namespace": "Acme\\Homoglyph\\Distract", "class": "HomoglyphDistractor", "source": "nearmiss_invoice", "reason": "Near-miss: homoglyph similarity confusion"}
+            ],
+            "cleans": [
+                {"file": "HomoglyphClean.php", "namespace": "Acme\\Homoglyph\\Config", "class": "HomoglyphClean", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L19-ac_homoglyph_cluster-002",
+            "title": "Homoglyph cluster with RN-05 rename",
+            "description": "Homoglyph confusion with case convention rename.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["identifiers"],
+            "rng_seed": 190102,
+            "notes": "L19: ac_homoglyph_cluster + RN-05 rename.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.65, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["identifier_canonicalization"],
+            "carriers": [
+                {"file": "HomoglyphA.php", "namespace": "Acme\\Homoglyph\\Alpha", "class": "HomoglyphA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "HomoglyphB.php", "namespace": "Acme\\Homoglyph\\Beta", "class": "HomoglyphB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-05"}, {"code": "CM-02"}]}
+            ],
+            "distractors": [
+                {"file": "HomoglyphDistractor.php", "namespace": "Acme\\Homoglyph\\Distract", "class": "HomoglyphDistractor", "source": "nearmiss_access", "reason": "Near-miss: homoglyph auth confusion"}
+            ],
+            "cleans": [
+                {"file": "HomoglyphClean.php", "namespace": "Acme\\Homoglyph\\Config", "class": "HomoglyphClean", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L19-ac_homoglyph_cluster-003",
+            "title": "Homoglyph cluster three carriers",
+            "description": "Three carriers with homoglyph adversarial patterns.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["identifiers", "literals", "comments"],
+            "rng_seed": 190103,
+            "notes": "L19: ac_homoglyph_cluster with three carriers.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 3},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["identifier_canonicalization", "literal_abstraction", "comment_stripping"],
+            "carriers": [
+                {"file": "HomoglyphA.php", "namespace": "Acme\\Homoglyph\\Alpha", "class": "HomoglyphA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "HomoglyphB.php", "namespace": "Acme\\Homoglyph\\Beta", "class": "HomoglyphB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-03"}, {"code": "CM-01"}]},
+                {"file": "HomoglyphC.php", "namespace": "Acme\\Homoglyph\\Gamma", "class": "HomoglyphC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "RN-05"}, {"code": "LT-01"}, {"code": "CM-03"}]}
+            ],
+            "distractors": [
+                {"file": "HomoglyphDistractor.php", "namespace": "Acme\\Homoglyph\\Distract", "class": "HomoglyphDistractor", "source": "nearmiss_invoice", "reason": "Near-miss: homoglyph invoice confusion"}
+            ],
+            "cleans": [
+                {"file": "HomoglyphClean.php", "namespace": "Acme\\Homoglyph\\Config", "class": "HomoglyphClean", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L19-ac_homoglyph_cluster-004",
+            "title": "Homoglyph cluster with ST-08 param reorder",
+            "description": "Homoglyph confusion with parameter reordering.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["identifiers", "controlflow"],
+            "rng_seed": 190104,
+            "notes": "L19: ac_homoglyph_cluster + ST-08 reorder.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["ast_canonicalization", "commutative_reordering", "identifier_canonicalization"],
+            "carriers": [
+                {"file": "HomoglyphA.php", "namespace": "Acme\\Homoglyph\\Alpha", "class": "HomoglyphA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "HomoglyphB.php", "namespace": "Acme\\Homoglyph\\Beta", "class": "HomoglyphB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-08"}, {"code": "RN-05"}]}
+            ],
+            "distractors": [
+                {"file": "HomoglyphDistractor.php", "namespace": "Acme\\Homoglyph\\Distract", "class": "HomoglyphDistractor", "source": "nearmiss_access", "reason": "Near-miss: homoglyph auth confusion"}
+            ],
+            "cleans": [
+                {"file": "HomoglyphClean.php", "namespace": "Acme\\Homoglyph\\Config", "class": "HomoglyphClean", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L19-ac_homoglyph_cluster-005",
+            "title": "Homoglyph cluster with all literals",
+            "description": "Homoglyph confusion with all literal transformations.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["literals"],
+            "rng_seed": 190105,
+            "notes": "L19: ac_homoglyph_cluster + LT-01 + LT-02 + LT-03 + LT-04.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.55, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "requires": ["literal_abstraction"],
+            "carriers": [
+                {"file": "HomoglyphA.php", "namespace": "Acme\\Homoglyph\\Alpha", "class": "HomoglyphA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "HomoglyphB.php", "namespace": "Acme\\Homoglyph\\Beta", "class": "HomoglyphB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-01"}, {"code": "LT-02"}, {"code": "LT-03"}, {"code": "LT-04"}]}
+            ],
+            "distractors": [
+                {"file": "HomoglyphDistractor.php", "namespace": "Acme\\Homoglyph\\Distract", "class": "HomoglyphDistractor", "source": "nearmiss_invoice", "reason": "Near-miss: homoglyph invoice confusion"}
+            ],
+            "cleans": [
+                {"file": "HomoglyphClean.php", "namespace": "Acme\\Homoglyph\\Config", "class": "HomoglyphClean", "source": "clean_billing"}
+            ]
+        }
+    ]
+}

@@ -1,0 +1,6 @@
+geSize", "description": "Maximum allowed items per page"}
+                ],
+                "collapses": [0, 1, 2],
+                "advisability": "recommended"
+            },
+            "solution": "<?php\ndeclare(strict_types=1);\n\nnamespace Acme\\Pagination\\Unified;\n\n/**\n * Unified pagination — page size and max are now parameters\n */\nclass PaginationHelper\n{\n    public function paginate(array $items, int $page = 1, int $pageSize = 20, int $maxPageSize = 100): array\n    {\n        $total = count($items);\n        $page = max(1, $page);\n        $pageSize = max(1, min($pageSize, $maxPageSize));\n\n        $totalPages = (int) ceil($total / $pageSize);\n        $offset = ($page - 1) * $pageSize;\n\n        $paginatedItems = array_slice($items, $offset, $pageSize);\n\n        return [\n            'items' => $paginatedItems,\n            'pagination' => [\n                'current_page' => $page,\n                'page_size' => $pageSize,\n                'total_items' => $total,\n             

@@ -1,0 +1,161 @@
+{
+    "schema_version": 2,
+    "set_id": "L04-pd_middle_unique-005",
+    "level": 4,
+    "level_name": "partial_duplication",
+    "family": "pd_middle_unique",
+    "title": "Middle-unique with ST-01 insertions in the middle region",
+    "description": "Uses ST-01 to insert unique statements specifically in the middle region.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "invoice_totals",
+    "difficulty_band": "hard",
+    "files": [
+        {
+            "path": "src/PristineInvoiceCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 39,
+            "region_sloc": {
+                "sloc": 25,
+                "duplicate": 25,
+                "unique": 0,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/MidInsertCalc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 45,
+            "region_sloc": {
+                "sloc": 26,
+                "duplicate": 25,
+                "unique": 1,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/MidInsert2Calc.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 45,
+            "region_sloc": {
+                "sloc": 27,
+                "duplicate": 25,
+                "unique": 2,
+                "filler": 0
+            }
+        },
+        {
+            "path": "src/MarginSummarizer.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 30
+        },
+        {
+            "path": "src/TaxRateRepository.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-3",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "ST-01",
+            "name": "insert_logging",
+            "params": {
+                "after": [
+                    6
+                ],
+                "message": "mid_log",
+                "call": "error_log"
+            },
+            "applied_to": [
+                "src/MidInsertCalc.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "ST-01",
+            "name": "insert_logging",
+            "params": {
+                "after": [
+                    8
+                ],
+                "message": "mid_log2",
+                "call": "error_log"
+            },
+            "applied_to": [
+                "src/MidInsert2Calc.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "ST-02",
+            "name": "insert_dead",
+            "params": {
+                "count": 1,
+                "after": [
+                    10
+                ]
+            },
+            "applied_to": [
+                "src/MidInsert2Calc.php"
+            ],
+            "intensity": 3
+        }
+    ],
+    "difficulty": {
+        "score": 49,
+        "requires": [
+            "ast_canonicalization",
+            "deadcode_elimination"
+        ],
+        "score_raw": 49,
+        "axes": {
+            "breadth": 2,
+            "intensity": 3,
+            "intensity_max": 3,
+            "semantic_depth": 0,
+            "partiality": 1
+        },
+        "application_count": 3,
+        "axis_count": 2
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L04_partial_duplication/pd_middle_unique.json",
+        "version": "2.0.0",
+        "rng_seed": 104605
+    },
+    "interference_profile": {
+        "axis_count": 2,
+        "per_carrier_axes": {
+            "src/MidInsertCalc.php": [
+                "ST-01"
+            ],
+            "src/MidInsert2Calc.php": [
+                "ST-01",
+                "ST-02"
+            ]
+        },
+        "groups_touched": [
+            "A"
+        ],
+        "stack_depth_max": 2,
+        "symmetric_overlap": 1,
+        "pairwise_overlap": 0.5,
+        "combination_design": "structural_only"
+    },
+    "engine_features": [
+        "fragment_emission"
+    ]
+}

@@ -1,0 +1,100 @@
+{
+    "schema_version": 1,
+    "set_id": "L06-rw_auth_flow-003",
+    "level": 6,
+    "level_name": "realworld_scenarios",
+    "family": "rw_auth_flow",
+    "title": "Auth flow: multi-factor authentication",
+    "description": "Multi-factor authentication flow with TOTP and SMS code verification. Uses structural transforms for code organization.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "auth_handler",
+    "difficulty_band": "expert",
+    "files": [
+        {
+            "path": "src/MfaAuth.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 123
+        },
+        {
+            "path": "src/TotpHandler.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 129
+        },
+        {
+            "path": "src/SmsHandler.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 129
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-4",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "ST-01",
+            "name": "insert_logging",
+            "params": {},
+            "applied_to": [
+                "src/MfaAuth.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "CF-01",
+            "name": "if_ternary",
+            "params": {},
+            "applied_to": [
+                "src/TotpHandler.php"
+            ],
+            "intensity": 4
+        },
+        {
+            "code": "ST-05",
+            "name": "reorder_independent",
+            "params": {},
+            "applied_to": [
+                "src/TotpHandler.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "BL-01",
+            "name": "demorgan",
+            "params": {},
+            "applied_to": [
+                "src/SmsHandler.php"
+            ],
+            "intensity": 4
+        },
+        {
+            "code": "ST-03",
+            "name": "insert_functional",
+            "params": {},
+            "applied_to": [
+                "src/SmsHandler.php"
+            ],
+            "intensity": 3
+        }
+    ],
+    "difficulty": {
+        "score": 100,
+        "requires": [
+            "semantic_reasoning",
+            "ast_canonicalization"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L06_realworld/rw_auth_flow.json",
+        "version": "1.0.0",
+        "rng_seed": 60103
+    }
+}

@@ -1,0 +1,88 @@
+{
+    "schema_version": 1,
+    "set_id": "L08-sy_operator_spacing-003",
+    "level": 8,
+    "level_name": "adversarial",
+    "family": "sy_operator_spacing",
+    "title": "Operator Spacing: Comparison operators",
+    "description": "Tests comparison operator spacing: a==b vs a == b vs a===b.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "rate_limiter",
+    "difficulty_band": "expert",
+    "files": [
+        {
+            "path": "src/LimitCheckerA.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 47
+        },
+        {
+            "path": "src/LimitCheckerB.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 52
+        },
+        {
+            "path": "src/LimitCheckerC.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 51
+        },
+        {
+            "path": "src/Throttler.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 15
+        },
+        {
+            "path": "src/Counter.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 15
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-1",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 3
+    },
+    "interference": [
+        {
+            "code": "WS-04",
+            "name": "operator_spacing",
+            "params": {
+                "style": "tight"
+            },
+            "applied_to": [
+                "src/LimitCheckerB.php"
+            ],
+            "intensity": 1
+        },
+        {
+            "code": "WS-04",
+            "name": "operator_spacing",
+            "params": {
+                "style": "spaced"
+            },
+            "applied_to": [
+                "src/LimitCheckerC.php"
+            ],
+            "intensity": 1
+        }
+    ],
+    "difficulty": {
+        "score": 88,
+        "requires": [
+            "whitespace_normalization"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L08_adversarial/sy_operator_spacing.json",
+        "version": "1.0.0",
+        "rng_seed": 81003
+    }
+}

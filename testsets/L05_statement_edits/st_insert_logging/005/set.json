@@ -62,7 +62,8 @@
             },
             "applied_to": [
                 "src/LoggedInvoiceCalc.php"
-            ]
+            ],
+            "intensity": 3
         },
         {
             "code": "ST-01",
@@ -79,7 +80,8 @@
             },
             "applied_to": [
                 "src/VerboseInvoiceCalc.php"
-            ]
+            ],
+            "intensity": 3
         }
     ],
     "difficulty": {

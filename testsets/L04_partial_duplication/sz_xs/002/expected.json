@@ -1,0 +1,71 @@
+{
+    "schema_version": 2,
+    "set_id": "L04-sz_xs-002",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-3",
+            "granularity": "method",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers",
+                "literals"
+            ],
+            "token_hash": "5cd8e7841ecf7c41",
+            "normalized_hash": "a3a4fbc9a09986cf",
+            "members": [
+                {
+                    "file": "src/TinyCloneA.php",
+                    "start_line": 9,
+                    "end_line": 27,
+                    "symbol": "authorize",
+                    "pristine": true,
+                    "group": "A",
+                    "seed": "access_guard"
+                },
+                {
+                    "file": "src/TinyCloneB.php",
+                    "start_line": 18,
+                    "end_line": 26,
+                    "symbol": "authorize",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "access_guard"
+                },
+                {
+                    "file": "src/TinyCloneC.php",
+                    "start_line": 24,
+                    "end_line": 30,
+                    "symbol": "authorize",
+                    "pristine": false,
+                    "group": "A",
+                    "seed": "access_guard"
+                }
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": true,
+                "semantic": true
+            },
+            "notes": "Tiny shared region near minimum threshold."
+        }
+    ],
+    "non_duplicates": [
+        {
+            "file": "src/AuditTrailService.php",
+            "start_line": 12,
+            "end_line": 27,
+            "reason": "near-miss: similar authorization vocabulary but performs auditing",
+            "trap": true
+        }
+    ],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.6,
+        "min_members_for_credit": 2
+    }
+}
