@@ -283,6 +283,13 @@ final class SetBuilder
         $input = TransformInput::fromLines($payloadLines);
         foreach (($carrier['transforms'] ?? []) as $tr) {
             $code = (string)$tr['code'];
+            // Skip selector transforms (CF-03, CF-02, SEM-*, API-*, etc.) if variant
+            // was already loaded above; these return VariantSelector instances from
+            // the registry and re-running them would fail because variant_file param
+            // isn't passed (variant is already in $payloadLines from lines 273-275).
+            if (isset($carrier['variant']) && ($this->registry->meta($code)['kind'] ?? '') === 'selector') {
+                continue;
+            }
             $t = $this->registry->transform($code);
             $params = $tr['params'] ?? [];
             $rng = new Rng((int)$spec['rng_seed']);
