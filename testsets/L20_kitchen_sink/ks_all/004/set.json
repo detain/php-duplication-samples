@@ -21,7 +21,7 @@
             "path": "src/KitchenSinkB.php",
             "role": "carrier",
             "duplicate_group": "A",
-            "sloc": 38
+            "sloc": 42
         },
         {
             "path": "src/KitchenSinkDistractor.php",

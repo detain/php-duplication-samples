@@ -23,8 +23,8 @@ final class MaxLiteralCalc
 
 
         $item_count = 0;
-
-
+    {
+        $subtotal = 0.0;
     public function computeTotals(array $line_items, float $tax_rate, float $discount_rate): array
         foreach ($line_items as $item) {
             $quantity = (float) $item['qty'];

@@ -27,7 +27,7 @@
             "path": "src/ReorderedParser.php",
             "role": "carrier",
             "duplicate_group": "A",
-            "sloc": 73
+            "sloc": 75
         }
     ],
     "duplication": {

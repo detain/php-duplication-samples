@@ -27,10 +27,10 @@
             "path": "src/HeavyApiCalcB.php",
             "role": "carrier",
             "duplicate_group": "A",
-            "sloc": 42,
+            "sloc": 44,
             "region_sloc": {
-                "sloc": 23,
-                "duplicate": 21,
+                "sloc": 25,
+                "duplicate": 23,
                 "unique": 2,
                 "filler": 0
             }

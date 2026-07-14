@@ -27,10 +27,10 @@
             "path": "src/LtStCalc.php",
             "role": "carrier",
             "duplicate_group": "A",
-            "sloc": 42,
+            "sloc": 44,
             "region_sloc": {
-                "sloc": 23,
-                "duplicate": 23,
+                "sloc": 25,
+                "duplicate": 25,
                 "unique": 0,
                 "filler": 0
             }
@@ -39,10 +39,10 @@
             "path": "src/AllThreeCalc.php",
             "role": "carrier",
             "duplicate_group": "A",
-            "sloc": 41,
+            "sloc": 43,
             "region_sloc": {
-                "sloc": 23,
-                "duplicate": 20,
+                "sloc": 25,
+                "duplicate": 22,
                 "unique": 3,
                 "filler": 0
             }

@@ -48,7 +48,10 @@
                     "unique_segments": [
                         {
                             "start_line": 53,
-                            "end_line": 58
+                            "end_line": 58,
+                            "lines": 6,
+                            "kind": "gap",
+                            "reason": "inserted by transform"
                         }
                     ]
                 },

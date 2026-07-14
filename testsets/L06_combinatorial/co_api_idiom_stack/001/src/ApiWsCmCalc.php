@@ -23,8 +23,8 @@ final class ApiWsCmCalc
 
 
         $itemCount = 0;
-    
-    
+    {
+        $subtotal = 0.0;
     public function computeTotals(array $lineItems, float $taxRate, float $discountRate): array
         foreach ($lineItems as $item) {
             $quantity = (float) $item['qty'];

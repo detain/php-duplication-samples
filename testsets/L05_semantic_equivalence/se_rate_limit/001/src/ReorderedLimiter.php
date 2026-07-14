@@ -22,8 +22,8 @@ final class ReorderedLimiter
     }
 
         $windowStart = $now - $window;
-    
-    
+    {
+        $now = time();
     public function attempt(string $key, int $limit, int $window): bool
 
         if (!isset($this->buckets[$key])) {

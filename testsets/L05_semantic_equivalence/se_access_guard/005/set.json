@@ -21,7 +21,7 @@
             "path": "src/ScatteredAccessPolicy.php",
             "role": "carrier",
             "duplicate_group": "A",
-            "sloc": 39
+            "sloc": 44
         },
         {
             "path": "src/ConfigAccessPolicy.php",

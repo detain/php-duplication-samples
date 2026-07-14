@@ -39,10 +39,10 @@
             "path": "src/ApiWsCmCalc.php",
             "role": "carrier",
             "duplicate_group": "A",
-            "sloc": 41,
+            "sloc": 43,
             "region_sloc": {
-                "sloc": 23,
-                "duplicate": 22,
+                "sloc": 25,
+                "duplicate": 24,
                 "unique": 1,
                 "filler": 0
             }

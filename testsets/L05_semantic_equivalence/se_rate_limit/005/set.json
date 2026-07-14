@@ -27,7 +27,7 @@
             "path": "src/ComplexLimiter.php",
             "role": "carrier",
             "duplicate_group": "A",
-            "sloc": 49
+            "sloc": 51
         }
     ],
     "duplication": {

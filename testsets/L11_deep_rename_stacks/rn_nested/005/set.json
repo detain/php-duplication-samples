@@ -21,7 +21,7 @@
             "path": "src/NestedRenameB.php",
             "role": "carrier",
             "duplicate_group": "A",
-            "sloc": 36
+            "sloc": 38
         },
         {
             "path": "src/NestedRenameDistractor.php",

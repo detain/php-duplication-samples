@@ -27,7 +27,7 @@
             "path": "src/ReorderedQuery.php",
             "role": "carrier",
             "duplicate_group": "A",
-            "sloc": 56
+            "sloc": 58
         }
     ],
     "duplication": {

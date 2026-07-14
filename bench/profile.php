@@ -21,6 +21,13 @@ if (is_file($autoload)) {
 }
 
 $opts = parseArgs($argv);
+
+// Handle --walk mode first, exit after
+if ($opts['walk']) {
+    walkProgression($opts['tool']);
+    exit(0);
+}
+
 $toolsDir = $root . '/bench/tools';
 $phpcpdPhar = $toolsDir . '/phpcpd.phar';
 $jscpdBin = resolveJscpd($toolsDir);
@@ -128,13 +135,113 @@ function resolveJscpd(string $toolsDir): ?string
 
 function parseArgs(array $argv): array
 {
-    $o = ['tool' => null, 'all' => false];
+    $o = ['tool' => null, 'all' => false, 'walk' => false];
     foreach (array_slice($argv, 1) as $arg) {
         if (str_starts_with($arg, '--tool=')) {
             $o['tool'] = substr($arg, 7);
         } elseif ($arg === '--all') {
             $o['all'] = true;
+        } elseif ($arg === '--walk') {
+            $o['walk'] = true;
         }
     }
     return $o;
+}
+
+function walkProgression(?string $filterTool): void
+{
+    $levels = loadProgressionLevels();
+
+    if ($filterTool !== null) {
+        $levels = array_filter(
+            $levels,
+            fn(array $entry) => isset($entry['tool_expectations'][$filterTool])
+        );
+    }
+
+    echo "=== Tool Capability Walk ===\n";
+    echo "Corpus progression L00-L20: what each tool detects and misses\n";
+    echo "as complexity increases from no clones through adversarial cases.\n\n";
+
+    foreach ($levels as $entry) {
+        $levelStr = 'L' . str_pad((string)($entry['level'] ?? 0), 2, '0', STR_PAD_LEFT);
+        $name = $entry['name'] ?? 'Unknown';
+        $cloneType = $entry['clone_type'] ?? 'none';
+
+        echo "{$levelStr} [{$name}]\n";
+        echo "      clone_type: {$cloneType}\n";
+
+        if (isset($entry['tool_expectations']) && is_array($entry['tool_expectations'])) {
+            foreach ($entry['tool_expectations'] as $tool => $expectation) {
+                if ($filterTool !== null && $tool !== $filterTool) {
+                    continue;
+                }
+                $detects = $expectation['detects'] ?? null;
+                $reason = $expectation['reason'] ?? null;
+                $confidence = $expectation['confidence'] ?? null;
+
+                if ($detects === true) {
+                    $status = 'DETECTS';
+                    if ($confidence) {
+                        $status .= " (confidence: {$confidence})";
+                    }
+                } elseif ($detects === false) {
+                    $status = 'MISSES';
+                    if ($reason) {
+                        $status .= " (reason: {$reason})";
+                    }
+                } else {
+                    $status = 'UNKNOWN';
+                }
+
+                echo "        {$tool}: {$status}\n";
+            }
+        }
+        echo "\n";
+    }
+}
+
+function loadProgressionLevels(): array
+{
+    $root = dirname(__DIR__);
+    $progressionFile = $root . '/bench/results/progression.json';
+
+    if (is_file($progressionFile)) {
+        $json = file_get_contents($progressionFile);
+        if ($json !== false) {
+            $data = json_decode($json, true);
+            if (is_array($data) && isset($data['levels']) && is_array($data['levels'])) {
+                return $data['levels'];
+            }
+        }
+    }
+
+    return buildInlineProgressionData();
+}
+
+function buildInlineProgressionData(): array
+{
+    return [
+        0  => ['level' => 0, 'name' => 'No duplication', 'clone_type' => null, 'tool_expectations' => ['phpcpd' => ['detects' => false, 'reason' => 'no clones'], 'jscpd' => ['detects' => false, 'reason' => 'no clones']]],
+        1  => ['level' => 1, 'name' => 'Exact duplication', 'clone_type' => 'type-1 exact duplication', 'tool_expectations' => ['phpcpd' => ['detects' => true, 'confidence' => 'high'], 'jscpd' => ['detects' => true, 'confidence' => 'high']]],
+        2  => ['level' => 2, 'name' => 'Whitespace variation', 'clone_type' => 'type-1 with whitespace variation', 'tool_expectations' => ['phpcpd' => ['detects' => true, 'confidence' => 'high'], 'jscpd' => ['detects' => true, 'confidence' => 'high']]],
+        3  => ['level' => 3, 'name' => 'Comment variation', 'clone_type' => 'type-1 with comment variation', 'tool_expectations' => ['phpcpd' => ['detects' => true, 'confidence' => 'high'], 'jscpd' => ['detects' => true, 'confidence' => 'high']]],
+        4  => ['level' => 4, 'name' => 'Identifier rename', 'clone_type' => 'type-2 with identifier rename', 'tool_expectations' => ['phpcpd' => ['detects' => true, 'confidence' => 'high'], 'jscpd' => ['detects' => true, 'confidence' => 'high']]],
+        5  => ['level' => 5, 'name' => 'Literal change', 'clone_type' => 'type-2 with literal change', 'tool_expectations' => ['phpcpd' => ['detects' => true, 'confidence' => 'high'], 'jscpd' => ['detects' => true, 'confidence' => 'high']]],
+        6  => ['level' => 6, 'name' => 'Statement reorder', 'clone_type' => 'type-2 with statement reorder', 'tool_expectations' => ['phpcpd' => ['detects' => true, 'confidence' => 'medium'], 'jscpd' => ['detects' => true, 'confidence' => 'high']]],
+        7  => ['level' => 7, 'name' => 'Control flow change', 'clone_type' => 'type-3 with control flow change', 'tool_expectations' => ['phpcpd' => ['detects' => false, 'reason' => 'cf_not_supported'], 'jscpd' => ['detects' => true, 'confidence' => 'medium']]],
+        8  => ['level' => 8, 'name' => 'API substitution', 'clone_type' => 'type-3 with API substitution', 'tool_expectations' => ['phpcpd' => ['detects' => false, 'reason' => 'semantic'], 'jscpd' => ['detects' => false, 'reason' => 'semantic']]],
+        9  => ['level' => 9, 'name' => 'Compound interference', 'clone_type' => 'type-4 compound', 'tool_expectations' => ['phpcpd' => ['detects' => false, 'reason' => 'compound'], 'jscpd' => ['detects' => false, 'reason' => 'compound']]],
+        10 => ['level' => 10, 'name' => 'Adversarial edge cases', 'clone_type' => 'type-4 adversarial', 'tool_expectations' => ['phpcpd' => ['detects' => false, 'reason' => 'adversarial'], 'jscpd' => ['detects' => false, 'reason' => 'adversarial']]],
+        11 => ['level' => 11, 'name' => 'Cross-file scatter', 'clone_type' => 'cross-file scattered', 'tool_expectations' => ['phpcpd' => ['detects' => false, 'reason' => 'cross_file'], 'jscpd' => ['detects' => false, 'reason' => 'cross_file']]],
+        12 => ['level' => 12, 'name' => 'Deep refactoring', 'clone_type' => 'deep refactoring', 'tool_expectations' => ['phpcpd' => ['detects' => false, 'reason' => 'deep'], 'jscpd' => ['detects' => false, 'reason' => 'deep']]],
+        13 => ['level' => 13, 'name' => 'Cross-seed clones', 'clone_type' => 'cross-seed', 'tool_expectations' => ['phpcpd' => ['detects' => false, 'reason' => 'cross_seed'], 'jscpd' => ['detects' => false, 'reason' => 'cross_seed']]],
+        14 => ['level' => 14, 'name' => 'Semantic equivalence', 'clone_type' => 'semantic-equivalent', 'tool_expectations' => ['phpcpd' => ['detects' => false, 'reason' => 'semantic'], 'jscpd' => ['detects' => false, 'reason' => 'semantic']]],
+        15 => ['level' => 15, 'name' => 'API hybrids', 'clone_type' => 'api hybrid', 'tool_expectations' => ['phpcpd' => ['detects' => false, 'reason' => 'hybrid'], 'jscpd' => ['detects' => false, 'reason' => 'hybrid']]],
+        16 => ['level' => 16, 'name' => 'Behavioral equivalence', 'clone_type' => 'behaviorally-equivalent', 'tool_expectations' => ['phpcpd' => ['detects' => false, 'reason' => 'behavioral'], 'jscpd' => ['detects' => false, 'reason' => 'behavioral']]],
+        17 => ['level' => 17, 'name' => 'Genealogical drift', 'clone_type' => 'drift chain', 'tool_expectations' => ['phpcpd' => ['detects' => false, 'reason' => 'drift'], 'jscpd' => ['detects' => false, 'reason' => 'drift']]],
+        18 => ['level' => 18, 'name' => 'Partial duplication', 'clone_type' => 'partial duplication', 'tool_expectations' => ['phpcpd' => ['detects' => false, 'reason' => 'partial'], 'jscpd' => ['detects' => false, 'reason' => 'partial']]],
+        19 => ['level' => 19, 'name' => 'Budget-constrained', 'clone_type' => 'budget constrained', 'tool_expectations' => ['phpcpd' => ['detects' => false, 'reason' => 'budget'], 'jscpd' => ['detects' => false, 'reason' => 'budget']]],
+        20 => ['level' => 20, 'name' => 'Kitchen sink', 'clone_type' => 'all transforms', 'tool_expectations' => ['phpcpd' => ['detects' => false, 'reason' => 'adversarial'], 'jscpd' => ['detects' => false, 'reason' => 'adversarial']]],
+    ];
 }

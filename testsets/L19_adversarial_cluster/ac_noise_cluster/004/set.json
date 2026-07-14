@@ -21,7 +21,7 @@
             "path": "src/NoiseClusterB.php",
             "role": "carrier",
             "duplicate_group": "A",
-            "sloc": 39
+            "sloc": 41
         },
         {
             "path": "src/NoiseClusterDistractor.php",

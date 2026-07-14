@@ -21,7 +21,7 @@
             "path": "src/AllAxesB.php",
             "role": "carrier",
             "duplicate_group": "A",
-            "sloc": 43
+            "sloc": 45
         },
         {
             "path": "src/AllAxesDistractor.php",

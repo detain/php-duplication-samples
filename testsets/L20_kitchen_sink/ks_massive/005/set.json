@@ -21,7 +21,7 @@
             "path": "src/MassiveB.php",
             "role": "carrier",
             "duplicate_group": "A",
-            "sloc": 47
+            "sloc": 49
         },
         {
             "path": "src/MassiveDistractor.php",

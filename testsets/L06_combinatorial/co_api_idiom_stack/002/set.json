@@ -39,10 +39,10 @@
             "path": "src/MaxApiCalc.php",
             "role": "carrier",
             "duplicate_group": "A",
-            "sloc": 41,
+            "sloc": 43,
             "region_sloc": {
-                "sloc": 23,
-                "duplicate": 21,
+                "sloc": 25,
+                "duplicate": 23,
                 "unique": 2,
                 "filler": 0
             }

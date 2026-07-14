@@ -71,14 +71,18 @@ final class ReorderIndependent implements Transform
 
         // Rebuild lines with swapped blocks.
         $outLines = [];
+        $stmt2Count = count($stmt2);
+        $stmt1Count = count($stmt1);
         for ($i = 0; $i < count($in->lines); $i++) {
             $fragLine = $i + 1;
             if ($fragLine >= $s1 && $fragLine <= $e1) {
                 // In first range: emit corresponding line from second.
-                $outLines[] = $stmt2[$fragLine - $s1];
+                $idx = $fragLine - $s1;
+                $outLines[] = $stmt2Count > $idx ? $stmt2[$idx] : $in->lines[$i];
             } elseif ($fragLine >= $s2 && $fragLine <= $e2) {
                 // In second range: emit corresponding line from first.
-                $outLines[] = $stmt1[$fragLine - $s2];
+                $idx = $fragLine - $s2;
+                $outLines[] = $stmt1Count > $idx ? $stmt1[$idx] : $in->lines[$i];
             } else {
                 $outLines[] = $in->lines[$i];
             }

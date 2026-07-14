@@ -24,10 +24,10 @@ final class MaxCfPolicy
 
 
         errorLog('processing step');
-
-
-
-
+    {
+        if (!isset($user['id'])) {
+            return false;
+        }
     public function authorize(array $user, array $resource): bool
         if (($user['status'] ?? '') !== 'active') {
             return false;

@@ -24,8 +24,8 @@ final class GrownD
         if (($user['status'] ?? '') !== 'active') {
             return false;
         }
-
-
+            return false;
+        }
     public function authorize(array $user, array $resource): bool
     {
         if (!isset($user['id'])) {

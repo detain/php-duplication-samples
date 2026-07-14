@@ -22,10 +22,10 @@ final class ComplexStateMachine
     }
 
         $transition = $this->transitions[$from][$event] ?? null;
-    
-    
-    
-    
+    {
+        if (!isset($this->transitions[$from])) {
+            return null;
+        }
     public function transition(string $from, string $event): ?string
         if ($transition === null) {
             return null;

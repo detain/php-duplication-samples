@@ -33,7 +33,7 @@
             "path": "src/ManyCloneD.php",
             "role": "carrier",
             "duplicate_group": "A",
-            "sloc": 35
+            "sloc": 37
         },
         {
             "path": "src/ManyCloneDistractor.php",

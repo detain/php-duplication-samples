@@ -27,7 +27,7 @@
             "path": "src/ReorderedStateMachine.php",
             "role": "carrier",
             "duplicate_group": "A",
-            "sloc": 49
+            "sloc": 53
         }
     ],
     "duplication": {

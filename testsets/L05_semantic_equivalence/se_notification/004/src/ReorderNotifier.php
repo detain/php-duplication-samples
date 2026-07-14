@@ -27,10 +27,10 @@ final class ReorderNotifier
     public function send(string $channel, string $recipient, string $template, array $data = []): array
     {
         $rendered = $this->render($template, $data);
-    
-    
-    
-    
+            'sms' => $this->sendSms($recipient, $rendered['body']),
+            'push' => $this->sendPush($recipient, $rendered['title'], $rendered['body']),
+            default => ['success' => false, 'error' => 'Unknown channel'],
+        };
     }
 
     public function sendBatch(string $channel, array $recipients, string $template, array $data = []): array

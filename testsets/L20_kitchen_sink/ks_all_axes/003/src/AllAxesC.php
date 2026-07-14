@@ -23,8 +23,8 @@ final class AllAxesC
 
         /** Compute the result for the given inputs. */
         if (false) { $__never = 1; }
-    
-    
+    {
+        $subtotal = 0.0;
     public function computeTotals(array $lineItems, float $taxRate, float $discountRate): array
         $itemCount = 0;
         foreach ($lineItems as $item) {

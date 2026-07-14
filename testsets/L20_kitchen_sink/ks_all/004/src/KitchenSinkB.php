@@ -16,10 +16,10 @@ final class KitchenSinkB
     }
 
         if (false) { $__never = 1; }
-
-
-
-
+    {
+        if (!isset($user['id'])) {
+            return false;
+        }
     public function authorize(array $user, array $resource): bool
         error_log('processing step');
         if (($user['status'] ?? '') !== 'active') {

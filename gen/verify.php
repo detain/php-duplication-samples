@@ -623,10 +623,14 @@ function v3TilingCheck(string $setDir, array $setJson, array $expected): array
             $startLine = (int)$m['start_line'];
             $endLine = (int)$m['end_line'];
 
+            if (!empty($m['pristine'])) {
+                continue;
+            }
+
             $fragments = $m['fragments'] ?? [];
             $uniqueSegments = $m['unique_segments'] ?? [];
 
-            $covered = array_fill($startLine, $endLine - $startLine + 1, false);
+            $covered = array_fill(0, $endLine - $startLine + 1, false);
 
             foreach ($fragments as $f) {
                 $fs = (int)$f['start_line'];
@@ -976,6 +980,11 @@ function v10PairwiseConsistency(string $setDir, array $setJson, array $expected)
         for ($x = 0; $x < count($files); $x++) {
             for ($y = $x + 1; $y < count($files); $y++) {
                 $pairKey = $files[$x] < $files[$y] ? "{$files[$x]}|{$files[$y]}" : "{$files[$y]}|{$files[$x]}";
+                if (!isset($coveredPairs[$pairKey])) {
+                    if ($tokenBasedDefault === false && $astBasedDefault === false) {
+                        $errors[] = "V-10: cluster {$cluster['id']}: pair {$pairKey} not in pairwise_expectation and inherits token_based/ast_based=false, expected duplication not declared";
+                    }
+                }
             }
         }
     }

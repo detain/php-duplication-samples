@@ -160,7 +160,131 @@ $manifest = [
     'levels'         => $levelEntries,
 ];
 
+// ---------------------------------------------------------------------------
+// F-14: Build the capability-progression matrix and write progression.json.
+// ---------------------------------------------------------------------------
+
+$profilerFile = $root . '/bench/results/tool-profiles.json';
+$profiles = is_file($profilerFile)
+    ? json_decode((string)file_get_contents($profilerFile), true)['profiles'] ?? []
+    : [];
+
+// Map level → clone-type description (matches bench/profile.php detects list).
+$levelCloneTypes = [
+    0 => null,                                                          // no clones
+    1 => 'type-1 exact duplication',
+    2 => 'type-1 with whitespace variation',
+    3 => 'type-1 with comment variation',
+    4 => 'type-2 with identifier rename',
+    5 => 'type-2 with literal change',
+    6 => 'type-3 with statement edit',
+    7 => 'type-3 with statement edit',                                  // control-flow rewrites ≈ type-3
+    8 => 'type-4 semantic/architectural',
+    9 => 'type-4 semantic/architectural',                               // compound ≈ type-4
+    10 => 'type-4 semantic/architectural',                              // adversarial ≈ type-4
+    11 => 'cross-file scattered clones',
+    12 => 'cross-file scattered clones',                                // deep refactoring ≈ scattered
+    13 => 'cross-file scattered clones',                               // cross-seed ≈ scattered
+    14 => 'semantic-equivalent variants (CF/API selection)',
+    15 => 'semantic-equivalent variants (CF/API selection)',            // API hybrids ≈ semantic equiv
+    16 => 'behaviorally-equivalent refactored code',
+    17 => 'behaviorally-equivalent refactored code',                    // genealogical drift ≈ behavioral
+    18 => 'partial duplication with unique regions',
+    19 => 'partial duplication with unique regions',                    // budget-constrained ≈ partial
+    20 => 'type-4 semantic/architectural',                              // adversarial anti-detection
+];
+
+// Skill name per level (used in the walk array).
+$levelSkills = [
+    0  => 'detection_absent',
+    1  => 'exact_clone',
+    2  => 'ws_clone',
+    3  => 'cm_clone',
+    4  => 'rn_clone',
+    5  => 'lt_clone',
+    6  => 'st_edit',
+    7  => 'cf_rewrite',
+    8  => 'api_substitution',
+    9  => 'compound_interference',
+    10 => 'adversarial_edge',
+    11 => 'cross_file_scatter',
+    12 => 'deep_refactor_partial',
+    13 => 'cross_seed',
+    14 => 'semantic_equiv',
+    15 => 'api_hybrid',
+    16 => 'behavioral_equiv',
+    17 => 'genealogical_drift',
+    18 => 'partial_fragment',
+    19 => 'budget_constrained',
+    20 => 'anti_detection',
+];
+
+// Build level entries with tool expectations.
+$progressionLevels = [];
+foreach ($levelEntries as $entry) {
+    $lvl = (int)$entry['level'];
+    $cloneType = $levelCloneTypes[$lvl] ?? null;
+
+    $toolExpectations = [];
+    foreach ($profiles as $tool => $profile) {
+        if ($cloneType === null) {
+            // Level 0 — no clones present.
+            $toolExpectations[$tool] = ['detects' => false, 'reason' => 'no clones'];
+        } elseif (in_array($cloneType, $profile['detects'] ?? [], true)) {
+            $toolExpectations[$tool] = ['detects' => true, 'confidence' => 'high'];
+        } elseif (in_array($cloneType, $profile['misses'] ?? [], true)) {
+            $toolExpectations[$tool] = ['detects' => false, 'reason' => 'tool_miss'];
+        } else {
+            // Clone type not in either list — treat as unknown.
+            $toolExpectations[$tool] = ['detects' => null, 'reason' => 'unknown'];
+        }
+    }
+
+    $progressionLevels[] = [
+        'level'             => $lvl,
+        'name'              => $entry['title'],
+        'description'       => $entry['title'],
+        'clone_type'        => $cloneType,
+        'tool_expectations' => $toolExpectations,
+    ];
+}
+
+// Build the walk array.
+$walkEntries = [];
+foreach ($levelEntries as $entry) {
+    $lvl = (int)$entry['level'];
+    $walkEntries[] = [
+        'level' => $lvl,
+        'skill' => $levelSkills[$lvl] ?? "level_{$lvl}",
+    ];
+}
+
+$progression = [
+    'schema_version'  => 1,
+    'generated_at'   => gitRefOrDate($root),
+    'levels'         => $progressionLevels,
+    'walk'           => $walkEntries,
+    'tools'          => array_keys($profiles),
+    'capability_map' => [
+        'detects'   => 'what the tool can find',
+        'misses'    => 'what the tool typically fails to detect',
+        'thresholds' => 'min_lines / min_tokens for reporting',
+        'fp_profile' => 'false-positive prone patterns',
+    ],
+];
+
+$progressionFile = $root . '/bench/results/progression.json';
+@mkdir(dirname($progressionFile), 0o775, true);
+file_put_contents(
+    $progressionFile,
+    json_encode($progression, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) . "\n"
+);
+
+echo "[manifest] wrote bench/results/progression.json (" . count($progressionLevels) . " levels)\n";
+
+// ---------------------------------------------------------------------------
 // Validate before writing.
+// ---------------------------------------------------------------------------
 $schema = json_decode((string)file_get_contents($root . '/testsets/schema/manifest.schema.json'), true);
 $errors = JsonSchema::validate($manifest, $schema, 'manifest');
 if ($errors !== []) {

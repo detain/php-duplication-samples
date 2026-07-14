@@ -41,7 +41,10 @@
                     "unique_segments": [
                         {
                             "start_line": 17,
-                            "end_line": 38
+                            "end_line": 38,
+                            "lines": 22,
+                            "kind": "gap",
+                            "reason": "inserted by transform"
                         }
                     ]
                 },
@@ -122,7 +125,10 @@
                     "unique_segments": [
                         {
                             "start_line": 41,
-                            "end_line": 85
+                            "end_line": 85,
+                            "lines": 45,
+                            "kind": "gap",
+                            "reason": "inserted by transform"
                         }
                     ]
                 },
@@ -151,7 +157,10 @@
                     "unique_segments": [
                         {
                             "start_line": 47,
-                            "end_line": 73
+                            "end_line": 73,
+                            "lines": 27,
+                            "kind": "gap",
+                            "reason": "inserted by transform"
                         }
                     ]
                 }

@@ -21,7 +21,7 @@
             "path": "src/SemanticShiftB.php",
             "role": "carrier",
             "duplicate_group": "A",
-            "sloc": 42
+            "sloc": 44
         },
         {
             "path": "src/SemanticShiftDistractor.php",

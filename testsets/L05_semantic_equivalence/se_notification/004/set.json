@@ -27,7 +27,7 @@
             "path": "src/ReorderNotifier.php",
             "role": "carrier",
             "duplicate_group": "A",
-            "sloc": 67
+            "sloc": 71
         }
     ],
     "duplication": {

@@ -21,13 +21,13 @@
             "path": "src/TotalsCalculatorB.php",
             "role": "carrier",
             "duplicate_group": "A",
-            "sloc": 42
+            "sloc": 44
         },
         {
             "path": "src/TotalsCalculatorC.php",
             "role": "carrier",
             "duplicate_group": "A",
-            "sloc": 41
+            "sloc": 43
         },
         {
             "path": "src/Validator.php",

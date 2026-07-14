@@ -39,10 +39,10 @@
             "path": "src/CfDocPolicy.php",
             "role": "carrier",
             "duplicate_group": "A",
-            "sloc": 35,
+            "sloc": 37,
             "region_sloc": {
-                "sloc": 17,
-                "duplicate": 17,
+                "sloc": 19,
+                "duplicate": 19,
                 "unique": 0,
                 "filler": 0
             }

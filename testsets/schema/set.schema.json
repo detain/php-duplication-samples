@@ -221,6 +221,10 @@
                         "items": {
                             "type": "string"
                         }
+                    },
+                    "intensity": {
+                        "type": "integer",
+                        "minimum": 0
                     }
                 }
             }
@@ -241,7 +245,10 @@
                 },
                 "per_carrier_axes": {
                     "type": "object",
-                    "additionalProperties": {"type": "integer", "minimum": 0}
+                    "additionalProperties": {
+                        "type": "array",
+                        "items": {"type": "string"}
+                    }
                 },
                 "stack_depth_max": {"type": "integer", "minimum": 0},
                 "symmetric": {"type": "boolean"},

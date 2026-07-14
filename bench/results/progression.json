@@ -1,0 +1,438 @@
+{
+    "schema_version": 1,
+    "generated_at": "git:ref: refs/he",
+    "levels": [
+        {
+            "level": 0,
+            "name": "No duplication (negative controls)",
+            "description": "No duplication (negative controls)",
+            "clone_type": null,
+            "tool_expectations": {
+                "phpcpd": {
+                    "detects": false,
+                    "reason": "no clones"
+                },
+                "jscpd": {
+                    "detects": false,
+                    "reason": "no clones"
+                }
+            }
+        },
+        {
+            "level": 1,
+            "name": "Exact duplication (Type-1)",
+            "description": "Exact duplication (Type-1)",
+            "clone_type": "type-1 exact duplication",
+            "tool_expectations": {
+                "phpcpd": {
+                    "detects": true,
+                    "confidence": "high"
+                },
+                "jscpd": {
+                    "detects": true,
+                    "confidence": "high"
+                }
+            }
+        },
+        {
+            "level": 2,
+            "name": "Whitespace & layout variation (Type-1)",
+            "description": "Whitespace & layout variation (Type-1)",
+            "clone_type": "type-1 with whitespace variation",
+            "tool_expectations": {
+                "phpcpd": {
+                    "detects": true,
+                    "confidence": "high"
+                },
+                "jscpd": {
+                    "detects": true,
+                    "confidence": "high"
+                }
+            }
+        },
+        {
+            "level": 3,
+            "name": "Comment variation (Type-1)",
+            "description": "Comment variation (Type-1)",
+            "clone_type": "type-1 with comment variation",
+            "tool_expectations": {
+                "phpcpd": {
+                    "detects": true,
+                    "confidence": "high"
+                },
+                "jscpd": {
+                    "detects": true,
+                    "confidence": "high"
+                }
+            }
+        },
+        {
+            "level": 4,
+            "name": "Renames, literals, types, namespaces (Type-2)",
+            "description": "Renames, literals, types, namespaces (Type-2)",
+            "clone_type": "type-2 with identifier rename",
+            "tool_expectations": {
+                "phpcpd": {
+                    "detects": true,
+                    "confidence": "high"
+                },
+                "jscpd": {
+                    "detects": true,
+                    "confidence": "high"
+                }
+            }
+        },
+        {
+            "level": 5,
+            "name": "Statement edits (Type-3)",
+            "description": "Statement edits (Type-3)",
+            "clone_type": "type-2 with literal change",
+            "tool_expectations": {
+                "phpcpd": {
+                    "detects": true,
+                    "confidence": "high"
+                },
+                "jscpd": {
+                    "detects": true,
+                    "confidence": "high"
+                }
+            }
+        },
+        {
+            "level": 6,
+            "name": "Control-flow & expression rewrites",
+            "description": "Control-flow & expression rewrites",
+            "clone_type": "type-3 with statement edit",
+            "tool_expectations": {
+                "phpcpd": {
+                    "detects": true,
+                    "confidence": "high"
+                },
+                "jscpd": {
+                    "detects": true,
+                    "confidence": "high"
+                }
+            }
+        },
+        {
+            "level": 7,
+            "name": "API & idiom substitution (Type-4)",
+            "description": "API & idiom substitution (Type-4)",
+            "clone_type": "type-3 with statement edit",
+            "tool_expectations": {
+                "phpcpd": {
+                    "detects": true,
+                    "confidence": "high"
+                },
+                "jscpd": {
+                    "detects": true,
+                    "confidence": "high"
+                }
+            }
+        },
+        {
+            "level": 8,
+            "name": "Semantic / architectural duplication",
+            "description": "Semantic / architectural duplication",
+            "clone_type": "type-4 semantic/architectural",
+            "tool_expectations": {
+                "phpcpd": {
+                    "detects": false,
+                    "reason": "tool_miss"
+                },
+                "jscpd": {
+                    "detects": false,
+                    "reason": "tool_miss"
+                }
+            }
+        },
+        {
+            "level": 9,
+            "name": "Compound interference (mixed)",
+            "description": "Compound interference (mixed)",
+            "clone_type": "type-4 semantic/architectural",
+            "tool_expectations": {
+                "phpcpd": {
+                    "detects": false,
+                    "reason": "tool_miss"
+                },
+                "jscpd": {
+                    "detects": false,
+                    "reason": "tool_miss"
+                }
+            }
+        },
+        {
+            "level": 10,
+            "name": "Adversarial edge cases & topology",
+            "description": "Adversarial edge cases & topology",
+            "clone_type": "type-4 semantic/architectural",
+            "tool_expectations": {
+                "phpcpd": {
+                    "detects": false,
+                    "reason": "tool_miss"
+                },
+                "jscpd": {
+                    "detects": false,
+                    "reason": "tool_miss"
+                }
+            }
+        },
+        {
+            "level": 11,
+            "name": "Cross-file scatter & inheritance chains",
+            "description": "Cross-file scatter & inheritance chains",
+            "clone_type": "cross-file scattered clones",
+            "tool_expectations": {
+                "phpcpd": {
+                    "detects": false,
+                    "reason": "tool_miss"
+                },
+                "jscpd": {
+                    "detects": false,
+                    "reason": "tool_miss"
+                }
+            }
+        },
+        {
+            "level": 12,
+            "name": "Deep refactoring & partial duplication",
+            "description": "Deep refactoring & partial duplication",
+            "clone_type": "cross-file scattered clones",
+            "tool_expectations": {
+                "phpcpd": {
+                    "detects": false,
+                    "reason": "tool_miss"
+                },
+                "jscpd": {
+                    "detects": false,
+                    "reason": "tool_miss"
+                }
+            }
+        },
+        {
+            "level": 13,
+            "name": "Cross-seed & multi-domain clones",
+            "description": "Cross-seed & multi-domain clones",
+            "clone_type": "cross-file scattered clones",
+            "tool_expectations": {
+                "phpcpd": {
+                    "detects": false,
+                    "reason": "tool_miss"
+                },
+                "jscpd": {
+                    "detects": false,
+                    "reason": "tool_miss"
+                }
+            }
+        },
+        {
+            "level": 14,
+            "name": "Semantic equivalence variants",
+            "description": "Semantic equivalence variants",
+            "clone_type": "semantic-equivalent variants (CF/API selection)",
+            "tool_expectations": {
+                "phpcpd": {
+                    "detects": false,
+                    "reason": "tool_miss"
+                },
+                "jscpd": {
+                    "detects": false,
+                    "reason": "tool_miss"
+                }
+            }
+        },
+        {
+            "level": 15,
+            "name": "Composed selectors & API hybrids",
+            "description": "Composed selectors & API hybrids",
+            "clone_type": "semantic-equivalent variants (CF/API selection)",
+            "tool_expectations": {
+                "phpcpd": {
+                    "detects": false,
+                    "reason": "tool_miss"
+                },
+                "jscpd": {
+                    "detects": false,
+                    "reason": "tool_miss"
+                }
+            }
+        },
+        {
+            "level": 16,
+            "name": "Behavioral equivalence & proof obligations",
+            "description": "Behavioral equivalence & proof obligations",
+            "clone_type": "behaviorally-equivalent refactored code",
+            "tool_expectations": {
+                "phpcpd": {
+                    "detects": false,
+                    "reason": "tool_miss"
+                },
+                "jscpd": {
+                    "detects": false,
+                    "reason": "tool_miss"
+                }
+            }
+        },
+        {
+            "level": 17,
+            "name": "Genealogical drift chains",
+            "description": "Genealogical drift chains",
+            "clone_type": "behaviorally-equivalent refactored code",
+            "tool_expectations": {
+                "phpcpd": {
+                    "detects": false,
+                    "reason": "tool_miss"
+                },
+                "jscpd": {
+                    "detects": false,
+                    "reason": "tool_miss"
+                }
+            }
+        },
+        {
+            "level": 18,
+            "name": "Fragment-level partial duplication",
+            "description": "Fragment-level partial duplication",
+            "clone_type": "partial duplication with unique regions",
+            "tool_expectations": {
+                "phpcpd": {
+                    "detects": false,
+                    "reason": "tool_miss"
+                },
+                "jscpd": {
+                    "detects": false,
+                    "reason": "tool_miss"
+                }
+            }
+        },
+        {
+            "level": 19,
+            "name": "Budget-constrained edit synthesis",
+            "description": "Budget-constrained edit synthesis",
+            "clone_type": "partial duplication with unique regions",
+            "tool_expectations": {
+                "phpcpd": {
+                    "detects": false,
+                    "reason": "tool_miss"
+                },
+                "jscpd": {
+                    "detects": false,
+                    "reason": "tool_miss"
+                }
+            }
+        },
+        {
+            "level": 20,
+            "name": "Adversarial anti-detection patterns",
+            "description": "Adversarial anti-detection patterns",
+            "clone_type": "type-4 semantic/architectural",
+            "tool_expectations": {
+                "phpcpd": {
+                    "detects": false,
+                    "reason": "tool_miss"
+                },
+                "jscpd": {
+                    "detects": false,
+                    "reason": "tool_miss"
+                }
+            }
+        }
+    ],
+    "walk": [
+        {
+            "level": 0,
+            "skill": "detection_absent"
+        },
+        {
+            "level": 1,
+            "skill": "exact_clone"
+        },
+        {
+            "level": 2,
+            "skill": "ws_clone"
+        },
+        {
+            "level": 3,
+            "skill": "cm_clone"
+        },
+        {
+            "level": 4,
+            "skill": "rn_clone"
+        },
+        {
+            "level": 5,
+            "skill": "lt_clone"
+        },
+        {
+            "level": 6,
+            "skill": "st_edit"
+        },
+        {
+            "level": 7,
+            "skill": "cf_rewrite"
+        },
+        {
+            "level": 8,
+            "skill": "api_substitution"
+        },
+        {
+            "level": 9,
+            "skill": "compound_interference"
+        },
+        {
+            "level": 10,
+            "skill": "adversarial_edge"
+        },
+        {
+            "level": 11,
+            "skill": "cross_file_scatter"
+        },
+        {
+            "level": 12,
+            "skill": "deep_refactor_partial"
+        },
+        {
+            "level": 13,
+            "skill": "cross_seed"
+        },
+        {
+            "level": 14,
+            "skill": "semantic_equiv"
+        },
+        {
+            "level": 15,
+            "skill": "api_hybrid"
+        },
+        {
+            "level": 16,
+            "skill": "behavioral_equiv"
+        },
+        {
+            "level": 17,
+            "skill": "genealogical_drift"
+        },
+        {
+            "level": 18,
+            "skill": "partial_fragment"
+        },
+        {
+            "level": 19,
+            "skill": "budget_constrained"
+        },
+        {
+            "level": 20,
+            "skill": "anti_detection"
+        }
+    ],
+    "tools": [
+        "phpcpd",
+        "jscpd"
+    ],
+    "capability_map": {
+        "detects": "what the tool can find",
+        "misses": "what the tool typically fails to detect",
+        "thresholds": "min_lines / min_tokens for reporting",
+        "fp_profile": "false-positive prone patterns"
+    }
+}

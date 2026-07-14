@@ -539,9 +539,14 @@ final class SetBuilder
             }
         }
         if ($insertedOffsets !== []) {
+            $minOffset = min($insertedOffsets);
+            $maxOffset = max($insertedOffsets);
             $unique[] = [
-                'start_line' => $start + min($insertedOffsets),
-                'end_line'   => $start + max($insertedOffsets),
+                'start_line' => $start + $minOffset,
+                'end_line'   => $start + $maxOffset,
+                'lines'      => $maxOffset - $minOffset + 1,
+                'kind'       => 'gap',
+                'reason'     => 'inserted by transform',
             ];
         }
         return $unique;

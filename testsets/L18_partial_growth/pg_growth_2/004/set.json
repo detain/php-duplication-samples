@@ -33,7 +33,7 @@
             "path": "src/GrownD.php",
             "role": "carrier",
             "duplicate_group": "A",
-            "sloc": 35
+            "sloc": 37
         },
         {
             "path": "src/GrownDistractor.php",

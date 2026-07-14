@@ -27,10 +27,10 @@
             "path": "src/MaxCfCalcB.php",
             "role": "carrier",
             "duplicate_group": "A",
-            "sloc": 36,
+            "sloc": 38,
             "region_sloc": {
-                "sloc": 17,
-                "duplicate": 14,
+                "sloc": 19,
+                "duplicate": 16,
                 "unique": 3,
                 "filler": 0
             }

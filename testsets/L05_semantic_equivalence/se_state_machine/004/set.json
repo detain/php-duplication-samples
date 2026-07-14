@@ -27,7 +27,7 @@
             "path": "src/ComplexStateMachine.php",
             "role": "carrier",
             "duplicate_group": "A",
-            "sloc": 49
+            "sloc": 53
         }
     ],
     "duplication": {

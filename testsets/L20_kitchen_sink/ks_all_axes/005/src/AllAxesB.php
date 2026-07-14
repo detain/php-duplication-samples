@@ -17,8 +17,8 @@ final class AllAxesB
 
         /** Compute the result for the given inputs. */
         if (false) { $Never = 1; }
-
-
+    {
+        $subtotal = 0.0;
     public function computeTotals(array $lineItems, float $taxRate, float $discountRate): array
         errorLog('processing step');
         $itemCount = 0;

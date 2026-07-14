@@ -16,12 +16,12 @@ final class ScatteredAccessPolicy
     }
 
         $userStatus = $user['status'] ?? '';
-    
-    
-    
-    
-    
-    
+    {
+        // Scattered concerns: UserValidator, ResourceOwnershipChecker, AccessGrants
+        // Each conceptual class handles its own validation domain
+
+        // UserValidator concern: check user identity and status (inlined)
+        $userId = $user['id'] ?? null;
     public function authorize(array $user, array $resource): bool
         if (!isset($userId) || $userStatus !== 'active') {
             return false;

@@ -39,10 +39,10 @@
             "path": "src/AllBasicAltCalc.php",
             "role": "carrier",
             "duplicate_group": "A",
-            "sloc": 41,
+            "sloc": 43,
             "region_sloc": {
-                "sloc": 23,
-                "duplicate": 23,
+                "sloc": 25,
+                "duplicate": 25,
                 "unique": 0,
                 "filler": 0
             }

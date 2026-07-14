@@ -27,7 +27,7 @@
             "path": "src/JsGeneratorC.php",
             "role": "carrier",
             "duplicate_group": "A",
-            "sloc": 41
+            "sloc": 43
         },
         {
             "path": "src/JsGeneratorDistractor.php",

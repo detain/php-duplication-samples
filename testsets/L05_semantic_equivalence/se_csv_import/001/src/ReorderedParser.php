@@ -22,8 +22,8 @@ final class ReorderedParser
     }
 
         $hasHeader = $config['has_header'] ?? true;
-    
-    
+    {
+        $delimiter = $config['delimiter'] ?? ',';
     public function process(string $content, array $config = []): array
         $trim = $config['trim'] ?? true;
 

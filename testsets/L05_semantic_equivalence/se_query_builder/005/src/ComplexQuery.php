@@ -22,8 +22,8 @@ final class ComplexQuery
     }
 
         $this->params = [];
-    
-    
+    {
+        $this->sql = 'SELECT ' . implode(', ', $columns) . ' FROM ' . $table;
     public function select(string $table, array $columns = ['*']): self
         return $this;
     }

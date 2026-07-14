@@ -39,10 +39,10 @@
             "path": "src/MaxCfPolicy.php",
             "role": "carrier",
             "duplicate_group": "A",
-            "sloc": 34,
+            "sloc": 38,
             "region_sloc": {
-                "sloc": 16,
-                "duplicate": 13,
+                "sloc": 20,
+                "duplicate": 17,
                 "unique": 3,
                 "filler": 0
             }
