@@ -59,7 +59,7 @@ final class ReturnShapeReorder implements Transform
                 if (count($kvMatches) > 1) {
                     // Shuffle the key order
                     $keys = array_column($kvMatches, 1);
-                    shuffle($keys);
+                    $keys = $rng->shuffle($keys);
 
                     // Rebuild array with shuffled key order
                     $newPairs = [];

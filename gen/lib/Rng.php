@@ -41,4 +41,17 @@ final class Rng
     {
         return $this->int(0, 1) === 1;
     }
+
+    /** Shuffle array deterministically using seeded RNG. */
+    public function shuffle(array $items): array
+    {
+        $result = $items;
+        // Fisher-Yates shuffle using mt_rand (seeded)
+        $n = count($result);
+        for ($i = $n - 1; $i > 0; $i--) {
+            $j = $this->int(0, $i);
+            [$result[$i], $result[$j]] = [$result[$j], $result[$i]];
+        }
+        return $result;
+    }
 }

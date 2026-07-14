@@ -1,0 +1,12 @@
+{
+    "domain": "counter_increment",
+    "summary": "Counter increment with expanded vs compound vs reversed assignment.",
+    "size_class": "S",
+    "symbol": "incrementCounter",
+    "line_count": 14,
+    "token_count": 95,
+    "required_symbols": ["incrementCounter"],
+    "mount_modes": ["method"],
+    "compatible_interference": ["WS-03", "CM-03", "RN-01", "CF-03", "CF-05", "ST-12"],
+    "variants": []
+}

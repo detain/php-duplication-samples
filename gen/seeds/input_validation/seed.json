@@ -1,0 +1,12 @@
+{
+    "domain": "input_validation",
+    "summary": "Input validation with nested if-else vs guard-clause early returns.",
+    "size_class": "S",
+    "symbol": "validateInput",
+    "line_count": 24,
+    "token_count": 165,
+    "required_symbols": ["validateInput"],
+    "mount_modes": ["method"],
+    "compatible_interference": ["WS-03", "CM-03", "RN-01", "CF-03", "CF-05", "ST-10"],
+    "variants": []
+}
