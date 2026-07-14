@@ -437,6 +437,91 @@
                     "source": "clean_auth"
                 }
             ]
+        },
+        {
+            "set_id": "L03-cm_docblock-006",
+            "title": "Minimal docblock with single word changed in summary",
+            "description": "G-5 gap-fill: TRUE minimal pair for cm_docblock. Three carriers all have identical docblocks except carrier B has ONE WORD different in the summary line ('Computes' vs 'Calculates'). This is the minimal possible docblock variation — a single word change in the summary that preserves full syntactic validity. Text and token-based detectors should identify this, but it tests whether ultra-minimal docblock-only changes are caught.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "function",
+            "clone_type": "type-1",
+            "normalized_by": [
+                "whitespace",
+                "comments"
+            ],
+            "rng_seed": 103006,
+            "notes": "G-5 gap-fill: TRUE minimal pair (one docblock summary-line word changed). Extends E.2.5 §5.4 cm_docblock_only with a rung structure demonstrating ultra-minimal docblock variation.",
+            "detection_expectation": {
+                "text_based": true,
+                "token_based": true,
+                "ast_based": false,
+                "metric_based": false,
+                "semantic": false
+            },
+            "role_composition": {
+                "carrier": 3,
+                "distractor": 1,
+                "clean": 1
+            },
+            "carriers": [
+                {
+                    "file": "LedgerPostingService.php",
+                    "namespace": "Acme\\Ledger\\Posting",
+                    "class": "LedgerPostingService",
+                    "scaffold": "method_alpha",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                },
+                {
+                    "file": "PriceBookService.php",
+                    "namespace": "Acme\\Ledger\\Pricing",
+                    "class": "PriceBookService",
+                    "scaffold": "method_beta",
+                    "group": "A",
+                    "pristine": false,
+                    "transforms": [
+                        {
+                            "code": "CM-03",
+                            "params": {
+                                "style": "minimal",
+                                "summary": "Calculates the result for the given inputs."
+                            }
+                        }
+                    ]
+                },
+                {
+                    "file": "ThirdService.php",
+                    "namespace": "Acme\\Ledger\\Third",
+                    "class": "ThirdService",
+                    "scaffold": "method_gamma",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                }
+            ],
+            "interference": [
+                "CM-03"
+            ],
+            "distractors": [
+                {
+                    "file": "MarginReporter.php",
+                    "namespace": "Acme\\Ledger\\Reporting",
+                    "class": "MarginReporter",
+                    "source": "nearmiss_access",
+                    "reason": "near-miss: shares foreach+invoice vocabulary but computes margin/ratio not totals"
+                }
+            ],
+            "cleans": [
+                {
+                    "file": "TaxRateRepository.php",
+                    "namespace": "Acme\\Ledger\\Catalog",
+                    "class": "TaxRateRepository",
+                    "source": "clean_auth"
+                }
+            ]
         }
     ]
 }

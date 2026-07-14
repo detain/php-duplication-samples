@@ -1,0 +1,133 @@
+{
+    "level": 2,
+    "level_name": "whitespace_variation",
+    "level_dir": "L02_whitespace",
+    "family": "tb_30",
+    "sets": [
+        {
+            "set_id": "L02-tb_30-001",
+            "title": "Token-boundary probe at 29 tokens (just below 30 threshold)",
+            "description": "Exact clone at 29 tokens - tests whether detectors with 30-token default fail to report this near-threshold clone.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 202021,
+            "notes": "K-28 threshold bracketing: token-boundary ±1 at 30. Target 29 tokens.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "BillingServiceA.php", "namespace": "Acme\\Billing\\Probe", "class": "BillingServiceA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "BillingServiceB.php", "namespace": "Acme\\Billing\\Probe", "class": "BillingServiceB", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": []},
+                {"file": "BillingServiceC.php", "namespace": "Acme\\Billing\\Probe", "class": "BillingServiceC", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "PriceCalc.php", "namespace": "Acme\\Billing\\Distract", "class": "PriceCalc", "source": "nearmiss_invoice", "reason": "near-miss: similar structure, different computation"}
+            ],
+            "cleans": [
+                {"file": "TaxRepo.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRepo", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L02-tb_30-002",
+            "title": "Token-boundary probe at exactly 30 tokens",
+            "description": "Exact clone at exactly 30 tokens - at the tool default threshold.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 202022,
+            "notes": "K-28 threshold bracketing: token-boundary ±1 at 30. Target 30 tokens (exact threshold).",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "BillingServiceA.php", "namespace": "Acme\\Billing\\Probe", "class": "BillingServiceA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "BillingServiceB.php", "namespace": "Acme\\Billing\\Probe", "class": "BillingServiceB", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": []},
+                {"file": "BillingServiceC.php", "namespace": "Acme\\Billing\\Probe", "class": "BillingServiceC", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "PriceCalc.php", "namespace": "Acme\\Billing\\Distract", "class": "PriceCalc", "source": "nearmiss_invoice", "reason": "near-miss: similar structure, different computation"}
+            ],
+            "cleans": [
+                {"file": "TaxRepo.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRepo", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L02-tb_30-003",
+            "title": "Token-boundary probe at 31 tokens (just above 30 threshold)",
+            "description": "Exact clone at 31 tokens - above the 30-token threshold.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 202023,
+            "notes": "K-28 threshold bracketing: token-boundary ±1 at 30. Target 31 tokens.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "BillingServiceA.php", "namespace": "Acme\\Billing\\Probe", "class": "BillingServiceA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "BillingServiceB.php", "namespace": "Acme\\Billing\\Probe", "class": "BillingServiceB", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": []},
+                {"file": "BillingServiceC.php", "namespace": "Acme\\Billing\\Probe", "class": "BillingServiceC", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "PriceCalc.php", "namespace": "Acme\\Billing\\Distract", "class": "PriceCalc", "source": "nearmiss_invoice", "reason": "near-miss: similar structure, different computation"}
+            ],
+            "cleans": [
+                {"file": "TaxRepo.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRepo", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L02-tb_30-004",
+            "title": "Token-boundary probe at 49 tokens (just below 50 threshold)",
+            "description": "Exact clone at 49 tokens - approaching 50-token boundary.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 202024,
+            "notes": "K-28 threshold bracketing: token-boundary ±1 at 30/50. Target 49 tokens.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "BillingServiceA.php", "namespace": "Acme\\Billing\\Probe", "class": "BillingServiceA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "BillingServiceB.php", "namespace": "Acme\\Billing\\Probe", "class": "BillingServiceB", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": []},
+                {"file": "BillingServiceC.php", "namespace": "Acme\\Billing\\Probe", "class": "BillingServiceC", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "PriceCalc.php", "namespace": "Acme\\Billing\\Distract", "class": "PriceCalc", "source": "nearmiss_invoice", "reason": "near-miss: similar structure, different computation"}
+            ],
+            "cleans": [
+                {"file": "TaxRepo.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRepo", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L02-tb_30-005",
+            "title": "Token-boundary probe at 50 tokens (at 50 threshold)",
+            "description": "Exact clone at exactly 50 tokens - at the jscpd default threshold.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 202025,
+            "notes": "K-28 threshold bracketing: token-boundary ±1 at 30/50. Target 50 tokens (jscpd default).",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "BillingServiceA.php", "namespace": "Acme\\Billing\\Probe", "class": "BillingServiceA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "BillingServiceB.php", "namespace": "Acme\\Billing\\Probe", "class": "BillingServiceB", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": []},
+                {"file": "BillingServiceC.php", "namespace": "Acme\\Billing\\Probe", "class": "BillingServiceC", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "PriceCalc.php", "namespace": "Acme\\Billing\\Distract", "class": "PriceCalc", "source": "nearmiss_invoice", "reason": "near-miss: similar structure, different computation"}
+            ],
+            "cleans": [
+                {"file": "TaxRepo.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRepo", "source": "clean_billing"}
+            ]
+        }
+    ]
+}

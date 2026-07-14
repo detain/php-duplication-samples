@@ -1,0 +1,194 @@
+{
+    "level": 8,
+    "level_name": "semantic_idioms",
+    "level_dir": "L08_semantic_idioms",
+    "family": "sem_di_zoo",
+    "capability_coverage": ["semantic_equivalence"],
+    "sets": [
+        {
+            "set_id": "L08-sem_di_zoo-001",
+            "title": "Dependency Injection Zoo: 5 DI patterns with identical behavior",
+            "description": "The same business logic (discount calculation) expressed via 5 different dependency injection patterns: constructor injection, setter injection, method injection, static factory, and service locator/global singleton. All produce identical discount computation results. Only semantic analysis can detect these as equivalent.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "applyDiscount",
+            "granularity": "method",
+            "clone_type": "type-4",
+            "schema_version": 2,
+            "normalized_by": ["controlflow", "identifiers", "literals"],
+            "rng_seed": 108601,
+            "notes": "Five DI patterns implementing the same discount logic: ctor injection, setter injection, method injection, static factory, and global singleton. Extends sem_di_style family. Semantic equivalence only - no token/line overlap.",
+            "capability_probe": {
+                "capability": "semantic_equivalence",
+                "isolated": true,
+                "control_set": "L08-sem_di_zoo-001",
+                "pass_criterion": "Tool detects all 5 carriers as semantically equivalent clones despite different DI patterns",
+                "fail_meaning": "Tool cannot detect semantic equivalence across different dependency injection patterns"
+            },
+            "scoring": {"line_tolerance": 3, "member_jaccard_min": 0.5, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": false, "ast_based": false, "metric_based": false, "semantic": true},
+            "requires": ["semantic_reasoning"],
+            "carriers": [
+                {"file": "CtorInjectionDiscount.php", "namespace": "Acme\\Pricing\\Ctor", "class": "CtorInjectionDiscount", "scaffold": "method_alpha", "group": "A", "pristine": false, "variant": "di_ctor_injection", "transforms": [{"code": "SEM-05", "variant": "di_ctor_injection"}]},
+                {"file": "SetterInjectionDiscount.php", "namespace": "Acme\\Pricing\\Setter", "class": "SetterInjectionDiscount", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "di_setter_injection", "transforms": [{"code": "SEM-05", "variant": "di_setter_injection"}]},
+                {"file": "MethodInjectionDiscount.php", "namespace": "Acme\\Pricing\\Method", "class": "MethodInjectionDiscount", "scaffold": "method_gamma", "group": "A", "pristine": false, "variant": "di_method_injection", "transforms": [{"code": "SEM-05", "variant": "di_method_injection"}]},
+                {"file": "StaticFactoryDiscount.php", "namespace": "Acme\\Pricing\\Factory", "class": "StaticFactoryDiscount", "scaffold": "method_delta", "group": "A", "pristine": false, "variant": "di_static_factory", "transforms": [{"code": "SEM-05", "variant": "di_static_factory"}]},
+                {"file": "SingletonDiscount.php", "namespace": "Acme\\Pricing\\Singleton", "class": "SingletonDiscount", "scaffold": "method_epsilon", "group": "A", "pristine": false, "variant": "di_global_singleton", "transforms": [{"code": "SEM-05", "variant": "di_global_singleton"}]}
+            ],
+            "distractors": [
+                {"file": "PercentageDiscount.php", "namespace": "Acme\\Pricing\\Distract", "class": "PercentageDiscount", "source": "clean_pricing", "reason": "clean pricing utility - different discount algorithm"}
+            ],
+            "cleans": [
+                {"file": "PricingConfig.php", "namespace": "Acme\\Pricing\\Config", "class": "PricingConfig", "source": "clean_pricing"}
+            ]
+        },
+        {
+            "set_id": "L08-sem_di_zoo-002",
+            "title": "DI Zoo with rate limiter logic",
+            "description": "Same rate limiting logic via 5 DI patterns: constructor injects validator, setter injects, method receives validator, static factory creates instance, global singleton accesses shared state.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "checkRateLimit",
+            "granularity": "method",
+            "clone_type": "type-4",
+            "schema_version": 2,
+            "normalized_by": ["controlflow", "identifiers", "literals"],
+            "rng_seed": 108602,
+            "notes": "Rate limiter via 5 DI patterns. Access guard semantic domain.",
+            "capability_probe": {
+                "capability": "semantic_equivalence",
+                "isolated": true,
+                "control_set": "L08-sem_di_zoo-002",
+                "pass_criterion": "Tool detects all 5 carriers as semantically equivalent",
+                "fail_meaning": "Tool cannot detect semantic equivalence across DI patterns"
+            },
+            "scoring": {"line_tolerance": 3, "member_jaccard_min": 0.5, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": false, "ast_based": false, "metric_based": false, "semantic": true},
+            "requires": ["semantic_reasoning"],
+            "carriers": [
+                {"file": "CtorRateLimiter.php", "namespace": "Acme\\Security\\Rate\\Ctor", "class": "CtorRateLimiter", "scaffold": "method_alpha", "group": "B", "pristine": false, "variant": "di_ctor_injection", "transforms": [{"code": "SEM-05", "variant": "di_ctor_injection"}]},
+                {"file": "SetterRateLimiter.php", "namespace": "Acme\\Security\\Rate\\Setter", "class": "SetterRateLimiter", "scaffold": "method_beta", "group": "B", "pristine": false, "variant": "di_setter_injection", "transforms": [{"code": "SEM-05", "variant": "di_setter_injection"}]},
+                {"file": "MethodRateLimiter.php", "namespace": "Acme\\Security\\Rate\\Method", "class": "MethodRateLimiter", "scaffold": "method_gamma", "group": "B", "pristine": false, "variant": "di_method_injection", "transforms": [{"code": "SEM-05", "variant": "di_method_injection"}]},
+                {"file": "StaticFactoryRateLimiter.php", "namespace": "Acme\\Security\\Rate\\Factory", "class": "StaticFactoryRateLimiter", "scaffold": "method_delta", "group": "B", "pristine": false, "variant": "di_static_factory", "transforms": [{"code": "SEM-05", "variant": "di_static_factory"}]},
+                {"file": "SingletonRateLimiter.php", "namespace": "Acme\\Security\\Rate\\Singleton", "class": "SingletonRateLimiter", "scaffold": "method_epsilon", "group": "B", "pristine": false, "variant": "di_global_singleton", "transforms": [{"code": "SEM-05", "variant": "di_global_singleton"}]}
+            ],
+            "distractors": [
+                {"file": "TokenBucket.php", "namespace": "Acme\\Security\\Rate\\Distract", "class": "TokenBucket", "source": "clean_auth", "reason": "clean rate limiting with different algorithm"}
+            ],
+            "cleans": [
+                {"file": "RateLimitConfig.php", "namespace": "Acme\\Security\\Rate\\Config", "class": "RateLimitConfig", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L08-sem_di_zoo-003",
+            "title": "DI Zoo with data transformation logic",
+            "description": "Same data transformation (row normalization) expressed via 5 DI patterns in csv_import domain.",
+            "seed": "csv_import",
+            "mount": "method",
+            "clone_symbol": "normalizeRow",
+            "granularity": "method",
+            "clone_type": "type-4",
+            "schema_version": 2,
+            "normalized_by": ["controlflow", "identifiers", "literals"],
+            "rng_seed": 108603,
+            "notes": "Data normalization via 5 DI patterns. csv_import semantic domain.",
+            "capability_probe": {
+                "capability": "semantic_equivalence",
+                "isolated": true,
+                "control_set": "L08-sem_di_zoo-003",
+                "pass_criterion": "Tool detects all 5 carriers as semantically equivalent",
+                "fail_meaning": "Tool cannot detect semantic equivalence across DI patterns"
+            },
+            "scoring": {"line_tolerance": 3, "member_jaccard_min": 0.5, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": false, "ast_based": false, "metric_based": false, "semantic": true},
+            "requires": ["semantic_reasoning"],
+            "carriers": [
+                {"file": "CtorRowNormalizer.php", "namespace": "Acme\\Import\\Norm\\Ctor", "class": "CtorRowNormalizer", "scaffold": "method_alpha", "group": "C", "pristine": false, "variant": "di_ctor_injection", "transforms": [{"code": "SEM-05", "variant": "di_ctor_injection"}]},
+                {"file": "SetterRowNormalizer.php", "namespace": "Acme\\Import\\Norm\\Setter", "class": "SetterRowNormalizer", "scaffold": "method_beta", "group": "C", "pristine": false, "variant": "di_setter_injection", "transforms": [{"code": "SEM-05", "variant": "di_setter_injection"}]},
+                {"file": "MethodRowNormalizer.php", "namespace": "Acme\\Import\\Norm\\Method", "class": "MethodRowNormalizer", "scaffold": "method_gamma", "group": "C", "pristine": false, "variant": "di_method_injection", "transforms": [{"code": "SEM-05", "variant": "di_method_injection"}]},
+                {"file": "StaticFactoryRowNormalizer.php", "namespace": "Acme\\Import\\Norm\\Factory", "class": "StaticFactoryRowNormalizer", "scaffold": "method_delta", "group": "C", "pristine": false, "variant": "di_static_factory", "transforms": [{"code": "SEM-05", "variant": "di_static_factory"}]},
+                {"file": "SingletonRowNormalizer.php", "namespace": "Acme\\Import\\Norm\\Singleton", "class": "SingletonRowNormalizer", "scaffold": "method_epsilon", "group": "C", "pristine": false, "variant": "di_global_singleton", "transforms": [{"code": "SEM-05", "variant": "di_global_singleton"}]}
+            ],
+            "distractors": [
+                {"file": "XmlRowNormalizer.php", "namespace": "Acme\\Import\\Norm\\Distract", "class": "XmlRowNormalizer", "source": "clean_parsing", "reason": "clean XML row normalization"}
+            ],
+            "cleans": [
+                {"file": "ParserConfig.php", "namespace": "Acme\\Import\\Config", "class": "ParserConfig", "source": "clean_parsing"}
+            ]
+        },
+        {
+            "set_id": "L08-sem_di_zoo-004",
+            "title": "DI Zoo - constructor vs setter injection focus",
+            "description": "Focus on the contrast between constructor injection (explicit dependencies) and setter injection (optional/lazy dependencies) for the same logic.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "calculateTax",
+            "granularity": "method",
+            "clone_type": "type-4",
+            "schema_version": 2,
+            "normalized_by": ["controlflow", "identifiers", "literals"],
+            "rng_seed": 108604,
+            "notes": "Constructor vs setter DI focus pair, with 3 additional patterns.",
+            "capability_probe": {
+                "capability": "semantic_equivalence",
+                "isolated": true,
+                "control_set": "L08-sem_di_zoo-004",
+                "pass_criterion": "Tool detects ctor and setter injection as equivalent",
+                "fail_meaning": "Tool cannot recognize constructor vs setter injection equivalence"
+            },
+            "scoring": {"line_tolerance": 3, "member_jaccard_min": 0.5, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": false, "ast_based": false, "metric_based": false, "semantic": true},
+            "requires": ["semantic_reasoning"],
+            "carriers": [
+                {"file": "CtorTaxCalculator.php", "namespace": "Acme\\Billing\\Tax\\Ctor", "class": "CtorTaxCalculator", "scaffold": "method_alpha", "group": "D", "pristine": false, "variant": "di_ctor_injection", "transforms": [{"code": "SEM-05", "variant": "di_ctor_injection"}]},
+                {"file": "SetterTaxCalculator.php", "namespace": "Acme\\Billing\\Tax\\Setter", "class": "SetterTaxCalculator", "scaffold": "method_beta", "group": "D", "pristine": false, "variant": "di_setter_injection", "transforms": [{"code": "SEM-05", "variant": "di_setter_injection"}]},
+                {"file": "MethodTaxCalculator.php", "namespace": "Acme\\Billing\\Tax\\Method", "class": "MethodTaxCalculator", "scaffold": "method_gamma", "group": "D", "pristine": false, "variant": "di_method_injection", "transforms": [{"code": "SEM-05", "variant": "di_method_injection"}]},
+                {"file": "StaticFactoryTaxCalculator.php", "namespace": "Acme\\Billing\\Tax\\Factory", "class": "StaticFactoryTaxCalculator", "scaffold": "method_delta", "group": "D", "pristine": false, "variant": "di_static_factory", "transforms": [{"code": "SEM-05", "variant": "di_static_factory"}]},
+                {"file": "SingletonTaxCalculator.php", "namespace": "Acme\\Billing\\Tax\\Singleton", "class": "SingletonTaxCalculator", "scaffold": "method_epsilon", "group": "D", "pristine": false, "variant": "di_global_singleton", "transforms": [{"code": "SEM-05", "variant": "di_global_singleton"}]}
+            ],
+            "distractors": [
+                {"file": "VatCalculator.php", "namespace": "Acme\\Billing\\Tax\\Distract", "class": "VatCalculator", "source": "clean_billing", "reason": "clean VAT calculator - different tax logic"}
+            ],
+            "cleans": [
+                {"file": "TaxConfig.php", "namespace": "Acme\\Billing\\Tax\\Config", "class": "TaxConfig", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L08-sem_di_zoo-005",
+            "title": "DI Zoo - static factory vs service locator focus",
+            "description": "Focus on the contrast between static factory (deterministic creation) and service locator/global singleton (indirect access) for the same logic.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "validateToken",
+            "granularity": "method",
+            "clone_type": "type-4",
+            "schema_version": 2,
+            "normalized_by": ["controlflow", "identifiers", "literals"],
+            "rng_seed": 108605,
+            "notes": "Static factory vs service locator focus, with 3 additional patterns.",
+            "capability_probe": {
+                "capability": "semantic_equivalence",
+                "isolated": true,
+                "control_set": "L08-sem_di_zoo-005",
+                "pass_criterion": "Tool detects static factory and service locator as equivalent",
+                "fail_meaning": "Tool cannot recognize static factory vs service locator equivalence"
+            },
+            "scoring": {"line_tolerance": 3, "member_jaccard_min": 0.5, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": false, "ast_based": false, "metric_based": false, "semantic": true},
+            "requires": ["semantic_reasoning"],
+            "carriers": [
+                {"file": "CtorTokenValidator.php", "namespace": "Acme\\Security\\Token\\Ctor", "class": "CtorTokenValidator", "scaffold": "method_alpha", "group": "E", "pristine": false, "variant": "di_ctor_injection", "transforms": [{"code": "SEM-05", "variant": "di_ctor_injection"}]},
+                {"file": "SetterTokenValidator.php", "namespace": "Acme\\Security\\Token\\Setter", "class": "SetterTokenValidator", "scaffold": "method_beta", "group": "E", "pristine": false, "variant": "di_setter_injection", "transforms": [{"code": "SEM-05", "variant": "di_setter_injection"}]},
+                {"file": "MethodTokenValidator.php", "namespace": "Acme\\Security\\Token\\Method", "class": "MethodTokenValidator", "scaffold": "method_gamma", "group": "E", "pristine": false, "variant": "di_method_injection", "transforms": [{"code": "SEM-05", "variant": "di_method_injection"}]},
+                {"file": "StaticFactoryTokenValidator.php", "namespace": "Acme\\Security\\Token\\Factory", "class": "StaticFactoryTokenValidator", "scaffold": "method_delta", "group": "E", "pristine": false, "variant": "di_static_factory", "transforms": [{"code": "SEM-05", "variant": "di_static_factory"}]},
+                {"file": "SingletonTokenValidator.php", "namespace": "Acme\\Security\\Token\\Singleton", "class": "SingletonTokenValidator", "scaffold": "method_epsilon", "group": "E", "pristine": false, "variant": "di_global_singleton", "transforms": [{"code": "SEM-05", "variant": "di_global_singleton"}]}
+            ],
+            "distractors": [
+                {"file": "JwtValidator.php", "namespace": "Acme\\Security\\Token\\Distract", "class": "JwtValidator", "source": "clean_auth", "reason": "clean JWT validator - different token format"}
+            ],
+            "cleans": [
+                {"file": "TokenConfig.php", "namespace": "Acme\\Security\\Token\\Config", "class": "TokenConfig", "source": "clean_auth"}
+            ]
+        }
+    ]
+}

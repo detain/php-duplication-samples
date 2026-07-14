@@ -1,0 +1,133 @@
+{
+    "level": 7,
+    "level_name": "api_idioms",
+    "level_dir": "L07_api_idioms",
+    "family": "api_immutable_vs_mutable",
+    "sets": [
+        {
+            "set_id": "L07-api_immutable_vs_mutable-001",
+            "title": "Config store: mutable setter API vs immutable wither API",
+            "description": "The same configuration storage behavior implemented as a mutable object with set() modifying internal state (pristine) vs an immutable wither pattern where with() returns a new instance. Both expose the same get() interface. These are API-idiom variants that are token-distinct.",
+            "seed": "config_store",
+            "mount": "method",
+            "clone_symbol": "get",
+            "granularity": "method",
+            "clone_type": "type-4",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals", "controlflow"],
+            "rng_seed": 107401,
+            "notes": "Set 001 of 5. config_store seed with API-06 api_immutable_vs_mutable variant (withers). Carrier A uses mutable setter API (pristine). Carrier B uses immutable wither API (with() returns new instance). min_members_for_credit is the default 2.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": true},
+            "carriers": [
+                {"file": "ConfigStoreMutable.php", "namespace": "Acme\\Config\\Stores", "class": "ConfigStoreMutable", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "ConfigStoreImmutable.php", "namespace": "Acme\\Config\\Stores", "class": "ConfigStoreImmutable", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "api_immutable_vs_mutable", "transforms": [{"code": "API-06", "variant": "api_immutable_vs_mutable"}]}
+            ],
+            "distractors": [
+                {"file": "ConfigEncryptor.php", "namespace": "Acme\\Config\\Security", "class": "ConfigEncryptor", "source": "nearmiss_config", "reason": "near-miss: same config vocabulary (key/value/get/set) but encrypts/decrypts values before storage, producing different results"}
+            ],
+            "cleans": [
+                {"file": "ConfigDefaults.php", "namespace": "Acme\\Config\\Base", "class": "ConfigDefaults", "source": "clean_config"}
+            ]
+        },
+        {
+            "set_id": "L07-api_immutable_vs_mutable-002",
+            "title": "Config store: mutable setter API vs immutable wither API",
+            "description": "The same configuration storage behavior implemented as a mutable object with set() modifying internal state (pristine) vs an immutable wither pattern where with() returns a new instance.",
+            "seed": "config_store",
+            "mount": "method",
+            "clone_symbol": "get",
+            "granularity": "method",
+            "clone_type": "type-4",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals", "controlflow"],
+            "rng_seed": 107402,
+            "notes": "Set 002 of 5.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": true},
+            "carriers": [
+                {"file": "ConfigStoreMutable.php", "namespace": "Acme\\Config\\Stores", "class": "ConfigStoreMutable", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "ConfigStoreImmutable.php", "namespace": "Acme\\Config\\Stores", "class": "ConfigStoreImmutable", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "api_immutable_vs_mutable", "transforms": [{"code": "API-06", "variant": "api_immutable_vs_mutable"}]}
+            ],
+            "distractors": [
+                {"file": "ConfigEncryptor.php", "namespace": "Acme\\Config\\Security", "class": "ConfigEncryptor", "source": "nearmiss_config", "reason": "near-miss: same config vocabulary but encrypts/decrypts values before storage"}
+            ],
+            "cleans": [
+                {"file": "ConfigDefaults.php", "namespace": "Acme\\Config\\Base", "class": "ConfigDefaults", "source": "clean_config"}
+            ]
+        },
+        {
+            "set_id": "L07-api_immutable_vs_mutable-003",
+            "title": "Config store: mutable setter API vs immutable wither API",
+            "description": "The same configuration storage behavior implemented as a mutable object with set() modifying internal state (pristine) vs an immutable wither pattern where with() returns a new instance.",
+            "seed": "config_store",
+            "mount": "method",
+            "clone_symbol": "get",
+            "granularity": "method",
+            "clone_type": "type-4",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals", "controlflow"],
+            "rng_seed": 107403,
+            "notes": "Set 003 of 5.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": true},
+            "carriers": [
+                {"file": "ConfigStoreMutable.php", "namespace": "Acme\\Config\\Stores", "class": "ConfigStoreMutable", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "ConfigStoreImmutable.php", "namespace": "Acme\\Config\\Stores", "class": "ConfigStoreImmutable", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "api_immutable_vs_mutable", "transforms": [{"code": "API-06", "variant": "api_immutable_vs_mutable"}]}
+            ],
+            "distractors": [
+                {"file": "ConfigEncryptor.php", "namespace": "Acme\\Config\\Security", "class": "ConfigEncryptor", "source": "nearmiss_config", "reason": "near-miss: same config vocabulary but encrypts/decrypts values before storage"}
+            ],
+            "cleans": [
+                {"file": "ConfigDefaults.php", "namespace": "Acme\\Config\\Base", "class": "ConfigDefaults", "source": "clean_config"}
+            ]
+        },
+        {
+            "set_id": "L07-api_immutable_vs_mutable-004",
+            "title": "Config store: mutable setter API vs immutable wither API",
+            "description": "The same configuration storage behavior implemented as a mutable object with set() modifying internal state (pristine) vs an immutable wither pattern where with() returns a new instance.",
+            "seed": "config_store",
+            "mount": "method",
+            "clone_symbol": "get",
+            "granularity": "method",
+            "clone_type": "type-4",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals", "controlflow"],
+            "rng_seed": 107404,
+            "notes": "Set 004 of 5.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": true},
+            "carriers": [
+                {"file": "ConfigStoreMutable.php", "namespace": "Acme\\Config\\Stores", "class": "ConfigStoreMutable", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "ConfigStoreImmutable.php", "namespace": "Acme\\Config\\Stores", "class": "ConfigStoreImmutable", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "api_immutable_vs_mutable", "transforms": [{"code": "API-06", "variant": "api_immutable_vs_mutable"}]}
+            ],
+            "distractors": [
+                {"file": "ConfigEncryptor.php", "namespace": "Acme\\Config\\Security", "class": "ConfigEncryptor", "source": "nearmiss_config", "reason": "near-miss: same config vocabulary but encrypts/decrypts values before storage"}
+            ],
+            "cleans": [
+                {"file": "ConfigDefaults.php", "namespace": "Acme\\Config\\Base", "class": "ConfigDefaults", "source": "clean_config"}
+            ]
+        },
+        {
+            "set_id": "L07-api_immutable_vs_mutable-005",
+            "title": "Config store: mutable setter API vs immutable wither API",
+            "description": "The same configuration storage behavior implemented as a mutable object with set() modifying internal state (pristine) vs an immutable wither pattern where with() returns a new instance.",
+            "seed": "config_store",
+            "mount": "method",
+            "clone_symbol": "get",
+            "granularity": "method",
+            "clone_type": "type-4",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals", "controlflow"],
+            "rng_seed": 107405,
+            "notes": "Set 005 of 5.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": true},
+            "carriers": [
+                {"file": "ConfigStoreMutable.php", "namespace": "Acme\\Config\\Stores", "class": "ConfigStoreMutable", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "ConfigStoreImmutable.php", "namespace": "Acme\\Config\\Stores", "class": "ConfigStoreImmutable", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "api_immutable_vs_mutable", "transforms": [{"code": "API-06", "variant": "api_immutable_vs_mutable"}]}
+            ],
+            "distractors": [
+                {"file": "ConfigEncryptor.php", "namespace": "Acme\\Config\\Security", "class": "ConfigEncryptor", "source": "nearmiss_config", "reason": "near-miss: same config vocabulary but encrypts/decrypts values before storage"}
+            ],
+            "cleans": [
+                {"file": "ConfigDefaults.php", "namespace": "Acme\\Config\\Base", "class": "ConfigDefaults", "source": "clean_config"}
+            ]
+        }
+    ]
+}

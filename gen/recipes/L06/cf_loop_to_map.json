@@ -1,0 +1,133 @@
+{
+    "level": 6,
+    "level_name": "controlflow_rewrites",
+    "level_dir": "L06_controlflow_rewrites",
+    "family": "cf_loop_to_map",
+    "sets": [
+        {
+            "set_id": "L06-cf_loop_to_map-001",
+            "title": "Item collection: foreach loop vs array_map functional style",
+            "description": "The same item collection and transformation logic written as a pristine foreach loop vs a functional array_map + array_filter chain. Both produce identical results. The two forms share minimal token sequences, making them token-distinct clones.",
+            "seed": "item_collector",
+            "mount": "method",
+            "clone_symbol": "collect",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals", "controlflow"],
+            "rng_seed": 106201,
+            "notes": "Set 001 of 5. item_collector seed with CF-06 cf_loop_to_map variant. Carrier A uses the pristine foreach loop. Carrier B uses array_map with array_filter. Both compute equivalent results. Set 001 of 5.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": true},
+            "carriers": [
+                {"file": "UserCollectorStandard.php", "namespace": "Acme\\Users\\Collectors", "class": "UserCollectorStandard", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "UserCollectorMapped.php", "namespace": "Acme\\Users\\Collectors", "class": "UserCollectorMapped", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "cf_loop_to_map", "transforms": [{"code": "CF-06", "variant": "cf_loop_to_map"}]}
+            ],
+            "distractors": [
+                {"file": "UserAggregator.php", "namespace": "Acme\\Users\\Aggregates", "class": "UserAggregator", "source": "nearmiss_collector", "reason": "near-miss: same user-domain vocabulary (id/name/role/active) but computes a count-per-role grouping, not a collected list"}
+            ],
+            "cleans": [
+                {"file": "RoleRepository.php", "namespace": "Acme\\Users\\Repository", "class": "RoleRepository", "source": "clean_users"}
+            ]
+        },
+        {
+            "set_id": "L06-cf_loop_to_map-002",
+            "title": "Item collection: foreach loop vs array_map functional style",
+            "description": "The same item collection and transformation logic written as a pristine foreach loop vs a functional array_map + array_filter chain.",
+            "seed": "item_collector",
+            "mount": "method",
+            "clone_symbol": "collect",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals", "controlflow"],
+            "rng_seed": 106202,
+            "notes": "Set 002 of 5.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": true},
+            "carriers": [
+                {"file": "UserCollectorStandard.php", "namespace": "Acme\\Users\\Collectors", "class": "UserCollectorStandard", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "UserCollectorMapped.php", "namespace": "Acme\\Users\\Collectors", "class": "UserCollectorMapped", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "cf_loop_to_map", "transforms": [{"code": "CF-06", "variant": "cf_loop_to_map"}]}
+            ],
+            "distractors": [
+                {"file": "UserAggregator.php", "namespace": "Acme\\Users\\Aggregates", "class": "UserAggregator", "source": "nearmiss_collector", "reason": "near-miss: same user-domain vocabulary but computes a count-per-role grouping, not a collected list"}
+            ],
+            "cleans": [
+                {"file": "RoleRepository.php", "namespace": "Acme\\Users\\Repository", "class": "RoleRepository", "source": "clean_users"}
+            ]
+        },
+        {
+            "set_id": "L06-cf_loop_to_map-003",
+            "title": "Item collection: foreach loop vs array_map functional style",
+            "description": "The same item collection and transformation logic written as a pristine foreach loop vs a functional array_map + array_filter chain.",
+            "seed": "item_collector",
+            "mount": "method",
+            "clone_symbol": "collect",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals", "controlflow"],
+            "rng_seed": 106203,
+            "notes": "Set 003 of 5.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": true},
+            "carriers": [
+                {"file": "UserCollectorStandard.php", "namespace": "Acme\\Users\\Collectors", "class": "UserCollectorStandard", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "UserCollectorMapped.php", "namespace": "Acme\\Users\\Collectors", "class": "UserCollectorMapped", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "cf_loop_to_map", "transforms": [{"code": "CF-06", "variant": "cf_loop_to_map"}]}
+            ],
+            "distractors": [
+                {"file": "UserAggregator.php", "namespace": "Acme\\Users\\Aggregates", "class": "UserAggregator", "source": "nearmiss_collector", "reason": "near-miss: same user-domain vocabulary but computes a count-per-role grouping, not a collected list"}
+            ],
+            "cleans": [
+                {"file": "RoleRepository.php", "namespace": "Acme\\Users\\Repository", "class": "RoleRepository", "source": "clean_users"}
+            ]
+        },
+        {
+            "set_id": "L06-cf_loop_to_map-004",
+            "title": "Item collection: foreach loop vs array_map functional style",
+            "description": "The same item collection and transformation logic written as a pristine foreach loop vs a functional array_map + array_filter chain.",
+            "seed": "item_collector",
+            "mount": "method",
+            "clone_symbol": "collect",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals", "controlflow"],
+            "rng_seed": 106204,
+            "notes": "Set 004 of 5.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": true},
+            "carriers": [
+                {"file": "UserCollectorStandard.php", "namespace": "Acme\\Users\\Collectors", "class": "UserCollectorStandard", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "UserCollectorMapped.php", "namespace": "Acme\\Users\\Collectors", "class": "UserCollectorMapped", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "cf_loop_to_map", "transforms": [{"code": "CF-06", "variant": "cf_loop_to_map"}]}
+            ],
+            "distractors": [
+                {"file": "UserAggregator.php", "namespace": "Acme\\Users\\Aggregates", "class": "UserAggregator", "source": "nearmiss_collector", "reason": "near-miss: same user-domain vocabulary but computes a count-per-role grouping, not a collected list"}
+            ],
+            "cleans": [
+                {"file": "RoleRepository.php", "namespace": "Acme\\Users\\Repository", "class": "RoleRepository", "source": "clean_users"}
+            ]
+        },
+        {
+            "set_id": "L06-cf_loop_to_map-005",
+            "title": "Item collection: foreach loop vs array_map functional style",
+            "description": "The same item collection and transformation logic written as a pristine foreach loop vs a functional array_map + array_filter chain.",
+            "seed": "item_collector",
+            "mount": "method",
+            "clone_symbol": "collect",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals", "controlflow"],
+            "rng_seed": 106205,
+            "notes": "Set 005 of 5.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": true},
+            "carriers": [
+                {"file": "UserCollectorStandard.php", "namespace": "Acme\\Users\\Collectors", "class": "UserCollectorStandard", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "UserCollectorMapped.php", "namespace": "Acme\\Users\\Collectors", "class": "UserCollectorMapped", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "cf_loop_to_map", "transforms": [{"code": "CF-06", "variant": "cf_loop_to_map"}]}
+            ],
+            "distractors": [
+                {"file": "UserAggregator.php", "namespace": "Acme\\Users\\Aggregates", "class": "UserAggregator", "source": "nearmiss_collector", "reason": "near-miss: same user-domain vocabulary but computes a count-per-role grouping, not a collected list"}
+            ],
+            "cleans": [
+                {"file": "RoleRepository.php", "namespace": "Acme\\Users\\Repository", "class": "RoleRepository", "source": "clean_users"}
+            ]
+        }
+    ]
+}

@@ -1,0 +1,74 @@
+{
+    "level": 8,
+    "level_name": "semantic_depth",
+    "level_dir": "L08_semantic_probes",
+    "family": "probe_inline_helper",
+    "sets": [
+        {
+            "set_id": "L08-probe_inline_helper-001",
+            "title": "CONTROL: Inline expansion probe",
+            "description": "Control set for inline_expansion capability probe. Pristine ~120-token method. Both carriers are byte-identical and pristine. Tests whether tools detect clones when 3 statements are converted to a private-helper call.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["structure"],
+            "rng_seed": 180101,
+            "notes": "K-16 CONTROL. Pristine carriers. Probe tests SEM-02 3 statements ↔ helper call detection.",
+            "capability_probe": {
+                "capability": "inline_expansion",
+                "isolated": true,
+                "control_set": "L08-probe_inline_helper-001",
+                "pass_criterion": "control_set PASSES all detectors; probe_set PASSES inline-expansion-aware detectors",
+                "fail_meaning": "inline_expansion ABSENT - tool cannot handle helper-inline variation"
+            },
+            "role_composition": {"carrier": 2, "distractor": 1, "clean": 2},
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristinePolicyA.php", "namespace": "Acme\\Access\\PristineA", "class": "PristinePolicyA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PristinePolicyB.php", "namespace": "Acme\\Access\\PristineB", "class": "PristinePolicyB", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "TrustScorer.php", "namespace": "Acme\\Access\\Scoring", "class": "TrustScorer", "source": "nearmiss_access", "reason": "near-miss: same auth vocabulary but computes numeric trust score"}
+            ],
+            "cleans": [
+                {"file": "RoleHierarchy.php", "namespace": "Acme\\Access\\Roles", "class": "RoleHierarchy", "source": "clean_auth"},
+                {"file": "PermissionMatrix.php", "namespace": "Acme\\Access\\Matrix", "class": "PermissionMatrix", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L08-probe_inline_helper-002",
+            "title": "PROBE: Inline expansion - 3 statements ↔ private-helper call (SEM-02)",
+            "description": "Probe set for inline_expansion capability. Carrier A has 3 statements inline; carrier B extracts them to a private helper method and calls it (SEM-02). Rest byte-identical. Minimal intensity probe.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["structure"],
+            "rng_seed": 180102,
+            "notes": "K-16 PROBE. Carrier B extracts 3 statements to helper method (SEM-02). Single inline/expansion change.",
+            "capability_probe": {
+                "capability": "inline_expansion",
+                "isolated": true,
+                "control_set": "L08-probe_inline_helper-001",
+                "pass_criterion": "control_set PASSES all detectors; probe_set PASSES inline-expansion-aware detectors",
+                "fail_meaning": "inline_expansion ABSENT - tool cannot handle helper-inline variation"
+            },
+            "role_composition": {"carrier": 2, "distractor": 1, "clean": 2},
+            "detection_expectation": {"text_based": false, "token_based": false, "ast_based": false, "metric_based": false, "semantic": true},
+            "carriers": [
+                {"file": "PristinePolicyA.php", "namespace": "Acme\\Access\\PristineA", "class": "PristinePolicyA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "HelperPolicy.php", "namespace": "Acme\\Access\\Helper", "class": "HelperPolicy", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "sem_inline_extract", "transforms": [{"code": "SEM-02", "variant": "sem_inline_extract"}]}
+            ],
+            "distractors": [
+                {"file": "TrustScorer.php", "namespace": "Acme\\Access\\Scoring", "class": "TrustScorer", "source": "nearmiss_access", "reason": "near-miss: same auth vocabulary but computes numeric trust score"}
+            ],
+            "cleans": [
+                {"file": "RoleHierarchy.php", "namespace": "Acme\\Access\\Roles", "class": "RoleHierarchy", "source": "clean_auth"},
+                {"file": "PermissionMatrix.php", "namespace": "Acme\\Access\\Matrix", "class": "PermissionMatrix", "source": "clean_auth"}
+            ]
+        }
+    ]
+}

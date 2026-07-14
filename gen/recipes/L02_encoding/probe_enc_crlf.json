@@ -1,0 +1,75 @@
+{
+    "level": 2,
+    "level_name": "encoding_variation",
+    "level_dir": "L02_encoding",
+    "family": "probe_enc_crlf",
+    "hygiene_exceptions": ["crlf"],
+    "sets": [
+        {
+            "set_id": "L02-probe_enc_crlf-001",
+            "title": "CRLF line endings: Control - pristine method",
+            "description": "Control set for CRLF encoding probe. Three pristine carriers with identical methods using standard LF line endings.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 125001,
+            "notes": "Control set for K-25 CRLF probe. All carriers pristine with LF endings.",
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "role_composition": {"carrier": 3, "distractor": 1, "clean": 1},
+            "carriers": [
+                {"file": "TotalsCalculatorA.php", "namespace": "Acme\\Billing\\TotalsA", "class": "TotalsCalculatorA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "TotalsCalculatorB.php", "namespace": "Acme\\Billing\\TotalsB", "class": "TotalsCalculatorB", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": []},
+                {"file": "TotalsCalculatorC.php", "namespace": "Acme\\Billing\\TotalsC", "class": "TotalsCalculatorC", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "Validator.php", "namespace": "Acme\\Billing\\Validate", "class": "Validator", "source": "clean_billing", "reason": "Clean distractor - unrelated billing logic"}
+            ],
+            "cleans": [
+                {"file": "SchemaMapper.php", "namespace": "Acme\\Billing\\Schema", "class": "SchemaMapper", "source": "clean_parsing"}
+            ],
+            "capability_probe": {
+                "capability": "encoding_normalization",
+                "isolated": true,
+                "control_set": "L02-probe_enc_crlf-001",
+                "pass_criterion": "token_based",
+                "fail_meaning": "line-based detector without EOL normalization"
+            }
+        },
+        {
+            "set_id": "L02-probe_enc_crlf-002",
+            "title": "CRLF line endings: One carrier has CRLF every 3 lines (ENC-04)",
+            "description": "Probe set for K-25. One carrier uses CRLF line endings every 3 lines. Line-based text detectors will stumble due to line count mismatch; token-based detectors normalize line endings.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 125002,
+            "notes": "K-25 CRLF probe. Carrier B has mixed CRLF/LF (ENC-04). Text-based line-matching tools will see different line counts.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "role_composition": {"carrier": 3, "distractor": 1, "clean": 1},
+            "carriers": [
+                {"file": "TotalsCalculatorA.php", "namespace": "Acme\\Billing\\TotalsA", "class": "TotalsCalculatorA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "TotalsCalculatorB.php", "namespace": "Acme\\Billing\\TotalsB", "class": "TotalsCalculatorB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ENC-04"}]},
+                {"file": "TotalsCalculatorC.php", "namespace": "Acme\\Billing\\TotalsC", "class": "TotalsCalculatorC", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "Validator.php", "namespace": "Acme\\Billing\\Validate", "class": "Validator", "source": "clean_billing", "reason": "Clean distractor - unrelated billing logic"}
+            ],
+            "cleans": [
+                {"file": "SchemaMapper.php", "namespace": "Acme\\Billing\\Schema", "class": "SchemaMapper", "source": "clean_parsing"}
+            ],
+            "capability_probe": {
+                "capability": "encoding_normalization",
+                "isolated": true,
+                "control_set": "L02-probe_enc_crlf-001",
+                "pass_criterion": "token_based",
+                "fail_meaning": "line-based detector without EOL normalization"
+            }
+        }
+    ]
+}

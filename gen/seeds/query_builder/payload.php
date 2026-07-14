@@ -7,52 +7,42 @@ namespace Acme\Seed\QueryBuilder;
 final class QueryBuilderSeed
 {
     // <<<PAYLOAD:query_builder>>>
-    public function select(string $table, array $columns = ['*']): self
+    /**
+     * Build a SQL SELECT query step by step.
+     * Payload: imperative API — methods return void, state held in fields.
+     */
+    private string $table = '';
+    private array $columns = [];
+    private array $conditions = [];
+    private string $orderBy = '';
+
+    public function select(string $table, array $columns): void
     {
-        $this->sql = 'SELECT ' . implode(', ', $columns) . ' FROM ' . $table;
-        $this->params = [];
-        return $this;
+        $this->table = $table;
+        $this->columns = $columns;
     }
 
-    public function where(string $column, mixed $operator, mixed $value = null): self
+    public function where(string $condition): void
     {
-        if ($value === null) {
-            $value = $operator;
-            $operator = '=';
+        $this->conditions[] = $condition;
+    }
+
+    public function orderBy(string $column): void
+    {
+        $this->orderBy = $column;
+    }
+
+    public function build(): string
+    {
+        $cols = implode(', ', $this->columns);
+        $sql = "SELECT $cols FROM {$this->table}";
+        if (!empty($this->conditions)) {
+            $sql .= ' WHERE ' . implode(' AND ', $this->conditions);
         }
-        $this->sql .= ' WHERE ' . $column . ' ' . $operator . ' ?';
-        $this->params[] = $value;
-        return $this;
+        if ($this->orderBy !== '') {
+            $sql .= " ORDER BY {$this->orderBy}";
+        }
+        return $sql;
     }
-
-    public function orderBy(string $column, string $direction = 'ASC'): self
-    {
-        $this->sql .= ' ORDER BY ' . $column . ' ' . strtoupper($direction);
-        return $this;
-    }
-
-    public function limit(int $count, int $offset = 0): self
-    {
-        $this->sql .= ' LIMIT ' . $offset . ', ' . $count;
-        return $this;
-    }
-
-    public function build(): array
-    {
-        return ['sql' => $this->sql, 'params' => $this->params];
-    }
-
-    public function getSql(): string
-    {
-        return $this->sql;
-    }
-
-    public function getParams(): array
-    {
-        return $this->params;
-    }
-
-    private string $sql = '';
-    private array $params = [];
     // <<<END-PAYLOAD>>>
 }

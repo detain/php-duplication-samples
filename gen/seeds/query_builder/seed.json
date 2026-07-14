@@ -1,12 +1,14 @@
 {
     "domain": "query_builder",
-    "summary": "SQL query builder with chainable methods.",
+    "summary": "SQL query building: imperative step-by-step vs fluent method chaining.",
     "size_class": "M",
-    "symbol": "select",
-    "line_count": 50,
-    "token_count": 340,
-    "required_symbols": ["select", "where", "orderBy", "limit", "build"],
+    "symbol": "build",
+    "line_count": 30,
+    "token_count": 210,
+    "required_symbols": ["build", "select", "where", "orderBy"],
     "mount_modes": ["method"],
-    "compatible_interference": ["WS-03", "CM-03", "RN-01", "LT-02"],
-    "variants": []
+    "compatible_interference": ["WS-03", "CM-03", "RN-01", "LT-02", "API-02", "API-05"],
+    "variants": [
+        {"file": "api_fluent_api.php", "code": "API-07", "name": "api_fluent_vs_imperative"}
+    ]
 }

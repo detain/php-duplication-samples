@@ -1,0 +1,111 @@
+{
+    "schema_version": 1,
+    "set_id": "L10-adv_shared_subclone-002",
+    "level": 10,
+    "level_name": "adversarial_edge_cases",
+    "family": "adv_shared_subclone",
+    "title": "Clone Marriage variant with access_guard seed",
+    "description": "Clone Marriage pattern variant [O Idea 4]: Cluster A and Cluster B share a middle SharedCode block that appears IDENTICAL in BOTH clusters, using access_guard seed. Cluster A = region1_A + middle_block + region3_A; Cluster B = region1_B + middle_block + region3_B. The middle_block is byte-for-byte identical (shared sub-clone), while surrounding regions differ. Tests shared sub-clone detection with auth/permission context.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "access_guard",
+    "difficulty_band": "expert",
+    "files": [
+        {
+            "path": "src/AccessSharedA1.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 44
+        },
+        {
+            "path": "src/AccessSharedA2.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 40
+        },
+        {
+            "path": "src/AccessSharedA3.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 41
+        },
+        {
+            "path": "src/AccessSharedB1.php",
+            "role": "carrier",
+            "duplicate_group": "B",
+            "sloc": 45
+        },
+        {
+            "path": "src/AccessSharedB2.php",
+            "role": "carrier",
+            "duplicate_group": "B",
+            "sloc": 40
+        },
+        {
+            "path": "src/AccessSharedB3.php",
+            "role": "carrier",
+            "duplicate_group": "B",
+            "sloc": 41
+        },
+        {
+            "path": "src/AuthDistractor.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 35
+        },
+        {
+            "path": "src/AuthClean.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 34
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-3",
+        "granularity": "method",
+        "clusters": 2,
+        "instances": 6
+    },
+    "interference": [
+        {
+            "code": "ST-07",
+            "name": "partial_fragment",
+            "params": {
+                "head_trim": 2,
+                "tail_trim": 0
+            },
+            "applied_to": [
+                "src/AccessSharedA2.php",
+                "src/AccessSharedB2.php"
+            ],
+            "intensity": 3
+        },
+        {
+            "code": "ST-07",
+            "name": "partial_fragment",
+            "params": {
+                "head_trim": 0,
+                "tail_trim": 2
+            },
+            "applied_to": [
+                "src/AccessSharedA3.php",
+                "src/AccessSharedB3.php"
+            ],
+            "intensity": 3
+        }
+    ],
+    "difficulty": {
+        "score": 94,
+        "requires": [
+            "ast_canonicalization",
+            "deadcode_elimination"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L10/adv_shared_subclone.json",
+        "version": "1.0.0",
+        "rng_seed": 112102
+    }
+}

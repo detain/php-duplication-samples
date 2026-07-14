@@ -1,0 +1,272 @@
+{
+    "level": 10,
+    "level_name": "adversarial_edge_cases",
+    "level_dir": "L10_adversarial_edge_cases",
+    "family": "probe_token_floor",
+    "sets": [
+        {
+            "set_id": "L10-probe_token_floor-001",
+            "title": "Threshold floor probe: 30 tokens (below all defaults)",
+            "description": "Pristine exact clone at 30 tokens - below all tool defaults (phpcpd 70t, jscpd 50t, PMD 100t). Tests whether detectors with higher thresholds fail to report this small clone.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 112801,
+            "notes": "K-28 token_floor: 001/008. Target: 30 tokens. Seed trimmed to exact token count. Binary-search grid over tool defaults (phpcpd 70t, jscpd 50t, PMD 100t). F-10 token-targeting mount trims/pads to exact count.",
+            "capability_probe": {
+                "capability": "threshold_floor",
+                "isolated": true,
+                "control_set": "L10-probe_token_floor-001",
+                "pass_criterion": "PROFILE GENERATOR: reads pass/fail per rung, emits threshold_estimate per tool",
+                "fail_meaning": "threshold_floor ABSENT - tool cannot measure its own detection floor; may miss small clones"
+            },
+            "scoring": {"line_tolerance": 0, "member_jaccard_min": 1.0, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "CloneA.php", "namespace": "Acme\\Billing\\CloneA", "class": "CloneA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "CloneB.php", "namespace": "Acme\\Billing\\CloneB", "class": "CloneB", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": []},
+                {"file": "CloneC.php", "namespace": "Acme\\Billing\\CloneC", "class": "CloneC", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "Distractor.php", "namespace": "Acme\\Billing\\Distract", "class": "Distractor", "source": "clean_billing", "reason": "Unrelated billing code"}
+            ],
+            "cleans": [
+                {"file": "Clean.php", "namespace": "Acme\\Billing\\Clean", "class": "Clean", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L10-probe_token_floor-002",
+            "title": "Threshold floor probe: 40 tokens",
+            "description": "Pristine exact clone at 40 tokens - below jscpd default (50t) but tests boundary. All carriers byte-identical at target size.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 112802,
+            "notes": "K-28 token_floor: 002/008. Target: 40 tokens. Binary-search grid point.",
+            "capability_probe": {
+                "capability": "threshold_floor",
+                "isolated": true,
+                "control_set": "L10-probe_token_floor-001",
+                "pass_criterion": "PROFILE GENERATOR: reads pass/fail per rung, emits threshold_estimate per tool",
+                "fail_meaning": "threshold_floor ABSENT - tool cannot measure its own detection floor"
+            },
+            "scoring": {"line_tolerance": 0, "member_jaccard_min": 1.0, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "CloneA.php", "namespace": "Acme\\Billing\\CloneA", "class": "CloneA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "CloneB.php", "namespace": "Acme\\Billing\\CloneB", "class": "CloneB", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": []},
+                {"file": "CloneC.php", "namespace": "Acme\\Billing\\CloneC", "class": "CloneC", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "Distractor.php", "namespace": "Acme\\Billing\\Distract", "class": "Distractor", "source": "clean_billing", "reason": "Unrelated billing code"}
+            ],
+            "cleans": [
+                {"file": "Clean.php", "namespace": "Acme\\Billing\\Clean", "class": "Clean", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L10-probe_token_floor-003",
+            "title": "Threshold floor probe: 50 tokens (jscpd default)",
+            "description": "Pristine exact clone at 50 tokens - at jscpd default threshold. Critical binary-search boundary.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 112803,
+            "notes": "K-28 token_floor: 003/008. Target: 50 tokens. jscpd default threshold (--min-tokens 50).",
+            "capability_probe": {
+                "capability": "threshold_floor",
+                "isolated": true,
+                "control_set": "L10-probe_token_floor-001",
+                "pass_criterion": "PROFILE GENERATOR: reads pass/fail per rung, emits threshold_estimate per tool",
+                "fail_meaning": "threshold_floor ABSENT - tool cannot measure its own detection floor"
+            },
+            "scoring": {"line_tolerance": 0, "member_jaccard_min": 1.0, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "CloneA.php", "namespace": "Acme\\Billing\\CloneA", "class": "CloneA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "CloneB.php", "namespace": "Acme\\Billing\\CloneB", "class": "CloneB", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": []},
+                {"file": "CloneC.php", "namespace": "Acme\\Billing\\CloneC", "class": "CloneC", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "Distractor.php", "namespace": "Acme\\Billing\\Distract", "class": "Distractor", "source": "clean_billing", "reason": "Unrelated billing code"}
+            ],
+            "cleans": [
+                {"file": "Clean.php", "namespace": "Acme\\Billing\\Clean", "class": "Clean", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L10-probe_token_floor-004",
+            "title": "Threshold floor probe: 60 tokens",
+            "description": "Pristine exact clone at 60 tokens - above jscpd default, below phpcpd default. Binary-search mid-point.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 112804,
+            "notes": "K-28 token_floor: 004/008. Target: 60 tokens. Binary-search grid point.",
+            "capability_probe": {
+                "capability": "threshold_floor",
+                "isolated": true,
+                "control_set": "L10-probe_token_floor-001",
+                "pass_criterion": "PROFILE GENERATOR: reads pass/fail per rung, emits threshold_estimate per tool",
+                "fail_meaning": "threshold_floor ABSENT - tool cannot measure its own detection floor"
+            },
+            "scoring": {"line_tolerance": 0, "member_jaccard_min": 1.0, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "CloneA.php", "namespace": "Acme\\Billing\\CloneA", "class": "CloneA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "CloneB.php", "namespace": "Acme\\Billing\\CloneB", "class": "CloneB", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": []},
+                {"file": "CloneC.php", "namespace": "Acme\\Billing\\CloneC", "class": "CloneC", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "Distractor.php", "namespace": "Acme\\Billing\\Distract", "class": "Distractor", "source": "clean_billing", "reason": "Unrelated billing code"}
+            ],
+            "cleans": [
+                {"file": "Clean.php", "namespace": "Acme\\Billing\\Clean", "class": "Clean", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L10-probe_token_floor-005",
+            "title": "Threshold floor probe: 70 tokens (phpcpd default)",
+            "description": "Pristine exact clone at 70 tokens - at phpcpd default threshold. Critical boundary for phpcpd detection.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 112805,
+            "notes": "K-28 token_floor: 005/008. Target: 70 tokens. phpcpd default threshold (--min-tokens 70).",
+            "capability_probe": {
+                "capability": "threshold_floor",
+                "isolated": true,
+                "control_set": "L10-probe_token_floor-001",
+                "pass_criterion": "PROFILE GENERATOR: reads pass/fail per rung, emits threshold_estimate per tool",
+                "fail_meaning": "threshold_floor ABSENT - tool cannot measure its own detection floor"
+            },
+            "scoring": {"line_tolerance": 0, "member_jaccard_min": 1.0, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "CloneA.php", "namespace": "Acme\\Billing\\CloneA", "class": "CloneA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "CloneB.php", "namespace": "Acme\\Billing\\CloneB", "class": "CloneB", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": []},
+                {"file": "CloneC.php", "namespace": "Acme\\Billing\\CloneC", "class": "CloneC", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "Distractor.php", "namespace": "Acme\\Billing\\Distract", "class": "Distractor", "source": "clean_billing", "reason": "Unrelated billing code"}
+            ],
+            "cleans": [
+                {"file": "Clean.php", "namespace": "Acme\\Billing\\Clean", "class": "Clean", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L10-probe_token_floor-006",
+            "title": "Threshold floor probe: 80 tokens",
+            "description": "Pristine exact clone at 80 tokens - above phpcpd default, below PMD default. Binary-search upper-mid point.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 112806,
+            "notes": "K-28 token_floor: 006/008. Target: 80 tokens. Binary-search grid point.",
+            "capability_probe": {
+                "capability": "threshold_floor",
+                "isolated": true,
+                "control_set": "L10-probe_token_floor-001",
+                "pass_criterion": "PROFILE GENERATOR: reads pass/fail per rung, emits threshold_estimate per tool",
+                "fail_meaning": "threshold_floor ABSENT - tool cannot measure its own detection floor"
+            },
+            "scoring": {"line_tolerance": 0, "member_jaccard_min": 1.0, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "CloneA.php", "namespace": "Acme\\Billing\\CloneA", "class": "CloneA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "CloneB.php", "namespace": "Acme\\Billing\\CloneB", "class": "CloneB", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": []},
+                {"file": "CloneC.php", "namespace": "Acme\\Billing\\CloneC", "class": "CloneC", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "Distractor.php", "namespace": "Acme\\Billing\\Distract", "class": "Distractor", "source": "clean_billing", "reason": "Unrelated billing code"}
+            ],
+            "cleans": [
+                {"file": "Clean.php", "namespace": "Acme\\Billing\\Clean", "class": "Clean", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L10-probe_token_floor-007",
+            "title": "Threshold floor probe: 90 tokens",
+            "description": "Pristine exact clone at 90 tokens - approaching PMD default. Binary-search grid point.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 112807,
+            "notes": "K-28 token_floor: 007/008. Target: 90 tokens. Binary-search grid point.",
+            "capability_probe": {
+                "capability": "threshold_floor",
+                "isolated": true,
+                "control_set": "L10-probe_token_floor-001",
+                "pass_criterion": "PROFILE GENERATOR: reads pass/fail per rung, emits threshold_estimate per tool",
+                "fail_meaning": "threshold_floor ABSENT - tool cannot measure its own detection floor"
+            },
+            "scoring": {"line_tolerance": 0, "member_jaccard_min": 1.0, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "CloneA.php", "namespace": "Acme\\Billing\\CloneA", "class": "CloneA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "CloneB.php", "namespace": "Acme\\Billing\\CloneB", "class": "CloneB", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": []},
+                {"file": "CloneC.php", "namespace": "Acme\\Billing\\CloneC", "class": "CloneC", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "Distractor.php", "namespace": "Acme\\Billing\\Distract", "class": "Distractor", "source": "clean_billing", "reason": "Unrelated billing code"}
+            ],
+            "cleans": [
+                {"file": "Clean.php", "namespace": "Acme\\Billing\\Clean", "class": "Clean", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L10-probe_token_floor-008",
+            "title": "Threshold floor probe: 100 tokens (PMD default)",
+            "description": "Pristine exact clone at 100 tokens - at PMD default threshold. All carriers byte-identical at target size.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 112808,
+            "notes": "K-28 token_floor: 008/008. Target: 100 tokens. PMD default threshold (100 tokens). F-10 token-targeting mount pads to exact count.",
+            "capability_probe": {
+                "capability": "threshold_floor",
+                "isolated": true,
+                "control_set": "L10-probe_token_floor-001",
+                "pass_criterion": "PROFILE GENERATOR: reads pass/fail per rung, emits threshold_estimate per tool",
+                "fail_meaning": "threshold_floor ABSENT - tool cannot measure its own detection floor"
+            },
+            "scoring": {"line_tolerance": 0, "member_jaccard_min": 1.0, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "CloneA.php", "namespace": "Acme\\Billing\\CloneA", "class": "CloneA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "CloneB.php", "namespace": "Acme\\Billing\\CloneB", "class": "CloneB", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": []},
+                {"file": "CloneC.php", "namespace": "Acme\\Billing\\CloneC", "class": "CloneC", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "Distractor.php", "namespace": "Acme\\Billing\\Distract", "class": "Distractor", "source": "clean_billing", "reason": "Unrelated billing code"}
+            ],
+            "cleans": [
+                {"file": "Clean.php", "namespace": "Acme\\Billing\\Clean", "class": "Clean", "source": "clean_billing"}
+            ]
+        }
+    ]
+}

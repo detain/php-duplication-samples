@@ -1,0 +1,133 @@
+{
+    "level": 6,
+    "level_name": "controlflow_rewrites",
+    "level_dir": "L06_controlflow_rewrites",
+    "family": "cf_recursion_vs_iteration",
+    "sets": [
+        {
+            "set_id": "L06-cf_recursion_vs_iteration-001",
+            "title": "Tree traversal: recursive vs iterative stack-based walk",
+            "description": "The same tree leaf-node collection written as a recursive function (pristine) vs an iterative implementation using an explicit stack. Both produce identical leaf sequences. The two forms are token-distinct, requiring AST-level analysis.",
+            "seed": "tree_walker",
+            "mount": "method",
+            "clone_symbol": "walk",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals", "controlflow"],
+            "rng_seed": 106301,
+            "notes": "Set 001 of 5. tree_walker seed with CF-07 cf_recursion_vs_iteration variant (iterative walk using explicit stack). Carrier A uses recursive traversal (pristine). Carrier B uses iterative stack-based traversal. min_members_for_credit is the default 2.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": true},
+            "carriers": [
+                {"file": "TreeWalkerRecursive.php", "namespace": "Acme\\Tree\\Walkers", "class": "TreeWalkerRecursive", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "TreeWalkerIterative.php", "namespace": "Acme\\Tree\\Walkers", "class": "TreeWalkerIterative", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "cf_recursion_vs_iteration", "transforms": [{"code": "CF-07", "variant": "cf_recursion_vs_iteration"}]}
+            ],
+            "distractors": [
+                {"file": "TreeDepthCalculator.php", "namespace": "Acme\\Tree\\Analysis", "class": "TreeDepthCalculator", "source": "nearmiss_tree", "reason": "near-miss: same tree-domain vocabulary (node/children/value/leaves) but computes tree depth (max depth), not leaf collection"}
+            ],
+            "cleans": [
+                {"file": "NodeFactory.php", "namespace": "Acme\\Tree\\Factory", "class": "NodeFactory", "source": "clean_tree"}
+            ]
+        },
+        {
+            "set_id": "L06-cf_recursion_vs_iteration-002",
+            "title": "Tree traversal: recursive vs iterative stack-based walk",
+            "description": "The same tree leaf-node collection written as a recursive function (pristine) vs an iterative implementation using an explicit stack.",
+            "seed": "tree_walker",
+            "mount": "method",
+            "clone_symbol": "walk",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals", "controlflow"],
+            "rng_seed": 106302,
+            "notes": "Set 002 of 5.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": true},
+            "carriers": [
+                {"file": "TreeWalkerRecursive.php", "namespace": "Acme\\Tree\\Walkers", "class": "TreeWalkerRecursive", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "TreeWalkerIterative.php", "namespace": "Acme\\Tree\\Walkers", "class": "TreeWalkerIterative", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "cf_recursion_vs_iteration", "transforms": [{"code": "CF-07", "variant": "cf_recursion_vs_iteration"}]}
+            ],
+            "distractors": [
+                {"file": "TreeDepthCalculator.php", "namespace": "Acme\\Tree\\Analysis", "class": "TreeDepthCalculator", "source": "nearmiss_tree", "reason": "near-miss: same tree-domain vocabulary but computes tree depth, not leaf collection"}
+            ],
+            "cleans": [
+                {"file": "NodeFactory.php", "namespace": "Acme\\Tree\\Factory", "class": "NodeFactory", "source": "clean_tree"}
+            ]
+        },
+        {
+            "set_id": "L06-cf_recursion_vs_iteration-003",
+            "title": "Tree traversal: recursive vs iterative stack-based walk",
+            "description": "The same tree leaf-node collection written as a recursive function (pristine) vs an iterative implementation using an explicit stack.",
+            "seed": "tree_walker",
+            "mount": "method",
+            "clone_symbol": "walk",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals", "controlflow"],
+            "rng_seed": 106303,
+            "notes": "Set 003 of 5.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": true},
+            "carriers": [
+                {"file": "TreeWalkerRecursive.php", "namespace": "Acme\\Tree\\Walkers", "class": "TreeWalkerRecursive", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "TreeWalkerIterative.php", "namespace": "Acme\\Tree\\Walkers", "class": "TreeWalkerIterative", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "cf_recursion_vs_iteration", "transforms": [{"code": "CF-07", "variant": "cf_recursion_vs_iteration"}]}
+            ],
+            "distractors": [
+                {"file": "TreeDepthCalculator.php", "namespace": "Acme\\Tree\\Analysis", "class": "TreeDepthCalculator", "source": "nearmiss_tree", "reason": "near-miss: same tree-domain vocabulary but computes tree depth, not leaf collection"}
+            ],
+            "cleans": [
+                {"file": "NodeFactory.php", "namespace": "Acme\\Tree\\Factory", "class": "NodeFactory", "source": "clean_tree"}
+            ]
+        },
+        {
+            "set_id": "L06-cf_recursion_vs_iteration-004",
+            "title": "Tree traversal: recursive vs iterative stack-based walk",
+            "description": "The same tree leaf-node collection written as a recursive function (pristine) vs an iterative implementation using an explicit stack.",
+            "seed": "tree_walker",
+            "mount": "method",
+            "clone_symbol": "walk",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals", "controlflow"],
+            "rng_seed": 106304,
+            "notes": "Set 004 of 5.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": true},
+            "carriers": [
+                {"file": "TreeWalkerRecursive.php", "namespace": "Acme\\Tree\\Walkers", "class": "TreeWalkerRecursive", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "TreeWalkerIterative.php", "namespace": "Acme\\Tree\\Walkers", "class": "TreeWalkerIterative", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "cf_recursion_vs_iteration", "transforms": [{"code": "CF-07", "variant": "cf_recursion_vs_iteration"}]}
+            ],
+            "distractors": [
+                {"file": "TreeDepthCalculator.php", "namespace": "Acme\\Tree\\Analysis", "class": "TreeDepthCalculator", "source": "nearmiss_tree", "reason": "near-miss: same tree-domain vocabulary but computes tree depth, not leaf collection"}
+            ],
+            "cleans": [
+                {"file": "NodeFactory.php", "namespace": "Acme\\Tree\\Factory", "class": "NodeFactory", "source": "clean_tree"}
+            ]
+        },
+        {
+            "set_id": "L06-cf_recursion_vs_iteration-005",
+            "title": "Tree traversal: recursive vs iterative stack-based walk",
+            "description": "The same tree leaf-node collection written as a recursive function (pristine) vs an iterative implementation using an explicit stack.",
+            "seed": "tree_walker",
+            "mount": "method",
+            "clone_symbol": "walk",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals", "controlflow"],
+            "rng_seed": 106305,
+            "notes": "Set 005 of 5.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": true},
+            "carriers": [
+                {"file": "TreeWalkerRecursive.php", "namespace": "Acme\\Tree\\Walkers", "class": "TreeWalkerRecursive", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "TreeWalkerIterative.php", "namespace": "Acme\\Tree\\Walkers", "class": "TreeWalkerIterative", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "cf_recursion_vs_iteration", "transforms": [{"code": "CF-07", "variant": "cf_recursion_vs_iteration"}]}
+            ],
+            "distractors": [
+                {"file": "TreeDepthCalculator.php", "namespace": "Acme\\Tree\\Analysis", "class": "TreeDepthCalculator", "source": "nearmiss_tree", "reason": "near-miss: same tree-domain vocabulary but computes tree depth, not leaf collection"}
+            ],
+            "cleans": [
+                {"file": "NodeFactory.php", "namespace": "Acme\\Tree\\Factory", "class": "NodeFactory", "source": "clean_tree"}
+            ]
+        }
+    ]
+}

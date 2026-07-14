@@ -1,0 +1,232 @@
+{
+    "level": -1,
+    "level_name": "probe",
+    "level_dir": "L--",
+    "family": "probe_axis_septet",
+    "sets": [
+        {
+            "set_id": "L---probe_axis_septet-001",
+            "title": "AXIS PROBE: pristine (baseline)",
+            "description": "Isolates pristine/baseline detection difficulty. Two byte-identical carriers, no transforms applied. Tests raw clone detection without interference.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": [],
+            "rng_seed": 200101,
+            "notes": "Axis probe 1/7: pristine. Baseline detection difficulty with no interference applied.",
+            "capability_probe": {
+                "capability": "pristine",
+                "isolated": true,
+                "axis_isolated": "pristine",
+                "pass_criterion": "PASSES all detectors at L1/L2 sensitivity",
+                "fail_meaning": "pristine detection ABSENT - tool cannot find exact clones"
+            },
+            "role_composition": {"carrier": 2, "distractor": 1, "clean": 1},
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineCalcA.php", "namespace": "Acme\\Billing\\PristineA", "class": "PristineCalcA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PristineCalcB.php", "namespace": "Acme\\Billing\\PristineB", "class": "PristineCalcB", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "MarginCalc.php", "namespace": "Acme\\Billing\\Margin", "class": "MarginCalc", "source": "nearmiss_invoice", "reason": "near-miss: similar foreach-over-items shape but computes margin instead of totals"}
+            ],
+            "cleans": [
+                {"file": "TaxRateConfig.php", "namespace": "Acme\\Billing\\Config", "class": "TaxRateConfig", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L---probe_axis_septet-002",
+            "title": "AXIS PROBE: whitespace (WS-06 line_wrap)",
+            "description": "Isolates whitespace-axis detection difficulty. Carrier B applies WS-06 line_wrap transform. Tests whether whitespace normalization reveals the clone.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace"],
+            "rng_seed": 200102,
+            "notes": "Axis probe 2/7: whitespace. WS-06 line_wrap applied to one carrier.",
+            "capability_probe": {
+                "capability": "whitespace",
+                "isolated": true,
+                "axis_isolated": "whitespace",
+                "pass_criterion": "PASSES after whitespace normalization; FAILS without normalization",
+                "fail_meaning": "whitespace_normalization ABSENT - tool cannot handle line-wrap variation"
+            },
+            "role_composition": {"carrier": 2, "distractor": 1, "clean": 1},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineCalcA.php", "namespace": "Acme\\Billing\\PristineA", "class": "PristineCalcA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "WrappedCalc.php", "namespace": "Acme\\Billing\\Wrapped", "class": "WrappedCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "WS-06", "params": {"occurrence": 1}}]}
+            ],
+            "distractors": [
+                {"file": "MarginCalc.php", "namespace": "Acme\\Billing\\Margin", "class": "MarginCalc", "source": "nearmiss_invoice", "reason": "near-miss: similar foreach-over-items shape but computes margin instead of totals"}
+            ],
+            "cleans": [
+                {"file": "TaxRateConfig.php", "namespace": "Acme\\Billing\\Config", "class": "TaxRateConfig", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L---probe_axis_septet-003",
+            "title": "AXIS PROBE: comments (CM-03 docblock)",
+            "description": "Isolates comment-axis detection difficulty. Carrier B applies CM-03 docblock transform. Tests whether comment stripping reveals the clone.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["comments"],
+            "rng_seed": 200103,
+            "notes": "Axis probe 3/7: comments. CM-03 docblock applied to one carrier.",
+            "capability_probe": {
+                "capability": "comments",
+                "isolated": true,
+                "axis_isolated": "comments",
+                "pass_criterion": "PASSES after comment stripping; FAILS without normalization",
+                "fail_meaning": "comment_stripping ABSENT - tool cannot handle docblock variation"
+            },
+            "role_composition": {"carrier": 2, "distractor": 1, "clean": 1},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineCalcA.php", "namespace": "Acme\\Billing\\PristineA", "class": "PristineCalcA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "DocblockedCalc.php", "namespace": "Acme\\Billing\\Docblocked", "class": "DocblockedCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "CM-03", "params": {"style": "standard"}}]}
+            ],
+            "distractors": [
+                {"file": "MarginCalc.php", "namespace": "Acme\\Billing\\Margin", "class": "MarginCalc", "source": "nearmiss_invoice", "reason": "near-miss: similar foreach-over-items shape but computes margin instead of totals"}
+            ],
+            "cleans": [
+                {"file": "TaxRateConfig.php", "namespace": "Acme\\Billing\\Config", "class": "TaxRateConfig", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L---probe_axis_septet-004",
+            "title": "AXIS PROBE: rename (RN-05 case_convention)",
+            "description": "Isolates identifier-rename detection difficulty. Carrier B applies RN-05 snake_to_camel transform. Tests whether identifier canonicalization reveals the clone.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["identifiers", "case_convention"],
+            "rng_seed": 200104,
+            "notes": "Axis probe 4/7: rename. RN-05 case_convention snake_to_camel applied to one carrier.",
+            "capability_probe": {
+                "capability": "rename",
+                "isolated": true,
+                "axis_isolated": "rename",
+                "pass_criterion": "PASSES after identifier canonicalization; FAILS without normalization",
+                "fail_meaning": "identifier_canonicalization ABSENT - tool cannot handle case_convention variation"
+            },
+            "role_composition": {"carrier": 2, "distractor": 1, "clean": 1},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineCalcA.php", "namespace": "Acme\\Billing\\PristineA", "class": "PristineCalcA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "SnakeToCamelCalc.php", "namespace": "Acme\\Billing\\SnakeToCamel", "class": "SnakeToCamelCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-05", "params": {"direction": "snake_to_camel"}}]}
+            ],
+            "distractors": [
+                {"file": "MarginCalc.php", "namespace": "Acme\\Billing\\Margin", "class": "MarginCalc", "source": "nearmiss_invoice", "reason": "near-miss: similar foreach-over-items shape but computes margin instead of totals"}
+            ],
+            "cleans": [
+                {"file": "TaxRateConfig.php", "namespace": "Acme\\Billing\\Config", "class": "TaxRateConfig", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L---probe_axis_septet-005",
+            "title": "AXIS PROBE: literals (LT-01 numeric)",
+            "description": "Isolates literal-variation detection difficulty. Carrier B applies LT-01 numeric transform. Tests whether literal abstraction reveals the clone.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["literals"],
+            "rng_seed": 200105,
+            "notes": "Axis probe 5/7: literals. LT-01 numeric transform applied to one carrier.",
+            "capability_probe": {
+                "capability": "literals",
+                "isolated": true,
+                "axis_isolated": "literals",
+                "pass_criterion": "PASSES after literal abstraction; FAILS without normalization",
+                "fail_meaning": "literal_abstraction ABSENT - tool cannot handle numeric literal variation"
+            },
+            "role_composition": {"carrier": 2, "distractor": 1, "clean": 1},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineCalcA.php", "namespace": "Acme\\Billing\\PristineA", "class": "PristineCalcA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "NumericVarCalc.php", "namespace": "Acme\\Billing\\NumericVar", "class": "NumericVarCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-01", "params": {"style": "variable"}}]}
+            ],
+            "distractors": [
+                {"file": "MarginCalc.php", "namespace": "Acme\\Billing\\Margin", "class": "MarginCalc", "source": "nearmiss_invoice", "reason": "near-miss: similar foreach-over-items shape but computes margin instead of totals"}
+            ],
+            "cleans": [
+                {"file": "TaxRateConfig.php", "namespace": "Acme\\Billing\\Config", "class": "TaxRateConfig", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L---probe_axis_septet-006",
+            "title": "AXIS PROBE: controlflow (CF-02 match_switch)",
+            "description": "Isolates controlflow-axis detection difficulty. Carrier B applies CF-02 match_switch transform. Tests whether controlflow normalization reveals the clone.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["controlflow"],
+            "rng_seed": 200106,
+            "notes": "Axis probe 6/7: controlflow. CF-02 match_switch applied to one carrier.",
+            "capability_probe": {
+                "capability": "controlflow",
+                "isolated": true,
+                "axis_isolated": "controlflow",
+                "pass_criterion": "PASSES after controlflow normalization; FAILS without CFG-aware analysis",
+                "fail_meaning": "controlflow_normalization ABSENT - tool cannot handle match vs if/else variation"
+            },
+            "role_composition": {"carrier": 2, "distractor": 1, "clean": 1},
+            "detection_expectation": {"text_based": false, "token_based": false, "ast_based": true, "metric_based": false, "semantic": true},
+            "carriers": [
+                {"file": "PristineCalcA.php", "namespace": "Acme\\Billing\\PristineA", "class": "PristineCalcA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "MatchSwitchCalc.php", "namespace": "Acme\\Billing\\MatchSwitch", "class": "MatchSwitchCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "CF-02", "params": {"variant": "match_switch"}}]}
+            ],
+            "distractors": [
+                {"file": "MarginCalc.php", "namespace": "Acme\\Billing\\Margin", "class": "MarginCalc", "source": "nearmiss_invoice", "reason": "near-miss: similar foreach-over-items shape but computes margin instead of totals"}
+            ],
+            "cleans": [
+                {"file": "TaxRateConfig.php", "namespace": "Acme\\Billing\\Config", "class": "TaxRateConfig", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L---probe_axis_septet-007",
+            "title": "AXIS PROBE: api (API-01 map_vs_loop)",
+            "description": "Isolates API-abstraction detection difficulty. Carrier B applies API-01 map_vs_loop transform. Tests whether API abstraction reveals the clone.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-4",
+            "normalized_by": ["api_abstraction"],
+            "rng_seed": 200107,
+            "notes": "Axis probe 7/7: api. API-01 map_vs_loop applied to one carrier.",
+            "capability_probe": {
+                "capability": "api",
+                "isolated": true,
+                "axis_isolated": "api",
+                "pass_criterion": "PASSES after API abstraction analysis; FAILS without semantic reasoning",
+                "fail_meaning": "api_abstraction ABSENT - tool cannot handle map vs loop API idiom variation"
+            },
+            "role_composition": {"carrier": 2, "distractor": 1, "clean": 1},
+            "detection_expectation": {"text_based": false, "token_based": false, "ast_based": false, "metric_based": false, "semantic": true},
+            "carriers": [
+                {"file": "PristineCalcA.php", "namespace": "Acme\\Billing\\PristineA", "class": "PristineCalcA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "MapLoopCalc.php", "namespace": "Acme\\Billing\\MapLoop", "class": "MapLoopCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "API-01", "params": {"variant": "map_vs_loop"}}]}
+            ],
+            "distractors": [
+                {"file": "MarginCalc.php", "namespace": "Acme\\Billing\\Margin", "class": "MarginCalc", "source": "nearmiss_invoice", "reason": "near-miss: similar foreach-over-items shape but computes margin instead of totals"}
+            ],
+            "cleans": [
+                {"file": "TaxRateConfig.php", "namespace": "Acme\\Billing\\Config", "class": "TaxRateConfig", "source": "clean_billing"}
+            ]
+        }
+    ]
+}

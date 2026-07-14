@@ -59,5 +59,12 @@
         "recipe": "gen/recipes/L01_exact/ex_position.json",
         "version": "1.0.0",
         "rng_seed": 101401
+    },
+    "progression": {
+        "bridge_pair": {
+            "lower": "L01-ex_position-001",
+            "upper": "L02-ws_alignment-001",
+            "delta_axis": "WS"
+        }
     }
 }

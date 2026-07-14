@@ -1,0 +1,133 @@
+{
+    "level": 4,
+    "level_name": "rename_literals",
+    "level_dir": "L04_rename_literals",
+    "family": "rn_magic_number_constants",
+    "sets": [
+        {
+            "set_id": "L04-rn_magic_number_constants-001",
+            "title": "Invoice totals with magic numbers replaced by constants",
+            "description": "The same computeTotals method in three calculator classes. Carrier A uses literal 2592000; carrier B uses DAY_IN_SECONDS constant; carrier C uses SECONDS_PER_DAY. Only magic numbers vs named constants differ (Type-2).",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "rng_seed": 105801,
+            "notes": "RN-11 (magic_number_constants) replaces literals like 2592000 with named constants DAY_IN_SECONDS. Only constant naming style changes - values are semantically equivalent. Set 001 of 5.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineInvoiceCalc.php", "namespace": "Acme\\Billing\\Pristine", "class": "PristineInvoiceCalc", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "ConstantInvoiceCalc.php", "namespace": "Acme\\Billing\\Constant", "class": "ConstantInvoiceCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-11", "params": {"renames": {"2592000": "DAY_IN_SECONDS", "86400": "HOURS_IN_DAY"}}}]},
+                {"file": "AltConstantInvoiceCalc.php", "namespace": "Acme\\Billing\\AltConstant", "class": "AltConstantInvoiceCalc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "RN-11", "params": {"renames": {"2592000": "SECONDS_PER_DAY", "86400": "ONE_DAY", "0.08": "TAX_RATE"}}}]}
+            ],
+            "distractors": [
+                {"file": "LineItemProfiler.php", "namespace": "Acme\\Billing\\Profiling", "class": "LineItemProfiler", "source": "nearmiss_invoice", "reason": "near-miss: same invoice calculation vocabulary and foreach-over-items shape, but computes a histogram of line item prices — a different result"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L04-rn_magic_number_constants-002",
+            "title": "Invoice totals with magic numbers replaced by constants",
+            "description": "The same computeTotals method in three calculator classes. Carrier A uses literal 2592000; carrier B uses DAY_IN_SECONDS constant; carrier C uses SECONDS_PER_DAY. Only magic numbers vs named constants differ (Type-2).",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "rng_seed": 105802,
+            "notes": "RN-11 (magic_number_constants) replaces literals like 2592000 with named constants DAY_IN_SECONDS. Only constant naming style changes - values are semantically equivalent. Set 002 of 5.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineInvoiceCalc.php", "namespace": "Acme\\Billing\\Pristine", "class": "PristineInvoiceCalc", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "ConstantInvoiceCalc.php", "namespace": "Acme\\Billing\\Constant", "class": "ConstantInvoiceCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-11", "params": {"renames": {"2592000": "DAY_IN_SECONDS", "86400": "HOURS_IN_DAY"}}}]},
+                {"file": "AltConstantInvoiceCalc.php", "namespace": "Acme\\Billing\\AltConstant", "class": "AltConstantInvoiceCalc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "RN-11", "params": {"renames": {"2592000": "SECONDS_PER_DAY", "86400": "ONE_DAY", "0.08": "TAX_RATE"}}}]}
+            ],
+            "distractors": [
+                {"file": "LineItemProfiler.php", "namespace": "Acme\\Billing\\Profiling", "class": "LineItemProfiler", "source": "nearmiss_invoice", "reason": "near-miss: same invoice calculation vocabulary and foreach-over-items shape, but computes a histogram of line item prices — a different result"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L04-rn_magic_number_constants-003",
+            "title": "Invoice totals with magic numbers replaced by constants",
+            "description": "The same computeTotals method in three calculator classes. Carrier A uses literal 2592000; carrier B uses DAY_IN_SECONDS constant; carrier C uses SECONDS_PER_DAY. Only magic numbers vs named constants differ (Type-2).",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "rng_seed": 105803,
+            "notes": "RN-11 (magic_number_constants) replaces literals like 2592000 with named constants DAY_IN_SECONDS. Only constant naming style changes - values are semantically equivalent. Set 003 of 5.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineInvoiceCalc.php", "namespace": "Acme\\Billing\\Pristine", "class": "PristineInvoiceCalc", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "ConstantInvoiceCalc.php", "namespace": "Acme\\Billing\\Constant", "class": "ConstantInvoiceCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-11", "params": {"renames": {"2592000": "DAY_IN_SECONDS", "86400": "HOURS_IN_DAY"}}}]},
+                {"file": "AltConstantInvoiceCalc.php", "namespace": "Acme\\Billing\\AltConstant", "class": "AltConstantInvoiceCalc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "RN-11", "params": {"renames": {"2592000": "SECONDS_PER_DAY", "86400": "ONE_DAY", "0.08": "TAX_RATE"}}}]}
+            ],
+            "distractors": [
+                {"file": "LineItemProfiler.php", "namespace": "Acme\\Billing\\Profiling", "class": "LineItemProfiler", "source": "nearmiss_invoice", "reason": "near-miss: same invoice calculation vocabulary and foreach-over-items shape, but computes a histogram of line item prices — a different result"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L04-rn_magic_number_constants-004",
+            "title": "Invoice totals with magic numbers replaced by constants",
+            "description": "The same computeTotals method in three calculator classes. Carrier A uses literal 2592000; carrier B uses DAY_IN_SECONDS constant; carrier C uses SECONDS_PER_DAY. Only magic numbers vs named constants differ (Type-2).",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "rng_seed": 105804,
+            "notes": "RN-11 (magic_number_constants) replaces literals like 2592000 with named constants DAY_IN_SECONDS. Only constant naming style changes - values are semantically equivalent. Set 004 of 5.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineInvoiceCalc.php", "namespace": "Acme\\Billing\\Pristine", "class": "PristineInvoiceCalc", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "ConstantInvoiceCalc.php", "namespace": "Acme\\Billing\\Constant", "class": "ConstantInvoiceCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-11", "params": {"renames": {"2592000": "DAY_IN_SECONDS", "86400": "HOURS_IN_DAY"}}}]},
+                {"file": "AltConstantInvoiceCalc.php", "namespace": "Acme\\Billing\\AltConstant", "class": "AltConstantInvoiceCalc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "RN-11", "params": {"renames": {"2592000": "SECONDS_PER_DAY", "86400": "ONE_DAY", "0.08": "TAX_RATE"}}}]}
+            ],
+            "distractors": [
+                {"file": "LineItemProfiler.php", "namespace": "Acme\\Billing\\Profiling", "class": "LineItemProfiler", "source": "nearmiss_invoice", "reason": "near-miss: same invoice calculation vocabulary and foreach-over-items shape, but computes a histogram of line item prices — a different result"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L04-rn_magic_number_constants-005",
+            "title": "Invoice totals with magic numbers replaced by constants",
+            "description": "The same computeTotals method in three calculator classes. Carrier A uses literal 2592000; carrier B uses DAY_IN_SECONDS constant; carrier C uses SECONDS_PER_DAY. Only magic numbers vs named constants differ (Type-2).",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "rng_seed": 105805,
+            "notes": "RN-11 (magic_number_constants) replaces literals like 2592000 with named constants DAY_IN_SECONDS. Only constant naming style changes - values are semantically equivalent. Set 005 of 5.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineInvoiceCalc.php", "namespace": "Acme\\Billing\\Pristine", "class": "PristineInvoiceCalc", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "ConstantInvoiceCalc.php", "namespace": "Acme\\Billing\\Constant", "class": "ConstantInvoiceCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-11", "params": {"renames": {"2592000": "DAY_IN_SECONDS", "86400": "HOURS_IN_DAY"}}}]},
+                {"file": "AltConstantInvoiceCalc.php", "namespace": "Acme\\Billing\\AltConstant", "class": "AltConstantInvoiceCalc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "RN-11", "params": {"renames": {"2592000": "SECONDS_PER_DAY", "86400": "ONE_DAY", "0.08": "TAX_RATE"}}}]}
+            ],
+            "distractors": [
+                {"file": "LineItemProfiler.php", "namespace": "Acme\\Billing\\Profiling", "class": "LineItemProfiler", "source": "nearmiss_invoice", "reason": "near-miss: same invoice calculation vocabulary and foreach-over-items shape, but computes a histogram of line item prices — a different result"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        }
+    ]
+}

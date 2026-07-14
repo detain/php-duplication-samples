@@ -1,0 +1,158 @@
+{
+    "level": 10,
+    "level_name": "adversarial_edge_cases",
+    "level_dir": "L10_adversarial_edge_cases",
+    "family": "adv_subset_clone",
+    "capability_probe": {
+        "capability": "multi_cluster_reporting",
+        "sub_capability": "subset_detection",
+        "description": "Detects when one clone is a strict subset of another (Clone2 ⊂ Clone1) and reports both correctly rather than merging or dropping the subset"
+    },
+    "sets": [
+        {
+            "set_id": "L10-adv_subset_clone-001",
+            "title": "Clone2 ⊂ Clone1 — strict subset relationship across multiple files",
+            "description": "Two clone clusters: Clone1 (30-line method) and Clone2 (15-line, strictly a subset of Clone1's code). The subset appears in the same code region but is truncated. Tests whether detectors correctly report both clones separately rather than merging them or dropping the subset.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments", "identifiers"],
+            "rng_seed": 112001,
+            "notes": "O Idea 9 / §12.7: The Inclusion Problem. Clone2 is a strict subset of Clone1 — Clone2's code region is literally contained within Clone1's code region. Detectors face a choice: report Clone1 only (missing the subset), report both as separate clones, or merge them incorrectly. Multi-cluster reporting is required to surface both.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": true},
+            "carriers": [
+                {"file": "InvoiceCalculatorA.php", "namespace": "Acme\\Billing\\CalcA", "class": "InvoiceCalculatorA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": [], "cluster": "Clone1-Full"},
+                {"file": "InvoiceCalculatorB.php", "namespace": "Acme\\Billing\\CalcB", "class": "InvoiceCalculatorB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-01"}], "cluster": "Clone1-Full"},
+                {"file": "InvoiceCalculatorC.php", "namespace": "Acme\\Billing\\CalcC", "class": "InvoiceCalculatorC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "LT-01"}, {"code": "CM-03"}], "cluster": "Clone1-Full"},
+                {"file": "ReceiptTotalerA.php", "namespace": "Acme\\Billing\\ReceiptA", "class": "ReceiptTotalerA", "scaffold": "method_alpha", "group": "B", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 7, "tail_trim": 8}}], "cluster": "Clone2-Subset"},
+                {"file": "ReceiptTotalerB.php", "namespace": "Acme\\Billing\\ReceiptB", "class": "ReceiptTotalerB", "scaffold": "method_beta", "group": "B", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 7, "tail_trim": 8}}, {"code": "LT-01"}], "cluster": "Clone2-Subset"},
+                {"file": "ReceiptTotalerC.php", "namespace": "Acme\\Billing\\ReceiptC", "class": "ReceiptTotalerC", "scaffold": "method_gamma", "group": "B", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 7, "tail_trim": 8}}, {"code": "LT-01"}, {"code": "CM-03"}], "cluster": "Clone2-Subset"}
+            ],
+            "distractors": [
+                {"file": "TrustScorer.php", "namespace": "Acme\\Billing\\Scoring", "class": "TrustScorer", "source": "nearmiss_invoice", "reason": "Near-miss: same invoice vocabulary but different computation logic - computes premium fee instead"}
+            ],
+            "cleans": [
+                {"file": "InvoiceParser.php", "namespace": "Acme\\Billing\\Parsing", "class": "InvoiceParser", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L10-adv_subset_clone-002",
+            "title": "Subset with RN-05 case convention drift",
+            "description": "The inclusion problem with case convention renaming to test whether normalization correctly handles the subset relationship.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments", "identifiers"],
+            "rng_seed": 112002,
+            "notes": "O Idea 9 + RN-05: The Inclusion Problem with case convention drift. Tests whether identifier normalization preserves the subset relationship detection.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.65, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": false},
+            "carriers": [
+                {"file": "InvoiceCalculatorA.php", "namespace": "Acme\\Billing\\CalcA", "class": "InvoiceCalculatorA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": [], "cluster": "Clone1-Full"},
+                {"file": "InvoiceCalculatorB.php", "namespace": "Acme\\Billing\\CalcB", "class": "InvoiceCalculatorB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-05"}], "cluster": "Clone1-Full"},
+                {"file": "InvoiceCalculatorC.php", "namespace": "Acme\\Billing\\CalcC", "class": "InvoiceCalculatorC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "RN-05"}, {"code": "CM-03"}], "cluster": "Clone1-Full"},
+                {"file": "ReceiptTotalerA.php", "namespace": "Acme\\Billing\\ReceiptA", "class": "ReceiptTotalerA", "scaffold": "method_alpha", "group": "B", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 7, "tail_trim": 8}}], "cluster": "Clone2-Subset"},
+                {"file": "ReceiptTotalerB.php", "namespace": "Acme\\Billing\\ReceiptB", "class": "ReceiptTotalerB", "scaffold": "method_beta", "group": "B", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 7, "tail_trim": 8}}, {"code": "RN-05"}], "cluster": "Clone2-Subset"},
+                {"file": "ReceiptTotalerC.php", "namespace": "Acme\\Billing\\ReceiptC", "class": "ReceiptTotalerC", "scaffold": "method_gamma", "group": "B", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 7, "tail_trim": 8}}, {"code": "RN-05"}, {"code": "LT-01"}], "cluster": "Clone2-Subset"}
+            ],
+            "distractors": [
+                {"file": "TrustScorer.php", "namespace": "Acme\\Billing\\Scoring", "class": "TrustScorer", "source": "nearmiss_invoice", "reason": "Near-miss: same invoice vocabulary but different logic"}
+            ],
+            "cleans": [
+                {"file": "InvoiceParser.php", "namespace": "Acme\\Billing\\Parsing", "class": "InvoiceParser", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L10-adv_subset_clone-003",
+            "title": "Subset with access_guard seed",
+            "description": "The inclusion problem using access_guard seed to test subset detection in authorization code context.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers"],
+            "rng_seed": 112003,
+            "notes": "O Idea 9: The Inclusion Problem with access_guard seed. Clone1 is the full 30-line authorization method, Clone2 is the 15-line subset containing only the user verification portion.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.55, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": true},
+            "carriers": [
+                {"file": "AccessCheckerA.php", "namespace": "Acme\\Security\\CheckA", "class": "AccessCheckerA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": [], "cluster": "Clone1-Full"},
+                {"file": "AccessCheckerB.php", "namespace": "Acme\\Security\\CheckB", "class": "AccessCheckerB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-02"}], "cluster": "Clone1-Full"},
+                {"file": "AccessCheckerC.php", "namespace": "Acme\\Security\\CheckC", "class": "AccessCheckerC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "LT-02"}, {"code": "CM-03"}], "cluster": "Clone1-Full"},
+                {"file": "PermissionVerifierA.php", "namespace": "Acme\\Security\\PermA", "class": "PermissionVerifierA", "scaffold": "method_alpha", "group": "B", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 7, "tail_trim": 8}}], "cluster": "Clone2-Subset"},
+                {"file": "PermissionVerifierB.php", "namespace": "Acme\\Security\\PermB", "class": "PermissionVerifierB", "scaffold": "method_beta", "group": "B", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 7, "tail_trim": 8}}, {"code": "LT-02"}], "cluster": "Clone2-Subset"},
+                {"file": "PermissionVerifierC.php", "namespace": "Acme\\Security\\PermC", "class": "PermissionVerifierC", "scaffold": "method_gamma", "group": "B", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 7, "tail_trim": 8}}, {"code": "LT-02"}, {"code": "CM-03"}], "cluster": "Clone2-Subset"}
+            ],
+            "distractors": [
+                {"file": "RateLimiter.php", "namespace": "Acme\\Security\\Limit", "class": "RateLimiter", "source": "nearmiss_access", "reason": "Near-miss: same access vocabulary but different authorization logic"}
+            ],
+            "cleans": [
+                {"file": "AuthProvider.php", "namespace": "Acme\\Security\\Auth", "class": "AuthProvider", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L10-adv_subset_clone-004",
+            "title": "Subset with basket_pricing seed — bulk calculation context",
+            "description": "The inclusion problem using basket_pricing seed where the full calculation method contains a subset that computes only item subtotals.",
+            "seed": "basket_pricing",
+            "mount": "method",
+            "clone_symbol": "calculateTotal",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments", "identifiers"],
+            "rng_seed": 112004,
+            "notes": "O Idea 9: The Inclusion Problem with basket_pricing seed. Clone1 (30-line) computes full totals with discounts and tax; Clone2 (15-line subset) computes only the item subtotal loop.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": true},
+            "carriers": [
+                {"file": "BasketCalculatorA.php", "namespace": "Acme\\Commerce\\CalcA", "class": "BasketCalculatorA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": [], "cluster": "Clone1-Full"},
+                {"file": "BasketCalculatorB.php", "namespace": "Acme\\Commerce\\CalcB", "class": "BasketCalculatorB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-01"}], "cluster": "Clone1-Full"},
+                {"file": "BasketCalculatorC.php", "namespace": "Acme\\Commerce\\CalcC", "class": "BasketCalculatorC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "LT-01"}, {"code": "CM-03"}], "cluster": "Clone1-Full"},
+                {"file": "SubtotalCollectorA.php", "namespace": "Acme\\Commerce\\SubA", "class": "SubtotalCollectorA", "scaffold": "method_alpha", "group": "B", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 7, "tail_trim": 8}}], "cluster": "Clone2-Subset"},
+                {"file": "SubtotalCollectorB.php", "namespace": "Acme\\Commerce\\SubB", "class": "SubtotalCollectorB", "scaffold": "method_beta", "group": "B", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 7, "tail_trim": 8}}, {"code": "LT-01"}], "cluster": "Clone2-Subset"},
+                {"file": "SubtotalCollectorC.php", "namespace": "Acme\\Commerce\\SubC", "class": "SubtotalCollectorC", "scaffold": "method_gamma", "group": "B", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 7, "tail_trim": 8}}, {"code": "LT-01"}, {"code": "CM-03"}], "cluster": "Clone2-Subset"}
+            ],
+            "distractors": [
+                {"file": "PriceEstimator.php", "namespace": "Acme\\Commerce\\Estimation", "class": "PriceEstimator", "source": "nearmiss_invoice", "reason": "Near-miss: same pricing vocabulary but different calculation approach"}
+            ],
+            "cleans": [
+                {"file": "BasketParser.php", "namespace": "Acme\\Commerce\\Parse", "class": "BasketParser", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L10-adv_subset_clone-005",
+            "title": "Subset with compound transforms — hardest variant",
+            "description": "The inclusion problem with compound transforms (LT-01 + CM-03 + RN-05) to test whether robust normalization is required to detect the subset relationship.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers"],
+            "rng_seed": 112005,
+            "notes": "O Idea 9: The Inclusion Problem with compound transforms. Requires all normalization axes to correctly identify both the full clone and its subset.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.5, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": false},
+            "carriers": [
+                {"file": "InvoiceCalculatorA.php", "namespace": "Acme\\Billing\\CalcA", "class": "InvoiceCalculatorA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": [], "cluster": "Clone1-Full"},
+                {"file": "InvoiceCalculatorB.php", "namespace": "Acme\\Billing\\CalcB", "class": "InvoiceCalculatorB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-01"}, {"code": "CM-03"}, {"code": "RN-05"}], "cluster": "Clone1-Full"},
+                {"file": "InvoiceCalculatorC.php", "namespace": "Acme\\Billing\\CalcC", "class": "InvoiceCalculatorC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "LT-01"}, {"code": "CM-03"}, {"code": "RN-05"}, {"code": "WS-03"}], "cluster": "Clone1-Full"},
+                {"file": "ReceiptTotalerA.php", "namespace": "Acme\\Billing\\ReceiptA", "class": "ReceiptTotalerA", "scaffold": "method_alpha", "group": "B", "pristine": true, "transforms": [], "cluster": "Clone2-Subset"},
+                {"file": "ReceiptTotalerB.php", "namespace": "Acme\\Billing\\ReceiptB", "class": "ReceiptTotalerB", "scaffold": "method_beta", "group": "B", "pristine": false, "transforms": [{"code": "LT-01"}, {"code": "CM-03"}, {"code": "RN-05"}], "cluster": "Clone2-Subset"},
+                {"file": "ReceiptTotalerC.php", "namespace": "Acme\\Billing\\ReceiptC", "class": "ReceiptTotalerC", "scaffold": "method_gamma", "group": "B", "pristine": false, "transforms": [{"code": "LT-01"}, {"code": "CM-03"}, {"code": "RN-05"}, {"code": "WS-03"}], "cluster": "Clone2-Subset"}
+            ],
+            "distractors": [
+                {"file": "TrustScorer.php", "namespace": "Acme\\Billing\\Scoring", "class": "TrustScorer", "source": "nearmiss_invoice", "reason": "Near-miss: same invoice vocabulary but different computation"}
+            ],
+            "cleans": [
+                {"file": "InvoiceParser.php", "namespace": "Acme\\Billing\\Parsing", "class": "InvoiceParser", "source": "clean_billing"}
+            ]
+        }
+    ]
+}

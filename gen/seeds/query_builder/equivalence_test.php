@@ -1,50 +1,78 @@
 <?php
-/**
- * Equivalence test for query_builder.
- * Verifies behavioral equivalence across different implementations.
- *
- * Run: php gen/seeds/query_builder/equivalence_test.php
- */
 
 declare(strict_types=1);
 
-require __DIR__ . '/payload.php';
+/**
+ * Behavioral-equivalence proof for the query_builder seed.
+ *
+ *   php gen/seeds/query_builder/equivalence_test.php
+ *
+ * Exit 0 = both imperative and fluent builders produce the same SQL.
+ */
 
-$pass = true;
-$errors = [];
+require __DIR__ . '/../../lib/Payload.php';
 
-// Get the class name from declared classes
-$classes = get_declared_classes();
-$className = end($classes);
-$builder = new $className();
+use Gen\Lib\Payload;
 
-// Test select
-$result = $builder->select('users', ['*'])->where('active', '=', 1)->orderBy('created', 'DESC')->limit(10)->build();
-if (!isset($result['sql']) || !isset($result['params'])) {
-    $pass = false;
-    $errors[] = "query_builder select() returned invalid result";
+function loadAs(string $file, string $newName): void
+{
+    $code = implode("\n", Payload::region($file));
+    $code = preg_replace('/^\s*(?:public|protected|private)\s+function\s+\w+/', 'function ' . $newName, $code, 1);
+    eval($code);
 }
 
-// Verify deterministic build
-$builder2 = new $className();
-$result2 = $builder2->select('users', ['*'])->where('active', '=', 1)->orderBy('created', 'DESC')->limit(10)->build();
-if ($result['sql'] !== $result2['sql'] || $result['params'] !== $result2['params']) {
-    $pass = false;
-    $errors[] = "query_builder non-deterministic build";
+$dir = __DIR__;
+loadAs($dir . '/payload.php', 'build_imperative');
+loadAs($dir . '/variants/api_fluent_api.php', 'build_fluent');
+
+$cases = [
+    ['users', ['id', 'name'], ['status = active'], 'name'],
+    ['orders', ['*'], [], 'created_at'],
+    ['products', ['sku', 'price'], ['price > 10'], 'sku'],
+];
+
+$failures = 0;
+$count = 0;
+
+foreach ($cases as $ci => $case) {
+    [$table, $cols, $wheres, $order] = $case;
+
+    // Imperative
+    $imp = new class {
+        public function select(string $t, array $c): void {}
+        public function where(string $w): void {}
+        public function orderBy(string $o): void {}
+        public function build(): string { return ''; }
+    };
+    $code = implode("\n", Payload::region($dir . '/payload.php'));
+    $code = str_replace('class ' . __COMPILER_HALT_OFFSET__ . 'Seed', 'class ImpBuilder', $code);
+    eval($code);
+    $bImp = new \ImpBuilder();
+    $bImp->select($table, $cols);
+    foreach ($wheres as $w) { $bImp->where($w); }
+    if ($order) { $bImp->orderBy($order); }
+    $expected = $bImp->build();
+
+    // Fluent
+    $code2 = implode("\n", Payload::region($dir . '/variants/api_fluent_api.php'));
+    $code2 = str_replace('class QueryBuilderFluentVariant', 'class FluentBuilder', $code2);
+    eval($code2);
+    $bFl = new \FluentBuilder();
+    $bFl->select($table, $cols);
+    foreach ($wheres as $w) { $bFl->where($w); }
+    if ($order) { $bFl->orderBy($order); }
+    $actual = $bFl->build();
+
+    $count++;
+    if ($actual !== $expected) {
+        $failures++;
+        fwrite(STDERR, "[FAIL] case {$ci}: expected {$expected} got {$actual}\n");
+    }
 }
 
-// Test simple select
-$builder3 = new $className();
-$simple = $builder3->select('products', ['id', 'name'])->build();
-if (!isset($simple['sql']) || strpos($simple['sql'], 'SELECT') === false) {
-    $pass = false;
-    $errors[] = "query_builder simple select failed";
-}
-
-if ($pass) {
-    echo "[PASS] {$argv[0]}\n";
-    exit(0);
-} else {
-    echo "[FAIL] " . implode(", ", $errors) . "\n";
+if ($failures > 0) {
+    fwrite(STDERR, "[equivalence] query_builder: {$failures}/{$count} divergence(s)\n");
     exit(1);
 }
+echo "[equivalence] query_builder: OK ({$count} cases)\n";
+exit(0);

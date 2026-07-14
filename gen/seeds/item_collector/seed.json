@@ -1,0 +1,14 @@
+{
+    "domain": "item_collector",
+    "summary": "Item collection and transformation from an array via loop or functional map.",
+    "size_class": "S",
+    "symbol": "collect",
+    "line_count": 14,
+    "token_count": 95,
+    "required_symbols": ["collect"],
+    "mount_modes": ["method", "function"],
+    "compatible_interference": ["WS-03", "CM-03", "RN-01", "CF-05", "API-01", "API-05"],
+    "variants": [
+        {"file": "cf_loop_to_map.php", "code": "CF-06", "name": "cf_loop_to_map"}
+    ]
+}

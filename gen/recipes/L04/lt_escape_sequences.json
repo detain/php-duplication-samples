@@ -1,0 +1,133 @@
+{
+    "level": 4,
+    "level_name": "rename_literals",
+    "level_dir": "L04_rename_literals",
+    "family": "lt_escape_sequences",
+    "sets": [
+        {
+            "set_id": "L04-lt_escape_sequences-001",
+            "title": "CSV row parser with escape sequence representations changed",
+            "description": "The same parseRow method in three reader classes. Carrier A uses \\n; carrier B uses PHP_EOL; carrier C uses actual newline in string. Only escape sequence representation differs (Type-2).",
+            "seed": "csv_import",
+            "mount": "method",
+            "clone_symbol": "parseRow",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "rng_seed": 106301,
+            "notes": "LT-05 (escape_sequences) changes escape sequences like \\n/\\r\\n/PHP_EOL. Only escape representation changes - actual newlines are equivalent. Set 001 of 5.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineRowReader.php", "namespace": "Acme\\Import\\Pristine", "class": "PristineRowReader", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": " CRLFRowReader.php", "namespace": "Acme\\Import\\CRLF", "class": "CRLFRowReader", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-05", "params": {"replacements": [{"find": "\"\\n\"", "replace": "\"\\r\\n\""}]}}]},
+                {"file": "ConstantRowReader.php", "namespace": "Acme\\Import\\Constant", "class": "ConstantRowReader", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "LT-05", "params": {"replacements": [{"find": "\"\\n\"", "replace": "PHP_EOL"}, {"find": "\"\\t\"", "replace": "\"\\t\""}]}}]}
+            ],
+            "distractors": [
+                {"file": "RowWidthProfiler.php", "namespace": "Acme\\Import\\Profiling", "class": "RowWidthProfiler", "source": "nearmiss_csv", "reason": "near-miss: same CSV vocabulary and foreach-over-columns shape, but builds a column-width histogram — a different result"}
+            ],
+            "cleans": [
+                {"file": "HeaderSchemaDetector.php", "namespace": "Acme\\Import\\Schema", "class": "HeaderSchemaDetector", "source": "clean_parsing"}
+            ]
+        },
+        {
+            "set_id": "L04-lt_escape_sequences-002",
+            "title": "CSV row parser with escape sequence representations changed",
+            "description": "The same parseRow method in three reader classes. Carrier A uses \\n; carrier B uses \\r\\n; carrier C uses PHP_EOL. Only escape sequence representation differs (Type-2).",
+            "seed": "csv_import",
+            "mount": "method",
+            "clone_symbol": "parseRow",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "rng_seed": 106302,
+            "notes": "LT-05 (escape_sequences) changes escape sequences like \\n/\\r\\n/PHP_EOL. Only escape representation changes - actual newlines are equivalent. Set 002 of 5.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineRowReader.php", "namespace": "Acme\\Import\\Pristine", "class": "PristineRowReader", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "CRLFRowReader.php", "namespace": "Acme\\Import\\CRLF", "class": "CRLFRowReader", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-05", "params": {"replacements": [{"find": "\"\\n\"", "replace": "\"\\r\\n\""}]}}]},
+                {"file": "ConstantRowReader.php", "namespace": "Acme\\Import\\Constant", "class": "ConstantRowReader", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "LT-05", "params": {"replacements": [{"find": "\"\\n\"", "replace": "PHP_EOL"}, {"find": "\"\\t\"", "replace": "\"\\t\""}]}}]}
+            ],
+            "distractors": [
+                {"file": "RowWidthProfiler.php", "namespace": "Acme\\Import\\Profiling", "class": "RowWidthProfiler", "source": "nearmiss_csv", "reason": "near-miss: same CSV vocabulary and foreach-over-columns shape, but builds a column-width histogram — a different result"}
+            ],
+            "cleans": [
+                {"file": "HeaderSchemaDetector.php", "namespace": "Acme\\Import\\Schema", "class": "HeaderSchemaDetector", "source": "clean_parsing"}
+            ]
+        },
+        {
+            "set_id": "L04-lt_escape_sequences-003",
+            "title": "CSV row parser with escape sequence representations changed",
+            "description": "The same parseRow method in three reader classes. Carrier A uses \\n; carrier B uses \\r\\n; carrier C uses PHP_EOL. Only escape sequence representation differs (Type-2).",
+            "seed": "csv_import",
+            "mount": "method",
+            "clone_symbol": "parseRow",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "rng_seed": 106303,
+            "notes": "LT-05 (escape_sequences) changes escape sequences like \\n/\\r\\n/PHP_EOL. Only escape representation changes - actual newlines are equivalent. Set 003 of 5.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineRowReader.php", "namespace": "Acme\\Import\\Pristine", "class": "PristineRowReader", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "CRLFRowReader.php", "namespace": "Acme\\Import\\CRLF", "class": "CRLFRowReader", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-05", "params": {"replacements": [{"find": "\"\\n\"", "replace": "\"\\r\\n\""}]}}]},
+                {"file": "ConstantRowReader.php", "namespace": "Acme\\Import\\Constant", "class": "ConstantRowReader", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "LT-05", "params": {"replacements": [{"find": "\"\\n\"", "replace": "PHP_EOL"}, {"find": "\"\\t\"", "replace": "\"\\t\""}]}}]}
+            ],
+            "distractors": [
+                {"file": "RowWidthProfiler.php", "namespace": "Acme\\Import\\Profiling", "class": "RowWidthProfiler", "source": "nearmiss_csv", "reason": "near-miss: same CSV vocabulary and foreach-over-columns shape, but builds a column-width histogram — a different result"}
+            ],
+            "cleans": [
+                {"file": "HeaderSchemaDetector.php", "namespace": "Acme\\Import\\Schema", "class": "HeaderSchemaDetector", "source": "clean_parsing"}
+            ]
+        },
+        {
+            "set_id": "L04-lt_escape_sequences-004",
+            "title": "CSV row parser with escape sequence representations changed",
+            "description": "The same parseRow method in three reader classes. Carrier A uses \\n; carrier B uses \\r\\n; carrier C uses PHP_EOL. Only escape sequence representation differs (Type-2).",
+            "seed": "csv_import",
+            "mount": "method",
+            "clone_symbol": "parseRow",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "rng_seed": 106304,
+            "notes": "LT-05 (escape_sequences) changes escape sequences like \\n/\\r\\n/PHP_EOL. Only escape representation changes - actual newlines are equivalent. Set 004 of 5.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineRowReader.php", "namespace": "Acme\\Import\\Pristine", "class": "PristineRowReader", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "CRLFRowReader.php", "namespace": "Acme\\Import\\CRLF", "class": "CRLFRowReader", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-05", "params": {"replacements": [{"find": "\"\\n\"", "replace": "\"\\r\\n\""}]}}]},
+                {"file": "ConstantRowReader.php", "namespace": "Acme\\Import\\Constant", "class": "ConstantRowReader", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "LT-05", "params": {"replacements": [{"find": "\"\\n\"", "replace": "PHP_EOL"}, {"find": "\"\\t\"", "replace": "\"\\t\""}]}}]}
+            ],
+            "distractors": [
+                {"file": "RowWidthProfiler.php", "namespace": "Acme\\Import\\Profiling", "class": "RowWidthProfiler", "source": "nearmiss_csv", "reason": "near-miss: same CSV vocabulary and foreach-over-columns shape, but builds a column-width histogram — a different result"}
+            ],
+            "cleans": [
+                {"file": "HeaderSchemaDetector.php", "namespace": "Acme\\Import\\Schema", "class": "HeaderSchemaDetector", "source": "clean_parsing"}
+            ]
+        },
+        {
+            "set_id": "L04-lt_escape_sequences-005",
+            "title": "CSV row parser with escape sequence representations changed",
+            "description": "The same parseRow method in three reader classes. Carrier A uses \\n; carrier B uses \\r\\n; carrier C uses PHP_EOL. Only escape sequence representation differs (Type-2).",
+            "seed": "csv_import",
+            "mount": "method",
+            "clone_symbol": "parseRow",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "rng_seed": 106305,
+            "notes": "LT-05 (escape_sequences) changes escape sequences like \\n/\\r\\n/PHP_EOL. Only escape representation changes - actual newlines are equivalent. Set 005 of 5.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineRowReader.php", "namespace": "Acme\\Import\\Pristine", "class": "PristineRowReader", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "CRLFRowReader.php", "namespace": "Acme\\Import\\CRLF", "class": "CRLFRowReader", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-05", "params": {"replacements": [{"find": "\"\\n\"", "replace": "\"\\r\\n\""}]}}]},
+                {"file": "ConstantRowReader.php", "namespace": "Acme\\Import\\Constant", "class": "ConstantRowReader", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "LT-05", "params": {"replacements": [{"find": "\"\\n\"", "replace": "PHP_EOL"}, {"find": "\"\\t\"", "replace": "\"\\t\""}]}}]}
+            ],
+            "distractors": [
+                {"file": "RowWidthProfiler.php", "namespace": "Acme\\Import\\Profiling", "class": "RowWidthProfiler", "source": "nearmiss_csv", "reason": "near-miss: same CSV vocabulary and foreach-over-columns shape, but builds a column-width histogram — a different result"}
+            ],
+            "cleans": [
+                {"file": "HeaderSchemaDetector.php", "namespace": "Acme\\Import\\Schema", "class": "HeaderSchemaDetector", "source": "clean_parsing"}
+            ]
+        }
+    ]
+}

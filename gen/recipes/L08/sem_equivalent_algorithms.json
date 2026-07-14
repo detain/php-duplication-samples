@@ -1,0 +1,133 @@
+{
+    "level": 8,
+    "level_name": "semantic_equivalence",
+    "level_dir": "L08_semantic_equivalence",
+    "family": "sem_equivalent_algorithms",
+    "sets": [
+        {
+            "set_id": "L08-sem_equivalent_algorithms-001",
+            "title": "Array sorting: bubble sort vs insertion sort (identical semantics)",
+            "description": "The same array sorting operation implemented as bubble sort (pristine) vs insertion sort. Both sort arrays in ascending order and produce identical results for all inputs. These are genuinely different algorithms with different O(n^2) characteristics but the same semantics — a deep semantic equivalence challenge.",
+            "seed": "sorting_engine",
+            "mount": "method",
+            "clone_symbol": "sort",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals", "controlflow"],
+            "rng_seed": 108101,
+            "notes": "Set 001 of 5. sorting_engine seed with SEM-02 sem_equivalent_algorithms variant (insertion sort). Carrier A uses bubble sort (pristine). Carrier B uses insertion sort. Both produce identical sorted output. min_members_for_credit is the default 2.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": false, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "SorterBubble.php", "namespace": "Acme\\Sorting\\Algorithms", "class": "SorterBubble", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "SorterInsertion.php", "namespace": "Acme\\Sorting\\Algorithms", "class": "SorterInsertion", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "sem_equivalent_algorithms", "transforms": [{"code": "SEM-02", "variant": "sem_equivalent_algorithms"}]}
+            ],
+            "distractors": [
+                {"file": "SorterQuick.php", "namespace": "Acme\\Sorting\\Algorithms", "class": "SorterQuick", "source": "nearmiss_sort", "reason": "near-miss: same sorting-domain vocabulary (arr/sort/items) but uses quicksort algorithm which may produce different element order for equal values (unstable sort)"}
+            ],
+            "cleans": [
+                {"file": "SortTestData.php", "namespace": "Acme\\Sorting\\Fixtures", "class": "SortTestData", "source": "clean_sort"}
+            ]
+        },
+        {
+            "set_id": "L08-sem_equivalent_algorithms-002",
+            "title": "Array sorting: bubble sort vs insertion sort (identical semantics)",
+            "description": "The same array sorting operation implemented as bubble sort (pristine) vs insertion sort. Both sort arrays in ascending order and produce identical results for all inputs.",
+            "seed": "sorting_engine",
+            "mount": "method",
+            "clone_symbol": "sort",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals", "controlflow"],
+            "rng_seed": 108102,
+            "notes": "Set 002 of 5.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": false, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "SorterBubble.php", "namespace": "Acme\\Sorting\\Algorithms", "class": "SorterBubble", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "SorterInsertion.php", "namespace": "Acme\\Sorting\\Algorithms", "class": "SorterInsertion", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "sem_equivalent_algorithms", "transforms": [{"code": "SEM-02", "variant": "sem_equivalent_algorithms"}]}
+            ],
+            "distractors": [
+                {"file": "SorterQuick.php", "namespace": "Acme\\Sorting\\Algorithms", "class": "SorterQuick", "source": "nearmiss_sort", "reason": "near-miss: same sorting-domain vocabulary but uses quicksort which may produce different order for equal values"}
+            ],
+            "cleans": [
+                {"file": "SortTestData.php", "namespace": "Acme\\Sorting\\Fixtures", "class": "SortTestData", "source": "clean_sort"}
+            ]
+        },
+        {
+            "set_id": "L08-sem_equivalent_algorithms-003",
+            "title": "Array sorting: bubble sort vs insertion sort (identical semantics)",
+            "description": "The same array sorting operation implemented as bubble sort (pristine) vs insertion sort. Both sort arrays in ascending order and produce identical results for all inputs.",
+            "seed": "sorting_engine",
+            "mount": "method",
+            "clone_symbol": "sort",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals", "controlflow"],
+            "rng_seed": 108103,
+            "notes": "Set 003 of 5.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": false, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "SorterBubble.php", "namespace": "Acme\\Sorting\\Algorithms", "class": "SorterBubble", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "SorterInsertion.php", "namespace": "Acme\\Sorting\\Algorithms", "class": "SorterInsertion", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "sem_equivalent_algorithms", "transforms": [{"code": "SEM-02", "variant": "sem_equivalent_algorithms"}]}
+            ],
+            "distractors": [
+                {"file": "SorterQuick.php", "namespace": "Acme\\Sorting\\Algorithms", "class": "SorterQuick", "source": "nearmiss_sort", "reason": "near-miss: same sorting-domain vocabulary but uses quicksort which may produce different order for equal values"}
+            ],
+            "cleans": [
+                {"file": "SortTestData.php", "namespace": "Acme\\Sorting\\Fixtures", "class": "SortTestData", "source": "clean_sort"}
+            ]
+        },
+        {
+            "set_id": "L08-sem_equivalent_algorithms-004",
+            "title": "Array sorting: bubble sort vs insertion sort (identical semantics)",
+            "description": "The same array sorting operation implemented as bubble sort (pristine) vs insertion sort. Both sort arrays in ascending order and produce identical results for all inputs.",
+            "seed": "sorting_engine",
+            "mount": "method",
+            "clone_symbol": "sort",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals", "controlflow"],
+            "rng_seed": 108104,
+            "notes": "Set 004 of 5.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": false, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "SorterBubble.php", "namespace": "Acme\\Sorting\\Algorithms", "class": "SorterBubble", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "SorterInsertion.php", "namespace": "Acme\\Sorting\\Algorithms", "class": "SorterInsertion", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "sem_equivalent_algorithms", "transforms": [{"code": "SEM-02", "variant": "sem_equivalent_algorithms"}]}
+            ],
+            "distractors": [
+                {"file": "SorterQuick.php", "namespace": "Acme\\Sorting\\Algorithms", "class": "SorterQuick", "source": "nearmiss_sort", "reason": "near-miss: same sorting-domain vocabulary but uses quicksort which may produce different order for equal values"}
+            ],
+            "cleans": [
+                {"file": "SortTestData.php", "namespace": "Acme\\Sorting\\Fixtures", "class": "SortTestData", "source": "clean_sort"}
+            ]
+        },
+        {
+            "set_id": "L08-sem_equivalent_algorithms-005",
+            "title": "Array sorting: bubble sort vs insertion sort (identical semantics)",
+            "description": "The same array sorting operation implemented as bubble sort (pristine) vs insertion sort. Both sort arrays in ascending order and produce identical results for all inputs.",
+            "seed": "sorting_engine",
+            "mount": "method",
+            "clone_symbol": "sort",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals", "controlflow"],
+            "rng_seed": 108105,
+            "notes": "Set 005 of 5.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": false, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "SorterBubble.php", "namespace": "Acme\\Sorting\\Algorithms", "class": "SorterBubble", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "SorterInsertion.php", "namespace": "Acme\\Sorting\\Algorithms", "class": "SorterInsertion", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "sem_equivalent_algorithms", "transforms": [{"code": "SEM-02", "variant": "sem_equivalent_algorithms"}]}
+            ],
+            "distractors": [
+                {"file": "SorterQuick.php", "namespace": "Acme\\Sorting\\Algorithms", "class": "SorterQuick", "source": "nearmiss_sort", "reason": "near-miss: same sorting-domain vocabulary but uses quicksort which may produce different order for equal values"}
+            ],
+            "cleans": [
+                {"file": "SortTestData.php", "namespace": "Acme\\Sorting\\Fixtures", "class": "SortTestData", "source": "clean_sort"}
+            ]
+        }
+    ]
+}

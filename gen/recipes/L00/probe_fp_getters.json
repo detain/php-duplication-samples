@@ -1,0 +1,55 @@
+{
+    "level": 0,
+    "level_name": "probe_fp_suite",
+    "level_dir": "L00",
+    "family": "probe_fp_getters",
+    "capability_probe": {
+        "capability": "fp_resistance",
+        "subclass": "boilerplate"
+    },
+    "sets": [
+        {
+            "set_id": "L00-probe_fp_getters-001",
+            "title": "Getters FP control: different property names across domains",
+            "description": "Two unrelated classes from different domains (billing vs auth) each with 8 getters, but with completely different property names. No false-positive bait here — different domains and different identifiers should not trigger token matchers.",
+            "seed": null,
+            "rng_seed": 310001,
+            "carriers": [],
+            "distractors": [],
+            "cleans": [
+                {"file": "TaxCalculator.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxCalculator", "source": "clean_billing"},
+                {"file": "PermissionChecker.php", "namespace": "Acme\\Security\\Authz", "class": "PermissionChecker", "source": "clean_auth"}
+            ],
+            "traps": []
+        },
+        {
+            "set_id": "L00-probe_fp_getters-002",
+            "title": "Getters FP probe: same property names across different domains (known_tool_fp)",
+            "description": "Two classes from completely different domains (billing vs logging) with identical 8 getter signatures using the same property names: id, name, email, status, createdAt, updatedAt, version, and metadata. The class bodies are otherwise unrelated implementations. This is the classic getter-chain FP bait — same property names but different domains, which legitimate token tools may incorrectly pair. Marked known_tool_fp: true as acceptable flag.",
+            "seed": null,
+            "rng_seed": 310002,
+            "carriers": [],
+            "distractors": [],
+            "cleans": [
+                {"file": "InvoiceProcessor.php", "namespace": "Acme\\Billing\\Invoicing", "class": "InvoiceProcessor", "source": "clean_billing"},
+                {"file": "ActivityLogger.php", "namespace": "Acme\\Logging\\Activities", "class": "ActivityLogger", "source": "clean_logging"}
+            ],
+            "traps": [
+                {
+                    "file": "InvoiceProcessor.php",
+                    "region": "getter_chain",
+                    "known_tool_fp": true,
+                    "trap": false,
+                    "reason": "Deliberate FP bait: InvoiceProcessor and ActivityLogger each have 8 identical getter signatures (getId, getName, getEmail, getStatus, getCreatedAt, getUpdatedAt, getVersion, getMetadata). Token/line matchers may pair these as clones, but they are identical boilerplate ceremony from different domains — not duplicated implementation. Marked trap:false, known_tool_fp:true as acceptable flag for profiling."
+                },
+                {
+                    "file": "ActivityLogger.php",
+                    "region": "getter_chain",
+                    "known_tool_fp": true,
+                    "trap": false,
+                    "reason": "Deliberate FP bait: identical getter chain to InvoiceProcessor. Same 8 getters with same property names but entirely different class implementations. A detector pairing these is reporting boilerplate similarity, not a real clone."
+                }
+            ]
+        }
+    ]
+}

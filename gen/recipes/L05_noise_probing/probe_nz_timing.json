@@ -1,0 +1,77 @@
+{
+    "level": 5,
+    "level_name": "noise_probing",
+    "level_dir": "L05_noise_probing",
+    "family": "probe_nz_timing",
+    "capability_coverage": ["noise_filtering"],
+    "sets": [
+        {
+            "set_id": "L05-probe_nz_timing-001",
+            "title": "Invoice totals with no timing noise (control)",
+            "description": "The computeTotals method in three billing classes, all pristine. Carrier A, B, and C are all identical (no timing calls inserted). This is the control set for K-20: tools should detect all three as clones without any timing noise present.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "edit_budget": 0,
+            "rng_seed": 120001,
+            "notes": "Control set for K-20 (nz_timing). All three carriers are pristine — no microtime/hrtime noise. Detectors should find all three members with high confidence.",
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "capability_probe": {
+                "capability": "noise_filtering",
+                "isolated": true,
+                "control_set": "L05-probe_nz_timing-001",
+                "pass_criterion": "Tool correctly pairs all 3 carriers despite presence of microtime noise in probe set",
+                "fail_meaning": "Tool cannot filter out timing instrumentation noise; reports no pair or missed clone between noisy carriers"
+            },
+            "role_composition": {"carrier": 3, "distractor": 1, "clean": 1},
+            "carriers": [
+                {"file": "PristineInvoiceCalc.php", "namespace": "Acme\\Billing\\Pristine", "class": "PristineInvoiceCalc", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PristineInvoiceCalcB.php", "namespace": "Acme\\Billing\\Pristine", "class": "PristineInvoiceCalcB", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PristineInvoiceCalcC.php", "namespace": "Acme\\Billing\\Pristine", "class": "PristineInvoiceCalcC", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total — a different result"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L05-probe_nz_timing-002",
+            "title": "Invoice totals with microtime timing pair noise",
+            "description": "The computeTotals method in three billing classes. Carrier A is pristine; carrier B inserts a microtime(true) or hrtime(true) call at the start of the method body (NZ-09); carrier C also inserts a timing call at the same position. This tests whether tools can filter out timing instrumentation noise. The timing noise (NZ-09) should be treated as noise that tools must filter to correctly pair the clones.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "edit_budget": 20,
+            "rng_seed": 120002,
+            "notes": "Probe set for K-20 (nz_timing). Uses NZ-09 (timing) transform to insert hrtime(true) at end of method body (start of body conceptually since it inserts at end-lines[0]). Carrier C uses a different variant. K-20 is the noise_filtering capability probe: tools must filter timing instrumentation to correctly pair all three carriers.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "capability_probe": {
+                "capability": "noise_filtering",
+                "isolated": true,
+                "control_set": "L05-probe_nz_timing-001",
+                "pass_criterion": "Tool correctly pairs all 3 carriers despite presence of timing noise in probe set",
+                "fail_meaning": "Tool cannot filter out timing instrumentation noise; reports no pair or missed clone between noisy carriers"
+            },
+            "role_composition": {"carrier": 3, "distractor": 1, "clean": 1},
+            "carriers": [
+                {"file": "PristineInvoiceCalc.php", "namespace": "Acme\\Billing\\Pristine", "class": "PristineInvoiceCalc", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "TimedInvoiceCalc.php", "namespace": "Acme\\Billing\\Timed", "class": "TimedInvoiceCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "NZ-09", "params": {}}]},
+                {"file": "TimedInvoiceCalcB.php", "namespace": "Acme\\Billing\\Timed", "class": "TimedInvoiceCalcB", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "NZ-09", "params": {}}]}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total — a different result"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        }
+    ]
+}

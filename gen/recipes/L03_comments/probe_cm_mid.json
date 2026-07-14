@@ -1,0 +1,74 @@
+{
+    "level": 3,
+    "level_name": "comment_stripping",
+    "level_dir": "L03_comments",
+    "family": "probe_cm_mid",
+    "sets": [
+        {
+            "set_id": "L03-probe_cm_mid-001",
+            "title": "CONTROL: Comment stripping probe - mid-statement comment",
+            "description": "Control set for comment stripping capability probe (token-interleaved). Pristine ~120-token method. Both carriers are byte-identical and pristine. Tests whether tools handle comments interleaved within statements.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["comments"],
+            "rng_seed": 130401,
+            "notes": "K-4 CONTROL. Pristine carriers. Probe tests CM-08 mid-statement comment insertion.",
+            "capability_probe": {
+                "capability": "comment_stripping",
+                "isolated": true,
+                "control_set": "L03-probe_cm_mid-001",
+                "pass_criterion": "control_set PASSES all detectors; probe_set PASSES comment-stripping detectors",
+                "fail_meaning": "comment_stripping ABSENT - tool cannot handle mid-statement comment variation"
+            },
+            "role_composition": {"carrier": 2, "distractor": 1, "clean": 2},
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineCalcA.php", "namespace": "Acme\\Billing\\PristineA", "class": "PristineCalcA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PristineCalcB.php", "namespace": "Acme\\Billing\\PristineB", "class": "PristineCalcB", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "MarginCalculator.php", "namespace": "Acme\\Billing\\Margin", "class": "MarginCalculator", "source": "nearmiss_invoice", "reason": "near-miss: computes revenue/cost/margin instead of subtotal/tax/total"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"},
+                {"file": "CurrencyConverter.php", "namespace": "Acme\\Billing\\Currency", "class": "CurrencyConverter", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L03-probe_cm_mid-002",
+            "title": "PROBE: Comment stripping - ONE /* */ mid-statement (CM-08)",
+            "description": "Probe set for comment stripping capability (token-interleaved). Carrier A is pristine; carrier B has exactly ONE /* */ comment inserted mid-statement (CM-08). Minimal intensity probe. Tests token-interleaved comment handling.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["comments"],
+            "rng_seed": 130402,
+            "notes": "K-4 PROBE. Carrier B adds 1 mid-statement comment (CM-08). Delta is minimal - token-interleaved comment.",
+            "capability_probe": {
+                "capability": "comment_stripping",
+                "isolated": true,
+                "control_set": "L03-probe_cm_mid-001",
+                "pass_criterion": "control_set PASSES all detectors; probe_set PASSES comment-stripping detectors",
+                "fail_meaning": "comment_stripping ABSENT - tool cannot handle mid-statement comment variation"
+            },
+            "role_composition": {"carrier": 2, "distractor": 1, "clean": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineCalcA.php", "namespace": "Acme\\Billing\\PristineA", "class": "PristineCalcA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "MidCommentCalc.php", "namespace": "Acme\\Billing\\MidComment", "class": "MidCommentCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "CM-08", "params": {"count": 1}}]}
+            ],
+            "distractors": [
+                {"file": "MarginCalculator.php", "namespace": "Acme\\Billing\\Margin", "class": "MarginCalculator", "source": "nearmiss_invoice", "reason": "near-miss: computes revenue/cost/margin instead of subtotal/tax/total"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"},
+                {"file": "CurrencyConverter.php", "namespace": "Acme\\Billing\\Currency", "class": "CurrencyConverter", "source": "clean_billing"}
+            ]
+        }
+    ]
+}

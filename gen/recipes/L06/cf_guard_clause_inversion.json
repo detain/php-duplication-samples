@@ -1,0 +1,138 @@
+{
+    "level": 6,
+    "level_name": "controlflow_rewrites",
+    "level_dir": "L06_controlflow_rewrites",
+    "family": "cf_guard_clause_inversion",
+    "sets": [
+        {
+            "set_id": "L06-cf_guard_clause_inversion-001",
+            "title": "Authorization decision: guard-clause vs inverted-guard clause pattern",
+            "description": "The same resource-authorization decision expressed with early-return guard clauses (pristine) vs the logically inverted pattern: single exit point, negated conditions combined with AND. Both forms are hand-written and proven behaviorally identical. Token-distinct, requiring AST-level analysis to recover the clone relationship.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["controlflow"],
+            "rng_seed": 106101,
+            "notes": "Set 001 of 5. The access_guard seed provides the authorization logic. Carrier A uses early-return guard clauses (pristine). Carrier B uses the cf_guard_clause_inversion variant (single return at end, negated conditions). Carrier C uses cf_guard_nested (nested conditionals with result variable) for a third distinct CF form. min_members_for_credit is the default 2.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": false, "ast_based": true, "metric_based": false, "semantic": true},
+            "carriers": [
+                {"file": "DocumentAccessPolicy.php", "namespace": "Acme\\Access\\Documents", "class": "DocumentAccessPolicy", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "FolderAccessPolicy.php", "namespace": "Acme\\Access\\Folders", "class": "FolderAccessPolicy", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "cf_guard_clause_inversion", "transforms": [{"code": "CF-10", "variant": "cf_guard_clause_inversion"}]},
+                {"file": "ProjectAccessPolicy.php", "namespace": "Acme\\Access\\Projects", "class": "ProjectAccessPolicy", "scaffold": "method_gamma", "group": "A", "pristine": false, "variant": "cf_guard_nested", "transforms": [{"code": "CF-03", "variant": "cf_guard_nested"}]}
+            ],
+            "distractors": [
+                {"file": "TrustScorer.php", "namespace": "Acme\\Access\\Scoring", "class": "TrustScorer", "source": "nearmiss_access", "reason": "near-miss: same auth vocabulary (user/resource/roles/grants/status) but computes a numeric trust score, not a boolean decision"}
+            ],
+            "cleans": [
+                {"file": "RoleHierarchy.php", "namespace": "Acme\\Access\\Roles", "class": "RoleHierarchy", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L06-cf_guard_clause_inversion-002",
+            "title": "Authorization decision: guard-clause vs inverted-guard clause pattern",
+            "description": "The same resource-authorization decision expressed with early-return guard clauses (pristine) vs the logically inverted pattern: single exit point, negated conditions combined with AND. Both forms are hand-written and proven behaviorally identical.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["controlflow"],
+            "rng_seed": 106102,
+            "notes": "Set 002 of 5.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": false, "ast_based": true, "metric_based": false, "semantic": true},
+            "carriers": [
+                {"file": "DocumentAccessPolicy.php", "namespace": "Acme\\Access\\Documents", "class": "DocumentAccessPolicy", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "FolderAccessPolicy.php", "namespace": "Acme\\Access\\Folders", "class": "FolderAccessPolicy", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "cf_guard_clause_inversion", "transforms": [{"code": "CF-10", "variant": "cf_guard_clause_inversion"}]},
+                {"file": "ProjectAccessPolicy.php", "namespace": "Acme\\Access\\Projects", "class": "ProjectAccessPolicy", "scaffold": "method_gamma", "group": "A", "pristine": false, "variant": "cf_guard_nested", "transforms": [{"code": "CF-03", "variant": "cf_guard_nested"}]}
+            ],
+            "distractors": [
+                {"file": "TrustScorer.php", "namespace": "Acme\\Access\\Scoring", "class": "TrustScorer", "source": "nearmiss_access", "reason": "near-miss: same auth vocabulary but computes a numeric trust score, not a boolean decision"}
+            ],
+            "cleans": [
+                {"file": "RoleHierarchy.php", "namespace": "Acme\\Access\\Roles", "class": "RoleHierarchy", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L06-cf_guard_clause_inversion-003",
+            "title": "Authorization decision: guard-clause vs inverted-guard clause pattern",
+            "description": "The same resource-authorization decision expressed with early-return guard clauses (pristine) vs the logically inverted pattern: single exit point, negated conditions combined with AND.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["controlflow"],
+            "rng_seed": 106103,
+            "notes": "Set 003 of 5.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": false, "ast_based": true, "metric_based": false, "semantic": true},
+            "carriers": [
+                {"file": "DocumentAccessPolicy.php", "namespace": "Acme\\Access\\Documents", "class": "DocumentAccessPolicy", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "FolderAccessPolicy.php", "namespace": "Acme\\Access\\Folders", "class": "FolderAccessPolicy", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "cf_guard_clause_inversion", "transforms": [{"code": "CF-10", "variant": "cf_guard_clause_inversion"}]},
+                {"file": "ProjectAccessPolicy.php", "namespace": "Acme\\Access\\Projects", "class": "ProjectAccessPolicy", "scaffold": "method_gamma", "group": "A", "pristine": false, "variant": "cf_guard_nested", "transforms": [{"code": "CF-03", "variant": "cf_guard_nested"}]}
+            ],
+            "distractors": [
+                {"file": "TrustScorer.php", "namespace": "Acme\\Access\\Scoring", "class": "TrustScorer", "source": "nearmiss_access", "reason": "near-miss: same auth vocabulary but computes a numeric trust score, not a boolean decision"}
+            ],
+            "cleans": [
+                {"file": "RoleHierarchy.php", "namespace": "Acme\\Access\\Roles", "class": "RoleHierarchy", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L06-cf_guard_clause_inversion-004",
+            "title": "Authorization decision: guard-clause vs inverted-guard clause pattern",
+            "description": "The same resource-authorization decision expressed with early-return guard clauses (pristine) vs the logically inverted pattern: single exit point, negated conditions combined with AND.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["controlflow"],
+            "rng_seed": 106104,
+            "notes": "Set 004 of 5.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": false, "ast_based": true, "metric_based": false, "semantic": true},
+            "carriers": [
+                {"file": "DocumentAccessPolicy.php", "namespace": "Acme\\Access\\Documents", "class": "DocumentAccessPolicy", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "FolderAccessPolicy.php", "namespace": "Acme\\Access\\Folders", "class": "FolderAccessPolicy", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "cf_guard_clause_inversion", "transforms": [{"code": "CF-10", "variant": "cf_guard_clause_inversion"}]},
+                {"file": "ProjectAccessPolicy.php", "namespace": "Acme\\Access\\Projects", "class": "ProjectAccessPolicy", "scaffold": "method_gamma", "group": "A", "pristine": false, "variant": "cf_guard_nested", "transforms": [{"code": "CF-03", "variant": "cf_guard_nested"}]}
+            ],
+            "distractors": [
+                {"file": "TrustScorer.php", "namespace": "Acme\\Access\\Scoring", "class": "TrustScorer", "source": "nearmiss_access", "reason": "near-miss: same auth vocabulary but computes a numeric trust score, not a boolean decision"}
+            ],
+            "cleans": [
+                {"file": "RoleHierarchy.php", "namespace": "Acme\\Access\\Roles", "class": "RoleHierarchy", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L06-cf_guard_clause_inversion-005",
+            "title": "Authorization decision: guard-clause vs inverted-guard clause pattern",
+            "description": "The same resource-authorization decision expressed with early-return guard clauses (pristine) vs the logically inverted pattern: single exit point, negated conditions combined with AND.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["controlflow"],
+            "rng_seed": 106105,
+            "notes": "Set 005 of 5.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": false, "ast_based": true, "metric_based": false, "semantic": true},
+            "carriers": [
+                {"file": "DocumentAccessPolicy.php", "namespace": "Acme\\Access\\Documents", "class": "DocumentAccessPolicy", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "FolderAccessPolicy.php", "namespace": "Acme\\Access\\Folders", "class": "FolderAccessPolicy", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "cf_guard_clause_inversion", "transforms": [{"code": "CF-10", "variant": "cf_guard_clause_inversion"}]},
+                {"file": "ProjectAccessPolicy.php", "namespace": "Acme\\Access\\Projects", "class": "ProjectAccessPolicy", "scaffold": "method_gamma", "group": "A", "pristine": false, "variant": "cf_guard_nested", "transforms": [{"code": "CF-03", "variant": "cf_guard_nested"}]}
+            ],
+            "distractors": [
+                {"file": "TrustScorer.php", "namespace": "Acme\\Access\\Scoring", "class": "TrustScorer", "source": "nearmiss_access", "reason": "near-miss: same auth vocabulary but computes a numeric trust score, not a boolean decision"}
+            ],
+            "cleans": [
+                {"file": "RoleHierarchy.php", "namespace": "Acme\\Access\\Roles", "class": "RoleHierarchy", "source": "clean_auth"}
+            ]
+        }
+    ]
+}

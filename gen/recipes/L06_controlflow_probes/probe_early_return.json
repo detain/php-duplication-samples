@@ -1,0 +1,74 @@
+{
+    "level": 6,
+    "level_name": "controlflow_rewrites",
+    "level_dir": "L06_controlflow_probes",
+    "family": "probe_early_return",
+    "sets": [
+        {
+            "set_id": "L06-probe_early_return-001",
+            "title": "CONTROL: CFG comparison probe - guard if",
+            "description": "Control set for cfg_comparison capability probe. Pristine ~120-token method. Both carriers are byte-identical and pristine. Tests whether tools detect clones when guard if(!x) return is converted to nested structure.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["controlflow"],
+            "rng_seed": 161701,
+            "notes": "K-17 CONTROL. Pristine carriers. Probe tests CF-03/05 guard if ↔ nested detection.",
+            "capability_probe": {
+                "capability": "cfg_comparison",
+                "isolated": true,
+                "control_set": "L06-probe_early_return-001",
+                "pass_criterion": "control_set PASSES all detectors; probe_set PASSES CFG-aware detectors",
+                "fail_meaning": "cfg_comparison ABSENT - tool cannot handle guard-if vs nested variation"
+            },
+            "role_composition": {"carrier": 2, "distractor": 1, "clean": 2},
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristinePolicyA.php", "namespace": "Acme\\Access\\PristineA", "class": "PristinePolicyA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PristinePolicyB.php", "namespace": "Acme\\Access\\PristineB", "class": "PristinePolicyB", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "TrustScorer.php", "namespace": "Acme\\Access\\Scoring", "class": "TrustScorer", "source": "nearmiss_access", "reason": "near-miss: same auth vocabulary but computes numeric trust score"}
+            ],
+            "cleans": [
+                {"file": "RoleHierarchy.php", "namespace": "Acme\\Access\\Roles", "class": "RoleHierarchy", "source": "clean_auth"},
+                {"file": "PermissionMatrix.php", "namespace": "Acme\\Access\\Matrix", "class": "PermissionMatrix", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L06-probe_early_return-002",
+            "title": "PROBE: CFG comparison - guard if(!$x) return ↔ nested (CF-03/05)",
+            "description": "Probe set for cfg_comparison capability. Carrier A uses guard if(!x) return early-exit pattern; carrier B uses equivalent nested structure (CF-03/05). Rest byte-identical. Minimal intensity probe.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["controlflow"],
+            "rng_seed": 161702,
+            "notes": "K-17 PROBE. Carrier B converts guard-if to nested structure (CF-03/05). Single CFG rewrite.",
+            "capability_probe": {
+                "capability": "cfg_comparison",
+                "isolated": true,
+                "control_set": "L06-probe_early_return-001",
+                "pass_criterion": "control_set PASSES all detectors; probe_set PASSES CFG-aware detectors",
+                "fail_meaning": "cfg_comparison ABSENT - tool cannot handle guard-if vs nested variation"
+            },
+            "role_composition": {"carrier": 2, "distractor": 1, "clean": 2},
+            "detection_expectation": {"text_based": false, "token_based": false, "ast_based": true, "metric_based": false, "semantic": true},
+            "carriers": [
+                {"file": "PristinePolicyA.php", "namespace": "Acme\\Access\\PristineA", "class": "PristinePolicyA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "NestedPolicy.php", "namespace": "Acme\\Access\\Nested", "class": "NestedPolicy", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "cf_early_return", "transforms": [{"code": "CF-03", "variant": "cf_early_return"}]}
+            ],
+            "distractors": [
+                {"file": "TrustScorer.php", "namespace": "Acme\\Access\\Scoring", "class": "TrustScorer", "source": "nearmiss_access", "reason": "near-miss: same auth vocabulary but computes numeric trust score"}
+            ],
+            "cleans": [
+                {"file": "RoleHierarchy.php", "namespace": "Acme\\Access\\Roles", "class": "RoleHierarchy", "source": "clean_auth"},
+                {"file": "PermissionMatrix.php", "namespace": "Acme\\Access\\Matrix", "class": "PermissionMatrix", "source": "clean_auth"}
+            ]
+        }
+    ]
+}

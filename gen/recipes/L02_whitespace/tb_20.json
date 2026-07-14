@@ -1,0 +1,133 @@
+{
+    "level": 2,
+    "level_name": "whitespace_variation",
+    "level_dir": "L02_whitespace",
+    "family": "tb_20",
+    "sets": [
+        {
+            "set_id": "L02-tb_20-001",
+            "title": "Token-boundary probe at 19 tokens (just below 20 threshold)",
+            "description": "Exact clone at 19 tokens - tests whether detectors with 20-token default fail to report this near-threshold clone. Whitespace-only variation; token normalization should match.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 202011,
+            "notes": "K-28 threshold bracketing: token-boundary ±1 at 20. Target 19 tokens.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "LedgerServiceA.php", "namespace": "Acme\\Ledger\\Probe", "class": "LedgerServiceA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "LedgerServiceB.php", "namespace": "Acme\\Ledger\\Probe", "class": "LedgerServiceB", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": []},
+                {"file": "LedgerServiceC.php", "namespace": "Acme\\Ledger\\Probe", "class": "LedgerServiceC", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "MarginCalc.php", "namespace": "Acme\\Ledger\\Distract", "class": "MarginCalc", "source": "nearmiss_invoice", "reason": "near-miss: similar structure, different computation"}
+            ],
+            "cleans": [
+                {"file": "TaxRepo.php", "namespace": "Acme\\Ledger\\Tax", "class": "TaxRepo", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L02-tb_20-002",
+            "title": "Token-boundary probe at exactly 20 tokens",
+            "description": "Exact clone at exactly 20 tokens - at the tool default threshold. Critical boundary test.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 202012,
+            "notes": "K-28 threshold bracketing: token-boundary ±1 at 20. Target 20 tokens (exact threshold).",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "LedgerServiceA.php", "namespace": "Acme\\Ledger\\Probe", "class": "LedgerServiceA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "LedgerServiceB.php", "namespace": "Acme\\Ledger\\Probe", "class": "LedgerServiceB", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": []},
+                {"file": "LedgerServiceC.php", "namespace": "Acme\\Ledger\\Probe", "class": "LedgerServiceC", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "MarginCalc.php", "namespace": "Acme\\Ledger\\Distract", "class": "MarginCalc", "source": "nearmiss_invoice", "reason": "near-miss: similar structure, different computation"}
+            ],
+            "cleans": [
+                {"file": "TaxRepo.php", "namespace": "Acme\\Ledger\\Tax", "class": "TaxRepo", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L02-tb_20-003",
+            "title": "Token-boundary probe at 21 tokens (just above 20 threshold)",
+            "description": "Exact clone at 21 tokens - above the 20-token threshold, should be detected by all token-based tools.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 202013,
+            "notes": "K-28 threshold bracketing: token-boundary ±1 at 20. Target 21 tokens.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "LedgerServiceA.php", "namespace": "Acme\\Ledger\\Probe", "class": "LedgerServiceA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "LedgerServiceB.php", "namespace": "Acme\\Ledger\\Probe", "class": "LedgerServiceB", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": []},
+                {"file": "LedgerServiceC.php", "namespace": "Acme\\Ledger\\Probe", "class": "LedgerServiceC", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "MarginCalc.php", "namespace": "Acme\\Ledger\\Distract", "class": "MarginCalc", "source": "nearmiss_invoice", "reason": "near-miss: similar structure, different computation"}
+            ],
+            "cleans": [
+                {"file": "TaxRepo.php", "namespace": "Acme\\Ledger\\Tax", "class": "TaxRepo", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L02-tb_20-004",
+            "title": "Token-boundary probe at 29 tokens (just below 30 threshold)",
+            "description": "Exact clone at 29 tokens - approaching 30-token boundary.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 202014,
+            "notes": "K-28 threshold bracketing: token-boundary ±1 at 20/30. Target 29 tokens.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "LedgerServiceA.php", "namespace": "Acme\\Ledger\\Probe", "class": "LedgerServiceA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "LedgerServiceB.php", "namespace": "Acme\\Ledger\\Probe", "class": "LedgerServiceB", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": []},
+                {"file": "LedgerServiceC.php", "namespace": "Acme\\Ledger\\Probe", "class": "LedgerServiceC", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "MarginCalc.php", "namespace": "Acme\\Ledger\\Distract", "class": "MarginCalc", "source": "nearmiss_invoice", "reason": "near-miss: similar structure, different computation"}
+            ],
+            "cleans": [
+                {"file": "TaxRepo.php", "namespace": "Acme\\Ledger\\Tax", "class": "TaxRepo", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L02-tb_20-005",
+            "title": "Token-boundary probe at 30 tokens (at 30 threshold)",
+            "description": "Exact clone at exactly 30 tokens - at the 30-token boundary.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 202015,
+            "notes": "K-28 threshold bracketing: token-boundary ±1 at 20/30. Target 30 tokens.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "LedgerServiceA.php", "namespace": "Acme\\Ledger\\Probe", "class": "LedgerServiceA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "LedgerServiceB.php", "namespace": "Acme\\Ledger\\Probe", "class": "LedgerServiceB", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": []},
+                {"file": "LedgerServiceC.php", "namespace": "Acme\\Ledger\\Probe", "class": "LedgerServiceC", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "MarginCalc.php", "namespace": "Acme\\Ledger\\Distract", "class": "MarginCalc", "source": "nearmiss_invoice", "reason": "near-miss: similar structure, different computation"}
+            ],
+            "cleans": [
+                {"file": "TaxRepo.php", "namespace": "Acme\\Ledger\\Tax", "class": "TaxRepo", "source": "clean_billing"}
+            ]
+        }
+    ]
+}

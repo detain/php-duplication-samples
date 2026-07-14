@@ -1,0 +1,133 @@
+{
+    "level": 4,
+    "level_name": "rename_literals",
+    "level_dir": "L04_rename_literals",
+    "family": "rn_abbreviations",
+    "sets": [
+        {
+            "set_id": "L04-rn_abbreviations-001",
+            "title": "Invoice totals with abbreviations expanded and contracted",
+            "description": "The same computeTotals method in three calculator classes. Carrier A uses full words ($service); carrier B uses abbreviations ($svc); carrier C uses different abbreviations. Only identifier abbreviations differ (Type-2).",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments", "identifiers"],
+            "rng_seed": 105401,
+            "notes": "RN-07 (abbreviations) expands/contracts identifiers like $service/$svc. Only abbreviation style changes - logic and structure are untouched. Set 001 of 5.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineInvoiceCalc.php", "namespace": "Acme\\Billing\\Pristine", "class": "PristineInvoiceCalc", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "AbbrInvoiceCalc.php", "namespace": "Acme\\Billing\\Abbr", "class": "AbbrInvoiceCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-07", "params": {"renames": {"$service": "$svc", "$customer": "$cust", "$calculate": "$calc"}}}]},
+                {"file": "FullInvoiceCalc.php", "namespace": "Acme\\Billing\\Full", "class": "FullInvoiceCalc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "RN-07", "params": {"renames": {"$service": "$serviceObj", "$customer": "$customerObj", "$calculate": "$calculateTotals"}}}]}
+            ],
+            "distractors": [
+                {"file": "LineItemProfiler.php", "namespace": "Acme\\Billing\\Profiling", "class": "LineItemProfiler", "source": "nearmiss_invoice", "reason": "near-miss: same invoice calculation vocabulary and foreach-over-items shape, but computes a histogram of line item prices — a different result"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L04-rn_abbreviations-002",
+            "title": "Invoice totals with abbreviations expanded and contracted",
+            "description": "The same computeTotals method in three calculator classes. Carrier A uses full words ($service); carrier B uses abbreviations ($svc); carrier C uses different abbreviations. Only identifier abbreviations differ (Type-2).",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments", "identifiers"],
+            "rng_seed": 105402,
+            "notes": "RN-07 (abbreviations) expands/contracts identifiers like $service/$svc. Only abbreviation style changes - logic and structure are untouched. Set 002 of 5.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineInvoiceCalc.php", "namespace": "Acme\\Billing\\Pristine", "class": "PristineInvoiceCalc", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "AbbrInvoiceCalc.php", "namespace": "Acme\\Billing\\Abbr", "class": "AbbrInvoiceCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-07", "params": {"renames": {"$service": "$svc", "$customer": "$cust", "$calculate": "$calc"}}}]},
+                {"file": "FullInvoiceCalc.php", "namespace": "Acme\\Billing\\Full", "class": "FullInvoiceCalc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "RN-07", "params": {"renames": {"$service": "$serviceObj", "$customer": "$customerObj", "$calculate": "$calculateTotals"}}}]}
+            ],
+            "distractors": [
+                {"file": "LineItemProfiler.php", "namespace": "Acme\\Billing\\Profiling", "class": "LineItemProfiler", "source": "nearmiss_invoice", "reason": "near-miss: same invoice calculation vocabulary and foreach-over-items shape, but computes a histogram of line item prices — a different result"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L04-rn_abbreviations-003",
+            "title": "Invoice totals with abbreviations expanded and contracted",
+            "description": "The same computeTotals method in three calculator classes. Carrier A uses full words ($service); carrier B uses abbreviations ($svc); carrier C uses different abbreviations. Only identifier abbreviations differ (Type-2).",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments", "identifiers"],
+            "rng_seed": 105403,
+            "notes": "RN-07 (abbreviations) expands/contracts identifiers like $service/$svc. Only abbreviation style changes - logic and structure are untouched. Set 003 of 5.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineInvoiceCalc.php", "namespace": "Acme\\Billing\\Pristine", "class": "PristineInvoiceCalc", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "AbbrInvoiceCalc.php", "namespace": "Acme\\Billing\\Abbr", "class": "AbbrInvoiceCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-07", "params": {"renames": {"$service": "$svc", "$customer": "$cust", "$calculate": "$calc"}}}]},
+                {"file": "FullInvoiceCalc.php", "namespace": "Acme\\Billing\\Full", "class": "FullInvoiceCalc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "RN-07", "params": {"renames": {"$service": "$serviceObj", "$customer": "$customerObj", "$calculate": "$calculateTotals"}}}]}
+            ],
+            "distractors": [
+                {"file": "LineItemProfiler.php", "namespace": "Acme\\Billing\\Profiling", "class": "LineItemProfiler", "source": "nearmiss_invoice", "reason": "near-miss: same invoice calculation vocabulary and foreach-over-items shape, but computes a histogram of line item prices — a different result"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L04-rn_abbreviations-004",
+            "title": "Invoice totals with abbreviations expanded and contracted",
+            "description": "The same computeTotals method in three calculator classes. Carrier A uses full words ($service); carrier B uses abbreviations ($svc); carrier C uses different abbreviations. Only identifier abbreviations differ (Type-2).",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments", "identifiers"],
+            "rng_seed": 105404,
+            "notes": "RN-07 (abbreviations) expands/contracts identifiers like $service/$svc. Only abbreviation style changes - logic and structure are untouched. Set 004 of 5.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineInvoiceCalc.php", "namespace": "Acme\\Billing\\Pristine", "class": "PristineInvoiceCalc", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "AbbrInvoiceCalc.php", "namespace": "Acme\\Billing\\Abbr", "class": "AbbrInvoiceCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-07", "params": {"renames": {"$service": "$svc", "$customer": "$cust", "$calculate": "$calc"}}}]},
+                {"file": "FullInvoiceCalc.php", "namespace": "Acme\\Billing\\Full", "class": "FullInvoiceCalc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "RN-07", "params": {"renames": {"$service": "$serviceObj", "$customer": "$customerObj", "$calculate": "$calculateTotals"}}}]}
+            ],
+            "distractors": [
+                {"file": "LineItemProfiler.php", "namespace": "Acme\\Billing\\Profiling", "class": "LineItemProfiler", "source": "nearmiss_invoice", "reason": "near-miss: same invoice calculation vocabulary and foreach-over-items shape, but computes a histogram of line item prices — a different result"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L04-rn_abbreviations-005",
+            "title": "Invoice totals with abbreviations expanded and contracted",
+            "description": "The same computeTotals method in three calculator classes. Carrier A uses full words ($service); carrier B uses abbreviations ($svc); carrier C uses different abbreviations. Only identifier abbreviations differ (Type-2).",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments", "identifiers"],
+            "rng_seed": 105405,
+            "notes": "RN-07 (abbreviations) expands/contracts identifiers like $service/$svc. Only abbreviation style changes - logic and structure are untouched. Set 005 of 5.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineInvoiceCalc.php", "namespace": "Acme\\Billing\\Pristine", "class": "PristineInvoiceCalc", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "AbbrInvoiceCalc.php", "namespace": "Acme\\Billing\\Abbr", "class": "AbbrInvoiceCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-07", "params": {"renames": {"$service": "$svc", "$customer": "$cust", "$calculate": "$calc"}}}]},
+                {"file": "FullInvoiceCalc.php", "namespace": "Acme\\Billing\\Full", "class": "FullInvoiceCalc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "RN-07", "params": {"renames": {"$service": "$serviceObj", "$customer": "$customerObj", "$calculate": "$calculateTotals"}}}]}
+            ],
+            "distractors": [
+                {"file": "LineItemProfiler.php", "namespace": "Acme\\Billing\\Profiling", "class": "LineItemProfiler", "source": "nearmiss_invoice", "reason": "near-miss: same invoice calculation vocabulary and foreach-over-items shape, but computes a histogram of line item prices — a different result"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        }
+    ]
+}

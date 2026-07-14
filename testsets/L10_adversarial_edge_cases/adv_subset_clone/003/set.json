@@ -1,0 +1,107 @@
+{
+    "schema_version": 1,
+    "set_id": "L10-adv_subset_clone-003",
+    "level": 10,
+    "level_name": "adversarial_edge_cases",
+    "family": "adv_subset_clone",
+    "title": "Subset with access_guard seed",
+    "description": "The inclusion problem using access_guard seed to test subset detection in authorization code context.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "access_guard",
+    "difficulty_band": "expert",
+    "files": [
+        {
+            "path": "src/AccessCheckerA.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 33
+        },
+        {
+            "path": "src/AccessCheckerB.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 38
+        },
+        {
+            "path": "src/AccessCheckerC.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 38
+        },
+        {
+            "path": "src/PermissionVerifierA.php",
+            "role": "carrier",
+            "duplicate_group": "B",
+            "sloc": 33
+        },
+        {
+            "path": "src/PermissionVerifierB.php",
+            "role": "carrier",
+            "duplicate_group": "B",
+            "sloc": 38
+        },
+        {
+            "path": "src/PermissionVerifierC.php",
+            "role": "carrier",
+            "duplicate_group": "B",
+            "sloc": 38
+        },
+        {
+            "path": "src/RateLimiter.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 29
+        },
+        {
+            "path": "src/AuthProvider.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 27
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-3",
+        "granularity": "method",
+        "clusters": 2,
+        "instances": 6
+    },
+    "interference": [
+        {
+            "code": "LT-02",
+            "name": "string",
+            "params": {},
+            "applied_to": [
+                "src/AccessCheckerB.php",
+                "src/AccessCheckerC.php",
+                "src/PermissionVerifierB.php",
+                "src/PermissionVerifierC.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "CM-03",
+            "name": "docblock",
+            "params": {},
+            "applied_to": [
+                "src/AccessCheckerC.php",
+                "src/PermissionVerifierC.php"
+            ],
+            "intensity": 1
+        }
+    ],
+    "difficulty": {
+        "score": 91,
+        "requires": [
+            "literal_abstraction",
+            "comment_stripping"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L10/adv_subset_clone.json",
+        "version": "1.0.0",
+        "rng_seed": 112003
+    }
+}

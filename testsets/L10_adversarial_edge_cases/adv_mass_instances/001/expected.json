@@ -1,0 +1,182 @@
+{
+    "schema_version": 1,
+    "set_id": "L10-adv_mass_instances-001",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-1",
+            "granularity": "method",
+            "normalized_by": [
+                "whitespace",
+                "comments"
+            ],
+            "token_hash": "e8227f461f632b55",
+            "normalized_hash": "60249e71c7d762e5",
+            "members": [
+                {
+                    "file": "src/CloneA01.php",
+                    "start_line": 7,
+                    "end_line": 16,
+                    "symbol": "filterNonEmpty",
+                    "pristine": true
+                },
+                {
+                    "file": "src/CloneA02.php",
+                    "start_line": 17,
+                    "end_line": 26,
+                    "symbol": "filterNonEmpty",
+                    "pristine": true
+                },
+                {
+                    "file": "src/CloneA03.php",
+                    "start_line": 24,
+                    "end_line": 33,
+                    "symbol": "filterNonEmpty",
+                    "pristine": true
+                },
+                {
+                    "file": "src/CloneA04.php",
+                    "start_line": 44,
+                    "end_line": 53,
+                    "symbol": "filterNonEmpty",
+                    "pristine": true
+                },
+                {
+                    "file": "src/CloneA05.php",
+                    "start_line": 50,
+                    "end_line": 59,
+                    "symbol": "filterNonEmpty",
+                    "pristine": true
+                },
+                {
+                    "file": "src/CloneA06.php",
+                    "start_line": 84,
+                    "end_line": 93,
+                    "symbol": "filterNonEmpty",
+                    "pristine": true
+                },
+                {
+                    "file": "src/CloneA07.php",
+                    "start_line": 100,
+                    "end_line": 109,
+                    "symbol": "filterNonEmpty",
+                    "pristine": true
+                },
+                {
+                    "file": "src/CloneA08.php",
+                    "start_line": 120,
+                    "end_line": 129,
+                    "symbol": "filterNonEmpty",
+                    "pristine": true
+                },
+                {
+                    "file": "src/CloneA09.php",
+                    "start_line": 150,
+                    "end_line": 159,
+                    "symbol": "filterNonEmpty",
+                    "pristine": true
+                },
+                {
+                    "file": "src/CloneA10.php",
+                    "start_line": 170,
+                    "end_line": 179,
+                    "symbol": "filterNonEmpty",
+                    "pristine": true
+                },
+                {
+                    "file": "src/CloneB01.php",
+                    "start_line": 7,
+                    "end_line": 16,
+                    "symbol": "filterNonEmpty",
+                    "pristine": true
+                },
+                {
+                    "file": "src/CloneB02.php",
+                    "start_line": 18,
+                    "end_line": 27,
+                    "symbol": "filterNonEmpty",
+                    "pristine": true
+                },
+                {
+                    "file": "src/CloneB03.php",
+                    "start_line": 24,
+                    "end_line": 33,
+                    "symbol": "filterNonEmpty",
+                    "pristine": true
+                },
+                {
+                    "file": "src/CloneB04.php",
+                    "start_line": 44,
+                    "end_line": 53,
+                    "symbol": "filterNonEmpty",
+                    "pristine": true
+                },
+                {
+                    "file": "src/CloneB05.php",
+                    "start_line": 50,
+                    "end_line": 59,
+                    "symbol": "filterNonEmpty",
+                    "pristine": true
+                },
+                {
+                    "file": "src/CloneB06.php",
+                    "start_line": 84,
+                    "end_line": 93,
+                    "symbol": "filterNonEmpty",
+                    "pristine": true
+                },
+                {
+                    "file": "src/CloneB07.php",
+                    "start_line": 100,
+                    "end_line": 109,
+                    "symbol": "filterNonEmpty",
+                    "pristine": true
+                },
+                {
+                    "file": "src/CloneB08.php",
+                    "start_line": 120,
+                    "end_line": 129,
+                    "symbol": "filterNonEmpty",
+                    "pristine": true
+                },
+                {
+                    "file": "src/CloneB09.php",
+                    "start_line": 150,
+                    "end_line": 159,
+                    "symbol": "filterNonEmpty",
+                    "pristine": true
+                },
+                {
+                    "file": "src/CloneB10.php",
+                    "start_line": 185,
+                    "end_line": 194,
+                    "symbol": "filterNonEmpty",
+                    "pristine": true
+                }
+            ],
+            "detection_expectation": {
+                "text_based": true,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": true,
+                "semantic": true
+            },
+            "notes": "F-2 multi-cluster (many carriers per cluster). K-32: scaling curves - tests whether detectors handle 20+ clone instances correctly and report all members. Clone positions vary across line 5-200 range using different scaffold depths."
+        }
+    ],
+    "non_duplicates": [
+        {
+            "file": "src/DistractorA.php",
+            "start_line": 9,
+            "end_line": 78,
+            "reason": "Near-miss: similar array processing vocabulary but different filtering logic",
+            "trap": true
+        }
+    ],
+    "scoring": {
+        "line_tolerance": 0,
+        "member_jaccard_min": 1,
+        "min_members_for_credit": 15
+    }
+}

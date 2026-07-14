@@ -1,0 +1,165 @@
+{
+    "level": 10,
+    "level_name": "adversarial_edge_cases",
+    "level_dir": "L10_adversarial_edge_cases",
+    "family": "adv_matryoshka",
+    "sets": [
+        {
+            "set_id": "L10-adv_matryoshka-001",
+            "title": "Nested Matryoshka Clones: 50-line ⊃ 20-line ⊃ 5-line multi-granularity",
+            "description": "Three nested clone regions where each size (50-line outer, 20-line inner, 5-line innermost) appears in multiple carrier files. Tests fragment-based multi-granularity detection: token/ast tools that compute fragments correctly should identify all three levels. Infrastructure note: SetBuilder F-2 handles multi-cluster; F-3 fragment engine computes shared regions per cluster.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "schema_version": 2,
+            "normalized_by": ["whitespace", "comments", "identifiers"],
+            "rng_seed": 112001,
+            "notes": "CP-03: Nested Matryoshka Clones [O Idea 3]. Three size tiers (50/20/5 lines) each with 3 carriers. Uses F-2 multi-cluster for size separation; F-3 fragment engine computes fragments per cluster. ST-07 partial_fragment with asymmetric trim creates the 20-line (from 50-line) and 5-line (from 50-line) sub-regions. The nested relationship is structural: the 5-line is a proper sub-region of the 20-line, which is a proper sub-region of the 50-line.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": true},
+            "difficulty": {"complexity": 7, "partiality": "high"},
+            "duplication": {"uniqueness_budget": {"min": 3, "max": 8}, "fragment_count": 3},
+            "carriers": [
+                {"file": "InvoiceCalcA.php", "namespace": "Acme\\Billing\\CalcA", "class": "InvoiceCalcA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": [], "cluster": "outer_50"},
+                {"file": "InvoiceCalcB.php", "namespace": "Acme\\Billing\\CalcB", "class": "InvoiceCalcB", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": [], "cluster": "outer_50"},
+                {"file": "InvoiceCalcC.php", "namespace": "Acme\\Billing\\CalcC", "class": "InvoiceCalcC", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": [], "cluster": "outer_50"}
+            ],
+            "distractors": [
+                {"file": "TrustScorer.php", "namespace": "Acme\\Billing\\Scoring", "class": "TrustScorer", "source": "nearmiss_invoice", "reason": "Near-miss: same invoice vocabulary but computes different result - adds premium support fee"}
+            ],
+            "cleans": [
+                {"file": "InvoiceParser.php", "namespace": "Acme\\Billing\\Parsing", "class": "InvoiceParser", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L10-adv_matryoshka-002",
+            "title": "Nested Matryoshka with 20-line middle tier using ST-07 asymmetric trim",
+            "description": "Variant with 20-line clone created via ST-07 partial_fragment asymmetric trim (head_trim=15, tail_trim=15 on seed) producing a sub-region. Tests whether fragment engine correctly identifies the trimmed region as a distinct clone tier.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "schema_version": 2,
+            "normalized_by": ["whitespace", "comments", "identifiers"],
+            "rng_seed": 112002,
+            "notes": "CP-03 + ST-07: Uses asymmetric trim to create 20-line sub-region from the 50-line seed. The trimmed regions (before/after the fragment) become carrier-specific insertions that trigger F-3 fragment emission.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": true},
+            "difficulty": {"complexity": 7, "partiality": "high"},
+            "duplication": {"uniqueness_budget": {"min": 2, "max": 6}, "fragment_count": 2},
+            "carriers": [
+                {"file": "InvoiceCalcA.php", "namespace": "Acme\\Billing\\CalcA", "class": "InvoiceCalcA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": [{"code": "ST-07", "params": {"head_trim": 15, "tail_trim": 15}}], "cluster": "inner_20"},
+                {"file": "InvoiceCalcB.php", "namespace": "Acme\\Billing\\CalcB", "class": "InvoiceCalcB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 15, "tail_trim": 15}}], "cluster": "inner_20"},
+                {"file": "InvoiceCalcC.php", "namespace": "Acme\\Billing\\CalcC", "class": "InvoiceCalcC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 15, "tail_trim": 15}}], "cluster": "inner_20"}
+            ],
+            "distractors": [
+                {"file": "TrustScorer.php", "namespace": "Acme\\Billing\\Scoring", "class": "TrustScorer", "source": "nearmiss_invoice", "reason": "Near-miss: same invoice vocabulary but different computation"}
+            ],
+            "cleans": [
+                {"file": "InvoiceParser.php", "namespace": "Acme\\Billing\\Parsing", "class": "InvoiceParser", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L10-adv_matryoshka-003",
+            "title": "Nested Matryoshka with 5-line innermost tier via ST-07 symmetric trim",
+            "description": "Variant with 5-line innermost clone created via ST-07 partial_fragment symmetric trim (head_trim=18, tail_trim=18). Tests deepest nesting level detection.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "schema_version": 2,
+            "normalized_by": ["whitespace", "comments", "identifiers"],
+            "rng_seed": 112003,
+            "notes": "CP-03 + ST-07: Deepest nesting level with 5-line fragment from symmetric trim. This creates the innermost matryoshka tier.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.65, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": false},
+            "difficulty": {"complexity": 8, "partiality": "high"},
+            "duplication": {"uniqueness_budget": {"min": 2, "max": 4}, "fragment_count": 1},
+            "carriers": [
+                {"file": "InvoiceCalcA.php", "namespace": "Acme\\Billing\\CalcA", "class": "InvoiceCalcA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": [{"code": "ST-07", "params": {"head_trim": 18, "tail_trim": 18}}], "cluster": "innermost_5"},
+                {"file": "InvoiceCalcB.php", "namespace": "Acme\\Billing\\CalcB", "class": "InvoiceCalcB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 18, "tail_trim": 18}}], "cluster": "innermost_5"},
+                {"file": "InvoiceCalcC.php", "namespace": "Acme\\Billing\\CalcC", "class": "InvoiceCalcC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 18, "tail_trim": 18}}], "cluster": "innermost_5"}
+            ],
+            "distractors": [
+                {"file": "TrustScorer.php", "namespace": "Acme\\Billing\\Scoring", "class": "TrustScorer", "source": "nearmiss_invoice", "reason": "Near-miss: same invoice vocabulary but different computation"}
+            ],
+            "cleans": [
+                {"file": "InvoiceParser.php", "namespace": "Acme\\Billing\\Parsing", "class": "InvoiceParser", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L10-adv_matryoshka-004",
+            "title": "Full nested matryoshka: all three tiers in one multi-cluster set",
+            "description": "Complete 3-tier matryoshka structure (50-line ⊃ 20-line ⊃ 5-line) in a single set with F-2 multi-cluster. Outer tier uses pristine seed, middle uses ST-07 asymmetric trim, inner uses ST-07 symmetric trim. Each tier has 3 carriers. Tests multi-granularity clone detection across all three nesting levels simultaneously.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "schema_version": 2,
+            "normalized_by": ["whitespace", "comments", "identifiers"],
+            "rng_seed": 112004,
+            "notes": "CP-03: Full 3-tier matryoshka using F-2 multi-cluster. Outer (50-line) cluster with 3 pristine carriers; inner_20 (20-line) cluster with 3 carriers using ST-07 head_trim=15 tail_trim=15; innermost_5 (5-line) cluster with 3 carriers using ST-07 head_trim=18 tail_trim=18. Infrastructure note: matryoshka nesting is structural (proper sub-region relationship) - the fragment engine detects shared regions per cluster but does not explicitly encode the containment relationship between tiers. This set tests whether detectors can identify all three levels independently.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": true},
+            "difficulty": {"complexity": 8, "partiality": "high"},
+            "duplication": {"uniqueness_budget": {"min": 4, "max": 10}, "fragment_count": 3},
+            "carriers": [
+                {"file": "OuterCalcA.php", "namespace": "Acme\\Billing\\OuterA", "class": "OuterCalcA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": [], "cluster": "outer_50"},
+                {"file": "OuterCalcB.php", "namespace": "Acme\\Billing\\OuterB", "class": "OuterCalcB", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": [], "cluster": "outer_50"},
+                {"file": "OuterCalcC.php", "namespace": "Acme\\Billing\\OuterC", "class": "OuterCalcC", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": [], "cluster": "outer_50"},
+                {"file": "MidCalcA.php", "namespace": "Acme\\Billing\\MidA", "class": "MidCalcA", "scaffold": "method_alpha", "group": "B", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 15, "tail_trim": 15}}], "cluster": "inner_20"},
+                {"file": "MidCalcB.php", "namespace": "Acme\\Billing\\MidB", "class": "MidCalcB", "scaffold": "method_beta", "group": "B", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 15, "tail_trim": 15}}], "cluster": "inner_20"},
+                {"file": "MidCalcC.php", "namespace": "Acme\\Billing\\MidC", "class": "MidCalcC", "scaffold": "method_gamma", "group": "B", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 15, "tail_trim": 15}}], "cluster": "inner_20"},
+                {"file": "InnerCalcA.php", "namespace": "Acme\\Billing\\InnerA", "class": "InnerCalcA", "scaffold": "method_alpha", "group": "C", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 18, "tail_trim": 18}}], "cluster": "innermost_5"},
+                {"file": "InnerCalcB.php", "namespace": "Acme\\Billing\\InnerB", "class": "InnerCalcB", "scaffold": "method_beta", "group": "C", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 18, "tail_trim": 18}}], "cluster": "innermost_5"},
+                {"file": "InnerCalcC.php", "namespace": "Acme\\Billing\\InnerC", "class": "InnerCalcC", "scaffold": "method_gamma", "group": "C", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 18, "tail_trim": 18}}], "cluster": "innermost_5"}
+            ],
+            "distractors": [
+                {"file": "TrustScorer.php", "namespace": "Acme\\Billing\\Scoring", "class": "TrustScorer", "source": "nearmiss_invoice", "reason": "Near-miss: same invoice vocabulary but computes different result - adds premium support fee"}
+            ],
+            "cleans": [
+                {"file": "InvoiceParser.php", "namespace": "Acme\\Billing\\Parsing", "class": "InvoiceParser", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L10-adv_matryoshka-005",
+            "title": "Matryoshka with access_guard seed variant",
+            "description": "Matryoshka clone structure using access_guard seed instead of invoice_totals. Tests whether the nested clone pattern generalizes across different seed domains.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "schema_version": 2,
+            "normalized_by": ["whitespace", "comments", "identifiers"],
+            "rng_seed": 112005,
+            "notes": "CP-03: Uses access_guard seed to test matryoshka generalization in auth/security code domain.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": true},
+            "difficulty": {"complexity": 7, "partiality": "high"},
+            "duplication": {"uniqueness_budget": {"min": 3, "max": 8}, "fragment_count": 3},
+            "carriers": [
+                {"file": "AccessCheckA.php", "namespace": "Acme\\Security\\CheckA", "class": "AccessCheckA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": [], "cluster": "outer_50"},
+                {"file": "AccessCheckB.php", "namespace": "Acme\\Security\\CheckB", "class": "AccessCheckB", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": [], "cluster": "outer_50"},
+                {"file": "AccessCheckC.php", "namespace": "Acme\\Security\\CheckC", "class": "AccessCheckC", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": [], "cluster": "outer_50"},
+                {"file": "AccessMidA.php", "namespace": "Acme\\Security\\MidA", "class": "AccessMidA", "scaffold": "method_alpha", "group": "B", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 12, "tail_trim": 12}}], "cluster": "inner_20"},
+                {"file": "AccessMidB.php", "namespace": "Acme\\Security\\MidB", "class": "AccessMidB", "scaffold": "method_beta", "group": "B", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 12, "tail_trim": 12}}], "cluster": "inner_20"},
+                {"file": "AccessMidC.php", "namespace": "Acme\\Security\\MidC", "class": "AccessMidC", "scaffold": "method_gamma", "group": "B", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 12, "tail_trim": 12}}], "cluster": "inner_20"},
+                {"file": "AccessInnerA.php", "namespace": "Acme\\Security\\InnerA", "class": "AccessInnerA", "scaffold": "method_alpha", "group": "C", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 15, "tail_trim": 15}}], "cluster": "innermost_5"},
+                {"file": "AccessInnerB.php", "namespace": "Acme\\Security\\InnerB", "class": "AccessInnerB", "scaffold": "method_beta", "group": "C", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 15, "tail_trim": 15}}], "cluster": "innermost_5"},
+                {"file": "AccessInnerC.php", "namespace": "Acme\\Security\\InnerC", "class": "AccessInnerC", "scaffold": "method_gamma", "group": "C", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 15, "tail_trim": 15}}], "cluster": "innermost_5"}
+            ],
+            "distractors": [
+                {"file": "RateLimiter.php", "namespace": "Acme\\Security\\Limit", "class": "RateLimiter", "source": "nearmiss_access", "reason": "Near-miss: same access control vocabulary but different authorization logic"}
+            ],
+            "cleans": [
+                {"file": "AuthProvider.php", "namespace": "Acme\\Security\\Auth", "class": "AuthProvider", "source": "clean_auth"}
+            ]
+        }
+    ]
+}

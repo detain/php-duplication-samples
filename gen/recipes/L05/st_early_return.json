@@ -1,0 +1,138 @@
+{
+    "level": 5,
+    "level_name": "statement_edits",
+    "level_dir": "L05_statement_edits",
+    "family": "st_early_return",
+    "sets": [
+        {
+            "set_id": "L05-st_early_return-001",
+            "title": "Input validation with early return guard clauses",
+            "description": "The same validateInput method in three validation classes. Carrier A uses nested ifs, carrier B uses early returns at top, carrier C uses early returns mid-function. Same validation logic, different return style.",
+            "seed": "input_validation",
+            "mount": "method",
+            "clone_symbol": "validateInput",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "edit_budget": 20,
+            "rng_seed": 110101,
+            "notes": "ST-10 (early_return) varies nested ifs vs early returns. Same validation, different control-flow structure.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineInputValidator.php", "namespace": "Acme\\Validation\\Pristine", "class": "PristineInputValidator", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "EarlyReturnValidator.php", "namespace": "Acme\\Validation\\EarlyReturn", "class": "EarlyReturnValidator", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-10", "params": {"style": "early_return_top"}}]},
+                {"file": "NestedIfValidator.php", "namespace": "Acme\\Validation\\Nested", "class": "NestedIfValidator", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-10", "params": {"style": "nested_if"}}]}
+            ],
+            "distractors": [
+                {"file": "SchemaChecker.php", "namespace": "Acme\\Validation\\Schema", "class": "SchemaChecker", "source": "nearmiss_validation", "reason": "near-miss: same validate/input vocabulary but checks JSON schema validity instead of input requirements — different result"}
+            ],
+            "cleans": [
+                {"file": "RuleRepository.php", "namespace": "Acme\\Validation\\Rule", "class": "RuleRepository", "source": "clean_validation"}
+            ]
+        },
+        {
+            "set_id": "L05-st_early_return-002",
+            "title": "Input validation with early return guard clauses",
+            "description": "The same validateInput method in three validation classes. Carrier A uses early returns mid-function, carrier B uses nested ifs, carrier C uses early returns at top. Same validation logic, different return style.",
+            "seed": "input_validation",
+            "mount": "method",
+            "clone_symbol": "validateInput",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "edit_budget": 20,
+            "rng_seed": 110102,
+            "notes": "Set 2 of 5. ST-10 varies nested ifs vs early returns at top vs mid-function.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineInputValidator.php", "namespace": "Acme\\Validation\\Pristine", "class": "PristineInputValidator", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "NestedIfValidator.php", "namespace": "Acme\\Validation\\Nested", "class": "NestedIfValidator", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-10", "params": {"style": "nested_if"}}]},
+                {"file": "EarlyReturnValidator.php", "namespace": "Acme\\Validation\\EarlyReturn", "class": "EarlyReturnValidator", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-10", "params": {"style": "early_return_top"}}]}
+            ],
+            "distractors": [
+                {"file": "SchemaChecker.php", "namespace": "Acme\\Validation\\Schema", "class": "SchemaChecker", "source": "nearmiss_validation", "reason": "near-miss: same validate/input vocabulary but checks JSON schema — different result"}
+            ],
+            "cleans": [
+                {"file": "RuleRepository.php", "namespace": "Acme\\Validation\\Rule", "class": "RuleRepository", "source": "clean_validation"}
+            ]
+        },
+        {
+            "set_id": "L05-st_early_return-003",
+            "title": "Input validation with early return guard clauses",
+            "description": "The same validateInput method in three validation classes. Carrier A uses nested ifs, carrier B uses early returns mid-function, carrier C uses early returns at top. Same validation logic, different return style.",
+            "seed": "input_validation",
+            "mount": "method",
+            "clone_symbol": "validateInput",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "edit_budget": 20,
+            "rng_seed": 110103,
+            "notes": "Set 3 of 5. ST-10 varies nested ifs vs early returns at top vs mid-function.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineInputValidator.php", "namespace": "Acme\\Validation\\Pristine", "class": "PristineInputValidator", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "MidReturnValidator.php", "namespace": "Acme\\Validation\\MidReturn", "class": "MidReturnValidator", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-10", "params": {"style": "early_return_mid"}}]},
+                {"file": "EarlyReturnValidator.php", "namespace": "Acme\\Validation\\EarlyReturn", "class": "EarlyReturnValidator", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-10", "params": {"style": "early_return_top"}}]}
+            ],
+            "distractors": [
+                {"file": "SchemaChecker.php", "namespace": "Acme\\Validation\\Schema", "class": "SchemaChecker", "source": "nearmiss_validation", "reason": "near-miss: same validate/input vocabulary but checks JSON schema — different result"}
+            ],
+            "cleans": [
+                {"file": "RuleRepository.php", "namespace": "Acme\\Validation\\Rule", "class": "RuleRepository", "source": "clean_validation"}
+            ]
+        },
+        {
+            "set_id": "L05-st_early_return-004",
+            "title": "Input validation with early return guard clauses",
+            "description": "The same validateInput method in three validation classes. Carrier A uses early returns at top, carrier B uses early returns mid-function, carrier C uses nested ifs. Same validation logic, different return style.",
+            "seed": "input_validation",
+            "mount": "method",
+            "clone_symbol": "validateInput",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "edit_budget": 20,
+            "rng_seed": 110104,
+            "notes": "Set 4 of 5. ST-10 varies nested ifs vs early returns at top vs mid-function.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineInputValidator.php", "namespace": "Acme\\Validation\\Pristine", "class": "PristineInputValidator", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "MidReturnValidator.php", "namespace": "Acme\\Validation\\MidReturn", "class": "MidReturnValidator", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-10", "params": {"style": "early_return_mid"}}]},
+                {"file": "NestedIfValidator.php", "namespace": "Acme\\Validation\\Nested", "class": "NestedIfValidator", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-10", "params": {"style": "nested_if"}}]}
+            ],
+            "distractors": [
+                {"file": "SchemaChecker.php", "namespace": "Acme\\Validation\\Schema", "class": "SchemaChecker", "source": "nearmiss_validation", "reason": "near-miss: same validate/input vocabulary but checks JSON schema — different result"}
+            ],
+            "cleans": [
+                {"file": "RuleRepository.php", "namespace": "Acme\\Validation\\Rule", "class": "RuleRepository", "source": "clean_validation"}
+            ]
+        },
+        {
+            "set_id": "L05-st_early_return-005",
+            "title": "Input validation with early return guard clauses",
+            "description": "The same validateInput method in three validation classes. Carrier A uses early returns mid-function, carrier B uses early returns at top, carrier C uses nested ifs. Same validation logic, different return style.",
+            "seed": "input_validation",
+            "mount": "method",
+            "clone_symbol": "validateInput",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "edit_budget": 20,
+            "rng_seed": 110105,
+            "notes": "Set 5 of 5. ST-10 varies nested ifs vs early returns at top vs mid-function.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineInputValidator.php", "namespace": "Acme\\Validation\\Pristine", "class": "PristineInputValidator", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "EarlyReturnValidator.php", "namespace": "Acme\\Validation\\EarlyReturn", "class": "EarlyReturnValidator", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-10", "params": {"style": "early_return_top"}}]},
+                {"file": "MidReturnValidator.php", "namespace": "Acme\\Validation\\MidReturn", "class": "MidReturnValidator", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-10", "params": {"style": "early_return_mid"}}]}
+            ],
+            "distractors": [
+                {"file": "SchemaChecker.php", "namespace": "Acme\\Validation\\Schema", "class": "SchemaChecker", "source": "nearmiss_validation", "reason": "near-miss: same validate/input vocabulary but checks JSON schema — different result"}
+            ],
+            "cleans": [
+                {"file": "RuleRepository.php", "namespace": "Acme\\Validation\\Rule", "class": "RuleRepository", "source": "clean_validation"}
+            ]
+        }
+    ]
+}

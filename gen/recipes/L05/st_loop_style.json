@@ -1,0 +1,138 @@
+{
+    "level": 5,
+    "level_name": "statement_edits",
+    "level_dir": "L05_statement_edits",
+    "family": "st_loop_style",
+    "sets": [
+        {
+            "set_id": "L05-st_loop_style-001",
+            "title": "Item processing with for vs foreach vs while loop",
+            "description": "The same processItems method in three inventory classes. Carrier A uses foreach, carrier B uses for loop, carrier C uses while loop. Same iteration logic, different loop idiom.",
+            "seed": "item_processing",
+            "mount": "method",
+            "clone_symbol": "processItems",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "edit_budget": 20,
+            "rng_seed": 108101,
+            "notes": "ST-08 (loop_style) varies foreach vs for vs while. Same iteration behavior, different PHP loop construct.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineItemProcessor.php", "namespace": "Acme\\Inventory\\Pristine", "class": "PristineItemProcessor", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "ForItemProcessor.php", "namespace": "Acme\\Inventory\\ForLoop", "class": "ForItemProcessor", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-08", "params": {"style": "for"}}]},
+                {"file": "WhileItemProcessor.php", "namespace": "Acme\\Inventory\\WhileLoop", "class": "WhileItemProcessor", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-08", "params": {"style": "while"}}]}
+            ],
+            "distractors": [
+                {"file": "StockCalculator.php", "namespace": "Acme\\Inventory\\Stock", "class": "StockCalculator", "source": "nearmiss_inventory", "reason": "near-miss: same item/processing vocabulary but calculates reorder levels instead of processing items — different result"}
+            ],
+            "cleans": [
+                {"file": "WarehouseRepository.php", "namespace": "Acme\\Inventory\\Warehouse", "class": "WarehouseRepository", "source": "clean_inventory"}
+            ]
+        },
+        {
+            "set_id": "L05-st_loop_style-002",
+            "title": "Item processing with for vs foreach vs while loop",
+            "description": "The same processItems method in three inventory classes. Carrier A uses for, carrier B uses while, carrier C uses foreach. Same iteration logic, different loop idiom.",
+            "seed": "item_processing",
+            "mount": "method",
+            "clone_symbol": "processItems",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "edit_budget": 20,
+            "rng_seed": 108102,
+            "notes": "Set 2 of 5. ST-08 varies foreach vs for vs while.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineItemProcessor.php", "namespace": "Acme\\Inventory\\Pristine", "class": "PristineItemProcessor", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "WhileItemProcessor.php", "namespace": "Acme\\Inventory\\WhileLoop", "class": "WhileItemProcessor", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-08", "params": {"style": "while"}}]},
+                {"file": "ForEachItemProcessor.php", "namespace": "Acme\\Inventory\\ForEach", "class": "ForEachItemProcessor", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-08", "params": {"style": "foreach"}}]}
+            ],
+            "distractors": [
+                {"file": "StockCalculator.php", "namespace": "Acme\\Inventory\\Stock", "class": "StockCalculator", "source": "nearmiss_inventory", "reason": "near-miss: same item/processing vocabulary but calculates reorder levels — different result"}
+            ],
+            "cleans": [
+                {"file": "WarehouseRepository.php", "namespace": "Acme\\Inventory\\Warehouse", "class": "WarehouseRepository", "source": "clean_inventory"}
+            ]
+        },
+        {
+            "set_id": "L05-st_loop_style-003",
+            "title": "Item processing with for vs foreach vs while loop",
+            "description": "The same processItems method in three inventory classes. Carrier A uses while, carrier B uses foreach, carrier C uses for. Same iteration logic, different loop idiom.",
+            "seed": "item_processing",
+            "mount": "method",
+            "clone_symbol": "processItems",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "edit_budget": 20,
+            "rng_seed": 108103,
+            "notes": "Set 3 of 5. ST-08 varies foreach vs for vs while.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineItemProcessor.php", "namespace": "Acme\\Inventory\\Pristine", "class": "PristineItemProcessor", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "ForEachItemProcessor.php", "namespace": "Acme\\Inventory\\ForEach", "class": "ForEachItemProcessor", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-08", "params": {"style": "foreach"}}]},
+                {"file": "ForItemProcessor.php", "namespace": "Acme\\Inventory\\ForLoop", "class": "ForItemProcessor", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-08", "params": {"style": "for"}}]}
+            ],
+            "distractors": [
+                {"file": "StockCalculator.php", "namespace": "Acme\\Inventory\\Stock", "class": "StockCalculator", "source": "nearmiss_inventory", "reason": "near-miss: same item/processing vocabulary but calculates reorder levels — different result"}
+            ],
+            "cleans": [
+                {"file": "WarehouseRepository.php", "namespace": "Acme\\Inventory\\Warehouse", "class": "WarehouseRepository", "source": "clean_inventory"}
+            ]
+        },
+        {
+            "set_id": "L05-st_loop_style-004",
+            "title": "Item processing with for vs foreach vs while loop",
+            "description": "The same processItems method in three inventory classes. Carrier A uses foreach, carrier B uses while, carrier C uses for. Same iteration logic, different loop idiom.",
+            "seed": "item_processing",
+            "mount": "method",
+            "clone_symbol": "processItems",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "edit_budget": 20,
+            "rng_seed": 108104,
+            "notes": "Set 4 of 5. ST-08 varies foreach vs for vs while.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineItemProcessor.php", "namespace": "Acme\\Inventory\\Pristine", "class": "PristineItemProcessor", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "WhileItemProcessor.php", "namespace": "Acme\\Inventory\\WhileLoop", "class": "WhileItemProcessor", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-08", "params": {"style": "while"}}]},
+                {"file": "ForItemProcessor.php", "namespace": "Acme\\Inventory\\ForLoop", "class": "ForItemProcessor", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-08", "params": {"style": "for"}}]}
+            ],
+            "distractors": [
+                {"file": "StockCalculator.php", "namespace": "Acme\\Inventory\\Stock", "class": "StockCalculator", "source": "nearmiss_inventory", "reason": "near-miss: same item/processing vocabulary but calculates reorder levels — different result"}
+            ],
+            "cleans": [
+                {"file": "WarehouseRepository.php", "namespace": "Acme\\Inventory\\Warehouse", "class": "WarehouseRepository", "source": "clean_inventory"}
+            ]
+        },
+        {
+            "set_id": "L05-st_loop_style-005",
+            "title": "Item processing with for vs foreach vs while loop",
+            "description": "The same processItems method in three inventory classes. Carrier A uses for, carrier B uses foreach, carrier C uses while. Same iteration logic, different loop idiom.",
+            "seed": "item_processing",
+            "mount": "method",
+            "clone_symbol": "processItems",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "edit_budget": 20,
+            "rng_seed": 108105,
+            "notes": "Set 5 of 5. ST-08 varies foreach vs for vs while.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineItemProcessor.php", "namespace": "Acme\\Inventory\\Pristine", "class": "PristineItemProcessor", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "ForItemProcessor.php", "namespace": "Acme\\Inventory\\ForLoop", "class": "ForItemProcessor", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-08", "params": {"style": "for"}}]},
+                {"file": "ForEachItemProcessor.php", "namespace": "Acme\\Inventory\\ForEach", "class": "ForEachItemProcessor", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-08", "params": {"style": "foreach"}}]}
+            ],
+            "distractors": [
+                {"file": "StockCalculator.php", "namespace": "Acme\\Inventory\\Stock", "class": "StockCalculator", "source": "nearmiss_inventory", "reason": "near-miss: same item/processing vocabulary but calculates reorder levels — different result"}
+            ],
+            "cleans": [
+                {"file": "WarehouseRepository.php", "namespace": "Acme\\Inventory\\Warehouse", "class": "WarehouseRepository", "source": "clean_inventory"}
+            ]
+        }
+    ]
+}

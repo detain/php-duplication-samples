@@ -1,0 +1,74 @@
+{
+    "level": 6,
+    "level_name": "controlflow_rewrites",
+    "level_dir": "L06_controlflow_probes",
+    "family": "probe_loop_form",
+    "sets": [
+        {
+            "set_id": "L06-probe_loop_form-001",
+            "title": "CONTROL: Controlflow normalization probe - loop form",
+            "description": "Control set for controlflow_normalization capability probe (loop canon). Pristine ~120-token method. Both carriers are byte-identical and pristine. Tests whether tools detect clones when for(;;) is converted to foreach.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["controlflow"],
+            "rng_seed": 161401,
+            "notes": "K-14 CONTROL. Pristine carriers. Probe tests CF-04 for(;;) ↔ foreach detection.",
+            "capability_probe": {
+                "capability": "controlflow_normalization",
+                "isolated": true,
+                "control_set": "L06-probe_loop_form-001",
+                "pass_criterion": "control_set PASSES all detectors; probe_set PASSES loop-form-normalizing detectors",
+                "fail_meaning": "controlflow_normalization ABSENT - tool cannot handle loop form variation"
+            },
+            "role_composition": {"carrier": 2, "distractor": 1, "clean": 2},
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineCalcA.php", "namespace": "Acme\\Billing\\PristineA", "class": "PristineCalcA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PristineCalcB.php", "namespace": "Acme\\Billing\\PristineB", "class": "PristineCalcB", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "MarginCalculator.php", "namespace": "Acme\\Billing\\Margin", "class": "MarginCalculator", "source": "nearmiss_invoice", "reason": "near-miss: computes revenue/cost/margin instead of subtotal/tax/total"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"},
+                {"file": "CurrencyConverter.php", "namespace": "Acme\\Billing\\Currency", "class": "CurrencyConverter", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L06-probe_loop_form-002",
+            "title": "PROBE: Controlflow normalization - for(;;) ↔ foreach (CF-04)",
+            "description": "Probe set for controlflow_normalization capability (loop canon). Carrier A uses for(;;) loop; carrier B uses equivalent foreach (CF-04). Rest byte-identical. Minimal intensity probe.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["controlflow"],
+            "rng_seed": 161402,
+            "notes": "K-14 PROBE. Carrier B converts for(;;) to foreach (CF-04). Single loop form rewrite.",
+            "capability_probe": {
+                "capability": "controlflow_normalization",
+                "isolated": true,
+                "control_set": "L06-probe_loop_form-001",
+                "pass_criterion": "control_set PASSES all detectors; probe_set PASSES loop-form-normalizing detectors",
+                "fail_meaning": "controlflow_normalization ABSENT - tool cannot handle loop form variation"
+            },
+            "role_composition": {"carrier": 2, "distractor": 1, "clean": 2},
+            "detection_expectation": {"text_based": false, "token_based": false, "ast_based": true, "metric_based": false, "semantic": true},
+            "carriers": [
+                {"file": "PristineCalcA.php", "namespace": "Acme\\Billing\\PristineA", "class": "PristineCalcA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "ForeachCalc.php", "namespace": "Acme\\Billing\\Foreach", "class": "ForeachCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "cf_loop_forms", "transforms": [{"code": "CF-04", "variant": "cf_loop_forms"}]}
+            ],
+            "distractors": [
+                {"file": "MarginCalculator.php", "namespace": "Acme\\Billing\\Margin", "class": "MarginCalculator", "source": "nearmiss_invoice", "reason": "near-miss: computes revenue/cost/margin instead of subtotal/tax/total"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"},
+                {"file": "CurrencyConverter.php", "namespace": "Acme\\Billing\\Currency", "class": "CurrencyConverter", "source": "clean_billing"}
+            ]
+        }
+    ]
+}

@@ -1,0 +1,96 @@
+{
+    "level": 10,
+    "level_name": "adversarial_edge_cases",
+    "level_dir": "L10_adversarial_edge_cases",
+    "family": "probe_region_merge",
+    "sets": [
+        {
+            "set_id": "L10-probe_region_merge-001",
+            "title": "Two disjoint clusters: invoice_totals + access_guard, adjacent in file pair (1-line gap)",
+            "description": "K-30 probe: Two DIFFERENT small clone clusters (20-line invoice_totals + 15-line access_guard) placed back-to-back with 1-line separation in the same file pair. Tests whether tools merge adjacent matches (report 1 fat region) or preserve cluster identity (report 2). Cluster A: invoice_totals seed. Cluster B: access_guard seed. The 1-line gap between clones in each file simulates the 'separation tolerance' scenario - tools with loose gap tolerance may merge them.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "schema_version": 2,
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 113001,
+            "notes": "K-30: 001/002. Two disjoint clusters (A=invoice_totals~20l, B=access_guard~15l) in same file pair, 1-line gap. Tests separation tolerance / cluster identity preservation. Tools that merge adjacent matches report 1 fat region (multi_cluster_reporting FAIL); tools with proper cluster identity report 2 clusters.",
+            "duplication": {
+                "clusters": 2,
+                "cluster_topology": "disjoint",
+                "spacing_notes": "1-line separation between Cluster A and Cluster B in each carrier file. Cluster A members first, then 1-line gap, then Cluster B members."
+            },
+            "requires": ["multi_cluster_reporting", "boundary_precision"],
+            "capability_probe": {
+                "capability": "multi_cluster_reporting",
+                "sub_capability": "boundary_precision",
+                "isolated": false,
+                "control_set": null,
+                "pass_criterion": "Tool reports exactly 2 clusters (one for invoice_totals, one for access_guard) instead of 1 merged region",
+                "fail_meaning": "multi_cluster_reporting ABSENT - tool merged the two adjacent clusters into 1 fat region; lacks cluster identity preservation for nearby clones"
+            },
+            "scoring": {"line_tolerance": 0, "member_jaccard_min": 1.0, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "InvoiceCalcA.php", "namespace": "Acme\\Billing\\ClusterA", "class": "InvoiceCalcA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": [], "cluster": "A", "seed": "invoice_totals"},
+                {"file": "InvoiceCalcB.php", "namespace": "Acme\\Billing\\ClusterA", "class": "InvoiceCalcB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [], "cluster": "A", "seed": "invoice_totals"},
+                {"file": "InvoiceCalcC.php", "namespace": "Acme\\Billing\\ClusterA", "class": "InvoiceCalcC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [], "cluster": "A", "seed": "invoice_totals"},
+                {"file": "AuthGuardA.php", "namespace": "Acme\\Security\\ClusterB", "class": "AuthGuardA", "scaffold": "method_alpha", "group": "B", "pristine": true, "transforms": [], "cluster": "B", "seed": "access_guard"},
+                {"file": "AuthGuardB.php", "namespace": "Acme\\Security\\ClusterB", "class": "AuthGuardB", "scaffold": "method_beta", "group": "B", "pristine": false, "transforms": [], "cluster": "B", "seed": "access_guard"},
+                {"file": "AuthGuardC.php", "namespace": "Acme\\Security\\ClusterB", "class": "AuthGuardC", "scaffold": "method_gamma", "group": "B", "pristine": false, "transforms": [], "cluster": "B", "seed": "access_guard"}
+            ],
+            "distractors": [
+                {"file": "DistractorInvoice.php", "namespace": "Acme\\Billing\\Distract", "class": "DistractorInvoice", "source": "clean_billing", "reason": "Unrelated billing code to add noise"}
+            ],
+            "cleans": [
+                {"file": "CleanBilling.php", "namespace": "Acme\\Billing\\Clean", "class": "CleanBilling", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L10-probe_region_merge-002",
+            "title": "Two disjoint clusters: csv_import + state_machine, adjacent in file pair (1-line gap)",
+            "description": "K-30 probe: Two DIFFERENT small clone clusters (csv_import + state_machine) placed back-to-back with 1-line separation in the same file pair. Variant using different seed pair to verify cluster identity is seed-independent. Tests separation tolerance and multi-cluster reporting.",
+            "seed": "csv_import",
+            "mount": "method",
+            "clone_symbol": "parseRow",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "schema_version": 2,
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 113002,
+            "notes": "K-30: 002/002. Two disjoint clusters (A=csv_import, B=state_machine) in same file pair, 1-line gap. Variant seed pair to verify seed-independence of multi_cluster_reporting.",
+            "duplication": {
+                "clusters": 2,
+                "cluster_topology": "disjoint",
+                "spacing_notes": "1-line separation between Cluster A and Cluster B in each carrier file."
+            },
+            "requires": ["multi_cluster_reporting", "boundary_precision"],
+            "capability_probe": {
+                "capability": "multi_cluster_reporting",
+                "sub_capability": "boundary_precision",
+                "isolated": false,
+                "control_set": null,
+                "pass_criterion": "Tool reports exactly 2 clusters (one for csv_import, one for state_machine) instead of 1 merged region",
+                "fail_meaning": "multi_cluster_reporting ABSENT - tool merged the two adjacent clusters into 1 fat region; lacks cluster identity preservation for nearby clones"
+            },
+            "scoring": {"line_tolerance": 0, "member_jaccard_min": 1.0, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "CsvProcessA.php", "namespace": "Acme\\Import\\ClusterA", "class": "CsvProcessA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": [], "cluster": "A", "seed": "csv_import"},
+                {"file": "CsvProcessB.php", "namespace": "Acme\\Import\\ClusterA", "class": "CsvProcessB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [], "cluster": "A", "seed": "csv_import"},
+                {"file": "CsvProcessC.php", "namespace": "Acme\\Import\\ClusterA", "class": "CsvProcessC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [], "cluster": "A", "seed": "csv_import"},
+                {"file": "StateMachA.php", "namespace": "Acme\\Workflow\\ClusterB", "class": "StateMachA", "scaffold": "method_alpha", "group": "B", "pristine": true, "transforms": [], "cluster": "B", "seed": "state_machine"},
+                {"file": "StateMachB.php", "namespace": "Acme\\Workflow\\ClusterB", "class": "StateMachB", "scaffold": "method_beta", "group": "B", "pristine": false, "transforms": [], "cluster": "B", "seed": "state_machine"},
+                {"file": "StateMachC.php", "namespace": "Acme\\Workflow\\ClusterB", "class": "StateMachC", "scaffold": "method_gamma", "group": "B", "pristine": false, "transforms": [], "cluster": "B", "seed": "state_machine"}
+            ],
+            "distractors": [
+                {"file": "DistractorCsv.php", "namespace": "Acme\\Import\\Distract", "class": "DistractorCsv", "source": "nearmiss_csv", "reason": "Near-miss: similar CSV vocabulary but different parsing logic"}
+            ],
+            "cleans": [
+                {"file": "CleanImport.php", "namespace": "Acme\\Import\\Clean", "class": "CleanImport", "source": "clean_parsing"}
+            ]
+        }
+    ]
+}

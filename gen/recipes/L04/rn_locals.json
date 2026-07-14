@@ -128,6 +128,31 @@
             "cleans": [
                 {"file": "HeaderSchemaDetector.php", "namespace": "Acme\\Import\\Schema", "class": "HeaderSchemaDetector", "source": "clean_parsing"}
             ]
+        },
+        {
+            "set_id": "L04-rn_locals-006",
+            "title": "CSV row parser with one local variable renamed and used 6 times",
+            "description": "G-5 gap-fill: One variable renamed but used 6 times throughout the method. The same CSV row-parsing method in three importer classes. Carrier A is pristine; carrier B renames one variable that appears 6 times in the method; carrier C renames all variables consistently. This tests whether detectors can match when a single高频变量 is renamed across multiple usages — a more realistic rename scenario than a once-used variable.",
+            "seed": "csv_import",
+            "mount": "method",
+            "clone_symbol": "parseRow",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments", "identifiers"],
+            "rng_seed": 104006,
+            "notes": "G-5 gap-fill: rung-2 micro-step 'one variable renamed, used 6 times'. This is between 'renamed once-used var' and 'all locals renamed'. The高频 variable rename is more challenging for text-based detectors.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "CustomerRowReader.php", "namespace": "Acme\\Import\\Customers", "class": "CustomerRowReader", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": []},
+                {"file": "VendorRowReader.php", "namespace": "Acme\\Import\\Vendors", "class": "VendorRowReader", "scaffold": "method_alpha", "group": "A", "pristine": false, "transforms": [{"code": "RN-01", "params": {"renames": {"record": "row"}}}]},
+                {"file": "ProductRowReader.php", "namespace": "Acme\\Import\\Products", "class": "ProductRowReader", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "RN-01", "params": {"renames": {"record": "row", "columns": "cells", "column": "cell", "value": "token", "normalized": "cleaned"}}}]}
+            ],
+            "distractors": [
+                {"file": "RowWidthProfiler.php", "namespace": "Acme\\Import\\Profiling", "class": "RowWidthProfiler", "source": "nearmiss_csv", "reason": "near-miss: same CSV vocabulary and foreach-over-columns shape, but builds a column-width histogram — a different result"}
+            ],
+            "cleans": [
+                {"file": "HeaderSchemaDetector.php", "namespace": "Acme\\Import\\Schema", "class": "HeaderSchemaDetector", "source": "clean_parsing"}
+            ]
         }
     ]
 }

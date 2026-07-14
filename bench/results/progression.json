@@ -1,6 +1,6 @@
 {
     "schema_version": 1,
-    "generated_at": "git:ref: refs/he",
+    "generated_at": "git:6b222357ec61",
     "levels": [
         {
             "level": 0,
@@ -9,10 +9,6 @@
             "clone_type": null,
             "tool_expectations": {
                 "phpcpd": {
-                    "detects": false,
-                    "reason": "no clones"
-                },
-                "jscpd": {
                     "detects": false,
                     "reason": "no clones"
                 }
@@ -27,10 +23,6 @@
                 "phpcpd": {
                     "detects": true,
                     "confidence": "high"
-                },
-                "jscpd": {
-                    "detects": true,
-                    "confidence": "high"
                 }
             }
         },
@@ -41,10 +33,6 @@
             "clone_type": "type-1 with whitespace variation",
             "tool_expectations": {
                 "phpcpd": {
-                    "detects": true,
-                    "confidence": "high"
-                },
-                "jscpd": {
                     "detects": true,
                     "confidence": "high"
                 }
@@ -59,10 +47,6 @@
                 "phpcpd": {
                     "detects": true,
                     "confidence": "high"
-                },
-                "jscpd": {
-                    "detects": true,
-                    "confidence": "high"
                 }
             }
         },
@@ -73,10 +57,6 @@
             "clone_type": "type-2 with identifier rename",
             "tool_expectations": {
                 "phpcpd": {
-                    "detects": true,
-                    "confidence": "high"
-                },
-                "jscpd": {
                     "detects": true,
                     "confidence": "high"
                 }
@@ -91,10 +71,6 @@
                 "phpcpd": {
                     "detects": true,
                     "confidence": "high"
-                },
-                "jscpd": {
-                    "detects": true,
-                    "confidence": "high"
                 }
             }
         },
@@ -105,10 +81,6 @@
             "clone_type": "type-3 with statement edit",
             "tool_expectations": {
                 "phpcpd": {
-                    "detects": true,
-                    "confidence": "high"
-                },
-                "jscpd": {
                     "detects": true,
                     "confidence": "high"
                 }
@@ -123,10 +95,6 @@
                 "phpcpd": {
                     "detects": true,
                     "confidence": "high"
-                },
-                "jscpd": {
-                    "detects": true,
-                    "confidence": "high"
                 }
             }
         },
@@ -137,10 +105,6 @@
             "clone_type": "type-4 semantic/architectural",
             "tool_expectations": {
                 "phpcpd": {
-                    "detects": false,
-                    "reason": "tool_miss"
-                },
-                "jscpd": {
                     "detects": false,
                     "reason": "tool_miss"
                 }
@@ -155,10 +119,6 @@
                 "phpcpd": {
                     "detects": false,
                     "reason": "tool_miss"
-                },
-                "jscpd": {
-                    "detects": false,
-                    "reason": "tool_miss"
                 }
             }
         },
@@ -169,10 +129,6 @@
             "clone_type": "type-4 semantic/architectural",
             "tool_expectations": {
                 "phpcpd": {
-                    "detects": false,
-                    "reason": "tool_miss"
-                },
-                "jscpd": {
                     "detects": false,
                     "reason": "tool_miss"
                 }
@@ -187,10 +143,6 @@
                 "phpcpd": {
                     "detects": false,
                     "reason": "tool_miss"
-                },
-                "jscpd": {
-                    "detects": false,
-                    "reason": "tool_miss"
                 }
             }
         },
@@ -201,10 +153,6 @@
             "clone_type": "cross-file scattered clones",
             "tool_expectations": {
                 "phpcpd": {
-                    "detects": false,
-                    "reason": "tool_miss"
-                },
-                "jscpd": {
                     "detects": false,
                     "reason": "tool_miss"
                 }
@@ -219,10 +167,6 @@
                 "phpcpd": {
                     "detects": false,
                     "reason": "tool_miss"
-                },
-                "jscpd": {
-                    "detects": false,
-                    "reason": "tool_miss"
                 }
             }
         },
@@ -233,10 +177,6 @@
             "clone_type": "semantic-equivalent variants (CF/API selection)",
             "tool_expectations": {
                 "phpcpd": {
-                    "detects": false,
-                    "reason": "tool_miss"
-                },
-                "jscpd": {
                     "detects": false,
                     "reason": "tool_miss"
                 }
@@ -251,10 +191,6 @@
                 "phpcpd": {
                     "detects": false,
                     "reason": "tool_miss"
-                },
-                "jscpd": {
-                    "detects": false,
-                    "reason": "tool_miss"
                 }
             }
         },
@@ -265,10 +201,6 @@
             "clone_type": "behaviorally-equivalent refactored code",
             "tool_expectations": {
                 "phpcpd": {
-                    "detects": false,
-                    "reason": "tool_miss"
-                },
-                "jscpd": {
                     "detects": false,
                     "reason": "tool_miss"
                 }
@@ -283,10 +215,6 @@
                 "phpcpd": {
                     "detects": false,
                     "reason": "tool_miss"
-                },
-                "jscpd": {
-                    "detects": false,
-                    "reason": "tool_miss"
                 }
             }
         },
@@ -297,10 +225,6 @@
             "clone_type": "partial duplication with unique regions",
             "tool_expectations": {
                 "phpcpd": {
-                    "detects": false,
-                    "reason": "tool_miss"
-                },
-                "jscpd": {
                     "detects": false,
                     "reason": "tool_miss"
                 }
@@ -315,10 +239,6 @@
                 "phpcpd": {
                     "detects": false,
                     "reason": "tool_miss"
-                },
-                "jscpd": {
-                    "detects": false,
-                    "reason": "tool_miss"
                 }
             }
         },
@@ -329,10 +249,6 @@
             "clone_type": "type-4 semantic/architectural",
             "tool_expectations": {
                 "phpcpd": {
-                    "detects": false,
-                    "reason": "tool_miss"
-                },
-                "jscpd": {
                     "detects": false,
                     "reason": "tool_miss"
                 }
@@ -426,8 +342,7 @@
         }
     ],
     "tools": [
-        "phpcpd",
-        "jscpd"
+        "phpcpd"
     ],
     "capability_map": {
         "detects": "what the tool can find",

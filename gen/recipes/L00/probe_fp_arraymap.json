@@ -1,0 +1,55 @@
+{
+    "level": 0,
+    "level_name": "probe_fp_suite",
+    "level_dir": "L00",
+    "family": "probe_fp_arraymap",
+    "capability_probe": {
+        "capability": "fp_resistance",
+        "subclass": "idiom"
+    },
+    "sets": [
+        {
+            "set_id": "L00-probe_fp_arraymap-001",
+            "title": "ArrayMap idiom control: different closure bodies",
+            "description": "Two files each containing an array_map call with the same signature pattern, but with different closure bodies that perform distinct operations (one maps toArray(), the other maps toString()). The surface similarity in the array_map(fn($r) => ...) pattern should not be flagged as clone since the closures differ meaningfully.",
+            "seed": null,
+            "rng_seed": 310011,
+            "carriers": [],
+            "distractors": [],
+            "cleans": [
+                {"file": "UserRepository.php", "namespace": "Acme\\Users\\Data", "class": "UserRepository", "source": "clean_user"},
+                {"file": "AuditTrail.php", "namespace": "Acme\\Audit\\Trail", "class": "AuditTrail", "source": "clean_audit"}
+            ],
+            "traps": []
+        },
+        {
+            "set_id": "L00-probe_fp_arraymap-002",
+            "title": "ArrayMap idiom FP probe: identical array_map(fn($r) => $r->toArray(), $rows) line (trap)",
+            "description": "Two files from completely different domains (user management vs audit logging) each contain the identical line: array_map(fn($r) => $r->toArray(), $rows). This is a common PHP idiom for converting a collection of objects to arrays. Token matchers may flag this as duplication because the line is byte-identical, but it is a standard language idiom, not a cloned implementation. Marked trap:true.",
+            "seed": null,
+            "rng_seed": 310012,
+            "carriers": [],
+            "distractors": [],
+            "cleans": [
+                {"file": "UserManager.php", "namespace": "Acme\\Users\\Core", "class": "UserManager", "source": "clean_user"},
+                {"file": "LogArchiver.php", "namespace": "Acme\\Archive\\Logs", "class": "LogArchiver", "source": "clean_archive"}
+            ],
+            "traps": [
+                {
+                    "file": "UserManager.php",
+                    "region": "array_map_idiom",
+                    "trap": true,
+                    "known_tool_fp": false,
+                    "reason": "Deliberate FP trap: the line 'array_map(fn($r) => $r->toArray(), $rows)' appears verbatim in UserManager and LogArchiver. This is a ubiquitous PHP idiom for object-to-array conversion, not a cloned implementation. A token/line matcher pairing these is producing a false positive — reporting idiom overlap as if it were duplicated logic. Marked trap:true."
+                },
+                {
+                    "file": "LogArchiver.php",
+                    "region": "array_map_idiom",
+                    "trap": true,
+                    "known_tool_fp": false,
+                    "reason": "Deliberate FP trap: identical array_map idiom to UserManager. The entire method bodies are otherwise completely different. A detector pairing this single line is flagging a language idiom, not a clone."
+                }
+            ]
+        }
+    ]
+}

@@ -78,5 +78,12 @@
         "carrier": 3,
         "distractor": 1,
         "clean": 1
+    },
+    "progression": {
+        "bridge_pair": {
+            "lower": "L03-cm_mid_statement-001",
+            "upper": "L04-ct_three_cluster-003",
+            "delta_axis": "ST"
+        }
     }
 }

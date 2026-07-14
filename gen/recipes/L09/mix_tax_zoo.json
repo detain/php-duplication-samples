@@ -1,0 +1,57 @@
+{
+    "level": 9,
+    "level_name": "mixed_interference",
+    "level_dir": "L09_mixed_interference",
+    "family": "mix_tax_zoo",
+    "sets": [
+        {
+            "set_id": "L09-mix_tax_zoo-001",
+            "title": "Tax Calculator Zoo: 17-axis mixed cluster with 2 near-miss traps",
+            "description": "One dominant cluster of 17 carriers spanning 6 transform axes (pristine/exact, whitespace, comments, rename, literal-rate, controlflow) plus 2 near-miss distractors. Tests detection across all major interference axes simultaneously.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments", "identifiers", "case_convention", "literals", "controlflow"],
+            "rng_seed": 209101,
+            "notes": "Tax Calculator Zoo flagship set. 17 carriers across 6 axes + 2 near-miss traps. Mixed interference at maximum breadth.",
+            "scoring": {"line_tolerance": 3, "member_jaccard_min": 0.5, "min_members_for_credit": 3},
+            "capability_probe": {
+                "capability": "mixed",
+                "isolated": false,
+                "axes_spanned": ["pristine", "whitespace", "comments", "rename", "literals", "controlflow"],
+                "pass_criterion": "PASSES token-based and AST-based detectors; near-miss traps correctly rejected",
+                "fail_meaning": "mixed_interference ABSENT - tool cannot handle multi-axis clone detection"
+            },
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "ExactCalcA.php", "namespace": "Acme\\Billing\\ExactA", "class": "ExactCalcA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "ExactCalcB.php", "namespace": "Acme\\Billing\\ExactB", "class": "ExactCalcB", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": []},
+                {"file": "ExactCalcC.php", "namespace": "Acme\\Billing\\ExactC", "class": "ExactCalcC", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": []},
+                {"file": "WsCalcA.php", "namespace": "Acme\\Billing\\WsA", "class": "WsCalcA", "scaffold": "method_alpha", "group": "A", "pristine": false, "transforms": [{"code": "WS-06", "params": {"occurrence": 1}}]},
+                {"file": "WsCalcB.php", "namespace": "Acme\\Billing\\WsB", "class": "WsCalcB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "WS-03", "params": {"blank_lines": 2}}]},
+                {"file": "WsCalcC.php", "namespace": "Acme\\Billing\\WsC", "class": "WsCalcC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "WS-06", "params": {"occurrence": 2}}]},
+                {"file": "CmCalcA.php", "namespace": "Acme\\Billing\\CmA", "class": "CmCalcA", "scaffold": "method_alpha", "group": "A", "pristine": false, "transforms": [{"code": "CM-03", "params": {"style": "standard"}}]},
+                {"file": "CmCalcB.php", "namespace": "Acme\\Billing\\CmB", "class": "CmCalcB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "CM-03", "params": {"style": "minimal"}}]},
+                {"file": "CmCalcC.php", "namespace": "Acme\\Billing\\CmC", "class": "CmCalcC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "CM-01", "params": {"count": 2}}]},
+                {"file": "RnCalcA.php", "namespace": "Acme\\Billing\\RnA", "class": "RnCalcA", "scaffold": "method_alpha", "group": "A", "pristine": false, "transforms": [{"code": "RN-05", "params": {"direction": "snake_to_camel"}}]},
+                {"file": "RnCalcB.php", "namespace": "Acme\\Billing\\RnB", "class": "RnCalcB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-05", "params": {"direction": "camel_to_snake"}}]},
+                {"file": "RnCalcC.php", "namespace": "Acme\\Billing\\RnC", "class": "RnCalcC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "RN-01", "params": {}}]},
+                {"file": "LtCalcA.php", "namespace": "Acme\\Billing\\LtA", "class": "LtCalcA", "scaffold": "method_alpha", "group": "A", "pristine": false, "transforms": [{"code": "LT-01", "params": {"style": "hex"}}]},
+                {"file": "LtCalcB.php", "namespace": "Acme\\Billing\\LtB", "class": "LtCalcB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-01", "params": {"style": "scientific"}}]},
+                {"file": "LtCalcC.php", "namespace": "Acme\\Billing\\LtC", "class": "LtCalcC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "LT-02", "params": {"style": "heredoc"}}]},
+                {"file": "CfCalcA.php", "namespace": "Acme\\Billing\\CfA", "class": "CfCalcA", "scaffold": "method_alpha", "group": "A", "pristine": false, "transforms": [{"code": "CF-02", "params": {"variant": "match_switch"}}]},
+                {"file": "CfCalcB.php", "namespace": "Acme\\Billing\\CfB", "class": "CfCalcB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "CF-01", "params": {"variant": "if_ternary"}}]},
+                {"file": "CfCalcC.php", "namespace": "Acme\\Billing\\CfC", "class": "CfCalcC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "CF-04", "params": {"variant": "loop_form"}}]}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss trap: similar invoice vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total"},
+                {"file": "DiscountAdder.php", "namespace": "Acme\\Billing\\Discount", "class": "DiscountAdder", "source": "nearmiss_invoice", "reason": "near-miss trap: same field names but different computation (flat discount vs percentage-based tax calculation)"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        }
+    ]
+}

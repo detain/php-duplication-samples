@@ -1,0 +1,14 @@
+{
+    "domain": "sorting_engine",
+    "summary": "Array sorting: bubble sort vs insertion sort — equivalent semantics, different algorithms.",
+    "size_class": "M",
+    "symbol": "sort",
+    "line_count": 40,
+    "token_count": 280,
+    "required_symbols": ["sort"],
+    "mount_modes": ["method", "function"],
+    "compatible_interference": ["WS-03", "CM-03", "RN-01", "LT-01", "CF-05", "SEM-01"],
+    "variants": [
+        {"file": "sem_insertion_sort.php", "code": "SEM-02", "name": "sem_equivalent_algorithms"}
+    ]
+}

@@ -1,0 +1,199 @@
+{
+    "level": 8,
+    "level_name": "semantic_idioms",
+    "level_dir": "L08_semantic_idioms",
+    "family": "sem_framework_xlate",
+    "capability_coverage": ["semantic_equivalence", "framework_translation"],
+    "sets": [
+        {
+            "set_id": "L08-sem_framework_xlate-001",
+            "title": "Cross-framework translation: plain PHP vs Laravel vs Symfony vs CodeIgniter vs Yii",
+            "description": "The same business logic (user validation) expressed in 5 different PHP framework idioms: plain PHP procedural, Laravel query builder, Symfony Doctrine, CodeIgniter active record, Yii DAO. All produce identical validation results. Tests framework_translation sub-capability of semantic_equivalence.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "validateUser",
+            "granularity": "method",
+            "clone_type": "type-4",
+            "schema_version": 2,
+            "normalized_by": ["controlflow", "identifiers", "literals", "api_abstraction"],
+            "rng_seed": 108701,
+            "notes": "User validation in 5 frameworks: plain PHP, Laravel, Symfony, CodeIgniter, Yii. Same logic, different framework idioms. Framework translation capability probe.",
+            "capability_probe": {
+                "capability": "semantic_equivalence",
+                "sub_capability": "framework_translation",
+                "isolated": true,
+                "control_set": "L08-sem_framework_xlate-001",
+                "pass_criterion": "Tool detects all 5 framework variants as semantically equivalent despite different API idioms",
+                "fail_meaning": "Tool cannot translate across different PHP framework idioms to detect semantic equivalence"
+            },
+            "scoring": {"line_tolerance": 4, "member_jaccard_min": 0.4, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": false, "ast_based": false, "metric_based": false, "semantic": true},
+            "requires": ["semantic_reasoning", "api_abstraction"],
+            "carriers": [
+                {"file": "PlainUserValidator.php", "namespace": "Acme\\Validation\\Plain", "class": "PlainUserValidator", "scaffold": "method_alpha", "group": "A", "pristine": false, "variant": "fw_plain_php", "transforms": [{"code": "SEM-05", "variant": "fw_plain_php"}]},
+                {"file": "LaravelUserValidator.php", "namespace": "Acme\\Validation\\Laravel", "class": "LaravelUserValidator", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "fw_laravel", "transforms": [{"code": "SEM-05", "variant": "fw_laravel"}]},
+                {"file": "SymfonyUserValidator.php", "namespace": "Acme\\Validation\\Symfony", "class": "SymfonyUserValidator", "scaffold": "method_gamma", "group": "A", "pristine": false, "variant": "fw_symfony", "transforms": [{"code": "SEM-05", "variant": "fw_symfony"}]},
+                {"file": "CiUserValidator.php", "namespace": "Acme\\Validation\\Ci", "class": "CiUserValidator", "scaffold": "method_delta", "group": "A", "pristine": false, "variant": "fw_codeigniter", "transforms": [{"code": "SEM-05", "variant": "fw_codeigniter"}]},
+                {"file": "YiiUserValidator.php", "namespace": "Acme\\Validation\\Yii", "class": "YiiUserValidator", "scaffold": "method_epsilon", "group": "A", "pristine": false, "variant": "fw_yii", "transforms": [{"code": "SEM-05", "variant": "fw_yii"}]}
+            ],
+            "distractors": [
+                {"file": "UserRepository.php", "namespace": "Acme\\Validation\\Distract", "class": "UserRepository", "source": "clean_auth", "reason": "clean user repository - different validation approach"}
+            ],
+            "cleans": [
+                {"file": "ValidationConfig.php", "namespace": "Acme\\Validation\\Config", "class": "ValidationConfig", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L08-sem_framework_xlate-002",
+            "title": "Framework translation: discount calculation across 5 frameworks",
+            "description": "Same discount calculation logic in 5 framework idioms: plain PHP, Laravel collections, Symfony services, CodeIgniter models, Yii AR. Tests framework_translation in pricing domain.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "applyVolumeDiscount",
+            "granularity": "method",
+            "clone_type": "type-4",
+            "schema_version": 2,
+            "normalized_by": ["controlflow", "identifiers", "literals", "api_abstraction"],
+            "rng_seed": 108702,
+            "notes": "Volume discount in 5 frameworks. Pricing domain.",
+            "capability_probe": {
+                "capability": "semantic_equivalence",
+                "sub_capability": "framework_translation",
+                "isolated": true,
+                "control_set": "L08-sem_framework_xlate-002",
+                "pass_criterion": "Tool detects all 5 framework variants as semantically equivalent",
+                "fail_meaning": "Tool cannot translate across frameworks"
+            },
+            "scoring": {"line_tolerance": 4, "member_jaccard_min": 0.4, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": false, "ast_based": false, "metric_based": false, "semantic": true},
+            "requires": ["semantic_reasoning", "api_abstraction"],
+            "carriers": [
+                {"file": "PlainDiscountCalculator.php", "namespace": "Acme\\Pricing\\Plain", "class": "PlainDiscountCalculator", "scaffold": "method_alpha", "group": "B", "pristine": false, "variant": "fw_plain_php", "transforms": [{"code": "SEM-05", "variant": "fw_plain_php"}]},
+                {"file": "LaravelDiscountCalculator.php", "namespace": "Acme\\Pricing\\Laravel", "class": "LaravelDiscountCalculator", "scaffold": "method_beta", "group": "B", "pristine": false, "variant": "fw_laravel", "transforms": [{"code": "SEM-05", "variant": "fw_laravel"}]},
+                {"file": "SymfonyDiscountCalculator.php", "namespace": "Acme\\Pricing\\Symfony", "class": "SymfonyDiscountCalculator", "scaffold": "method_gamma", "group": "B", "pristine": false, "variant": "fw_symfony", "transforms": [{"code": "SEM-05", "variant": "fw_symfony"}]},
+                {"file": "CiDiscountCalculator.php", "namespace": "Acme\\Pricing\\Ci", "class": "CiDiscountCalculator", "scaffold": "method_delta", "group": "B", "pristine": false, "variant": "fw_codeigniter", "transforms": [{"code": "SEM-05", "variant": "fw_codeigniter"}]},
+                {"file": "YiiDiscountCalculator.php", "namespace": "Acme\\Pricing\\Yii", "class": "YiiDiscountCalculator", "scaffold": "method_epsilon", "group": "B", "pristine": false, "variant": "fw_yii", "transforms": [{"code": "SEM-05", "variant": "fw_yii"}]}
+            ],
+            "distractors": [
+                {"file": "PercentageDiscount.php", "namespace": "Acme\\Pricing\\Distract", "class": "PercentageDiscount", "source": "clean_pricing", "reason": "clean discount - different algorithm"}
+            ],
+            "cleans": [
+                {"file": "PricingConfig.php", "namespace": "Acme\\Pricing\\Config", "class": "PricingConfig", "source": "clean_pricing"}
+            ]
+        },
+        {
+            "set_id": "L08-sem_framework_xlate-003",
+            "title": "Framework translation: data parsing across 5 frameworks",
+            "description": "Same CSV row parsing logic in 5 framework idioms. Tests framework_translation in import/parsing domain.",
+            "seed": "csv_import",
+            "mount": "method",
+            "clone_symbol": "parseDataRow",
+            "granularity": "method",
+            "clone_type": "type-4",
+            "schema_version": 2,
+            "normalized_by": ["controlflow", "identifiers", "literals", "api_abstraction"],
+            "rng_seed": 108703,
+            "notes": "Row parsing in 5 frameworks. Import domain.",
+            "capability_probe": {
+                "capability": "semantic_equivalence",
+                "sub_capability": "framework_translation",
+                "isolated": true,
+                "control_set": "L08-sem_framework_xlate-003",
+                "pass_criterion": "Tool detects all 5 framework variants as semantically equivalent",
+                "fail_meaning": "Tool cannot translate across frameworks"
+            },
+            "scoring": {"line_tolerance": 4, "member_jaccard_min": 0.4, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": false, "ast_based": false, "metric_based": false, "semantic": true},
+            "requires": ["semantic_reasoning", "api_abstraction"],
+            "carriers": [
+                {"file": "PlainRowParser.php", "namespace": "Acme\\Import\\Plain", "class": "PlainRowParser", "scaffold": "method_alpha", "group": "C", "pristine": false, "variant": "fw_plain_php", "transforms": [{"code": "SEM-05", "variant": "fw_plain_php"}]},
+                {"file": "LaravelRowParser.php", "namespace": "Acme\\Import\\Laravel", "class": "LaravelRowParser", "scaffold": "method_beta", "group": "C", "pristine": false, "variant": "fw_laravel", "transforms": [{"code": "SEM-05", "variant": "fw_laravel"}]},
+                {"file": "SymfonyRowParser.php", "namespace": "Acme\\Import\\Symfony", "class": "SymfonyRowParser", "scaffold": "method_gamma", "group": "C", "pristine": false, "variant": "fw_symfony", "transforms": [{"code": "SEM-05", "variant": "fw_symfony"}]},
+                {"file": "CiRowParser.php", "namespace": "Acme\\Import\\Ci", "class": "CiRowParser", "scaffold": "method_delta", "group": "C", "pristine": false, "variant": "fw_codeigniter", "transforms": [{"code": "SEM-05", "variant": "fw_codeigniter"}]},
+                {"file": "YiiRowParser.php", "namespace": "Acme\\Import\\Yii", "class": "YiiRowParser", "scaffold": "method_epsilon", "group": "C", "pristine": false, "variant": "fw_yii", "transforms": [{"code": "SEM-05", "variant": "fw_yii"}]}
+            ],
+            "distractors": [
+                {"file": "XmlRowParser.php", "namespace": "Acme\\Import\\Distract", "class": "XmlRowParser", "source": "clean_parsing", "reason": "clean XML parser - different format"}
+            ],
+            "cleans": [
+                {"file": "ParserConfig.php", "namespace": "Acme\\Import\\Config", "class": "ParserConfig", "source": "clean_parsing"}
+            ]
+        },
+        {
+            "set_id": "L08-sem_framework_xlate-004",
+            "title": "Framework translation: plain PHP vs Laravel focus",
+            "description": "Focus on the contrast between plain PHP (no framework) and Laravel idioms for the same validation logic.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "checkPermission",
+            "granularity": "method",
+            "clone_type": "type-4",
+            "schema_version": 2,
+            "normalized_by": ["controlflow", "identifiers", "literals", "api_abstraction"],
+            "rng_seed": 108704,
+            "notes": "Plain PHP vs Laravel focus pair, with 3 additional frameworks.",
+            "capability_probe": {
+                "capability": "semantic_equivalence",
+                "sub_capability": "framework_translation",
+                "isolated": true,
+                "control_set": "L08-sem_framework_xlate-004",
+                "pass_criterion": "Tool detects plain PHP and Laravel as equivalent",
+                "fail_meaning": "Tool cannot translate plain PHP to Laravel idioms"
+            },
+            "scoring": {"line_tolerance": 4, "member_jaccard_min": 0.4, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": false, "ast_based": false, "metric_based": false, "semantic": true},
+            "requires": ["semantic_reasoning", "api_abstraction"],
+            "carriers": [
+                {"file": "PlainPermissionChecker.php", "namespace": "Acme\\Auth\\Plain", "class": "PlainPermissionChecker", "scaffold": "method_alpha", "group": "D", "pristine": false, "variant": "fw_plain_php", "transforms": [{"code": "SEM-05", "variant": "fw_plain_php"}]},
+                {"file": "LaravelPermissionChecker.php", "namespace": "Acme\\Auth\\Laravel", "class": "LaravelPermissionChecker", "scaffold": "method_beta", "group": "D", "pristine": false, "variant": "fw_laravel", "transforms": [{"code": "SEM-05", "variant": "fw_laravel"}]},
+                {"file": "SymfonyPermissionChecker.php", "namespace": "Acme\\Auth\\Symfony", "class": "SymfonyPermissionChecker", "scaffold": "method_gamma", "group": "D", "pristine": false, "variant": "fw_symfony", "transforms": [{"code": "SEM-05", "variant": "fw_symfony"}]},
+                {"file": "CiPermissionChecker.php", "namespace": "Acme\\Auth\\Ci", "class": "CiPermissionChecker", "scaffold": "method_delta", "group": "D", "pristine": false, "variant": "fw_codeigniter", "transforms": [{"code": "SEM-05", "variant": "fw_codeigniter"}]},
+                {"file": "YiiPermissionChecker.php", "namespace": "Acme\\Auth\\Yii", "class": "YiiPermissionChecker", "scaffold": "method_epsilon", "group": "D", "pristine": false, "variant": "fw_yii", "transforms": [{"code": "SEM-05", "variant": "fw_yii"}]}
+            ],
+            "distractors": [
+                {"file": "RoleChecker.php", "namespace": "Acme\\Auth\\Distract", "class": "RoleChecker", "source": "clean_auth", "reason": "clean role checker - different permission model"}
+            ],
+            "cleans": [
+                {"file": "AuthConfig.php", "namespace": "Acme\\Auth\\Config", "class": "AuthConfig", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L08-sem_framework_xlate-005",
+            "title": "Framework translation: Symfony vs Yii focus",
+            "description": "Focus on the contrast between Symfony (Doctrine ORM) and Yii (Active Record) idioms for the same data access logic.",
+            "seed": "csv_import",
+            "mount": "method",
+            "clone_symbol": "fetchRecord",
+            "granularity": "method",
+            "clone_type": "type-4",
+            "schema_version": 2,
+            "normalized_by": ["controlflow", "identifiers", "literals", "api_abstraction"],
+            "rng_seed": 108705,
+            "notes": "Symfony vs Yii focus pair, with 3 additional frameworks. ORM/AR contrast.",
+            "capability_probe": {
+                "capability": "semantic_equivalence",
+                "sub_capability": "framework_translation",
+                "isolated": true,
+                "control_set": "L08-sem_framework_xlate-005",
+                "pass_criterion": "Tool detects Symfony and Yii as equivalent despite ORM vs AR differences",
+                "fail_meaning": "Tool cannot translate between Doctrine ORM and Yii Active Record idioms"
+            },
+            "scoring": {"line_tolerance": 4, "member_jaccard_min": 0.4, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": false, "ast_based": false, "metric_based": false, "semantic": true},
+            "requires": ["semantic_reasoning", "api_abstraction"],
+            "carriers": [
+                {"file": "PlainRecordFetcher.php", "namespace": "Acme\\Data\\Plain", "class": "PlainRecordFetcher", "scaffold": "method_alpha", "group": "E", "pristine": false, "variant": "fw_plain_php", "transforms": [{"code": "SEM-05", "variant": "fw_plain_php"}]},
+                {"file": "LaravelRecordFetcher.php", "namespace": "Acme\\Data\\Laravel", "class": "LaravelRecordFetcher", "scaffold": "method_beta", "group": "E", "pristine": false, "variant": "fw_laravel", "transforms": [{"code": "SEM-05", "variant": "fw_laravel"}]},
+                {"file": "SymfonyRecordFetcher.php", "namespace": "Acme\\Data\\Symfony", "class": "SymfonyRecordFetcher", "scaffold": "method_gamma", "group": "E", "pristine": false, "variant": "fw_symfony", "transforms": [{"code": "SEM-05", "variant": "fw_symfony"}]},
+                {"file": "CiRecordFetcher.php", "namespace": "Acme\\Data\\Ci", "class": "CiRecordFetcher", "scaffold": "method_delta", "group": "E", "pristine": false, "variant": "fw_codeigniter", "transforms": [{"code": "SEM-05", "variant": "fw_codeigniter"}]},
+                {"file": "YiiRecordFetcher.php", "namespace": "Acme\\Data\\Yii", "class": "YiiRecordFetcher", "scaffold": "method_epsilon", "group": "E", "pristine": false, "variant": "fw_yii", "transforms": [{"code": "SEM-05", "variant": "fw_yii"}]}
+            ],
+            "distractors": [
+                {"file": "MongoRecordFetcher.php", "namespace": "Acme\\Data\\Distract", "class": "MongoRecordFetcher", "source": "clean_parsing", "reason": "clean MongoDB fetcher - different data source"}
+            ],
+            "cleans": [
+                {"file": "DataConfig.php", "namespace": "Acme\\Data\\Config", "class": "DataConfig", "source": "clean_parsing"}
+            ]
+        }
+    ]
+}

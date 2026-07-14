@@ -1,0 +1,148 @@
+{
+    "level": 10,
+    "level_name": "adversarial_edge_cases",
+    "level_dir": "L10_adversarial_edge_cases",
+    "family": "ov_95",
+    "sets": [
+        {
+            "set_id": "L10-ov_95-001",
+            "title": "95% overlap: 5% unique content inserted at boundaries",
+            "description": "Near-identical clones with 95% overlap - 5% unique content at boundaries. Tests detection of nearly-identical clones with small unique insertions.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "schema_version": 2,
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "rng_seed": 210951,
+            "notes": "K-28 threshold bracketing: %-overlap at 95%. 5% unique content.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "difficulty": {"complexity": 6, "partiality": "medium"},
+            "duplication": {"uniqueness_budget": {"min": 5, "max": 5}},
+            "carriers": [
+                {"file": "OverlapCalcA.php", "namespace": "Acme\\Billing\\Overlap", "class": "OverlapCalcA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "OverlapCalcB.php", "namespace": "Acme\\Billing\\Overlap", "class": "OverlapCalcB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 1, "tail_trim": 1}}]},
+                {"file": "OverlapCalcC.php", "namespace": "Acme\\Billing\\Overlap", "class": "OverlapCalcC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 1, "tail_trim": 1}}]}
+            ],
+            "distractors": [
+                {"file": "MarginReporter.php", "namespace": "Acme\\Billing\\Report", "class": "MarginReporter", "source": "nearmiss_invoice", "reason": "near-miss"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L10-ov_95-002",
+            "title": "95% overlap: 5% unique content (access_guard seed)",
+            "description": "Near-identical clones with 95% overlap using access_guard seed.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "schema_version": 2,
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "rng_seed": 210952,
+            "notes": "K-28 threshold bracketing: %-overlap at 95% (access_guard).",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "difficulty": {"complexity": 6, "partiality": "medium"},
+            "duplication": {"uniqueness_budget": {"min": 5, "max": 5}},
+            "carriers": [
+                {"file": "OverlapAuthA.php", "namespace": "Acme\\Security\\Overlap", "class": "OverlapAuthA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "OverlapAuthB.php", "namespace": "Acme\\Security\\Overlap", "class": "OverlapAuthB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 1, "tail_trim": 1}}]},
+                {"file": "OverlapAuthC.php", "namespace": "Acme\\Security\\Overlap", "class": "OverlapAuthC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 1, "tail_trim": 1}}]}
+            ],
+            "distractors": [
+                {"file": "AuditTrailService.php", "namespace": "Acme\\Security\\Audit", "class": "AuditTrailService", "source": "nearmiss_access", "reason": "near-miss"}
+            ],
+            "cleans": [
+                {"file": "TokenValidationService.php", "namespace": "Acme\\Security\\Tokens", "class": "TokenValidationService", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L10-ov_95-003",
+            "title": "95% overlap: 5% unique content (csv_import seed)",
+            "description": "Near-identical clones with 95% overlap using csv_import seed.",
+            "seed": "csv_import",
+            "mount": "method",
+            "clone_symbol": "parseRow",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "schema_version": 2,
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "rng_seed": 210953,
+            "notes": "K-28 threshold bracketing: %-overlap at 95% (csv_import).",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "difficulty": {"complexity": 6, "partiality": "medium"},
+            "duplication": {"uniqueness_budget": {"min": 5, "max": 5}},
+            "carriers": [
+                {"file": "OverlapCsvA.php", "namespace": "Acme\\Import\\Overlap", "class": "OverlapCsvA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "OverlapCsvB.php", "namespace": "Acme\\Import\\Overlap", "class": "OverlapCsvB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 1, "tail_trim": 1}}]},
+                {"file": "OverlapCsvC.php", "namespace": "Acme\\Import\\Overlap", "class": "OverlapCsvC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 1, "tail_trim": 1}}]}
+            ],
+            "distractors": [
+                {"file": "XmlImportService.php", "namespace": "Acme\\Import\\Xml", "class": "XmlImportService", "source": "nearmiss_csv", "reason": "near-miss"}
+            ],
+            "cleans": [
+                {"file": "DataValidationService.php", "namespace": "Acme\\Import\\Validation", "class": "DataValidationService", "source": "clean_parsing"}
+            ]
+        },
+        {
+            "set_id": "L10-ov_95-004",
+            "title": "95% overlap: 5% unique content (date_calculator seed)",
+            "description": "Near-identical clones with 95% overlap using date_calculator seed.",
+            "seed": "date_calculator",
+            "mount": "method",
+            "clone_symbol": "calculateDelta",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "schema_version": 2,
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "rng_seed": 210954,
+            "notes": "K-28 threshold bracketing: %-overlap at 95% (date_calculator).",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "difficulty": {"complexity": 6, "partiality": "medium"},
+            "duplication": {"uniqueness_budget": {"min": 5, "max": 5}},
+            "carriers": [
+                {"file": "OverlapDateA.php", "namespace": "Acme\\Utils\\Overlap", "class": "OverlapDateA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "OverlapDateB.php", "namespace": "Acme\\Utils\\Overlap", "class": "OverlapDateB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 1, "tail_trim": 1}}]},
+                {"file": "OverlapDateC.php", "namespace": "Acme\\Utils\\Overlap", "class": "OverlapDateC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 1, "tail_trim": 1}}]}
+            ],
+            "distractors": [
+                {"file": "FormatConverter.php", "namespace": "Acme\\Utils\\Format", "class": "FormatConverter", "source": "nearmiss_date", "reason": "near-miss"}
+            ],
+            "cleans": [
+                {"file": "TimezoneHelper.php", "namespace": "Acme\\Utils\\Time", "class": "TimezoneHelper", "source": "clean_utils"}
+            ]
+        },
+        {
+            "set_id": "L10-ov_95-005",
+            "title": "95% overlap: 5% unique content (basket_pricing seed)",
+            "description": "Near-identical clones with 95% overlap using basket_pricing seed.",
+            "seed": "basket_pricing",
+            "mount": "method",
+            "clone_symbol": "calculateTotal",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "schema_version": 2,
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "rng_seed": 210955,
+            "notes": "K-28 threshold bracketing: %-overlap at 95% (basket_pricing).",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "difficulty": {"complexity": 6, "partiality": "medium"},
+            "duplication": {"uniqueness_budget": {"min": 5, "max": 5}},
+            "carriers": [
+                {"file": "OverlapPriceA.php", "namespace": "Acme\\Commerce\\Overlap", "class": "OverlapPriceA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "OverlapPriceB.php", "namespace": "Acme\\Commerce\\Overlap", "class": "OverlapPriceB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 1, "tail_trim": 1}}]},
+                {"file": "OverlapPriceC.php", "namespace": "Acme\\Commerce\\Overlap", "class": "OverlapPriceC", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 1, "tail_trim": 1}}]}
+            ],
+            "distractors": [
+                {"file": "DiscountCalculator.php", "namespace": "Acme\\Commerce\\Discount", "class": "DiscountCalculator", "source": "nearmiss_pricing", "reason": "near-miss"}
+            ],
+            "cleans": [
+                {"file": "TaxCalculator.php", "namespace": "Acme\\Commerce\\Tax", "class": "TaxCalculator", "source": "clean_commerce"}
+            ]
+        }
+    ]
+}

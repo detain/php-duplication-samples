@@ -1,0 +1,14 @@
+{
+    "domain": "tree_walker",
+    "summary": "Tree node traversal: recursive vs iterative stack-based.",
+    "size_class": "S",
+    "symbol": "walk",
+    "line_count": 18,
+    "token_count": 130,
+    "required_symbols": ["walk"],
+    "mount_modes": ["method", "function"],
+    "compatible_interference": ["WS-03", "CM-03", "RN-01", "CF-05", "API-04", "API-05"],
+    "variants": [
+        {"file": "cf_iterative_walk.php", "code": "CF-07", "name": "cf_recursion_vs_iteration"}
+    ]
+}

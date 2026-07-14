@@ -1,0 +1,74 @@
+{
+    "level": 5,
+    "level_name": "statement_edits",
+    "level_dir": "L05_deadcode",
+    "family": "probe_deadcode",
+    "sets": [
+        {
+            "set_id": "L05-probe_deadcode-001",
+            "title": "CONTROL: Dead code elimination probe",
+            "description": "Control set for deadcode elimination capability probe. Pristine ~120-token method. Both carriers are byte-identical and pristine. Tests whether tools detect clones when dead code blocks are present.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "rng_seed": 150901,
+            "notes": "K-13 CONTROL. Pristine carriers. Probe tests ST-02 unreachable if(false) block detection.",
+            "capability_probe": {
+                "capability": "deadcode_elimination",
+                "isolated": true,
+                "control_set": "L05-probe_deadcode-001",
+                "pass_criterion": "control_set PASSES all detectors; probe_set PASSES deadcode-aware detectors",
+                "fail_meaning": "deadcode_elimination ABSENT - tool cannot handle dead code blocks"
+            },
+            "role_composition": {"carrier": 2, "distractor": 1, "clean": 2},
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineCalcA.php", "namespace": "Acme\\Billing\\PristineA", "class": "PristineCalcA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PristineCalcB.php", "namespace": "Acme\\Billing\\PristineB", "class": "PristineCalcB", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "MarginCalculator.php", "namespace": "Acme\\Billing\\Margin", "class": "MarginCalculator", "source": "nearmiss_invoice", "reason": "near-miss: computes revenue/cost/margin instead of subtotal/tax/total"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"},
+                {"file": "CurrencyConverter.php", "namespace": "Acme\\Billing\\Currency", "class": "CurrencyConverter", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L05-probe_deadcode-002",
+            "title": "PROBE: Dead code elimination - ONE unreachable if(false) block (ST-02)",
+            "description": "Probe set for deadcode elimination capability. Carrier A is pristine; carrier B has exactly ONE unreachable if(false) block inserted (ST-02). Minimal intensity probe. Tests dead code detection.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "rng_seed": 150902,
+            "notes": "K-13 PROBE. Carrier B inserts 1 unreachable if(false) block (ST-02). Delta is minimal - 1 dead code block.",
+            "capability_probe": {
+                "capability": "deadcode_elimination",
+                "isolated": true,
+                "control_set": "L05-probe_deadcode-001",
+                "pass_criterion": "control_set PASSES all detectors; probe_set PASSES deadcode-aware detectors",
+                "fail_meaning": "deadcode_elimination ABSENT - tool cannot handle dead code blocks"
+            },
+            "role_composition": {"carrier": 2, "distractor": 1, "clean": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineCalcA.php", "namespace": "Acme\\Billing\\PristineA", "class": "PristineCalcA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "DeadCodeCalc.php", "namespace": "Acme\\Billing\\DeadCode", "class": "DeadCodeCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-02", "params": {"count": 1}}]}
+            ],
+            "distractors": [
+                {"file": "MarginCalculator.php", "namespace": "Acme\\Billing\\Margin", "class": "MarginCalculator", "source": "nearmiss_invoice", "reason": "near-miss: computes revenue/cost/margin instead of subtotal/tax/total"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"},
+                {"file": "CurrencyConverter.php", "namespace": "Acme\\Billing\\Currency", "class": "CurrencyConverter", "source": "clean_billing"}
+            ]
+        }
+    ]
+}

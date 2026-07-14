@@ -1,0 +1,74 @@
+{
+    "level": 2,
+    "level_name": "whitespace_normalization",
+    "level_dir": "L02_whitespace",
+    "family": "probe_ws_wrap",
+    "sets": [
+        {
+            "set_id": "L02-probe_ws_wrap-001",
+            "title": "CONTROL: Whitespace normalization probe - line wrapping",
+            "description": "Control set for whitespace normalization capability probe (line-based split). Pristine ~120-token method. Both carriers are byte-identical and pristine. Tests whether tools detect clones when long lines are wrapped.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace"],
+            "rng_seed": 120201,
+            "notes": "K-2 CONTROL. Pristine carriers. Probe tests WS-06 line wrapping detection.",
+            "capability_probe": {
+                "capability": "whitespace_normalization",
+                "isolated": true,
+                "control_set": "L02-probe_ws_wrap-001",
+                "pass_criterion": "control_set PASSES all detectors; probe_set PASSES whitespace-normalizing detectors",
+                "fail_meaning": "whitespace_normalization ABSENT - tool cannot handle line-wrapping variation"
+            },
+            "role_composition": {"carrier": 2, "distractor": 1, "clean": 2},
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineCalcA.php", "namespace": "Acme\\Billing\\PristineA", "class": "PristineCalcA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PristineCalcB.php", "namespace": "Acme\\Billing\\PristineB", "class": "PristineCalcB", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "MarginCalculator.php", "namespace": "Acme\\Billing\\Margin", "class": "MarginCalculator", "source": "nearmiss_invoice", "reason": "near-miss: computes revenue/cost/margin instead of subtotal/tax/total"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"},
+                {"file": "CurrencyConverter.php", "namespace": "Acme\\Billing\\Currency", "class": "CurrencyConverter", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L02-probe_ws_wrap-002",
+            "title": "PROBE: Whitespace normalization - ONE long line wrapped (WS-06)",
+            "description": "Probe set for whitespace normalization capability (line-based split). Carrier A is pristine; carrier B has exactly ONE long line wrapped (WS-06 occurrence:1). Minimal intensity probe. Tests line-based split normalization.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace"],
+            "rng_seed": 120202,
+            "notes": "K-2 PROBE. Carrier B wraps 1 long line (WS-06). Delta is minimal - line split differs by 1.",
+            "capability_probe": {
+                "capability": "whitespace_normalization",
+                "isolated": true,
+                "control_set": "L02-probe_ws_wrap-001",
+                "pass_criterion": "control_set PASSES all detectors; probe_set PASSES whitespace-normalizing detectors",
+                "fail_meaning": "whitespace_normalization ABSENT - tool cannot handle line-wrapping variation"
+            },
+            "role_composition": {"carrier": 2, "distractor": 1, "clean": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": true},
+            "carriers": [
+                {"file": "PristineCalcA.php", "namespace": "Acme\\Billing\\PristineA", "class": "PristineCalcA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "WrappedLineCalc.php", "namespace": "Acme\\Billing\\WrappedLine", "class": "WrappedLineCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "WS-06", "params": {"occurrence": 1}}]}
+            ],
+            "distractors": [
+                {"file": "MarginCalculator.php", "namespace": "Acme\\Billing\\Margin", "class": "MarginCalculator", "source": "nearmiss_invoice", "reason": "near-miss: computes revenue/cost/margin instead of subtotal/tax/total"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"},
+                {"file": "CurrencyConverter.php", "namespace": "Acme\\Billing\\Currency", "class": "CurrencyConverter", "source": "clean_billing"}
+            ]
+        }
+    ]
+}

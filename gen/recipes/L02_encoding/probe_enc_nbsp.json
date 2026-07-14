@@ -1,0 +1,75 @@
+{
+    "level": 2,
+    "level_name": "encoding_variation",
+    "level_dir": "L02_encoding",
+    "family": "probe_enc_nbsp",
+    "hygiene_exceptions": ["nbsp"],
+    "sets": [
+        {
+            "set_id": "L02-probe_enc_nbsp-001",
+            "title": "NBSP indentation: Control - pristine method",
+            "description": "Control set for NBSP encoding probe. Three pristine carriers with standard space indentation.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 126001,
+            "notes": "Control set for K-26 NBSP probe. All carriers pristine with space indentation.",
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "role_composition": {"carrier": 3, "distractor": 1, "clean": 1},
+            "carriers": [
+                {"file": "TotalsCalculatorA.php", "namespace": "Acme\\Billing\\TotalsA", "class": "TotalsCalculatorA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "TotalsCalculatorB.php", "namespace": "Acme\\Billing\\TotalsB", "class": "TotalsCalculatorB", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": []},
+                {"file": "TotalsCalculatorC.php", "namespace": "Acme\\Billing\\TotalsC", "class": "TotalsCalculatorC", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "Validator.php", "namespace": "Acme\\Billing\\Validate", "class": "Validator", "source": "clean_billing", "reason": "Clean distractor - unrelated billing logic"}
+            ],
+            "cleans": [
+                {"file": "SchemaMapper.php", "namespace": "Acme\\Billing\\Schema", "class": "SchemaMapper", "source": "clean_parsing"}
+            ],
+            "capability_probe": {
+                "capability": "encoding_normalization",
+                "isolated": true,
+                "control_set": "L02-probe_enc_nbsp-001",
+                "pass_criterion": "token_based",
+                "fail_meaning": "tokenizer treating NBSP as identifier character"
+            }
+        },
+        {
+            "set_id": "L02-probe_enc_nbsp-002",
+            "title": "NBSP indentation: One carrier has U+00A0 non-breaking spaces (ENC-02)",
+            "description": "Probe set for K-26. One carrier has non-breaking space (U+00A0) characters in indentation instead of regular spaces. Tokenizers that treat NBSP as identifier characters will produce parse divergence.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 126002,
+            "notes": "K-26 NBSP probe. Carrier B has NBSP indentation (ENC-02). Some tokenizers treat NBSP as identifier char, causing parse divergence.",
+            "detection_expectation": {"text_based": false, "token_based": false, "ast_based": true, "metric_based": true, "semantic": true},
+            "role_composition": {"carrier": 3, "distractor": 1, "clean": 1},
+            "carriers": [
+                {"file": "TotalsCalculatorA.php", "namespace": "Acme\\Billing\\TotalsA", "class": "TotalsCalculatorA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "TotalsCalculatorB.php", "namespace": "Acme\\Billing\\TotalsB", "class": "TotalsCalculatorB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ENC-02", "params": {"action": "replace"}}]},
+                {"file": "TotalsCalculatorC.php", "namespace": "Acme\\Billing\\TotalsC", "class": "TotalsCalculatorC", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "Validator.php", "namespace": "Acme\\Billing\\Validate", "class": "Validator", "source": "clean_billing", "reason": "Clean distractor - unrelated billing logic"}
+            ],
+            "cleans": [
+                {"file": "SchemaMapper.php", "namespace": "Acme\\Billing\\Schema", "class": "SchemaMapper", "source": "clean_parsing"}
+            ],
+            "capability_probe": {
+                "capability": "encoding_normalization",
+                "isolated": true,
+                "control_set": "L02-probe_enc_nbsp-001",
+                "pass_criterion": "token_based",
+                "fail_meaning": "tokenizer treating NBSP as identifier character"
+            }
+        }
+    ]
+}

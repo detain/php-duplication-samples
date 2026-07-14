@@ -1,0 +1,74 @@
+{
+    "level": 4,
+    "level_name": "rename_literals",
+    "level_dir": "L04_partial_duplication",
+    "family": "probe_lt_number",
+    "sets": [
+        {
+            "set_id": "L04-probe_lt_number-001",
+            "title": "CONTROL: Literal abstraction probe - numeric literal change",
+            "description": "Control set for literal abstraction capability probe. Pristine ~120-token method. Both carriers are byte-identical and pristine. Tests whether tools detect clones when numeric literals differ.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["literals"],
+            "rng_seed": 140701,
+            "notes": "K-7 CONTROL. Pristine carriers. Probe tests LT-01 single numeric literal change detection.",
+            "capability_probe": {
+                "capability": "literal_abstraction",
+                "isolated": true,
+                "control_set": "L04-probe_lt_number-001",
+                "pass_criterion": "control_set PASSES all detectors; probe_set PASSES literal-abstracting detectors",
+                "fail_meaning": "literal_abstraction ABSENT - tool cannot handle numeric literal variation"
+            },
+            "role_composition": {"carrier": 2, "distractor": 1, "clean": 2},
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineCalcA.php", "namespace": "Acme\\Billing\\PristineA", "class": "PristineCalcA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PristineCalcB.php", "namespace": "Acme\\Billing\\PristineB", "class": "PristineCalcB", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "MarginCalculator.php", "namespace": "Acme\\Billing\\Margin", "class": "MarginCalculator", "source": "nearmiss_invoice", "reason": "near-miss: computes revenue/cost/margin instead of subtotal/tax/total"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"},
+                {"file": "CurrencyConverter.php", "namespace": "Acme\\Billing\\Currency", "class": "CurrencyConverter", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L04-probe_lt_number-002",
+            "title": "PROBE: Literal abstraction - ONE numeric literal changed (LT-01)",
+            "description": "Probe set for literal abstraction capability. Carrier A is pristine; carrier B has exactly ONE numeric literal changed (LT-01). Minimal intensity probe. Tests literal abstraction detection.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["literals"],
+            "rng_seed": 140702,
+            "notes": "K-7 PROBE. Carrier B changes 1 numeric literal (LT-01). Delta is minimal - 1 literal difference.",
+            "capability_probe": {
+                "capability": "literal_abstraction",
+                "isolated": true,
+                "control_set": "L04-probe_lt_number-001",
+                "pass_criterion": "control_set PASSES all detectors; probe_set PASSES literal-abstracting detectors",
+                "fail_meaning": "literal_abstraction ABSENT - tool cannot handle numeric literal variation"
+            },
+            "role_composition": {"carrier": 2, "distractor": 1, "clean": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineCalcA.php", "namespace": "Acme\\Billing\\PristineA", "class": "PristineCalcA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "ChangedLitCalc.php", "namespace": "Acme\\Billing\\ChangedLit", "class": "ChangedLitCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-01", "params": {"count": 1}}]}
+            ],
+            "distractors": [
+                {"file": "MarginCalculator.php", "namespace": "Acme\\Billing\\Margin", "class": "MarginCalculator", "source": "nearmiss_invoice", "reason": "near-miss: computes revenue/cost/margin instead of subtotal/tax/total"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"},
+                {"file": "CurrencyConverter.php", "namespace": "Acme\\Billing\\Currency", "class": "CurrencyConverter", "source": "clean_billing"}
+            ]
+        }
+    ]
+}

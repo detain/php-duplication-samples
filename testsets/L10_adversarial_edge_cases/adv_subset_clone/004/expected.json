@@ -1,0 +1,108 @@
+{
+    "schema_version": 1,
+    "set_id": "L10-adv_subset_clone-004",
+    "clusters": [
+        {
+            "id": "Clone1-Full",
+            "group_id": "A",
+            "clone_type": "type-2",
+            "granularity": "method",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers"
+            ],
+            "token_hash": "14ef9f81e7aa1cf4",
+            "normalized_hash": "f376687ac87fa12f",
+            "members": [
+                {
+                    "file": "src/BasketCalculatorA.php",
+                    "start_line": 9,
+                    "end_line": 44,
+                    "symbol": "calculateTotal",
+                    "pristine": true
+                },
+                {
+                    "file": "src/BasketCalculatorB.php",
+                    "start_line": 18,
+                    "end_line": 53,
+                    "symbol": "calculateTotal",
+                    "pristine": false
+                },
+                {
+                    "file": "src/BasketCalculatorC.php",
+                    "start_line": 25,
+                    "end_line": 60,
+                    "symbol": "calculateTotal",
+                    "pristine": false
+                }
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": false,
+                "semantic": true
+            },
+            "notes": "O Idea 9: The Inclusion Problem with basket_pricing seed. Clone1 (30-line) computes full totals with discounts and tax; Clone2 (15-line subset) computes only the item subtotal loop."
+        },
+        {
+            "id": "Clone2-Subset",
+            "group_id": "B",
+            "clone_type": "type-2",
+            "granularity": "method",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers"
+            ],
+            "token_hash": "14ef9f81e7aa1cf4",
+            "normalized_hash": "f376687ac87fa12f",
+            "members": [
+                {
+                    "file": "src/SubtotalCollectorA.php",
+                    "start_line": 9,
+                    "end_line": 44,
+                    "symbol": "calculateTotal",
+                    "pristine": true
+                },
+                {
+                    "file": "src/SubtotalCollectorB.php",
+                    "start_line": 18,
+                    "end_line": 53,
+                    "symbol": "calculateTotal",
+                    "pristine": false
+                },
+                {
+                    "file": "src/SubtotalCollectorC.php",
+                    "start_line": 25,
+                    "end_line": 60,
+                    "symbol": "calculateTotal",
+                    "pristine": false
+                }
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": false,
+                "semantic": true
+            },
+            "notes": "O Idea 9: The Inclusion Problem with basket_pricing seed. Clone1 (30-line) computes full totals with discounts and tax; Clone2 (15-line subset) computes only the item subtotal loop."
+        }
+    ],
+    "non_duplicates": [
+        {
+            "file": "src/PriceEstimator.php",
+            "start_line": 12,
+            "end_line": 28,
+            "reason": "Near-miss: same pricing vocabulary but different calculation approach",
+            "trap": true
+        }
+    ],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.6,
+        "min_members_for_credit": 2
+    }
+}

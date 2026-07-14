@@ -1,0 +1,178 @@
+{
+    "level": 9,
+    "level_name": "mixed_interference",
+    "level_dir": "L09_mixed_interference",
+    "family": "mix_generations",
+    "sets": [
+        {
+            "set_id": "L09-mix_generations-001",
+            "title": "Evolutionary Clones: Gen1 exact (baseline detectability)",
+            "description": "Generation 1 of the detectability-degradation curve. Two pristine exact clones. This is the baseline - maximum detectability across all tools.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": [],
+            "rng_seed": 209201,
+            "notes": "Evolutionary Clones - Generation 1 (exact/pristine). Baseline detection. All tools should detect this.",
+            "generation": 1,
+            "capability_probe": {
+                "capability": "drift_detection",
+                "isolated": false,
+                "generation_sequence": [1, 2, 3, 4, 5],
+                "transforms_accumulated": [],
+                "pass_criterion": "PASSES all detectors - Gen1 is pristine exact clone",
+                "fail_meaning": "exact_clone_detection ABSENT"
+            },
+            "role_composition": {"carrier": 2, "distractor": 1, "clean": 1},
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "Gen1CalcA.php", "namespace": "Acme\\Billing\\Gen1A", "class": "Gen1CalcA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "Gen1CalcB.php", "namespace": "Acme\\Billing\\Gen1B", "class": "Gen1CalcB", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "MarginCalc.php", "namespace": "Acme\\Billing\\Margin", "class": "MarginCalc", "source": "nearmiss_invoice", "reason": "near-miss: similar foreach shape but different computation"}
+            ],
+            "cleans": [
+                {"file": "TaxRateConfig.php", "namespace": "Acme\\Billing\\Config", "class": "TaxRateConfig", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L09-mix_generations-002",
+            "title": "Evolutionary Clones: Gen2 +whitespace (degradation begins)",
+            "description": "Generation 2 of the detectability-degradation curve. One pristine, one with WS-06 line_wrap. Text-based detectors begin to struggle.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace"],
+            "rng_seed": 209202,
+            "notes": "Evolutionary Clones - Generation 2 (+whitespace). Degradation begins. Text-based detectors fail; token-based still work.",
+            "generation": 2,
+            "capability_probe": {
+                "capability": "drift_detection",
+                "isolated": false,
+                "generation_sequence": [1, 2, 3, 4, 5],
+                "transforms_accumulated": ["WS-06"],
+                "pass_criterion": "PASSES token_based and AST-based; FAILS text_based",
+                "fail_meaning": "whitespace_normalization ABSENT"
+            },
+            "role_composition": {"carrier": 2, "distractor": 1, "clean": 1},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "Gen2Pristine.php", "namespace": "Acme\\Billing\\Gen2Pristine", "class": "Gen2Pristine", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "Gen2Ws.php", "namespace": "Acme\\Billing\\Gen2Ws", "class": "Gen2Ws", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "WS-06", "params": {"occurrence": 1}}]}
+            ],
+            "distractors": [
+                {"file": "MarginCalc.php", "namespace": "Acme\\Billing\\Margin", "class": "MarginCalc", "source": "nearmiss_invoice", "reason": "near-miss: similar foreach shape but different computation"}
+            ],
+            "cleans": [
+                {"file": "TaxRateConfig.php", "namespace": "Acme\\Billing\\Config", "class": "TaxRateConfig", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L09-mix_generations-003",
+            "title": "Evolutionary Clones: Gen3 +whitespace+comments (token normalization required)",
+            "description": "Generation 3 of the detectability-degradation curve. One pristine, one with WS-06 + CM-03. Token-based normalization now essential.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 209203,
+            "notes": "Evolutionary Clones - Generation 3 (+whitespace+comments). Strong degradation. Requires token normalization for detection.",
+            "generation": 3,
+            "capability_probe": {
+                "capability": "drift_detection",
+                "isolated": false,
+                "generation_sequence": [1, 2, 3, 4, 5],
+                "transforms_accumulated": ["WS-06", "CM-03"],
+                "pass_criterion": "PASSES token_based and AST-based; FAILS text_based and metric_based",
+                "fail_meaning": "token_normalization ABSENT"
+            },
+            "role_composition": {"carrier": 2, "distractor": 1, "clean": 1},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": true},
+            "carriers": [
+                {"file": "Gen3Pristine.php", "namespace": "Acme\\Billing\\Gen3Pristine", "class": "Gen3Pristine", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "Gen3WsCm.php", "namespace": "Acme\\Billing\\Gen3WsCm", "class": "Gen3WsCm", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "WS-06", "params": {"occurrence": 1}}, {"code": "CM-03", "params": {"style": "standard"}}]}
+            ],
+            "distractors": [
+                {"file": "MarginCalc.php", "namespace": "Acme\\Billing\\Margin", "class": "MarginCalc", "source": "nearmiss_invoice", "reason": "near-miss: similar foreach shape but different computation"}
+            ],
+            "cleans": [
+                {"file": "TaxRateConfig.php", "namespace": "Acme\\Billing\\Config", "class": "TaxRateConfig", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L09-mix_generations-004",
+            "title": "Evolutionary Clones: Gen4 +whitespace+comments+rename (identifier canonicalization required)",
+            "description": "Generation 4 of the detectability-degradation curve. One pristine, one with WS-06 + CM-03 + RN-05. Requires identifier canonicalization for detection.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments", "identifiers", "case_convention"],
+            "rng_seed": 209204,
+            "notes": "Evolutionary Clones - Generation 4 (+whitespace+comments+rename). Severe degradation. Requires identifier canonicalization.",
+            "generation": 4,
+            "capability_probe": {
+                "capability": "drift_detection",
+                "isolated": false,
+                "generation_sequence": [1, 2, 3, 4, 5],
+                "transforms_accumulated": ["WS-06", "CM-03", "RN-05"],
+                "pass_criterion": "PASSES token_based and AST-based after identifier canonicalization",
+                "fail_meaning": "identifier_canonicalization ABSENT"
+            },
+            "role_composition": {"carrier": 2, "distractor": 1, "clean": 1},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": true},
+            "carriers": [
+                {"file": "Gen4Pristine.php", "namespace": "Acme\\Billing\\Gen4Pristine", "class": "Gen4Pristine", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "Gen4WsCmRn.php", "namespace": "Acme\\Billing\\Gen4WsCmRn", "class": "Gen4WsCmRn", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "WS-06", "params": {"occurrence": 1}}, {"code": "CM-03", "params": {"style": "minimal"}}, {"code": "RN-05", "params": {"direction": "snake_to_camel"}}]}
+            ],
+            "distractors": [
+                {"file": "MarginCalc.php", "namespace": "Acme\\Billing\\Margin", "class": "MarginCalc", "source": "nearmiss_invoice", "reason": "near-miss: similar foreach shape but different computation"}
+            ],
+            "cleans": [
+                {"file": "TaxRateConfig.php", "namespace": "Acme\\Billing\\Config", "class": "TaxRateConfig", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L09-mix_generations-005",
+            "title": "Evolutionary Clones: Gen5 +whitespace+comments+rename+literals (maximum drift)",
+            "description": "Generation 5 of the detectability-degradation curve. One pristine, one with WS-06 + CM-03 + RN-05 + LT-01. Maximum accumulated drift - only semantic analysis detects.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments", "identifiers", "case_convention", "literals"],
+            "rng_seed": 209205,
+            "notes": "Evolutionary Clones - Generation 5 (+whitespace+comments+rename+literals). Maximum drift. Semantic analysis required for detection.",
+            "generation": 5,
+            "capability_probe": {
+                "capability": "drift_detection",
+                "isolated": false,
+                "generation_sequence": [1, 2, 3, 4, 5],
+                "transforms_accumulated": ["WS-06", "CM-03", "RN-05", "LT-01"],
+                "pass_criterion": "PASSES semantic analysis; token_based may fail on literal variation",
+                "fail_meaning": "semantic_reasoning ABSENT - cannot detect maximum-drift clones"
+            },
+            "role_composition": {"carrier": 2, "distractor": 1, "clean": 1},
+            "detection_expectation": {"text_based": false, "token_based": false, "ast_based": true, "metric_based": false, "semantic": true},
+            "carriers": [
+                {"file": "Gen5Pristine.php", "namespace": "Acme\\Billing\\Gen5Pristine", "class": "Gen5Pristine", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "Gen5FullDrift.php", "namespace": "Acme\\Billing\\Gen5FullDrift", "class": "Gen5FullDrift", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "WS-06", "params": {"occurrence": 1}}, {"code": "CM-03", "params": {"style": "standard"}}, {"code": "RN-05", "params": {"direction": "camel_to_snake"}}, {"code": "LT-01", "params": {"style": "hex"}}]}
+            ],
+            "distractors": [
+                {"file": "MarginCalc.php", "namespace": "Acme\\Billing\\Margin", "class": "MarginCalc", "source": "nearmiss_invoice", "reason": "near-miss: similar foreach shape but different computation"}
+            ],
+            "cleans": [
+                {"file": "TaxRateConfig.php", "namespace": "Acme\\Billing\\Config", "class": "TaxRateConfig", "source": "clean_billing"}
+            ]
+        }
+    ]
+}

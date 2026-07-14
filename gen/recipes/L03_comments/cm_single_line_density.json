@@ -1,0 +1,143 @@
+{
+    "level": 3,
+    "level_name": "comments_variation",
+    "level_dir": "L03_comments",
+    "family": "cm_single_line_density",
+    "sets": [
+        {
+            "set_id": "L03-cm_single_line_density-001",
+            "title": "Zero inline comments in invoice totals method",
+            "description": "Clone pair has no inline single-line comments. This baseline set tests detection when comments are completely absent.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "function",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 103501,
+            "notes": "CM-12 single-line comment density at 0% - no inline comments.",
+            "detection_expectation": {"text_based": false, "token_based": false, "ast_based": false, "metric_based": false, "semantic": false},
+            "role_composition": {"carrier": 3, "distractor": 1, "clean": 1},
+            "carriers": [
+                {"file": "LedgerPostingService.php", "namespace": "Acme\\Ledger\\Posting", "class": "LedgerPostingService", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PriceBookService.php", "namespace": "Acme\\Ledger\\Pricing", "class": "PriceBookService", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": []},
+                {"file": "ThirdService.php", "namespace": "Acme\\Ledger\\Third", "class": "ThirdService", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "interference": ["CM-12"],
+            "distractors": [
+                {"file": "MarginReporter.php", "namespace": "Acme\\Ledger\\Reporting", "class": "MarginReporter", "source": "nearmiss_access", "reason": "near-miss: shares foreach+invoice vocabulary but computes margin/ratio not totals"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Ledger\\Catalog", "class": "TaxRateRepository", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L03-cm_single_line_density-002",
+            "title": "Sparse inline comments at 10% density",
+            "description": "Clone pair has sparse inline comments covering approximately 10% of code lines. Tests detection sensitivity to minimal comment presence.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "function",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 103502,
+            "notes": "CM-12 single-line comment density at 10% - one comment per 10 lines.",
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": false, "metric_based": false, "semantic": false},
+            "role_composition": {"carrier": 3, "distractor": 1, "clean": 1},
+            "carriers": [
+                {"file": "LedgerPostingService.php", "namespace": "Acme\\Ledger\\Posting", "class": "LedgerPostingService", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PriceBookService.php", "namespace": "Acme\\Ledger\\Pricing", "class": "PriceBookService", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "CM-12", "params": {"density": 10}}]},
+                {"file": "ThirdService.php", "namespace": "Acme\\Ledger\\Third", "class": "ThirdService", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "interference": ["CM-12"],
+            "distractors": [
+                {"file": "MarginReporter.php", "namespace": "Acme\\Ledger\\Reporting", "class": "MarginReporter", "source": "nearmiss_access", "reason": "near-miss: shares foreach+invoice vocabulary but computes margin/ratio not totals"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Ledger\\Catalog", "class": "TaxRateRepository", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L03-cm_single_line_density-003",
+            "title": "Moderate inline comments at 25% density",
+            "description": "Clone pair has moderate inline comments covering approximately 25% of code lines. Text-based detection should clearly identify the comment token difference.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "function",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 103503,
+            "notes": "CM-12 single-line comment density at 25% - one comment per 4 lines.",
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": false, "metric_based": false, "semantic": false},
+            "role_composition": {"carrier": 3, "distractor": 1, "clean": 1},
+            "carriers": [
+                {"file": "LedgerPostingService.php", "namespace": "Acme\\Ledger\\Posting", "class": "LedgerPostingService", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PriceBookService.php", "namespace": "Acme\\Ledger\\Pricing", "class": "PriceBookService", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "CM-12", "params": {"density": 25}}]},
+                {"file": "ThirdService.php", "namespace": "Acme\\Ledger\\Third", "class": "ThirdService", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "interference": ["CM-12"],
+            "distractors": [
+                {"file": "MarginReporter.php", "namespace": "Acme\\Ledger\\Reporting", "class": "MarginReporter", "source": "nearmiss_access", "reason": "near-miss: shares foreach+invoice vocabulary but computes margin/ratio not totals"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Ledger\\Catalog", "class": "TaxRateRepository", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L03-cm_single_line_density-004",
+            "title": "Half of lines commented at 50% density",
+            "description": "Clone pair has heavy inline comments covering approximately 50% of code lines. Tests detection when comments are abundant.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "function",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 103504,
+            "notes": "CM-12 single-line comment density at 50% - every other line has a comment.",
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": false, "metric_based": false, "semantic": false},
+            "role_composition": {"carrier": 3, "distractor": 1, "clean": 1},
+            "carriers": [
+                {"file": "LedgerPostingService.php", "namespace": "Acme\\Ledger\\Posting", "class": "LedgerPostingService", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PriceBookService.php", "namespace": "Acme\\Ledger\\Pricing", "class": "PriceBookService", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "CM-12", "params": {"density": 50}}]},
+                {"file": "ThirdService.php", "namespace": "Acme\\Ledger\\Third", "class": "ThirdService", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "interference": ["CM-12"],
+            "distractors": [
+                {"file": "MarginReporter.php", "namespace": "Acme\\Ledger\\Reporting", "class": "MarginReporter", "source": "nearmiss_access", "reason": "near-miss: shares foreach+invoice vocabulary but computes margin/ratio not totals"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Ledger\\Catalog", "class": "TaxRateRepository", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L03-cm_single_line_density-005",
+            "title": "Density variation on access authorization method",
+            "description": "Clone pair with 25% comment density on access authorization method. Tests comment density variation on a different seed function.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "function",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 103505,
+            "notes": "CM-12 single-line comment density at 25% on access control method.",
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": false, "metric_based": false, "semantic": false},
+            "role_composition": {"carrier": 3, "distractor": 1, "clean": 1},
+            "carriers": [
+                {"file": "AccessServiceBase.php", "namespace": "Acme\\Security\\Access", "class": "AccessServiceBase", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "AccessServiceDecorated.php", "namespace": "Acme\\Security\\Decorated", "class": "AccessServiceDecorated", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "CM-12", "params": {"density": 25}}]},
+                {"file": "ThirdService.php", "namespace": "Acme\\Security\\Third", "class": "ThirdService", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "interference": ["CM-12"],
+            "distractors": [
+                {"file": "MarginReporter.php", "namespace": "Acme\\Ledger\\Reporting", "class": "MarginReporter", "source": "nearmiss_access", "reason": "near-miss: shares foreach+invoice vocabulary but computes margin/ratio not totals"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Ledger\\Catalog", "class": "TaxRateRepository", "source": "clean_auth"}
+            ]
+        }
+    ]
+}

@@ -1,0 +1,77 @@
+{
+    "level": 4,
+    "level_name": "noise_probing",
+    "level_dir": "L04_noise_probing",
+    "family": "probe_nz_i18n",
+    "capability_coverage": ["literal_abstraction", "noise_filtering"],
+    "sets": [
+        {
+            "set_id": "L04-probe_nz_i18n-001",
+            "title": "User repository with no i18n noise (control)",
+            "description": "The getUserDisplayName method in three user repository classes, all pristine. Carrier A, B, and C are all identical (no translator->trans noise inserted). This is the control set for K-23: tools should detect all three as clones without any i18n wrapping noise present.",
+            "seed": "user_repository",
+            "mount": "method",
+            "clone_symbol": "getUserDisplayName",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "edit_budget": 0,
+            "rng_seed": 123001,
+            "notes": "Control set for K-23 (nz_i18n). All three carriers are pristine — no translator->trans noise. Detectors should find all three members with high confidence. K-23 requires literal_abstraction + noise_filtering capabilities.",
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "capability_probe": {
+                "capability": "literal_abstraction + noise_filtering",
+                "isolated": true,
+                "control_set": "L04-probe_nz_i18n-001",
+                "pass_criterion": "Tool correctly pairs all 3 carriers despite presence of translator->trans noise (literal abstraction)",
+                "fail_meaning": "Tool cannot filter out i18n wrapping noise; reports no pair or missed clone between noisy carriers"
+            },
+            "role_composition": {"carrier": 3, "distractor": 1, "clean": 1},
+            "carriers": [
+                {"file": "PristineUserRepository.php", "namespace": "Acme\\Users\\Pristine", "class": "PristineUserRepository", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PristineUserRepositoryB.php", "namespace": "Acme\\Users\\Pristine", "class": "PristineUserRepositoryB", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PristineUserRepositoryC.php", "namespace": "Acme\\Users\\Pristine", "class": "PristineUserRepositoryC", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "UserMapper.php", "namespace": "Acme\\Users\\Mapping", "class": "UserMapper", "source": "nearmiss_user", "reason": "near-miss: same user object vocabulary but transforms user data into DTO instead of returning display name"}
+            ],
+            "cleans": [
+                {"file": "UserValidator.php", "namespace": "Acme\\Users\\Validation", "class": "UserValidator", "source": "clean_user"}
+            ]
+        },
+        {
+            "set_id": "L04-probe_nz_i18n-002",
+            "title": "User repository with ONE translator->trans noise (literal abstraction)",
+            "description": "The getUserDisplayName method in three user repository classes. Carrier A is pristine; carrier B wraps a string literal with $this->translator->trans('...') (NZ-05); carrier C wraps at a different position. This tests whether tools can filter out i18n wrapping noise. The string literal inside translator->trans is semantically meaningful but syntactically wrapped — tools must recognize this as literal abstraction noise. Requires literal_abstraction + noise_filtering capabilities.",
+            "seed": "user_repository",
+            "mount": "method",
+            "clone_symbol": "getUserDisplayName",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "edit_budget": 20,
+            "rng_seed": 123002,
+            "notes": "Probe set for K-23 (nz_i18n). Uses NZ-05 (i18n) transform which inserts $_ = function($_s){return $_s;}; after the last statement. This is an identity function wrapper, not the spec's $this->translator->trans('...'), but it serves the same purpose of wrapping a string in a call. K-23 requires literal_abstraction + noise_filtering: tools must see through the i18n wrapper to detect the underlying string literal clone.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "capability_probe": {
+                "capability": "literal_abstraction + noise_filtering",
+                "isolated": true,
+                "control_set": "L04-probe_nz_i18n-001",
+                "pass_criterion": "Tool correctly pairs all 3 carriers despite presence of translator->trans noise (literal abstraction)",
+                "fail_meaning": "Tool cannot filter out i18n wrapping noise; reports no pair or missed clone between noisy carriers"
+            },
+            "role_composition": {"carrier": 3, "distractor": 1, "clean": 1},
+            "carriers": [
+                {"file": "PristineUserRepository.php", "namespace": "Acme\\Users\\Pristine", "class": "PristineUserRepository", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "I18nUserRepository.php", "namespace": "Acme\\Users\\I18n", "class": "I18nUserRepository", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "NZ-05", "params": {}}]},
+                {"file": "I18nUserRepositoryB.php", "namespace": "Acme\\Users\\I18n", "class": "I18nUserRepositoryB", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "NZ-05", "params": {}}]}
+            ],
+            "distractors": [
+                {"file": "UserMapper.php", "namespace": "Acme\\Users\\Mapping", "class": "UserMapper", "source": "nearmiss_user", "reason": "near-miss: same user object vocabulary but transforms user data into DTO instead of returning display name"}
+            ],
+            "cleans": [
+                {"file": "UserValidator.php", "namespace": "Acme\\Users\\Validation", "class": "UserValidator", "source": "clean_user"}
+            ]
+        }
+    ]
+}

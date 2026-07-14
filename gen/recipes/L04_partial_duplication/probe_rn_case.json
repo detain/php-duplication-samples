@@ -1,0 +1,74 @@
+{
+    "level": 4,
+    "level_name": "rename_literals",
+    "level_dir": "L04_partial_duplication",
+    "family": "probe_rn_case",
+    "sets": [
+        {
+            "set_id": "L04-probe_rn_case-001",
+            "title": "CONTROL: Identifier canonicalization probe - case convention change",
+            "description": "Control set for identifier canonicalization capability probe (convention). Pristine ~120-token method. Both carriers are byte-identical and pristine. Tests whether tools detect clones when identifier case convention differs.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["identifiers"],
+            "rng_seed": 140601,
+            "notes": "K-6 CONTROL. Pristine carriers. Probe tests RN-05 camelCase→snake_case detection.",
+            "capability_probe": {
+                "capability": "identifier_canonicalization",
+                "isolated": true,
+                "control_set": "L04-probe_rn_case-001",
+                "pass_criterion": "control_set PASSES all detectors; probe_set PASSES identifier-canonicalizing detectors",
+                "fail_meaning": "identifier_canonicalization ABSENT - tool cannot handle case convention variation"
+            },
+            "role_composition": {"carrier": 2, "distractor": 1, "clean": 2},
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristinePolicyA.php", "namespace": "Acme\\Access\\PristineA", "class": "PristinePolicyA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PristinePolicyB.php", "namespace": "Acme\\Access\\PristineB", "class": "PristinePolicyB", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "TrustScorer.php", "namespace": "Acme\\Access\\Scoring", "class": "TrustScorer", "source": "nearmiss_access", "reason": "near-miss: same auth vocabulary but computes numeric trust score"}
+            ],
+            "cleans": [
+                {"file": "RoleHierarchy.php", "namespace": "Acme\\Access\\Roles", "class": "RoleHierarchy", "source": "clean_auth"},
+                {"file": "PermissionMatrix.php", "namespace": "Acme\\Access\\Matrix", "class": "PermissionMatrix", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L04-probe_rn_case-002",
+            "title": "PROBE: Identifier canonicalization - camelCase→snake_case (RN-05)",
+            "description": "Probe set for identifier canonicalization capability (convention). Carrier A is pristine; carrier B has identifiers changed from camelCase to snake_case (RN-05). Minimal intensity probe. Tests case-convention normalization.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["identifiers"],
+            "rng_seed": 140602,
+            "notes": "K-6 PROBE. Carrier B converts camelCase to snake_case (RN-05). Delta is case convention only.",
+            "capability_probe": {
+                "capability": "identifier_canonicalization",
+                "isolated": true,
+                "control_set": "L04-probe_rn_case-001",
+                "pass_criterion": "control_set PASSES all detectors; probe_set PASSES identifier-canonicalizing detectors",
+                "fail_meaning": "identifier_canonicalization ABSENT - tool cannot handle case convention variation"
+            },
+            "role_composition": {"carrier": 2, "distractor": 1, "clean": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristinePolicyA.php", "namespace": "Acme\\Access\\PristineA", "class": "PristinePolicyA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "SnakeCasePolicy.php", "namespace": "Acme\\Access\\SnakeCase", "class": "SnakeCasePolicy", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-05", "params": {"style": "snake_case"}}]}
+            ],
+            "distractors": [
+                {"file": "TrustScorer.php", "namespace": "Acme\\Access\\Scoring", "class": "TrustScorer", "source": "nearmiss_access", "reason": "near-miss: same auth vocabulary but computes numeric trust score"}
+            ],
+            "cleans": [
+                {"file": "RoleHierarchy.php", "namespace": "Acme\\Access\\Roles", "class": "RoleHierarchy", "source": "clean_auth"},
+                {"file": "PermissionMatrix.php", "namespace": "Acme\\Access\\Matrix", "class": "PermissionMatrix", "source": "clean_auth"}
+            ]
+        }
+    ]
+}

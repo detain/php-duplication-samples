@@ -128,6 +128,31 @@
             "cleans": [
                 {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
             ]
+        },
+        {
+            "set_id": "L04-lt_arrays-006",
+            "title": "Invoice totals with array literals reordered and retype-annotated simultaneously",
+            "description": "G-5 gap-fill: Heavy array literal transformation combining reorder and retype-annotation simultaneously. The same invoice computation method in three calculator classes. Carrier A is pristine; carrier B both reorders array element keys AND changes array() to [] bracket syntax; carrier C does full reorder + retype. This tests whether detectors can match when two array axes change at once (structure + syntax).",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "rng_seed": 104706,
+            "notes": "G-5 gap-fill: rung-4 heavy = reorder + retype array literals simultaneously (LT-03 array_reorder + LT-04 array_retype). This combined transformation is more challenging than single-axis changes.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineCalc.php", "namespace": "Acme\\Billing\\Pristine", "class": "PristineCalc", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "ModifiedCalc.php", "namespace": "Acme\\Billing\\Modified", "class": "ModifiedCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-03", "params": {"reorder": true}}, {"code": "LT-04", "params": {"retype": "array_to_bracket"}}]},
+                {"file": "FullyModifiedCalc.php", "namespace": "Acme\\Billing\\FullyModified", "class": "FullyModifiedCalc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "LT-03", "params": {"reorder": true}}, {"code": "LT-04", "params": {"retype": "array_to_bracket"}}]}
+            ],
+            "distractors": [
+                {"file": "LineItemProfiler.php", "namespace": "Acme\\Billing\\Profiling", "class": "LineItemProfiler", "source": "nearmiss_invoice", "reason": "near-miss: same invoice-domain vocabulary and foreach-over-items shape, but computes a histogram of line item prices — a different result"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
         }
     ]
 }

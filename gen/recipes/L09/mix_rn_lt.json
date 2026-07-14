@@ -1,0 +1,138 @@
+{
+    "level": 9,
+    "level_name": "mixed_interference",
+    "level_dir": "L09_mixed_interference",
+    "family": "mix_rn_lt",
+    "sets": [
+        {
+            "set_id": "L09-mix_rn_lt-001",
+            "title": "Invoice totals with rename + literal interference",
+            "description": "The same computeTotals method across three billing classes. Carrier A is pristine; carrier B applies RN-05 case_convention; carrier C applies LT-01 numeric_format. Token-based detectors should still identify the clones after normalization.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments", "identifiers", "case_convention", "literals"],
+            "rng_seed": 109801,
+            "notes": "Combines RN-05 (case_convention) with LT-01 (numeric_format). Tests token normalization with rename and literal interference.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineInvoiceCalc.php", "namespace": "Acme\\Billing\\Pristine", "class": "PristineInvoiceCalc", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "SnakeCaseCalc.php", "namespace": "Acme\\Billing\\Snake", "class": "SnakeCaseCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-05", "params": {"direction": "camel_to_snake"}}]},
+                {"file": "NumericFormatCalc.php", "namespace": "Acme\\Billing\\Numeric", "class": "NumericFormatCalc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "LT-01", "params": {"format": "underscore"}}]}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L09-mix_rn_lt-002",
+            "title": "Invoice totals with rename + literal interference (reverse + string)",
+            "description": "Same computeTotals method. Carrier A pristine; carrier B applies RN-05 snake_to_camel; carrier C applies LT-02 string_quotes.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments", "identifiers", "case_convention", "literals"],
+            "rng_seed": 109802,
+            "notes": "RN-05 (case_convention) combined with LT-02 (string_quotes). Different identifier conventions and string quote styles.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineInvoiceCalc.php", "namespace": "Acme\\Billing\\Pristine", "class": "PristineInvoiceCalc", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "CamelCaseCalc.php", "namespace": "Acme\\Billing\\Camel", "class": "CamelCaseCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-05", "params": {"direction": "snake_to_camel"}}]},
+                {"file": "QuoteStyleCalc.php", "namespace": "Acme\\Billing\\Quote", "class": "QuoteStyleCalc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "LT-02", "params": {"style": "double"}}]}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L09-mix_rn_lt-003",
+            "title": "Invoice totals with mixed rename + literal interference",
+            "description": "Same computeTotals method. Carrier A applies RN-05; carrier B applies LT-01; carrier C applies both RN-05 + LT-02.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments", "identifiers", "case_convention", "literals"],
+            "rng_seed": 109803,
+            "notes": "Mixed rename and literal interference. Different identifier conventions and literal formats.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineInvoiceCalc.php", "namespace": "Acme\\Billing\\Pristine", "class": "PristineInvoiceCalc", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "SnakeCaseCalc.php", "namespace": "Acme\\Billing\\Snake", "class": "SnakeCaseCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-05", "params": {"direction": "camel_to_snake"}}]},
+                {"file": "NumericQuoteCalc.php", "namespace": "Acme\\Billing\\Numeric", "class": "NumericQuoteCalc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "LT-01", "params": {"format": "underscore"}}, {"code": "LT-02", "params": {"style": "single"}}]}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L09-mix_rn_lt-004",
+            "title": "Invoice totals with heavy 2-axis interference",
+            "description": "Same computeTotals method. All carriers apply RN-05 + LT-01 with varying parameters. Maximum rename + literal interference.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments", "identifiers", "case_convention", "literals"],
+            "rng_seed": 109804,
+            "notes": "All carriers use same 2-axis combination (RN-05 + LT-01) with different parameters. Tests token normalization under heavy uniform interference.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineInvoiceCalc.php", "namespace": "Acme\\Billing\\Pristine", "class": "PristineInvoiceCalc", "scaffold": "method_alpha", "group": "A", "pristine": false, "transforms": [{"code": "RN-05", "params": {"direction": "camel_to_snake"}}, {"code": "LT-01", "params": {"format": "underscore"}}]},
+                {"file": "HeavyInterferenceCalc.php", "namespace": "Acme\\Billing\\Heavy", "class": "HeavyInterferenceCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-05", "params": {"direction": "snake_to_camel"}}, {"code": "LT-01", "params": {"format": "hex"}}]},
+                {"file": "HeavyInterferenceAltCalc.php", "namespace": "Acme\\Billing\\Heavy", "class": "HeavyInterferenceAltCalc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "RN-05", "params": {"direction": "camel_to_snake"}}, {"code": "LT-01", "params": {"format": "scientific"}}]}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L09-mix_rn_lt-005",
+            "title": "Invoice totals with maximum rename + literal interference",
+            "description": "Same computeTotals method. Each carrier uses different rename directions and literal formats. Maximum variation in 2-axis interference.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments", "identifiers", "case_convention", "literals"],
+            "rng_seed": 109805,
+            "notes": "Maximum variation in RN-05 + LT-01 + LT-02 combination while still being type-2 detectable. Different rename directions and literal formats per carrier.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineInvoiceCalc.php", "namespace": "Acme\\Billing\\Pristine", "class": "PristineInvoiceCalc", "scaffold": "method_alpha", "group": "A", "pristine": false, "transforms": [{"code": "RN-05", "params": {"direction": "camel_to_snake"}}, {"code": "LT-01", "params": {"format": "underscore"}}, {"code": "LT-02", "params": {"style": "single"}}]},
+                {"file": "MaxInterferenceCalc.php", "namespace": "Acme\\Billing\\Max", "class": "MaxInterferenceCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-05", "params": {"direction": "snake_to_camel"}}, {"code": "LT-01", "params": {"format": "hex"}}, {"code": "LT-02", "params": {"style": "double"}}]},
+                {"file": "MaxInterferenceAltCalc.php", "namespace": "Acme\\Billing\\Max", "class": "MaxInterferenceAltCalc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "RN-05", "params": {"direction": "camel_to_snake"}}, {"code": "LT-01", "params": {"format": "scientific"}}, {"code": "LT-02", "params": {"style": "double"}}]}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        }
+    ]
+}

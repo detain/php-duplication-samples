@@ -1,6 +1,6 @@
 {
     "corpus": "testsets",
-    "generated_at": "git:ref: refs/he",
+    "generated_at": "git:6b222357ec61",
     "clusters": [
         {
             "set_id": "L01-ex_block-001",
@@ -20401,6 +20401,270 @@
             ]
         },
         {
+            "set_id": "L10-adv_mass_instances-001",
+            "id": "c1",
+            "clone_type": "type-1",
+            "members": [
+                {
+                    "file": "L10_adversarial_edge_cases/adv_mass_instances/001/src/CloneA01.php",
+                    "start": 7,
+                    "end": 16
+                },
+                {
+                    "file": "L10_adversarial_edge_cases/adv_mass_instances/001/src/CloneA02.php",
+                    "start": 17,
+                    "end": 26
+                },
+                {
+                    "file": "L10_adversarial_edge_cases/adv_mass_instances/001/src/CloneA03.php",
+                    "start": 24,
+                    "end": 33
+                },
+                {
+                    "file": "L10_adversarial_edge_cases/adv_mass_instances/001/src/CloneA04.php",
+                    "start": 44,
+                    "end": 53
+                },
+                {
+                    "file": "L10_adversarial_edge_cases/adv_mass_instances/001/src/CloneA05.php",
+                    "start": 50,
+                    "end": 59
+                },
+                {
+                    "file": "L10_adversarial_edge_cases/adv_mass_instances/001/src/CloneA06.php",
+                    "start": 84,
+                    "end": 93
+                },
+                {
+                    "file": "L10_adversarial_edge_cases/adv_mass_instances/001/src/CloneA07.php",
+                    "start": 100,
+                    "end": 109
+                },
+                {
+                    "file": "L10_adversarial_edge_cases/adv_mass_instances/001/src/CloneA08.php",
+                    "start": 120,
+                    "end": 129
+                },
+                {
+                    "file": "L10_adversarial_edge_cases/adv_mass_instances/001/src/CloneA09.php",
+                    "start": 150,
+                    "end": 159
+                },
+                {
+                    "file": "L10_adversarial_edge_cases/adv_mass_instances/001/src/CloneA10.php",
+                    "start": 170,
+                    "end": 179
+                },
+                {
+                    "file": "L10_adversarial_edge_cases/adv_mass_instances/001/src/CloneB01.php",
+                    "start": 7,
+                    "end": 16
+                },
+                {
+                    "file": "L10_adversarial_edge_cases/adv_mass_instances/001/src/CloneB02.php",
+                    "start": 18,
+                    "end": 27
+                },
+                {
+                    "file": "L10_adversarial_edge_cases/adv_mass_instances/001/src/CloneB03.php",
+                    "start": 24,
+                    "end": 33
+                },
+                {
+                    "file": "L10_adversarial_edge_cases/adv_mass_instances/001/src/CloneB04.php",
+                    "start": 44,
+                    "end": 53
+                },
+                {
+                    "file": "L10_adversarial_edge_cases/adv_mass_instances/001/src/CloneB05.php",
+                    "start": 50,
+                    "end": 59
+                },
+                {
+                    "file": "L10_adversarial_edge_cases/adv_mass_instances/001/src/CloneB06.php",
+                    "start": 84,
+                    "end": 93
+                },
+                {
+                    "file": "L10_adversarial_edge_cases/adv_mass_instances/001/src/CloneB07.php",
+                    "start": 100,
+                    "end": 109
+                },
+                {
+                    "file": "L10_adversarial_edge_cases/adv_mass_instances/001/src/CloneB08.php",
+                    "start": 120,
+                    "end": 129
+                },
+                {
+                    "file": "L10_adversarial_edge_cases/adv_mass_instances/001/src/CloneB09.php",
+                    "start": 150,
+                    "end": 159
+                },
+                {
+                    "file": "L10_adversarial_edge_cases/adv_mass_instances/001/src/CloneB10.php",
+                    "start": 185,
+                    "end": 194
+                }
+            ]
+        },
+        {
+            "set_id": "L10-adv_mass_instances-002",
+            "id": "c1",
+            "clone_type": "type-2",
+            "members": [
+                {
+                    "file": "L10_adversarial_edge_cases/adv_mass_instances/002/src/ScaleA01.php",
+                    "start": 7,
+                    "end": 16
+                },
+                {
+                    "file": "L10_adversarial_edge_cases/adv_mass_instances/002/src/ScaleA02.php",
+                    "start": 17,
+                    "end": 26
+                },
+                {
+                    "file": "L10_adversarial_edge_cases/adv_mass_instances/002/src/ScaleA03.php",
+                    "start": 24,
+                    "end": 33
+                },
+                {
+                    "file": "L10_adversarial_edge_cases/adv_mass_instances/002/src/ScaleA04.php",
+                    "start": 44,
+                    "end": 53
+                },
+                {
+                    "file": "L10_adversarial_edge_cases/adv_mass_instances/002/src/ScaleA05.php",
+                    "start": 50,
+                    "end": 59
+                },
+                {
+                    "file": "L10_adversarial_edge_cases/adv_mass_instances/002/src/ScaleA06.php",
+                    "start": 84,
+                    "end": 93
+                },
+                {
+                    "file": "L10_adversarial_edge_cases/adv_mass_instances/002/src/ScaleA07.php",
+                    "start": 100,
+                    "end": 109
+                },
+                {
+                    "file": "L10_adversarial_edge_cases/adv_mass_instances/002/src/ScaleA08.php",
+                    "start": 120,
+                    "end": 129
+                },
+                {
+                    "file": "L10_adversarial_edge_cases/adv_mass_instances/002/src/ScaleA09.php",
+                    "start": 150,
+                    "end": 159
+                },
+                {
+                    "file": "L10_adversarial_edge_cases/adv_mass_instances/002/src/ScaleA10.php",
+                    "start": 170,
+                    "end": 179
+                },
+                {
+                    "file": "L10_adversarial_edge_cases/adv_mass_instances/002/src/ScaleB01.php",
+                    "start": 7,
+                    "end": 16
+                },
+                {
+                    "file": "L10_adversarial_edge_cases/adv_mass_instances/002/src/ScaleB02.php",
+                    "start": 18,
+                    "end": 27
+                },
+                {
+                    "file": "L10_adversarial_edge_cases/adv_mass_instances/002/src/ScaleB03.php",
+                    "start": 24,
+                    "end": 33
+                },
+                {
+                    "file": "L10_adversarial_edge_cases/adv_mass_instances/002/src/ScaleB04.php",
+                    "start": 44,
+                    "end": 53
+                },
+                {
+                    "file": "L10_adversarial_edge_cases/adv_mass_instances/002/src/ScaleB05.php",
+                    "start": 50,
+                    "end": 59
+                },
+                {
+                    "file": "L10_adversarial_edge_cases/adv_mass_instances/002/src/ScaleB06.php",
+                    "start": 84,
+                    "end": 93
+                },
+                {
+                    "file": "L10_adversarial_edge_cases/adv_mass_instances/002/src/ScaleB07.php",
+                    "start": 100,
+                    "end": 109
+                },
+                {
+                    "file": "L10_adversarial_edge_cases/adv_mass_instances/002/src/ScaleB08.php",
+                    "start": 120,
+                    "end": 129
+                },
+                {
+                    "file": "L10_adversarial_edge_cases/adv_mass_instances/002/src/ScaleB09.php",
+                    "start": 150,
+                    "end": 159
+                },
+                {
+                    "file": "L10_adversarial_edge_cases/adv_mass_instances/002/src/ScaleB10.php",
+                    "start": 185,
+                    "end": 194
+                },
+                {
+                    "file": "L10_adversarial_edge_cases/adv_mass_instances/002/src/ScaleC01.php",
+                    "start": 7,
+                    "end": 16
+                },
+                {
+                    "file": "L10_adversarial_edge_cases/adv_mass_instances/002/src/ScaleC02.php",
+                    "start": 17,
+                    "end": 26
+                },
+                {
+                    "file": "L10_adversarial_edge_cases/adv_mass_instances/002/src/ScaleC03.php",
+                    "start": 24,
+                    "end": 33
+                },
+                {
+                    "file": "L10_adversarial_edge_cases/adv_mass_instances/002/src/ScaleC04.php",
+                    "start": 44,
+                    "end": 53
+                },
+                {
+                    "file": "L10_adversarial_edge_cases/adv_mass_instances/002/src/ScaleC05.php",
+                    "start": 50,
+                    "end": 59
+                },
+                {
+                    "file": "L10_adversarial_edge_cases/adv_mass_instances/002/src/ScaleC06.php",
+                    "start": 84,
+                    "end": 93
+                },
+                {
+                    "file": "L10_adversarial_edge_cases/adv_mass_instances/002/src/ScaleC07.php",
+                    "start": 100,
+                    "end": 109
+                },
+                {
+                    "file": "L10_adversarial_edge_cases/adv_mass_instances/002/src/ScaleC08.php",
+                    "start": 120,
+                    "end": 129
+                },
+                {
+                    "file": "L10_adversarial_edge_cases/adv_mass_instances/002/src/ScaleC09.php",
+                    "start": 150,
+                    "end": 159
+                },
+                {
+                    "file": "L10_adversarial_edge_cases/adv_mass_instances/002/src/ScaleC10.php",
+                    "start": 170,
+                    "end": 179
+                }
+            ]
+        },
+        {
             "set_id": "L10-adv_near_miss-001",
             "id": "c1",
             "clone_type": "type-3",
@@ -20727,6 +20991,314 @@
                     "file": "L10_adversarial_edge_cases/adv_same_file/005/src/AccessCheckerC.php",
                     "start": 25,
                     "end": 43
+                }
+            ]
+        },
+        {
+            "set_id": "L10-adv_shared_subclone-001",
+            "id": "A",
+            "clone_type": "type-3",
+            "members": [
+                {
+                    "file": "L10_adversarial_edge_cases/adv_shared_subclone/001/src/SharedCloneA1.php",
+                    "start": 9,
+                    "end": 33
+                },
+                {
+                    "file": "L10_adversarial_edge_cases/adv_shared_subclone/001/src/SharedCloneA2.php",
+                    "start": 12,
+                    "end": 31
+                },
+                {
+                    "file": "L10_adversarial_edge_cases/adv_shared_subclone/001/src/SharedCloneA3.php",
+                    "start": 9,
+                    "end": 31
+                }
+            ]
+        },
+        {
+            "set_id": "L10-adv_shared_subclone-001",
+            "id": "B",
+            "clone_type": "type-3",
+            "members": [
+                {
+                    "file": "L10_adversarial_edge_cases/adv_shared_subclone/001/src/SharedCloneB1.php",
+                    "start": 9,
+                    "end": 34
+                },
+                {
+                    "file": "L10_adversarial_edge_cases/adv_shared_subclone/001/src/SharedCloneB2.php",
+                    "start": 15,
+                    "end": 32
+                },
+                {
+                    "file": "L10_adversarial_edge_cases/adv_shared_subclone/001/src/SharedCloneB3.php",
+                    "start": 9,
+                    "end": 32
+                }
+            ]
+        },
+        {
+            "set_id": "L10-adv_shared_subclone-002",
+            "id": "A",
+            "clone_type": "type-3",
+            "members": [
+                {
+                    "file": "L10_adversarial_edge_cases/adv_shared_subclone/002/src/AccessSharedA1.php",
+                    "start": 9,
+                    "end": 33
+                },
+                {
+                    "file": "L10_adversarial_edge_cases/adv_shared_subclone/002/src/AccessSharedA2.php",
+                    "start": 12,
+                    "end": 31
+                },
+                {
+                    "file": "L10_adversarial_edge_cases/adv_shared_subclone/002/src/AccessSharedA3.php",
+                    "start": 9,
+                    "end": 31
+                }
+            ]
+        },
+        {
+            "set_id": "L10-adv_shared_subclone-002",
+            "id": "B",
+            "clone_type": "type-3",
+            "members": [
+                {
+                    "file": "L10_adversarial_edge_cases/adv_shared_subclone/002/src/AccessSharedB1.php",
+                    "start": 9,
+                    "end": 34
+                },
+                {
+                    "file": "L10_adversarial_edge_cases/adv_shared_subclone/002/src/AccessSharedB2.php",
+                    "start": 15,
+                    "end": 32
+                },
+                {
+                    "file": "L10_adversarial_edge_cases/adv_shared_subclone/002/src/AccessSharedB3.php",
+                    "start": 9,
+                    "end": 32
+                }
+            ]
+        },
+        {
+            "set_id": "L10-adv_subset_clone-001",
+            "id": "Clone1-Full",
+            "clone_type": "type-2",
+            "members": [
+                {
+                    "file": "L10_adversarial_edge_cases/adv_subset_clone/001/src/InvoiceCalculatorA.php",
+                    "start": 9,
+                    "end": 33
+                },
+                {
+                    "file": "L10_adversarial_edge_cases/adv_subset_clone/001/src/InvoiceCalculatorB.php",
+                    "start": 18,
+                    "end": 42
+                },
+                {
+                    "file": "L10_adversarial_edge_cases/adv_subset_clone/001/src/InvoiceCalculatorC.php",
+                    "start": 25,
+                    "end": 49
+                }
+            ]
+        },
+        {
+            "set_id": "L10-adv_subset_clone-001",
+            "id": "Clone2-Subset",
+            "clone_type": "type-2",
+            "members": [
+                {
+                    "file": "L10_adversarial_edge_cases/adv_subset_clone/001/src/ReceiptTotalerA.php",
+                    "start": 9,
+                    "end": 33
+                },
+                {
+                    "file": "L10_adversarial_edge_cases/adv_subset_clone/001/src/ReceiptTotalerB.php",
+                    "start": 18,
+                    "end": 42
+                },
+                {
+                    "file": "L10_adversarial_edge_cases/adv_subset_clone/001/src/ReceiptTotalerC.php",
+                    "start": 25,
+                    "end": 49
+                }
+            ]
+        },
+        {
+            "set_id": "L10-adv_subset_clone-002",
+            "id": "Clone1-Full",
+            "clone_type": "type-2",
+            "members": [
+                {
+                    "file": "L10_adversarial_edge_cases/adv_subset_clone/002/src/InvoiceCalculatorA.php",
+                    "start": 9,
+                    "end": 33
+                },
+                {
+                    "file": "L10_adversarial_edge_cases/adv_subset_clone/002/src/InvoiceCalculatorB.php",
+                    "start": 18,
+                    "end": 42
+                },
+                {
+                    "file": "L10_adversarial_edge_cases/adv_subset_clone/002/src/InvoiceCalculatorC.php",
+                    "start": 25,
+                    "end": 49
+                }
+            ]
+        },
+        {
+            "set_id": "L10-adv_subset_clone-002",
+            "id": "Clone2-Subset",
+            "clone_type": "type-2",
+            "members": [
+                {
+                    "file": "L10_adversarial_edge_cases/adv_subset_clone/002/src/ReceiptTotalerA.php",
+                    "start": 9,
+                    "end": 33
+                },
+                {
+                    "file": "L10_adversarial_edge_cases/adv_subset_clone/002/src/ReceiptTotalerB.php",
+                    "start": 18,
+                    "end": 42
+                },
+                {
+                    "file": "L10_adversarial_edge_cases/adv_subset_clone/002/src/ReceiptTotalerC.php",
+                    "start": 24,
+                    "end": 48
+                }
+            ]
+        },
+        {
+            "set_id": "L10-adv_subset_clone-003",
+            "id": "Clone1-Full",
+            "clone_type": "type-3",
+            "members": [
+                {
+                    "file": "L10_adversarial_edge_cases/adv_subset_clone/003/src/AccessCheckerA.php",
+                    "start": 9,
+                    "end": 27
+                },
+                {
+                    "file": "L10_adversarial_edge_cases/adv_subset_clone/003/src/AccessCheckerB.php",
+                    "start": 18,
+                    "end": 36
+                },
+                {
+                    "file": "L10_adversarial_edge_cases/adv_subset_clone/003/src/AccessCheckerC.php",
+                    "start": 25,
+                    "end": 43
+                }
+            ]
+        },
+        {
+            "set_id": "L10-adv_subset_clone-003",
+            "id": "Clone2-Subset",
+            "clone_type": "type-3",
+            "members": [
+                {
+                    "file": "L10_adversarial_edge_cases/adv_subset_clone/003/src/PermissionVerifierA.php",
+                    "start": 9,
+                    "end": 27
+                },
+                {
+                    "file": "L10_adversarial_edge_cases/adv_subset_clone/003/src/PermissionVerifierB.php",
+                    "start": 18,
+                    "end": 36
+                },
+                {
+                    "file": "L10_adversarial_edge_cases/adv_subset_clone/003/src/PermissionVerifierC.php",
+                    "start": 25,
+                    "end": 43
+                }
+            ]
+        },
+        {
+            "set_id": "L10-adv_subset_clone-004",
+            "id": "Clone1-Full",
+            "clone_type": "type-2",
+            "members": [
+                {
+                    "file": "L10_adversarial_edge_cases/adv_subset_clone/004/src/BasketCalculatorA.php",
+                    "start": 9,
+                    "end": 44
+                },
+                {
+                    "file": "L10_adversarial_edge_cases/adv_subset_clone/004/src/BasketCalculatorB.php",
+                    "start": 18,
+                    "end": 53
+                },
+                {
+                    "file": "L10_adversarial_edge_cases/adv_subset_clone/004/src/BasketCalculatorC.php",
+                    "start": 25,
+                    "end": 60
+                }
+            ]
+        },
+        {
+            "set_id": "L10-adv_subset_clone-004",
+            "id": "Clone2-Subset",
+            "clone_type": "type-2",
+            "members": [
+                {
+                    "file": "L10_adversarial_edge_cases/adv_subset_clone/004/src/SubtotalCollectorA.php",
+                    "start": 9,
+                    "end": 44
+                },
+                {
+                    "file": "L10_adversarial_edge_cases/adv_subset_clone/004/src/SubtotalCollectorB.php",
+                    "start": 18,
+                    "end": 53
+                },
+                {
+                    "file": "L10_adversarial_edge_cases/adv_subset_clone/004/src/SubtotalCollectorC.php",
+                    "start": 25,
+                    "end": 60
+                }
+            ]
+        },
+        {
+            "set_id": "L10-adv_subset_clone-005",
+            "id": "Clone1-Full",
+            "clone_type": "type-3",
+            "members": [
+                {
+                    "file": "L10_adversarial_edge_cases/adv_subset_clone/005/src/InvoiceCalculatorA.php",
+                    "start": 9,
+                    "end": 33
+                },
+                {
+                    "file": "L10_adversarial_edge_cases/adv_subset_clone/005/src/InvoiceCalculatorB.php",
+                    "start": 19,
+                    "end": 43
+                },
+                {
+                    "file": "L10_adversarial_edge_cases/adv_subset_clone/005/src/InvoiceCalculatorC.php",
+                    "start": 25,
+                    "end": 50
+                }
+            ]
+        },
+        {
+            "set_id": "L10-adv_subset_clone-005",
+            "id": "Clone2-Subset",
+            "clone_type": "type-3",
+            "members": [
+                {
+                    "file": "L10_adversarial_edge_cases/adv_subset_clone/005/src/ReceiptTotalerA.php",
+                    "start": 9,
+                    "end": 33
+                },
+                {
+                    "file": "L10_adversarial_edge_cases/adv_subset_clone/005/src/ReceiptTotalerB.php",
+                    "start": 19,
+                    "end": 43
+                },
+                {
+                    "file": "L10_adversarial_edge_cases/adv_subset_clone/005/src/ReceiptTotalerC.php",
+                    "start": 25,
+                    "end": 50
                 }
             ]
         },

@@ -121,5 +121,12 @@
         "recipe": "gen/recipes/L09/mix_realistic_drift.json",
         "version": "1.0.0",
         "rng_seed": 109803
+    },
+    "progression": {
+        "bridge_pair": {
+            "lower": "L09-mix_realistic_drift-003",
+            "upper": "L10-adv_large_files-005",
+            "delta_axis": "LT"
+        }
     }
 }

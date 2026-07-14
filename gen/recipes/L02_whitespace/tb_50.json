@@ -1,0 +1,133 @@
+{
+    "level": 2,
+    "level_name": "whitespace_variation",
+    "level_dir": "L02_whitespace",
+    "family": "tb_50",
+    "sets": [
+        {
+            "set_id": "L02-tb_50-001",
+            "title": "Token-boundary probe at 49 tokens (just below 50 threshold)",
+            "description": "Exact clone at 49 tokens - tests jscpd's default 50-token threshold from below.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 202031,
+            "notes": "K-28 threshold bracketing: token-boundary ±1 at 50. Target 49 tokens.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "InvoiceCalcA.php", "namespace": "Acme\\Invoice\\Probe", "class": "InvoiceCalcA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "InvoiceCalcB.php", "namespace": "Acme\\Invoice\\Probe", "class": "InvoiceCalcB", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": []},
+                {"file": "InvoiceCalcC.php", "namespace": "Acme\\Invoice\\Probe", "class": "InvoiceCalcC", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "SettlementCalc.php", "namespace": "Acme\\Invoice\\Distract", "class": "SettlementCalc", "source": "nearmiss_invoice", "reason": "near-miss: similar structure, different computation"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepo.php", "namespace": "Acme\\Invoice\\Tax", "class": "TaxRateRepo", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L02-tb_50-002",
+            "title": "Token-boundary probe at exactly 50 tokens",
+            "description": "Exact clone at exactly 50 tokens - at jscpd's default threshold.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 202032,
+            "notes": "K-28 threshold bracketing: token-boundary ±1 at 50. Target 50 tokens (jscpd default).",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "InvoiceCalcA.php", "namespace": "Acme\\Invoice\\Probe", "class": "InvoiceCalcA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "InvoiceCalcB.php", "namespace": "Acme\\Invoice\\Probe", "class": "InvoiceCalcB", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": []},
+                {"file": "InvoiceCalcC.php", "namespace": "Acme\\Invoice\\Probe", "class": "InvoiceCalcC", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "SettlementCalc.php", "namespace": "Acme\\Invoice\\Distract", "class": "SettlementCalc", "source": "nearmiss_invoice", "reason": "near-miss: similar structure, different computation"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepo.php", "namespace": "Acme\\Invoice\\Tax", "class": "TaxRateRepo", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L02-tb_50-003",
+            "title": "Token-boundary probe at 51 tokens (just above 50 threshold)",
+            "description": "Exact clone at 51 tokens - above jscpd's default threshold.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 202033,
+            "notes": "K-28 threshold bracketing: token-boundary ±1 at 50. Target 51 tokens.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "InvoiceCalcA.php", "namespace": "Acme\\Invoice\\Probe", "class": "InvoiceCalcA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "InvoiceCalcB.php", "namespace": "Acme\\Invoice\\Probe", "class": "InvoiceCalcB", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": []},
+                {"file": "InvoiceCalcC.php", "namespace": "Acme\\Invoice\\Probe", "class": "InvoiceCalcC", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "SettlementCalc.php", "namespace": "Acme\\Invoice\\Distract", "class": "SettlementCalc", "source": "nearmiss_invoice", "reason": "near-miss: similar structure, different computation"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepo.php", "namespace": "Acme\\Invoice\\Tax", "class": "TaxRateRepo", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L02-tb_50-004",
+            "title": "Token-boundary probe at 99 tokens (just below 100 threshold)",
+            "description": "Exact clone at 99 tokens - approaching PMD's 100-token threshold.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 202034,
+            "notes": "K-28 threshold bracketing: token-boundary ±1 at 50/100. Target 99 tokens.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "InvoiceCalcA.php", "namespace": "Acme\\Invoice\\Probe", "class": "InvoiceCalcA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "InvoiceCalcB.php", "namespace": "Acme\\Invoice\\Probe", "class": "InvoiceCalcB", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": []},
+                {"file": "InvoiceCalcC.php", "namespace": "Acme\\Invoice\\Probe", "class": "InvoiceCalcC", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "SettlementCalc.php", "namespace": "Acme\\Invoice\\Distract", "class": "SettlementCalc", "source": "nearmiss_invoice", "reason": "near-miss: similar structure, different computation"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepo.php", "namespace": "Acme\\Invoice\\Tax", "class": "TaxRateRepo", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L02-tb_50-005",
+            "title": "Token-boundary probe at 100 tokens (at PMD default threshold)",
+            "description": "Exact clone at exactly 100 tokens - at PMD's default threshold.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 202035,
+            "notes": "K-28 threshold bracketing: token-boundary ±1 at 50/100. Target 100 tokens (PMD default).",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "InvoiceCalcA.php", "namespace": "Acme\\Invoice\\Probe", "class": "InvoiceCalcA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "InvoiceCalcB.php", "namespace": "Acme\\Invoice\\Probe", "class": "InvoiceCalcB", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": []},
+                {"file": "InvoiceCalcC.php", "namespace": "Acme\\Invoice\\Probe", "class": "InvoiceCalcC", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "SettlementCalc.php", "namespace": "Acme\\Invoice\\Distract", "class": "SettlementCalc", "source": "nearmiss_invoice", "reason": "near-miss: similar structure, different computation"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepo.php", "namespace": "Acme\\Invoice\\Tax", "class": "TaxRateRepo", "source": "clean_billing"}
+            ]
+        }
+    ]
+}

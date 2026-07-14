@@ -1,0 +1,143 @@
+{
+    "level": 3,
+    "level_name": "comments_variation",
+    "level_dir": "L03_comments",
+    "family": "cm_block_comment_style",
+    "sets": [
+        {
+            "set_id": "L03-cm_block_comment_style-001",
+            "title": "Regular block comments /* */ on invoice totals",
+            "description": "Clone pair uses regular /* */ block comments. One carrier has block comments where the other has none, testing detection of block comment style.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "function",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 103601,
+            "notes": "CM-13 block comment style - regular /* */ block comments.",
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": false, "metric_based": false, "semantic": false},
+            "role_composition": {"carrier": 3, "distractor": 1, "clean": 1},
+            "carriers": [
+                {"file": "LedgerPostingService.php", "namespace": "Acme\\Ledger\\Posting", "class": "LedgerPostingService", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PriceBookService.php", "namespace": "Acme\\Ledger\\Pricing", "class": "PriceBookService", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "CM-13", "params": {"style": "block"}}]},
+                {"file": "ThirdService.php", "namespace": "Acme\\Ledger\\Third", "class": "ThirdService", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "interference": ["CM-13"],
+            "distractors": [
+                {"file": "MarginReporter.php", "namespace": "Acme\\Ledger\\Reporting", "class": "MarginReporter", "source": "nearmiss_access", "reason": "near-miss: shares foreach+invoice vocabulary but computes margin/ratio not totals"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Ledger\\Catalog", "class": "TaxRateRepository", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L03-cm_block_comment_style-002",
+            "title": "Docblock block comments /** */ on invoice totals",
+            "description": "Clone pair uses docblock-style /* */ comments (with extra asterisk). One carrier has docblock comments where the other has none, testing detection of docblock style.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "function",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 103602,
+            "notes": "CM-13 block comment style - docblock /** */ style comments.",
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": false, "metric_based": false, "semantic": false},
+            "role_composition": {"carrier": 3, "distractor": 1, "clean": 1},
+            "carriers": [
+                {"file": "LedgerPostingService.php", "namespace": "Acme\\Ledger\\Posting", "class": "LedgerPostingService", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PriceBookService.php", "namespace": "Acme\\Ledger\\Pricing", "class": "PriceBookService", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "CM-13", "params": {"style": "docblock"}}]},
+                {"file": "ThirdService.php", "namespace": "Acme\\Ledger\\Third", "class": "ThirdService", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "interference": ["CM-13"],
+            "distractors": [
+                {"file": "MarginReporter.php", "namespace": "Acme\\Ledger\\Reporting", "class": "MarginReporter", "source": "nearmiss_access", "reason": "near-miss: shares foreach+invoice vocabulary but computes margin/ratio not totals"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Ledger\\Catalog", "class": "TaxRateRepository", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L03-cm_block_comment_style-003",
+            "title": "Regular block comments on access authorization method",
+            "description": "Clone pair uses regular /* */ block comments on access authorization method. Tests block comment style variation on a different seed.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "function",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 103603,
+            "notes": "CM-13 block comment style on access control method - regular /* */ style.",
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": false, "metric_based": false, "semantic": false},
+            "role_composition": {"carrier": 3, "distractor": 1, "clean": 1},
+            "carriers": [
+                {"file": "AccessServiceBase.php", "namespace": "Acme\\Security\\Access", "class": "AccessServiceBase", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "AccessServiceDecorated.php", "namespace": "Acme\\Security\\Decorated", "class": "AccessServiceDecorated", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "CM-13", "params": {"style": "block"}}]},
+                {"file": "ThirdService.php", "namespace": "Acme\\Security\\Third", "class": "ThirdService", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "interference": ["CM-13"],
+            "distractors": [
+                {"file": "MarginReporter.php", "namespace": "Acme\\Ledger\\Reporting", "class": "MarginReporter", "source": "nearmiss_access", "reason": "near-miss: shares foreach+invoice vocabulary but computes margin/ratio not totals"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Ledger\\Catalog", "class": "TaxRateRepository", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L03-cm_block_comment_style-004",
+            "title": "Docblock comments /** */ on access authorization method",
+            "description": "Clone pair uses docblock-style /* */ comments on access authorization method. Tests docblock style variation.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "function",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 103604,
+            "notes": "CM-13 block comment style on access control method - docblock /** */ style.",
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": false, "metric_based": false, "semantic": false},
+            "role_composition": {"carrier": 3, "distractor": 1, "clean": 1},
+            "carriers": [
+                {"file": "AccessServiceBase.php", "namespace": "Acme\\Security\\Access", "class": "AccessServiceBase", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "AccessServiceDecorated.php", "namespace": "Acme\\Security\\Decorated", "class": "AccessServiceDecorated", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "CM-13", "params": {"style": "docblock"}}]},
+                {"file": "ThirdService.php", "namespace": "Acme\\Security\\Third", "class": "ThirdService", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "interference": ["CM-13"],
+            "distractors": [
+                {"file": "MarginReporter.php", "namespace": "Acme\\Ledger\\Reporting", "class": "MarginReporter", "source": "nearmiss_access", "reason": "near-miss: shares foreach+invoice vocabulary but computes margin/ratio not totals"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Ledger\\Catalog", "class": "TaxRateRepository", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L03-cm_block_comment_style-005",
+            "title": "Mixed block comment styles on invoice totals",
+            "description": "Clone pair has both regular /* */ and docblock /** */ styles present in different carriers. Tests detection across multiple block comment style variants.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "function",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 103605,
+            "notes": "CM-13 mixed block comment styles - both /* */ and /** */ present.",
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": false, "metric_based": false, "semantic": false},
+            "role_composition": {"carrier": 3, "distractor": 1, "clean": 1},
+            "carriers": [
+                {"file": "LedgerPostingService.php", "namespace": "Acme\\Ledger\\Posting", "class": "LedgerPostingService", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PriceBookService.php", "namespace": "Acme\\Ledger\\Pricing", "class": "PriceBookService", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "CM-13", "params": {"style": "block"}}]},
+                {"file": "ThirdService.php", "namespace": "Acme\\Ledger\\Third", "class": "ThirdService", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "CM-13", "params": {"style": "docblock"}}]}
+            ],
+            "interference": ["CM-13"],
+            "distractors": [
+                {"file": "MarginReporter.php", "namespace": "Acme\\Ledger\\Reporting", "class": "MarginReporter", "source": "nearmiss_access", "reason": "near-miss: shares foreach+invoice vocabulary but computes margin/ratio not totals"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Ledger\\Catalog", "class": "TaxRateRepository", "source": "clean_auth"}
+            ]
+        }
+    ]
+}

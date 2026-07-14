@@ -1,0 +1,74 @@
+{
+    "schema_version": 1,
+    "set_id": "L10-adv_mass_instances-002",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-2",
+            "granularity": "method",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifier_names",
+                "literal_values"
+            ],
+            "token_hash": "a1b2c3d4e5f67890",
+            "normalized_hash": "1234567890abcdef",
+            "members": [
+                {"file": "src/ScaleA01.php", "start_line": 7, "end_line": 16, "symbol": "filterNonEmpty", "pristine": true, "transforms": []},
+                {"file": "src/ScaleA02.php", "start_line": 17, "end_line": 26, "symbol": "filterNonEmpty", "pristine": false, "transforms": ["RN-01"]},
+                {"file": "src/ScaleA03.php", "start_line": 24, "end_line": 33, "symbol": "filterNonEmpty", "pristine": false, "transforms": ["LT-01"]},
+                {"file": "src/ScaleA04.php", "start_line": 44, "end_line": 53, "symbol": "filterNonEmpty", "pristine": true, "transforms": []},
+                {"file": "src/ScaleA05.php", "start_line": 50, "end_line": 59, "symbol": "filterNonEmpty", "pristine": false, "transforms": ["RN-01", "LT-01"]},
+                {"file": "src/ScaleA06.php", "start_line": 84, "end_line": 93, "symbol": "filterNonEmpty", "pristine": false, "transforms": ["CM-03"]},
+                {"file": "src/ScaleA07.php", "start_line": 100, "end_line": 109, "symbol": "filterNonEmpty", "pristine": true, "transforms": []},
+                {"file": "src/ScaleA08.php", "start_line": 120, "end_line": 129, "symbol": "filterNonEmpty", "pristine": false, "transforms": ["RN-01"]},
+                {"file": "src/ScaleA09.php", "start_line": 150, "end_line": 159, "symbol": "filterNonEmpty", "pristine": false, "transforms": ["LT-01", "CM-03"]},
+                {"file": "src/ScaleA10.php", "start_line": 170, "end_line": 179, "symbol": "filterNonEmpty", "pristine": true, "transforms": []},
+                {"file": "src/ScaleB01.php", "start_line": 7, "end_line": 16, "symbol": "filterNonEmpty", "pristine": true, "transforms": []},
+                {"file": "src/ScaleB02.php", "start_line": 18, "end_line": 27, "symbol": "filterNonEmpty", "pristine": false, "transforms": ["RN-01"]},
+                {"file": "src/ScaleB03.php", "start_line": 24, "end_line": 33, "symbol": "filterNonEmpty", "pristine": false, "transforms": ["LT-01"]},
+                {"file": "src/ScaleB04.php", "start_line": 44, "end_line": 53, "symbol": "filterNonEmpty", "pristine": true, "transforms": []},
+                {"file": "src/ScaleB05.php", "start_line": 50, "end_line": 59, "symbol": "filterNonEmpty", "pristine": false, "transforms": ["RN-01", "LT-01"]},
+                {"file": "src/ScaleB06.php", "start_line": 84, "end_line": 93, "symbol": "filterNonEmpty", "pristine": false, "transforms": ["CM-03"]},
+                {"file": "src/ScaleB07.php", "start_line": 100, "end_line": 109, "symbol": "filterNonEmpty", "pristine": true, "transforms": []},
+                {"file": "src/ScaleB08.php", "start_line": 120, "end_line": 129, "symbol": "filterNonEmpty", "pristine": false, "transforms": ["RN-01"]},
+                {"file": "src/ScaleB09.php", "start_line": 150, "end_line": 159, "symbol": "filterNonEmpty", "pristine": false, "transforms": ["LT-01", "CM-03"]},
+                {"file": "src/ScaleB10.php", "start_line": 185, "end_line": 194, "symbol": "filterNonEmpty", "pristine": true, "transforms": []},
+                {"file": "src/ScaleC01.php", "start_line": 7, "end_line": 16, "symbol": "filterNonEmpty", "pristine": true, "transforms": []},
+                {"file": "src/ScaleC02.php", "start_line": 17, "end_line": 26, "symbol": "filterNonEmpty", "pristine": false, "transforms": ["RN-01"]},
+                {"file": "src/ScaleC03.php", "start_line": 24, "end_line": 33, "symbol": "filterNonEmpty", "pristine": false, "transforms": ["LT-01"]},
+                {"file": "src/ScaleC04.php", "start_line": 44, "end_line": 53, "symbol": "filterNonEmpty", "pristine": true, "transforms": []},
+                {"file": "src/ScaleC05.php", "start_line": 50, "end_line": 59, "symbol": "filterNonEmpty", "pristine": false, "transforms": ["RN-01", "LT-01"]},
+                {"file": "src/ScaleC06.php", "start_line": 84, "end_line": 93, "symbol": "filterNonEmpty", "pristine": false, "transforms": ["CM-03"]},
+                {"file": "src/ScaleC07.php", "start_line": 100, "end_line": 109, "symbol": "filterNonEmpty", "pristine": true, "transforms": []},
+                {"file": "src/ScaleC08.php", "start_line": 120, "end_line": 129, "symbol": "filterNonEmpty", "pristine": false, "transforms": ["RN-01"]},
+                {"file": "src/ScaleC09.php", "start_line": 150, "end_line": 159, "symbol": "filterNonEmpty", "pristine": false, "transforms": ["LT-01", "CM-03"]},
+                {"file": "src/ScaleC10.php", "start_line": 170, "end_line": 179, "symbol": "filterNonEmpty", "pristine": true, "transforms": []}
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": false,
+                "ast_based": true,
+                "metric_based": false,
+                "semantic": true
+            },
+            "notes": "Type-2 clone with transforms. K-32: tests detector scaling with 30+ carriers and mixed transforms (RN-01 variable rename, LT-01 literal change, CM-03 docblock). Detectors must normalize identifiers and literals to find this clone."
+        }
+    ],
+    "non_duplicates": [
+        {
+            "file": "src/DistractorX.php",
+            "start_line": 9,
+            "end_line": 78,
+            "reason": "Near-miss: similar array processing vocabulary but different filtering logic",
+            "trap": true
+        }
+    ],
+    "scoring": {
+        "line_tolerance": 0,
+        "member_jaccard_min": 1,
+        "min_members_for_credit": 20
+    }
+}

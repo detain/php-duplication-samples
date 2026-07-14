@@ -1,0 +1,138 @@
+{
+    "level": 5,
+    "level_name": "statement_edits",
+    "level_dir": "L05_statement_edits",
+    "family": "st_ternary_vs_if",
+    "sets": [
+        {
+            "set_id": "L05-st_ternary_vs_if-001",
+            "title": "Permission check with ternary vs if/else",
+            "description": "The same checkPermission method in three auth classes. Carrier A uses ternary operator, carrier B uses if/else, carrier C uses nested ternary. Same logic, different control-flow idiom.",
+            "seed": "permission_check",
+            "mount": "method",
+            "clone_symbol": "checkPermission",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "edit_budget": 20,
+            "rng_seed": 107101,
+            "notes": "ST-07 (ternary_vs_if) varies ternary vs if/else vs nested ternary. Same boolean logic expressed differently.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristinePermissionCheck.php", "namespace": "Acme\\Auth\\Pristine", "class": "PristinePermissionCheck", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "TernaryPermissionCheck.php", "namespace": "Acme\\Auth\\Ternary", "class": "TernaryPermissionCheck", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"style": "ternary"}}]},
+                {"file": "IfElsePermissionCheck.php", "namespace": "Acme\\Auth\\IfElse", "class": "IfElsePermissionCheck", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"style": "if_else"}}]}
+            ],
+            "distractors": [
+                {"file": "RoleChecker.php", "namespace": "Acme\\Auth\\Role", "class": "RoleChecker", "source": "nearmiss_auth", "reason": "near-miss: same permission vocabulary but checks role membership instead of action permission — different result"}
+            ],
+            "cleans": [
+                {"file": "TokenRepository.php", "namespace": "Acme\\Auth\\Token", "class": "TokenRepository", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L05-st_ternary_vs_if-002",
+            "title": "Permission check with ternary vs if/else",
+            "description": "The same checkPermission method in three auth classes. Carrier A uses if/else, carrier B uses nested ternary, carrier C uses ternary. Same logic, different control-flow idiom.",
+            "seed": "permission_check",
+            "mount": "method",
+            "clone_symbol": "checkPermission",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "edit_budget": 20,
+            "rng_seed": 107102,
+            "notes": "Set 2 of 5. ST-07 varies ternary vs if/else vs nested ternary.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristinePermissionCheck.php", "namespace": "Acme\\Auth\\Pristine", "class": "PristinePermissionCheck", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "IfElsePermissionCheck.php", "namespace": "Acme\\Auth\\IfElse", "class": "IfElsePermissionCheck", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"style": "if_else"}}]},
+                {"file": "NestedTernaryPermissionCheck.php", "namespace": "Acme\\Auth\\Nested", "class": "NestedTernaryPermissionCheck", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"style": "nested_ternary"}}]}
+            ],
+            "distractors": [
+                {"file": "RoleChecker.php", "namespace": "Acme\\Auth\\Role", "class": "RoleChecker", "source": "nearmiss_auth", "reason": "near-miss: same permission vocabulary but checks role membership — different result"}
+            ],
+            "cleans": [
+                {"file": "TokenRepository.php", "namespace": "Acme\\Auth\\Token", "class": "TokenRepository", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L05-st_ternary_vs_if-003",
+            "title": "Permission check with ternary vs if/else",
+            "description": "The same checkPermission method in three auth classes. Carrier A uses nested ternary, carrier B uses ternary, carrier C uses if/else. Same logic, different control-flow idiom.",
+            "seed": "permission_check",
+            "mount": "method",
+            "clone_symbol": "checkPermission",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "edit_budget": 20,
+            "rng_seed": 107103,
+            "notes": "Set 3 of 5. ST-07 varies ternary vs if/else vs nested ternary.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristinePermissionCheck.php", "namespace": "Acme\\Auth\\Pristine", "class": "PristinePermissionCheck", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "NestedTernaryPermissionCheck.php", "namespace": "Acme\\Auth\\Nested", "class": "NestedTernaryPermissionCheck", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"style": "nested_ternary"}}]},
+                {"file": "TernaryPermissionCheck.php", "namespace": "Acme\\Auth\\Ternary", "class": "TernaryPermissionCheck", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"style": "ternary"}}]}
+            ],
+            "distractors": [
+                {"file": "RoleChecker.php", "namespace": "Acme\\Auth\\Role", "class": "RoleChecker", "source": "nearmiss_auth", "reason": "near-miss: same permission vocabulary but checks role membership — different result"}
+            ],
+            "cleans": [
+                {"file": "TokenRepository.php", "namespace": "Acme\\Auth\\Token", "class": "TokenRepository", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L05-st_ternary_vs_if-004",
+            "title": "Permission check with ternary vs if/else",
+            "description": "The same checkPermission method in three auth classes. Carrier A uses ternary, carrier B uses if/else, carrier C uses nested ternary. Same logic, different control-flow idiom.",
+            "seed": "permission_check",
+            "mount": "method",
+            "clone_symbol": "checkPermission",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "edit_budget": 20,
+            "rng_seed": 107104,
+            "notes": "Set 4 of 5. ST-07 varies ternary vs if/else vs nested ternary.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristinePermissionCheck.php", "namespace": "Acme\\Auth\\Pristine", "class": "PristinePermissionCheck", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "TernaryPermissionCheck.php", "namespace": "Acme\\Auth\\Ternary", "class": "TernaryPermissionCheck", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"style": "ternary"}}]},
+                {"file": "NestedTernaryPermissionCheck.php", "namespace": "Acme\\Auth\\Nested", "class": "NestedTernaryPermissionCheck", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"style": "nested_ternary"}}]}
+            ],
+            "distractors": [
+                {"file": "RoleChecker.php", "namespace": "Acme\\Auth\\Role", "class": "RoleChecker", "source": "nearmiss_auth", "reason": "near-miss: same permission vocabulary but checks role membership — different result"}
+            ],
+            "cleans": [
+                {"file": "TokenRepository.php", "namespace": "Acme\\Auth\\Token", "class": "TokenRepository", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L05-st_ternary_vs_if-005",
+            "title": "Permission check with ternary vs if/else",
+            "description": "The same checkPermission method in three auth classes. Carrier A uses if/else, carrier B uses ternary, carrier C uses nested ternary. Same logic, different control-flow idiom.",
+            "seed": "permission_check",
+            "mount": "method",
+            "clone_symbol": "checkPermission",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "edit_budget": 20,
+            "rng_seed": 107105,
+            "notes": "Set 5 of 5. ST-07 varies ternary vs if/else vs nested ternary.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristinePermissionCheck.php", "namespace": "Acme\\Auth\\Pristine", "class": "PristinePermissionCheck", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "IfElsePermissionCheck.php", "namespace": "Acme\\Auth\\IfElse", "class": "IfElsePermissionCheck", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"style": "if_else"}}]},
+                {"file": "TernaryPermissionCheck.php", "namespace": "Acme\\Auth\\Ternary", "class": "TernaryPermissionCheck", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"style": "ternary"}}]}
+            ],
+            "distractors": [
+                {"file": "RoleChecker.php", "namespace": "Acme\\Auth\\Role", "class": "RoleChecker", "source": "nearmiss_auth", "reason": "near-miss: same permission vocabulary but checks role membership — different result"}
+            ],
+            "cleans": [
+                {"file": "TokenRepository.php", "namespace": "Acme\\Auth\\Token", "class": "TokenRepository", "source": "clean_auth"}
+            ]
+        }
+    ]
+}

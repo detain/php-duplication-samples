@@ -1,0 +1,77 @@
+{
+    "level": 6,
+    "level_name": "noise_probing",
+    "level_dir": "L06_noise_probing",
+    "family": "probe_nz_flag",
+    "capability_coverage": ["noise_filtering", "cfg_comparison"],
+    "sets": [
+        {
+            "set_id": "L06-probe_nz_flag-001",
+            "title": "Access guard with no feature flag noise (control)",
+            "description": "The authorize method in three policy classes, all pristine. Carrier A, B, and C are all identical (no feature flag guard noise inserted). This is the control set for K-22: tools should detect all three as clones without any feature flag noise present.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "edit_budget": 0,
+            "rng_seed": 122001,
+            "notes": "Control set for K-22 (nz_flag). All three carriers are pristine — no feature flag guard noise. Detectors should find all three members with high confidence.",
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "capability_probe": {
+                "capability": "noise_filtering + cfg_comparison",
+                "isolated": true,
+                "control_set": "L06-probe_nz_flag-001",
+                "pass_criterion": "Tool correctly pairs all 3 carriers despite presence of feature flag guard noise",
+                "fail_meaning": "Tool cannot filter out feature flag noise; reports no pair or missed clone between noisy carriers"
+            },
+            "role_composition": {"carrier": 3, "distractor": 1, "clean": 1},
+            "carriers": [
+                {"file": "PristineAccessPolicy.php", "namespace": "Acme\\Access\\Pristine", "class": "PristineAccessPolicy", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PristineAccessPolicyB.php", "namespace": "Acme\\Access\\Pristine", "class": "PristineAccessPolicyB", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PristineAccessPolicyC.php", "namespace": "Acme\\Access\\Pristine", "class": "PristineAccessPolicyC", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "TrustScorer.php", "namespace": "Acme\\Access\\Scoring", "class": "TrustScorer", "source": "nearmiss_access", "reason": "near-miss: same auth vocabulary but computes numeric trust score instead of boolean decision"}
+            ],
+            "cleans": [
+                {"file": "RoleHierarchy.php", "namespace": "Acme\\Access\\Roles", "class": "RoleHierarchy", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L06-probe_nz_flag-002",
+            "title": "Access guard with feature flag guard noise",
+            "description": "The authorize method in three policy classes. Carrier A is pristine; carrier B wraps the body in if ($this->flags->enabled('v2')) { ... } (NZ-06); carrier C wraps at a different point. The feature flag guard (NZ-06) is noise that should be filtered. This tests whether tools can see through feature flag wrappers to detect the underlying clone. Requires noise_filtering + cfg_comparison capabilities.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "edit_budget": 20,
+            "rng_seed": 122002,
+            "notes": "Probe set for K-22 (nz_flag). Uses NZ-06 (feature_flag) transform to insert if (!getenv('FEATURE_ENABLED')) { return null; } after last statement in method body. Carrier C uses a different flag name. K-22 requires noise_filtering + cfg_comparison: tools must see through the feature flag wrapper to detect the underlying clone. Note: The spec calls for $this->flags->enabled('v2') but the existing NZ-06 transform uses getenv(). Using the transform as-is for the test corpus.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": true},
+            "capability_probe": {
+                "capability": "noise_filtering + cfg_comparison",
+                "isolated": true,
+                "control_set": "L06-probe_nz_flag-001",
+                "pass_criterion": "Tool correctly pairs all 3 carriers despite presence of feature flag guard noise",
+                "fail_meaning": "Tool cannot filter out feature flag noise; reports no pair or missed clone between noisy carriers"
+            },
+            "role_composition": {"carrier": 3, "distractor": 1, "clean": 1},
+            "carriers": [
+                {"file": "PristineAccessPolicy.php", "namespace": "Acme\\Access\\Pristine", "class": "PristineAccessPolicy", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "FlaggedAccessPolicy.php", "namespace": "Acme\\Access\\Flagged", "class": "FlaggedAccessPolicy", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "NZ-06", "params": {"flag": "FEATURE_ENABLED"}}]},
+                {"file": "FlaggedAccessPolicyB.php", "namespace": "Acme\\Access\\Flagged", "class": "FlaggedAccessPolicyB", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "NZ-06", "params": {"flag": "V2_FEATURE"}}]}
+            ],
+            "distractors": [
+                {"file": "TrustScorer.php", "namespace": "Acme\\Access\\Scoring", "class": "TrustScorer", "source": "nearmiss_access", "reason": "near-miss: same auth vocabulary but computes numeric trust score instead of boolean decision"}
+            ],
+            "cleans": [
+                {"file": "RoleHierarchy.php", "namespace": "Acme\\Access\\Roles", "class": "RoleHierarchy", "source": "clean_auth"}
+            ]
+        }
+    ]
+}

@@ -1,0 +1,74 @@
+{
+    "level": 7,
+    "level_name": "api_abstraction",
+    "level_dir": "L07_api_abstraction",
+    "family": "probe_map_loop",
+    "sets": [
+        {
+            "set_id": "L07-probe_map_loop-001",
+            "title": "CONTROL: API abstraction probe - array_map",
+            "description": "Control set for api_abstraction capability probe. Pristine ~120-token method. Both carriers are byte-identical and pristine. Tests whether tools detect clones when foreach accumulate is converted to array_map.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["api_idioms"],
+            "rng_seed": 170101,
+            "notes": "K-15 CONTROL. Pristine carriers. Probe tests API-01 foreach ↔ array_map detection.",
+            "capability_probe": {
+                "capability": "api_abstraction",
+                "isolated": true,
+                "control_set": "L07-probe_map_loop-001",
+                "pass_criterion": "control_set PASSES all detectors; probe_set PASSES api-idiom-normalizing detectors",
+                "fail_meaning": "api_abstraction ABSENT - tool cannot handle foreach-to-array_map variation"
+            },
+            "role_composition": {"carrier": 2, "distractor": 1, "clean": 2},
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineCalcA.php", "namespace": "Acme\\Billing\\PristineA", "class": "PristineCalcA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PristineCalcB.php", "namespace": "Acme\\Billing\\PristineB", "class": "PristineCalcB", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "MarginCalculator.php", "namespace": "Acme\\Billing\\Margin", "class": "MarginCalculator", "source": "nearmiss_invoice", "reason": "near-miss: computes revenue/cost/margin instead of subtotal/tax/total"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"},
+                {"file": "CurrencyConverter.php", "namespace": "Acme\\Billing\\Currency", "class": "CurrencyConverter", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L07-probe_map_loop-002",
+            "title": "PROBE: API abstraction - foreach accumulate ↔ array_map (API-01)",
+            "description": "Probe set for api_abstraction capability. Carrier A uses foreach accumulate pattern; carrier B uses equivalent array_map (API-01). Rest byte-identical. Minimal intensity probe.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["api_idioms"],
+            "rng_seed": 170102,
+            "notes": "K-15 PROBE. Carrier B converts foreach to array_map (API-01). Single API idiom rewrite.",
+            "capability_probe": {
+                "capability": "api_abstraction",
+                "isolated": true,
+                "control_set": "L07-probe_map_loop-001",
+                "pass_criterion": "control_set PASSES all detectors; probe_set PASSES api-idiom-normalizing detectors",
+                "fail_meaning": "api_abstraction ABSENT - tool cannot handle foreach-to-array_map variation"
+            },
+            "role_composition": {"carrier": 2, "distractor": 1, "clean": 2},
+            "detection_expectation": {"text_based": false, "token_based": false, "ast_based": false, "metric_based": false, "semantic": true},
+            "carriers": [
+                {"file": "PristineCalcA.php", "namespace": "Acme\\Billing\\PristineA", "class": "PristineCalcA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "ArrayMapCalc.php", "namespace": "Acme\\Billing\\ArrayMap", "class": "ArrayMapCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "api_map_loop", "transforms": [{"code": "API-01", "variant": "api_map_loop"}]}
+            ],
+            "distractors": [
+                {"file": "MarginCalculator.php", "namespace": "Acme\\Billing\\Margin", "class": "MarginCalculator", "source": "nearmiss_invoice", "reason": "near-miss: computes revenue/cost/margin instead of subtotal/tax/total"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"},
+                {"file": "CurrencyConverter.php", "namespace": "Acme\\Billing\\Currency", "class": "CurrencyConverter", "source": "clean_billing"}
+            ]
+        }
+    ]
+}

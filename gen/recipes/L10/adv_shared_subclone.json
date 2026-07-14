@@ -1,0 +1,80 @@
+{
+    "level": 10,
+    "level_name": "adversarial_edge_cases",
+    "level_dir": "L10_adversarial_edge_cases",
+    "family": "adv_shared_subclone",
+    "sets": [
+        {
+            "set_id": "L10-adv_shared_subclone-001",
+            "title": "Clone Marriage: two clusters sharing a middle SharedCode block",
+            "description": "Clone Marriage pattern [O Idea 4]: Cluster A and Cluster B share a middle SharedCode block that appears in BOTH clusters. Cluster A has region1 + middle_block + region3; Cluster B has region2 + middle_block + region4. The middle_block is identical in both clusters, creating a shared sub-clone. V-9 distinctness check bypassed via relation:overlapping.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["controlflow", "identifiers"],
+            "rng_seed": 112101,
+            "notes": "O Idea 4 Clone Marriage: shared sub-clone between clusters. middle_block shared between Cluster A and Cluster B. relation:overlapping bypasses V-9 distinctness. F-2 multi-cluster is pre-requisite (ex_multi_cluster pattern).",
+            "capability_probe": {
+                "capability": "multi_cluster_reporting",
+                "isolated": false,
+                "control_set": null,
+                "pass_criterion": "PROFILE GENERATOR: detects and reports both clusters AND their shared sub-clone relationship correctly",
+                "fail_meaning": "multi_cluster_reporting ABSENT - tool cannot report overlapping cluster topology with shared sub-clones"
+            },
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": true},
+            "carriers": [
+                {"file": "SharedCloneA1.php", "namespace": "Acme\\Billing\\Shared", "class": "SharedCloneA1", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": [], "cluster": "A"},
+                {"file": "SharedCloneA2.php", "namespace": "Acme\\Billing\\Shared", "class": "SharedCloneA2", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 2, "tail_trim": 0}}], "cluster": "A"},
+                {"file": "SharedCloneA3.php", "namespace": "Acme\\Billing\\Shared", "class": "SharedCloneA3", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 0, "tail_trim": 2}}], "cluster": "A"},
+                {"file": "SharedCloneB1.php", "namespace": "Acme\\Billing\\Shared", "class": "SharedCloneB1", "scaffold": "method_alpha", "group": "B", "pristine": true, "transforms": [], "cluster": "B", "relation": {"type": "overlapping", "with": "A"}},
+                {"file": "SharedCloneB2.php", "namespace": "Acme\\Billing\\Shared", "class": "SharedCloneB2", "scaffold": "method_beta", "group": "B", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 2, "tail_trim": 0}}], "cluster": "B", "relation": {"type": "overlapping", "with": "A"}},
+                {"file": "SharedCloneB3.php", "namespace": "Acme\\Billing\\Shared", "class": "SharedCloneB3", "scaffold": "method_gamma", "group": "B", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 0, "tail_trim": 2}}], "cluster": "B", "relation": {"type": "overlapping", "with": "A"}}
+            ],
+            "distractors": [
+                {"file": "InvoiceDistractor.php", "namespace": "Acme\\Billing\\Reports", "class": "InvoiceDistractor", "source": "nearmiss_invoice", "reason": "Near-miss: similar invoice calculation vocabulary but computes different result - adds premium support fee"}
+            ],
+            "cleans": [
+                {"file": "BillingClean.php", "namespace": "Acme\\Billing\\Config", "class": "BillingClean", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L10-adv_shared_subclone-002",
+            "title": "Clone Marriage variant with access_guard seed",
+            "description": "Clone Marriage pattern variant using access_guard seed. Same topology: Cluster A and Cluster B share a middle SharedCode block. Cluster A = region1 + middle + region3, Cluster B = region2 + middle + region4. Shared sub-clone handling tested with different seed.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["controlflow", "identifiers"],
+            "rng_seed": 112102,
+            "notes": "O Idea 4 Clone Marriage variant. Uses access_guard seed to test shared sub-clone topology in auth code context.",
+            "capability_probe": {
+                "capability": "multi_cluster_reporting",
+                "isolated": false,
+                "control_set": "L10-adv_shared_subclone-001",
+                "pass_criterion": "PROFILE GENERATOR: confirms shared sub-clone detection works across different seed contexts",
+                "fail_meaning": "multi_cluster_reporting ABSENT - tool cannot handle shared sub-clones with different seeds"
+            },
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": true},
+            "carriers": [
+                {"file": "AccessSharedA1.php", "namespace": "Acme\\Security\\Shared", "class": "AccessSharedA1", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": [], "cluster": "A"},
+                {"file": "AccessSharedA2.php", "namespace": "Acme\\Security\\Shared", "class": "AccessSharedA2", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 2, "tail_trim": 0}}], "cluster": "A"},
+                {"file": "AccessSharedA3.php", "namespace": "Acme\\Security\\Shared", "class": "AccessSharedA3", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 0, "tail_trim": 2}}], "cluster": "A"},
+                {"file": "AccessSharedB1.php", "namespace": "Acme\\Security\\Shared", "class": "AccessSharedB1", "scaffold": "method_alpha", "group": "B", "pristine": true, "transforms": [], "cluster": "B", "relation": {"type": "overlapping", "with": "A"}},
+                {"file": "AccessSharedB2.php", "namespace": "Acme\\Security\\Shared", "class": "AccessSharedB2", "scaffold": "method_beta", "group": "B", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 2, "tail_trim": 0}}], "cluster": "B", "relation": {"type": "overlapping", "with": "A"}},
+                {"file": "AccessSharedB3.php", "namespace": "Acme\\Security\\Shared", "class": "AccessSharedB3", "scaffold": "method_gamma", "group": "B", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 0, "tail_trim": 2}}], "cluster": "B", "relation": {"type": "overlapping", "with": "A"}}
+            ],
+            "distractors": [
+                {"file": "AuthDistractor.php", "namespace": "Acme\\Security\\Audit", "class": "AuthDistractor", "source": "nearmiss_access", "reason": "Near-miss: similar authorization vocabulary but different permission model"}
+            ],
+            "cleans": [
+                {"file": "AuthClean.php", "namespace": "Acme\\Security\\Config", "class": "AuthClean", "source": "clean_auth"}
+            ]
+        }
+    ]
+}

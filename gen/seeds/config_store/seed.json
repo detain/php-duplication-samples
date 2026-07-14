@@ -1,0 +1,14 @@
+{
+    "domain": "config_store",
+    "summary": "Configuration storage: immutable (withers) vs mutable (setters).",
+    "size_class": "S",
+    "symbol": "get",
+    "line_count": 20,
+    "token_count": 140,
+    "required_symbols": ["get", "set", "with"],
+    "mount_modes": ["method"],
+    "compatible_interference": ["WS-03", "CM-03", "RN-01", "LT-01", "API-02", "API-05"],
+    "variants": [
+        {"file": "api_immutable_api.php", "code": "API-06", "name": "api_immutable_vs_mutable"}
+    ]
+}

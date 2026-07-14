@@ -52,6 +52,7 @@ $variants = [
     'auth_table_driven' => $dir . '/variants/api_table_driven.php',
     'auth_data_shape'   => $dir . '/variants/api_data_shape.php',
     'auth_datetime'     => $dir . '/variants/api_datetime.php',
+    'auth_inverted'     => $dir . '/variants/cf_guard_clause_inversion.php',
 ];
 foreach ($variants as $fn => $file) {
     loadAs($file, $fn);

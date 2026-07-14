@@ -133,6 +133,32 @@
             "cleans": [
                 {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
             ]
+        },
+        {
+            "set_id": "L05-st_reorder-006",
+            "title": "Invoice totals with combined reorder and rename guest",
+            "description": "G-5 gap-fill: Combined statement reorder + variable rename on guest. The same computeTotals method in three billing classes. Carrier A is pristine; carrier B both reorders statements AND renames a local variable ('subtotal' → 'sub'); carrier C also combines reorder + rename. This tests whether detectors can match when structural reordering and identifier renaming happen simultaneously.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "edit_budget": 20,
+            "rng_seed": 108106,
+            "notes": "G-5 gap-fill: rung-5 combined = ST-05 (ReorderIndependent) + RN-01 (rename guest variable). This combined transformation is more challenging than single-axis reordering.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineInvoiceCalc.php", "namespace": "Acme\\Billing\\Pristine", "class": "PristineInvoiceCalc", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "BeforeLoopInvoiceCalc.php", "namespace": "Acme\\Billing\\BeforeLoop", "class": "BeforeLoopInvoiceCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-05", "params": {"reorder": true}}, {"code": "RN-01", "params": {"renames": {"subtotal": "sub"}}}]},
+                {"file": "AfterLoopInvoiceCalc.php", "namespace": "Acme\\Billing\\AfterLoop", "class": "AfterLoopInvoiceCalc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-05", "params": {"reorder": true}}, {"code": "RN-01", "params": {"renames": {"subtotal": "sub", "tax": "t", "total": "tot"}}}]}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total — a different result"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
         }
     ]
 }

@@ -1,0 +1,133 @@
+{
+    "level": 2,
+    "level_name": "whitespace_variation",
+    "level_dir": "L02_whitespace",
+    "family": "tb_100",
+    "sets": [
+        {
+            "set_id": "L02-tb_100-001",
+            "title": "Token-boundary probe at 99 tokens (just below 100 threshold)",
+            "description": "Exact clone at 99 tokens - just below PMD's 100-token threshold.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 202041,
+            "notes": "K-28 threshold bracketing: token-boundary ±1 at 100. Target 99 tokens.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PaymentCalcA.php", "namespace": "Acme\\Payment\\Probe", "class": "PaymentCalcA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PaymentCalcB.php", "namespace": "Acme\\Payment\\Probe", "class": "PaymentCalcB", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PaymentCalcC.php", "namespace": "Acme\\Payment\\Probe", "class": "PaymentCalcC", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "ReceiptCalc.php", "namespace": "Acme\\Payment\\Distract", "class": "ReceiptCalc", "source": "nearmiss_invoice", "reason": "near-miss: similar structure, different computation"}
+            ],
+            "cleans": [
+                {"file": "CurrencyRepo.php", "namespace": "Acme\\Payment\\Currency", "class": "CurrencyRepo", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L02-tb_100-002",
+            "title": "Token-boundary probe at exactly 100 tokens",
+            "description": "Exact clone at exactly 100 tokens - at PMD's default threshold.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 202042,
+            "notes": "K-28 threshold bracketing: token-boundary ±1 at 100. Target 100 tokens (PMD default).",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PaymentCalcA.php", "namespace": "Acme\\Payment\\Probe", "class": "PaymentCalcA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PaymentCalcB.php", "namespace": "Acme\\Payment\\Probe", "class": "PaymentCalcB", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PaymentCalcC.php", "namespace": "Acme\\Payment\\Probe", "class": "PaymentCalcC", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "ReceiptCalc.php", "namespace": "Acme\\Payment\\Distract", "class": "ReceiptCalc", "source": "nearmiss_invoice", "reason": "near-miss: similar structure, different computation"}
+            ],
+            "cleans": [
+                {"file": "CurrencyRepo.php", "namespace": "Acme\\Payment\\Currency", "class": "CurrencyRepo", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L02-tb_100-003",
+            "title": "Token-boundary probe at 101 tokens (just above 100 threshold)",
+            "description": "Exact clone at 101 tokens - clearly above PMD's threshold.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 202043,
+            "notes": "K-28 threshold bracketing: token-boundary ±1 at 100. Target 101 tokens.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PaymentCalcA.php", "namespace": "Acme\\Payment\\Probe", "class": "PaymentCalcA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PaymentCalcB.php", "namespace": "Acme\\Payment\\Probe", "class": "PaymentCalcB", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PaymentCalcC.php", "namespace": "Acme\\Payment\\Probe", "class": "PaymentCalcC", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "ReceiptCalc.php", "namespace": "Acme\\Payment\\Distract", "class": "ReceiptCalc", "source": "nearmiss_invoice", "reason": "near-miss: similar structure, different computation"}
+            ],
+            "cleans": [
+                {"file": "CurrencyRepo.php", "namespace": "Acme\\Payment\\Currency", "class": "CurrencyRepo", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L02-tb_100-004",
+            "title": "Token-boundary probe at 50 tokens (jscpd default)",
+            "description": "Exact clone at 50 tokens - at jscpd's default threshold.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 202044,
+            "notes": "K-28 threshold bracketing: token-boundary ±1 at 100, cross-reference 50 (jscpd).",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PaymentCalcA.php", "namespace": "Acme\\Payment\\Probe", "class": "PaymentCalcA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PaymentCalcB.php", "namespace": "Acme\\Payment\\Probe", "class": "PaymentCalcB", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PaymentCalcC.php", "namespace": "Acme\\Payment\\Probe", "class": "PaymentCalcC", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "ReceiptCalc.php", "namespace": "Acme\\Payment\\Distract", "class": "ReceiptCalc", "source": "nearmiss_invoice", "reason": "near-miss: similar structure, different computation"}
+            ],
+            "cleans": [
+                {"file": "CurrencyRepo.php", "namespace": "Acme\\Payment\\Currency", "class": "CurrencyRepo", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L02-tb_100-005",
+            "title": "Token-boundary probe at 70 tokens (phpcpd default)",
+            "description": "Exact clone at 70 tokens - at phpcpd's default threshold.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 202045,
+            "notes": "K-28 threshold bracketing: token-boundary ±1 at 100, cross-reference 70 (phpcpd).",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PaymentCalcA.php", "namespace": "Acme\\Payment\\Probe", "class": "PaymentCalcA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PaymentCalcB.php", "namespace": "Acme\\Payment\\Probe", "class": "PaymentCalcB", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PaymentCalcC.php", "namespace": "Acme\\Payment\\Probe", "class": "PaymentCalcC", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "ReceiptCalc.php", "namespace": "Acme\\Payment\\Distract", "class": "ReceiptCalc", "source": "nearmiss_invoice", "reason": "near-miss: similar structure, different computation"}
+            ],
+            "cleans": [
+                {"file": "CurrencyRepo.php", "namespace": "Acme\\Payment\\Currency", "class": "CurrencyRepo", "source": "clean_billing"}
+            ]
+        }
+    ]
+}

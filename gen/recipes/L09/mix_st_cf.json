@@ -1,0 +1,143 @@
+{
+    "level": 9,
+    "level_name": "mixed_interference",
+    "level_dir": "L09_mixed_interference",
+    "family": "mix_st_cf",
+    "sets": [
+        {
+            "set_id": "L09-mix_st_cf-001",
+            "title": "Invoice totals with statement edit + control-flow interference",
+            "description": "The same computeTotals method across three billing classes. Carrier A is pristine; carrier B applies ST-04 delete_stmt; carrier C applies CF-01 if_ternary. Token-based detectors should still identify the clones after normalization.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "case_convention", "literals"],
+            "edit_budget": 15,
+            "rng_seed": 109901,
+            "notes": "Combines ST-04 (delete_stmt) with CF-01 (if_ternary). Tests token overlap detection with statement deletion and control-flow rewriting.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.5, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineInvoiceCalc.php", "namespace": "Acme\\Billing\\Pristine", "class": "PristineInvoiceCalc", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "TrimmedCalc.php", "namespace": "Acme\\Billing\\Trimmed", "class": "TrimmedCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-04", "params": {"count": 1}}]},
+                {"file": "TernaryCalc.php", "namespace": "Acme\\Billing\\Ternary", "class": "TernaryCalc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "CF-01", "params": {"variant": "if_ternary"}}]}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L09-mix_st_cf-002",
+            "title": "Invoice totals with statement edit + control-flow interference (match vs loop)",
+            "description": "Same computeTotals method. Carrier A applies ST-04; carrier B applies CF-02 match_switch; carrier C applies CF-04 loop_forms.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "case_convention", "literals"],
+            "edit_budget": 15,
+            "rng_seed": 109902,
+            "notes": "ST-04 (delete_stmt) combined with CF-02 (match_switch) and CF-04 (loop_forms). Tests statement deletion with different control-flow patterns.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.5, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineInvoiceCalc.php", "namespace": "Acme\\Billing\\Pristine", "class": "PristineInvoiceCalc", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "TrimmedCalc.php", "namespace": "Acme\\Billing\\Trimmed", "class": "TrimmedCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-04", "params": {"count": 1}}]},
+                {"file": "MatchSwitchCalc.php", "namespace": "Acme\\Billing\\Match", "class": "MatchSwitchCalc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "CF-02", "params": {"variant": "match_switch"}}]}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L09-mix_st_cf-003",
+            "title": "Invoice totals with mixed statement + control-flow interference",
+            "description": "Same computeTotals method. Carrier A applies ST-01 + ST-02; carrier B applies CF-03 early_return; carrier C applies ST-04 + CF-01.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "case_convention", "literals"],
+            "edit_budget": 15,
+            "rng_seed": 109903,
+            "notes": "Mixed statement and control-flow interference. Different statement edits and control-flow rewrites.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.5, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineInvoiceCalc.php", "namespace": "Acme\\Billing\\Pristine", "class": "PristineInvoiceCalc", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "StatementEditCalc.php", "namespace": "Acme\\Billing\\Statement", "class": "StatementEditCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-01", "params": {"count": 1}}, {"code": "ST-02", "params": {"count": 1}}]},
+                {"file": "MixedInterferenceCalc.php", "namespace": "Acme\\Billing\\Mixed", "class": "MixedInterferenceCalc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-04", "params": {"count": 1}}, {"code": "CF-01", "params": {"variant": "if_ternary"}}]}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L09-mix_st_cf-004",
+            "title": "Invoice totals with heavy 2-axis interference",
+            "description": "Same computeTotals method. All carriers apply ST-04 + CF-01 with varying parameters. Heavy uniform statement + control-flow interference.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "case_convention", "literals"],
+            "edit_budget": 15,
+            "rng_seed": 109904,
+            "notes": "All carriers use same 2-axis combination (ST-04 + CF-01) with different parameters. Tests token overlap detection under heavy uniform interference.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.5, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineInvoiceCalc.php", "namespace": "Acme\\Billing\\Pristine", "class": "PristineInvoiceCalc", "scaffold": "method_alpha", "group": "A", "pristine": false, "transforms": [{"code": "ST-04", "params": {"count": 1}}, {"code": "CF-01", "params": {"variant": "if_ternary"}}]},
+                {"file": "HeavyInterferenceCalc.php", "namespace": "Acme\\Billing\\Heavy", "class": "HeavyInterferenceCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-04", "params": {"count": 2}}, {"code": "CF-02", "params": {"variant": "match_switch"}}]},
+                {"file": "HeavyInterferenceAltCalc.php", "namespace": "Acme\\Billing\\Heavy", "class": "HeavyInterferenceAltCalc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-04", "params": {"count": 1}}, {"code": "CF-03", "params": {"variant": "early_return"}}]}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L09-mix_st_cf-005",
+            "title": "Invoice totals with maximum statement + control-flow interference",
+            "description": "Same computeTotals method. Each carrier uses different statement edits and control-flow rewrites. Maximum variation in 2-axis interference.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "case_convention", "literals"],
+            "edit_budget": 15,
+            "rng_seed": 109905,
+            "notes": "Maximum variation in ST-04 + CF-01 + CF-04 combination while still being type-3 detectable. Different statement edits and control-flow patterns per carrier.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.5, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineInvoiceCalc.php", "namespace": "Acme\\Billing\\Pristine", "class": "PristineInvoiceCalc", "scaffold": "method_alpha", "group": "A", "pristine": false, "transforms": [{"code": "ST-04", "params": {"count": 1}}, {"code": "CF-01", "params": {"variant": "if_ternary"}}, {"code": "CF-04", "params": {"variant": "loop_forms"}}]},
+                {"file": "MaxInterferenceCalc.php", "namespace": "Acme\\Billing\\Max", "class": "MaxInterferenceCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-04", "params": {"count": 2}}, {"code": "CF-02", "params": {"variant": "match_switch"}}, {"code": "CF-03", "params": {"variant": "early_return"}}]},
+                {"file": "MaxInterferenceAltCalc.php", "namespace": "Acme\\Billing\\Max", "class": "MaxInterferenceAltCalc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-04", "params": {"count": 1}}, {"code": "CF-01", "params": {"variant": "if_ternary"}}, {"code": "CF-02", "params": {"variant": "match_switch"}}]}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        }
+    ]
+}

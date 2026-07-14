@@ -1,0 +1,133 @@
+{
+    "level": 7,
+    "level_name": "api_idioms",
+    "level_dir": "L07_api_idioms",
+    "family": "api_generator_vs_array",
+    "sets": [
+        {
+            "set_id": "L07-api_generator_vs_array-001",
+            "title": "Number generation: return array vs yield (generator) pattern",
+            "description": "The same number sequence generation written as a function that returns a complete array (pristine) vs a generator using yield. Both produce identical sequences when consumed. Token-distinct implementations that differ in memory model (eager array vs lazy generator).",
+            "seed": "number_gen",
+            "mount": "method",
+            "clone_symbol": "generate",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals", "controlflow"],
+            "rng_seed": 107601,
+            "notes": "Set 001 of 5. number_gen seed with API-08 api_generator_vs_array variant (generator using yield). Carrier A returns a full array (pristine). Carrier B uses a Generator with yield. min_members_for_credit is the default 2.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": true},
+            "carriers": [
+                {"file": "NumberRangeArray.php", "namespace": "Acme\\Numbers\\Ranges", "class": "NumberRangeArray", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "NumberRangeGenerator.php", "namespace": "Acme\\Numbers\\Ranges", "class": "NumberRangeGenerator", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "api_generator_vs_array", "transforms": [{"code": "API-08", "variant": "api_generator_vs_array"}]}
+            ],
+            "distractors": [
+                {"file": "NumberTransformer.php", "namespace": "Acme\\Numbers\\Transforms", "class": "NumberTransformer", "source": "nearmiss_numbers", "reason": "near-miss: same number-domain vocabulary (start/count/generate) but transforms each number by doubling or halving, producing a different sequence"}
+            ],
+            "cleans": [
+                {"file": "MathConstants.php", "namespace": "Acme\\Numbers\\Base", "class": "MathConstants", "source": "clean_numbers"}
+            ]
+        },
+        {
+            "set_id": "L07-api_generator_vs_array-002",
+            "title": "Number generation: return array vs yield (generator) pattern",
+            "description": "The same number sequence generation written as a function that returns a complete array (pristine) vs a generator using yield.",
+            "seed": "number_gen",
+            "mount": "method",
+            "clone_symbol": "generate",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals", "controlflow"],
+            "rng_seed": 107602,
+            "notes": "Set 002 of 5.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": true},
+            "carriers": [
+                {"file": "NumberRangeArray.php", "namespace": "Acme\\Numbers\\Ranges", "class": "NumberRangeArray", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "NumberRangeGenerator.php", "namespace": "Acme\\Numbers\\Ranges", "class": "NumberRangeGenerator", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "api_generator_vs_array", "transforms": [{"code": "API-08", "variant": "api_generator_vs_array"}]}
+            ],
+            "distractors": [
+                {"file": "NumberTransformer.php", "namespace": "Acme\\Numbers\\Transforms", "class": "NumberTransformer", "source": "nearmiss_numbers", "reason": "near-miss: same number-domain vocabulary but transforms each number, producing a different sequence"}
+            ],
+            "cleans": [
+                {"file": "MathConstants.php", "namespace": "Acme\\Numbers\\Base", "class": "MathConstants", "source": "clean_numbers"}
+            ]
+        },
+        {
+            "set_id": "L07-api_generator_vs_array-003",
+            "title": "Number generation: return array vs yield (generator) pattern",
+            "description": "The same number sequence generation written as a function that returns a complete array (pristine) vs a generator using yield.",
+            "seed": "number_gen",
+            "mount": "method",
+            "clone_symbol": "generate",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals", "controlflow"],
+            "rng_seed": 107603,
+            "notes": "Set 003 of 5.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": true},
+            "carriers": [
+                {"file": "NumberRangeArray.php", "namespace": "Acme\\Numbers\\Ranges", "class": "NumberRangeArray", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "NumberRangeGenerator.php", "namespace": "Acme\\Numbers\\Ranges", "class": "NumberRangeGenerator", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "api_generator_vs_array", "transforms": [{"code": "API-08", "variant": "api_generator_vs_array"}]}
+            ],
+            "distractors": [
+                {"file": "NumberTransformer.php", "namespace": "Acme\\Numbers\\Transforms", "class": "NumberTransformer", "source": "nearmiss_numbers", "reason": "near-miss: same number-domain vocabulary but transforms each number, producing a different sequence"}
+            ],
+            "cleans": [
+                {"file": "MathConstants.php", "namespace": "Acme\\Numbers\\Base", "class": "MathConstants", "source": "clean_numbers"}
+            ]
+        },
+        {
+            "set_id": "L07-api_generator_vs_array-004",
+            "title": "Number generation: return array vs yield (generator) pattern",
+            "description": "The same number sequence generation written as a function that returns a complete array (pristine) vs a generator using yield.",
+            "seed": "number_gen",
+            "mount": "method",
+            "clone_symbol": "generate",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals", "controlflow"],
+            "rng_seed": 107604,
+            "notes": "Set 004 of 5.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": true},
+            "carriers": [
+                {"file": "NumberRangeArray.php", "namespace": "Acme\\Numbers\\Ranges", "class": "NumberRangeArray", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "NumberRangeGenerator.php", "namespace": "Acme\\Numbers\\Ranges", "class": "NumberRangeGenerator", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "api_generator_vs_array", "transforms": [{"code": "API-08", "variant": "api_generator_vs_array"}]}
+            ],
+            "distractors": [
+                {"file": "NumberTransformer.php", "namespace": "Acme\\Numbers\\Transforms", "class": "NumberTransformer", "source": "nearmiss_numbers", "reason": "near-miss: same number-domain vocabulary but transforms each number, producing a different sequence"}
+            ],
+            "cleans": [
+                {"file": "MathConstants.php", "namespace": "Acme\\Numbers\\Base", "class": "MathConstants", "source": "clean_numbers"}
+            ]
+        },
+        {
+            "set_id": "L07-api_generator_vs_array-005",
+            "title": "Number generation: return array vs yield (generator) pattern",
+            "description": "The same number sequence generation written as a function that returns a complete array (pristine) vs a generator using yield.",
+            "seed": "number_gen",
+            "mount": "method",
+            "clone_symbol": "generate",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals", "controlflow"],
+            "rng_seed": 107605,
+            "notes": "Set 005 of 5.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": true},
+            "carriers": [
+                {"file": "NumberRangeArray.php", "namespace": "Acme\\Numbers\\Ranges", "class": "NumberRangeArray", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "NumberRangeGenerator.php", "namespace": "Acme\\Numbers\\Ranges", "class": "NumberRangeGenerator", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "api_generator_vs_array", "transforms": [{"code": "API-08", "variant": "api_generator_vs_array"}]}
+            ],
+            "distractors": [
+                {"file": "NumberTransformer.php", "namespace": "Acme\\Numbers\\Transforms", "class": "NumberTransformer", "source": "nearmiss_numbers", "reason": "near-miss: same number-domain vocabulary but transforms each number, producing a different sequence"}
+            ],
+            "cleans": [
+                {"file": "MathConstants.php", "namespace": "Acme\\Numbers\\Base", "class": "MathConstants", "source": "clean_numbers"}
+            ]
+        }
+    ]
+}

@@ -1,0 +1,375 @@
+{
+    "schema_version": 1,
+    "set_id": "L10-adv_mass_instances-002",
+    "level": 10,
+    "level_name": "adversarial_edge_cases",
+    "family": "adv_mass_instances",
+    "title": "Mass duplication extended: 30 files, same clone with transforms",
+    "description": "Extended scalability test with 30 carriers. Same 10-line clone with transforms applied (RN-01 variable rename, LT-01 literal change, CM-03 docblock). Position variation via mixed scaffolds across line 5-200 range.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "helper_ten_lines",
+    "difficulty_band": "expert",
+    "files": [
+        {
+            "path": "src/ScaleA01.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "start_line": 7,
+            "sloc": 24,
+            "transforms": []
+        },
+        {
+            "path": "src/ScaleA02.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "start_line": 17,
+            "sloc": 34,
+            "transforms": ["RN-01"]
+        },
+        {
+            "path": "src/ScaleA03.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "start_line": 24,
+            "sloc": 41,
+            "transforms": ["LT-01"]
+        },
+        {
+            "path": "src/ScaleA04.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "start_line": 44,
+            "sloc": 61,
+            "transforms": []
+        },
+        {
+            "path": "src/ScaleA05.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "start_line": 50,
+            "sloc": 67,
+            "transforms": ["RN-01", "LT-01"]
+        },
+        {
+            "path": "src/ScaleA06.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "start_line": 84,
+            "sloc": 102,
+            "transforms": ["CM-03"]
+        },
+        {
+            "path": "src/ScaleA07.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "start_line": 100,
+            "sloc": 118,
+            "transforms": []
+        },
+        {
+            "path": "src/ScaleA08.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "start_line": 120,
+            "sloc": 138,
+            "transforms": ["RN-01"]
+        },
+        {
+            "path": "src/ScaleA09.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "start_line": 150,
+            "sloc": 168,
+            "transforms": ["LT-01", "CM-03"]
+        },
+        {
+            "path": "src/ScaleA10.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "start_line": 170,
+            "sloc": 188,
+            "transforms": []
+        },
+        {
+            "path": "src/ScaleB01.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "start_line": 7,
+            "sloc": 24,
+            "transforms": []
+        },
+        {
+            "path": "src/ScaleB02.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "start_line": 18,
+            "sloc": 35,
+            "transforms": ["RN-01"]
+        },
+        {
+            "path": "src/ScaleB03.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "start_line": 24,
+            "sloc": 41,
+            "transforms": ["LT-01"]
+        },
+        {
+            "path": "src/ScaleB04.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "start_line": 44,
+            "sloc": 61,
+            "transforms": []
+        },
+        {
+            "path": "src/ScaleB05.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "start_line": 50,
+            "sloc": 67,
+            "transforms": ["RN-01", "LT-01"]
+        },
+        {
+            "path": "src/ScaleB06.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "start_line": 84,
+            "sloc": 102,
+            "transforms": ["CM-03"]
+        },
+        {
+            "path": "src/ScaleB07.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "start_line": 100,
+            "sloc": 118,
+            "transforms": []
+        },
+        {
+            "path": "src/ScaleB08.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "start_line": 120,
+            "sloc": 138,
+            "transforms": ["RN-01"]
+        },
+        {
+            "path": "src/ScaleB09.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "start_line": 150,
+            "sloc": 168,
+            "transforms": ["LT-01", "CM-03"]
+        },
+        {
+            "path": "src/ScaleB10.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "start_line": 185,
+            "sloc": 203,
+            "transforms": []
+        },
+        {
+            "path": "src/ScaleC01.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "start_line": 7,
+            "sloc": 24,
+            "transforms": []
+        },
+        {
+            "path": "src/ScaleC02.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "start_line": 17,
+            "sloc": 34,
+            "transforms": ["RN-01"]
+        },
+        {
+            "path": "src/ScaleC03.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "start_line": 24,
+            "sloc": 41,
+            "transforms": ["LT-01"]
+        },
+        {
+            "path": "src/ScaleC04.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "start_line": 44,
+            "sloc": 61,
+            "transforms": []
+        },
+        {
+            "path": "src/ScaleC05.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "start_line": 50,
+            "sloc": 67,
+            "transforms": ["RN-01", "LT-01"]
+        },
+        {
+            "path": "src/ScaleC06.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "start_line": 84,
+            "sloc": 102,
+            "transforms": ["CM-03"]
+        },
+        {
+            "path": "src/ScaleC07.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "start_line": 100,
+            "sloc": 118,
+            "transforms": []
+        },
+        {
+            "path": "src/ScaleC08.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "start_line": 120,
+            "sloc": 138,
+            "transforms": ["RN-01"]
+        },
+        {
+            "path": "src/ScaleC09.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "start_line": 150,
+            "sloc": 168,
+            "transforms": ["LT-01", "CM-03"]
+        },
+        {
+            "path": "src/ScaleC10.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "start_line": 170,
+            "sloc": 188,
+            "transforms": []
+        },
+        {
+            "path": "src/DistractorX.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 63
+        },
+        {
+            "path": "src/DistractorY.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 22
+        },
+        {
+            "path": "src/CleanX.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        },
+        {
+            "path": "src/CleanY.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 27
+        },
+        {
+            "path": "src/CleanZ.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 22
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-2",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 30
+    },
+    "interference": [
+        {
+            "code": "RN-01",
+            "name": "local_vars",
+            "description": "Rename variables: $result→$output, $items→$data, $key→$k, $value→$v",
+            "params": {
+                "result": "output",
+                "items": "data",
+                "key": "k",
+                "value": "v"
+            },
+            "applied_to": [
+                "src/ScaleA02.php",
+                "src/ScaleA05.php",
+                "src/ScaleA08.php",
+                "src/ScaleB02.php",
+                "src/ScaleB05.php",
+                "src/ScaleB08.php",
+                "src/ScaleC02.php",
+                "src/ScaleC05.php",
+                "src/ScaleC08.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "LT-01",
+            "name": "numeric",
+            "description": "Replace literals: null→NULL_CONST, ''→\"\\\"\", false→0",
+            "params": {
+                "null": "NULL_CONST",
+                "empty_string": "\"\\\"\"",
+                "false": "0"
+            },
+            "applied_to": [
+                "src/ScaleA03.php",
+                "src/ScaleA05.php",
+                "src/ScaleA09.php",
+                "src/ScaleB03.php",
+                "src/ScaleB05.php",
+                "src/ScaleB09.php",
+                "src/ScaleC03.php",
+                "src/ScaleC05.php",
+                "src/ScaleC09.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "CM-03",
+            "name": "docblock",
+            "description": "Add docblock before method: /** Compute the result for the given inputs. */",
+            "params": {
+                "docblock": "/** Compute the result for the given inputs. */"
+            },
+            "applied_to": [
+                "src/ScaleA06.php",
+                "src/ScaleA09.php",
+                "src/ScaleB06.php",
+                "src/ScaleB09.php",
+                "src/ScaleC06.php",
+                "src/ScaleC09.php"
+            ],
+            "intensity": 1
+        }
+    ],
+    "difficulty": {
+        "score": 97,
+        "requires": [
+            "identifier_canonicalization",
+            "literal_abstraction",
+            "comment_stripping"
+        ]
+    },
+    "generator": {
+        "tool": "manual",
+        "recipe": "gen/recipes/L10/adv_mass_instances.json",
+        "version": "1.0.0",
+        "rng_seed": 112102
+    },
+    "role_composition": {
+        "carrier": 30,
+        "distractor": 2,
+        "clean": 3
+    }
+}

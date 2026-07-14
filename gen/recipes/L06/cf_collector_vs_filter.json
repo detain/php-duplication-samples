@@ -1,0 +1,133 @@
+{
+    "level": 6,
+    "level_name": "controlflow_rewrites",
+    "level_dir": "L06_controlflow_rewrites",
+    "family": "cf_collector_vs_filter",
+    "sets": [
+        {
+            "set_id": "L06-cf_collector_vs_filter-001",
+            "title": "Item filtering: manual foreach+if vs array_filter+array_map chain",
+            "description": "The same item filtering and transformation written as a manual foreach loop with if-else collecting (pristine) vs a functional array_filter+array_map chain. Both produce identical filtered and transformed results. Token-distinct implementations.",
+            "seed": "item_filter",
+            "mount": "method",
+            "clone_symbol": "filter",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals", "controlflow"],
+            "rng_seed": 106501,
+            "notes": "Set 001 of 5. item_filter seed with CF-08 cf_collector_vs_filter variant (array_filter+array_map). Carrier A uses manual foreach+if (pristine). Carrier B uses functional array_filter+array_map. min_members_for_credit is the default 2.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": true},
+            "carriers": [
+                {"file": "ProductFilterManual.php", "namespace": "Acme\\Products\\Filters", "class": "ProductFilterManual", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "ProductFilterFunctional.php", "namespace": "Acme\\Products\\Filters", "class": "ProductFilterFunctional", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "cf_collector_vs_filter", "transforms": [{"code": "CF-08", "variant": "cf_collector_vs_filter"}]}
+            ],
+            "distractors": [
+                {"file": "ProductSorter.php", "namespace": "Acme\\Products\\Sorters", "class": "ProductSorter", "source": "nearmiss_product", "reason": "near-miss: same product-domain vocabulary (sku/name/price) but sorts items by price ascending, not filtering and transforming"}
+            ],
+            "cleans": [
+                {"file": "CategoryRepository.php", "namespace": "Acme\\Products\\Repository", "class": "CategoryRepository", "source": "clean_product"}
+            ]
+        },
+        {
+            "set_id": "L06-cf_collector_vs_filter-002",
+            "title": "Item filtering: manual foreach+if vs array_filter+array_map chain",
+            "description": "The same item filtering and transformation written as a manual foreach loop with if-else collecting (pristine) vs a functional array_filter+array_map chain.",
+            "seed": "item_filter",
+            "mount": "method",
+            "clone_symbol": "filter",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals", "controlflow"],
+            "rng_seed": 106502,
+            "notes": "Set 002 of 5.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": true},
+            "carriers": [
+                {"file": "ProductFilterManual.php", "namespace": "Acme\\Products\\Filters", "class": "ProductFilterManual", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "ProductFilterFunctional.php", "namespace": "Acme\\Products\\Filters", "class": "ProductFilterFunctional", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "cf_collector_vs_filter", "transforms": [{"code": "CF-08", "variant": "cf_collector_vs_filter"}]}
+            ],
+            "distractors": [
+                {"file": "ProductSorter.php", "namespace": "Acme\\Products\\Sorters", "class": "ProductSorter", "source": "nearmiss_product", "reason": "near-miss: same product-domain vocabulary but sorts items by price ascending, not filtering and transforming"}
+            ],
+            "cleans": [
+                {"file": "CategoryRepository.php", "namespace": "Acme\\Products\\Repository", "class": "CategoryRepository", "source": "clean_product"}
+            ]
+        },
+        {
+            "set_id": "L06-cf_collector_vs_filter-003",
+            "title": "Item filtering: manual foreach+if vs array_filter+array_map chain",
+            "description": "The same item filtering and transformation written as a manual foreach loop with if-else collecting (pristine) vs a functional array_filter+array_map chain.",
+            "seed": "item_filter",
+            "mount": "method",
+            "clone_symbol": "filter",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals", "controlflow"],
+            "rng_seed": 106503,
+            "notes": "Set 003 of 5.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": true},
+            "carriers": [
+                {"file": "ProductFilterManual.php", "namespace": "Acme\\Products\\Filters", "class": "ProductFilterManual", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "ProductFilterFunctional.php", "namespace": "Acme\\Products\\Filters", "class": "ProductFilterFunctional", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "cf_collector_vs_filter", "transforms": [{"code": "CF-08", "variant": "cf_collector_vs_filter"}]}
+            ],
+            "distractors": [
+                {"file": "ProductSorter.php", "namespace": "Acme\\Products\\Sorters", "class": "ProductSorter", "source": "nearmiss_product", "reason": "near-miss: same product-domain vocabulary but sorts items by price ascending, not filtering and transforming"}
+            ],
+            "cleans": [
+                {"file": "CategoryRepository.php", "namespace": "Acme\\Products\\Repository", "class": "CategoryRepository", "source": "clean_product"}
+            ]
+        },
+        {
+            "set_id": "L06-cf_collector_vs_filter-004",
+            "title": "Item filtering: manual foreach+if vs array_filter+array_map chain",
+            "description": "The same item filtering and transformation written as a manual foreach loop with if-else collecting (pristine) vs a functional array_filter+array_map chain.",
+            "seed": "item_filter",
+            "mount": "method",
+            "clone_symbol": "filter",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals", "controlflow"],
+            "rng_seed": 106504,
+            "notes": "Set 004 of 5.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": true},
+            "carriers": [
+                {"file": "ProductFilterManual.php", "namespace": "Acme\\Products\\Filters", "class": "ProductFilterManual", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "ProductFilterFunctional.php", "namespace": "Acme\\Products\\Filters", "class": "ProductFilterFunctional", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "cf_collector_vs_filter", "transforms": [{"code": "CF-08", "variant": "cf_collector_vs_filter"}]}
+            ],
+            "distractors": [
+                {"file": "ProductSorter.php", "namespace": "Acme\\Products\\Sorters", "class": "ProductSorter", "source": "nearmiss_product", "reason": "near-miss: same product-domain vocabulary but sorts items by price ascending, not filtering and transforming"}
+            ],
+            "cleans": [
+                {"file": "CategoryRepository.php", "namespace": "Acme\\Products\\Repository", "class": "CategoryRepository", "source": "clean_product"}
+            ]
+        },
+        {
+            "set_id": "L06-cf_collector_vs_filter-005",
+            "title": "Item filtering: manual foreach+if vs array_filter+array_map chain",
+            "description": "The same item filtering and transformation written as a manual foreach loop with if-else collecting (pristine) vs a functional array_filter+array_map chain.",
+            "seed": "item_filter",
+            "mount": "method",
+            "clone_symbol": "filter",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals", "controlflow"],
+            "rng_seed": 106505,
+            "notes": "Set 005 of 5.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": true},
+            "carriers": [
+                {"file": "ProductFilterManual.php", "namespace": "Acme\\Products\\Filters", "class": "ProductFilterManual", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "ProductFilterFunctional.php", "namespace": "Acme\\Products\\Filters", "class": "ProductFilterFunctional", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "cf_collector_vs_filter", "transforms": [{"code": "CF-08", "variant": "cf_collector_vs_filter"}]}
+            ],
+            "distractors": [
+                {"file": "ProductSorter.php", "namespace": "Acme\\Products\\Sorters", "class": "ProductSorter", "source": "nearmiss_product", "reason": "near-miss: same product-domain vocabulary but sorts items by price ascending, not filtering and transforming"}
+            ],
+            "cleans": [
+                {"file": "CategoryRepository.php", "namespace": "Acme\\Products\\Repository", "class": "CategoryRepository", "source": "clean_product"}
+            ]
+        }
+    ]
+}

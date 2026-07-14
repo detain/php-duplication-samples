@@ -138,6 +138,33 @@
             "cleans": [
                 {"file": "RoleHierarchy.php", "namespace": "Acme\\Access\\Roles", "class": "RoleHierarchy", "source": "clean_auth"}
             ]
+        },
+        {
+            "set_id": "L08-sem_rule-006",
+            "title": "Authorization decision: minimal two-idiom age check",
+            "description": "G-5 gap-fill: Minimal two-idiom age check before the full five-idiom spread. The same age-verification decision expressed as '$age >= 18' (carrier A, pristine) vs '!($age < 18)' (carrier B, De Morgan transformation). This is the simplest possible semantic rule variation — a single boolean logic transformation — before tackling the full multi-idiom complex predicates in rungs 1-5.",
+            "seed": "age_check",
+            "mount": "method",
+            "clone_symbol": "isAdult",
+            "granularity": "method",
+            "clone_type": "type-4",
+            "normalized_by": ["controlflow", "identifiers", "literals"],
+            "rng_seed": 108106,
+            "notes": "G-5 gap-fill: rung-1 minimal = the two-idiom age check ($age >= 18 vs !($age < 18)) before the full five-idiom spread. This demonstrates the simplest semantic equivalence pair — a single boolean law transformation.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": false, "ast_based": false, "metric_based": false, "semantic": true},
+            "requires": ["semantic_reasoning"],
+            "carriers": [
+                {"file": "AgeCheckPolicyStandard.php", "namespace": "Acme\\Access\\Age", "class": "AgeCheckPolicyStandard", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "AgeCheckPolicyNegated.php", "namespace": "Acme\\Access\\Age", "class": "AgeCheckPolicyNegated", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "sem_rule_minimal", "transforms": [{"code": "SEM-01", "variant": "sem_rule_minimal"}]},
+                {"file": "AgeCheckPolicyAlt.php", "namespace": "Acme\\Access\\Age", "class": "AgeCheckPolicyAlt", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "TrustScorer.php", "namespace": "Acme\\Access\\Scoring", "class": "TrustScorer", "source": "nearmiss_access", "reason": "near-miss: same auth vocabulary (user/age/roles/grants/status) but computes a numeric trust score, not a boolean decision"}
+            ],
+            "cleans": [
+                {"file": "RoleHierarchy.php", "namespace": "Acme\\Access\\Roles", "class": "RoleHierarchy", "source": "clean_auth"}
+            ]
         }
     ]
 }

@@ -148,5 +148,12 @@
     },
     "engine_features": [
         "fragment_emission"
-    ]
+    ],
+    "progression": {
+        "bridge_pair": {
+            "lower": "L06-co_variant_selector-001",
+            "upper": "L07-api_table_driven-001",
+            "delta_axis": "API"
+        }
+    }
 }

@@ -1,0 +1,133 @@
+{
+    "level": 6,
+    "level_name": "controlflow_rewrites",
+    "level_dir": "L06_controlflow_rewrites",
+    "family": "cf_strategy_pattern",
+    "sets": [
+        {
+            "set_id": "L06-cf_strategy_pattern-001",
+            "title": "Payment webhook handling: switch statement vs strategy object dispatch",
+            "description": "The same webhook-event dispatching logic expressed with a switch statement (pristine) vs the strategy-object pattern (dedicated handler objects per event type). Both dispatch to the same handler methods with identical behavior. These are token-distinct representations of the same logic.",
+            "seed": "payment_processor",
+            "mount": "method",
+            "clone_symbol": "handleWebhook",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["controlflow"],
+            "rng_seed": 106401,
+            "notes": "Set 001 of 5. payment_processor seed with CF-11 cf_strategy_pattern (switch-based) vs API-03 strategy_object variant. Carrier A uses switch statement (pristine on handleWebhook). Carrier B uses strategy object pattern. min_members_for_credit is the default 2.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": true},
+            "carriers": [
+                {"file": "PaymentWebhookSwitch.php", "namespace": "Acme\\Payments\\Webhooks", "class": "PaymentWebhookSwitch", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PaymentWebhookStrategy.php", "namespace": "Acme\\Payments\\Webhooks", "class": "PaymentWebhookStrategy", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "strategy_object", "transforms": [{"code": "API-03", "variant": "strategy_object"}]}
+            ],
+            "distractors": [
+                {"file": "PaymentFilter.php", "namespace": "Acme\\Payments\\Filters", "class": "PaymentFilter", "source": "nearmiss_payment", "reason": "near-miss: same payment vocabulary (payment.succeeded/payment.failed/refund.created) but performs validation/retry logic, not dispatch routing"}
+            ],
+            "cleans": [
+                {"file": "CurrencyConverter.php", "namespace": "Acme\\Payments\\Currency", "class": "CurrencyConverter", "source": "clean_payment"}
+            ]
+        },
+        {
+            "set_id": "L06-cf_strategy_pattern-002",
+            "title": "Payment webhook handling: switch statement vs strategy object dispatch",
+            "description": "The same webhook-event dispatching logic expressed with a switch statement (pristine) vs the strategy-object pattern.",
+            "seed": "payment_processor",
+            "mount": "method",
+            "clone_symbol": "handleWebhook",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["controlflow"],
+            "rng_seed": 106402,
+            "notes": "Set 002 of 5.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": true},
+            "carriers": [
+                {"file": "PaymentWebhookSwitch.php", "namespace": "Acme\\Payments\\Webhooks", "class": "PaymentWebhookSwitch", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PaymentWebhookStrategy.php", "namespace": "Acme\\Payments\\Webhooks", "class": "PaymentWebhookStrategy", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "strategy_object", "transforms": [{"code": "API-03", "variant": "strategy_object"}]}
+            ],
+            "distractors": [
+                {"file": "PaymentFilter.php", "namespace": "Acme\\Payments\\Filters", "class": "PaymentFilter", "source": "nearmiss_payment", "reason": "near-miss: same payment vocabulary but performs validation/retry logic, not dispatch routing"}
+            ],
+            "cleans": [
+                {"file": "CurrencyConverter.php", "namespace": "Acme\\Payments\\Currency", "class": "CurrencyConverter", "source": "clean_payment"}
+            ]
+        },
+        {
+            "set_id": "L06-cf_strategy_pattern-003",
+            "title": "Payment webhook handling: switch statement vs strategy object dispatch",
+            "description": "The same webhook-event dispatching logic expressed with a switch statement (pristine) vs the strategy-object pattern.",
+            "seed": "payment_processor",
+            "mount": "method",
+            "clone_symbol": "handleWebhook",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["controlflow"],
+            "rng_seed": 106403,
+            "notes": "Set 003 of 5.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": true},
+            "carriers": [
+                {"file": "PaymentWebhookSwitch.php", "namespace": "Acme\\Payments\\Webhooks", "class": "PaymentWebhookSwitch", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PaymentWebhookStrategy.php", "namespace": "Acme\\Payments\\Webhooks", "class": "PaymentWebhookStrategy", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "strategy_object", "transforms": [{"code": "API-03", "variant": "strategy_object"}]}
+            ],
+            "distractors": [
+                {"file": "PaymentFilter.php", "namespace": "Acme\\Payments\\Filters", "class": "PaymentFilter", "source": "nearmiss_payment", "reason": "near-miss: same payment vocabulary but performs validation/retry logic, not dispatch routing"}
+            ],
+            "cleans": [
+                {"file": "CurrencyConverter.php", "namespace": "Acme\\Payments\\Currency", "class": "CurrencyConverter", "source": "clean_payment"}
+            ]
+        },
+        {
+            "set_id": "L06-cf_strategy_pattern-004",
+            "title": "Payment webhook handling: switch statement vs strategy object dispatch",
+            "description": "The same webhook-event dispatching logic expressed with a switch statement (pristine) vs the strategy-object pattern.",
+            "seed": "payment_processor",
+            "mount": "method",
+            "clone_symbol": "handleWebhook",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["controlflow"],
+            "rng_seed": 106404,
+            "notes": "Set 004 of 5.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": true},
+            "carriers": [
+                {"file": "PaymentWebhookSwitch.php", "namespace": "Acme\\Payments\\Webhooks", "class": "PaymentWebhookSwitch", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PaymentWebhookStrategy.php", "namespace": "Acme\\Payments\\Webhooks", "class": "PaymentWebhookStrategy", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "strategy_object", "transforms": [{"code": "API-03", "variant": "strategy_object"}]}
+            ],
+            "distractors": [
+                {"file": "PaymentFilter.php", "namespace": "Acme\\Payments\\Filters", "class": "PaymentFilter", "source": "nearmiss_payment", "reason": "near-miss: same payment vocabulary but performs validation/retry logic, not dispatch routing"}
+            ],
+            "cleans": [
+                {"file": "CurrencyConverter.php", "namespace": "Acme\\Payments\\Currency", "class": "CurrencyConverter", "source": "clean_payment"}
+            ]
+        },
+        {
+            "set_id": "L06-cf_strategy_pattern-005",
+            "title": "Payment webhook handling: switch statement vs strategy object dispatch",
+            "description": "The same webhook-event dispatching logic expressed with a switch statement (pristine) vs the strategy-object pattern.",
+            "seed": "payment_processor",
+            "mount": "method",
+            "clone_symbol": "handleWebhook",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["controlflow"],
+            "rng_seed": 106405,
+            "notes": "Set 005 of 5.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": true},
+            "carriers": [
+                {"file": "PaymentWebhookSwitch.php", "namespace": "Acme\\Payments\\Webhooks", "class": "PaymentWebhookSwitch", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PaymentWebhookStrategy.php", "namespace": "Acme\\Payments\\Webhooks", "class": "PaymentWebhookStrategy", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "strategy_object", "transforms": [{"code": "API-03", "variant": "strategy_object"}]}
+            ],
+            "distractors": [
+                {"file": "PaymentFilter.php", "namespace": "Acme\\Payments\\Filters", "class": "PaymentFilter", "source": "nearmiss_payment", "reason": "near-miss: same payment vocabulary but performs validation/retry logic, not dispatch routing"}
+            ],
+            "cleans": [
+                {"file": "CurrencyConverter.php", "namespace": "Acme\\Payments\\Currency", "class": "CurrencyConverter", "source": "clean_payment"}
+            ]
+        }
+    ]
+}

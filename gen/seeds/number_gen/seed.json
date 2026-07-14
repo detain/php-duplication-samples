@@ -1,0 +1,14 @@
+{
+    "domain": "number_gen",
+    "summary": "Number sequence generation: return array vs yield (generator).",
+    "size_class": "S",
+    "symbol": "generate",
+    "line_count": 12,
+    "token_count": 80,
+    "required_symbols": ["generate"],
+    "mount_modes": ["method", "function"],
+    "compatible_interference": ["WS-03", "CM-03", "RN-01", "LT-01", "API-04", "API-05"],
+    "variants": [
+        {"file": "api_generator_api.php", "code": "API-08", "name": "api_generator_vs_array"}
+    ]
+}

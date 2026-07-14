@@ -82,5 +82,12 @@
         "recipe": "gen/recipes/L10/adv_large_files.json",
         "version": "1.0.0",
         "rng_seed": 110805
+    },
+    "progression": {
+        "bridge_pair": {
+            "lower": "L10-adv_large_files-005",
+            "upper": "L11-rn_scope_nesting-001",
+            "delta_axis": "RN"
+        }
     }
 }

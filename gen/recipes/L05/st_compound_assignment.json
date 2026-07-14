@@ -1,0 +1,138 @@
+{
+    "level": 5,
+    "level_name": "statement_edits",
+    "level_dir": "L05_statement_edits",
+    "family": "st_compound_assignment",
+    "sets": [
+        {
+            "set_id": "L05-st_compound_assignment-001",
+            "title": "Counter increment with expanded vs compound assignment",
+            "description": "The same incrementCounter method in three counter classes. Carrier A uses $x = $x + 5, carrier B uses $x += 5, carrier C uses $x = 5 + $x. Same arithmetic, different assignment idiom.",
+            "seed": "counter_increment",
+            "mount": "method",
+            "clone_symbol": "incrementCounter",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "edit_budget": 20,
+            "rng_seed": 112101,
+            "notes": "ST-12 (compound_assignment) varies $x = $x + 5 vs $x += 5 vs $x = 5 + $x. Same arithmetic, different assignment syntax.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineCounter.php", "namespace": "Acme\\Counter\\Pristine", "class": "PristineCounter", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "CompoundCounter.php", "namespace": "Acme\\Counter\\Compound", "class": "CompoundCounter", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-12", "params": {"style": "compound"}}]},
+                {"file": "ReversedCounter.php", "namespace": "Acme\\Counter\\Reversed", "class": "ReversedCounter", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-12", "params": {"style": "reversed"}}]}
+            ],
+            "distractors": [
+                {"file": "RateCalculator.php", "namespace": "Acme\\Counter\\Rate", "class": "RateCalculator", "source": "nearmiss_counter", "reason": "near-miss: same increment/counter vocabulary but calculates rate per second instead of total count — different result"}
+            ],
+            "cleans": [
+                {"file": "CounterRepository.php", "namespace": "Acme\\Counter\\Repo", "class": "CounterRepository", "source": "clean_counter"}
+            ]
+        },
+        {
+            "set_id": "L05-st_compound_assignment-002",
+            "title": "Counter increment with expanded vs compound assignment",
+            "description": "The same incrementCounter method in three counter classes. Carrier A uses $x += 5, carrier B uses $x = $x + 5, carrier C uses $x = 5 + $x. Same arithmetic, different assignment idiom.",
+            "seed": "counter_increment",
+            "mount": "method",
+            "clone_symbol": "incrementCounter",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "edit_budget": 20,
+            "rng_seed": 112102,
+            "notes": "Set 2 of 5. ST-12 varies $x = $x + 5 vs $x += 5 vs $x = 5 + $x.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineCounter.php", "namespace": "Acme\\Counter\\Pristine", "class": "PristineCounter", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "ExpandedCounter.php", "namespace": "Acme\\Counter\\Expanded", "class": "ExpandedCounter", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-12", "params": {"style": "expanded"}}]},
+                {"file": "CompoundCounter.php", "namespace": "Acme\\Counter\\Compound", "class": "CompoundCounter", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-12", "params": {"style": "compound"}}]}
+            ],
+            "distractors": [
+                {"file": "RateCalculator.php", "namespace": "Acme\\Counter\\Rate", "class": "RateCalculator", "source": "nearmiss_counter", "reason": "near-miss: same increment/counter vocabulary but calculates rate — different result"}
+            ],
+            "cleans": [
+                {"file": "CounterRepository.php", "namespace": "Acme\\Counter\\Repo", "class": "CounterRepository", "source": "clean_counter"}
+            ]
+        },
+        {
+            "set_id": "L05-st_compound_assignment-003",
+            "title": "Counter increment with expanded vs compound assignment",
+            "description": "The same incrementCounter method in three counter classes. Carrier A uses $x = 5 + $x, carrier B uses $x += 5, carrier C uses $x = $x + 5. Same arithmetic, different assignment idiom.",
+            "seed": "counter_increment",
+            "mount": "method",
+            "clone_symbol": "incrementCounter",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "edit_budget": 20,
+            "rng_seed": 112103,
+            "notes": "Set 3 of 5. ST-12 varies $x = $x + 5 vs $x += 5 vs $x = 5 + $x.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineCounter.php", "namespace": "Acme\\Counter\\Pristine", "class": "PristineCounter", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "CompoundCounter.php", "namespace": "Acme\\Counter\\Compound", "class": "CompoundCounter", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-12", "params": {"style": "compound"}}]},
+                {"file": "ExpandedCounter.php", "namespace": "Acme\\Counter\\Expanded", "class": "ExpandedCounter", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-12", "params": {"style": "expanded"}}]}
+            ],
+            "distractors": [
+                {"file": "RateCalculator.php", "namespace": "Acme\\Counter\\Rate", "class": "RateCalculator", "source": "nearmiss_counter", "reason": "near-miss: same increment/counter vocabulary but calculates rate — different result"}
+            ],
+            "cleans": [
+                {"file": "CounterRepository.php", "namespace": "Acme\\Counter\\Repo", "class": "CounterRepository", "source": "clean_counter"}
+            ]
+        },
+        {
+            "set_id": "L05-st_compound_assignment-004",
+            "title": "Counter increment with expanded vs compound assignment",
+            "description": "The same incrementCounter method in three counter classes. Carrier A uses $x = $x + 5, carrier B uses $x = 5 + $x, carrier C uses $x += 5. Same arithmetic, different assignment idiom.",
+            "seed": "counter_increment",
+            "mount": "method",
+            "clone_symbol": "incrementCounter",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "edit_budget": 20,
+            "rng_seed": 112104,
+            "notes": "Set 4 of 5. ST-12 varies $x = $x + 5 vs $x += 5 vs $x = 5 + $x.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineCounter.php", "namespace": "Acme\\Counter\\Pristine", "class": "PristineCounter", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "ReversedCounter.php", "namespace": "Acme\\Counter\\Reversed", "class": "ReversedCounter", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-12", "params": {"style": "reversed"}}]},
+                {"file": "CompoundCounter.php", "namespace": "Acme\\Counter\\Compound", "class": "CompoundCounter", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-12", "params": {"style": "compound"}}]}
+            ],
+            "distractors": [
+                {"file": "RateCalculator.php", "namespace": "Acme\\Counter\\Rate", "class": "RateCalculator", "source": "nearmiss_counter", "reason": "near-miss: same increment/counter vocabulary but calculates rate — different result"}
+            ],
+            "cleans": [
+                {"file": "CounterRepository.php", "namespace": "Acme\\Counter\\Repo", "class": "CounterRepository", "source": "clean_counter"}
+            ]
+        },
+        {
+            "set_id": "L05-st_compound_assignment-005",
+            "title": "Counter increment with expanded vs compound assignment",
+            "description": "The same incrementCounter method in three counter classes. Carrier A uses $x += 5, carrier B uses $x = 5 + $x, carrier C uses $x = $x + 5. Same arithmetic, different assignment idiom.",
+            "seed": "counter_increment",
+            "mount": "method",
+            "clone_symbol": "incrementCounter",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "edit_budget": 20,
+            "rng_seed": 112105,
+            "notes": "Set 5 of 5. ST-12 varies $x = $x + 5 vs $x += 5 vs $x = 5 + $x.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineCounter.php", "namespace": "Acme\\Counter\\Pristine", "class": "PristineCounter", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "ReversedCounter.php", "namespace": "Acme\\Counter\\Reversed", "class": "ReversedCounter", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-12", "params": {"style": "reversed"}}]},
+                {"file": "ExpandedCounter.php", "namespace": "Acme\\Counter\\Expanded", "class": "ExpandedCounter", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-12", "params": {"style": "expanded"}}]}
+            ],
+            "distractors": [
+                {"file": "RateCalculator.php", "namespace": "Acme\\Counter\\Rate", "class": "RateCalculator", "source": "nearmiss_counter", "reason": "near-miss: same increment/counter vocabulary but calculates rate — different result"}
+            ],
+            "cleans": [
+                {"file": "CounterRepository.php", "namespace": "Acme\\Counter\\Repo", "class": "CounterRepository", "source": "clean_counter"}
+            ]
+        }
+    ]
+}

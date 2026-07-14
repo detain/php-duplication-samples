@@ -1,0 +1,14 @@
+{
+    "domain": "form_validator",
+    "summary": "Form input validation: nested ifs vs guard-clause chain vs fluent validation.",
+    "size_class": "S",
+    "symbol": "validate",
+    "line_count": 22,
+    "token_count": 155,
+    "required_symbols": ["validate"],
+    "mount_modes": ["method", "function"],
+    "compatible_interference": ["WS-03", "CM-03", "RN-01", "CF-03", "CF-05", "ST-01"],
+    "variants": [
+        {"file": "cf_validation_chains.php", "code": "CF-09", "name": "cf_validation_chains"}
+    ]
+}

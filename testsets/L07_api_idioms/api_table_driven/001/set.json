@@ -79,5 +79,12 @@
         "carrier": 2,
         "distractor": 2,
         "clean": 1
+    },
+    "progression": {
+        "bridge_pair": {
+            "lower": "L07-api_table_driven-001",
+            "upper": "L08-sem_scatter-001",
+            "delta_axis": "SM"
+        }
     }
 }

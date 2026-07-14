@@ -84,5 +84,12 @@
         "recipe": "gen/recipes/L06/cf_match_switch.json",
         "version": "1.0.0",
         "rng_seed": 106201
+    },
+    "progression": {
+        "bridge_pair": {
+            "lower": "L05-rf_extractable_method-003",
+            "upper": "L06-cf_match_switch-001",
+            "delta_axis": "CF"
+        }
     }
 }

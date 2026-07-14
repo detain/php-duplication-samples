@@ -1,0 +1,133 @@
+{
+    "level": 6,
+    "level_name": "controlflow_rewrites",
+    "level_dir": "L06_controlflow_rewrites",
+    "family": "cf_validation_chains",
+    "sets": [
+        {
+            "set_id": "L06-cf_validation_chains-001",
+            "title": "Validation: nested if-else chain vs guard-clause early-return chain",
+            "description": "The same multi-field form validation written with deeply nested if-else branches accumulating errors (pristine) vs a guard-clause early-return chain. Both produce identical error lists. Token-distinct forms requiring AST-level analysis.",
+            "seed": "form_validator",
+            "mount": "method",
+            "clone_symbol": "validate",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["controlflow"],
+            "rng_seed": 106601,
+            "notes": "Set 001 of 5. form_validator seed with CF-09 cf_validation_chains variant (guard-clause early-return). Carrier A uses nested if-else with error accumulation (pristine). Carrier B uses guard-clause early-return chain. min_members_for_credit is the default 2.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": false, "ast_based": true, "metric_based": false, "semantic": true},
+            "carriers": [
+                {"file": "FormValidatorNested.php", "namespace": "Acme\\Forms\\Validators", "class": "FormValidatorNested", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "FormValidatorGuard.php", "namespace": "Acme\\Forms\\Validators", "class": "FormValidatorGuard", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "cf_validation_chains", "transforms": [{"code": "CF-09", "variant": "cf_validation_chains"}]}
+            ],
+            "distractors": [
+                {"file": "FormSanitizer.php", "namespace": "Acme\\Forms\\Sanitizers", "class": "FormSanitizer", "source": "nearmiss_form", "reason": "near-miss: same form-domain vocabulary (email/password/username) but sanitizes/transforms input rather than validating and returning errors"}
+            ],
+            "cleans": [
+                {"file": "FieldDefinition.php", "namespace": "Acme\\Forms\\Definition", "class": "FieldDefinition", "source": "clean_form"}
+            ]
+        },
+        {
+            "set_id": "L06-cf_validation_chains-002",
+            "title": "Validation: nested if-else chain vs guard-clause early-return chain",
+            "description": "The same multi-field form validation written with deeply nested if-else branches accumulating errors (pristine) vs a guard-clause early-return chain.",
+            "seed": "form_validator",
+            "mount": "method",
+            "clone_symbol": "validate",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["controlflow"],
+            "rng_seed": 106602,
+            "notes": "Set 002 of 5.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": false, "ast_based": true, "metric_based": false, "semantic": true},
+            "carriers": [
+                {"file": "FormValidatorNested.php", "namespace": "Acme\\Forms\\Validators", "class": "FormValidatorNested", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "FormValidatorGuard.php", "namespace": "Acme\\Forms\\Validators", "class": "FormValidatorGuard", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "cf_validation_chains", "transforms": [{"code": "CF-09", "variant": "cf_validation_chains"}]}
+            ],
+            "distractors": [
+                {"file": "FormSanitizer.php", "namespace": "Acme\\Forms\\Sanitizers", "class": "FormSanitizer", "source": "nearmiss_form", "reason": "near-miss: same form-domain vocabulary but sanitizes/transforms input rather than validating"}
+            ],
+            "cleans": [
+                {"file": "FieldDefinition.php", "namespace": "Acme\\Forms\\Definition", "class": "FieldDefinition", "source": "clean_form"}
+            ]
+        },
+        {
+            "set_id": "L06-cf_validation_chains-003",
+            "title": "Validation: nested if-else chain vs guard-clause early-return chain",
+            "description": "The same multi-field form validation written with deeply nested if-else branches accumulating errors (pristine) vs a guard-clause early-return chain.",
+            "seed": "form_validator",
+            "mount": "method",
+            "clone_symbol": "validate",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["controlflow"],
+            "rng_seed": 106603,
+            "notes": "Set 003 of 5.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": false, "ast_based": true, "metric_based": false, "semantic": true},
+            "carriers": [
+                {"file": "FormValidatorNested.php", "namespace": "Acme\\Forms\\Validators", "class": "FormValidatorNested", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "FormValidatorGuard.php", "namespace": "Acme\\Forms\\Validators", "class": "FormValidatorGuard", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "cf_validation_chains", "transforms": [{"code": "CF-09", "variant": "cf_validation_chains"}]}
+            ],
+            "distractors": [
+                {"file": "FormSanitizer.php", "namespace": "Acme\\Forms\\Sanitizers", "class": "FormSanitizer", "source": "nearmiss_form", "reason": "near-miss: same form-domain vocabulary but sanitizes/transforms input rather than validating"}
+            ],
+            "cleans": [
+                {"file": "FieldDefinition.php", "namespace": "Acme\\Forms\\Definition", "class": "FieldDefinition", "source": "clean_form"}
+            ]
+        },
+        {
+            "set_id": "L06-cf_validation_chains-004",
+            "title": "Validation: nested if-else chain vs guard-clause early-return chain",
+            "description": "The same multi-field form validation written with deeply nested if-else branches accumulating errors (pristine) vs a guard-clause early-return chain.",
+            "seed": "form_validator",
+            "mount": "method",
+            "clone_symbol": "validate",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["controlflow"],
+            "rng_seed": 106604,
+            "notes": "Set 004 of 5.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": false, "ast_based": true, "metric_based": false, "semantic": true},
+            "carriers": [
+                {"file": "FormValidatorNested.php", "namespace": "Acme\\Forms\\Validators", "class": "FormValidatorNested", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "FormValidatorGuard.php", "namespace": "Acme\\Forms\\Validators", "class": "FormValidatorGuard", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "cf_validation_chains", "transforms": [{"code": "CF-09", "variant": "cf_validation_chains"}]}
+            ],
+            "distractors": [
+                {"file": "FormSanitizer.php", "namespace": "Acme\\Forms\\Sanitizers", "class": "FormSanitizer", "source": "nearmiss_form", "reason": "near-miss: same form-domain vocabulary but sanitizes/transforms input rather than validating"}
+            ],
+            "cleans": [
+                {"file": "FieldDefinition.php", "namespace": "Acme\\Forms\\Definition", "class": "FieldDefinition", "source": "clean_form"}
+            ]
+        },
+        {
+            "set_id": "L06-cf_validation_chains-005",
+            "title": "Validation: nested if-else chain vs guard-clause early-return chain",
+            "description": "The same multi-field form validation written with deeply nested if-else branches accumulating errors (pristine) vs a guard-clause early-return chain.",
+            "seed": "form_validator",
+            "mount": "method",
+            "clone_symbol": "validate",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["controlflow"],
+            "rng_seed": 106605,
+            "notes": "Set 005 of 5.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": false, "ast_based": true, "metric_based": false, "semantic": true},
+            "carriers": [
+                {"file": "FormValidatorNested.php", "namespace": "Acme\\Forms\\Validators", "class": "FormValidatorNested", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "FormValidatorGuard.php", "namespace": "Acme\\Forms\\Validators", "class": "FormValidatorGuard", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "cf_validation_chains", "transforms": [{"code": "CF-09", "variant": "cf_validation_chains"}]}
+            ],
+            "distractors": [
+                {"file": "FormSanitizer.php", "namespace": "Acme\\Forms\\Sanitizers", "class": "FormSanitizer", "source": "nearmiss_form", "reason": "near-miss: same form-domain vocabulary but sanitizes/transforms input rather than validating"}
+            ],
+            "cleans": [
+                {"file": "FieldDefinition.php", "namespace": "Acme\\Forms\\Definition", "class": "FieldDefinition", "source": "clean_form"}
+            ]
+        }
+    ]
+}

@@ -1,0 +1,75 @@
+{
+    "level": 2,
+    "level_name": "encoding_variation",
+    "level_dir": "L02_encoding",
+    "family": "probe_enc_bom",
+    "hygiene_exceptions": ["bom"],
+    "sets": [
+        {
+            "set_id": "L02-probe_enc_bom-001",
+            "title": "UTF-8 BOM: Control - pristine method",
+            "description": "Control set for BOM encoding probe. Three pristine carriers with identical methods. Token-based detectors should find this clone pair easily.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 124001,
+            "notes": "Control set for K-24 BOM probe. All carriers pristine - baseline detectability.",
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "role_composition": {"carrier": 3, "distractor": 1, "clean": 1},
+            "carriers": [
+                {"file": "TotalsCalculatorA.php", "namespace": "Acme\\Billing\\TotalsA", "class": "TotalsCalculatorA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "TotalsCalculatorB.php", "namespace": "Acme\\Billing\\TotalsB", "class": "TotalsCalculatorB", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": []},
+                {"file": "TotalsCalculatorC.php", "namespace": "Acme\\Billing\\TotalsC", "class": "TotalsCalculatorC", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "Validator.php", "namespace": "Acme\\Billing\\Validate", "class": "Validator", "source": "clean_billing", "reason": "Clean distractor - unrelated billing logic"}
+            ],
+            "cleans": [
+                {"file": "SchemaMapper.php", "namespace": "Acme\\Billing\\Schema", "class": "SchemaMapper", "source": "clean_parsing"}
+            ],
+            "capability_probe": {
+                "capability": "encoding_normalization",
+                "isolated": true,
+                "control_set": "L02-probe_enc_bom-001",
+                "pass_criterion": "token_based",
+                "fail_meaning": "text-only detector or lexer doesn't skip BOM"
+            }
+        },
+        {
+            "set_id": "L02-probe_enc_bom-002",
+            "title": "UTF-8 BOM: One carrier has BOM prefix (ENC-01)",
+            "description": "Probe set for K-24. One carrier has UTF-8 BOM (EF BB BF) prefix. Text-based detectors will fail due to byte-shift; token-based detectors that skip BOM will succeed.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 124002,
+            "notes": "K-24 BOM probe. Carrier B has BOM prefix (ENC-01). Text-based tools will see byte difference; token-based tools that normalize BOM will detect.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "role_composition": {"carrier": 3, "distractor": 1, "clean": 1},
+            "carriers": [
+                {"file": "TotalsCalculatorA.php", "namespace": "Acme\\Billing\\TotalsA", "class": "TotalsCalculatorA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "TotalsCalculatorB.php", "namespace": "Acme\\Billing\\TotalsB", "class": "TotalsCalculatorB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ENC-01", "params": {"action": "insert"}}]},
+                {"file": "TotalsCalculatorC.php", "namespace": "Acme\\Billing\\TotalsC", "class": "TotalsCalculatorC", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "Validator.php", "namespace": "Acme\\Billing\\Validate", "class": "Validator", "source": "clean_billing", "reason": "Clean distractor - unrelated billing logic"}
+            ],
+            "cleans": [
+                {"file": "SchemaMapper.php", "namespace": "Acme\\Billing\\Schema", "class": "SchemaMapper", "source": "clean_parsing"}
+            ],
+            "capability_probe": {
+                "capability": "encoding_normalization",
+                "isolated": true,
+                "control_set": "L02-probe_enc_bom-001",
+                "pass_criterion": "token_based",
+                "fail_meaning": "text-only detector or lexer doesn't skip BOM"
+            }
+        }
+    ]
+}

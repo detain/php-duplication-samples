@@ -1,0 +1,133 @@
+{
+    "level": 2,
+    "level_name": "whitespace_variation",
+    "level_dir": "L02_whitespace",
+    "family": "ws_blank_line_counts",
+    "sets": [
+        {
+            "set_id": "L02-ws_blank_line_counts-001",
+            "title": "Invoice-totals method with varying blank line counts (0 vs 1 vs 2)",
+            "description": "The same invoice-totalling method in three service classes. Carrier A has no blank lines; carrier B has 1 blank line between statements; carrier C has 2 blank lines. Token stream is identical after whitespace normalization.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 102231,
+            "notes": "Blank line counts (WS-03) vary from 0 to 2 blank lines between statements. Token-based detectors should match all three; text-based will not.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "LedgerPostingService.php", "namespace": "Acme\\Ledger\\Posting", "class": "LedgerPostingService", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PriceBookService.php", "namespace": "Acme\\Ledger\\Pricing", "class": "PriceBookService", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "WS-03", "params": {"blank_lines": 1, "points": 1}}]},
+                {"file": "SettlementService.php", "namespace": "Acme\\Ledger\\Settlement", "class": "SettlementService", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "WS-03", "params": {"blank_lines": 2, "points": 1}}]}
+            ],
+            "distractors": [
+                {"file": "MarginReporter.php", "namespace": "Acme\\Ledger\\Reporting", "class": "MarginReporter", "source": "nearmiss_invoice", "reason": "near-miss: same invoice vocabulary and foreach shape, but computes revenue/cost margins and a ratio — a different result"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Ledger\\Catalog", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L02-ws_blank_line_counts-002",
+            "title": "Invoice-totals method with varying blank line counts (2 vs 4 vs 8)",
+            "description": "The same invoice-totalling method in three service classes. Carrier A has 2 blank lines; carrier B has 4 blank lines; carrier C has 8 blank lines. Token stream is identical after whitespace normalization.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 102232,
+            "notes": "Blank line counts (WS-03) vary from 2 to 8 blank lines between statements. Token-based detectors should match all three; text-based will not.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "LedgerPostingService.php", "namespace": "Acme\\Ledger\\Posting", "class": "LedgerPostingService", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PriceBookService.php", "namespace": "Acme\\Ledger\\Pricing", "class": "PriceBookService", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "WS-03", "params": {"blank_lines": 4, "points": 1}}]},
+                {"file": "SettlementService.php", "namespace": "Acme\\Ledger\\Settlement", "class": "SettlementService", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "WS-03", "params": {"blank_lines": 8, "points": 1}}]}
+            ],
+            "distractors": [
+                {"file": "MarginReporter.php", "namespace": "Acme\\Ledger\\Reporting", "class": "MarginReporter", "source": "nearmiss_invoice", "reason": "near-miss: same invoice vocabulary and foreach shape, but computes revenue/cost margins and a ratio — a different result"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Ledger\\Catalog", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L02-ws_blank_line_counts-003",
+            "title": "Invoice-totals method with varying blank line counts at multiple points",
+            "description": "The same invoice-totalling method in three service classes. Carrier A has no blank lines; carrier B has blank lines at 2 points; carrier C has blank lines at multiple interior points. Token stream is identical after whitespace normalization.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 102233,
+            "notes": "Blank line counts (WS-03) at multiple points. Token-based detectors should match all three; text-based will not.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "LedgerPostingService.php", "namespace": "Acme\\Ledger\\Posting", "class": "LedgerPostingService", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PriceBookService.php", "namespace": "Acme\\Ledger\\Pricing", "class": "PriceBookService", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "WS-03", "params": {"blank_lines": 1, "points": 2}}]},
+                {"file": "SettlementService.php", "namespace": "Acme\\Ledger\\Settlement", "class": "SettlementService", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "WS-03", "params": {"blank_lines": 2, "points": 3}}]}
+            ],
+            "distractors": [
+                {"file": "MarginReporter.php", "namespace": "Acme\\Ledger\\Reporting", "class": "MarginReporter", "source": "nearmiss_invoice", "reason": "near-miss: same invoice vocabulary and foreach shape, but computes revenue/cost margins and a ratio — a different result"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Ledger\\Catalog", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L02-ws_blank_line_counts-004",
+            "title": "Invoice-totals method with high blank line counts",
+            "description": "The same invoice-totalling method in three service classes. Carrier A has 0 blank lines; carrier B has 4 blank lines; carrier C has 8 blank lines. Token stream is identical after whitespace normalization.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 102234,
+            "notes": "High blank line counts (WS-03). Token-based detectors should match all three; text-based will not.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "LedgerPostingService.php", "namespace": "Acme\\Ledger\\Posting", "class": "LedgerPostingService", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PriceBookService.php", "namespace": "Acme\\Ledger\\Pricing", "class": "PriceBookService", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "WS-03", "params": {"blank_lines": 4, "points": 2}}]},
+                {"file": "SettlementService.php", "namespace": "Acme\\Ledger\\Settlement", "class": "SettlementService", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "WS-03", "params": {"blank_lines": 8, "points": 2}}]}
+            ],
+            "distractors": [
+                {"file": "MarginReporter.php", "namespace": "Acme\\Ledger\\Reporting", "class": "MarginReporter", "source": "nearmiss_invoice", "reason": "near-miss: same invoice vocabulary and foreach shape, but computes revenue/cost margins and a ratio — a different result"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Ledger\\Catalog", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L02-ws_blank_line_counts-005",
+            "title": "Invoice-totals method with varying blank line configurations",
+            "description": "The same invoice-totalling method in three service classes demonstrating various blank line configurations. Token stream is identical after whitespace normalization.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 102235,
+            "notes": "Varying blank line configurations (WS-03). Token-based detectors should match all three; text-based will not.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "LedgerPostingService.php", "namespace": "Acme\\Ledger\\Posting", "class": "LedgerPostingService", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PriceBookService.php", "namespace": "Acme\\Ledger\\Pricing", "class": "PriceBookService", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "WS-03", "params": {"blank_lines": 2, "points": 1}}]},
+                {"file": "SettlementService.php", "namespace": "Acme\\Ledger\\Settlement", "class": "SettlementService", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "WS-03", "params": {"blank_lines": 4, "points": 3}}]}
+            ],
+            "distractors": [
+                {"file": "MarginReporter.php", "namespace": "Acme\\Ledger\\Reporting", "class": "MarginReporter", "source": "nearmiss_invoice", "reason": "near-miss: same invoice vocabulary and foreach shape, but computes revenue/cost margins and a ratio — a different result"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Ledger\\Catalog", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        }
+    ]
+}

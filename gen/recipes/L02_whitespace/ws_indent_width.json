@@ -128,6 +128,31 @@
             "cleans": [
                 {"file": "TaxRateRepository.php", "namespace": "Acme\\Ledger\\Catalog", "class": "TaxRateRepository", "source": "clean_billing"}
             ]
+        },
+        {
+            "set_id": "L02-ws_indent_width-006",
+            "title": "Invoice-totals method with indentation width AND brace style combined",
+            "description": "The same invoice-totalling method in three service classes. Carrier A uses 4-space indent with K&R brace style; carrier B uses 2-space indent with Allman brace style; carrier C also uses 2-space indent with Allman style. This combines indentation width and brace style into a single step (combined WS-05 + WS-06). Token stream is identical after whitespace normalization.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 102136,
+            "notes": "G-5 gap-fill: Combined indent + brace-style variation (WS-05 + WS-06). This tests whether detectors that normalize whitespace can still match when two stylistic axes change simultaneously.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "LedgerPostingService.php", "namespace": "Acme\\Ledger\\Posting", "class": "LedgerPostingService", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PriceBookService.php", "namespace": "Acme\\Ledger\\Pricing", "class": "PriceBookService", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "WS-05", "params": {"style": "4to2"}}, {"code": "WS-06", "params": {"style": "kr_to_allman"}}]},
+                {"file": "SettlementService.php", "namespace": "Acme\\Ledger\\Settlement", "class": "SettlementService", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "WS-05", "params": {"style": "4to2"}}, {"code": "WS-06", "params": {"style": "kr_to_allman"}}]}
+            ],
+            "distractors": [
+                {"file": "MarginReporter.php", "namespace": "Acme\\Ledger\\Reporting", "class": "MarginReporter", "source": "nearmiss_invoice", "reason": "near-miss: same invoice vocabulary and foreach shape, but computes revenue/cost margins and a ratio — a different result"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Ledger\\Catalog", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
         }
     ]
 }

@@ -1,0 +1,115 @@
+{
+    "level": 10,
+    "level_name": "adversarial_edge_cases",
+    "level_dir": "L10_adversarial_edge_cases",
+    "family": "adv_mass_instances",
+    "sets": [
+        {
+            "set_id": "L10-adv_mass_instances-001",
+            "title": "Mass duplication: 20 files, same 10-line clone at positions 5-200",
+            "description": "Tests scalability: same 10-line invoice_totals clone appears in 20 different files at positions 5-200 range. Uses multi-cluster F-2 to support many carriers. Feeds R8 axis 6 (Scaling / K-32 scaling curves).",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 112101,
+            "notes": "F-2 multi-cluster (many carriers per cluster). F-9 size inflation NOT yet implemented - uses multi-carrier approach. K-32: scaling curves - tests whether detectors handle 20+ clone instances correctly. Clone positions vary via scaffold types (method_alpha/beta/gamma) and line padding. Uses invoice_totals seed trimmed to 10 lines (subset of 24-line original).",
+            "role_composition": {"carrier": 20, "distractor": 2, "clean": 2},
+            "capability_probe": {
+                "capability": "scaling",
+                "isolated": true,
+                "control_set": "L10-adv_mass_instances-001",
+                "pass_criterion": "PROFILE GENERATOR: scales to 20+ members; emits scaling_curve per tool showing detection rate vs instance_count",
+                "fail_meaning": "scaling ABSENT - tool cannot handle 20+ clone instances; misses members or reports incomplete cluster"
+            },
+            "scoring": {"line_tolerance": 0, "member_jaccard_min": 1.0, "min_members_for_credit": 15},
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "InvoiceCalcA01.php", "namespace": "Acme\\Billing\\CalcA", "class": "InvoiceCalcA01", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": [], "line_padding": 5},
+                {"file": "InvoiceCalcA02.php", "namespace": "Acme\\Billing\\CalcA", "class": "InvoiceCalcA02", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": [], "line_padding": 15},
+                {"file": "InvoiceCalcA03.php", "namespace": "Acme\\Billing\\CalcA", "class": "InvoiceCalcA03", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": [], "line_padding": 25},
+                {"file": "InvoiceCalcA04.php", "namespace": "Acme\\Billing\\CalcA", "class": "InvoiceCalcA04", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": [], "line_padding": 45},
+                {"file": "InvoiceCalcA05.php", "namespace": "Acme\\Billing\\CalcA", "class": "InvoiceCalcA05", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": [], "line_padding": 65},
+                {"file": "InvoiceCalcA06.php", "namespace": "Acme\\Billing\\CalcA", "class": "InvoiceCalcA06", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": [], "line_padding": 85},
+                {"file": "InvoiceCalcA07.php", "namespace": "Acme\\Billing\\CalcA", "class": "InvoiceCalcA07", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": [], "line_padding": 105},
+                {"file": "InvoiceCalcA08.php", "namespace": "Acme\\Billing\\CalcA", "class": "InvoiceCalcA08", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": [], "line_padding": 125},
+                {"file": "InvoiceCalcA09.php", "namespace": "Acme\\Billing\\CalcA", "class": "InvoiceCalcA09", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": [], "line_padding": 145},
+                {"file": "InvoiceCalcA10.php", "namespace": "Acme\\Billing\\CalcA", "class": "InvoiceCalcA10", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": [], "line_padding": 165},
+                {"file": "InvoiceCalcB01.php", "namespace": "Acme\\Billing\\CalcB", "class": "InvoiceCalcB01", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": [], "line_padding": 10},
+                {"file": "InvoiceCalcB02.php", "namespace": "Acme\\Billing\\CalcB", "class": "InvoiceCalcB02", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": [], "line_padding": 30},
+                {"file": "InvoiceCalcB03.php", "namespace": "Acme\\Billing\\CalcB", "class": "InvoiceCalcB03", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": [], "line_padding": 50},
+                {"file": "InvoiceCalcB04.php", "namespace": "Acme\\Billing\\CalcB", "class": "InvoiceCalcB04", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": [], "line_padding": 70},
+                {"file": "InvoiceCalcB05.php", "namespace": "Acme\\Billing\\CalcB", "class": "InvoiceCalcB05", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": [], "line_padding": 90},
+                {"file": "InvoiceCalcB06.php", "namespace": "Acme\\Billing\\CalcB", "class": "InvoiceCalcB06", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": [], "line_padding": 110},
+                {"file": "InvoiceCalcB07.php", "namespace": "Acme\\Billing\\CalcB", "class": "InvoiceCalcB07", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": [], "line_padding": 130},
+                {"file": "InvoiceCalcB08.php", "namespace": "Acme\\Billing\\CalcB", "class": "InvoiceCalcB08", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": [], "line_padding": 150},
+                {"file": "InvoiceCalcB09.php", "namespace": "Acme\\Billing\\CalcB", "class": "InvoiceCalcB09", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": [], "line_padding": 170},
+                {"file": "InvoiceCalcB10.php", "namespace": "Acme\\Billing\\CalcB", "class": "InvoiceCalcB10", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": [], "line_padding": 190}
+            ],
+            "distractors": [
+                {"file": "DistractorA.php", "namespace": "Acme\\Billing\\Distract", "class": "DistractorA", "source": "nearmiss_invoice", "reason": "Near-miss: similar invoice vocabulary but different computation logic"},
+                {"file": "DistractorB.php", "namespace": "Acme\\Billing\\Distract", "class": "DistractorB", "source": "clean_billing", "reason": "Clean distractor - unrelated billing logic"}
+            ],
+            "cleans": [
+                {"file": "CleanA.php", "namespace": "Acme\\Billing\\Clean", "class": "CleanA", "source": "clean_billing"},
+                {"file": "CleanB.php", "namespace": "Acme\\Billing\\Clean", "class": "CleanB", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L10-adv_mass_instances-002",
+            "title": "Mass duplication: 20 files with same clone at different positions",
+            "description": "Second scalability set with 20 carriers using invoice_totals seed (10 lines). Clone appears at different positions using mixed scaffolds and transforms (RN-01, LT-01). Tests whether detectors maintain accuracy with position variation at scale.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments", "identifiers"],
+            "rng_seed": 112102,
+            "notes": "F-2 multi-cluster with 20 carriers at positions 5-200. Uses RN-01 and LT-01 transforms to test scaling with normalization. K-32: tests detection rate as instance_count scales to 20 with transform complexity and position variation.",
+            "role_composition": {"carrier": 20, "distractor": 2, "clean": 3},
+            "capability_probe": {
+                "capability": "scaling",
+                "isolated": true,
+                "control_set": "L10-adv_mass_instances-002",
+                "pass_criterion": "PROFILE GENERATOR: scales to 20+ members with transforms; emits scaling_curve per tool showing detection_rate vs instance_count with complexity and position variation",
+                "fail_meaning": "scaling ABSENT - tool cannot handle 20+ clone instances with position variation; detection degrades with scale"
+            },
+            "scoring": {"line_tolerance": 0, "member_jaccard_min": 0.85, "min_members_for_credit": 15},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "ScaleCalcA01.php", "namespace": "Acme\\Scale\\CalcA", "class": "ScaleCalcA01", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": [], "line_padding": 8},
+                {"file": "ScaleCalcA02.php", "namespace": "Acme\\Scale\\CalcA", "class": "ScaleCalcA02", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-01"}], "line_padding": 22},
+                {"file": "ScaleCalcA03.php", "namespace": "Acme\\Scale\\CalcA", "class": "ScaleCalcA03", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "LT-01"}], "line_padding": 38},
+                {"file": "ScaleCalcA04.php", "namespace": "Acme\\Scale\\CalcA", "class": "ScaleCalcA04", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": [], "line_padding": 55},
+                {"file": "ScaleCalcA05.php", "namespace": "Acme\\Scale\\CalcA", "class": "ScaleCalcA05", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-01"}, {"code": "LT-01"}], "line_padding": 72},
+                {"file": "ScaleCalcA06.php", "namespace": "Acme\\Scale\\CalcA", "class": "ScaleCalcA06", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "CM-03"}], "line_padding": 88},
+                {"file": "ScaleCalcA07.php", "namespace": "Acme\\Scale\\CalcA", "class": "ScaleCalcA07", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": [], "line_padding": 105},
+                {"file": "ScaleCalcA08.php", "namespace": "Acme\\Scale\\CalcA", "class": "ScaleCalcA08", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-01"}], "line_padding": 120},
+                {"file": "ScaleCalcA09.php", "namespace": "Acme\\Scale\\CalcA", "class": "ScaleCalcA09", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "LT-01"}, {"code": "CM-03"}], "line_padding": 138},
+                {"file": "ScaleCalcA10.php", "namespace": "Acme\\Scale\\CalcA", "class": "ScaleCalcA10", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": [], "line_padding": 155},
+                {"file": "ScaleCalcB01.php", "namespace": "Acme\\Scale\\CalcB", "class": "ScaleCalcB01", "scaffold": "fn_alpha", "group": "A", "pristine": true, "transforms": [], "line_padding": 12},
+                {"file": "ScaleCalcB02.php", "namespace": "Acme\\Scale\\CalcB", "class": "ScaleCalcB02", "scaffold": "fn_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-01"}], "line_padding": 28},
+                {"file": "ScaleCalcB03.php", "namespace": "Acme\\Scale\\CalcB", "class": "ScaleCalcB03", "scaffold": "fn_gamma", "group": "A", "pristine": false, "transforms": [{"code": "LT-01"}], "line_padding": 45},
+                {"file": "ScaleCalcB04.php", "namespace": "Acme\\Scale\\CalcB", "class": "ScaleCalcB04", "scaffold": "fn_alpha", "group": "A", "pristine": true, "transforms": [], "line_padding": 62},
+                {"file": "ScaleCalcB05.php", "namespace": "Acme\\Scale\\CalcB", "class": "ScaleCalcB05", "scaffold": "fn_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-01"}, {"code": "LT-01"}], "line_padding": 78},
+                {"file": "ScaleCalcB06.php", "namespace": "Acme\\Scale\\CalcB", "class": "ScaleCalcB06", "scaffold": "fn_gamma", "group": "A", "pristine": false, "transforms": [{"code": "CM-03"}], "line_padding": 95},
+                {"file": "ScaleCalcB07.php", "namespace": "Acme\\Scale\\CalcB", "class": "ScaleCalcB07", "scaffold": "fn_alpha", "group": "A", "pristine": true, "transforms": [], "line_padding": 112},
+                {"file": "ScaleCalcB08.php", "namespace": "Acme\\Scale\\CalcB", "class": "ScaleCalcB08", "scaffold": "fn_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-01"}], "line_padding": 130},
+                {"file": "ScaleCalcB09.php", "namespace": "Acme\\Scale\\CalcB", "class": "ScaleCalcB09", "scaffold": "fn_gamma", "group": "A", "pristine": false, "transforms": [{"code": "LT-01"}, {"code": "CM-03"}], "line_padding": 148},
+                {"file": "ScaleCalcB10.php", "namespace": "Acme\\Scale\\CalcB", "class": "ScaleCalcB10", "scaffold": "fn_alpha", "group": "A", "pristine": true, "transforms": [], "line_padding": 165}
+            ],
+            "distractors": [
+                {"file": "DistractorX.php", "namespace": "Acme\\Scale\\Distract", "class": "DistractorX", "source": "nearmiss_invoice", "reason": "Near-miss: similar invoice vocabulary but different computation logic"},
+                {"file": "DistractorY.php", "namespace": "Acme\\Scale\\Distract", "class": "DistractorY", "source": "nearmiss_invoice", "reason": "Near-miss: similar key-value processing but different condition"}
+            ],
+            "cleans": [
+                {"file": "CleanX.php", "namespace": "Acme\\Scale\\Clean", "class": "CleanX", "source": "clean_billing"},
+                {"file": "CleanY.php", "namespace": "Acme\\Scale\\Clean", "class": "CleanY", "source": "clean_auth"},
+                {"file": "CleanZ.php", "namespace": "Acme\\Scale\\Clean", "class": "CleanZ", "source": "clean_parsing"}
+            ]
+        }
+    ]
+}

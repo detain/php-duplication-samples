@@ -1,0 +1,74 @@
+{
+    "level": 8,
+    "level_name": "semantic_depth",
+    "level_dir": "L08_semantic_probes",
+    "family": "probe_rule_idiom",
+    "sets": [
+        {
+            "set_id": "L08-probe_rule_idiom-001",
+            "title": "CONTROL: Semantic reasoning probe - rule idiom",
+            "description": "Control set for semantic_reasoning capability probe. Pristine ~120-token method. Both carriers are byte-identical and pristine. Tests whether tools detect clones when age check uses different idioms.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["semantic"],
+            "rng_seed": 180201,
+            "notes": "K-18 CONTROL. Pristine carriers. Probe tests SEM-01 age check via 2 idioms detection.",
+            "capability_probe": {
+                "capability": "semantic_reasoning",
+                "isolated": true,
+                "control_set": "L08-probe_rule_idiom-001",
+                "pass_criterion": "control_set PASSES all detectors; probe_set PASSES semantic-reasoning detectors",
+                "fail_meaning": "semantic_reasoning ABSENT - tool cannot handle semantic idiom variation"
+            },
+            "role_composition": {"carrier": 2, "distractor": 1, "clean": 2},
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristinePolicyA.php", "namespace": "Acme\\Access\\PristineA", "class": "PristinePolicyA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PristinePolicyB.php", "namespace": "Acme\\Access\\PristineB", "class": "PristinePolicyB", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "TrustScorer.php", "namespace": "Acme\\Access\\Scoring", "class": "TrustScorer", "source": "nearmiss_access", "reason": "near-miss: same auth vocabulary but computes numeric trust score"}
+            ],
+            "cleans": [
+                {"file": "RoleHierarchy.php", "namespace": "Acme\\Access\\Roles", "class": "RoleHierarchy", "source": "clean_auth"},
+                {"file": "PermissionMatrix.php", "namespace": "Acme\\Access\\Matrix", "class": "PermissionMatrix", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L08-probe_rule_idiom-002",
+            "title": "PROBE: Semantic reasoning - age check via 2 idioms (SEM-01 minimal)",
+            "description": "Probe set for semantic_reasoning capability. Carrier A uses one age-check idiom (e.g., $age >= 18); carrier B uses semantically equivalent alternative idiom (e.g., $age > 17) (SEM-01 minimal). Rest byte-identical. Minimal intensity probe.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["semantic"],
+            "rng_seed": 180202,
+            "notes": "K-18 PROBE. Carrier B uses alternative age-check idiom (SEM-01). Single semantic idiom change.",
+            "capability_probe": {
+                "capability": "semantic_reasoning",
+                "isolated": true,
+                "control_set": "L08-probe_rule_idiom-001",
+                "pass_criterion": "control_set PASSES all detectors; probe_set PASSES semantic-reasoning detectors",
+                "fail_meaning": "semantic_reasoning ABSENT - tool cannot handle semantic idiom variation"
+            },
+            "role_composition": {"carrier": 2, "distractor": 1, "clean": 2},
+            "detection_expectation": {"text_based": false, "token_based": false, "ast_based": false, "metric_based": false, "semantic": true},
+            "carriers": [
+                {"file": "PristinePolicyA.php", "namespace": "Acme\\Access\\PristineA", "class": "PristinePolicyA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "RuleIdiomPolicy.php", "namespace": "Acme\\Access\\RuleIdiom", "class": "RuleIdiomPolicy", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "sem_rule", "transforms": [{"code": "SEM-01", "variant": "sem_rule"}]}
+            ],
+            "distractors": [
+                {"file": "TrustScorer.php", "namespace": "Acme\\Access\\Scoring", "class": "TrustScorer", "source": "nearmiss_access", "reason": "near-miss: same auth vocabulary but computes numeric trust score"}
+            ],
+            "cleans": [
+                {"file": "RoleHierarchy.php", "namespace": "Acme\\Access\\Roles", "class": "RoleHierarchy", "source": "clean_auth"},
+                {"file": "PermissionMatrix.php", "namespace": "Acme\\Access\\Matrix", "class": "PermissionMatrix", "source": "clean_auth"}
+            ]
+        }
+    ]
+}

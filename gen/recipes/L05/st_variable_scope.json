@@ -1,0 +1,138 @@
+{
+    "level": 5,
+    "level_name": "statement_edits",
+    "level_dir": "L05_statement_edits",
+    "family": "st_variable_scope",
+    "sets": [
+        {
+            "set_id": "L05-st_variable_scope-001",
+            "title": "Variable access with local vs closure use() vs $GLOBALS",
+            "description": "The same calculateValue method in three calculator classes. Carrier A uses local variables, carrier B uses closure with use(), carrier C uses $GLOBALS. Same computation, different variable scope idiom.",
+            "seed": "value_calculation",
+            "mount": "method",
+            "clone_symbol": "calculateValue",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "edit_budget": 20,
+            "rng_seed": 115101,
+            "notes": "ST-15 (variable_scope) varies local vs closure use() vs $GLOBALS. Same computation, different variable scope.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineCalculator.php", "namespace": "Acme\\Calc\\Pristine", "class": "PristineCalculator", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "ClosureCalculator.php", "namespace": "Acme\\Calc\\Closure", "class": "ClosureCalculator", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-15", "params": {"style": "closure_use"}}]},
+                {"file": "GlobalsCalculator.php", "namespace": "Acme\\Calc\\Globals", "class": "GlobalsCalculator", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-15", "params": {"style": "GLOBALS"}}]}
+            ],
+            "distractors": [
+                {"file": "ValueTransformer.php", "namespace": "Acme\\Calc\\Transform", "class": "ValueTransformer", "source": "nearmiss_calc", "reason": "near-miss: same calculate/value vocabulary but transforms value format instead of computing it — different result"}
+            ],
+            "cleans": [
+                {"file": "CalculatorRepository.php", "namespace": "Acme\\Calc\\Repo", "class": "CalculatorRepository", "source": "clean_calc"}
+            ]
+        },
+        {
+            "set_id": "L05-st_variable_scope-002",
+            "title": "Variable access with local vs closure use() vs $GLOBALS",
+            "description": "The same calculateValue method in three calculator classes. Carrier A uses $GLOBALS, carrier B uses local variables, carrier C uses closure with use(). Same computation, different variable scope idiom.",
+            "seed": "value_calculation",
+            "mount": "method",
+            "clone_symbol": "calculateValue",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "edit_budget": 20,
+            "rng_seed": 115102,
+            "notes": "Set 2 of 5. ST-15 varies local vs closure use() vs $GLOBALS.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineCalculator.php", "namespace": "Acme\\Calc\\Pristine", "class": "PristineCalculator", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "LocalCalculator.php", "namespace": "Acme\\Calc\\Local", "class": "LocalCalculator", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-15", "params": {"style": "local"}}]},
+                {"file": "ClosureCalculator.php", "namespace": "Acme\\Calc\\Closure", "class": "ClosureCalculator", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-15", "params": {"style": "closure_use"}}]}
+            ],
+            "distractors": [
+                {"file": "ValueTransformer.php", "namespace": "Acme\\Calc\\Transform", "class": "ValueTransformer", "source": "nearmiss_calc", "reason": "near-miss: same calculate/value vocabulary but transforms format — different result"}
+            ],
+            "cleans": [
+                {"file": "CalculatorRepository.php", "namespace": "Acme\\Calc\\Repo", "class": "CalculatorRepository", "source": "clean_calc"}
+            ]
+        },
+        {
+            "set_id": "L05-st_variable_scope-003",
+            "title": "Variable access with local vs closure use() vs $GLOBALS",
+            "description": "The same calculateValue method in three calculator classes. Carrier A uses closure with use(), carrier B uses $GLOBALS, carrier C uses local variables. Same computation, different variable scope idiom.",
+            "seed": "value_calculation",
+            "mount": "method",
+            "clone_symbol": "calculateValue",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "edit_budget": 20,
+            "rng_seed": 115103,
+            "notes": "Set 3 of 5. ST-15 varies local vs closure use() vs $GLOBALS.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineCalculator.php", "namespace": "Acme\\Calc\\Pristine", "class": "PristineCalculator", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "GlobalsCalculator.php", "namespace": "Acme\\Calc\\Globals", "class": "GlobalsCalculator", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-15", "params": {"style": "GLOBALS"}}]},
+                {"file": "LocalCalculator.php", "namespace": "Acme\\Calc\\Local", "class": "LocalCalculator", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-15", "params": {"style": "local"}}]}
+            ],
+            "distractors": [
+                {"file": "ValueTransformer.php", "namespace": "Acme\\Calc\\Transform", "class": "ValueTransformer", "source": "nearmiss_calc", "reason": "near-miss: same calculate/value vocabulary but transforms format — different result"}
+            ],
+            "cleans": [
+                {"file": "CalculatorRepository.php", "namespace": "Acme\\Calc\\Repo", "class": "CalculatorRepository", "source": "clean_calc"}
+            ]
+        },
+        {
+            "set_id": "L05-st_variable_scope-004",
+            "title": "Variable access with local vs closure use() vs $GLOBALS",
+            "description": "The same calculateValue method in three calculator classes. Carrier A uses local variables, carrier B uses $GLOBALS, carrier C uses closure with use(). Same computation, different variable scope idiom.",
+            "seed": "value_calculation",
+            "mount": "method",
+            "clone_symbol": "calculateValue",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "edit_budget": 20,
+            "rng_seed": 115104,
+            "notes": "Set 4 of 5. ST-15 varies local vs closure use() vs $GLOBALS.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineCalculator.php", "namespace": "Acme\\Calc\\Pristine", "class": "PristineCalculator", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "GlobalsCalculator.php", "namespace": "Acme\\Calc\\Globals", "class": "GlobalsCalculator", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-15", "params": {"style": "GLOBALS"}}]},
+                {"file": "ClosureCalculator.php", "namespace": "Acme\\Calc\\Closure", "class": "ClosureCalculator", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-15", "params": {"style": "closure_use"}}]}
+            ],
+            "distractors": [
+                {"file": "ValueTransformer.php", "namespace": "Acme\\Calc\\Transform", "class": "ValueTransformer", "source": "nearmiss_calc", "reason": "near-miss: same calculate/value vocabulary but transforms format — different result"}
+            ],
+            "cleans": [
+                {"file": "CalculatorRepository.php", "namespace": "Acme\\Calc\\Repo", "class": "CalculatorRepository", "source": "clean_calc"}
+            ]
+        },
+        {
+            "set_id": "L05-st_variable_scope-005",
+            "title": "Variable access with local vs closure use() vs $GLOBALS",
+            "description": "The same calculateValue method in three calculator classes. Carrier A uses $GLOBALS, carrier B uses closure with use(), carrier C uses local variables. Same computation, different variable scope idiom.",
+            "seed": "value_calculation",
+            "mount": "method",
+            "clone_symbol": "calculateValue",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "edit_budget": 20,
+            "rng_seed": 115105,
+            "notes": "Set 5 of 5. ST-15 varies local vs closure use() vs $GLOBALS.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineCalculator.php", "namespace": "Acme\\Calc\\Pristine", "class": "PristineCalculator", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "ClosureCalculator.php", "namespace": "Acme\\Calc\\Closure", "class": "ClosureCalculator", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-15", "params": {"style": "closure_use"}}]},
+                {"file": "LocalCalculator.php", "namespace": "Acme\\Calc\\Local", "class": "LocalCalculator", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-15", "params": {"style": "local"}}]}
+            ],
+            "distractors": [
+                {"file": "ValueTransformer.php", "namespace": "Acme\\Calc\\Transform", "class": "ValueTransformer", "source": "nearmiss_calc", "reason": "near-miss: same calculate/value vocabulary but transforms format — different result"}
+            ],
+            "cleans": [
+                {"file": "CalculatorRepository.php", "namespace": "Acme\\Calc\\Repo", "class": "CalculatorRepository", "source": "clean_calc"}
+            ]
+        }
+    ]
+}

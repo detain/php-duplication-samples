@@ -1,0 +1,55 @@
+{
+    "level": 0,
+    "level_name": "probe_fp_suite",
+    "level_dir": "L00",
+    "family": "probe_fp_setup",
+    "capability_probe": {
+        "capability": "fp_resistance",
+        "subclass": "fixture"
+    },
+    "sets": [
+        {
+            "set_id": "L00-probe_fp_setup-001",
+            "title": "PHPUnit setUp control: different fixture shapes",
+            "description": "Two PHPUnit test classes with setUp() methods that have different fixture initialization shapes. The setUp signatures are similar (both initialize $this->service and $this->repository) but the specific fixture data differs (invoice vs user data, different repository classes). This should not trigger as FP since the fixture shapes differ.",
+            "seed": null,
+            "rng_seed": 310021,
+            "carriers": [],
+            "distractors": [],
+            "cleans": [
+                {"file": "InvoiceServiceTest.php", "namespace": "Acme\\Billing\\Tests", "class": "InvoiceServiceTest", "source": "clean_billing_test"},
+                {"file": "UserServiceTest.php", "namespace": "Acme\\Users\\Tests", "class": "UserServiceTest", "source": "clean_user_test"}
+            ],
+            "traps": []
+        },
+        {
+            "set_id": "L00-probe_fp_setup-002",
+            "title": "PHPUnit setUp FP probe: parallel fixture shapes with identical structure (trap)",
+            "description": "Two PHPUnit test classes from completely different test suites (billing vs audit) each have a setUp() method that initializes the same five fixture properties in the same order: $this->service, $this->repository, $this->validator, $this->factory, $this->cache. The initialization patterns are parallel in structure but entirely different in what they instantiate. This is the standard PHPUnit setUp fixture boilerplate that may look like duplication to naive token matchers. Marked trap:true.",
+            "seed": null,
+            "rng_seed": 310022,
+            "carriers": [],
+            "distractors": [],
+            "cleans": [
+                {"file": "BillingCalculationTest.php", "namespace": "Acme\\Billing\\Tests", "class": "BillingCalculationTest", "source": "clean_billing_test"},
+                {"file": "AuditReportingTest.php", "namespace": "Acme\\Audit\\Tests", "class": "AuditReportingTest", "source": "clean_audit_test"}
+            ],
+            "traps": [
+                {
+                    "file": "BillingCalculationTest.php",
+                    "region": "setup_fixture",
+                    "trap": true,
+                    "known_tool_fp": false,
+                    "reason": "Deliberate FP trap: setUp() method initializes the same 5 properties in the same order ($this->service, $this->repository, $this->validator, $this->factory, $this->cache) as AuditReportingTest, but instantiates completely different classes (BillingService, InvoiceRepository, etc vs AuditService, EventRepository, etc). This is standard PHPUnit fixture boilerplate, not duplicated implementation. Marked trap:true."
+                },
+                {
+                    "file": "AuditReportingTest.php",
+                    "region": "setup_fixture",
+                    "trap": true,
+                    "known_tool_fp": false,
+                    "reason": "Deliberate FP trap: identical setUp() structure to BillingCalculationTest — same 5 property assignments in same order, different domain. A detector pairing these fixture methods is reporting PHPUnit boilerplate ceremony, not real code duplication."
+                }
+            ]
+        }
+    ]
+}

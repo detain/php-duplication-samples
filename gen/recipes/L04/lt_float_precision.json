@@ -1,0 +1,133 @@
+{
+    "level": 4,
+    "level_name": "rename_literals",
+    "level_dir": "L04_rename_literals",
+    "family": "lt_float_precision",
+    "sets": [
+        {
+            "set_id": "L04-lt_float_precision-001",
+            "title": "Invoice totals with float precision changed",
+            "description": "The same computeTotals method in three calculator classes. Carrier A uses 2 decimal places (9.99); carrier B uses 4 decimals (9.9900); carrier C uses scientific notation (9.99e0). Only float representation differs (Type-2).",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "rng_seed": 106201,
+            "notes": "LT-04 (float_precision) changes float representations like 9.99/9.9900/9.99e0. Only precision representation changes - value is semantically equivalent. Set 001 of 5.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineInvoiceCalc.php", "namespace": "Acme\\Billing\\Pristine", "class": "PristineInvoiceCalc", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PrecisionInvoiceCalc.php", "namespace": "Acme\\Billing\\Precision", "class": "PrecisionInvoiceCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-04", "params": {"replacements": [{"find": "9.99", "replace": "9.9900"}, {"find": "19.99", "replace": "19.9900"}]}}]},
+                {"file": "ScientificInvoiceCalc.php", "namespace": "Acme\\Billing\\Scientific", "class": "ScientificInvoiceCalc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "LT-04", "params": {"replacements": [{"find": "9.99", "replace": "9.99e0"}, {"find": "19.99", "replace": "1.999e1"}, {"find": "100.0", "replace": "1e2"}]}}]}
+            ],
+            "distractors": [
+                {"file": "LineItemProfiler.php", "namespace": "Acme\\Billing\\Profiling", "class": "LineItemProfiler", "source": "nearmiss_invoice", "reason": "near-miss: same invoice calculation vocabulary and foreach-over-items shape, but computes a histogram of line item prices — a different result"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L04-lt_float_precision-002",
+            "title": "Invoice totals with float precision changed",
+            "description": "The same computeTotals method in three calculator classes. Carrier A uses 2 decimal places (9.99); carrier B uses 4 decimals (9.9900); carrier C uses scientific notation (9.99e0). Only float representation differs (Type-2).",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "rng_seed": 106202,
+            "notes": "LT-04 (float_precision) changes float representations like 9.99/9.9900/9.99e0. Only precision representation changes - value is semantically equivalent. Set 002 of 5.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineInvoiceCalc.php", "namespace": "Acme\\Billing\\Pristine", "class": "PristineInvoiceCalc", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PrecisionInvoiceCalc.php", "namespace": "Acme\\Billing\\Precision", "class": "PrecisionInvoiceCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-04", "params": {"replacements": [{"find": "9.99", "replace": "9.9900"}, {"find": "19.99", "replace": "19.9900"}]}}]},
+                {"file": "ScientificInvoiceCalc.php", "namespace": "Acme\\Billing\\Scientific", "class": "ScientificInvoiceCalc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "LT-04", "params": {"replacements": [{"find": "9.99", "replace": "9.99e0"}, {"find": "19.99", "replace": "1.999e1"}, {"find": "100.0", "replace": "1e2"}]}}]}
+            ],
+            "distractors": [
+                {"file": "LineItemProfiler.php", "namespace": "Acme\\Billing\\Profiling", "class": "LineItemProfiler", "source": "nearmiss_invoice", "reason": "near-miss: same invoice calculation vocabulary and foreach-over-items shape, but computes a histogram of line item prices — a different result"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L04-lt_float_precision-003",
+            "title": "Invoice totals with float precision changed",
+            "description": "The same computeTotals method in three calculator classes. Carrier A uses 2 decimal places (9.99); carrier B uses 4 decimals (9.9900); carrier C uses scientific notation (9.99e0). Only float representation differs (Type-2).",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "rng_seed": 106203,
+            "notes": "LT-04 (float_precision) changes float representations like 9.99/9.9900/9.99e0. Only precision representation changes - value is semantically equivalent. Set 003 of 5.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineInvoiceCalc.php", "namespace": "Acme\\Billing\\Pristine", "class": "PristineInvoiceCalc", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PrecisionInvoiceCalc.php", "namespace": "Acme\\Billing\\Precision", "class": "PrecisionInvoiceCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-04", "params": {"replacements": [{"find": "9.99", "replace": "9.9900"}, {"find": "19.99", "replace": "19.9900"}]}}]},
+                {"file": "ScientificInvoiceCalc.php", "namespace": "Acme\\Billing\\Scientific", "class": "ScientificInvoiceCalc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "LT-04", "params": {"replacements": [{"find": "9.99", "replace": "9.99e0"}, {"find": "19.99", "replace": "1.999e1"}, {"find": "100.0", "replace": "1e2"}]}}]}
+            ],
+            "distractors": [
+                {"file": "LineItemProfiler.php", "namespace": "Acme\\Billing\\Profiling", "class": "LineItemProfiler", "source": "nearmiss_invoice", "reason": "near-miss: same invoice calculation vocabulary and foreach-over-items shape, but computes a histogram of line item prices — a different result"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L04-lt_float_precision-004",
+            "title": "Invoice totals with float precision changed",
+            "description": "The same computeTotals method in three calculator classes. Carrier A uses 2 decimal places (9.99); carrier B uses 4 decimals (9.9900); carrier C uses scientific notation (9.99e0). Only float representation differs (Type-2).",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "rng_seed": 106204,
+            "notes": "LT-04 (float_precision) changes float representations like 9.99/9.9900/9.99e0. Only precision representation changes - value is semantically equivalent. Set 004 of 5.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineInvoiceCalc.php", "namespace": "Acme\\Billing\\Pristine", "class": "PristineInvoiceCalc", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PrecisionInvoiceCalc.php", "namespace": "Acme\\Billing\\Precision", "class": "PrecisionInvoiceCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-04", "params": {"replacements": [{"find": "9.99", "replace": "9.9900"}, {"find": "19.99", "replace": "19.9900"}]}}]},
+                {"file": "ScientificInvoiceCalc.php", "namespace": "Acme\\Billing\\Scientific", "class": "ScientificInvoiceCalc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "LT-04", "params": {"replacements": [{"find": "9.99", "replace": "9.99e0"}, {"find": "19.99", "replace": "1.999e1"}, {"find": "100.0", "replace": "1e2"}]}}]}
+            ],
+            "distractors": [
+                {"file": "LineItemProfiler.php", "namespace": "Acme\\Billing\\Profiling", "class": "LineItemProfiler", "source": "nearmiss_invoice", "reason": "near-miss: same invoice calculation vocabulary and foreach-over-items shape, but computes a histogram of line item prices — a different result"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L04-lt_float_precision-005",
+            "title": "Invoice totals with float precision changed",
+            "description": "The same computeTotals method in three calculator classes. Carrier A uses 2 decimal places (9.99); carrier B uses 4 decimals (9.9900); carrier C uses scientific notation (9.99e0). Only float representation differs (Type-2).",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "rng_seed": 106205,
+            "notes": "LT-04 (float_precision) changes float representations like 9.99/9.9900/9.99e0. Only precision representation changes - value is semantically equivalent. Set 005 of 5.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineInvoiceCalc.php", "namespace": "Acme\\Billing\\Pristine", "class": "PristineInvoiceCalc", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PrecisionInvoiceCalc.php", "namespace": "Acme\\Billing\\Precision", "class": "PrecisionInvoiceCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "LT-04", "params": {"replacements": [{"find": "9.99", "replace": "9.9900"}, {"find": "19.99", "replace": "19.9900"}]}}]},
+                {"file": "ScientificInvoiceCalc.php", "namespace": "Acme\\Billing\\Scientific", "class": "ScientificInvoiceCalc", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "LT-04", "params": {"replacements": [{"find": "9.99", "replace": "9.99e0"}, {"find": "19.99", "replace": "1.999e1"}, {"find": "100.0", "replace": "1e2"}]}}]}
+            ],
+            "distractors": [
+                {"file": "LineItemProfiler.php", "namespace": "Acme\\Billing\\Profiling", "class": "LineItemProfiler", "source": "nearmiss_invoice", "reason": "near-miss: same invoice calculation vocabulary and foreach-over-items shape, but computes a histogram of line item prices — a different result"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        }
+    ]
+}

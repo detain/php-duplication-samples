@@ -84,5 +84,12 @@
         "recipe": "gen/recipes/L09/mix_noise_heavy.json",
         "version": "1.0.0",
         "rng_seed": 109602
+    },
+    "progression": {
+        "bridge_pair": {
+            "lower": "L08-sem_scatter-001",
+            "upper": "L09-mix_noise_heavy-002",
+            "delta_axis": "WS"
+        }
     }
 }

@@ -1,0 +1,202 @@
+{
+    "schema_version": 1,
+    "set_id": "L10-adv_mass_instances-001",
+    "level": 10,
+    "level_name": "adversarial_edge_cases",
+    "family": "adv_mass_instances",
+    "title": "Mass duplication: 20 files, same 10-line clone at varying positions",
+    "description": "Tests scalability: same 10-line clone appears in 20 different files at varying positions (line 5-200 range). Uses multi-cluster F-2 to support many carriers. Feeds R8 axis 6 (Scaling / K-32 scaling curves).",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "helper_ten_lines",
+    "difficulty_band": "expert",
+    "files": [
+        {
+            "path": "src/CloneA01.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "start_line": 7,
+            "sloc": 24
+        },
+        {
+            "path": "src/CloneA02.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "start_line": 17,
+            "sloc": 34
+        },
+        {
+            "path": "src/CloneA03.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "start_line": 24,
+            "sloc": 41
+        },
+        {
+            "path": "src/CloneA04.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "start_line": 44,
+            "sloc": 61
+        },
+        {
+            "path": "src/CloneA05.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "start_line": 50,
+            "sloc": 67
+        },
+        {
+            "path": "src/CloneA06.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "start_line": 84,
+            "sloc": 101
+        },
+        {
+            "path": "src/CloneA07.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "start_line": 100,
+            "sloc": 117
+        },
+        {
+            "path": "src/CloneA08.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "start_line": 120,
+            "sloc": 137
+        },
+        {
+            "path": "src/CloneA09.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "start_line": 150,
+            "sloc": 167
+        },
+        {
+            "path": "src/CloneA10.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "start_line": 170,
+            "sloc": 187
+        },
+        {
+            "path": "src/CloneB01.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "start_line": 7,
+            "sloc": 24
+        },
+        {
+            "path": "src/CloneB02.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "start_line": 18,
+            "sloc": 35
+        },
+        {
+            "path": "src/CloneB03.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "start_line": 24,
+            "sloc": 41
+        },
+        {
+            "path": "src/CloneB04.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "start_line": 44,
+            "sloc": 61
+        },
+        {
+            "path": "src/CloneB05.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "start_line": 50,
+            "sloc": 67
+        },
+        {
+            "path": "src/CloneB06.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "start_line": 84,
+            "sloc": 101
+        },
+        {
+            "path": "src/CloneB07.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "start_line": 100,
+            "sloc": 117
+        },
+        {
+            "path": "src/CloneB08.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "start_line": 120,
+            "sloc": 137
+        },
+        {
+            "path": "src/CloneB09.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "start_line": 150,
+            "sloc": 167
+        },
+        {
+            "path": "src/CloneB10.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "start_line": 185,
+            "sloc": 202
+        },
+        {
+            "path": "src/DistractorA.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 63
+        },
+        {
+            "path": "src/DistractorB.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 22
+        },
+        {
+            "path": "src/CleanA.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        },
+        {
+            "path": "src/CleanB.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 27
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-1",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 20
+    },
+    "interference": [],
+    "difficulty": {
+        "score": 82,
+        "requires": []
+    },
+    "generator": {
+        "tool": "manual",
+        "recipe": "gen/recipes/L10/adv_mass_instances.json",
+        "version": "1.0.0",
+        "rng_seed": 112101
+    },
+    "role_composition": {
+        "carrier": 20,
+        "distractor": 2,
+        "clean": 2
+    }
+}

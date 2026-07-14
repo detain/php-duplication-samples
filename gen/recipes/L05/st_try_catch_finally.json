@@ -1,0 +1,138 @@
+{
+    "level": 5,
+    "level_name": "statement_edits",
+    "level_dir": "L05_statement_edits",
+    "family": "st_try_catch_finally",
+    "sets": [
+        {
+            "set_id": "L05-st_try_catch_finally-001",
+            "title": "Error handling with different try/catch/finally patterns",
+            "description": "The same executeOperation method in three service classes. Carrier A uses try/catch only, carrier B uses try/catch/finally, carrier C uses try/finally only. Same operation, different error-handling structure.",
+            "seed": "error_handling",
+            "mount": "method",
+            "clone_symbol": "executeOperation",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "edit_budget": 20,
+            "rng_seed": 114101,
+            "notes": "ST-14 (try_catch_finally) varies try/catch vs try/catch/finally vs try/finally. Same operation, different error-handling structure.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineErrorHandler.php", "namespace": "Acme\\Service\\Pristine", "class": "PristineErrorHandler", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "TryCatchFinallyHandler.php", "namespace": "Acme\\Service\\TryCatchFinally", "class": "TryCatchFinallyHandler", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-14", "params": {"style": "try_catch_finally"}}]},
+                {"file": "TryFinallyHandler.php", "namespace": "Acme\\Service\\TryFinally", "class": "TryFinallyHandler", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-14", "params": {"style": "try_finally"}}]}
+            ],
+            "distractors": [
+                {"file": "ErrorLogger.php", "namespace": "Acme\\Service\\Logger", "class": "ErrorLogger", "source": "nearmiss_service", "reason": "near-miss: same error/operation vocabulary but logs errors to file instead of executing operation — different result"}
+            ],
+            "cleans": [
+                {"file": "ServiceRepository.php", "namespace": "Acme\\Service\\Repo", "class": "ServiceRepository", "source": "clean_service"}
+            ]
+        },
+        {
+            "set_id": "L05-st_try_catch_finally-002",
+            "title": "Error handling with different try/catch/finally patterns",
+            "description": "The same executeOperation method in three service classes. Carrier A uses try/finally, carrier B uses try/catch only, carrier C uses try/catch/finally. Same operation, different error-handling structure.",
+            "seed": "error_handling",
+            "mount": "method",
+            "clone_symbol": "executeOperation",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "edit_budget": 20,
+            "rng_seed": 114102,
+            "notes": "Set 2 of 5. ST-14 varies try/catch vs try/catch/finally vs try/finally.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineErrorHandler.php", "namespace": "Acme\\Service\\Pristine", "class": "PristineErrorHandler", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "TryCatchHandler.php", "namespace": "Acme\\Service\\TryCatch", "class": "TryCatchHandler", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-14", "params": {"style": "try_catch"}}]},
+                {"file": "TryCatchFinallyHandler.php", "namespace": "Acme\\Service\\TryCatchFinally", "class": "TryCatchFinallyHandler", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-14", "params": {"style": "try_catch_finally"}}]}
+            ],
+            "distractors": [
+                {"file": "ErrorLogger.php", "namespace": "Acme\\Service\\Logger", "class": "ErrorLogger", "source": "nearmiss_service", "reason": "near-miss: same error/operation vocabulary but logs to file — different result"}
+            ],
+            "cleans": [
+                {"file": "ServiceRepository.php", "namespace": "Acme\\Service\\Repo", "class": "ServiceRepository", "source": "clean_service"}
+            ]
+        },
+        {
+            "set_id": "L05-st_try_catch_finally-003",
+            "title": "Error handling with different try/catch/finally patterns",
+            "description": "The same executeOperation method in three service classes. Carrier A uses try/catch/finally, carrier B uses try/finally, carrier C uses try/catch. Same operation, different error-handling structure.",
+            "seed": "error_handling",
+            "mount": "method",
+            "clone_symbol": "executeOperation",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "edit_budget": 20,
+            "rng_seed": 114103,
+            "notes": "Set 3 of 5. ST-14 varies try/catch vs try/catch/finally vs try/finally.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineErrorHandler.php", "namespace": "Acme\\Service\\Pristine", "class": "PristineErrorHandler", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "TryFinallyHandler.php", "namespace": "Acme\\Service\\TryFinally", "class": "TryFinallyHandler", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-14", "params": {"style": "try_finally"}}]},
+                {"file": "TryCatchHandler.php", "namespace": "Acme\\Service\\TryCatch", "class": "TryCatchHandler", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-14", "params": {"style": "try_catch"}}]}
+            ],
+            "distractors": [
+                {"file": "ErrorLogger.php", "namespace": "Acme\\Service\\Logger", "class": "ErrorLogger", "source": "nearmiss_service", "reason": "near-miss: same error/operation vocabulary but logs to file — different result"}
+            ],
+            "cleans": [
+                {"file": "ServiceRepository.php", "namespace": "Acme\\Service\\Repo", "class": "ServiceRepository", "source": "clean_service"}
+            ]
+        },
+        {
+            "set_id": "L05-st_try_catch_finally-004",
+            "title": "Error handling with different try/catch/finally patterns",
+            "description": "The same executeOperation method in three service classes. Carrier A uses try/catch, carrier B uses try/catch/finally, carrier C uses try/finally. Same operation, different error-handling structure.",
+            "seed": "error_handling",
+            "mount": "method",
+            "clone_symbol": "executeOperation",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "edit_budget": 20,
+            "rng_seed": 114104,
+            "notes": "Set 4 of 5. ST-14 varies try/catch vs try/catch/finally vs try/finally.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineErrorHandler.php", "namespace": "Acme\\Service\\Pristine", "class": "PristineErrorHandler", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "TryCatchFinallyHandler.php", "namespace": "Acme\\Service\\TryCatchFinally", "class": "TryCatchFinallyHandler", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-14", "params": {"style": "try_catch_finally"}}]},
+                {"file": "TryFinallyHandler.php", "namespace": "Acme\\Service\\TryFinally", "class": "TryFinallyHandler", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-14", "params": {"style": "try_finally"}}]}
+            ],
+            "distractors": [
+                {"file": "ErrorLogger.php", "namespace": "Acme\\Service\\Logger", "class": "ErrorLogger", "source": "nearmiss_service", "reason": "near-miss: same error/operation vocabulary but logs to file — different result"}
+            ],
+            "cleans": [
+                {"file": "ServiceRepository.php", "namespace": "Acme\\Service\\Repo", "class": "ServiceRepository", "source": "clean_service"}
+            ]
+        },
+        {
+            "set_id": "L05-st_try_catch_finally-005",
+            "title": "Error handling with different try/catch/finally patterns",
+            "description": "The same executeOperation method in three service classes. Carrier A uses try/finally, carrier B uses try/catch/finally, carrier C uses try/catch. Same operation, different error-handling structure.",
+            "seed": "error_handling",
+            "mount": "method",
+            "clone_symbol": "executeOperation",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "edit_budget": 20,
+            "rng_seed": 114105,
+            "notes": "Set 5 of 5. ST-14 varies try/catch vs try/catch/finally vs try/finally.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineErrorHandler.php", "namespace": "Acme\\Service\\Pristine", "class": "PristineErrorHandler", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "TryFinallyHandler.php", "namespace": "Acme\\Service\\TryFinally", "class": "TryFinallyHandler", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-14", "params": {"style": "try_finally"}}]},
+                {"file": "TryCatchHandler.php", "namespace": "Acme\\Service\\TryCatch", "class": "TryCatchHandler", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-14", "params": {"style": "try_catch"}}]}
+            ],
+            "distractors": [
+                {"file": "ErrorLogger.php", "namespace": "Acme\\Service\\Logger", "class": "ErrorLogger", "source": "nearmiss_service", "reason": "near-miss: same error/operation vocabulary but logs to file — different result"}
+            ],
+            "cleans": [
+                {"file": "ServiceRepository.php", "namespace": "Acme\\Service\\Repo", "class": "ServiceRepository", "source": "clean_service"}
+            ]
+        }
+    ]
+}

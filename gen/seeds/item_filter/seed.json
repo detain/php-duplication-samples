@@ -1,0 +1,14 @@
+{
+    "domain": "item_filter",
+    "summary": "Item filtering and collecting: manual if-foreach vs array_filter+array_map.",
+    "size_class": "S",
+    "symbol": "filter",
+    "line_count": 16,
+    "token_count": 110,
+    "required_symbols": ["filter"],
+    "mount_modes": ["method", "function"],
+    "compatible_interference": ["WS-03", "CM-03", "RN-01", "CF-05", "API-01", "API-05"],
+    "variants": [
+        {"file": "cf_collector_vs_filter.php", "code": "CF-08", "name": "cf_collector_vs_filter"}
+    ]
+}

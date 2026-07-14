@@ -1,0 +1,143 @@
+{
+    "level": 3,
+    "level_name": "comments_variation",
+    "level_dir": "L03_comments",
+    "family": "cm_docblock_tags",
+    "sets": [
+        {
+            "set_id": "L03-cm_docblock_tags-001",
+            "title": "Minimal docblock without tags on invoice totals",
+            "description": "Clone pair has a minimal docblock with only a summary line, no @param/@return/@throws tags. Tests detection of minimal docblock presence.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "function",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 103701,
+            "notes": "CM-14 docblock tags - minimal docblock without tags.",
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": false, "metric_based": false, "semantic": false},
+            "role_composition": {"carrier": 3, "distractor": 1, "clean": 1},
+            "carriers": [
+                {"file": "LedgerPostingService.php", "namespace": "Acme\\Ledger\\Posting", "class": "LedgerPostingService", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PriceBookService.php", "namespace": "Acme\\Ledger\\Pricing", "class": "PriceBookService", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "CM-14", "params": {"tags": []}}]},
+                {"file": "ThirdService.php", "namespace": "Acme\\Ledger\\Third", "class": "ThirdService", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "interference": ["CM-14"],
+            "distractors": [
+                {"file": "MarginReporter.php", "namespace": "Acme\\Ledger\\Reporting", "class": "MarginReporter", "source": "nearmiss_access", "reason": "near-miss: shares foreach+invoice vocabulary but computes margin/ratio not totals"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Ledger\\Catalog", "class": "TaxRateRepository", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L03-cm_docblock_tags-002",
+            "title": "Docblock with @param tag only",
+            "description": "Clone pair has a docblock with only @param tag documenting parameters. Tests detection of single-tag docblock.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "function",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 103702,
+            "notes": "CM-14 docblock tags - @param only.",
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": false, "metric_based": false, "semantic": false},
+            "role_composition": {"carrier": 3, "distractor": 1, "clean": 1},
+            "carriers": [
+                {"file": "LedgerPostingService.php", "namespace": "Acme\\Ledger\\Posting", "class": "LedgerPostingService", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PriceBookService.php", "namespace": "Acme\\Ledger\\Pricing", "class": "PriceBookService", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "CM-14", "params": {"tags": ["@param float $subtotal The subtotal amount."]}}]},
+                {"file": "ThirdService.php", "namespace": "Acme\\Ledger\\Third", "class": "ThirdService", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "interference": ["CM-14"],
+            "distractors": [
+                {"file": "MarginReporter.php", "namespace": "Acme\\Ledger\\Reporting", "class": "MarginReporter", "source": "nearmiss_access", "reason": "near-miss: shares foreach+invoice vocabulary but computes margin/ratio not totals"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Ledger\\Catalog", "class": "TaxRateRepository", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L03-cm_docblock_tags-003",
+            "title": "Docblock with @param and @return tags",
+            "description": "Clone pair has a docblock with @param and @return tags documenting parameters and return value. Tests detection of two-tag docblock.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "function",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 103703,
+            "notes": "CM-14 docblock tags - @param and @return.",
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": false, "metric_based": false, "semantic": false},
+            "role_composition": {"carrier": 3, "distractor": 1, "clean": 1},
+            "carriers": [
+                {"file": "LedgerPostingService.php", "namespace": "Acme\\Ledger\\Posting", "class": "LedgerPostingService", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PriceBookService.php", "namespace": "Acme\\Ledger\\Pricing", "class": "PriceBookService", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "CM-14", "params": {"tags": ["@param float $subtotal The subtotal.", "@return float The total amount."]}}]},
+                {"file": "ThirdService.php", "namespace": "Acme\\Ledger\\Third", "class": "ThirdService", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "interference": ["CM-14"],
+            "distractors": [
+                {"file": "MarginReporter.php", "namespace": "Acme\\Ledger\\Reporting", "class": "MarginReporter", "source": "nearmiss_access", "reason": "near-miss: shares foreach+invoice vocabulary but computes margin/ratio not totals"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Ledger\\Catalog", "class": "TaxRateRepository", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L03-cm_docblock_tags-004",
+            "title": "Full docblock with @param, @return, @throws tags",
+            "description": "Clone pair has a full docblock with @param, @return, and @throws tags. Tests detection of comprehensive docblock documentation.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "function",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 103704,
+            "notes": "CM-14 docblock tags - @param, @return, and @throws.",
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": false, "metric_based": false, "semantic": false},
+            "role_composition": {"carrier": 3, "distractor": 1, "clean": 1},
+            "carriers": [
+                {"file": "LedgerPostingService.php", "namespace": "Acme\\Ledger\\Posting", "class": "LedgerPostingService", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PriceBookService.php", "namespace": "Acme\\Ledger\\Pricing", "class": "PriceBookService", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "CM-14", "params": {"tags": ["@param float $subtotal The subtotal.", "@param float $tax The tax amount.", "@return float The total.", "@throws \\InvalidArgumentException If amounts are negative."]}}]},
+                {"file": "ThirdService.php", "namespace": "Acme\\Ledger\\Third", "class": "ThirdService", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "interference": ["CM-14"],
+            "distractors": [
+                {"file": "MarginReporter.php", "namespace": "Acme\\Ledger\\Reporting", "class": "MarginReporter", "source": "nearmiss_access", "reason": "near-miss: shares foreach+invoice vocabulary but computes margin/ratio not totals"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Ledger\\Catalog", "class": "TaxRateRepository", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L03-cm_docblock_tags-005",
+            "title": "Docblock with @throws tag on access authorization",
+            "description": "Clone pair has a docblock with @throws tag documenting possible exceptions on access authorization method. Tests docblock tag variation on different seed.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "function",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 103705,
+            "notes": "CM-14 docblock tags - @throws on access control method.",
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": false, "metric_based": false, "semantic": false},
+            "role_composition": {"carrier": 3, "distractor": 1, "clean": 1},
+            "carriers": [
+                {"file": "AccessServiceBase.php", "namespace": "Acme\\Security\\Access", "class": "AccessServiceBase", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "AccessServiceDecorated.php", "namespace": "Acme\\Security\\Decorated", "class": "AccessServiceDecorated", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "CM-14", "params": {"tags": ["@throws \\SecurityException If access is denied."]}}]},
+                {"file": "ThirdService.php", "namespace": "Acme\\Security\\Third", "class": "ThirdService", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "interference": ["CM-14"],
+            "distractors": [
+                {"file": "MarginReporter.php", "namespace": "Acme\\Ledger\\Reporting", "class": "MarginReporter", "source": "nearmiss_access", "reason": "near-miss: shares foreach+invoice vocabulary but computes margin/ratio not totals"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Ledger\\Catalog", "class": "TaxRateRepository", "source": "clean_auth"}
+            ]
+        }
+    ]
+}

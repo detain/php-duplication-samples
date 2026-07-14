@@ -1,0 +1,133 @@
+{
+    "level": 2,
+    "level_name": "whitespace_variation",
+    "level_dir": "L02_whitespace",
+    "family": "ws_mixed_tabs_spaces",
+    "sets": [
+        {
+            "set_id": "L02-ws_mixed_tabs_spaces-001",
+            "title": "Invoice-totals method with mixed tabs and spaces indentation",
+            "description": "The same invoice-totalling method in three service classes. Carrier A uses consistent spaces; carrier B uses mixed tabs-and-spaces indentation; carrier C also uses mixed style. Token stream is identical after whitespace normalization.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 102211,
+            "notes": "Mixed tabs and spaces (WS-08) creates inconsistent indentation that looks different in editors but normalizes to same token stream.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "LedgerPostingService.php", "namespace": "Acme\\Ledger\\Posting", "class": "LedgerPostingService", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PriceBookService.php", "namespace": "Acme\\Ledger\\Pricing", "class": "PriceBookService", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "WS-08", "params": {"style": "mixedTabsSpaces"}}]},
+                {"file": "SettlementService.php", "namespace": "Acme\\Ledger\\Settlement", "class": "SettlementService", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "WS-08", "params": {"style": "mixedTabsSpaces"}}]}
+            ],
+            "distractors": [
+                {"file": "MarginReporter.php", "namespace": "Acme\\Ledger\\Reporting", "class": "MarginReporter", "source": "nearmiss_invoice", "reason": "near-miss: same invoice vocabulary and foreach shape, but computes revenue/cost margins and a ratio — a different result"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Ledger\\Catalog", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L02-ws_mixed_tabs_spaces-002",
+            "title": "Invoice-totals method with mixed tabs and spaces indentation",
+            "description": "The same invoice-totalling method in three service classes. Carrier A uses consistent spaces; carrier B uses mixed tabs-and-spaces indentation; carrier C also uses mixed style. Token stream is identical after whitespace normalization.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 102212,
+            "notes": "Mixed tabs and spaces (WS-08) creates inconsistent indentation that looks different in editors but normalizes to same token stream.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "LedgerPostingService.php", "namespace": "Acme\\Ledger\\Posting", "class": "LedgerPostingService", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PriceBookService.php", "namespace": "Acme\\Ledger\\Pricing", "class": "PriceBookService", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "WS-08", "params": {"style": "mixedTabsSpaces"}}]},
+                {"file": "SettlementService.php", "namespace": "Acme\\Ledger\\Settlement", "class": "SettlementService", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "WS-08", "params": {"style": "mixedTabsSpaces"}}]}
+            ],
+            "distractors": [
+                {"file": "MarginReporter.php", "namespace": "Acme\\Ledger\\Reporting", "class": "MarginReporter", "source": "nearmiss_invoice", "reason": "near-miss: same invoice vocabulary and foreach shape, but computes revenue/cost margins and a ratio — a different result"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Ledger\\Catalog", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L02-ws_mixed_tabs_spaces-003",
+            "title": "Invoice-totals method with mixed tabs and spaces indentation",
+            "description": "The same invoice-totalling method in three service classes. Carrier A uses consistent spaces; carrier B uses mixed tabs-and-spaces indentation; carrier C also uses mixed style. Token stream is identical after whitespace normalization.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 102213,
+            "notes": "Mixed tabs and spaces (WS-08) creates inconsistent indentation that looks different in editors but normalizes to same token stream.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "LedgerPostingService.php", "namespace": "Acme\\Ledger\\Posting", "class": "LedgerPostingService", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PriceBookService.php", "namespace": "Acme\\Ledger\\Pricing", "class": "PriceBookService", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "WS-08", "params": {"style": "mixedTabsSpaces"}}]},
+                {"file": "SettlementService.php", "namespace": "Acme\\Ledger\\Settlement", "class": "SettlementService", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "WS-08", "params": {"style": "mixedTabsSpaces"}}]}
+            ],
+            "distractors": [
+                {"file": "MarginReporter.php", "namespace": "Acme\\Ledger\\Reporting", "class": "MarginReporter", "source": "nearmiss_invoice", "reason": "near-miss: same invoice vocabulary and foreach shape, but computes revenue/cost margins and a ratio — a different result"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Ledger\\Catalog", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L02-ws_mixed_tabs_spaces-004",
+            "title": "Invoice-totals method with mixed tabs and spaces indentation",
+            "description": "The same invoice-totalling method in three service classes. Carrier A uses consistent spaces; carrier B uses mixed tabs-and-spaces indentation; carrier C also uses mixed style. Token stream is identical after whitespace normalization.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 102214,
+            "notes": "Mixed tabs and spaces (WS-08) creates inconsistent indentation that looks different in editors but normalizes to same token stream.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "LedgerPostingService.php", "namespace": "Acme\\Ledger\\Posting", "class": "LedgerPostingService", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PriceBookService.php", "namespace": "Acme\\Ledger\\Pricing", "class": "PriceBookService", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "WS-08", "params": {"style": "mixedTabsSpaces"}}]},
+                {"file": "SettlementService.php", "namespace": "Acme\\Ledger\\Settlement", "class": "SettlementService", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "WS-08", "params": {"style": "mixedTabsSpaces"}}]}
+            ],
+            "distractors": [
+                {"file": "MarginReporter.php", "namespace": "Acme\\Ledger\\Reporting", "class": "MarginReporter", "source": "nearmiss_invoice", "reason": "near-miss: same invoice vocabulary and foreach shape, but computes revenue/cost margins and a ratio — a different result"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Ledger\\Catalog", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L02-ws_mixed_tabs_spaces-005",
+            "title": "Invoice-totals method with mixed tabs and spaces indentation",
+            "description": "The same invoice-totalling method in three service classes. Carrier A uses consistent spaces; carrier B uses mixed tabs-and-spaces indentation; carrier C also uses mixed style. Token stream is identical after whitespace normalization.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 102215,
+            "notes": "Mixed tabs and spaces (WS-08) creates inconsistent indentation that looks different in editors but normalizes to same token stream.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "LedgerPostingService.php", "namespace": "Acme\\Ledger\\Posting", "class": "LedgerPostingService", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PriceBookService.php", "namespace": "Acme\\Ledger\\Pricing", "class": "PriceBookService", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "WS-08", "params": {"style": "mixedTabsSpaces"}}]},
+                {"file": "SettlementService.php", "namespace": "Acme\\Ledger\\Settlement", "class": "SettlementService", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "WS-08", "params": {"style": "mixedTabsSpaces"}}]}
+            ],
+            "distractors": [
+                {"file": "MarginReporter.php", "namespace": "Acme\\Ledger\\Reporting", "class": "MarginReporter", "source": "nearmiss_invoice", "reason": "near-miss: same invoice vocabulary and foreach shape, but computes revenue/cost margins and a ratio — a different result"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Ledger\\Catalog", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        }
+    ]
+}

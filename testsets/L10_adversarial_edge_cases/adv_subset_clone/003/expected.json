@@ -1,0 +1,108 @@
+{
+    "schema_version": 1,
+    "set_id": "L10-adv_subset_clone-003",
+    "clusters": [
+        {
+            "id": "Clone1-Full",
+            "group_id": "A",
+            "clone_type": "type-3",
+            "granularity": "method",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers"
+            ],
+            "token_hash": "5cd8e7841ecf7c41",
+            "normalized_hash": "89e09fba7eb77dcb",
+            "members": [
+                {
+                    "file": "src/AccessCheckerA.php",
+                    "start_line": 9,
+                    "end_line": 27,
+                    "symbol": "authorize",
+                    "pristine": true
+                },
+                {
+                    "file": "src/AccessCheckerB.php",
+                    "start_line": 18,
+                    "end_line": 36,
+                    "symbol": "authorize",
+                    "pristine": false
+                },
+                {
+                    "file": "src/AccessCheckerC.php",
+                    "start_line": 25,
+                    "end_line": 43,
+                    "symbol": "authorize",
+                    "pristine": false
+                }
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": false,
+                "semantic": true
+            },
+            "notes": "O Idea 9: The Inclusion Problem with access_guard seed. Clone1 is the full 30-line authorization method, Clone2 is the 15-line subset containing only the user verification portion."
+        },
+        {
+            "id": "Clone2-Subset",
+            "group_id": "B",
+            "clone_type": "type-3",
+            "granularity": "method",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers"
+            ],
+            "token_hash": "5cd8e7841ecf7c41",
+            "normalized_hash": "89e09fba7eb77dcb",
+            "members": [
+                {
+                    "file": "src/PermissionVerifierA.php",
+                    "start_line": 9,
+                    "end_line": 27,
+                    "symbol": "authorize",
+                    "pristine": true
+                },
+                {
+                    "file": "src/PermissionVerifierB.php",
+                    "start_line": 18,
+                    "end_line": 36,
+                    "symbol": "authorize",
+                    "pristine": false
+                },
+                {
+                    "file": "src/PermissionVerifierC.php",
+                    "start_line": 25,
+                    "end_line": 43,
+                    "symbol": "authorize",
+                    "pristine": false
+                }
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": false,
+                "semantic": true
+            },
+            "notes": "O Idea 9: The Inclusion Problem with access_guard seed. Clone1 is the full 30-line authorization method, Clone2 is the 15-line subset containing only the user verification portion."
+        }
+    ],
+    "non_duplicates": [
+        {
+            "file": "src/RateLimiter.php",
+            "start_line": 12,
+            "end_line": 27,
+            "reason": "Near-miss: same access vocabulary but different authorization logic",
+            "trap": true
+        }
+    ],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.55,
+        "min_members_for_credit": 2
+    }
+}

@@ -1,0 +1,133 @@
+{
+    "level": 2,
+    "level_name": "whitespace_variation",
+    "level_dir": "L02_whitespace",
+    "family": "ws_function_spacing",
+    "sets": [
+        {
+            "set_id": "L02-ws_function_spacing-001",
+            "title": "Invoice-totals method with function spacing variations (blank lines before/after)",
+            "description": "The same invoice-totalling method in three service classes. Carrier A has no extra spacing; carrier B has blank lines before the method; carrier C has blank lines after the method. Token stream is identical after whitespace normalization.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 102251,
+            "notes": "Function spacing (WS-01/WS-02) adds blank lines before/after methods. Token-based detectors should match all three; text-based will not.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "LedgerPostingService.php", "namespace": "Acme\\Ledger\\Posting", "class": "LedgerPostingService", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PriceBookService.php", "namespace": "Acme\\Ledger\\Pricing", "class": "PriceBookService", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "WS-01", "params": {"count": 1}}]},
+                {"file": "SettlementService.php", "namespace": "Acme\\Ledger\\Settlement", "class": "SettlementService", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "WS-02", "params": {"count": 1}}]}
+            ],
+            "distractors": [
+                {"file": "MarginReporter.php", "namespace": "Acme\\Ledger\\Reporting", "class": "MarginReporter", "source": "nearmiss_invoice", "reason": "near-miss: same invoice vocabulary and foreach shape, but computes revenue/cost margins and a ratio — a different result"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Ledger\\Catalog", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L02-ws_function_spacing-002",
+            "title": "Invoice-totals method with function spacing variations (blank lines before/after)",
+            "description": "The same invoice-totalling method in three service classes. Carrier A has no extra spacing; carrier B has blank lines before the method; carrier C has blank lines after the method. Token stream is identical after whitespace normalization.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 102252,
+            "notes": "Function spacing (WS-01/WS-02) adds blank lines before/after methods. Token-based detectors should match all three; text-based will not.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "LedgerPostingService.php", "namespace": "Acme\\Ledger\\Posting", "class": "LedgerPostingService", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PriceBookService.php", "namespace": "Acme\\Ledger\\Pricing", "class": "PriceBookService", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "WS-01", "params": {"count": 2}}]},
+                {"file": "SettlementService.php", "namespace": "Acme\\Ledger\\Settlement", "class": "SettlementService", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "WS-02", "params": {"count": 2}}]}
+            ],
+            "distractors": [
+                {"file": "MarginReporter.php", "namespace": "Acme\\Ledger\\Reporting", "class": "MarginReporter", "source": "nearmiss_invoice", "reason": "near-miss: same invoice vocabulary and foreach shape, but computes revenue/cost margins and a ratio — a different result"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Ledger\\Catalog", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L02-ws_function_spacing-003",
+            "title": "Invoice-totals method with function spacing variations (blank lines before/after)",
+            "description": "The same invoice-totalling method in three service classes. Carrier A has no extra spacing; carrier B has blank lines before the method; carrier C has blank lines after the method. Token stream is identical after whitespace normalization.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 102253,
+            "notes": "Function spacing (WS-01/WS-02) adds blank lines before/after methods. Token-based detectors should match all three; text-based will not.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "LedgerPostingService.php", "namespace": "Acme\\Ledger\\Posting", "class": "LedgerPostingService", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PriceBookService.php", "namespace": "Acme\\Ledger\\Pricing", "class": "PriceBookService", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "WS-01", "params": {"count": 1}}]},
+                {"file": "SettlementService.php", "namespace": "Acme\\Ledger\\Settlement", "class": "SettlementService", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "WS-02", "params": {"count": 1}}]}
+            ],
+            "distractors": [
+                {"file": "MarginReporter.php", "namespace": "Acme\\Ledger\\Reporting", "class": "MarginReporter", "source": "nearmiss_invoice", "reason": "near-miss: same invoice vocabulary and foreach shape, but computes revenue/cost margins and a ratio — a different result"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Ledger\\Catalog", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L02-ws_function_spacing-004",
+            "title": "Invoice-totals method with function spacing variations (blank lines before/after)",
+            "description": "The same invoice-totalling method in three service classes. Carrier A has no extra spacing; carrier B has blank lines before the method; carrier C has blank lines after the method. Token stream is identical after whitespace normalization.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 102254,
+            "notes": "Function spacing (WS-01/WS-02) adds blank lines before/after methods. Token-based detectors should match all three; text-based will not.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "LedgerPostingService.php", "namespace": "Acme\\Ledger\\Posting", "class": "LedgerPostingService", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PriceBookService.php", "namespace": "Acme\\Ledger\\Pricing", "class": "PriceBookService", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "WS-01", "params": {"count": 2}}]},
+                {"file": "SettlementService.php", "namespace": "Acme\\Ledger\\Settlement", "class": "SettlementService", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "WS-02", "params": {"count": 2}}]}
+            ],
+            "distractors": [
+                {"file": "MarginReporter.php", "namespace": "Acme\\Ledger\\Reporting", "class": "MarginReporter", "source": "nearmiss_invoice", "reason": "near-miss: same invoice vocabulary and foreach shape, but computes revenue/cost margins and a ratio — a different result"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Ledger\\Catalog", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L02-ws_function_spacing-005",
+            "title": "Invoice-totals method with function spacing variations (blank lines before/after)",
+            "description": "The same invoice-totalling method in three service classes. Carrier A has no extra spacing; carrier B has blank lines before the method; carrier C has blank lines after the method. Token stream is identical after whitespace normalization.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 102255,
+            "notes": "Function spacing (WS-01/WS-02) adds blank lines before/after methods. Token-based detectors should match all three; text-based will not.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "LedgerPostingService.php", "namespace": "Acme\\Ledger\\Posting", "class": "LedgerPostingService", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PriceBookService.php", "namespace": "Acme\\Ledger\\Pricing", "class": "PriceBookService", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "WS-01", "params": {"count": 1}}]},
+                {"file": "SettlementService.php", "namespace": "Acme\\Ledger\\Settlement", "class": "SettlementService", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "WS-02", "params": {"count": 1}}]}
+            ],
+            "distractors": [
+                {"file": "MarginReporter.php", "namespace": "Acme\\Ledger\\Reporting", "class": "MarginReporter", "source": "nearmiss_invoice", "reason": "near-miss: same invoice vocabulary and foreach shape, but computes revenue/cost margins and a ratio — a different result"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Ledger\\Catalog", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        }
+    ]
+}

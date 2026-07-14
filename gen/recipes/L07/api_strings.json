@@ -443,6 +443,270 @@
                     "source": "clean_billing"
                 }
             ]
+        },
+        {
+            "set_id": "L07-api_strings-006",
+            "title": "Invoice totalling: sprintf → interpolation ladder",
+            "description": "G-5 gap-fill: String API ladder rung 1 of 4 — sprintf to string interpolation. The same invoice line-item totalling computation written using sprintf formatting (carrier A, pristine) vs string interpolation (carrier B) vs direct arithmetic formatting (carrier C). These represent progressively more different idioms that compute identical results.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-4",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers",
+                "literals",
+                "controlflow"
+            ],
+            "rng_seed": 107106,
+            "notes": "G-5 gap-fill: API-02 string idiom ladder (sprintf → interpolation). This rung shows the minimal API shift between sprintf and interpolation.",
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": false,
+                "semantic": true
+            },
+            "requires": [
+                "api_abstraction",
+                "ast_canonicalization"
+            ],
+            "carriers": [
+                {
+                    "file": "InvoiceComputeStandard.php",
+                    "namespace": "Acme\\Billing\\Invoicing",
+                    "class": "InvoiceComputeStandard",
+                    "scaffold": "method_alpha",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                },
+                {
+                    "file": "InvoiceComputeInterpolation.php",
+                    "namespace": "Acme\\Billing\\Invoicing",
+                    "class": "InvoiceComputeInterpolation",
+                    "scaffold": "method_beta",
+                    "group": "A",
+                    "pristine": false,
+                    "variant": "api_interpolation",
+                    "transforms": [
+                        {
+                            "code": "API-02",
+                            "variant": "api_interpolation"
+                        }
+                    ]
+                },
+                {
+                    "file": "InvoiceComputeArithmetic.php",
+                    "namespace": "Acme\\Billing\\Invoicing",
+                    "class": "InvoiceComputeArithmetic",
+                    "scaffold": "method_gamma",
+                    "group": "A",
+                    "pristine": false,
+                    "variant": "api_arithmetic",
+                    "transforms": [
+                        {
+                            "code": "API-02",
+                            "variant": "api_arithmetic"
+                        }
+                    ]
+                }
+            ],
+            "distractors": [
+                {
+                    "file": "MarginSummarizer.php",
+                    "namespace": "Acme\\Billing\\Analytics",
+                    "class": "MarginSummarizer",
+                    "source": "nearmiss_invoice",
+                    "reason": "near-miss: same invoice-domain vocabulary (lineItems, qty, unitPrice) and similar foreach-over-items shape, but computes revenue/cost/margin summary — a different result with different arithmetic"
+                }
+            ],
+            "cleans": [
+                {
+                    "file": "TaxRateRepository.php",
+                    "namespace": "Acme\\Billing\\Tax",
+                    "class": "TaxRateRepository",
+                    "source": "clean_billing"
+                }
+            ]
+        },
+        {
+            "set_id": "L07-api_strings-007",
+            "title": "Invoice totalling: interpolation → concat ladder",
+            "description": "G-5 gap-fill: String API ladder rung 2 of 4 — interpolation to concatenation. The same invoice line-item totalling computation written using string interpolation (carrier A) vs direct concatenation (carrier B) vs number_format (carrier C). All compute identical results but use fundamentally different string-building idioms.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-4",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers",
+                "literals",
+                "controlflow"
+            ],
+            "rng_seed": 107107,
+            "notes": "G-5 gap-fill: API-02 string idiom ladder (interpolation → concat). This rung shows the minimal API shift between interpolation and concatenation.",
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": false,
+                "semantic": true
+            },
+            "requires": [
+                "api_abstraction",
+                "ast_canonicalization"
+            ],
+            "carriers": [
+                {
+                    "file": "InvoiceComputeInterpolation.php",
+                    "namespace": "Acme\\Billing\\Invoicing",
+                    "class": "InvoiceComputeInterpolation",
+                    "scaffold": "method_alpha",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                },
+                {
+                    "file": "InvoiceComputeConcat.php",
+                    "namespace": "Acme\\Billing\\Invoicing",
+                    "class": "InvoiceComputeConcat",
+                    "scaffold": "method_beta",
+                    "group": "A",
+                    "pristine": false,
+                    "variant": "api_concat",
+                    "transforms": [
+                        {
+                            "code": "API-02",
+                            "variant": "api_concat"
+                        }
+                    ]
+                },
+                {
+                    "file": "InvoiceComputeNumberFormat.php",
+                    "namespace": "Acme\\Billing\\Invoicing",
+                    "class": "InvoiceComputeNumberFormat",
+                    "scaffold": "method_gamma",
+                    "group": "A",
+                    "pristine": false,
+                    "variant": "api_number_format",
+                    "transforms": [
+                        {
+                            "code": "API-02",
+                            "variant": "api_number_format"
+                        }
+                    ]
+                }
+            ],
+            "distractors": [
+                {
+                    "file": "MarginSummarizer.php",
+                    "namespace": "Acme\\Billing\\Analytics",
+                    "class": "MarginSummarizer",
+                    "source": "nearmiss_invoice",
+                    "reason": "near-miss: same invoice-domain vocabulary (lineItems, qty, unitPrice) and similar foreach-over-items shape, but computes revenue/cost/margin summary — a different result"
+                }
+            ],
+            "cleans": [
+                {
+                    "file": "TaxRateRepository.php",
+                    "namespace": "Acme\\Billing\\Tax",
+                    "class": "TaxRateRepository",
+                    "source": "clean_billing"
+                }
+            ]
+        },
+        {
+            "set_id": "L07-api_strings-008",
+            "title": "Invoice totalling: concat → implode ladder",
+            "description": "G-5 gap-fill: String API ladder rung 3 of 4 — concatenation to implode. The same invoice line-item totalling computation written using string concatenation (carrier A) vs implode with array (carrier B) vs sprintf (carrier C). All three are fundamentally different string-building approaches that yield identical results.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-4",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers",
+                "literals",
+                "controlflow"
+            ],
+            "rng_seed": 107108,
+            "notes": "G-5 gap-fill: API-02 string idiom ladder (concat → implode). This rung shows the final step in the string API progression.",
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": false,
+                "semantic": true
+            },
+            "requires": [
+                "api_abstraction",
+                "ast_canonicalization"
+            ],
+            "carriers": [
+                {
+                    "file": "InvoiceComputeConcat.php",
+                    "namespace": "Acme\\Billing\\Invoicing",
+                    "class": "InvoiceComputeConcat",
+                    "scaffold": "method_alpha",
+                    "group": "A",
+                    "pristine": true,
+                    "transforms": []
+                },
+                {
+                    "file": "InvoiceComputeImplode.php",
+                    "namespace": "Acme\\Billing\\Invoicing",
+                    "class": "InvoiceComputeImplode",
+                    "scaffold": "method_beta",
+                    "group": "A",
+                    "pristine": false,
+                    "variant": "api_implode",
+                    "transforms": [
+                        {
+                            "code": "API-02",
+                            "variant": "api_implode"
+                        }
+                    ]
+                },
+                {
+                    "file": "InvoiceComputeSprintf.php",
+                    "namespace": "Acme\\Billing\\Invoicing",
+                    "class": "InvoiceComputeSprintf",
+                    "scaffold": "method_gamma",
+                    "group": "A",
+                    "pristine": false,
+                    "variant": "api_strings",
+                    "transforms": [
+                        {
+                            "code": "API-02",
+                            "variant": "api_strings"
+                        }
+                    ]
+                }
+            ],
+            "distractors": [
+                {
+                    "file": "MarginSummarizer.php",
+                    "namespace": "Acme\\Billing\\Analytics",
+                    "class": "MarginSummarizer",
+                    "source": "nearmiss_invoice",
+                    "reason": "near-miss: same invoice-domain vocabulary (lineItems, qty, unitPrice) and similar foreach-over-items shape, but computes revenue/cost/margin summary — a different result"
+                }
+            ],
+            "cleans": [
+                {
+                    "file": "TaxRateRepository.php",
+                    "namespace": "Acme\\Billing\\Tax",
+                    "class": "TaxRateRepository",
+                    "source": "clean_billing"
+                }
+            ]
         }
     ]
 }

@@ -1,0 +1,133 @@
+{
+    "level": 10,
+    "level_name": "adversarial_edge_cases",
+    "level_dir": "L10_adversarial_edge_cases",
+    "family": "ov_100",
+    "sets": [
+        {
+            "set_id": "L10-ov_100-001",
+            "title": "100% overlap: exact clone (no unique content)",
+            "description": "Exact clone with 100% overlap - pristine identical carriers. This is the easiest case for detection.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 211001,
+            "notes": "K-28 threshold bracketing: %-overlap at 100%. Exact clone - baseline reference.",
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "ExactCloneA.php", "namespace": "Acme\\Billing\\Exact", "class": "ExactCloneA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "ExactCloneB.php", "namespace": "Acme\\Billing\\Exact", "class": "ExactCloneB", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": []},
+                {"file": "ExactCloneC.php", "namespace": "Acme\\Billing\\Exact", "class": "ExactCloneC", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "MarginReporter.php", "namespace": "Acme\\Billing\\Report", "class": "MarginReporter", "source": "nearmiss_invoice", "reason": "near-miss"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L10-ov_100-002",
+            "title": "100% overlap: exact clone (access_guard seed)",
+            "description": "Exact clone with 100% overlap using access_guard seed.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 211002,
+            "notes": "K-28 threshold bracketing: %-overlap at 100% (access_guard). Exact clone baseline.",
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "ExactAuthA.php", "namespace": "Acme\\Security\\Exact", "class": "ExactAuthA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "ExactAuthB.php", "namespace": "Acme\\Security\\Exact", "class": "ExactAuthB", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": []},
+                {"file": "ExactAuthC.php", "namespace": "Acme\\Security\\Exact", "class": "ExactAuthC", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "AuditTrailService.php", "namespace": "Acme\\Security\\Audit", "class": "AuditTrailService", "source": "nearmiss_access", "reason": "near-miss"}
+            ],
+            "cleans": [
+                {"file": "TokenValidationService.php", "namespace": "Acme\\Security\\Tokens", "class": "TokenValidationService", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L10-ov_100-003",
+            "title": "100% overlap: exact clone (csv_import seed)",
+            "description": "Exact clone with 100% overlap using csv_import seed.",
+            "seed": "csv_import",
+            "mount": "method",
+            "clone_symbol": "parseRow",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 211003,
+            "notes": "K-28 threshold bracketing: %-overlap at 100% (csv_import). Exact clone baseline.",
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "ExactCsvA.php", "namespace": "Acme\\Import\\Exact", "class": "ExactCsvA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "ExactCsvB.php", "namespace": "Acme\\Import\\Exact", "class": "ExactCsvB", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": []},
+                {"file": "ExactCsvC.php", "namespace": "Acme\\Import\\Exact", "class": "ExactCsvC", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "XmlImportService.php", "namespace": "Acme\\Import\\Xml", "class": "XmlImportService", "source": "nearmiss_csv", "reason": "near-miss"}
+            ],
+            "cleans": [
+                {"file": "DataValidationService.php", "namespace": "Acme\\Import\\Validation", "class": "DataValidationService", "source": "clean_parsing"}
+            ]
+        },
+        {
+            "set_id": "L10-ov_100-004",
+            "title": "100% overlap: exact clone (date_calculator seed)",
+            "description": "Exact clone with 100% overlap using date_calculator seed.",
+            "seed": "date_calculator",
+            "mount": "method",
+            "clone_symbol": "calculateDelta",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 211004,
+            "notes": "K-28 threshold bracketing: %-overlap at 100% (date_calculator). Exact clone baseline.",
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "ExactDateA.php", "namespace": "Acme\\Utils\\Exact", "class": "ExactDateA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "ExactDateB.php", "namespace": "Acme\\Utils\\Exact", "class": "ExactDateB", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": []},
+                {"file": "ExactDateC.php", "namespace": "Acme\\Utils\\Exact", "class": "ExactDateC", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "FormatConverter.php", "namespace": "Acme\\Utils\\Format", "class": "FormatConverter", "source": "nearmiss_date", "reason": "near-miss"}
+            ],
+            "cleans": [
+                {"file": "TimezoneHelper.php", "namespace": "Acme\\Utils\\Time", "class": "TimezoneHelper", "source": "clean_utils"}
+            ]
+        },
+        {
+            "set_id": "L10-ov_100-005",
+            "title": "100% overlap: exact clone (basket_pricing seed)",
+            "description": "Exact clone with 100% overlap using basket_pricing seed.",
+            "seed": "basket_pricing",
+            "mount": "method",
+            "clone_symbol": "calculateTotal",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 211005,
+            "notes": "K-28 threshold bracketing: %-overlap at 100% (basket_pricing). Exact clone baseline.",
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "ExactPriceA.php", "namespace": "Acme\\Commerce\\Exact", "class": "ExactPriceA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "ExactPriceB.php", "namespace": "Acme\\Commerce\\Exact", "class": "ExactPriceB", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": []},
+                {"file": "ExactPriceC.php", "namespace": "Acme\\Commerce\\Exact", "class": "ExactPriceC", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "DiscountCalculator.php", "namespace": "Acme\\Commerce\\Discount", "class": "DiscountCalculator", "source": "nearmiss_pricing", "reason": "near-miss"}
+            ],
+            "cleans": [
+                {"file": "TaxCalculator.php", "namespace": "Acme\\Commerce\\Tax", "class": "TaxCalculator", "source": "clean_commerce"}
+            ]
+        }
+    ]
+}

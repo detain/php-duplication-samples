@@ -1,0 +1,74 @@
+{
+    "level": 3,
+    "level_name": "comment_stripping",
+    "level_dir": "L03_comments",
+    "family": "probe_cm_line",
+    "sets": [
+        {
+            "set_id": "L03-probe_cm_line-001",
+            "title": "CONTROL: Comment stripping probe - line comment",
+            "description": "Control set for comment stripping capability probe. Pristine ~120-token method. Both carriers are byte-identical and pristine. Tests whether tools detect clones when comments are the only axis of variation.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["comments"],
+            "rng_seed": 130301,
+            "notes": "K-3 CONTROL. Pristine carriers. Probe tests CM-01 line comment insertion detection.",
+            "capability_probe": {
+                "capability": "comment_stripping",
+                "isolated": true,
+                "control_set": "L03-probe_cm_line-001",
+                "pass_criterion": "control_set PASSES all detectors; probe_set PASSES comment-stripping detectors",
+                "fail_meaning": "comment_stripping ABSENT - tool cannot handle comment variation"
+            },
+            "role_composition": {"carrier": 2, "distractor": 1, "clean": 2},
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineCalcA.php", "namespace": "Acme\\Billing\\PristineA", "class": "PristineCalcA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PristineCalcB.php", "namespace": "Acme\\Billing\\PristineB", "class": "PristineCalcB", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "MarginCalculator.php", "namespace": "Acme\\Billing\\Margin", "class": "MarginCalculator", "source": "nearmiss_invoice", "reason": "near-miss: computes revenue/cost/margin instead of subtotal/tax/total"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"},
+                {"file": "CurrencyConverter.php", "namespace": "Acme\\Billing\\Currency", "class": "CurrencyConverter", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L03-probe_cm_line-002",
+            "title": "PROBE: Comment stripping - ONE // comment added (CM-01)",
+            "description": "Probe set for comment stripping capability. Carrier A is pristine; carrier B has exactly ONE // comment added (CM-01). Minimal intensity probe. Tests whether tools strip comments before comparison.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["comments"],
+            "rng_seed": 130302,
+            "notes": "K-3 PROBE. Carrier B adds 1 line comment (CM-01). Delta is minimal - just 1 comment difference.",
+            "capability_probe": {
+                "capability": "comment_stripping",
+                "isolated": true,
+                "control_set": "L03-probe_cm_line-001",
+                "pass_criterion": "control_set PASSES all detectors; probe_set PASSES comment-stripping detectors",
+                "fail_meaning": "comment_stripping ABSENT - tool cannot handle comment variation"
+            },
+            "role_composition": {"carrier": 2, "distractor": 1, "clean": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineCalcA.php", "namespace": "Acme\\Billing\\PristineA", "class": "PristineCalcA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "CommentedCalc.php", "namespace": "Acme\\Billing\\Commented", "class": "CommentedCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "CM-01", "params": {"count": 1}}]}
+            ],
+            "distractors": [
+                {"file": "MarginCalculator.php", "namespace": "Acme\\Billing\\Margin", "class": "MarginCalculator", "source": "nearmiss_invoice", "reason": "near-miss: computes revenue/cost/margin instead of subtotal/tax/total"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"},
+                {"file": "CurrencyConverter.php", "namespace": "Acme\\Billing\\Currency", "class": "CurrencyConverter", "source": "clean_billing"}
+            ]
+        }
+    ]
+}

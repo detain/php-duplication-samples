@@ -1,0 +1,133 @@
+{
+    "level": 7,
+    "level_name": "api_idioms",
+    "level_dir": "L07_api_idioms",
+    "family": "api_fluent_vs_imperative",
+    "sets": [
+        {
+            "set_id": "L07-api_fluent_vs_imperative-001",
+            "title": "Query builder: imperative step-by-step vs fluent method chaining",
+            "description": "The same SQL query construction expressed as an imperative API with void methods that mutate internal state (pristine) vs a fluent API with method chaining where each method returns $this. Both produce identical SQL strings. Token-distinct API idiom variants.",
+            "seed": "query_builder",
+            "mount": "method",
+            "clone_symbol": "build",
+            "granularity": "method",
+            "clone_type": "type-4",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals", "controlflow"],
+            "rng_seed": 107501,
+            "notes": "Set 001 of 5. query_builder seed with API-07 api_fluent_vs_imperative variant (fluent chain). Carrier A uses imperative API (pristine, void methods, internal state). Carrier B uses fluent API (method chaining, returns $this). min_members_for_credit is the default 2.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": true},
+            "carriers": [
+                {"file": "QueryBuilderImperative.php", "namespace": "Acme\\Database\\Builders", "class": "QueryBuilderImperative", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "QueryBuilderFluent.php", "namespace": "Acme\\Database\\Builders", "class": "QueryBuilderFluent", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "api_fluent_vs_imperative", "transforms": [{"code": "API-07", "variant": "api_fluent_vs_imperative"}]}
+            ],
+            "distractors": [
+                {"file": "RawSqlRunner.php", "namespace": "Acme\\Database\\Execution", "class": "RawSqlRunner", "source": "nearmiss_query", "reason": "near-miss: same SQL-domain vocabulary (SELECT/FROM/WHERE/ORDER BY) but executes the query directly and returns results, not building a SQL string"}
+            ],
+            "cleans": [
+                {"file": "TableSchemas.php", "namespace": "Acme\\Database\\Schema", "class": "TableSchemas", "source": "clean_db"}
+            ]
+        },
+        {
+            "set_id": "L07-api_fluent_vs_imperative-002",
+            "title": "Query builder: imperative step-by-step vs fluent method chaining",
+            "description": "The same SQL query construction expressed as an imperative API with void methods (pristine) vs a fluent API with method chaining.",
+            "seed": "query_builder",
+            "mount": "method",
+            "clone_symbol": "build",
+            "granularity": "method",
+            "clone_type": "type-4",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals", "controlflow"],
+            "rng_seed": 107502,
+            "notes": "Set 002 of 5.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": true},
+            "carriers": [
+                {"file": "QueryBuilderImperative.php", "namespace": "Acme\\Database\\Builders", "class": "QueryBuilderImperative", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "QueryBuilderFluent.php", "namespace": "Acme\\Database\\Builders", "class": "QueryBuilderFluent", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "api_fluent_vs_imperative", "transforms": [{"code": "API-07", "variant": "api_fluent_vs_imperative"}]}
+            ],
+            "distractors": [
+                {"file": "RawSqlRunner.php", "namespace": "Acme\\Database\\Execution", "class": "RawSqlRunner", "source": "nearmiss_query", "reason": "near-miss: same SQL-domain vocabulary but executes the query directly and returns results"}
+            ],
+            "cleans": [
+                {"file": "TableSchemas.php", "namespace": "Acme\\Database\\Schema", "class": "TableSchemas", "source": "clean_db"}
+            ]
+        },
+        {
+            "set_id": "L07-api_fluent_vs_imperative-003",
+            "title": "Query builder: imperative step-by-step vs fluent method chaining",
+            "description": "The same SQL query construction expressed as an imperative API with void methods (pristine) vs a fluent API with method chaining.",
+            "seed": "query_builder",
+            "mount": "method",
+            "clone_symbol": "build",
+            "granularity": "method",
+            "clone_type": "type-4",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals", "controlflow"],
+            "rng_seed": 107503,
+            "notes": "Set 003 of 5.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": true},
+            "carriers": [
+                {"file": "QueryBuilderImperative.php", "namespace": "Acme\\Database\\Builders", "class": "QueryBuilderImperative", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "QueryBuilderFluent.php", "namespace": "Acme\\Database\\Builders", "class": "QueryBuilderFluent", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "api_fluent_vs_imperative", "transforms": [{"code": "API-07", "variant": "api_fluent_vs_imperative"}]}
+            ],
+            "distractors": [
+                {"file": "RawSqlRunner.php", "namespace": "Acme\\Database\\Execution", "class": "RawSqlRunner", "source": "nearmiss_query", "reason": "near-miss: same SQL-domain vocabulary but executes the query directly and returns results"}
+            ],
+            "cleans": [
+                {"file": "TableSchemas.php", "namespace": "Acme\\Database\\Schema", "class": "TableSchemas", "source": "clean_db"}
+            ]
+        },
+        {
+            "set_id": "L07-api_fluent_vs_imperative-004",
+            "title": "Query builder: imperative step-by-step vs fluent method chaining",
+            "description": "The same SQL query construction expressed as an imperative API with void methods (pristine) vs a fluent API with method chaining.",
+            "seed": "query_builder",
+            "mount": "method",
+            "clone_symbol": "build",
+            "granularity": "method",
+            "clone_type": "type-4",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals", "controlflow"],
+            "rng_seed": 107504,
+            "notes": "Set 004 of 5.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": true},
+            "carriers": [
+                {"file": "QueryBuilderImperative.php", "namespace": "Acme\\Database\\Builders", "class": "QueryBuilderImperative", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "QueryBuilderFluent.php", "namespace": "Acme\\Database\\Builders", "class": "QueryBuilderFluent", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "api_fluent_vs_imperative", "transforms": [{"code": "API-07", "variant": "api_fluent_vs_imperative"}]}
+            ],
+            "distractors": [
+                {"file": "RawSqlRunner.php", "namespace": "Acme\\Database\\Execution", "class": "RawSqlRunner", "source": "nearmiss_query", "reason": "near-miss: same SQL-domain vocabulary but executes the query directly and returns results"}
+            ],
+            "cleans": [
+                {"file": "TableSchemas.php", "namespace": "Acme\\Database\\Schema", "class": "TableSchemas", "source": "clean_db"}
+            ]
+        },
+        {
+            "set_id": "L07-api_fluent_vs_imperative-005",
+            "title": "Query builder: imperative step-by-step vs fluent method chaining",
+            "description": "The same SQL query construction expressed as an imperative API with void methods (pristine) vs a fluent API with method chaining.",
+            "seed": "query_builder",
+            "mount": "method",
+            "clone_symbol": "build",
+            "granularity": "method",
+            "clone_type": "type-4",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals", "controlflow"],
+            "rng_seed": 107505,
+            "notes": "Set 005 of 5.",
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": true},
+            "carriers": [
+                {"file": "QueryBuilderImperative.php", "namespace": "Acme\\Database\\Builders", "class": "QueryBuilderImperative", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "QueryBuilderFluent.php", "namespace": "Acme\\Database\\Builders", "class": "QueryBuilderFluent", "scaffold": "method_beta", "group": "A", "pristine": false, "variant": "api_fluent_vs_imperative", "transforms": [{"code": "API-07", "variant": "api_fluent_vs_imperative"}]}
+            ],
+            "distractors": [
+                {"file": "RawSqlRunner.php", "namespace": "Acme\\Database\\Execution", "class": "RawSqlRunner", "source": "nearmiss_query", "reason": "near-miss: same SQL-domain vocabulary but executes the query directly and returns results"}
+            ],
+            "cleans": [
+                {"file": "TableSchemas.php", "namespace": "Acme\\Database\\Schema", "class": "TableSchemas", "source": "clean_db"}
+            ]
+        }
+    ]
+}

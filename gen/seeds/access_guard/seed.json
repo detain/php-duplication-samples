@@ -10,6 +10,7 @@
     "compatible_interference": ["WS-03", "CM-03", "RN-01", "CF-02", "CF-03", "CF-05", "BL-02"],
     "variants": [
         {"file": "cf_guard_nested.php", "code": "CF-03", "name": "guard_nested"},
-        {"file": "cf_match_guard.php", "code": "CF-02", "name": "match_switch"}
+        {"file": "cf_match_guard.php", "code": "CF-02", "name": "match_switch"},
+        {"file": "cf_guard_clause_inversion.php", "code": "CF-10", "name": "cf_guard_clause_inversion"}
     ]
 }

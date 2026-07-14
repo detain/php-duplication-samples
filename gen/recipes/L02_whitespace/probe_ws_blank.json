@@ -1,0 +1,74 @@
+{
+    "level": 2,
+    "level_name": "whitespace_normalization",
+    "level_dir": "L02_whitespace",
+    "family": "probe_ws_blank",
+    "sets": [
+        {
+            "set_id": "L02-probe_ws_blank-001",
+            "title": "CONTROL: Whitespace normalization probe - blank line",
+            "description": "Control set for whitespace normalization capability probe. Pristine ~120-token method. Both carriers are byte-identical and pristine. Tests whether tools can detect clones when whitespace is the only axis of variation.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace"],
+            "rng_seed": 120101,
+            "notes": "K-1 CONTROL. Pristine carriers. Probe tests WS-03 blank_lines:1 insertion detection.",
+            "capability_probe": {
+                "capability": "whitespace_normalization",
+                "isolated": true,
+                "control_set": "L02-probe_ws_blank-001",
+                "pass_criterion": "control_set PASSES all detectors; probe_set PASSES whitespace-aware detectors",
+                "fail_meaning": "whitespace_normalization ABSENT - tool cannot handle blank-line variation"
+            },
+            "role_composition": {"carrier": 2, "distractor": 1, "clean": 2},
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineCalcA.php", "namespace": "Acme\\Billing\\PristineA", "class": "PristineCalcA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PristineCalcB.php", "namespace": "Acme\\Billing\\PristineB", "class": "PristineCalcB", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "MarginCalculator.php", "namespace": "Acme\\Billing\\Margin", "class": "MarginCalculator", "source": "nearmiss_invoice", "reason": "near-miss: computes revenue/cost/margin instead of subtotal/tax/total"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"},
+                {"file": "CurrencyConverter.php", "namespace": "Acme\\Billing\\Currency", "class": "CurrencyConverter", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L02-probe_ws_blank-002",
+            "title": "PROBE: Whitespace normalization - ONE blank line inserted (WS-03)",
+            "description": "Probe set for whitespace normalization capability. Carrier A is pristine; carrier B has exactly ONE blank line inserted (WS-03 blank_lines:1). Minimal intensity probe. Tests whether tools normalize whitespace before comparison.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace"],
+            "rng_seed": 120102,
+            "notes": "K-1 PROBE. Carrier B inserts 1 blank line (WS-03). Delta is minimal - just 1 blank line difference.",
+            "capability_probe": {
+                "capability": "whitespace_normalization",
+                "isolated": true,
+                "control_set": "L02-probe_ws_blank-001",
+                "pass_criterion": "control_set PASSES all detectors; probe_set PASSES whitespace-aware detectors",
+                "fail_meaning": "whitespace_normalization ABSENT - tool cannot handle blank-line variation"
+            },
+            "role_composition": {"carrier": 2, "distractor": 1, "clean": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineCalcA.php", "namespace": "Acme\\Billing\\PristineA", "class": "PristineCalcA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "BlankLineCalc.php", "namespace": "Acme\\Billing\\BlankLine", "class": "BlankLineCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "WS-03", "params": {"blank_lines": 1}}]}
+            ],
+            "distractors": [
+                {"file": "MarginCalculator.php", "namespace": "Acme\\Billing\\Margin", "class": "MarginCalculator", "source": "nearmiss_invoice", "reason": "near-miss: computes revenue/cost/margin instead of subtotal/tax/total"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"},
+                {"file": "CurrencyConverter.php", "namespace": "Acme\\Billing\\Currency", "class": "CurrencyConverter", "source": "clean_billing"}
+            ]
+        }
+    ]
+}

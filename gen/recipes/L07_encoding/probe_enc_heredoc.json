@@ -1,0 +1,75 @@
+{
+    "level": 7,
+    "level_name": "encoding_variation",
+    "level_dir": "L07_encoding",
+    "family": "probe_enc_heredoc",
+    "hygiene_exceptions": ["unicode"],
+    "sets": [
+        {
+            "set_id": "L07-probe_enc_heredoc-001",
+            "title": "Heredoc syntax: Control - double-quoted strings",
+            "description": "Control set for heredoc encoding probe. Three carriers use double-quoted string literals with standard syntax.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments", "identifiers"],
+            "rng_seed": 127001,
+            "notes": "Control set for K-27 heredoc probe. All carriers use standard double-quoted strings.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": false},
+            "requires": ["ast_canonicalization"],
+            "carriers": [
+                {"file": "TotalsCalculatorA.php", "namespace": "Acme\\Billing\\TotalsA", "class": "TotalsCalculatorA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "TotalsCalculatorB.php", "namespace": "Acme\\Billing\\TotalsB", "class": "TotalsCalculatorB", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": []},
+                {"file": "TotalsCalculatorC.php", "namespace": "Acme\\Billing\\TotalsC", "class": "TotalsCalculatorC", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "Validator.php", "namespace": "Acme\\Billing\\Validate", "class": "Validator", "source": "clean_billing", "reason": "Clean distractor - unrelated billing logic"}
+            ],
+            "cleans": [
+                {"file": "SchemaMapper.php", "namespace": "Acme\\Billing\\Schema", "class": "SchemaMapper", "source": "clean_parsing"}
+            ],
+            "capability_probe": {
+                "capability": "encoding_normalization",
+                "isolated": true,
+                "control_set": "L07-probe_enc_heredoc-001",
+                "pass_criterion": "ast_based",
+                "fail_meaning": "token-based detector that doesn't normalize string syntax"
+            }
+        },
+        {
+            "set_id": "L07-probe_enc_heredoc-002",
+            "title": "Heredoc syntax: One carrier uses heredoc (<<<SQL) syntax (ENC-06)",
+            "description": "Probe set for K-27. One carrier has heredoc/nowdoc string syntax (<<<SQL ... SQL;) instead of double-quoted strings. Token representation differs and line count shifts. AST is semantically equivalent.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments", "identifiers"],
+            "rng_seed": 127002,
+            "notes": "K-27 heredoc probe. Carrier B uses heredoc syntax (ENC-06). String token differs and line count shifts, but AST is equivalent.",
+            "detection_expectation": {"text_based": false, "token_based": false, "ast_based": true, "metric_based": false, "semantic": false},
+            "requires": ["ast_canonicalization"],
+            "carriers": [
+                {"file": "TotalsCalculatorA.php", "namespace": "Acme\\Billing\\TotalsA", "class": "TotalsCalculatorA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "TotalsCalculatorB.php", "namespace": "Acme\\Billing\\TotalsB", "class": "TotalsCalculatorB", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ENC-06"}]},
+                {"file": "TotalsCalculatorC.php", "namespace": "Acme\\Billing\\TotalsC", "class": "TotalsCalculatorC", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "Validator.php", "namespace": "Acme\\Billing\\Validate", "class": "Validator", "source": "clean_billing", "reason": "Clean distractor - unrelated billing logic"}
+            ],
+            "cleans": [
+                {"file": "SchemaMapper.php", "namespace": "Acme\\Billing\\Schema", "class": "SchemaMapper", "source": "clean_parsing"}
+            ],
+            "capability_probe": {
+                "capability": "encoding_normalization",
+                "isolated": true,
+                "control_set": "L07-probe_enc_heredoc-001",
+                "pass_criterion": "ast_based",
+                "fail_meaning": "token-based detector that doesn't normalize string syntax"
+            }
+        }
+    ]
+}

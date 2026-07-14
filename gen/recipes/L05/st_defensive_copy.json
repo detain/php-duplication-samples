@@ -1,0 +1,138 @@
+{
+    "level": 5,
+    "level_name": "statement_edits",
+    "level_dir": "L05_statement_edits",
+    "family": "st_defensive_copy",
+    "sets": [
+        {
+            "set_id": "L05-st_defensive_copy-001",
+            "title": "Data processing with and without defensive copying",
+            "description": "The same processData method in three processor classes. Carrier A uses direct array reference, carrier B introduces intermediate $temp variable (defensive copy), carrier C also uses defensive copy but with different variable name. Same logic, different memory semantics.",
+            "seed": "data_processing",
+            "mount": "method",
+            "clone_symbol": "processData",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "edit_budget": 20,
+            "rng_seed": 111101,
+            "notes": "ST-11 (defensive_copy) varies direct reference vs intermediate $temp. Same logic, different memory/copy semantics.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineDataProcessor.php", "namespace": "Acme\\Processing\\Pristine", "class": "PristineDataProcessor", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "DefensiveDataProcessor.php", "namespace": "Acme\\Processing\\Defensive", "class": "DefensiveDataProcessor", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-11", "params": {"style": "temp_variable"}}]},
+                {"file": "CopyDataProcessor.php", "namespace": "Acme\\Processing\\Copy", "class": "CopyDataProcessor", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-11", "params": {"style": "temp_variable", "rename": "dataCopy"}}]}
+            ],
+            "distractors": [
+                {"file": "DataTransformer.php", "namespace": "Acme\\Processing\\Transform", "class": "DataTransformer", "source": "nearmiss_processing", "reason": "near-miss: same data/processing vocabulary but transforms data format instead of filtering — different result"}
+            ],
+            "cleans": [
+                {"file": "ProcessorRepository.php", "namespace": "Acme\\Processing\\Repo", "class": "ProcessorRepository", "source": "clean_processing"}
+            ]
+        },
+        {
+            "set_id": "L05-st_defensive_copy-002",
+            "title": "Data processing with and without defensive copying",
+            "description": "The same processData method in three processor classes. Carrier A introduces defensive copy with $tmp, carrier B uses direct reference, carrier C uses defensive copy with $working. Same logic, different memory semantics.",
+            "seed": "data_processing",
+            "mount": "method",
+            "clone_symbol": "processData",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "edit_budget": 20,
+            "rng_seed": 111102,
+            "notes": "Set 2 of 5. ST-11 varies direct reference vs temp_variable with different names.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineDataProcessor.php", "namespace": "Acme\\Processing\\Pristine", "class": "PristineDataProcessor", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "DirectDataProcessor.php", "namespace": "Acme\\Processing\\Direct", "class": "DirectDataProcessor", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-11", "params": {"style": "direct"}}]},
+                {"file": "WorkingDataProcessor.php", "namespace": "Acme\\Processing\\Working", "class": "WorkingDataProcessor", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-11", "params": {"style": "temp_variable", "rename": "working"}}]}
+            ],
+            "distractors": [
+                {"file": "DataTransformer.php", "namespace": "Acme\\Processing\\Transform", "class": "DataTransformer", "source": "nearmiss_processing", "reason": "near-miss: same data/processing vocabulary but transforms format — different result"}
+            ],
+            "cleans": [
+                {"file": "ProcessorRepository.php", "namespace": "Acme\\Processing\\Repo", "class": "ProcessorRepository", "source": "clean_processing"}
+            ]
+        },
+        {
+            "set_id": "L05-st_defensive_copy-003",
+            "title": "Data processing with and without defensive copying",
+            "description": "The same processData method in three processor classes. Carrier A uses direct reference, carrier B uses defensive copy with $copy, carrier C uses defensive copy with $buffer. Same logic, different memory semantics.",
+            "seed": "data_processing",
+            "mount": "method",
+            "clone_symbol": "processData",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "edit_budget": 20,
+            "rng_seed": 111103,
+            "notes": "Set 3 of 5. ST-11 varies direct reference vs temp_variable with different names.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineDataProcessor.php", "namespace": "Acme\\Processing\\Pristine", "class": "PristineDataProcessor", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "CopyDataProcessor.php", "namespace": "Acme\\Processing\\Copy", "class": "CopyDataProcessor", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-11", "params": {"style": "temp_variable", "rename": "copy"}}]},
+                {"file": "BufferDataProcessor.php", "namespace": "Acme\\Processing\\Buffer", "class": "BufferDataProcessor", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-11", "params": {"style": "temp_variable", "rename": "buffer"}}]}
+            ],
+            "distractors": [
+                {"file": "DataTransformer.php", "namespace": "Acme\\Processing\\Transform", "class": "DataTransformer", "source": "nearmiss_processing", "reason": "near-miss: same data/processing vocabulary but transforms format — different result"}
+            ],
+            "cleans": [
+                {"file": "ProcessorRepository.php", "namespace": "Acme\\Processing\\Repo", "class": "ProcessorRepository", "source": "clean_processing"}
+            ]
+        },
+        {
+            "set_id": "L05-st_defensive_copy-004",
+            "title": "Data processing with and without defensive copying",
+            "description": "The same processData method in three processor classes. Carrier A uses defensive copy with $副本 (Chinese), carrier B uses direct reference, carrier C uses defensive copy with $temp. Same logic, different memory semantics.",
+            "seed": "data_processing",
+            "mount": "method",
+            "clone_symbol": "processData",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "edit_budget": 20,
+            "rng_seed": 111104,
+            "notes": "Set 4 of 5. ST-11 varies direct reference vs temp_variable with localized variable name.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineDataProcessor.php", "namespace": "Acme\\Processing\\Pristine", "class": "PristineDataProcessor", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "TempDataProcessor.php", "namespace": "Acme\\Processing\\Temp", "class": "TempDataProcessor", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-11", "params": {"style": "temp_variable"}}]},
+                {"file": "DirectDataProcessor.php", "namespace": "Acme\\Processing\\Direct", "class": "DirectDataProcessor", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-11", "params": {"style": "direct"}}]}
+            ],
+            "distractors": [
+                {"file": "DataTransformer.php", "namespace": "Acme\\Processing\\Transform", "class": "DataTransformer", "source": "nearmiss_processing", "reason": "near-miss: same data/processing vocabulary but transforms format — different result"}
+            ],
+            "cleans": [
+                {"file": "ProcessorRepository.php", "namespace": "Acme\\Processing\\Repo", "class": "ProcessorRepository", "source": "clean_processing"}
+            ]
+        },
+        {
+            "set_id": "L05-st_defensive_copy-005",
+            "title": "Data processing with and without defensive copying",
+            "description": "The same processData method in three processor classes. Carrier A uses defensive copy with $local, carrier B uses defensive copy with $tmp, carrier C uses direct reference. Same logic, different memory semantics.",
+            "seed": "data_processing",
+            "mount": "method",
+            "clone_symbol": "processData",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "edit_budget": 20,
+            "rng_seed": 111105,
+            "notes": "Set 5 of 5. ST-11 varies direct reference vs temp_variable with different names.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristineDataProcessor.php", "namespace": "Acme\\Processing\\Pristine", "class": "PristineDataProcessor", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "TmpDataProcessor.php", "namespace": "Acme\\Processing\\Tmp", "class": "TmpDataProcessor", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-11", "params": {"style": "temp_variable", "rename": "tmp"}}]},
+                {"file": "DirectDataProcessor.php", "namespace": "Acme\\Processing\\Direct", "class": "DirectDataProcessor", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-11", "params": {"style": "direct"}}]}
+            ],
+            "distractors": [
+                {"file": "DataTransformer.php", "namespace": "Acme\\Processing\\Transform", "class": "DataTransformer", "source": "nearmiss_processing", "reason": "near-miss: same data/processing vocabulary but transforms format — different result"}
+            ],
+            "cleans": [
+                {"file": "ProcessorRepository.php", "namespace": "Acme\\Processing\\Repo", "class": "ProcessorRepository", "source": "clean_processing"}
+            ]
+        }
+    ]
+}

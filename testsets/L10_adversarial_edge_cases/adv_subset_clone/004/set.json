@@ -1,0 +1,107 @@
+{
+    "schema_version": 1,
+    "set_id": "L10-adv_subset_clone-004",
+    "level": 10,
+    "level_name": "adversarial_edge_cases",
+    "family": "adv_subset_clone",
+    "title": "Subset with basket_pricing seed — bulk calculation context",
+    "description": "The inclusion problem using basket_pricing seed where the full calculation method contains a subset that computes only item subtotals.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "basket_pricing",
+    "difficulty_band": "expert",
+    "files": [
+        {
+            "path": "src/BasketCalculatorA.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 50
+        },
+        {
+            "path": "src/BasketCalculatorB.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 55
+        },
+        {
+            "path": "src/BasketCalculatorC.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 55
+        },
+        {
+            "path": "src/SubtotalCollectorA.php",
+            "role": "carrier",
+            "duplicate_group": "B",
+            "sloc": 50
+        },
+        {
+            "path": "src/SubtotalCollectorB.php",
+            "role": "carrier",
+            "duplicate_group": "B",
+            "sloc": 55
+        },
+        {
+            "path": "src/SubtotalCollectorC.php",
+            "role": "carrier",
+            "duplicate_group": "B",
+            "sloc": 55
+        },
+        {
+            "path": "src/PriceEstimator.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 30
+        },
+        {
+            "path": "src/BasketParser.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-2",
+        "granularity": "method",
+        "clusters": 2,
+        "instances": 6
+    },
+    "interference": [
+        {
+            "code": "LT-01",
+            "name": "numeric",
+            "params": {},
+            "applied_to": [
+                "src/BasketCalculatorB.php",
+                "src/BasketCalculatorC.php",
+                "src/SubtotalCollectorB.php",
+                "src/SubtotalCollectorC.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "CM-03",
+            "name": "docblock",
+            "params": {},
+            "applied_to": [
+                "src/BasketCalculatorC.php",
+                "src/SubtotalCollectorC.php"
+            ],
+            "intensity": 1
+        }
+    ],
+    "difficulty": {
+        "score": 91,
+        "requires": [
+            "literal_abstraction",
+            "comment_stripping"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L10/adv_subset_clone.json",
+        "version": "1.0.0",
+        "rng_seed": 112004
+    }
+}

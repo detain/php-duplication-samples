@@ -1,0 +1,138 @@
+{
+    "schema_version": 1,
+    "set_id": "L10-adv_shared_subclone-002",
+    "clusters": [
+        {
+            "id": "A",
+            "group_id": "A",
+            "clone_type": "type-3",
+            "granularity": "method",
+            "normalized_by": [
+                "controlflow",
+                "identifiers"
+            ],
+            "token_hash": "b2c3d4e5f6a78901",
+            "normalized_hash": "123456789abcdef0",
+            "members": [
+                {
+                    "file": "src/AccessSharedA1.php",
+                    "start_line": 9,
+                    "end_line": 33,
+                    "symbol": "authorize",
+                    "pristine": true,
+                    "region1_lines": "10-13",
+                    "middle_block_lines": "14-31",
+                    "region3_lines": "32-34"
+                },
+                {
+                    "file": "src/AccessSharedA2.php",
+                    "start_line": 12,
+                    "end_line": 31,
+                    "symbol": "authorize",
+                    "pristine": false,
+                    "head_trim": 2,
+                    "region1_lines": "10-11 (trimmed)",
+                    "middle_block_lines": "12-29",
+                    "region3_lines": "30-32"
+                },
+                {
+                    "file": "src/AccessSharedA3.php",
+                    "start_line": 9,
+                    "end_line": 31,
+                    "symbol": "authorize",
+                    "pristine": false,
+                    "tail_trim": 2,
+                    "region1_lines": "10-13",
+                    "middle_block_lines": "14-31",
+                    "region3_lines": "32 (trimmed to 32)"
+                }
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": false,
+                "semantic": true
+            },
+            "notes": "Clone Marriage [O Idea 4]: Cluster A and B share IDENTICAL middle_block (lines 14-31 in A1, lines 15-32 in B1). Cluster A has region1_A (admin permission setup) and region3_A (admin audit trail). Cluster B has region1_B (api key setup) and region3_B (api key validation). The surrounding regions are DIFFERENT between A and B, but middle_block is byte-for-byte identical - the shared sub-clone."
+        },
+        {
+            "id": "B",
+            "group_id": "B",
+            "clone_type": "type-3",
+            "granularity": "method",
+            "normalized_by": [
+                "controlflow",
+                "identifiers"
+            ],
+            "token_hash": "b2c3d4e5f6a78901",
+            "normalized_hash": "123456789abcdef0",
+            "members": [
+                {
+                    "file": "src/AccessSharedB1.php",
+                    "start_line": 9,
+                    "end_line": 34,
+                    "symbol": "authorize",
+                    "pristine": true,
+                    "region1_lines": "10-14",
+                    "middle_block_lines": "15-32",
+                    "region3_lines": "33-36"
+                },
+                {
+                    "file": "src/AccessSharedB2.php",
+                    "start_line": 15,
+                    "end_line": 32,
+                    "symbol": "authorize",
+                    "pristine": false,
+                    "head_trim": 2,
+                    "region1_lines": "10-14 (trimmed)",
+                    "middle_block_lines": "15-32 (same lines as B1)",
+                    "region3_lines": "33-35"
+                },
+                {
+                    "file": "src/AccessSharedB3.php",
+                    "start_line": 9,
+                    "end_line": 32,
+                    "symbol": "authorize",
+                    "pristine": false,
+                    "tail_trim": 2,
+                    "region1_lines": "10-14",
+                    "middle_block_lines": "15-32",
+                    "region3_lines": "33-34 (trimmed)"
+                }
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": false,
+                "semantic": true
+            },
+            "notes": "Clone Marriage [O Idea 4]: Cluster B shares IDENTICAL middle_block with Cluster A (lines 15-32 in B1 = lines 14-31 in A1). region1_B (api key setup) and region3_B (api key validation) differ from Cluster A's regions. The shared middle_block is the key test case for detecting shared sub-clones."
+        }
+    ],
+    "non_duplicates": [
+        {
+            "file": "src/AuthDistractor.php",
+            "start_line": 12,
+            "end_line": 29,
+            "reason": "Near-miss: similar authorization vocabulary (permission, role, check) but different permission model (RBAC vs ABAC) and different algorithm structure.",
+            "trap": true
+        }
+    ],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.6,
+        "min_members_for_credit": 2
+    },
+    "shared_subclone_verification": {
+        "middle_block_identical": true,
+        "middle_block_start_line_A1": 14,
+        "middle_block_end_line_A1": 31,
+        "middle_block_start_line_B1": 15,
+        "middle_block_end_line_B1": 32,
+        "middle_block_line_count": 18,
+        "region1_differs": true,
+        "region3_differs": true
+    }
+}

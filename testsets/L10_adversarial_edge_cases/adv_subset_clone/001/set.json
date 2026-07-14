@@ -1,0 +1,107 @@
+{
+    "schema_version": 1,
+    "set_id": "L10-adv_subset_clone-001",
+    "level": 10,
+    "level_name": "adversarial_edge_cases",
+    "family": "adv_subset_clone",
+    "title": "Clone2 ⊂ Clone1 — strict subset relationship across multiple files",
+    "description": "Two clone clusters: Clone1 (30-line method) and Clone2 (15-line, strictly a subset of Clone1's code). The subset appears in the same code region but is truncated. Tests whether detectors correctly report both clones separately rather than merging them or dropping the subset.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "invoice_totals",
+    "difficulty_band": "expert",
+    "files": [
+        {
+            "path": "src/InvoiceCalculatorA.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 39
+        },
+        {
+            "path": "src/InvoiceCalculatorB.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 44
+        },
+        {
+            "path": "src/InvoiceCalculatorC.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 44
+        },
+        {
+            "path": "src/ReceiptTotalerA.php",
+            "role": "carrier",
+            "duplicate_group": "B",
+            "sloc": 39
+        },
+        {
+            "path": "src/ReceiptTotalerB.php",
+            "role": "carrier",
+            "duplicate_group": "B",
+            "sloc": 44
+        },
+        {
+            "path": "src/ReceiptTotalerC.php",
+            "role": "carrier",
+            "duplicate_group": "B",
+            "sloc": 44
+        },
+        {
+            "path": "src/TrustScorer.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 30
+        },
+        {
+            "path": "src/InvoiceParser.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-2",
+        "granularity": "method",
+        "clusters": 2,
+        "instances": 6
+    },
+    "interference": [
+        {
+            "code": "LT-01",
+            "name": "numeric",
+            "params": {},
+            "applied_to": [
+                "src/InvoiceCalculatorB.php",
+                "src/InvoiceCalculatorC.php",
+                "src/ReceiptTotalerB.php",
+                "src/ReceiptTotalerC.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "CM-03",
+            "name": "docblock",
+            "params": {},
+            "applied_to": [
+                "src/InvoiceCalculatorC.php",
+                "src/ReceiptTotalerC.php"
+            ],
+            "intensity": 1
+        }
+    ],
+    "difficulty": {
+        "score": 91,
+        "requires": [
+            "literal_abstraction",
+            "comment_stripping"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L10/adv_subset_clone.json",
+        "version": "1.0.0",
+        "rng_seed": 112001
+    }
+}

@@ -1,0 +1,77 @@
+{
+    "level": 4,
+    "level_name": "noise_probing",
+    "level_dir": "L04_noise_probing",
+    "family": "probe_nz_attr",
+    "capability_coverage": ["comment_stripping_adjacent"],
+    "sets": [
+        {
+            "set_id": "L04-probe_nz_attr-001",
+            "title": "Invoice totals with no attribute noise (control)",
+            "description": "The computeTotals method in three billing classes, all pristine. Carrier A, B, and C are all identical (no PHP attribute noise inserted). This is the control set for K-21: tools should detect all three as clones without any attributes present.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "edit_budget": 0,
+            "rng_seed": 121001,
+            "notes": "Control set for K-21 (nz_attr). All three carriers are pristine — no PHP 8 attribute noise. Detectors should find all three members with high confidence. K-21 tests that tools correctly handle PHP 8 attributes as noise (not comments).",
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "capability_probe": {
+                "capability": "comment_stripping_adjacent",
+                "isolated": true,
+                "control_set": "L04-probe_nz_attr-001",
+                "pass_criterion": "Tool correctly pairs all 3 carriers despite presence of PHP 8 attribute noise (not stripped as comment)",
+                "fail_meaning": "Tool strips PHP 8 attributes as if they were comments; fails to pair carriers that have attributes"
+            },
+            "role_composition": {"carrier": 3, "distractor": 1, "clean": 1},
+            "carriers": [
+                {"file": "PristineInvoiceCalc.php", "namespace": "Acme\\Billing\\Pristine", "class": "PristineInvoiceCalc", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PristineInvoiceCalcB.php", "namespace": "Acme\\Billing\\Pristine", "class": "PristineInvoiceCalcB", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PristineInvoiceCalcC.php", "namespace": "Acme\\Billing\\Pristine", "class": "PristineInvoiceCalcC", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total — a different result"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L04-probe_nz_attr-002",
+            "title": "Invoice totals with ONE PHP 8 attribute noise (#[Route]-style)",
+            "description": "The computeTotals method in three billing classes. Carrier A is pristine; carrier B inserts a single PHP 8 attribute like #[Route('/totals')] (NZ-04); carrier C also inserts an attribute at a different position. PHP 8 attributes are TOKENS, not comments — tools that strip docblocks (K-3) will incorrectly strip real attributes and fail to pair B and C. This probe specifically tests whether tools distinguish comments from attributes.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "edit_budget": 20,
+            "rng_seed": 121002,
+            "notes": "Probe set for K-21 (nz_attr). Uses NZ-04 (framework) transform to insert a PHP 8 attribute comment '// #[Route('/totals')]' at end of method body. TRAP: This is currently implemented as a commented attribute, NOT a real PHP 8 attribute token. The transform at gen/transforms/Nz/FrameworkAttributes.php line 50 prepends '// ' to the attribute, making it a comment rather than a real attribute. A proper implementation would insert '#[Route(...)]' as a actual attribute. This probe design captures the INTENT: PHP 8 attributes must not be stripped as comments. Note: hygiene_exceptions NOT needed because attributes (when properly implemented) are valid PHP syntax, not noise that needs exemption.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "capability_probe": {
+                "capability": "comment_stripping_adjacent",
+                "isolated": true,
+                "control_set": "L04-probe_nz_attr-001",
+                "pass_criterion": "Tool correctly pairs all 3 carriers despite presence of PHP 8 attribute noise (not stripped as comment)",
+                "fail_meaning": "Tool strips PHP 8 attributes as if they were comments; fails to pair carriers that have attributes"
+            },
+            "role_composition": {"carrier": 3, "distractor": 1, "clean": 1},
+            "carriers": [
+                {"file": "PristineInvoiceCalc.php", "namespace": "Acme\\Billing\\Pristine", "class": "PristineInvoiceCalc", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "AttributedInvoiceCalc.php", "namespace": "Acme\\Billing\\Attributed", "class": "AttributedInvoiceCalc", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "NZ-04", "params": {"attribute": "#[Route('/totals')]"}}]},
+                {"file": "AttributedInvoiceCalcB.php", "namespace": "Acme\\Billing\\Attributed", "class": "AttributedInvoiceCalcB", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "NZ-04", "params": {"attribute": "#[Cacheable('invoice')]"}}]}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss: same invoice line-item vocabulary and foreach-over-items shape, but computes revenue/cost/margin instead of subtotal/tax/total — a different result"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        }
+    ]
+}

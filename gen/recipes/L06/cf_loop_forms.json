@@ -428,6 +428,112 @@
                     "source": "clean_auth"
                 }
             ]
+        },
+        {
+            "set_id": "L06-cf_loop_forms-006",
+            "title": "Authorization decision: for→foreach→while→array_map loop ladder",
+            "description": "G-5 gap-fill: Four-stepped loop form ladder demonstrating for→foreach→while→array_map progression. The same resource-authorization decision in four distinct control-flow forms: carrier A uses for loop, carrier B uses foreach (pristine style), carrier C uses while loop, carrier D uses array_map functional style. All four are behaviorally identical via equivalence_test.php. This ladder shows each loop form as a discrete rung between the pure guard-clause form.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": [
+                "controlflow"
+            ],
+            "rng_seed": 106206,
+            "notes": "G-5 gap-fill: CF-04 loop forms ladder for→foreach→while→array_map as four stepped sets. Each carrier uses a different loop construct to express identical authorization logic.",
+            "scoring": {
+                "line_tolerance": 2,
+                "member_jaccard_min": 0.6,
+                "min_members_for_credit": 2
+            },
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": false,
+                "semantic": true
+            },
+            "carriers": [
+                {
+                    "file": "ForLoopAccessPolicy.php",
+                    "namespace": "Acme\\Access\\ForLoop",
+                    "class": "ForLoopAccessPolicy",
+                    "scaffold": "method_alpha",
+                    "group": "A",
+                    "pristine": false,
+                    "variant": "cf_for_loop",
+                    "transforms": [
+                        {
+                            "code": "CF-04",
+                            "variant": "cf_for_loop"
+                        }
+                    ]
+                },
+                {
+                    "file": "ForeachAccessPolicy.php",
+                    "namespace": "Acme\\Access\\Foreach",
+                    "class": "ForeachAccessPolicy",
+                    "scaffold": "method_beta",
+                    "group": "A",
+                    "pristine": false,
+                    "variant": "cf_loop_forms",
+                    "transforms": [
+                        {
+                            "code": "CF-04",
+                            "variant": "cf_loop_forms"
+                        }
+                    ]
+                },
+                {
+                    "file": "WhileLoopAccessPolicy.php",
+                    "namespace": "Acme\\Access\\WhileLoop",
+                    "class": "WhileLoopAccessPolicy",
+                    "scaffold": "method_gamma",
+                    "group": "A",
+                    "pristine": false,
+                    "variant": "cf_while_loop",
+                    "transforms": [
+                        {
+                            "code": "CF-04",
+                            "variant": "cf_while_loop"
+                        }
+                    ]
+                },
+                {
+                    "file": "ArrayMapAccessPolicy.php",
+                    "namespace": "Acme\\Access\\ArrayMap",
+                    "class": "ArrayMapAccessPolicy",
+                    "scaffold": "method_delta",
+                    "group": "A",
+                    "pristine": false,
+                    "variant": "cf_array_map",
+                    "transforms": [
+                        {
+                            "code": "CF-04",
+                            "variant": "cf_array_map"
+                        }
+                    ]
+                }
+            ],
+            "distractors": [
+                {
+                    "file": "TrustScorer.php",
+                    "namespace": "Acme\\Access\\Scoring",
+                    "class": "TrustScorer",
+                    "source": "nearmiss_access",
+                    "reason": "near-miss: same auth vocabulary (user/resource/roles/grants/status) but computes a numeric trust score, not a boolean decision"
+                }
+            ],
+            "cleans": [
+                {
+                    "file": "RoleHierarchy.php",
+                    "namespace": "Acme\\Access\\Roles",
+                    "class": "RoleHierarchy",
+                    "source": "clean_auth"
+                }
+            ]
         }
     ]
 }

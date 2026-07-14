@@ -1,0 +1,196 @@
+{
+    "level": 5,
+    "level_name": "partial_duplication",
+    "level_dir": "L05_partial_duplication",
+    "family": "pd_twin_delta",
+    "capability_coverage": ["boundary_precision", "near_clone_detection"],
+    "sets": [
+        {
+            "set_id": "L05-pd_twin_delta-001",
+            "title": "Twin clone clusters with 1-line delta (99% identity) - cluster A",
+            "description": "Two clusters of near-identical clones (99%+ similarity). Cluster A carriers differ by exactly 1 line in the middle of the clone region. Tests boundary_precision: tools must cluster the near-clones together AND correctly identify the delta line as unique content rather than part of the clone. Sub-capability: near_clone_detection.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "schema_version": 2,
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "edit_budget": 1,
+            "rng_seed": 105201,
+            "notes": "99%-identical twin clones with 1-line delta. Cluster A: members A1/A2 differ by 1 unique line inserted mid-region. K-30 boundary_precision / near_clone_detection probe. Must cluster and note delta.",
+            "capability_probe": {
+                "capability": "boundary_precision",
+                "sub_capability": "near_clone_detection",
+                "isolated": true,
+                "control_set": "L05-pd_twin_delta-001",
+                "pass_criterion": "Tool clusters both carriers and correctly identifies the 1-line unique segment as unique (not part of clone region)",
+                "fail_meaning": "Tool cannot precisely report clone region boundaries on near-clones; either misses the clone entirely or mislabels the delta line as duplicated"
+            },
+            "scoring": {"line_tolerance": 1, "member_jaccard_min": 0.85, "min_members_for_credit": 2, "fragment_scoring": "fragments_union", "unique_segment_penalty": true},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "difficulty": {"complexity": 5, "partiality": 0.01, "axes": {"breadth": 1, "intensity": 1, "semantic_depth": 2, "partiality": 0.01}},
+            "duplication": {"duplication_ratio": 0.99, "uniqueness_budget": {"min": 1, "max": 1}},
+            "carriers": [
+                {"file": "TwinCalcA1.php", "namespace": "Acme\\Billing\\Twin", "class": "TwinCalcA1", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "TwinCalcA2.php", "namespace": "Acme\\Billing\\Twin", "class": "TwinCalcA2", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-06", "params": {"unique_line": "return $subtotal * 1.01; // rounding adjustment", "position": "middle"}}]}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss: same invoice line-item vocabulary but computes margin/revenue instead of subtotal/tax/total"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L05-pd_twin_delta-002",
+            "title": "Twin clone clusters with 1-line delta (99% identity) - cluster B",
+            "description": "Two clusters of near-identical clones (99%+ similarity). Cluster B carriers differ by exactly 1 line at the end of the clone region. Tests boundary_precision: tools must cluster the near-clones together AND correctly identify the delta line as unique content. Sub-capability: near_clone_detection.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "schema_version": 2,
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "edit_budget": 1,
+            "rng_seed": 105202,
+            "notes": "99%-identical twin clones with 1-line delta at end. Cluster B: tail unique line. K-30 boundary_precision / near_clone_detection probe.",
+            "capability_probe": {
+                "capability": "boundary_precision",
+                "sub_capability": "near_clone_detection",
+                "isolated": true,
+                "control_set": "L05-pd_twin_delta-002",
+                "pass_criterion": "Tool clusters both carriers and correctly identifies the 1-line unique segment at the tail as unique",
+                "fail_meaning": "Tool cannot precisely report clone region boundaries on near-clones with tail delta"
+            },
+            "scoring": {"line_tolerance": 1, "member_jaccard_min": 0.85, "min_members_for_credit": 2, "fragment_scoring": "fragments_union", "unique_segment_penalty": true},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "difficulty": {"complexity": 5, "partiality": 0.01, "axes": {"breadth": 1, "intensity": 1, "semantic_depth": 2, "partiality": 0.01}},
+            "duplication": {"duplication_ratio": 0.99, "uniqueness_budget": {"min": 1, "max": 1}},
+            "carriers": [
+                {"file": "TwinCalcB1.php", "namespace": "Acme\\Billing\\TwinB", "class": "TwinCalcB1", "scaffold": "method_alpha", "group": "B", "pristine": true, "transforms": []},
+                {"file": "TwinCalcB2.php", "namespace": "Acme\\Billing\\TwinB", "class": "TwinCalcB2", "scaffold": "method_beta", "group": "B", "pristine": false, "transforms": [{"code": "ST-06", "params": {"unique_line": "// post-compute validation\nif ($total < 0) { throw new \\InvalidArgumentException('Negative total'); }", "position": "tail"}}]}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss: same invoice line-item vocabulary but computes different totals"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L05-pd_twin_delta-003",
+            "title": "Twin clone clusters with 1-line delta - access_guard seed",
+            "description": "Using access_guard seed, two carriers that are 99% identical with 1-line delta. Tests boundary_precision in a different semantic domain. Sub-capability: near_clone_detection.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "schema_version": 2,
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "edit_budget": 1,
+            "rng_seed": 105203,
+            "notes": "access_guard seed variant of 99%-identical with 1-line delta. K-30 boundary_precision / near_clone_detection.",
+            "capability_probe": {
+                "capability": "boundary_precision",
+                "sub_capability": "near_clone_detection",
+                "isolated": true,
+                "control_set": "L05-pd_twin_delta-003",
+                "pass_criterion": "Tool clusters both carriers and correctly identifies the 1-line unique segment",
+                "fail_meaning": "Tool cannot precisely report clone region boundaries on near-clones"
+            },
+            "scoring": {"line_tolerance": 1, "member_jaccard_min": 0.85, "min_members_for_credit": 2, "fragment_scoring": "fragments_union", "unique_segment_penalty": true},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "difficulty": {"complexity": 5, "partiality": 0.01, "axes": {"breadth": 1, "intensity": 1, "semantic_depth": 2, "partiality": 0.01}},
+            "duplication": {"duplication_ratio": 0.99, "uniqueness_budget": {"min": 1, "max": 1}},
+            "carriers": [
+                {"file": "TwinAuthA.php", "namespace": "Acme\\Security\\Twin", "class": "TwinAuthA", "scaffold": "method_alpha", "group": "C", "pristine": true, "transforms": []},
+                {"file": "TwinAuthB.php", "namespace": "Acme\\Security\\Twin", "class": "TwinAuthB", "scaffold": "method_beta", "group": "C", "pristine": false, "transforms": [{"code": "ST-06", "params": {"unique_line": "return false; // explicit deny for clarity", "position": "middle"}}]}
+            ],
+            "distractors": [
+                {"file": "TrustScorer.php", "namespace": "Acme\\Security\\Scoring", "class": "TrustScorer", "source": "nearmiss_access", "reason": "near-miss: same auth vocabulary but computes trust score instead of boolean allow/deny"}
+            ],
+            "cleans": [
+                {"file": "TokenValidationService.php", "namespace": "Acme\\Security\\Tokens", "class": "TokenValidationService", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L05-pd_twin_delta-004",
+            "title": "Twin clone clusters with 1-line delta - csv_import seed",
+            "description": "Using csv_import seed, two carriers that are 99% identical with 1-line delta at the start. Tests boundary_precision in parsing domain. Sub-capability: near_clone_detection.",
+            "seed": "csv_import",
+            "mount": "method",
+            "clone_symbol": "parseRow",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "schema_version": 2,
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "edit_budget": 1,
+            "rng_seed": 105204,
+            "notes": "csv_import seed variant of 99%-identical with 1-line head delta. K-30 boundary_precision / near_clone_detection.",
+            "capability_probe": {
+                "capability": "boundary_precision",
+                "sub_capability": "near_clone_detection",
+                "isolated": true,
+                "control_set": "L05-pd_twin_delta-004",
+                "pass_criterion": "Tool clusters both carriers and correctly identifies the 1-line unique segment at head as unique",
+                "fail_meaning": "Tool cannot precisely report clone region boundaries on near-clones with head delta"
+            },
+            "scoring": {"line_tolerance": 1, "member_jaccard_min": 0.85, "min_members_for_credit": 2, "fragment_scoring": "fragments_union", "unique_segment_penalty": true},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "difficulty": {"complexity": 5, "partiality": 0.01, "axes": {"breadth": 1, "intensity": 1, "semantic_depth": 2, "partiality": 0.01}},
+            "duplication": {"duplication_ratio": 0.99, "uniqueness_budget": {"min": 1, "max": 1}},
+            "carriers": [
+                {"file": "TwinCsvA.php", "namespace": "Acme\\Import\\Twin", "class": "TwinCsvA", "scaffold": "method_alpha", "group": "D", "pristine": true, "transforms": []},
+                {"file": "TwinCsvB.php", "namespace": "Acme\\Import\\Twin", "class": "TwinCsvB", "scaffold": "method_beta", "group": "D", "pristine": false, "transforms": [{"code": "ST-06", "params": {"unique_line": "$row = array_map('trim', $row); // normalize inputs early", "position": "head"}}]}
+            ],
+            "distractors": [
+                {"file": "XmlImportService.php", "namespace": "Acme\\Import\\Xml", "class": "XmlImportService", "source": "nearmiss_csv", "reason": "near-miss: same parsing vocabulary but handles XML instead of CSV"}
+            ],
+            "cleans": [
+                {"file": "DataValidationService.php", "namespace": "Acme\\Import\\Validation", "class": "DataValidationService", "source": "clean_parsing"}
+            ]
+        },
+        {
+            "set_id": "L05-pd_twin_delta-005",
+            "title": "Twin clone clusters - dual delta positions across pairs",
+            "description": "Composite set: 4 carriers in 2 pairs. First pair differs at head, second pair differs at tail. Tests whether tools can handle multiple near-clone pairs with different delta positions in one set.",
+            "seed": "invoice_totals",
+            "mount": "method",
+            "clone_symbol": "computeTotals",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "schema_version": 2,
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "edit_budget": 1,
+            "rng_seed": 105205,
+            "notes": "4 carriers in 2 pairs: pair1 head-delta, pair2 tail-delta. K-30 boundary_precision / near_clone_detection composite.",
+            "capability_probe": {
+                "capability": "boundary_precision",
+                "sub_capability": "near_clone_detection",
+                "isolated": true,
+                "control_set": "L05-pd_twin_delta-005",
+                "pass_criterion": "Tool correctly clusters both pairs and identifies delta lines in each",
+                "fail_meaning": "Tool cannot handle multiple near-clone pairs with different delta positions"
+            },
+            "scoring": {"line_tolerance": 1, "member_jaccard_min": 0.85, "min_members_for_credit": 2, "fragment_scoring": "fragments_union", "unique_segment_penalty": true},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "difficulty": {"complexity": 5, "partiality": 0.02, "axes": {"breadth": 2, "intensity": 2, "semantic_depth": 2, "partiality": 0.02}},
+            "duplication": {"clusters": 2, "cluster_topology": "disjoint", "duplication_ratio": 0.98, "uniqueness_budget": {"min": 1, "max": 1}},
+            "carriers": [
+                {"file": "DualCalcA1.php", "namespace": "Acme\\Billing\\Dual", "class": "DualCalcA1", "scaffold": "method_alpha", "group": "E1", "pristine": true, "transforms": []},
+                {"file": "DualCalcA2.php", "namespace": "Acme\\Billing\\Dual", "class": "DualCalcA2", "scaffold": "method_beta", "group": "E1", "pristine": false, "transforms": [{"code": "ST-06", "params": {"unique_line": "$subtotal = array_sum(array_column($items, 'price'));", "position": "head"}}]},
+                {"file": "DualCalcB1.php", "namespace": "Acme\\Billing\\Dual", "class": "DualCalcB1", "scaffold": "method_gamma", "group": "E2", "pristine": true, "transforms": []},
+                {"file": "DualCalcB2.php", "namespace": "Acme\\Billing\\Dual", "class": "DualCalcB2", "scaffold": "method_delta", "group": "E2", "pristine": false, "transforms": [{"code": "ST-06", "params": {"unique_line": "return ['subtotal' => $subtotal, 'tax' => $tax, 'total' => $total];", "position": "tail"}}]}
+            ],
+            "distractors": [
+                {"file": "MarginSummarizer.php", "namespace": "Acme\\Billing\\Summary", "class": "MarginSummarizer", "source": "nearmiss_invoice", "reason": "near-miss: same vocabulary but different computation"}
+            ],
+            "cleans": [
+                {"file": "TaxRateRepository.php", "namespace": "Acme\\Billing\\Tax", "class": "TaxRateRepository", "source": "clean_billing"}
+            ]
+        }
+    ]
+}

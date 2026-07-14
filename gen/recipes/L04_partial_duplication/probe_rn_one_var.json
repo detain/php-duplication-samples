@@ -1,0 +1,74 @@
+{
+    "level": 4,
+    "level_name": "rename_literals",
+    "level_dir": "L04_partial_duplication",
+    "family": "probe_rn_one_var",
+    "sets": [
+        {
+            "set_id": "L04-probe_rn_one_var-001",
+            "title": "CONTROL: Identifier canonicalization probe - one variable renamed",
+            "description": "Control set for identifier canonicalization capability probe. Pristine ~120-token method. Both carriers are byte-identical and pristine. Tests whether tools detect clones when one local variable is renamed.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["identifiers"],
+            "rng_seed": 140501,
+            "notes": "K-5 CONTROL. Pristine carriers. Probe tests RN-01 single variable rename (used 5x) detection.",
+            "capability_probe": {
+                "capability": "identifier_canonicalization",
+                "isolated": true,
+                "control_set": "L04-probe_rn_one_var-001",
+                "pass_criterion": "control_set PASSES all detectors; probe_set PASSES identifier-canonicalizing detectors",
+                "fail_meaning": "identifier_canonicalization ABSENT - tool cannot handle local variable rename"
+            },
+            "role_composition": {"carrier": 2, "distractor": 1, "clean": 2},
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristinePolicyA.php", "namespace": "Acme\\Access\\PristineA", "class": "PristinePolicyA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "PristinePolicyB.php", "namespace": "Acme\\Access\\PristineB", "class": "PristinePolicyB", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": []}
+            ],
+            "distractors": [
+                {"file": "TrustScorer.php", "namespace": "Acme\\Access\\Scoring", "class": "TrustScorer", "source": "nearmiss_access", "reason": "near-miss: same auth vocabulary but computes numeric trust score"}
+            ],
+            "cleans": [
+                {"file": "RoleHierarchy.php", "namespace": "Acme\\Access\\Roles", "class": "RoleHierarchy", "source": "clean_auth"},
+                {"file": "PermissionMatrix.php", "namespace": "Acme\\Access\\Matrix", "class": "PermissionMatrix", "source": "clean_auth"}
+            ]
+        },
+        {
+            "set_id": "L04-probe_rn_one_var-002",
+            "title": "PROBE: Identifier canonicalization - ONE local renamed, used 5x (RN-01)",
+            "description": "Probe set for identifier canonicalization capability. Carrier A is pristine; carrier B has exactly ONE local variable renamed, used 5 times (RN-01). Minimal intensity probe. Tests param-abstraction-level identifier handling.",
+            "seed": "access_guard",
+            "mount": "method",
+            "clone_symbol": "authorize",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["identifiers"],
+            "rng_seed": 140502,
+            "notes": "K-5 PROBE. Carrier B renames 1 local variable (used 5x) (RN-01). Delta is minimal - 1 identifier change.",
+            "capability_probe": {
+                "capability": "identifier_canonicalization",
+                "isolated": true,
+                "control_set": "L04-probe_rn_one_var-001",
+                "pass_criterion": "control_set PASSES all detectors; probe_set PASSES identifier-canonicalizing detectors",
+                "fail_meaning": "identifier_canonicalization ABSENT - tool cannot handle local variable rename"
+            },
+            "role_composition": {"carrier": 2, "distractor": 1, "clean": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "PristinePolicyA.php", "namespace": "Acme\\Access\\PristineA", "class": "PristinePolicyA", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "RenamedVarPolicy.php", "namespace": "Acme\\Access\\RenamedVar", "class": "RenamedVarPolicy", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-01", "params": {"target": "local", "count": 1}}]}
+            ],
+            "distractors": [
+                {"file": "TrustScorer.php", "namespace": "Acme\\Access\\Scoring", "class": "TrustScorer", "source": "nearmiss_access", "reason": "near-miss: same auth vocabulary but computes numeric trust score"}
+            ],
+            "cleans": [
+                {"file": "RoleHierarchy.php", "namespace": "Acme\\Access\\Roles", "class": "RoleHierarchy", "source": "clean_auth"},
+                {"file": "PermissionMatrix.php", "namespace": "Acme\\Access\\Matrix", "class": "PermissionMatrix", "source": "clean_auth"}
+            ]
+        }
+    ]
+}

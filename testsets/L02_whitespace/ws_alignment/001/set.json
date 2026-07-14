@@ -74,5 +74,12 @@
         "recipe": "gen/recipes/L02_whitespace/ws_alignment.json",
         "version": "1.0.0",
         "rng_seed": 102191
+    },
+    "progression": {
+        "bridge_pair": {
+            "lower": "L02-ws_alignment-001",
+            "upper": "L03-cm_mid_statement-001",
+            "delta_axis": "CM"
+        }
     }
 }
