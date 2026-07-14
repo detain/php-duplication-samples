@@ -33,6 +33,37 @@
             "region_accuracy": "line-based (approximate)",
             "token_accuracy": "token-based (precise for type-1/2)",
             "scaling": "O(n^2) token comparison; degrades on >10k token files"
+        },
+        "jscpd": {
+            "name": "jscpd",
+            "version": "3.x",
+            "type": "node",
+            "detects": [
+                "type-1 exact duplication",
+                "type-1 with whitespace variation",
+                "type-2 with identifier rename",
+                "type-2 with literal change",
+                "cross-file token-level clones"
+            ],
+            "misses": [
+                "type-3 with statement edit",
+                "type-4 semantic/architectural",
+                "partial duplication with unique regions",
+                "behaviorally-equivalent refactored code"
+            ],
+            "thresholds": {
+                "min_lines": 5,
+                "min_tokens": 50
+            },
+            "fp_profile": {
+                "shared_boilerplate": "medium",
+                "getter_setter_pairs": "medium",
+                "template_like_code": "low",
+                "class_header_blocks": "low"
+            },
+            "region_accuracy": "token-based (precise line spans)",
+            "token_accuracy": "token-based (precise)",
+            "scaling": "O(n^2) worst-case; handles large files with threshold cutoffs"
         }
     }
 }
