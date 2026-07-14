@@ -1,0 +1,233 @@
+{
+    "schema_version": 1,
+    "set_id": "L10-adv_mass_instances-004",
+    "level": 10,
+    "level_name": "adversarial_edge_cases",
+    "family": "adv_mass_instances",
+    "title": "Mass duplication: 20 files with query_builder seed and transforms",
+    "description": "Fourth scalability set with 20 carriers using query_builder seed with RN-01 and LT-01 transforms. Tests scaling with identifier normalization.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "query_builder",
+    "difficulty_band": "expert",
+    "files": [
+        {
+            "path": "src/QueryCalcA01.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 47
+        },
+        {
+            "path": "src/QueryCalcA02.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 52
+        },
+        {
+            "path": "src/QueryCalcA03.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 51
+        },
+        {
+            "path": "src/QueryCalcA04.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 47
+        },
+        {
+            "path": "src/QueryCalcA05.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 52
+        },
+        {
+            "path": "src/QueryCalcA06.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 52
+        },
+        {
+            "path": "src/QueryCalcA07.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 47
+        },
+        {
+            "path": "src/QueryCalcA08.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 52
+        },
+        {
+            "path": "src/QueryCalcA09.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 52
+        },
+        {
+            "path": "src/QueryCalcA10.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 47
+        },
+        {
+            "path": "src/QueryCalcB01.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 47
+        },
+        {
+            "path": "src/QueryCalcB02.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 52
+        },
+        {
+            "path": "src/QueryCalcB03.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 51
+        },
+        {
+            "path": "src/QueryCalcB04.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 47
+        },
+        {
+            "path": "src/QueryCalcB05.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 52
+        },
+        {
+            "path": "src/QueryCalcB06.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 52
+        },
+        {
+            "path": "src/QueryCalcB07.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 47
+        },
+        {
+            "path": "src/QueryCalcB08.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 52
+        },
+        {
+            "path": "src/QueryCalcB09.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 52
+        },
+        {
+            "path": "src/QueryCalcB10.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 47
+        },
+        {
+            "path": "src/QueryDistractorX.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 46
+        },
+        {
+            "path": "src/QueryDistractorY.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 46
+        },
+        {
+            "path": "src/QueryCleanX.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 14
+        },
+        {
+            "path": "src/QueryCleanY.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 14
+        },
+        {
+            "path": "src/QueryCleanZ.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 18
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-2",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 20
+    },
+    "interference": [
+        {
+            "code": "RN-01",
+            "name": "local_vars",
+            "params": {},
+            "applied_to": [
+                "src/QueryCalcA02.php",
+                "src/QueryCalcA05.php",
+                "src/QueryCalcA08.php",
+                "src/QueryCalcB02.php",
+                "src/QueryCalcB05.php",
+                "src/QueryCalcB08.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "LT-01",
+            "name": "numeric",
+            "params": {},
+            "applied_to": [
+                "src/QueryCalcA03.php",
+                "src/QueryCalcA05.php",
+                "src/QueryCalcA09.php",
+                "src/QueryCalcB03.php",
+                "src/QueryCalcB05.php",
+                "src/QueryCalcB09.php"
+            ],
+            "intensity": 2
+        },
+        {
+            "code": "CM-03",
+            "name": "docblock",
+            "params": {},
+            "applied_to": [
+                "src/QueryCalcA06.php",
+                "src/QueryCalcA09.php",
+                "src/QueryCalcB06.php",
+                "src/QueryCalcB09.php"
+            ],
+            "intensity": 1
+        }
+    ],
+    "difficulty": {
+        "score": 97,
+        "requires": [
+            "identifier_canonicalization",
+            "literal_abstraction",
+            "comment_stripping"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L10/adv_mass_instances.json",
+        "version": "1.0.0",
+        "rng_seed": 112104
+    },
+    "role_composition": {
+        "carrier": 20,
+        "distractor": 2,
+        "clean": 3
+    }
+}

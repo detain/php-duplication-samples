@@ -1,0 +1,182 @@
+{
+    "schema_version": 1,
+    "set_id": "L10-adv_mass_instances-005",
+    "level": 10,
+    "level_name": "adversarial_edge_cases",
+    "family": "adv_mass_instances",
+    "title": "Mass duplication: 20 files with rate_limiter seed",
+    "description": "Fifth scalability set with 20 carriers using rate_limiter seed. Tests detection across a security-related code domain.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "rate_limiter",
+    "difficulty_band": "expert",
+    "files": [
+        {
+            "path": "src/RateCalcA01.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 47
+        },
+        {
+            "path": "src/RateCalcA02.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 52
+        },
+        {
+            "path": "src/RateCalcA03.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 51
+        },
+        {
+            "path": "src/RateCalcA04.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 47
+        },
+        {
+            "path": "src/RateCalcA05.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 52
+        },
+        {
+            "path": "src/RateCalcA06.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 51
+        },
+        {
+            "path": "src/RateCalcA07.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 47
+        },
+        {
+            "path": "src/RateCalcA08.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 52
+        },
+        {
+            "path": "src/RateCalcA09.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 51
+        },
+        {
+            "path": "src/RateCalcA10.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 47
+        },
+        {
+            "path": "src/RateCalcB01.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 52
+        },
+        {
+            "path": "src/RateCalcB02.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 51
+        },
+        {
+            "path": "src/RateCalcB03.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 47
+        },
+        {
+            "path": "src/RateCalcB04.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 52
+        },
+        {
+            "path": "src/RateCalcB05.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 51
+        },
+        {
+            "path": "src/RateCalcB06.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 47
+        },
+        {
+            "path": "src/RateCalcB07.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 52
+        },
+        {
+            "path": "src/RateCalcB08.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 51
+        },
+        {
+            "path": "src/RateCalcB09.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 47
+        },
+        {
+            "path": "src/RateCalcB10.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 52
+        },
+        {
+            "path": "src/RateDistractorA.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 39
+        },
+        {
+            "path": "src/RateDistractorB.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 39
+        },
+        {
+            "path": "src/RateCleanA.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 15
+        },
+        {
+            "path": "src/RateCleanB.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 14
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-1",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 20
+    },
+    "interference": [],
+    "difficulty": {
+        "score": 82,
+        "requires": []
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L10/adv_mass_instances.json",
+        "version": "1.0.0",
+        "rng_seed": 112105
+    },
+    "role_composition": {
+        "carrier": 20,
+        "distractor": 2,
+        "clean": 2
+    }
+}

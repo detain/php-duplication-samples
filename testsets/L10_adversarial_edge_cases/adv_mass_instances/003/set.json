@@ -1,0 +1,182 @@
+{
+    "schema_version": 1,
+    "set_id": "L10-adv_mass_instances-003",
+    "level": 10,
+    "level_name": "adversarial_edge_cases",
+    "family": "adv_mass_instances",
+    "title": "Mass duplication: 20 files with cache_manager seed",
+    "description": "Third scalability set with 20 carriers using cache_manager seed. Tests detection rate as instance_count scales with a different seed.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "cache_manager",
+    "difficulty_band": "expert",
+    "files": [
+        {
+            "path": "src/CacheCalcA01.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 60
+        },
+        {
+            "path": "src/CacheCalcA02.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 65
+        },
+        {
+            "path": "src/CacheCalcA03.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 64
+        },
+        {
+            "path": "src/CacheCalcA04.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 60
+        },
+        {
+            "path": "src/CacheCalcA05.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 65
+        },
+        {
+            "path": "src/CacheCalcA06.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 64
+        },
+        {
+            "path": "src/CacheCalcA07.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 60
+        },
+        {
+            "path": "src/CacheCalcA08.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 65
+        },
+        {
+            "path": "src/CacheCalcA09.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 64
+        },
+        {
+            "path": "src/CacheCalcA10.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 60
+        },
+        {
+            "path": "src/CacheCalcB01.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 65
+        },
+        {
+            "path": "src/CacheCalcB02.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 64
+        },
+        {
+            "path": "src/CacheCalcB03.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 60
+        },
+        {
+            "path": "src/CacheCalcB04.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 65
+        },
+        {
+            "path": "src/CacheCalcB05.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 64
+        },
+        {
+            "path": "src/CacheCalcB06.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 60
+        },
+        {
+            "path": "src/CacheCalcB07.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 65
+        },
+        {
+            "path": "src/CacheCalcB08.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 64
+        },
+        {
+            "path": "src/CacheCalcB09.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 60
+        },
+        {
+            "path": "src/CacheCalcB10.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 65
+        },
+        {
+            "path": "src/CacheDistractorA.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 52
+        },
+        {
+            "path": "src/CacheDistractorB.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 52
+        },
+        {
+            "path": "src/CacheCleanA.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 14
+        },
+        {
+            "path": "src/CacheCleanB.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 14
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-1",
+        "granularity": "method",
+        "clusters": 1,
+        "instances": 20
+    },
+    "interference": [],
+    "difficulty": {
+        "score": 82,
+        "requires": []
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L10/adv_mass_instances.json",
+        "version": "1.0.0",
+        "rng_seed": 112103
+    },
+    "role_composition": {
+        "carrier": 20,
+        "distractor": 2,
+        "clean": 2
+    }
+}

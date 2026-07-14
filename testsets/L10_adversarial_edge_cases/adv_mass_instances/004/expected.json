@@ -1,0 +1,190 @@
+{
+    "schema_version": 1,
+    "set_id": "L10-adv_mass_instances-004",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-2",
+            "granularity": "method",
+            "normalized_by": [
+                "whitespace",
+                "comments",
+                "identifiers"
+            ],
+            "token_hash": "50ee27c2ce0a7536",
+            "normalized_hash": "605f4df69dff6937",
+            "members": [
+                {
+                    "file": "src/QueryCalcA01.php",
+                    "start_line": 13,
+                    "end_line": 45,
+                    "symbol": "build",
+                    "pristine": true
+                },
+                {
+                    "file": "src/QueryCalcA02.php",
+                    "start_line": 22,
+                    "end_line": 54,
+                    "symbol": "build",
+                    "pristine": false
+                },
+                {
+                    "file": "src/QueryCalcA03.php",
+                    "start_line": 28,
+                    "end_line": 60,
+                    "symbol": "build",
+                    "pristine": false
+                },
+                {
+                    "file": "src/QueryCalcA04.php",
+                    "start_line": 13,
+                    "end_line": 45,
+                    "symbol": "build",
+                    "pristine": true
+                },
+                {
+                    "file": "src/QueryCalcA05.php",
+                    "start_line": 22,
+                    "end_line": 54,
+                    "symbol": "build",
+                    "pristine": false
+                },
+                {
+                    "file": "src/QueryCalcA06.php",
+                    "start_line": 29,
+                    "end_line": 61,
+                    "symbol": "build",
+                    "pristine": false
+                },
+                {
+                    "file": "src/QueryCalcA07.php",
+                    "start_line": 13,
+                    "end_line": 45,
+                    "symbol": "build",
+                    "pristine": true
+                },
+                {
+                    "file": "src/QueryCalcA08.php",
+                    "start_line": 22,
+                    "end_line": 54,
+                    "symbol": "build",
+                    "pristine": false
+                },
+                {
+                    "file": "src/QueryCalcA09.php",
+                    "start_line": 29,
+                    "end_line": 61,
+                    "symbol": "build",
+                    "pristine": false
+                },
+                {
+                    "file": "src/QueryCalcA10.php",
+                    "start_line": 13,
+                    "end_line": 45,
+                    "symbol": "build",
+                    "pristine": true
+                },
+                {
+                    "file": "src/QueryCalcB01.php",
+                    "start_line": 13,
+                    "end_line": 45,
+                    "symbol": "build",
+                    "pristine": true
+                },
+                {
+                    "file": "src/QueryCalcB02.php",
+                    "start_line": 22,
+                    "end_line": 54,
+                    "symbol": "build",
+                    "pristine": false
+                },
+                {
+                    "file": "src/QueryCalcB03.php",
+                    "start_line": 28,
+                    "end_line": 60,
+                    "symbol": "build",
+                    "pristine": false
+                },
+                {
+                    "file": "src/QueryCalcB04.php",
+                    "start_line": 13,
+                    "end_line": 45,
+                    "symbol": "build",
+                    "pristine": true
+                },
+                {
+                    "file": "src/QueryCalcB05.php",
+                    "start_line": 22,
+                    "end_line": 54,
+                    "symbol": "build",
+                    "pristine": false
+                },
+                {
+                    "file": "src/QueryCalcB06.php",
+                    "start_line": 29,
+                    "end_line": 61,
+                    "symbol": "build",
+                    "pristine": false
+                },
+                {
+                    "file": "src/QueryCalcB07.php",
+                    "start_line": 13,
+                    "end_line": 45,
+                    "symbol": "build",
+                    "pristine": true
+                },
+                {
+                    "file": "src/QueryCalcB08.php",
+                    "start_line": 22,
+                    "end_line": 54,
+                    "symbol": "build",
+                    "pristine": false
+                },
+                {
+                    "file": "src/QueryCalcB09.php",
+                    "start_line": 29,
+                    "end_line": 61,
+                    "symbol": "build",
+                    "pristine": false
+                },
+                {
+                    "file": "src/QueryCalcB10.php",
+                    "start_line": 13,
+                    "end_line": 45,
+                    "symbol": "build",
+                    "pristine": true
+                }
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": true,
+                "semantic": true
+            },
+            "notes": "F-2 multi-cluster with 20 carriers at positions 5-200. Uses query_builder seed with RN-01 and LT-01 transforms."
+        }
+    ],
+    "non_duplicates": [
+        {
+            "file": "src/QueryDistractorX.php",
+            "start_line": 9,
+            "end_line": 55,
+            "reason": "Near-miss: similar query vocabulary but different execution strategy",
+            "trap": true
+        },
+        {
+            "file": "src/QueryDistractorY.php",
+            "start_line": 9,
+            "end_line": 55,
+            "reason": "Near-miss: similar parameter binding but different logic",
+            "trap": true
+        }
+    ],
+    "scoring": {
+        "line_tolerance": 0,
+        "member_jaccard_min": 0.85,
+        "min_members_for_credit": 15
+    }
+}

@@ -13,35 +13,35 @@
                 "identifiers",
                 "literals"
             ],
-            "token_hash": "4ffb959f327d1b8c",
-            "normalized_hash": "5015f13c10f8031c",
+            "token_hash": "ab29c5185aec0112",
+            "normalized_hash": "c34a95ddc4a183a2",
             "members": [
                 {
-                    "file": "src/PristineCsvImport.php",
+                    "file": "src/PristinePaymentProc.php",
                     "start_line": 9,
-                    "end_line": 31,
-                    "symbol": "parseRow",
+                    "end_line": 140,
+                    "symbol": "charge",
                     "pristine": true,
                     "group": "A",
-                    "seed": "csv_import"
+                    "seed": "payment_processor"
                 },
                 {
-                    "file": "src/HeadUniqueCsv.php",
+                    "file": "src/TailUniquePayment.php",
                     "start_line": 18,
-                    "end_line": 37,
-                    "symbol": "parseRow",
+                    "end_line": 149,
+                    "symbol": "charge",
                     "pristine": false,
                     "group": "A",
-                    "seed": "csv_import"
+                    "seed": "payment_processor"
                 },
                 {
-                    "file": "src/HeadUnique2Csv.php",
+                    "file": "src/TailUnique2Payment.php",
                     "start_line": 24,
-                    "end_line": 42,
-                    "symbol": "parseRow",
+                    "end_line": 155,
+                    "symbol": "charge",
                     "pristine": false,
                     "group": "A",
-                    "seed": "csv_import"
+                    "seed": "payment_processor"
                 }
             ],
             "detection_expectation": {
@@ -51,15 +51,15 @@
                 "metric_based": true,
                 "semantic": true
             },
-            "notes": "csv_import with head_trim for unique head."
+            "notes": "payment_processor seed with tail_trim for unique tail."
         }
     ],
     "non_duplicates": [
         {
-            "file": "src/XmlImportService.php",
+            "file": "src/RefundHandler.php",
             "start_line": 9,
-            "end_line": 78,
-            "reason": "near-miss: similar parsing vocabulary but handles XML",
+            "end_line": 140,
+            "reason": "near-miss: similar payment processing vocabulary but handles refunds",
             "trap": true
         }
     ],

@@ -75,6 +75,114 @@
             "cleans": [
                 {"file": "AuthClean.php", "namespace": "Acme\\Security\\Config", "class": "AuthClean", "source": "clean_auth"}
             ]
+        },
+        {
+            "set_id": "L10-adv_shared_subclone-003",
+            "title": "Clone Marriage with payment_processor seed",
+            "description": "Clone Marriage pattern variant using payment_processor seed. Cluster A and Cluster B share a middle SharedCode block.",
+            "seed": "payment_processor",
+            "mount": "method",
+            "clone_symbol": "charge",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["controlflow", "identifiers"],
+            "rng_seed": 112103,
+            "notes": "O Idea 4 Clone Marriage variant. Uses payment_processor seed to test shared sub-clone topology in payment code context.",
+            "capability_probe": {
+                "capability": "multi_cluster_reporting",
+                "isolated": false,
+                "control_set": "L10-adv_shared_subclone-001",
+                "pass_criterion": "PROFILE GENERATOR: detects and reports both clusters AND their shared sub-clone relationship correctly",
+                "fail_meaning": "multi_cluster_reporting ABSENT - tool cannot report overlapping cluster topology with shared sub-clones"
+            },
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": true},
+            "carriers": [
+                {"file": "PaymentSharedA1.php", "namespace": "Acme\\Payment\\Shared", "class": "PaymentSharedA1", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": [], "cluster": "A"},
+                {"file": "PaymentSharedA2.php", "namespace": "Acme\\Payment\\Shared", "class": "PaymentSharedA2", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [], "cluster": "A"},
+                {"file": "PaymentSharedA3.php", "namespace": "Acme\\Payment\\Shared", "class": "PaymentSharedA3", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 0, "tail_trim": 2}}], "cluster": "A"},
+                {"file": "PaymentSharedB1.php", "namespace": "Acme\\Payment\\Shared", "class": "PaymentSharedB1", "scaffold": "method_alpha", "group": "B", "pristine": true, "transforms": [], "cluster": "B", "relation": {"type": "overlapping", "with": "A"}},
+                {"file": "PaymentSharedB2.php", "namespace": "Acme\\Payment\\Shared", "class": "PaymentSharedB2", "scaffold": "method_beta", "group": "B", "pristine": false, "transforms": [], "cluster": "B", "relation": {"type": "overlapping", "with": "A"}},
+                {"file": "PaymentSharedB3.php", "namespace": "Acme\\Payment\\Shared", "class": "PaymentSharedB3", "scaffold": "method_gamma", "group": "B", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 0, "tail_trim": 2}}], "cluster": "B", "relation": {"type": "overlapping", "with": "A"}}
+            ],
+            "distractors": [
+                {"file": "PaymentDistractor.php", "namespace": "Acme\\Payment\\Reports", "class": "PaymentDistractor", "source": "nearmiss_payment", "reason": "Near-miss: similar payment processing vocabulary but different fee calculation"}
+            ],
+            "cleans": [
+                {"file": "PaymentClean.php", "namespace": "Acme\\Payment\\Config", "class": "PaymentClean", "source": "clean_payment"}
+            ]
+        },
+        {
+            "set_id": "L10-adv_shared_subclone-004",
+            "title": "Clone Marriage with cache_manager seed",
+            "description": "Clone Marriage pattern variant using cache_manager seed. Cluster A and Cluster B share a middle SharedCode block.",
+            "seed": "cache_manager",
+            "mount": "method",
+            "clone_symbol": "get",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["controlflow", "identifiers"],
+            "rng_seed": 112104,
+            "notes": "O Idea 4 Clone Marriage variant. Uses cache_manager seed to test shared sub-clone topology in caching code context.",
+            "capability_probe": {
+                "capability": "multi_cluster_reporting",
+                "isolated": false,
+                "control_set": "L10-adv_shared_subclone-001",
+                "pass_criterion": "PROFILE GENERATOR: detects and reports both clusters AND their shared sub-clone relationship correctly",
+                "fail_meaning": "multi_cluster_reporting ABSENT - tool cannot report overlapping cluster topology with shared sub-clones"
+            },
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": true},
+            "carriers": [
+                {"file": "CacheSharedA1.php", "namespace": "Acme\\Cache\\Shared", "class": "CacheSharedA1", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": [], "cluster": "A"},
+                {"file": "CacheSharedA2.php", "namespace": "Acme\\Cache\\Shared", "class": "CacheSharedA2", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [], "cluster": "A"},
+                {"file": "CacheSharedA3.php", "namespace": "Acme\\Cache\\Shared", "class": "CacheSharedA3", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 0, "tail_trim": 2}}], "cluster": "A"},
+                {"file": "CacheSharedB1.php", "namespace": "Acme\\Cache\\Shared", "class": "CacheSharedB1", "scaffold": "method_alpha", "group": "B", "pristine": true, "transforms": [], "cluster": "B", "relation": {"type": "overlapping", "with": "A"}},
+                {"file": "CacheSharedB2.php", "namespace": "Acme\\Cache\\Shared", "class": "CacheSharedB2", "scaffold": "method_beta", "group": "B", "pristine": false, "transforms": [], "cluster": "B", "relation": {"type": "overlapping", "with": "A"}},
+                {"file": "CacheSharedB3.php", "namespace": "Acme\\Cache\\Shared", "class": "CacheSharedB3", "scaffold": "method_gamma", "group": "B", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 0, "tail_trim": 2}}], "cluster": "B", "relation": {"type": "overlapping", "with": "A"}}
+            ],
+            "distractors": [
+                {"file": "CacheDistractor.php", "namespace": "Acme\\Cache\\Reports", "class": "CacheDistractor", "source": "nearmiss_cache", "reason": "Near-miss: similar caching vocabulary but different eviction strategy"}
+            ],
+            "cleans": [
+                {"file": "CacheClean.php", "namespace": "Acme\\Cache\\Config", "class": "CacheClean", "source": "clean_cache"}
+            ]
+        },
+        {
+            "set_id": "L10-adv_shared_subclone-005",
+            "title": "Clone Marriage with rate_limiter seed",
+            "description": "Clone Marriage pattern variant using rate_limiter seed. Cluster A and Cluster B share a middle SharedCode block.",
+            "seed": "rate_limiter",
+            "mount": "method",
+            "clone_symbol": "attempt",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "normalized_by": ["controlflow", "identifiers"],
+            "rng_seed": 112105,
+            "notes": "O Idea 4 Clone Marriage variant. Uses rate_limiter seed to test shared sub-clone topology in rate limiting code context.",
+            "capability_probe": {
+                "capability": "multi_cluster_reporting",
+                "isolated": false,
+                "control_set": "L10-adv_shared_subclone-001",
+                "pass_criterion": "PROFILE GENERATOR: detects and reports both clusters AND their shared sub-clone relationship correctly",
+                "fail_meaning": "multi_cluster_reporting ABSENT - tool cannot report overlapping cluster topology with shared sub-clones"
+            },
+            "scoring": {"line_tolerance": 2, "member_jaccard_min": 0.6, "min_members_for_credit": 2},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": false, "semantic": true},
+            "carriers": [
+                {"file": "RateSharedA1.php", "namespace": "Acme\\Rate\\Shared", "class": "RateSharedA1", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": [], "cluster": "A"},
+                {"file": "RateSharedA2.php", "namespace": "Acme\\Rate\\Shared", "class": "RateSharedA2", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [], "cluster": "A"},
+                {"file": "RateSharedA3.php", "namespace": "Acme\\Rate\\Shared", "class": "RateSharedA3", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 0, "tail_trim": 2}}], "cluster": "A"},
+                {"file": "RateSharedB1.php", "namespace": "Acme\\Rate\\Shared", "class": "RateSharedB1", "scaffold": "method_alpha", "group": "B", "pristine": true, "transforms": [], "cluster": "B", "relation": {"type": "overlapping", "with": "A"}},
+                {"file": "RateSharedB2.php", "namespace": "Acme\\Rate\\Shared", "class": "RateSharedB2", "scaffold": "method_beta", "group": "B", "pristine": false, "transforms": [], "cluster": "B", "relation": {"type": "overlapping", "with": "A"}},
+                {"file": "RateSharedB3.php", "namespace": "Acme\\Rate\\Shared", "class": "RateSharedB3", "scaffold": "method_gamma", "group": "B", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 0, "tail_trim": 2}}], "cluster": "B", "relation": {"type": "overlapping", "with": "A"}}
+            ],
+            "distractors": [
+                {"file": "RateDistractor.php", "namespace": "Acme\\Rate\\Reports", "class": "RateDistractor", "source": "nearmiss_rate", "reason": "Near-miss: similar rate limiting vocabulary but different window calculation"}
+            ],
+            "cleans": [
+                {"file": "RateClean.php", "namespace": "Acme\\Rate\\Config", "class": "RateClean", "source": "clean_rate"}
+            ]
         }
     ]
 }

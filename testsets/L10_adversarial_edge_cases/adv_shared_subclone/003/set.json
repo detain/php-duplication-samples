@@ -1,0 +1,98 @@
+{
+    "schema_version": 1,
+    "set_id": "L10-adv_shared_subclone-003",
+    "level": 10,
+    "level_name": "adversarial_edge_cases",
+    "family": "adv_shared_subclone",
+    "title": "Clone Marriage with payment_processor seed",
+    "description": "Clone Marriage pattern variant using payment_processor seed. Cluster A and Cluster B share a middle SharedCode block.",
+    "language": "php",
+    "min_php": "8.1",
+    "seed": "payment_processor",
+    "difficulty_band": "expert",
+    "files": [
+        {
+            "path": "src/PaymentSharedA1.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 125
+        },
+        {
+            "path": "src/PaymentSharedA2.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 130
+        },
+        {
+            "path": "src/PaymentSharedA3.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 129
+        },
+        {
+            "path": "src/PaymentSharedB1.php",
+            "role": "carrier",
+            "duplicate_group": "B",
+            "sloc": 125
+        },
+        {
+            "path": "src/PaymentSharedB2.php",
+            "role": "carrier",
+            "duplicate_group": "B",
+            "sloc": 130
+        },
+        {
+            "path": "src/PaymentSharedB3.php",
+            "role": "carrier",
+            "duplicate_group": "B",
+            "sloc": 129
+        },
+        {
+            "path": "src/PaymentDistractor.php",
+            "role": "distractor",
+            "duplicate_group": null,
+            "sloc": 117
+        },
+        {
+            "path": "src/PaymentClean.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 14
+        }
+    ],
+    "duplication": {
+        "present": true,
+        "clone_type": "type-3",
+        "granularity": "method",
+        "clusters": 2,
+        "instances": 6
+    },
+    "interference": [
+        {
+            "code": "ST-07",
+            "name": "partial_fragment",
+            "params": {
+                "head_trim": 0,
+                "tail_trim": 2
+            },
+            "applied_to": [
+                "src/PaymentSharedA3.php",
+                "src/PaymentSharedB3.php"
+            ],
+            "intensity": 3
+        }
+    ],
+    "difficulty": {
+        "score": 94,
+        "requires": [
+            "ast_canonicalization",
+            "deadcode_elimination"
+        ]
+    },
+    "generator": {
+        "tool": "gen/build.php",
+        "recipe": "gen/recipes/L10/adv_shared_subclone.json",
+        "version": "1.0.0",
+        "rng_seed": 112103
+    }
+}

@@ -4,60 +4,60 @@
     "level": 4,
     "level_name": "partial_duplication",
     "family": "pd_head_unique",
-    "title": "Partial clone using csv_import with unique head",
-    "description": "The same parseRow method with unique head sections.",
+    "title": "Partial clone using payment_processor with unique tail",
+    "description": "The same charge method with unique tail sections using payment_processor seed.",
     "language": "php",
     "min_php": "8.1",
-    "seed": "csv_import",
+    "seed": "payment_processor",
     "difficulty_band": "medium",
     "files": [
         {
-            "path": "src/PristineCsvImport.php",
+            "path": "src/PristinePaymentProc.php",
             "role": "carrier",
             "duplicate_group": "A",
-            "sloc": 37,
+            "sloc": 125,
             "region_sloc": {
-                "sloc": 23,
-                "duplicate": 23,
+                "sloc": 111,
+                "duplicate": 111,
                 "unique": 0,
                 "filler": 0
             }
         },
         {
-            "path": "src/HeadUniqueCsv.php",
+            "path": "src/TailUniquePayment.php",
             "role": "carrier",
             "duplicate_group": "A",
-            "sloc": 39,
+            "sloc": 130,
             "region_sloc": {
-                "sloc": 20,
-                "duplicate": 20,
+                "sloc": 111,
+                "duplicate": 111,
                 "unique": 0,
                 "filler": 0
             }
         },
         {
-            "path": "src/HeadUnique2Csv.php",
+            "path": "src/TailUnique2Payment.php",
             "role": "carrier",
             "duplicate_group": "A",
-            "sloc": 37,
+            "sloc": 129,
             "region_sloc": {
-                "sloc": 19,
-                "duplicate": 19,
+                "sloc": 111,
+                "duplicate": 111,
                 "unique": 0,
                 "filler": 0
             }
         },
         {
-            "path": "src/XmlImportService.php",
+            "path": "src/RefundHandler.php",
             "role": "distractor",
             "duplicate_group": null,
-            "sloc": 63
+            "sloc": 117
         },
         {
-            "path": "src/DataValidationService.php",
+            "path": "src/PaymentConfigRepo.php",
             "role": "clean",
             "duplicate_group": null,
-            "sloc": 22
+            "sloc": 28
         }
     ],
     "duplication": {
@@ -65,18 +65,47 @@
         "clone_type": "type-3",
         "granularity": "method",
         "clusters": 1,
-        "instances": 3
+        "instances": 3,
+        "duplication_ratio": 0,
+        "uniqueness_budget": {
+            "per_carrier_unique_lines": {
+                "min": 0,
+                "max": 0
+            },
+            "per_carrier_segments": {
+                "min": 0,
+                "max": 0
+            },
+            "carriers_with_unique_code": 0,
+            "actual": [
+                {
+                    "file": "src/PristinePaymentProc.php",
+                    "unique_lines": 0,
+                    "segments": 0
+                },
+                {
+                    "file": "src/TailUniquePayment.php",
+                    "unique_lines": 0,
+                    "segments": 0
+                },
+                {
+                    "file": "src/TailUnique2Payment.php",
+                    "unique_lines": 0,
+                    "segments": 0
+                }
+            ]
+        }
     },
     "interference": [
         {
             "code": "ST-07",
             "name": "partial_fragment",
             "params": {
-                "head_trim": 3,
-                "tail_trim": 0
+                "head_trim": 0,
+                "tail_trim": 3
             },
             "applied_to": [
-                "src/HeadUniqueCsv.php"
+                "src/TailUniquePayment.php"
             ],
             "intensity": 3
         },
@@ -84,11 +113,11 @@
             "code": "ST-07",
             "name": "partial_fragment",
             "params": {
-                "head_trim": 4,
-                "tail_trim": 0
+                "head_trim": 0,
+                "tail_trim": 4
             },
             "applied_to": [
-                "src/HeadUnique2Csv.php"
+                "src/TailUnique2Payment.php"
             ],
             "intensity": 3
         }
@@ -119,10 +148,10 @@
     "interference_profile": {
         "axis_count": 1,
         "per_carrier_axes": {
-            "src/HeadUniqueCsv.php": [
+            "src/TailUniquePayment.php": [
                 "ST-07"
             ],
-            "src/HeadUnique2Csv.php": [
+            "src/TailUnique2Payment.php": [
                 "ST-07"
             ]
         },

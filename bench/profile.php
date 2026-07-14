@@ -69,44 +69,79 @@ exit(0);
 
 // ---------------------------------------------------------------------------
 
+/**
+ * Build a capability profile for a tool by running it against sample test sets.
+ *
+ * @param string $name Tool name (phpcpd|jscpd)
+ * @param string $bin  Path to tool binary or phar
+ * @param string $type  'phar' or 'node'
+ * @return array<string,mixed>
+ */
 function buildToolProfile(string $name, string $bin, string $type): array
 {
+    // Early exit: binary not accessible
+    if (!is_file($bin) && $type !== 'node') {
+        return fallbackProfile($name, $bin, 'binary not found');
+    }
+
     $version = trim((string)@shell_exec($type === 'phar'
         ? "php " . escapeshellarg($bin) . " --version 2>/dev/null"
         : escapeshellarg($bin) . " --version 2>/dev/null"));
     $version = strtok($version, "\n");
+
+    // Run benchmark against sample sets to derive real detects/misses
+    $benchmarkResult = runBenchmark($name, $bin, $type);
+
+    if ($benchmarkResult === null) {
+        // Fail fast: benchmark failed, use fallback with warning
+        error_log("[profile] WARNING: benchmark failed for {$name}, using fallback profile");
+        return fallbackProfile($name, $bin, $version);
+    }
+
+    // Parse benchmark results into detects/misses per clone type
+    $detects = [];
+    $misses = [];
+    $cloneTypeF1 = $benchmarkResult['clone_type_f1'] ?? [];
+
+    // Define all known clone types
+    $allTypes = ['type-1', 'type-2', 'type-3', 'type-4'];
+    $typeLabels = [
+        'type-1' => 'type-1 exact duplication',
+        'type-2' => 'type-2 with transformation',
+        'type-3' => 'type-3 with significant changes',
+        'type-4' => 'type-4 semantic/architectural',
+    ];
+
+    foreach ($allTypes as $cloneType) {
+        $f1 = (float)($cloneTypeF1[$cloneType] ?? 0.0);
+        if ($f1 >= 0.5) {
+            $detects[] = $typeLabels[$cloneType];
+        } else {
+            $misses[] = $typeLabels[$cloneType];
+        }
+    }
+
+    // Ensure we have at least some detects/misses (from benchmark or fallback)
+    if (empty($detects) && empty($misses)) {
+        $detects = ['type-1 exact duplication', 'type-2 with transformation'];
+        $misses = ['type-3 with significant changes', 'type-4 semantic/architectural'];
+    }
 
     return [
         'name'    => $name,
         'version' => $version,
         'type'    => $type,
 
-        // What clone types this tool can detect
-        'detects' => [
-            'type-1 exact duplication',
-            'type-1 with whitespace variation',
-            'type-1 with comment variation',
-            'type-2 with identifier rename',
-            'type-2 with literal change',
-            'type-3 with statement edit',
-        ],
+        // What clone types this tool can detect (based on actual F1 >= 0.5)
+        'detects' => $detects,
 
-        // What this tool typically misses
-        'misses' => [
-            'type-4 semantic/architectural',
-            'cross-file scattered clones',
-            'partial duplication with unique regions',
-            'semantic-equivalent variants (CF/API selection)',
-            'behaviorally-equivalent refactored code',
-        ],
+        // What this tool typically misses (based on actual F1 < 0.5)
+        'misses' => $misses,
 
-        // Detection thresholds
-        'thresholds' => [
-            'min_lines'  => 5,
-            'min_tokens' => 50,
-        ],
+        // Detection thresholds (from actual invocation)
+        'thresholds' => $benchmarkResult['thresholds'],
 
-        // False-positive patterns
+        // False-positive patterns (reasonable defaults since FP profiling requires more infrastructure)
         'fp_profile' => [
             'shared_boilerplate' => 'high',
             'getter_setter_pairs' => 'medium',
@@ -114,13 +149,384 @@ function buildToolProfile(string $name, string $bin, string $type): array
             'class_header_blocks' => 'medium',
         ],
 
-        // Accuracy characteristics
-        'region_accuracy' => 'line-based (approximate)',
-        'token_accuracy' => 'token-based (precise for type-1/2)',
+        // Accuracy characteristics (based on tool approach)
+        'region_accuracy' => $name === 'phpcpd'
+            ? 'line-based (approximate)'
+            : 'token-based (precise for type-1/2)',
+        'token_accuracy' => $name === 'phpcpd'
+            ? 'token-based (precise for type-1/2)'
+            : 'token-based (precise for type-1/2)',
 
-        // Scaling behavior
-        'scaling' => 'O(n^2) token comparison; degrades on >10k token files',
+        // Scaling behavior (reasonable defaults)
+        'scaling' => $name === 'phpcpd'
+            ? 'O(n^2) token comparison; degrades on >10k token files'
+            : 'O(n) with hash lookup; scales linearly to ~100k tokens',
+
+        // Benchmark metadata
+        '_benchmark' => [
+            'sample_size' => $benchmarkResult['sample_size'],
+            'clone_type_f1' => $benchmarkResult['clone_type_f1'],
+        ],
     ];
+}
+
+/**
+ * Run the tool against sample sets (one per level L01-L10) and score against ground truth.
+ *
+ * @param string $name Tool name
+ * @param string $bin  Path to tool binary
+ * @param string $type 'phar' or 'node'
+ * @return array<string,mixed>|null  null on failure
+ */
+function runBenchmark(string $name, string $bin, string $type): ?array
+{
+    $root = dirname(__DIR__);
+    $sets = discoverBenchmarkSets($root);
+
+    if ($sets === []) {
+        return null;
+    }
+
+    // Track F1 per clone type
+    $cloneTypeScores = [
+        'type-1' => ['total_f1' => 0.0, 'count' => 0],
+        'type-2' => ['total_f1' => 0.0, 'count' => 0],
+        'type-3' => ['total_f1' => 0.0, 'count' => 0],
+        'type-4' => ['total_f1' => 0.0, 'count' => 0],
+    ];
+
+    $thresholds = ['min_lines' => 5, 'min_tokens' => 50];
+    $processedCount = 0;
+
+    foreach ($sets as [$setId, $setDir]) {
+        // Load ground truth
+        $expectedFile = $setDir . '/expected.json';
+        $setJsonFile = $setDir . '/set.json';
+        if (!is_file($expectedFile) || !is_file($setJsonFile)) {
+            continue;
+        }
+
+        $expected = json_decode((string)file_get_contents($expectedFile), true);
+        $setJson = json_decode((string)file_get_contents($setJsonFile), true);
+        if (!is_array($expected) || !is_array($setJson)) {
+            continue;
+        }
+
+        $gt = [
+            'clusters' => $expected['clusters'] ?? [],
+            'non_duplicates' => $expected['non_duplicates'] ?? [],
+            'scoring' => $expected['scoring'] ?? [],
+        ];
+
+        $srcDir = $setDir . '/src';
+        if (!is_dir($srcDir)) {
+            continue;
+        }
+
+        // Run the tool
+        $groups = [];
+        if ($name === 'phpcpd' && $type === 'phar') {
+            $groups = runPhpcpd($bin, $srcDir);
+        } elseif ($name === 'jscpd' && $type === 'node') {
+            $groups = runJscpd($bin, $srcDir);
+        }
+
+        // Score against ground truth
+        $score = scoreSet($groups, $gt);
+
+        // Accumulate per-clone-type F1
+        $cloneType = $setJson['duplication']['clone_type'] ?? 'unknown';
+        // Normalize clone type to our taxonomy
+        $normalizedType = normalizeCloneType($cloneType);
+        if (isset($cloneTypeScores[$normalizedType])) {
+            $cloneTypeScores[$normalizedType]['total_f1'] += $score['f1'];
+            $cloneTypeScores[$normalizedType]['count']++;
+        }
+
+        $processedCount++;
+    }
+
+    if ($processedCount === 0) {
+        return null;
+    }
+
+    // Compute average F1 per clone type
+    $cloneTypeF1 = [];
+    foreach ($cloneTypeScores as $type => $data) {
+        $cloneTypeF1[$type] = $data['count'] > 0
+            ? round($data['total_f1'] / $data['count'], 3)
+            : 0.0;
+    }
+
+    return [
+        'sample_size' => $processedCount,
+        'clone_type_f1' => $cloneTypeF1,
+        'thresholds' => $thresholds,
+    ];
+}
+
+/**
+ * Normalize clone type string to our taxonomy.
+ */
+function normalizeCloneType(string $cloneType): string
+{
+    // Map various type-1 variants
+    if (str_starts_with($cloneType, 'type-1') || $cloneType === 'exact') {
+        return 'type-1';
+    }
+    // Map type-2 variants
+    if (str_starts_with($cloneType, 'type-2') || str_contains($cloneType, 'rename') || str_contains($cloneType, 'literal')) {
+        return 'type-2';
+    }
+    // Map type-3 variants
+    if (str_starts_with($cloneType, 'type-3') || str_contains($cloneType, 'statement') || str_contains($cloneType, 'control')) {
+        return 'type-3';
+    }
+    // Map type-4 variants
+    if (str_starts_with($cloneType, 'type-4') || str_contains($cloneType, 'semantic') || str_contains($cloneType, 'architectural')) {
+        return 'type-4';
+    }
+    return 'type-1'; // default to type-1 for unknown
+}
+
+/**
+ * Discover one representative set per level L01-L10 for benchmarking.
+ *
+ * @return list<array{0:string,1:string}> [setId, setDir]
+ */
+function discoverBenchmarkSets(string $root): array
+{
+    $out = [];
+    $seenLevel = [];
+
+    // Walk through test sets in order, picking first set per level
+    foreach (glob($root . '/testsets/L*/*/*/set.json') ?: [] as $setJsonFile) {
+        $setJson = json_decode((string)file_get_contents($setJsonFile), true);
+        if (!is_array($setJson) || !isset($setJson['set_id'])) {
+            continue;
+        }
+
+        $setId = (string)$setJson['set_id'];
+        $level = (int)($setJson['level'] ?? 0);
+
+        // Only consider levels L01-L10
+        if ($level < 1 || $level > 10) {
+            continue;
+        }
+
+        // Skip if we already have a set for this level
+        if (isset($seenLevel[$level])) {
+            continue;
+        }
+
+        $seenLevel[$level] = true;
+        $out[] = [$setId, dirname($setJsonFile)];
+    }
+
+    // Sort by level
+    usort($out, function($a, $b) {
+        preg_match('/L(\d+)/', $a[0], $ma);
+        preg_match('/L(\d+)/', $b[0], $mb);
+        return ((int)($ma[1] ?? 0)) - ((int)($mb[1] ?? 0));
+    });
+
+    return $out;
+}
+
+/**
+ * Fallback profile when benchmark fails (fail-safe).
+ */
+function fallbackProfile(string $name, string $bin, string $version): array
+{
+    return [
+        'name'    => $name,
+        'version' => $version,
+
+        // Fallback: assume basic detection capability
+        'detects' => [
+            'type-1 exact duplication',
+            'type-2 with transformation',
+        ],
+
+        'misses' => [
+            'type-3 with significant changes',
+            'type-4 semantic/architectural',
+        ],
+
+        'thresholds' => [
+            'min_lines'  => 5,
+            'min_tokens' => 50,
+        ],
+
+        'fp_profile' => [
+            'shared_boilerplate' => 'high',
+            'getter_setter_pairs' => 'medium',
+            'template_like_code' => 'medium',
+            'class_header_blocks' => 'medium',
+        ],
+
+        'region_accuracy' => $name === 'phpcpd'
+            ? 'line-based (approximate)'
+            : 'token-based (precise for type-1/2)',
+        'token_accuracy' => $name === 'phpcpd'
+            ? 'token-based (precise for type-1/2)'
+            : 'token-based (precise for type-1/2)',
+
+        'scaling' => $name === 'phpcpd'
+            ? 'O(n^2) token comparison; degrades on >10k token files'
+            : 'O(n) with hash lookup; scales linearly to ~100k tokens',
+    ];
+}
+
+// ---------------------------------------------------------------------------
+// Scoring and tool execution (from run-testsets.php)
+// ---------------------------------------------------------------------------
+
+/**
+ * Self-contained scorer. A GT cluster counts as detected when at least
+ * min_members_for_credit of its members appear among the reported members
+ * (matched by file + line tolerance) and the member Jaccard >= the min.
+ *
+ * @param list<list<array{file:string,start:int,end:int}>> $groups
+ * @param array<string,mixed> $gt
+ * @return array{recall:float,precision:float,f1:float,trap_fp:int}
+ */
+function scoreSet(array $groups, array $gt): array
+{
+    $tol = (int)($gt['scoring']['line_tolerance'] ?? 2);
+    $jaccardMin = (float)($gt['scoring']['member_jaccard_min'] ?? 0.6);
+    $minMembers = (int)($gt['scoring']['min_members_for_credit'] ?? 2);
+    $clusters = $gt['clusters'] ?? [];
+
+    // Flatten reported members.
+    $reportedMembers = [];
+    foreach ($groups as $g) {
+        foreach ($g as $m) {
+            $reportedMembers[] = $m;
+        }
+    }
+
+    $detected = 0;
+    $reportedMatched = [];
+    foreach ($clusters as $cluster) {
+        $members = $cluster['members'] ?? [];
+        $matched = 0;
+        foreach ($members as $gm) {
+            foreach ($reportedMembers as $ri => $rm) {
+                if (membersMatch($gm, $rm, $tol)) {
+                    $matched++;
+                    $reportedMatched[$ri] = true;
+                    break;
+                }
+            }
+        }
+        $union = count($members) + count($reportedMembers) - $matched;
+        $jaccard = $union > 0 ? $matched / $union : 0.0;
+        if ($matched >= $minMembers && $jaccard >= $jaccardMin) {
+            $detected++;
+        }
+    }
+
+    $gtCount = count($clusters);
+    $recall = $gtCount === 0 ? 1.0 : $detected / $gtCount;
+
+    // Precision: reported members that align with a GT member.
+    $tp = 0;
+    foreach ($reportedMembers as $ri => $rm) {
+        if (isset($reportedMatched[$ri])) {
+            $tp++;
+        }
+    }
+    $precision = count($reportedMembers) === 0 ? 1.0 : $tp / count($reportedMembers);
+
+    // Trap false positives: reported members overlapping a trap region.
+    $trapFp = 0;
+    foreach (($gt['non_duplicates'] ?? []) as $nd) {
+        if (empty($nd['trap'])) {
+            continue;
+        }
+        foreach ($reportedMembers as $rm) {
+            if (membersMatch(['file' => $nd['file'], 'start' => $nd['start_line'], 'end' => $nd['end_line']], $rm, $tol)) {
+                $trapFp++;
+                break;
+            }
+        }
+    }
+
+    $f1 = ($precision + $recall) > 0 ? 2 * $precision * $recall / ($precision + $recall) : 0.0;
+    return ['recall' => $recall, 'precision' => $precision, 'f1' => $f1, 'trap_fp' => $trapFp];
+}
+
+function membersMatch(array $a, array $b, int $tol): bool
+{
+    if (($a['file'] ?? null) !== ($b['file'] ?? null)) {
+        return false;
+    }
+    $as = (int)($a['start'] ?? $a['start_line'] ?? 0);
+    $ae = (int)($a['end'] ?? $a['end_line'] ?? 0);
+    $bs = (int)$b['start'];
+    $be = (int)$b['end'];
+    // overlap with tolerance
+    return ($as - $tol) <= $be && ($bs - $tol) <= $ae;
+}
+
+/** @return list<list<array{file:string,start:int,end:int}>> */
+function runPhpcpd(string $phar, string $srcDir): array
+{
+    $xml = tempnam(sys_get_temp_dir(), 'tphpcpd') . '.xml';
+    @exec(sprintf('php %s --fuzzy --min-lines 5 --min-tokens 50 --log-pmd %s %s 2>/dev/null',
+        escapeshellarg($phar), escapeshellarg($xml), escapeshellarg($srcDir)), $_, $rc);
+    $groups = [];
+    if (is_file($xml)) {
+        $sx = @simplexml_load_file($xml);
+        if ($sx instanceof SimpleXMLElement) {
+            foreach ($sx->duplication as $dup) {
+                $lines = (int)$dup['lines'];
+                $group = [];
+                foreach ($dup->file as $f) {
+                    $start = (int)$f['line'];
+                    $group[] = [
+                        'file'  => 'src/' . basename((string)$f['path']),
+                        'start' => $start,
+                        'end'   => $start + max(0, $lines - 1),
+                    ];
+                }
+                $groups[] = $group;
+            }
+        }
+        @unlink($xml);
+    }
+    return $groups;
+}
+
+/** @return list<list<array{file:string,start:int,end:int}>> */
+function runJscpd(string $bin, string $srcDir): array
+{
+    $out = sys_get_temp_dir() . '/tjscpd-' . bin2hex(random_bytes(4));
+    @mkdir($out, 0o775, true);
+    register_shutdown_function(function() use ($out) {
+        @exec('rm -rf ' . escapeshellarg($out));
+    });
+    @exec(sprintf('%s --formats-exts php:php --min-lines 5 --min-tokens 50 --reporters json --silent --output %s %s 2>/dev/null',
+        escapeshellarg($bin), escapeshellarg($out), escapeshellarg($srcDir)), $_, $rc);
+    $groups = [];
+    $report = $out . '/jscpd-report.json';
+    if (is_file($report)) {
+        $data = json_decode((string)file_get_contents($report), true);
+        foreach (($data['duplicates'] ?? []) as $d) {
+            $a = $d['firstFile'] ?? null;
+            $b = $d['secondFile'] ?? null;
+            if (!is_array($a) || !is_array($b)) {
+                continue;
+            }
+            $groups[] = [
+                ['file' => 'src/' . basename((string)($a['name'] ?? '')), 'start' => (int)($a['start'] ?? 0), 'end' => (int)($a['end'] ?? 0)],
+                ['file' => 'src/' . basename((string)($b['name'] ?? '')), 'start' => (int)($b['start'] ?? 0), 'end' => (int)($b['end'] ?? 0)],
+            ];
+        }
+    }
+    @exec('rm -rf ' . escapeshellarg($out));
+    return $groups;
 }
 
 function resolveJscpd(string $toolsDir): ?string

@@ -1,0 +1,189 @@
+{
+    "schema_version": 1,
+    "set_id": "L10-adv_mass_instances-005",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-1",
+            "granularity": "method",
+            "normalized_by": [
+                "whitespace",
+                "comments"
+            ],
+            "token_hash": "deb8024b5dcb8e0b",
+            "normalized_hash": "f325826c79f6140b",
+            "members": [
+                {
+                    "file": "src/RateCalcA01.php",
+                    "start_line": 9,
+                    "end_line": 50,
+                    "symbol": "checkLimit",
+                    "pristine": true
+                },
+                {
+                    "file": "src/RateCalcA02.php",
+                    "start_line": 18,
+                    "end_line": 59,
+                    "symbol": "checkLimit",
+                    "pristine": true
+                },
+                {
+                    "file": "src/RateCalcA03.php",
+                    "start_line": 24,
+                    "end_line": 65,
+                    "symbol": "checkLimit",
+                    "pristine": true
+                },
+                {
+                    "file": "src/RateCalcA04.php",
+                    "start_line": 9,
+                    "end_line": 50,
+                    "symbol": "checkLimit",
+                    "pristine": true
+                },
+                {
+                    "file": "src/RateCalcA05.php",
+                    "start_line": 18,
+                    "end_line": 59,
+                    "symbol": "checkLimit",
+                    "pristine": true
+                },
+                {
+                    "file": "src/RateCalcA06.php",
+                    "start_line": 24,
+                    "end_line": 65,
+                    "symbol": "checkLimit",
+                    "pristine": true
+                },
+                {
+                    "file": "src/RateCalcA07.php",
+                    "start_line": 9,
+                    "end_line": 50,
+                    "symbol": "checkLimit",
+                    "pristine": true
+                },
+                {
+                    "file": "src/RateCalcA08.php",
+                    "start_line": 18,
+                    "end_line": 59,
+                    "symbol": "checkLimit",
+                    "pristine": true
+                },
+                {
+                    "file": "src/RateCalcA09.php",
+                    "start_line": 24,
+                    "end_line": 65,
+                    "symbol": "checkLimit",
+                    "pristine": true
+                },
+                {
+                    "file": "src/RateCalcA10.php",
+                    "start_line": 9,
+                    "end_line": 50,
+                    "symbol": "checkLimit",
+                    "pristine": true
+                },
+                {
+                    "file": "src/RateCalcB01.php",
+                    "start_line": 18,
+                    "end_line": 59,
+                    "symbol": "checkLimit",
+                    "pristine": true
+                },
+                {
+                    "file": "src/RateCalcB02.php",
+                    "start_line": 24,
+                    "end_line": 65,
+                    "symbol": "checkLimit",
+                    "pristine": true
+                },
+                {
+                    "file": "src/RateCalcB03.php",
+                    "start_line": 9,
+                    "end_line": 50,
+                    "symbol": "checkLimit",
+                    "pristine": true
+                },
+                {
+                    "file": "src/RateCalcB04.php",
+                    "start_line": 18,
+                    "end_line": 59,
+                    "symbol": "checkLimit",
+                    "pristine": true
+                },
+                {
+                    "file": "src/RateCalcB05.php",
+                    "start_line": 24,
+                    "end_line": 65,
+                    "symbol": "checkLimit",
+                    "pristine": true
+                },
+                {
+                    "file": "src/RateCalcB06.php",
+                    "start_line": 9,
+                    "end_line": 50,
+                    "symbol": "checkLimit",
+                    "pristine": true
+                },
+                {
+                    "file": "src/RateCalcB07.php",
+                    "start_line": 18,
+                    "end_line": 59,
+                    "symbol": "checkLimit",
+                    "pristine": true
+                },
+                {
+                    "file": "src/RateCalcB08.php",
+                    "start_line": 24,
+                    "end_line": 65,
+                    "symbol": "checkLimit",
+                    "pristine": true
+                },
+                {
+                    "file": "src/RateCalcB09.php",
+                    "start_line": 9,
+                    "end_line": 50,
+                    "symbol": "checkLimit",
+                    "pristine": true
+                },
+                {
+                    "file": "src/RateCalcB10.php",
+                    "start_line": 18,
+                    "end_line": 59,
+                    "symbol": "checkLimit",
+                    "pristine": true
+                }
+            ],
+            "detection_expectation": {
+                "text_based": true,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": true,
+                "semantic": true
+            },
+            "notes": "F-2 multi-cluster with 20 carriers. Uses rate_limiter seed to test scaling in security code context."
+        }
+    ],
+    "non_duplicates": [
+        {
+            "file": "src/RateDistractorA.php",
+            "start_line": 9,
+            "end_line": 50,
+            "reason": "Near-miss: similar rate limiting vocabulary but different algorithm",
+            "trap": true
+        },
+        {
+            "file": "src/RateDistractorB.php",
+            "start_line": 9,
+            "end_line": 50,
+            "reason": "Clean distractor - unrelated rate limiting logic",
+            "trap": true
+        }
+    ],
+    "scoring": {
+        "line_tolerance": 0,
+        "member_jaccard_min": 1,
+        "min_members_for_credit": 15
+    }
+}

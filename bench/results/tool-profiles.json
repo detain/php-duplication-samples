@@ -1,5 +1,5 @@
 {
-    "generated_at": "2026-07-14T04:59:19-04:00",
+    "generated_at": "2026-07-14T19:01:21-04:00",
     "profiles": {
         "phpcpd": {
             "name": "phpcpd",
@@ -7,18 +7,11 @@
             "type": "phar",
             "detects": [
                 "type-1 exact duplication",
-                "type-1 with whitespace variation",
-                "type-1 with comment variation",
-                "type-2 with identifier rename",
-                "type-2 with literal change",
-                "type-3 with statement edit"
+                "type-2 with transformation"
             ],
             "misses": [
-                "type-4 semantic/architectural",
-                "cross-file scattered clones",
-                "partial duplication with unique regions",
-                "semantic-equivalent variants (CF/API selection)",
-                "behaviorally-equivalent refactored code"
+                "type-3 with significant changes",
+                "type-4 semantic/architectural"
             ],
             "thresholds": {
                 "min_lines": 5,
@@ -32,38 +25,51 @@
             },
             "region_accuracy": "line-based (approximate)",
             "token_accuracy": "token-based (precise for type-1/2)",
-            "scaling": "O(n^2) token comparison; degrades on >10k token files"
+            "scaling": "O(n^2) token comparison; degrades on >10k token files",
+            "_benchmark": {
+                "sample_size": 10,
+                "clone_type_f1": {
+                    "type-1": 0.686,
+                    "type-2": 0.857,
+                    "type-3": 0.429,
+                    "type-4": 0
+                }
+            }
         },
         "jscpd": {
             "name": "jscpd",
-            "version": "3.x",
+            "version": "4.2.4",
             "type": "node",
             "detects": [
                 "type-1 exact duplication",
-                "type-1 with whitespace variation",
-                "type-2 with identifier rename",
-                "type-2 with literal change",
-                "cross-file token-level clones"
+                "type-4 semantic/architectural"
             ],
             "misses": [
-                "type-3 with statement edit",
-                "type-4 semantic/architectural",
-                "partial duplication with unique regions",
-                "behaviorally-equivalent refactored code"
+                "type-2 with transformation",
+                "type-3 with significant changes"
             ],
             "thresholds": {
                 "min_lines": 5,
                 "min_tokens": 50
             },
             "fp_profile": {
-                "shared_boilerplate": "medium",
+                "shared_boilerplate": "high",
                 "getter_setter_pairs": "medium",
-                "template_like_code": "low",
-                "class_header_blocks": "low"
+                "template_like_code": "medium",
+                "class_header_blocks": "medium"
             },
-            "region_accuracy": "token-based (precise line spans)",
-            "token_accuracy": "token-based (precise)",
-            "scaling": "O(n^2) worst-case; handles large files with threshold cutoffs"
+            "region_accuracy": "token-based (precise for type-1/2)",
+            "token_accuracy": "token-based (precise for type-1/2)",
+            "scaling": "O(n) with hash lookup; scales linearly to ~100k tokens",
+            "_benchmark": {
+                "sample_size": 10,
+                "clone_type_f1": {
+                    "type-1": 0.686,
+                    "type-2": 0.429,
+                    "type-3": 0.429,
+                    "type-4": 0.857
+                }
+            }
         }
     }
 }

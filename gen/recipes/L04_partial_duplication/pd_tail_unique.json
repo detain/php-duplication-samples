@@ -87,6 +87,62 @@
             "cleans": [
                 {"file": "TokenValidationService.php", "namespace": "Acme\\Security\\Tokens", "class": "TokenValidationService", "source": "clean_auth"}
             ]
+        },
+        {
+            "set_id": "L04-pd_tail_unique-004",
+            "title": "Partial clone using payment_processor with unique tail",
+            "description": "The same processPayment method with unique tail sections using payment_processor seed.",
+            "seed": "payment_processor",
+            "mount": "method",
+            "clone_symbol": "processPayment",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "schema_version": 2,
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "rng_seed": 104504,
+            "notes": "payment_processor seed with tail_trim for unique tail.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "difficulty": {"complexity": 5, "partiality": "medium"},
+            "duplication": {"uniqueness_budget": {"min": 3, "max": 5}},
+            "carriers": [
+                {"file": "PristinePaymentProc.php", "namespace": "Acme\\Payment\\Pristine", "class": "PristinePaymentProc", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "TailUniquePayment.php", "namespace": "Acme\\Payment\\TailUnique", "class": "TailUniquePayment", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 0, "tail_trim": 3}}]},
+                {"file": "TailUnique2Payment.php", "namespace": "Acme\\Payment\\TailUnique2", "class": "TailUnique2Payment", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 0, "tail_trim": 4}}]}
+            ],
+            "distractors": [
+                {"file": "RefundHandler.php", "namespace": "Acme\\Payment\\Refund", "class": "RefundHandler", "source": "nearmiss_payment", "reason": "near-miss: similar payment processing vocabulary but handles refunds"}
+            ],
+            "cleans": [
+                {"file": "PaymentConfigRepo.php", "namespace": "Acme\\Payment\\Config", "class": "PaymentConfigRepo", "source": "clean_billing"}
+            ]
+        },
+        {
+            "set_id": "L04-pd_tail_unique-005",
+            "title": "Partial clone using basket_pricing with unique tail",
+            "description": "The same calculateTotal method with unique tail sections using basket_pricing seed.",
+            "seed": "basket_pricing",
+            "mount": "method",
+            "clone_symbol": "calculateTotal",
+            "granularity": "method",
+            "clone_type": "type-3",
+            "schema_version": 2,
+            "normalized_by": ["whitespace", "comments", "identifiers", "literals"],
+            "rng_seed": 104505,
+            "notes": "basket_pricing seed with tail_trim for unique tail.",
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "difficulty": {"complexity": 5, "partiality": "medium"},
+            "duplication": {"uniqueness_budget": {"min": 3, "max": 5}},
+            "carriers": [
+                {"file": "PristineBasketCalc.php", "namespace": "Acme\\Cart\\Pristine", "class": "PristineBasketCalc", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
+                {"file": "TailUniqueBasket.php", "namespace": "Acme\\Cart\\TailUnique", "class": "TailUniqueBasket", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 0, "tail_trim": 3}}]},
+                {"file": "TailUnique2Basket.php", "namespace": "Acme\\Cart\\TailUnique2", "class": "TailUnique2Basket", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-07", "params": {"head_trim": 0, "tail_trim": 5}}]}
+            ],
+            "distractors": [
+                {"file": "ShippingCalculator.php", "namespace": "Acme\\Cart\\Shipping", "class": "ShippingCalculator", "source": "nearmiss_payment", "reason": "near-miss: similar cart pricing vocabulary but calculates shipping"}
+            ],
+            "cleans": [
+                {"file": "BasketConfigRepo.php", "namespace": "Acme\\Cart\\Config", "class": "BasketConfigRepo", "source": "clean_billing"}
+            ]
         }
     ]
 }

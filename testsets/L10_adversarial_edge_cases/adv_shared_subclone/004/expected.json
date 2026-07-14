@@ -1,0 +1,106 @@
+{
+    "schema_version": 1,
+    "set_id": "L10-adv_shared_subclone-004",
+    "clusters": [
+        {
+            "id": "A",
+            "group_id": "A",
+            "clone_type": "type-3",
+            "granularity": "method",
+            "normalized_by": [
+                "controlflow",
+                "identifiers"
+            ],
+            "token_hash": "016c9d9d39d2491b",
+            "normalized_hash": "63dd049bfa942564",
+            "members": [
+                {
+                    "file": "src/CacheSharedA1.php",
+                    "start_line": 9,
+                    "end_line": 59,
+                    "symbol": "get",
+                    "pristine": true
+                },
+                {
+                    "file": "src/CacheSharedA2.php",
+                    "start_line": 18,
+                    "end_line": 68,
+                    "symbol": "get",
+                    "pristine": false
+                },
+                {
+                    "file": "src/CacheSharedA3.php",
+                    "start_line": 24,
+                    "end_line": 74,
+                    "symbol": "get",
+                    "pristine": false
+                }
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": false,
+                "semantic": true
+            },
+            "notes": "O Idea 4 Clone Marriage variant. Uses cache_manager seed to test shared sub-clone topology in caching code context."
+        },
+        {
+            "id": "B",
+            "group_id": "B",
+            "clone_type": "type-3",
+            "granularity": "method",
+            "normalized_by": [
+                "controlflow",
+                "identifiers"
+            ],
+            "token_hash": "016c9d9d39d2491b",
+            "normalized_hash": "63dd049bfa942564",
+            "members": [
+                {
+                    "file": "src/CacheSharedB1.php",
+                    "start_line": 9,
+                    "end_line": 59,
+                    "symbol": "get",
+                    "pristine": true
+                },
+                {
+                    "file": "src/CacheSharedB2.php",
+                    "start_line": 18,
+                    "end_line": 68,
+                    "symbol": "get",
+                    "pristine": false
+                },
+                {
+                    "file": "src/CacheSharedB3.php",
+                    "start_line": 24,
+                    "end_line": 74,
+                    "symbol": "get",
+                    "pristine": false
+                }
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": false,
+                "semantic": true
+            },
+            "notes": "O Idea 4 Clone Marriage variant. Uses cache_manager seed to test shared sub-clone topology in caching code context."
+        }
+    ],
+    "non_duplicates": [
+        {
+            "file": "src/CacheDistractor.php",
+            "start_line": 9,
+            "end_line": 59,
+            "reason": "Near-miss: similar caching vocabulary but different eviction strategy",
+            "trap": true
+        }
+    ],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.6,
+        "min_members_for_credit": 2
+    }
+}

@@ -110,6 +110,166 @@
                 {"file": "CleanY.php", "namespace": "Acme\\Scale\\Clean", "class": "CleanY", "source": "clean_auth"},
                 {"file": "CleanZ.php", "namespace": "Acme\\Scale\\Clean", "class": "CleanZ", "source": "clean_parsing"}
             ]
+        },
+        {
+            "set_id": "L10-adv_mass_instances-003",
+            "title": "Mass duplication: 20 files with cache_manager seed",
+            "description": "Third scalability set with 20 carriers using cache_manager seed. Tests detection rate as instance_count scales with a different seed.",
+            "seed": "cache_manager",
+            "mount": "method",
+            "clone_symbol": "get",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 112103,
+            "notes": "F-2 multi-cluster with 20 carriers. Uses cache_manager seed to test scalability across different code domains.",
+            "role_composition": {"carrier": 20, "distractor": 2, "clean": 2},
+            "capability_probe": {
+                "capability": "scaling",
+                "isolated": true,
+                "control_set": "L10-adv_mass_instances-003",
+                "pass_criterion": "PROFILE GENERATOR: scales to 20+ members; emits scaling_curve per tool showing detection rate vs instance_count",
+                "fail_meaning": "scaling ABSENT - tool cannot handle 20+ clone instances; misses members or reports incomplete cluster"
+            },
+            "scoring": {"line_tolerance": 0, "member_jaccard_min": 1.0, "min_members_for_credit": 15},
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "CacheCalcA01.php", "namespace": "Acme\\Cache\\CalcA", "class": "CacheCalcA01", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": [], "line_padding": 5},
+                {"file": "CacheCalcA02.php", "namespace": "Acme\\Cache\\CalcA", "class": "CacheCalcA02", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": [], "line_padding": 15},
+                {"file": "CacheCalcA03.php", "namespace": "Acme\\Cache\\CalcA", "class": "CacheCalcA03", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": [], "line_padding": 25},
+                {"file": "CacheCalcA04.php", "namespace": "Acme\\Cache\\CalcA", "class": "CacheCalcA04", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": [], "line_padding": 45},
+                {"file": "CacheCalcA05.php", "namespace": "Acme\\Cache\\CalcA", "class": "CacheCalcA05", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": [], "line_padding": 65},
+                {"file": "CacheCalcA06.php", "namespace": "Acme\\Cache\\CalcA", "class": "CacheCalcA06", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": [], "line_padding": 85},
+                {"file": "CacheCalcA07.php", "namespace": "Acme\\Cache\\CalcA", "class": "CacheCalcA07", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": [], "line_padding": 105},
+                {"file": "CacheCalcA08.php", "namespace": "Acme\\Cache\\CalcA", "class": "CacheCalcA08", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": [], "line_padding": 125},
+                {"file": "CacheCalcA09.php", "namespace": "Acme\\Cache\\CalcA", "class": "CacheCalcA09", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": [], "line_padding": 145},
+                {"file": "CacheCalcA10.php", "namespace": "Acme\\Cache\\CalcA", "class": "CacheCalcA10", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": [], "line_padding": 165},
+                {"file": "CacheCalcB01.php", "namespace": "Acme\\Cache\\CalcB", "class": "CacheCalcB01", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": [], "line_padding": 10},
+                {"file": "CacheCalcB02.php", "namespace": "Acme\\Cache\\CalcB", "class": "CacheCalcB02", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": [], "line_padding": 30},
+                {"file": "CacheCalcB03.php", "namespace": "Acme\\Cache\\CalcB", "class": "CacheCalcB03", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": [], "line_padding": 50},
+                {"file": "CacheCalcB04.php", "namespace": "Acme\\Cache\\CalcB", "class": "CacheCalcB04", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": [], "line_padding": 70},
+                {"file": "CacheCalcB05.php", "namespace": "Acme\\Cache\\CalcB", "class": "CacheCalcB05", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": [], "line_padding": 90},
+                {"file": "CacheCalcB06.php", "namespace": "Acme\\Cache\\CalcB", "class": "CacheCalcB06", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": [], "line_padding": 110},
+                {"file": "CacheCalcB07.php", "namespace": "Acme\\Cache\\CalcB", "class": "CacheCalcB07", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": [], "line_padding": 130},
+                {"file": "CacheCalcB08.php", "namespace": "Acme\\Cache\\CalcB", "class": "CacheCalcB08", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": [], "line_padding": 150},
+                {"file": "CacheCalcB09.php", "namespace": "Acme\\Cache\\CalcB", "class": "CacheCalcB09", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": [], "line_padding": 170},
+                {"file": "CacheCalcB10.php", "namespace": "Acme\\Cache\\CalcB", "class": "CacheCalcB10", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": [], "line_padding": 190}
+            ],
+            "distractors": [
+                {"file": "CacheDistractorA.php", "namespace": "Acme\\Cache\\Distract", "class": "CacheDistractorA", "source": "nearmiss_cache", "reason": "Near-miss: similar cache vocabulary but different eviction strategy"},
+                {"file": "CacheDistractorB.php", "namespace": "Acme\\Cache\\Distract", "class": "CacheDistractorB", "source": "nearmiss_cache", "reason": "Clean distractor - unrelated caching logic"}
+            ],
+            "cleans": [
+                {"file": "CacheCleanA.php", "namespace": "Acme\\Cache\\Clean", "class": "CacheCleanA", "source": "clean_cache"},
+                {"file": "CacheCleanB.php", "namespace": "Acme\\Cache\\Clean", "class": "CacheCleanB", "source": "clean_config"}
+            ]
+        },
+        {
+            "set_id": "L10-adv_mass_instances-004",
+            "title": "Mass duplication: 20 files with query_builder seed and transforms",
+            "description": "Fourth scalability set with 20 carriers using query_builder seed with RN-01 and LT-01 transforms. Tests scaling with identifier normalization.",
+            "seed": "query_builder",
+            "mount": "method",
+            "clone_symbol": "build",
+            "granularity": "method",
+            "clone_type": "type-2",
+            "normalized_by": ["whitespace", "comments", "identifiers"],
+            "rng_seed": 112104,
+            "notes": "F-2 multi-cluster with 20 carriers at positions 5-200. Uses query_builder seed with RN-01 and LT-01 transforms.",
+            "role_composition": {"carrier": 20, "distractor": 2, "clean": 3},
+            "capability_probe": {
+                "capability": "scaling",
+                "isolated": true,
+                "control_set": "L10-adv_mass_instances-004",
+                "pass_criterion": "PROFILE GENERATOR: scales to 20+ members with transforms; emits scaling_curve per tool",
+                "fail_meaning": "scaling ABSENT - tool cannot handle 20+ clone instances with position variation"
+            },
+            "scoring": {"line_tolerance": 0, "member_jaccard_min": 0.85, "min_members_for_credit": 15},
+            "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "QueryCalcA01.php", "namespace": "Acme\\Query\\CalcA", "class": "QueryCalcA01", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": [], "line_padding": 8},
+                {"file": "QueryCalcA02.php", "namespace": "Acme\\Query\\CalcA", "class": "QueryCalcA02", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-01"}], "line_padding": 22},
+                {"file": "QueryCalcA03.php", "namespace": "Acme\\Query\\CalcA", "class": "QueryCalcA03", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "LT-01"}], "line_padding": 38},
+                {"file": "QueryCalcA04.php", "namespace": "Acme\\Query\\CalcA", "class": "QueryCalcA04", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": [], "line_padding": 55},
+                {"file": "QueryCalcA05.php", "namespace": "Acme\\Query\\CalcA", "class": "QueryCalcA05", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-01"}, {"code": "LT-01"}], "line_padding": 72},
+                {"file": "QueryCalcA06.php", "namespace": "Acme\\Query\\CalcA", "class": "QueryCalcA06", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "CM-03"}], "line_padding": 88},
+                {"file": "QueryCalcA07.php", "namespace": "Acme\\Query\\CalcA", "class": "QueryCalcA07", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": [], "line_padding": 105},
+                {"file": "QueryCalcA08.php", "namespace": "Acme\\Query\\CalcA", "class": "QueryCalcA08", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-01"}], "line_padding": 120},
+                {"file": "QueryCalcA09.php", "namespace": "Acme\\Query\\CalcA", "class": "QueryCalcA09", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "LT-01"}, {"code": "CM-03"}], "line_padding": 138},
+                {"file": "QueryCalcA10.php", "namespace": "Acme\\Query\\CalcA", "class": "QueryCalcA10", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": [], "line_padding": 155},
+                {"file": "QueryCalcB01.php", "namespace": "Acme\\Query\\CalcB", "class": "QueryCalcB01", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": [], "line_padding": 12},
+                {"file": "QueryCalcB02.php", "namespace": "Acme\\Query\\CalcB", "class": "QueryCalcB02", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-01"}], "line_padding": 28},
+                {"file": "QueryCalcB03.php", "namespace": "Acme\\Query\\CalcB", "class": "QueryCalcB03", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "LT-01"}], "line_padding": 45},
+                {"file": "QueryCalcB04.php", "namespace": "Acme\\Query\\CalcB", "class": "QueryCalcB04", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": [], "line_padding": 62},
+                {"file": "QueryCalcB05.php", "namespace": "Acme\\Query\\CalcB", "class": "QueryCalcB05", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-01"}, {"code": "LT-01"}], "line_padding": 78},
+                {"file": "QueryCalcB06.php", "namespace": "Acme\\Query\\CalcB", "class": "QueryCalcB06", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "CM-03"}], "line_padding": 95},
+                {"file": "QueryCalcB07.php", "namespace": "Acme\\Query\\CalcB", "class": "QueryCalcB07", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": [], "line_padding": 112},
+                {"file": "QueryCalcB08.php", "namespace": "Acme\\Query\\CalcB", "class": "QueryCalcB08", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "RN-01"}], "line_padding": 130},
+                {"file": "QueryCalcB09.php", "namespace": "Acme\\Query\\CalcB", "class": "QueryCalcB09", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "LT-01"}, {"code": "CM-03"}], "line_padding": 148},
+                {"file": "QueryCalcB10.php", "namespace": "Acme\\Query\\CalcB", "class": "QueryCalcB10", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": [], "line_padding": 165}
+            ],
+            "distractors": [
+                {"file": "QueryDistractorX.php", "namespace": "Acme\\Query\\Distract", "class": "QueryDistractorX", "source": "nearmiss_query", "reason": "Near-miss: similar query vocabulary but different execution strategy"},
+                {"file": "QueryDistractorY.php", "namespace": "Acme\\Query\\Distract", "class": "QueryDistractorY", "source": "nearmiss_query", "reason": "Near-miss: similar parameter binding but different logic"}
+            ],
+            "cleans": [
+                {"file": "QueryCleanX.php", "namespace": "Acme\\Query\\Clean", "class": "QueryCleanX", "source": "clean_query"},
+                {"file": "QueryCleanY.php", "namespace": "Acme\\Query\\Clean", "class": "QueryCleanY", "source": "clean_config"},
+                {"file": "QueryCleanZ.php", "namespace": "Acme\\Query\\Clean", "class": "QueryCleanZ", "source": "clean_validation"}
+            ]
+        },
+        {
+            "set_id": "L10-adv_mass_instances-005",
+            "title": "Mass duplication: 20 files with rate_limiter seed",
+            "description": "Fifth scalability set with 20 carriers using rate_limiter seed. Tests detection across a security-related code domain.",
+            "seed": "rate_limiter",
+            "mount": "method",
+            "clone_symbol": "checkLimit",
+            "granularity": "method",
+            "clone_type": "type-1",
+            "normalized_by": ["whitespace", "comments"],
+            "rng_seed": 112105,
+            "notes": "F-2 multi-cluster with 20 carriers. Uses rate_limiter seed to test scaling in security code context.",
+            "role_composition": {"carrier": 20, "distractor": 2, "clean": 2},
+            "capability_probe": {
+                "capability": "scaling",
+                "isolated": true,
+                "control_set": "L10-adv_mass_instances-005",
+                "pass_criterion": "PROFILE GENERATOR: scales to 20+ members; emits scaling_curve per tool showing detection rate vs instance_count",
+                "fail_meaning": "scaling ABSENT - tool cannot handle 20+ clone instances; misses members or reports incomplete cluster"
+            },
+            "scoring": {"line_tolerance": 0, "member_jaccard_min": 1.0, "min_members_for_credit": 15},
+            "detection_expectation": {"text_based": true, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
+            "carriers": [
+                {"file": "RateCalcA01.php", "namespace": "Acme\\Rate\\CalcA", "class": "RateCalcA01", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": [], "line_padding": 5},
+                {"file": "RateCalcA02.php", "namespace": "Acme\\Rate\\CalcA", "class": "RateCalcA02", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": [], "line_padding": 15},
+                {"file": "RateCalcA03.php", "namespace": "Acme\\Rate\\CalcA", "class": "RateCalcA03", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": [], "line_padding": 25},
+                {"file": "RateCalcA04.php", "namespace": "Acme\\Rate\\CalcA", "class": "RateCalcA04", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": [], "line_padding": 45},
+                {"file": "RateCalcA05.php", "namespace": "Acme\\Rate\\CalcA", "class": "RateCalcA05", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": [], "line_padding": 65},
+                {"file": "RateCalcA06.php", "namespace": "Acme\\Rate\\CalcA", "class": "RateCalcA06", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": [], "line_padding": 85},
+                {"file": "RateCalcA07.php", "namespace": "Acme\\Rate\\CalcA", "class": "RateCalcA07", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": [], "line_padding": 105},
+                {"file": "RateCalcA08.php", "namespace": "Acme\\Rate\\CalcA", "class": "RateCalcA08", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": [], "line_padding": 125},
+                {"file": "RateCalcA09.php", "namespace": "Acme\\Rate\\CalcA", "class": "RateCalcA09", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": [], "line_padding": 145},
+                {"file": "RateCalcA10.php", "namespace": "Acme\\Rate\\CalcA", "class": "RateCalcA10", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": [], "line_padding": 165},
+                {"file": "RateCalcB01.php", "namespace": "Acme\\Rate\\CalcB", "class": "RateCalcB01", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": [], "line_padding": 10},
+                {"file": "RateCalcB02.php", "namespace": "Acme\\Rate\\CalcB", "class": "RateCalcB02", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": [], "line_padding": 30},
+                {"file": "RateCalcB03.php", "namespace": "Acme\\Rate\\CalcB", "class": "RateCalcB03", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": [], "line_padding": 50},
+                {"file": "RateCalcB04.php", "namespace": "Acme\\Rate\\CalcB", "class": "RateCalcB04", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": [], "line_padding": 70},
+                {"file": "RateCalcB05.php", "namespace": "Acme\\Rate\\CalcB", "class": "RateCalcB05", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": [], "line_padding": 90},
+                {"file": "RateCalcB06.php", "namespace": "Acme\\Rate\\CalcB", "class": "RateCalcB06", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": [], "line_padding": 110},
+                {"file": "RateCalcB07.php", "namespace": "Acme\\Rate\\CalcB", "class": "RateCalcB07", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": [], "line_padding": 130},
+                {"file": "RateCalcB08.php", "namespace": "Acme\\Rate\\CalcB", "class": "RateCalcB08", "scaffold": "method_gamma", "group": "A", "pristine": true, "transforms": [], "line_padding": 150},
+                {"file": "RateCalcB09.php", "namespace": "Acme\\Rate\\CalcB", "class": "RateCalcB09", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": [], "line_padding": 170},
+                {"file": "RateCalcB10.php", "namespace": "Acme\\Rate\\CalcB", "class": "RateCalcB10", "scaffold": "method_beta", "group": "A", "pristine": true, "transforms": [], "line_padding": 190}
+            ],
+            "distractors": [
+                {"file": "RateDistractorA.php", "namespace": "Acme\\Rate\\Distract", "class": "RateDistractorA", "source": "nearmiss_rate", "reason": "Near-miss: similar rate limiting vocabulary but different algorithm"},
+                {"file": "RateDistractorB.php", "namespace": "Acme\\Rate\\Distract", "class": "RateDistractorB", "source": "nearmiss_rate", "reason": "Clean distractor - unrelated rate limiting logic"}
+            ],
+            "cleans": [
+                {"file": "RateCleanA.php", "namespace": "Acme\\Rate\\Clean", "class": "RateCleanA", "source": "clean_rate"},
+                {"file": "RateCleanB.php", "namespace": "Acme\\Rate\\Clean", "class": "RateCleanB", "source": "clean_config"}
+            ]
         }
     ]
 }

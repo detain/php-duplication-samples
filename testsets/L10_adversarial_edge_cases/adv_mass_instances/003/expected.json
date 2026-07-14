@@ -1,0 +1,189 @@
+{
+    "schema_version": 1,
+    "set_id": "L10-adv_mass_instances-003",
+    "clusters": [
+        {
+            "id": "c1",
+            "group_id": "A",
+            "clone_type": "type-1",
+            "granularity": "method",
+            "normalized_by": [
+                "whitespace",
+                "comments"
+            ],
+            "token_hash": "016c9d9d39d2491b",
+            "normalized_hash": "200817c37a9de704",
+            "members": [
+                {
+                    "file": "src/CacheCalcA01.php",
+                    "start_line": 9,
+                    "end_line": 59,
+                    "symbol": "get",
+                    "pristine": true
+                },
+                {
+                    "file": "src/CacheCalcA02.php",
+                    "start_line": 18,
+                    "end_line": 68,
+                    "symbol": "get",
+                    "pristine": true
+                },
+                {
+                    "file": "src/CacheCalcA03.php",
+                    "start_line": 24,
+                    "end_line": 74,
+                    "symbol": "get",
+                    "pristine": true
+                },
+                {
+                    "file": "src/CacheCalcA04.php",
+                    "start_line": 9,
+                    "end_line": 59,
+                    "symbol": "get",
+                    "pristine": true
+                },
+                {
+                    "file": "src/CacheCalcA05.php",
+                    "start_line": 18,
+                    "end_line": 68,
+                    "symbol": "get",
+                    "pristine": true
+                },
+                {
+                    "file": "src/CacheCalcA06.php",
+                    "start_line": 24,
+                    "end_line": 74,
+                    "symbol": "get",
+                    "pristine": true
+                },
+                {
+                    "file": "src/CacheCalcA07.php",
+                    "start_line": 9,
+                    "end_line": 59,
+                    "symbol": "get",
+                    "pristine": true
+                },
+                {
+                    "file": "src/CacheCalcA08.php",
+                    "start_line": 18,
+                    "end_line": 68,
+                    "symbol": "get",
+                    "pristine": true
+                },
+                {
+                    "file": "src/CacheCalcA09.php",
+                    "start_line": 24,
+                    "end_line": 74,
+                    "symbol": "get",
+                    "pristine": true
+                },
+                {
+                    "file": "src/CacheCalcA10.php",
+                    "start_line": 9,
+                    "end_line": 59,
+                    "symbol": "get",
+                    "pristine": true
+                },
+                {
+                    "file": "src/CacheCalcB01.php",
+                    "start_line": 18,
+                    "end_line": 68,
+                    "symbol": "get",
+                    "pristine": true
+                },
+                {
+                    "file": "src/CacheCalcB02.php",
+                    "start_line": 24,
+                    "end_line": 74,
+                    "symbol": "get",
+                    "pristine": true
+                },
+                {
+                    "file": "src/CacheCalcB03.php",
+                    "start_line": 9,
+                    "end_line": 59,
+                    "symbol": "get",
+                    "pristine": true
+                },
+                {
+                    "file": "src/CacheCalcB04.php",
+                    "start_line": 18,
+                    "end_line": 68,
+                    "symbol": "get",
+                    "pristine": true
+                },
+                {
+                    "file": "src/CacheCalcB05.php",
+                    "start_line": 24,
+                    "end_line": 74,
+                    "symbol": "get",
+                    "pristine": true
+                },
+                {
+                    "file": "src/CacheCalcB06.php",
+                    "start_line": 9,
+                    "end_line": 59,
+                    "symbol": "get",
+                    "pristine": true
+                },
+                {
+                    "file": "src/CacheCalcB07.php",
+                    "start_line": 18,
+                    "end_line": 68,
+                    "symbol": "get",
+                    "pristine": true
+                },
+                {
+                    "file": "src/CacheCalcB08.php",
+                    "start_line": 24,
+                    "end_line": 74,
+                    "symbol": "get",
+                    "pristine": true
+                },
+                {
+                    "file": "src/CacheCalcB09.php",
+                    "start_line": 9,
+                    "end_line": 59,
+                    "symbol": "get",
+                    "pristine": true
+                },
+                {
+                    "file": "src/CacheCalcB10.php",
+                    "start_line": 18,
+                    "end_line": 68,
+                    "symbol": "get",
+                    "pristine": true
+                }
+            ],
+            "detection_expectation": {
+                "text_based": true,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": true,
+                "semantic": true
+            },
+            "notes": "F-2 multi-cluster with 20 carriers. Uses cache_manager seed to test scalability across different code domains."
+        }
+    ],
+    "non_duplicates": [
+        {
+            "file": "src/CacheDistractorA.php",
+            "start_line": 9,
+            "end_line": 59,
+            "reason": "Near-miss: similar cache vocabulary but different eviction strategy",
+            "trap": true
+        },
+        {
+            "file": "src/CacheDistractorB.php",
+            "start_line": 9,
+            "end_line": 59,
+            "reason": "Clean distractor - unrelated caching logic",
+            "trap": true
+        }
+    ],
+    "scoring": {
+        "line_tolerance": 0,
+        "member_jaccard_min": 1,
+        "min_members_for_credit": 15
+    }
+}

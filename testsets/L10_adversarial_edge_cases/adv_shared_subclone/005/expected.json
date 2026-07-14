@@ -1,0 +1,106 @@
+{
+    "schema_version": 1,
+    "set_id": "L10-adv_shared_subclone-005",
+    "clusters": [
+        {
+            "id": "A",
+            "group_id": "A",
+            "clone_type": "type-3",
+            "granularity": "method",
+            "normalized_by": [
+                "controlflow",
+                "identifiers"
+            ],
+            "token_hash": "deb8024b5dcb8e0b",
+            "normalized_hash": "5483a6ec3fe3e23b",
+            "members": [
+                {
+                    "file": "src/RateSharedA1.php",
+                    "start_line": 9,
+                    "end_line": 50,
+                    "symbol": "attempt",
+                    "pristine": true
+                },
+                {
+                    "file": "src/RateSharedA2.php",
+                    "start_line": 18,
+                    "end_line": 59,
+                    "symbol": "attempt",
+                    "pristine": false
+                },
+                {
+                    "file": "src/RateSharedA3.php",
+                    "start_line": 24,
+                    "end_line": 65,
+                    "symbol": "attempt",
+                    "pristine": false
+                }
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": false,
+                "semantic": true
+            },
+            "notes": "O Idea 4 Clone Marriage variant. Uses rate_limiter seed to test shared sub-clone topology in rate limiting code context."
+        },
+        {
+            "id": "B",
+            "group_id": "B",
+            "clone_type": "type-3",
+            "granularity": "method",
+            "normalized_by": [
+                "controlflow",
+                "identifiers"
+            ],
+            "token_hash": "deb8024b5dcb8e0b",
+            "normalized_hash": "5483a6ec3fe3e23b",
+            "members": [
+                {
+                    "file": "src/RateSharedB1.php",
+                    "start_line": 9,
+                    "end_line": 50,
+                    "symbol": "attempt",
+                    "pristine": true
+                },
+                {
+                    "file": "src/RateSharedB2.php",
+                    "start_line": 18,
+                    "end_line": 59,
+                    "symbol": "attempt",
+                    "pristine": false
+                },
+                {
+                    "file": "src/RateSharedB3.php",
+                    "start_line": 24,
+                    "end_line": 65,
+                    "symbol": "attempt",
+                    "pristine": false
+                }
+            ],
+            "detection_expectation": {
+                "text_based": false,
+                "token_based": true,
+                "ast_based": true,
+                "metric_based": false,
+                "semantic": true
+            },
+            "notes": "O Idea 4 Clone Marriage variant. Uses rate_limiter seed to test shared sub-clone topology in rate limiting code context."
+        }
+    ],
+    "non_duplicates": [
+        {
+            "file": "src/RateDistractor.php",
+            "start_line": 9,
+            "end_line": 50,
+            "reason": "Near-miss: similar rate limiting vocabulary but different window calculation",
+            "trap": true
+        }
+    ],
+    "scoring": {
+        "line_tolerance": 2,
+        "member_jaccard_min": 0.6,
+        "min_members_for_credit": 2
+    }
+}
