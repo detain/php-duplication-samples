@@ -825,6 +825,16 @@ function v7ProfileRecompute(string $setDir, array $setJson, array $expected): ar
         if (($declaredAxes['breadth'] ?? null) !== $breadth) {
             $errors[] = "V-7: difficulty.axes.breadth declared={$declaredAxes['breadth']} computed={$breadth}";
         }
+
+        // V-7 score_raw cannot be fully recomputed here without SetBuilder and the full code-weight registry.
+        // level_base is a lookup table (not level*4+15), code weights vary 2-24 (not breadth*10),
+        // and intensity_bonus is a spec integer (not avg of per-interference intensities).
+        // Basic reasonability check only — full validation deferred to P8e integration.
+        if ($declaredScoreRaw !== null) {
+            if (!is_numeric($declaredScoreRaw) || $declaredScoreRaw < 0 || $declaredScoreRaw > 200) {
+                $errors[] = "V-7: difficulty.score_raw={$declaredScoreRaw} is out of reasonable bounds (0–200)";
+            }
+        }
     }
 
     return $errors;
