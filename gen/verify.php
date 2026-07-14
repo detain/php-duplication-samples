@@ -925,7 +925,7 @@ function v9MultiClusterHygiene(string $setDir, array $setJson, array $expected):
         for ($j = $i + 1; $j < count($clusterIds); $j++) {
             $cidA = $clusterIds[$i];
             $cidB = $clusterIds[$j];
-            $relation = $clusters[$i]['relation'] ?? null;
+            $relation = $clusters[$cidA]['relation'] ?? null;
 
             $allowsCrossCluster = false;
             if ($relation) {
