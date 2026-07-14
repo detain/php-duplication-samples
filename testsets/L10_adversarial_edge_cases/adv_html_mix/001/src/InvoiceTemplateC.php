@@ -37,7 +37,7 @@ final class InvoiceTemplateC
         $discount = round($subtotal * $discountRate, 2);
         $taxable = $subtotal - $discount;
         $tax = round($taxable * $taxRate, 2);
-        $shipping = $subtotal > 100.0 ? 0.0 : 9.99;
+        $shipping = $subtotal > 1e2 ? 0.0 : 9.99;
         $total = $taxable + $tax + $shipping;
         return [
             'subtotal' => round($subtotal, 2),
