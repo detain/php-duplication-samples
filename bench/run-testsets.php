@@ -42,7 +42,7 @@ $opts = parseArgs($argv);
 // --walk mode: progression-aware walk with stop-loss and frontier report
 if ($opts['walk']) {
     $stopK = (int)($opts['stop_k'] ?? 3);
-    $progressionFile = $root . '/bench/results/progression.json';
+    $progressionFile = $root . '/testsets/progression.json';
     if (!is_file($progressionFile)) {
         fwrite(STDERR, "[run-testsets] progression.json not found at {$progressionFile}\n");
         exit(1);
@@ -395,6 +395,9 @@ function runWalkMode(string $root, array $progression, array $tools, int $stopK)
     $walk = $progression['walk'] ?? [];
     $arcs = $progression['arcs'] ?? [];
 
+    // Bug #6 fix: deduplicate walk to prevent double-processing
+    $walk = array_values(array_unique($walk));
+
     echo "=== Walk Mode (stop-k={$stopK}) ===\n";
     echo "Walk: " . count($walk) . " sets across " . count($arcs) . " arcs\n\n";
 
@@ -406,9 +409,12 @@ function runWalkMode(string $root, array $progression, array $tools, int $stopK)
     $validArcSets = [];
     foreach ($arcs as $arcName => $arcSetIds) {
         $validSets = array_filter($arcSetIds, fn($id) => isset($setMap[$id]));
-        if (!empty($validSets)) {
-            $validArcSets[$arcName] = array_values($validSets);
+        if (empty($validSets)) {
+            // Bug #5 fix: warn when arc has no valid sets
+            fprintf(STDERR, "[walk] WARNING: arc %s has no valid sets, skipping\n", $arcName);
+            continue;
         }
+        $validArcSets[$arcName] = array_values($validSets);
     }
 
     // For tool selection, prefer phpcpd if available, else jscpd
@@ -420,8 +426,22 @@ function runWalkMode(string $root, array $progression, array $tools, int $stopK)
     $tool = $tools[$toolName];
     echo "Using tool: {$toolName} ({$tool['version']})\n\n";
 
-    // Process each arc
-    foreach ($validArcSets as $arcName => $arcSetIds) {
+    // Bug #2 fix: order arcs by their first appearance in the walk (preserve walk order within each arc)
+    $arcOrder = [];
+    foreach ($walk as $setId) {
+        foreach ($validArcSets as $arcName => $arcSetIds) {
+            if (!isset($arcOrder[$arcName]) && in_array($setId, $arcSetIds, true)) {
+                $arcOrder[$arcName] = true;
+            }
+        }
+    }
+    $orderedArcs = array_intersect_key($validArcSets, $arcOrder);
+
+    // Track which sets have passed (for prerequisite checking - Bug #4)
+    $passedSets = [];
+
+    // Process each arc in walk-first order
+    foreach ($orderedArcs as $arcName => $arcSetIds) {
         echo "--- Arc: {$arcName} (" . count($arcSetIds) . " sets) ---\n";
 
         $consecutiveMisses = 0;
@@ -439,6 +459,20 @@ function runWalkMode(string $root, array $progression, array $tools, int $stopK)
             $setInfo = $setMap[$setId];
             $setDir = $setInfo['dir'];
             $setJson = $setInfo['set'];
+
+            // Bug #4 fix: check prerequisite_edges - skip if prerequisites not yet passed
+            $prereqs = $setJson['prerequisite_edges'] ?? [];
+            $skippedPrereq = false;
+            foreach ($prereqs as $prereq) {
+                if (!isset($passedSets[$prereq])) {
+                    echo "  [SKIP] {$setId} — prerequisite not passed: {$prereq}\n";
+                    $skippedPrereq = true;
+                    break;
+                }
+            }
+            if ($skippedPrereq) {
+                continue;
+            }
 
             $expected = json_decode((string)file_get_contents($setDir . '/expected.json'), true);
             $gt = is_array($expected) ? $expected : ['clusters' => [], 'non_duplicates' => [], 'scoring' => []];
@@ -466,6 +500,7 @@ function runWalkMode(string $root, array $progression, array $tools, int $stopK)
                 $consecutiveMisses = 0;
                 $lastPass = $setId;
                 $lastPassRequires = $requires;
+                $passedSets[$setId] = true;
             } else {
                 echo "  [FAIL] {$setId} F1=" . sprintf("%.2f", $score['f1']) . " requires=[" . implode(',', $requires) . "]\n";
                 $consecutiveMisses++;
@@ -545,7 +580,7 @@ function runWalkMode(string $root, array $progression, array $tools, int $stopK)
             'requires_delta' => $result['requires_delta'] ?? [],
             'consecutive_misses' => $result['consecutive_misses'] ?? 0,
             'stopped_at' => $result['stopped_at'],
-            'completed' => $completed,
+            'completed' => $result['completed'] ?? false,
         ];
     }
 

@@ -21,7 +21,7 @@ use Gen\Lib\Payload;
 function loadAs(string $file, string $newName): void
 {
     $code = implode("\n", Payload::region($file));
-    $code = preg_replace('/^\s*(?:public|protected|private)\s+function\s+\w+/', 'function ' . $newName, $code, 1);
+    $code = preg_replace('/^\s*(?:public|protected|private)\s+function\s+\w+/m', 'function ' . $newName, $code, 1);
     eval($code);
 }
 

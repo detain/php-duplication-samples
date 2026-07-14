@@ -1,0 +1,17 @@
+{
+    "slug": "helper_ten_lines",
+    "level": 3,
+    "level_name": "whitespace_manipulation",
+    "level_dir": "L03_whitespace",
+    "family": "helper_ten_lines",
+    "mounts": [
+        {
+            "scaffold": "method_ten",
+            "signature": "public function process(array $input): array",
+            "params": {"min": 1, "max": 10}
+        }
+    ],
+    "rng_seed": 300031,
+    "notes": "Helper function that processes 10 lines of code. Tests whitespace manipulation at method level.",
+    "variants": []
+}

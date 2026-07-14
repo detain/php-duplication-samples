@@ -1,19 +1,19 @@
 {
     "schema_version": 1,
-    "generated_at": "git:6b222357ec61",
+    "generated_at": "git:0e8d6c4b2131",
     "totals": {
         "levels": 21,
-        "families": 229,
-        "sets": 1166,
-        "files": 5474,
-        "clusters": 1115
+        "families": 224,
+        "sets": 1099,
+        "files": 5449,
+        "clusters": 1110
     },
     "corpus_stats": {
-        "total_php_files": 5474,
-        "total_sloc": 218230,
-        "total_duplicate_regions": 3259,
-        "distractor_files": 1048,
-        "clean_files": 1167
+        "total_php_files": 5449,
+        "total_sloc": 217235,
+        "total_duplicate_regions": 3244,
+        "distractor_files": 1043,
+        "clean_files": 1162
     },
     "levels": [
         {
@@ -9573,9 +9573,7 @@
                     "family": "sem_config_driven",
                     "interference_codes": [
                         "SEM-08",
-                        "SEM-09",
-                        "SEM-10",
-                        "SEM-11"
+                        "SEM-09"
                     ],
                     "sets": [
                         {
@@ -9631,17 +9629,6 @@
                             "progression": {
                                 "rung": 5,
                                 "rung_label": "combined"
-                            }
-                        },
-                        {
-                            "set_id": "L08-sem_config_driven-001",
-                            "dir": "L08_semantic_variants/sem_config_driven/001",
-                            "clusters": 1,
-                            "files": 5,
-                            "difficulty": 100,
-                            "progression": {
-                                "rung": 1,
-                                "rung_label": "minimal"
                             }
                         }
                     ]
@@ -9906,9 +9893,7 @@
                     "family": "sem_normalization_order",
                     "interference_codes": [
                         "SEM-09",
-                        "SEM-08",
-                        "SEM-11",
-                        "SEM-10"
+                        "SEM-08"
                     ],
                     "sets": [
                         {
@@ -9964,17 +9949,6 @@
                             "progression": {
                                 "rung": 5,
                                 "rung_label": "combined"
-                            }
-                        },
-                        {
-                            "set_id": "L08-sem_normalization_order-001",
-                            "dir": "L08_semantic_variants/sem_normalization_order/001",
-                            "clusters": 1,
-                            "files": 5,
-                            "difficulty": 100,
-                            "progression": {
-                                "rung": 1,
-                                "rung_label": "minimal"
                             }
                         }
                     ]
@@ -10047,9 +10021,7 @@
                     "family": "sem_orm_sql",
                     "interference_codes": [
                         "SEM-08",
-                        "SEM-09",
-                        "SEM-07",
-                        "SEM-01"
+                        "SEM-09"
                     ],
                     "sets": [
                         {
@@ -10105,17 +10077,6 @@
                             "progression": {
                                 "rung": 5,
                                 "rung_label": "combined"
-                            }
-                        },
-                        {
-                            "set_id": "L08-sem_orm_sql-001",
-                            "dir": "L08_semantic_variants/sem_orm_sql/001",
-                            "clusters": 1,
-                            "files": 5,
-                            "difficulty": 100,
-                            "progression": {
-                                "rung": 1,
-                                "rung_label": "minimal"
                             }
                         }
                     ]
@@ -10245,17 +10206,6 @@
                                 "rung": 5,
                                 "rung_label": "combined"
                             }
-                        },
-                        {
-                            "set_id": "L08-sem_scatter-001",
-                            "dir": "L08_semantic_variants/sem_scatter/001",
-                            "clusters": 1,
-                            "files": 5,
-                            "difficulty": 100,
-                            "progression": {
-                                "rung": 1,
-                                "rung_label": "minimal"
-                            }
                         }
                     ]
                 },
@@ -10319,17 +10269,6 @@
                             "progression": {
                                 "rung": 5,
                                 "rung_label": "combined"
-                            }
-                        },
-                        {
-                            "set_id": "L08-sem_state_machine-001",
-                            "dir": "L08_semantic_variants/sem_state_machine/001",
-                            "clusters": 1,
-                            "files": 5,
-                            "difficulty": 100,
-                            "progression": {
-                                "rung": 1,
-                                "rung_label": "minimal"
                             }
                         }
                     ]

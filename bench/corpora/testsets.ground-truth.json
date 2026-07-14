@@ -1,6 +1,6 @@
 {
     "corpus": "testsets",
-    "generated_at": "git:6b222357ec61",
+    "generated_at": "git:0e8d6c4b2131",
     "clusters": [
         {
             "set_id": "L01-ex_block-001",
@@ -18525,116 +18525,6 @@
                 },
                 {
                     "file": "L08_semantic_idioms/sem_state_machine/005/src/ScatteredAccessPolicy.php",
-                    "start": 24,
-                    "end": 53
-                }
-            ]
-        },
-        {
-            "set_id": "L08-sem_config_driven-001",
-            "id": "c1",
-            "clone_type": "type-4/semantic-domain",
-            "members": [
-                {
-                    "file": "L08_semantic_variants/sem_config_driven/001/src/DocumentAccessPolicy.php",
-                    "start": 9,
-                    "end": 27
-                },
-                {
-                    "file": "L08_semantic_variants/sem_config_driven/001/src/ConfigDrivenAccessPolicy.php",
-                    "start": 18,
-                    "end": 65
-                },
-                {
-                    "file": "L08_semantic_variants/sem_config_driven/001/src/NormalizedOrderAccessPolicy.php",
-                    "start": 24,
-                    "end": 54
-                }
-            ]
-        },
-        {
-            "set_id": "L08-sem_normalization_order-001",
-            "id": "c1",
-            "clone_type": "type-4/semantic-domain",
-            "members": [
-                {
-                    "file": "L08_semantic_variants/sem_normalization_order/001/src/DocumentAccessPolicy.php",
-                    "start": 9,
-                    "end": 27
-                },
-                {
-                    "file": "L08_semantic_variants/sem_normalization_order/001/src/NormalizedOrderAccessPolicy.php",
-                    "start": 18,
-                    "end": 48
-                },
-                {
-                    "file": "L08_semantic_variants/sem_normalization_order/001/src/ConfigDrivenAccessPolicy.php",
-                    "start": 24,
-                    "end": 71
-                }
-            ]
-        },
-        {
-            "set_id": "L08-sem_orm_sql-001",
-            "id": "c1",
-            "clone_type": "type-4/semantic-domain",
-            "members": [
-                {
-                    "file": "L08_semantic_variants/sem_orm_sql/001/src/DocumentAccessPolicy.php",
-                    "start": 9,
-                    "end": 27
-                },
-                {
-                    "file": "L08_semantic_variants/sem_orm_sql/001/src/OrmAccessRepository.php",
-                    "start": 18,
-                    "end": 54
-                },
-                {
-                    "file": "L08_semantic_variants/sem_orm_sql/001/src/RuleAccessPolicy.php",
-                    "start": 24,
-                    "end": 51
-                }
-            ]
-        },
-        {
-            "set_id": "L08-sem_scatter-001",
-            "id": "c1",
-            "clone_type": "type-4/semantic-domain",
-            "members": [
-                {
-                    "file": "L08_semantic_variants/sem_scatter/001/src/DocumentAccessPolicy.php",
-                    "start": 9,
-                    "end": 27
-                },
-                {
-                    "file": "L08_semantic_variants/sem_scatter/001/src/ScatteredAccessPolicy.php",
-                    "start": 18,
-                    "end": 47
-                },
-                {
-                    "file": "L08_semantic_variants/sem_scatter/001/src/StateMachineAccessPolicy.php",
-                    "start": 24,
-                    "end": 95
-                }
-            ]
-        },
-        {
-            "set_id": "L08-sem_state_machine-001",
-            "id": "c1",
-            "clone_type": "type-4/semantic-domain",
-            "members": [
-                {
-                    "file": "L08_semantic_variants/sem_state_machine/001/src/DocumentAccessPolicy.php",
-                    "start": 9,
-                    "end": 27
-                },
-                {
-                    "file": "L08_semantic_variants/sem_state_machine/001/src/StateMachineAccessPolicy.php",
-                    "start": 18,
-                    "end": 89
-                },
-                {
-                    "file": "L08_semantic_variants/sem_state_machine/001/src/ScatteredAccessPolicy.php",
                     "start": 24,
                     "end": 53
                 }

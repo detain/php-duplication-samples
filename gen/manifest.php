@@ -49,11 +49,9 @@ $levelTitles = [
 // Scan testsets/ for set.json files (existing behavior)
 // Also scan gen_recipes/ for new recipe subdirectories that haven't been built to testsets/ yet.
 // These directories contain probe_*.json capability probe files for the K-series probes.
-$setJsonFiles = array_merge(
+$setJsonFiles = array_unique(array_merge(
     glob($root . '/testsets/L*/*/*/set.json') ?: [],
-    glob($root . '/gen/recipes/L*_*/probe_*.json') ?: [],  // L04_noise_probing, L05_deadcode, etc.
-    glob($root . '/gen/recipes/L*/probe_*.json') ?: [],    // L00, L10, L-- etc.
-);
+));
 sort($setJsonFiles);
 
 $levels = [];             // level => ['dir'=>, 'title'=>, 'families'=>[fam=>['codes'=>[],'sets'=>[]]]]
@@ -65,6 +63,8 @@ $distractorFiles = 0;
 $cleanFiles = 0;
 $totalDupRegions = 0;
 $familyKeys = [];
+$familyKeyCount = [];
+$processedSetCount = 0;
 
 foreach ($setJsonFiles as $file) {
     $set = json_decode((string)file_get_contents($file), true);
@@ -78,9 +78,21 @@ foreach ($setJsonFiles as $file) {
     $setDirRel = ltrim(str_replace($root . '/testsets', '', dirname($file)), '/');
     $levelDir = explode('/', $setDirRel)[0];
 
+    // Deduplicate: skip if we've already processed this set_id (first occurrence wins)
+    $setKey = $set['set_id'];
+    if (isset($familyKeys[$setKey])) {
+        continue;
+    }
+    $familyKeys[$setKey] = true;
+
+    // Track unique families (level+family combination) for the families count
+    $famKey = $levelDir . '/' . $family;
+    $familyKeyCount[$famKey] = true;
+
+    $processedSetCount++;
+
     $levels[$level] ??= ['dir' => $levelDir, 'title' => $levelTitles[$level] ?? "Level {$level}", 'families' => []];
     $levels[$level]['families'][$family] ??= ['codes' => [], 'sets' => []];
-    $familyKeys[$levelDir . '/' . $family] = true;
 
     foreach (($set['interference'] ?? []) as $intf) {
         $levels[$level]['families'][$family]['codes'][$intf['code']] = true;
@@ -152,8 +164,8 @@ $manifest = [
     'generated_at'   => gitRefOrDate($root),
     'totals'         => [
         'levels'   => count($levels),
-        'families' => count($familyKeys),
-        'sets'     => count($setJsonFiles),
+        'families' => count($familyKeyCount),
+        'sets'     => $processedSetCount,
         'files'    => $totalFiles,
         'clusters' => $totalClusters,
     ],

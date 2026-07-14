@@ -63,10 +63,26 @@ foreach ($recipes as $recipeFile) {
                     $drift[] = $built['set_id'] . ' :: ' . $rel . ($existing === null ? ' (missing on disk)' : ' (content differs)');
                 }
             }
+            // Check for deleted files: exist on disk but not in rendered output
+            $renderedFiles = array_fill_keys(array_keys($rendered), true);
+            if (is_dir($targetDir)) {
+                $iter = new RecursiveIteratorIterator(
+                    new RecursiveDirectoryIterator($targetDir, RecursiveDirectoryIterator::SKIP_DOTS),
+                    RecursiveIteratorIterator::LEAVES_ONLY
+                );
+                foreach ($iter as $file) {
+                    $rel = str_replace($targetDir . '/', '', $file->getPathname());
+                    if (!isset($renderedFiles[$rel])) {
+                        $drift[] = $built['set_id'] . ' :: ' . $rel . ' (DELETED from recipe)';
+                    }
+                }
+            }
         } else {
             foreach ($rendered as $rel => $content) {
                 $path = $targetDir . '/' . $rel;
-                @mkdir(dirname($path), 0o775, true);
+                if (!is_dir(dirname($path)) && !mkdir(dirname($path), 0o775, true)) {
+                    fprintf(STDERR, "WARN: mkdir failed for %s\n", dirname($path));
+                }
                 file_put_contents($path, $content);
                 $written++;
             }

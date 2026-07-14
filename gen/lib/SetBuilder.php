@@ -44,8 +44,10 @@ final class SetBuilder
         'selector'  => 1,  // CF-*, API-*, SEM-*, BL-*, EX-*, NU-*
         'structure' => 2,  // ST-*
         'ast_edit'  => 3,  // RN-*, LT-*, TY-*, NS-*
+        'text'      => 3,  // SY-*, LEG-*
         'comment'   => 4,  // CM-*
         'whitespace' => 5, // WS-*
+        'wrapper'   => 5,  // UQ-*, NZ-*
         'encoding'  => 6,  // ENC-*
     ];
 
@@ -136,13 +138,7 @@ final class SetBuilder
                     $pristineTextByCluster[$actualClusterId] = $payloadText;
                 }
 
-                // F-8 selector-variant stacking: expand "+" in variant param
-                $transforms = $this->expandVariantStack($carrier['transforms'] ?? []);
-
-                // F-9: Sort transforms by order contract
-                $transforms = $this->sortByTransformOrder($transforms);
-
-                foreach ($transforms as $tr) {
+                foreach ($carrier['transforms'] ?? [] as $tr) {
                     $code = (string)$tr['code'];
                     $appliedCodes[$code] = true;
 
@@ -577,7 +573,7 @@ final class SetBuilder
 
     /**
      * F-9: Sort transforms by the transform-order contract.
-     * Order: selector -> ST-* -> RN/LT/TY/NS -> CM-* -> WS-* -> ENC-*
+     * Order: selector -> ST-* -> RN/LT/TY/NS -> SY/LEG -> CM-* -> WS-* -> UQ/NZ -> ENC-*
      */
     private function sortByTransformOrder(array $transforms): array
     {
@@ -620,6 +616,12 @@ final class SetBuilder
         }
         if (str_starts_with($code, 'WS-')) {
             return 'whitespace';
+        }
+        if (str_starts_with($code, 'SY-') || str_starts_with($code, 'LEG-')) {
+            return 'text';
+        }
+        if (str_starts_with($code, 'UQ-') || str_starts_with($code, 'NZ-')) {
+            return 'wrapper';
         }
         if (str_starts_with($code, 'ENC-')) {
             return 'encoding';
