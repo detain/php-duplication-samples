@@ -40,9 +40,9 @@ final class InsertFunctional implements Transform
     public function apply(TransformInput $in, array $params, Rng $rng): TransformResult
     {
         $step = $params['step'] ?? $rng->pick(['trim', 'normalize', 'validate', 'cast', 'abs']);
-        $afterOrd = (int)($params['after'] ?? $rng->int(1, count($this->ast->bodyStatementEndLines($in->text()))));
-
         $endLines = $this->ast->bodyStatementEndLines($in->text());
+        $afterOrd = (int)($params['after'] ?? $rng->int(1, count($endLines)));
+
         if ($endLines === []) {
             return new TransformResult($in->lines, $in->lineMap);
         }

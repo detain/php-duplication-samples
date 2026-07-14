@@ -5,10 +5,10 @@ detection, with machine-readable per-set metadata (`set.json`) and **line-accura
 ground truth** (`expected.json`). It complements — and never modifies — the category-reference
 `samples/` tree.
 
-> **Status: foundation / Wave-1 pilot.** The engine, schemas, verifier, bench runner, and one
+> **Status: foundation / Wave-1 complete.** The engine, schemas, verifier, bench runner, and one
 > pilot set per pipeline path are built and green. The full ~540-set corpus is generated wave by
 > wave against this substrate (see `ORCHESTRATION.md`). This README describes the whole design;
-> the counts below reflect what is currently on disk.
+> the counts below reflect what is currently on disk (2026-07-13).
 
 ## North-star
 
@@ -30,9 +30,9 @@ out of the scores (`plan_samples.md` §1, R8).
 | L5 | `L05_statement_edits` | type-3 | Insertions, deletions, reordering, gaps. |
 | L6 | `L06_controlflow_rewrites` | type-3/4 | Control-flow & expression rewrites. |
 | L7 | `L07_api_idioms` | type-4 | API / idiom substitution. |
-| L8 | `L08_semantic` | type-4/domain | Semantic / architectural duplication. |
-| L9 | `L09_mixed` | mixed | Compound interference (stacked axes). |
-| L10 | `L10_adversarial` | mixed/edge | Threshold, overlap, encoding, topology traps. |
+| L8 | `L08_semantic_idioms` (+ `L08_semantic_variants`) | type-4/domain | Semantic / architectural duplication. |
+| L9 | `L09_mixed_interference` | mixed | Compound interference (stacked axes). |
+| L10 | `L10_adversarial_edge_cases` | mixed/edge | Threshold, overlap, encoding, topology traps. |
 
 Each level's single-axis design (`plan_samples.md` §4 D5) means a miss **localizes the exact
 missing capability**: a pass at L1 plus a miss at L4-`rn_locals` says "no identifier

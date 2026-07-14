@@ -487,6 +487,7 @@ function l0ToolTriage(string $setDir): array
     $phar = $repoRoot . '/bench/tools/phpcpd.phar';
     if (is_file($phar)) {
         $xml = tempnam(sys_get_temp_dir(), 'l0') . '.xml';
+        register_shutdown_function('unlink', $xml);
         @exec(sprintf('php %s --fuzzy --min-lines 5 --min-tokens 50 --log-pmd %s %s 2>/dev/null',
             escapeshellarg($phar), escapeshellarg($xml), escapeshellarg($setDir . '/src')), $_, $rc);
         if (is_file($xml)) {
@@ -494,7 +495,6 @@ function l0ToolTriage(string $setDir): array
             if ($sx instanceof SimpleXMLElement && count($sx->duplication) > 0) {
                 $errors[] = 'negative-proof(L0): phpcpd reported ' . count($sx->duplication) . ' duplication(s) — set is not clean';
             }
-            @unlink($xml);
         }
     }
     return $errors;

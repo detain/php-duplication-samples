@@ -285,11 +285,6 @@ final class SetBuilder
             $code = (string)$tr['code'];
             $t = $this->registry->transform($code);
             $params = $tr['params'] ?? [];
-            if (isset($tr['variant'])) {
-                // A selector carrier already loaded its variant above; the
-                // transform entry is metadata-only, skip re-applying.
-                continue;
-            }
             $rng = new Rng((int)$spec['rng_seed']);
             $result = $t->apply($input, $params, $rng);
             $input = $result->toInput();
