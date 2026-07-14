@@ -20,8 +20,8 @@
             "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
             "carriers": [
                 {"file": "PristineCounter.php", "namespace": "Acme\\Counter\\Pristine", "class": "PristineCounter", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
-                {"file": "CompoundCounter.php", "namespace": "Acme\\Counter\\Compound", "class": "CompoundCounter", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-12", "params": {"style": "compound"}}]},
-                {"file": "ReversedCounter.php", "namespace": "Acme\\Counter\\Reversed", "class": "ReversedCounter", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-12", "params": {"style": "reversed"}}]}
+                {"file": "CompoundCounter.php", "namespace": "Acme\\Counter\\Compound", "class": "CompoundCounter", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-12", "params": {"key_order": ["left", "right"]}}]},
+                {"file": "ReversedCounter.php", "namespace": "Acme\\Counter\\Reversed", "class": "ReversedCounter", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-12", "params": {"key_order": ["right", "left"]}}]}
             ],
             "distractors": [
                 {"file": "RateCalculator.php", "namespace": "Acme\\Counter\\Rate", "class": "RateCalculator", "source": "nearmiss_counter", "reason": "near-miss: same increment/counter vocabulary but calculates rate per second instead of total count — different result"}
@@ -46,8 +46,8 @@
             "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
             "carriers": [
                 {"file": "PristineCounter.php", "namespace": "Acme\\Counter\\Pristine", "class": "PristineCounter", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
-                {"file": "ExpandedCounter.php", "namespace": "Acme\\Counter\\Expanded", "class": "ExpandedCounter", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-12", "params": {"style": "expanded"}}]},
-                {"file": "CompoundCounter.php", "namespace": "Acme\\Counter\\Compound", "class": "CompoundCounter", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-12", "params": {"style": "compound"}}]}
+                {"file": "ExpandedCounter.php", "namespace": "Acme\\Counter\\Expanded", "class": "ExpandedCounter", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-12", "params": {"key_order": ["left", "right"]}}]},
+                {"file": "CompoundCounter.php", "namespace": "Acme\\Counter\\Compound", "class": "CompoundCounter", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-12", "params": {"key_order": ["left", "right"]}}]}
             ],
             "distractors": [
                 {"file": "RateCalculator.php", "namespace": "Acme\\Counter\\Rate", "class": "RateCalculator", "source": "nearmiss_counter", "reason": "near-miss: same increment/counter vocabulary but calculates rate — different result"}
@@ -72,8 +72,8 @@
             "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
             "carriers": [
                 {"file": "PristineCounter.php", "namespace": "Acme\\Counter\\Pristine", "class": "PristineCounter", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
-                {"file": "CompoundCounter.php", "namespace": "Acme\\Counter\\Compound", "class": "CompoundCounter", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-12", "params": {"style": "compound"}}]},
-                {"file": "ExpandedCounter.php", "namespace": "Acme\\Counter\\Expanded", "class": "ExpandedCounter", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-12", "params": {"style": "expanded"}}]}
+                {"file": "CompoundCounter.php", "namespace": "Acme\\Counter\\Compound", "class": "CompoundCounter", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-12", "params": {"key_order": ["left", "right"]}}]},
+                {"file": "ExpandedCounter.php", "namespace": "Acme\\Counter\\Expanded", "class": "ExpandedCounter", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-12", "params": {"key_order": ["left", "right"]}}]}
             ],
             "distractors": [
                 {"file": "RateCalculator.php", "namespace": "Acme\\Counter\\Rate", "class": "RateCalculator", "source": "nearmiss_counter", "reason": "near-miss: same increment/counter vocabulary but calculates rate — different result"}
@@ -98,8 +98,8 @@
             "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
             "carriers": [
                 {"file": "PristineCounter.php", "namespace": "Acme\\Counter\\Pristine", "class": "PristineCounter", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
-                {"file": "ReversedCounter.php", "namespace": "Acme\\Counter\\Reversed", "class": "ReversedCounter", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-12", "params": {"style": "reversed"}}]},
-                {"file": "CompoundCounter.php", "namespace": "Acme\\Counter\\Compound", "class": "CompoundCounter", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-12", "params": {"style": "compound"}}]}
+                {"file": "ReversedCounter.php", "namespace": "Acme\\Counter\\Reversed", "class": "ReversedCounter", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-12", "params": {"key_order": ["right", "left"]}}]},
+                {"file": "CompoundCounter.php", "namespace": "Acme\\Counter\\Compound", "class": "CompoundCounter", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-12", "params": {"key_order": ["left", "right"]}}]}
             ],
             "distractors": [
                 {"file": "RateCalculator.php", "namespace": "Acme\\Counter\\Rate", "class": "RateCalculator", "source": "nearmiss_counter", "reason": "near-miss: same increment/counter vocabulary but calculates rate — different result"}
@@ -124,8 +124,8 @@
             "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
             "carriers": [
                 {"file": "PristineCounter.php", "namespace": "Acme\\Counter\\Pristine", "class": "PristineCounter", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
-                {"file": "ReversedCounter.php", "namespace": "Acme\\Counter\\Reversed", "class": "ReversedCounter", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-12", "params": {"style": "reversed"}}]},
-                {"file": "ExpandedCounter.php", "namespace": "Acme\\Counter\\Expanded", "class": "ExpandedCounter", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-12", "params": {"style": "expanded"}}]}
+                {"file": "ReversedCounter.php", "namespace": "Acme\\Counter\\Reversed", "class": "ReversedCounter", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-12", "params": {"key_order": ["right", "left"]}}]},
+                {"file": "ExpandedCounter.php", "namespace": "Acme\\Counter\\Expanded", "class": "ExpandedCounter", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-12", "params": {"key_order": ["left", "right"]}}]}
             ],
             "distractors": [
                 {"file": "RateCalculator.php", "namespace": "Acme\\Counter\\Rate", "class": "RateCalculator", "source": "nearmiss_counter", "reason": "near-miss: same increment/counter vocabulary but calculates rate — different result"}

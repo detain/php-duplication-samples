@@ -20,8 +20,8 @@
             "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
             "carriers": [
                 {"file": "PristineInputValidator.php", "namespace": "Acme\\Validation\\Pristine", "class": "PristineInputValidator", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
-                {"file": "EarlyReturnValidator.php", "namespace": "Acme\\Validation\\EarlyReturn", "class": "EarlyReturnValidator", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-10", "params": {"style": "early_return_top"}}]},
-                {"file": "NestedIfValidator.php", "namespace": "Acme\\Validation\\Nested", "class": "NestedIfValidator", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-10", "params": {"style": "nested_if"}}]}
+                {"file": "EarlyReturnValidator.php", "namespace": "Acme\\Validation\\EarlyReturn", "class": "EarlyReturnValidator", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-10", "params": {"direction": "hoist_out"}}]},
+                {"file": "NestedIfValidator.php", "namespace": "Acme\\Validation\\Nested", "class": "NestedIfValidator", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-10", "params": {"direction": "sink_in"}}]}
             ],
             "distractors": [
                 {"file": "SchemaChecker.php", "namespace": "Acme\\Validation\\Schema", "class": "SchemaChecker", "source": "nearmiss_validation", "reason": "near-miss: same validate/input vocabulary but checks JSON schema validity instead of input requirements — different result"}
@@ -46,8 +46,8 @@
             "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
             "carriers": [
                 {"file": "PristineInputValidator.php", "namespace": "Acme\\Validation\\Pristine", "class": "PristineInputValidator", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
-                {"file": "NestedIfValidator.php", "namespace": "Acme\\Validation\\Nested", "class": "NestedIfValidator", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-10", "params": {"style": "nested_if"}}]},
-                {"file": "EarlyReturnValidator.php", "namespace": "Acme\\Validation\\EarlyReturn", "class": "EarlyReturnValidator", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-10", "params": {"style": "early_return_top"}}]}
+                {"file": "NestedIfValidator.php", "namespace": "Acme\\Validation\\Nested", "class": "NestedIfValidator", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-10", "params": {"direction": "sink_in"}}]},
+                {"file": "EarlyReturnValidator.php", "namespace": "Acme\\Validation\\EarlyReturn", "class": "EarlyReturnValidator", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-10", "params": {"direction": "hoist_out"}}]}
             ],
             "distractors": [
                 {"file": "SchemaChecker.php", "namespace": "Acme\\Validation\\Schema", "class": "SchemaChecker", "source": "nearmiss_validation", "reason": "near-miss: same validate/input vocabulary but checks JSON schema — different result"}
@@ -72,8 +72,8 @@
             "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
             "carriers": [
                 {"file": "PristineInputValidator.php", "namespace": "Acme\\Validation\\Pristine", "class": "PristineInputValidator", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
-                {"file": "MidReturnValidator.php", "namespace": "Acme\\Validation\\MidReturn", "class": "MidReturnValidator", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-10", "params": {"style": "early_return_mid"}}]},
-                {"file": "EarlyReturnValidator.php", "namespace": "Acme\\Validation\\EarlyReturn", "class": "EarlyReturnValidator", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-10", "params": {"style": "early_return_top"}}]}
+                {"file": "MidReturnValidator.php", "namespace": "Acme\\Validation\\MidReturn", "class": "MidReturnValidator", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-10", "params": {"direction": "hoist_out"}}]},
+                {"file": "EarlyReturnValidator.php", "namespace": "Acme\\Validation\\EarlyReturn", "class": "EarlyReturnValidator", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-10", "params": {"direction": "hoist_out"}}]}
             ],
             "distractors": [
                 {"file": "SchemaChecker.php", "namespace": "Acme\\Validation\\Schema", "class": "SchemaChecker", "source": "nearmiss_validation", "reason": "near-miss: same validate/input vocabulary but checks JSON schema — different result"}
@@ -98,8 +98,8 @@
             "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
             "carriers": [
                 {"file": "PristineInputValidator.php", "namespace": "Acme\\Validation\\Pristine", "class": "PristineInputValidator", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
-                {"file": "MidReturnValidator.php", "namespace": "Acme\\Validation\\MidReturn", "class": "MidReturnValidator", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-10", "params": {"style": "early_return_mid"}}]},
-                {"file": "NestedIfValidator.php", "namespace": "Acme\\Validation\\Nested", "class": "NestedIfValidator", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-10", "params": {"style": "nested_if"}}]}
+                {"file": "MidReturnValidator.php", "namespace": "Acme\\Validation\\MidReturn", "class": "MidReturnValidator", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-10", "params": {"direction": "hoist_out"}}]},
+                {"file": "NestedIfValidator.php", "namespace": "Acme\\Validation\\Nested", "class": "NestedIfValidator", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-10", "params": {"direction": "sink_in"}}]}
             ],
             "distractors": [
                 {"file": "SchemaChecker.php", "namespace": "Acme\\Validation\\Schema", "class": "SchemaChecker", "source": "nearmiss_validation", "reason": "near-miss: same validate/input vocabulary but checks JSON schema — different result"}
@@ -124,8 +124,8 @@
             "detection_expectation": {"text_based": false, "token_based": true, "ast_based": true, "metric_based": true, "semantic": true},
             "carriers": [
                 {"file": "PristineInputValidator.php", "namespace": "Acme\\Validation\\Pristine", "class": "PristineInputValidator", "scaffold": "method_alpha", "group": "A", "pristine": true, "transforms": []},
-                {"file": "EarlyReturnValidator.php", "namespace": "Acme\\Validation\\EarlyReturn", "class": "EarlyReturnValidator", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-10", "params": {"style": "early_return_top"}}]},
-                {"file": "MidReturnValidator.php", "namespace": "Acme\\Validation\\MidReturn", "class": "MidReturnValidator", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-10", "params": {"style": "early_return_mid"}}]}
+                {"file": "EarlyReturnValidator.php", "namespace": "Acme\\Validation\\EarlyReturn", "class": "EarlyReturnValidator", "scaffold": "method_beta", "group": "A", "pristine": false, "transforms": [{"code": "ST-10", "params": {"direction": "hoist_out"}}]},
+                {"file": "MidReturnValidator.php", "namespace": "Acme\\Validation\\MidReturn", "class": "MidReturnValidator", "scaffold": "method_gamma", "group": "A", "pristine": false, "transforms": [{"code": "ST-10", "params": {"direction": "hoist_out"}}]}
             ],
             "distractors": [
                 {"file": "SchemaChecker.php", "namespace": "Acme\\Validation\\Schema", "class": "SchemaChecker", "source": "nearmiss_validation", "reason": "near-miss: same validate/input vocabulary but checks JSON schema — different result"}
