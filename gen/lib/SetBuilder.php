@@ -173,7 +173,7 @@ final class SetBuilder
                     if (!in_array($code, $allAxes, true)) {
                         $allAxes[] = $code;
                     }
-                    $stackDepthMax = max($stackDepthMax, count($transforms));
+                    $stackDepthMax = max($stackDepthMax, count($carrier['transforms'] ?? []));
                 }
 
                 // Store cluster member data
