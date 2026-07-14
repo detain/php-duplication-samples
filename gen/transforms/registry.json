@@ -145,6 +145,10 @@
         "CP-07": {"name": "genealogy", "kind": "topology", "weight": 10, "impact": 3, "clone_type": "type-3", "requires": ["ast_canonicalization"], "implemented": false, "note": "topology directive, handled by SetBuilder"},
         "CP-08": {"name": "html_mix", "kind": "topology", "weight": 8, "impact": 3, "clone_type": "type-1", "requires": ["whitespace_normalization"], "implemented": false, "note": "topology directive, handled by SetBuilder"},
         "CP-09": {"name": "generated", "kind": "topology", "weight": 8, "impact": 3, "clone_type": "type-1", "requires": [], "implemented": false, "note": "topology directive, handled by SetBuilder"},
-        "CP-10": {"name": "near_miss_only", "kind": "topology", "weight": 6, "impact": 2, "clone_type": "none", "requires": [], "implemented": false, "note": "topology directive, handled by SetBuilder"}
+        "CP-10": {"name": "near_miss_only", "kind": "topology", "weight": 6, "impact": 2, "clone_type": "none", "requires": [], "implemented": false, "note": "topology directive, handled by SetBuilder"},
+
+        "RF-01": {"name": "extracted_helper", "kind": "ast", "weight": 18, "impact": 4, "clone_type": "type-3", "requires": ["ast_canonicalization"], "implemented": true, "class": "Gen\\Transforms\\Rf\\ExtractedHelper"},
+        "RF-02": {"name": "hole_substitution", "kind": "ast", "weight": 12, "impact": 3, "clone_type": "type-3", "requires": ["ast_canonicalization"], "implemented": true, "class": "Gen\\Transforms\\Rf\\HoleSubstitution"},
+        "RF-03": {"name": "wrapper_decorate", "kind": "ast", "weight": 10, "impact": 3, "clone_type": "type-3", "requires": ["ast_canonicalization"], "implemented": true, "class": "Gen\\Transforms\\Rf\\WrapperDecorate"}
     }
 }
