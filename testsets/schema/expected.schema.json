@@ -238,6 +238,11 @@
                     "known_tool_fp": {
                         "$comment": "Optional: a boilerplate idiom real token tools flag but that is acceptable (§12.5).",
                         "type": "boolean"
+                    },
+                    "bait_class": {
+                        "type": "string",
+                        "enum": ["near_miss", "confusable", "boilerplate", "partial"],
+                        "description": "Classification of distractor type per §17.1"
                     }
                 }
             }
