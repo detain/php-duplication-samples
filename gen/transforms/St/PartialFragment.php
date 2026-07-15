@@ -80,11 +80,14 @@ final class PartialFragment implements Transform
     /**
      * Constrain head_trim to respect PHP structural boundaries.
      *
-     * The safe trim distance is the number of lines between the function's
-     * start line and the function body's first statement line. The opening {
-     * is 1 line before the first statement. Trimming beyond this would cut
-     * through the function's opening { brace or remove the function signature,
-     * leaving orphaned statements at class level and causing PHP syntax errors.
+     * Uses TOKEN analysis (not just AST) to find the exact column position of the
+     * function body's opening { brace. This correctly handles same-line cases like:
+     *   public function foo() { $x = 1; return $x; }
+     * where the function signature, {, and first statement are all on line 1.
+     *
+     * The safe trim distance in lines is the number of complete lines BEFORE the
+     * opening { brace. If { is on the same line as the function signature, there
+     * are 0 lines before it, so no head trim is safe.
      *
      * @return int The constrained head_trim value
      */
@@ -103,26 +106,63 @@ final class PartialFragment implements Transform
             return 0;
         }
 
-        $functionStartLine = $fn->getStartLine();
-
-        // Get the first statement's start line to determine where the body begins.
-        // The { is 1 line before the first statement.
+        // If function has no statements (abstract/interface), no trim safe.
         $stmts = $fn->getStmts();
         if ($stmts === [] || $stmts === null) {
-            // Empty body (abstract/interface) — no trim safe.
             return 0;
         }
 
-        $firstStmtStartLine = $stmts[0]->getStartLine();
+        $functionStartLine = $fn->getStartLine();
 
-        // Safe distance = lines between function start and first statement start.
-        // We need to keep the { which is 1 line before first statement.
-        // Example: function starts at line 1, first statement at line 3
-        // { is on line 2, so safeHeadTrim = 3 - 1 - 1 = 1
-        $safeDistance = $firstStmtStartLine - $functionStartLine;
+        // Find the { using lexer tokens - track parenthesis balance to skip
+        // any { in default parameter values.
+        // php-parser v5.x: Lexer\Emulative takes a PhpVersion object, not a config array.
+        $phpVer = \PhpParser\PhpVersion::fromString('8.1');
+        $lexer = new \PhpParser\Lexer\Emulative($phpVer);
+        $tokens = $lexer->tokenize($wrapped);
 
-        if ($safeDistance <= 1) {
-            // First statement is on same line as { or no gap — no trim safe.
+        $braceLine = null;
+        $parenBalance = 0;
+        $foundFunction = false;
+
+        foreach ($tokens as $token) {
+            // php-parser v5.x: tokens are PhpParser\Token objects, not arrays.
+            $tokenType = $token->id;
+            $tokenText = $token->text;
+            $tokenLine = $token->line;
+
+            // Wait for the actual 'function' keyword — not visibility or static modifiers.
+            // "public function foo()" has 'public' first, then 'function', then parens.
+            if (!$foundFunction) {
+                if ($tokenText === 'function') {
+                    $foundFunction = true;
+                }
+                continue;
+            }
+
+            // Track parentheses to know when we're inside the parameter list.
+            if ($tokenText === '(') {
+                $parenBalance++;
+            } elseif ($tokenText === ')') {
+                $parenBalance--;
+            } elseif ($tokenText === '{' && $parenBalance === 0) {
+                // Found the function body's opening brace.
+                $braceLine = $tokenLine;
+                break;
+            }
+        }
+
+        // If we couldn't find the brace, don't risk trimming.
+        if ($braceLine === null) {
+            return 0;
+        }
+
+        // Safe distance in lines = number of complete lines before the { brace.
+        // The { line itself is not safe to trim through.
+        $safeDistance = $braceLine - $functionStartLine;
+
+        if ($safeDistance <= 0) {
+            // { is on same line as function start — no line-level trim safe.
             return 0;
         }
 

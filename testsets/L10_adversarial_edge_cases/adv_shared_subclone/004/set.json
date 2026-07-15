@@ -94,5 +94,10 @@
         "recipe": "gen/recipes/L10/adv_shared_subclone.json",
         "version": "1.0.0",
         "rng_seed": 112104
+    },
+    "role_composition": {
+        "carrier": 6,
+        "distractor": 1,
+        "clean": 1
     }
 }
