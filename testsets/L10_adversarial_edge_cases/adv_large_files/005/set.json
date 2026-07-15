@@ -15,31 +15,31 @@
             "path": "src/AccessServiceA.php",
             "role": "carrier",
             "duplicate_group": "A",
-            "sloc": 38
+            "sloc": 33
         },
         {
             "path": "src/AccessServiceB.php",
             "role": "carrier",
             "duplicate_group": "A",
-            "sloc": 46
+            "sloc": 39
         },
         {
             "path": "src/AccessServiceC.php",
             "role": "carrier",
             "duplicate_group": "A",
-            "sloc": 44
+            "sloc": 38
         },
         {
             "path": "src/RateLimiter.php",
             "role": "distractor",
             "duplicate_group": null,
-            "sloc": 33
+            "sloc": 29
         },
         {
             "path": "src/AuthProvider.php",
             "role": "clean",
             "duplicate_group": null,
-            "sloc": 32
+            "sloc": 27
         }
     ],
     "duplication": {

@@ -15,31 +15,31 @@
             "path": "src/InvoiceServiceA.php",
             "role": "carrier",
             "duplicate_group": "A",
-            "sloc": 44
+            "sloc": 39
         },
         {
             "path": "src/InvoiceServiceB.php",
             "role": "carrier",
             "duplicate_group": "A",
-            "sloc": 51
+            "sloc": 44
         },
         {
             "path": "src/InvoiceServiceC.php",
             "role": "carrier",
             "duplicate_group": "A",
-            "sloc": 49
+            "sloc": 43
         },
         {
             "path": "src/Validator.php",
             "role": "distractor",
             "duplicate_group": null,
-            "sloc": 34
+            "sloc": 28
         },
         {
             "path": "src/SchemaMapper.php",
             "role": "clean",
             "duplicate_group": null,
-            "sloc": 26
+            "sloc": 22
         }
     ],
     "duplication": {
