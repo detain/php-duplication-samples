@@ -68,6 +68,11 @@ final class SetBuilder
      * @param array<string,mixed> $spec   one set entry
      * @return array{files: array<string,string>, set: array<string,mixed>, expected: array<string,mixed>, set_id: string, dir: string}
      */
+    private function isFunctionScaffold(string $scaffold): bool
+    {
+        return str_starts_with($scaffold, 'fn_');
+    }
+
     public function build(array $family, array $spec): array
     {
         $setId = (string)$spec['set_id'];
@@ -954,7 +959,20 @@ final class SetBuilder
      */
     private function renderCarrierV2(array $family, array $spec, array $carrier, ?string $seed): array
     {
-        $mode = (string)($carrier['mount'] ?? $spec['mount'] ?? 'method');
+        $scaffold = (string)($carrier['scaffold'] ?? '');
+        // fn_* scaffolds are for standalone functions; auto-enable function mount mode.
+        // Carrier-level mount overrides everything. Spec-level mount is a default but
+        // is overridden by fn_* scaffold auto-detection. Only use spec default if
+        // the scaffold is NOT fn_*.
+        $carrierMount = $carrier['mount'] ?? null;
+        $specMount = $spec['mount'] ?? null;
+        if ($carrierMount !== null) {
+            $mode = (string)$carrierMount;
+        } elseif ($specMount !== null && !$this->isFunctionScaffold($scaffold)) {
+            $mode = (string)$specMount;
+        } else {
+            $mode = $this->isFunctionScaffold($scaffold) ? 'function' : 'method';
+        }
 
         // F-8 selector-variant stacking: resolve composed variants
         $variantParts = $this->resolveComposedVariant($carrier, $spec, $seed);
@@ -1257,7 +1275,20 @@ final class SetBuilder
      */
     private function renderCarrier(array $family, array $spec, array $carrier): array
     {
-        $mode = (string)($carrier['mount'] ?? $spec['mount'] ?? 'method');
+        $scaffold = (string)($carrier['scaffold'] ?? '');
+        // fn_* scaffolds are for standalone functions; auto-enable function mount mode.
+        // Carrier-level mount overrides everything. Spec-level mount is a default but
+        // is overridden by fn_* scaffold auto-detection. Only use spec default if
+        // the scaffold is NOT fn_*.
+        $carrierMount = $carrier['mount'] ?? null;
+        $specMount = $spec['mount'] ?? null;
+        if ($carrierMount !== null) {
+            $mode = (string)$carrierMount;
+        } elseif ($specMount !== null && !$this->isFunctionScaffold($scaffold)) {
+            $mode = (string)$specMount;
+        } else {
+            $mode = $this->isFunctionScaffold($scaffold) ? 'function' : 'method';
+        }
 
         // Resolve the payload region (pristine seed or a hand-written variant).
         if (isset($carrier['variant'])) {

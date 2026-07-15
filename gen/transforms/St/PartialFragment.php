@@ -23,10 +23,13 @@ use PhpParser\NodeFinder;
  *   head_trim (int)   lines to trim from the start (default: 0)
  *   tail_trim (int)   lines to trim from the end (default: 0)
  *
- * tail_trim is constrained to respect PHP structural boundaries. It will
- * never trim through a method's closing } brace or a class's closing } brace.
- * The safe trim distance is calculated as the number of lines between the
- * last statement's end line and the function body's end line (the } line).
+ * Both head_trim and tail_trim are constrained to respect PHP structural
+ * boundaries. head_trim will never trim through a method's opening { brace
+ * or remove the function signature, as that would leave orphaned statements
+ * at class level. tail_trim will never trim through a method's closing }
+ * brace or a class's closing } brace. The safe trim distances are calculated
+ * based on the position of structural elements (opening/closing braces, first
+ * and last statements).
  */
 final class PartialFragment implements Transform
 {
@@ -57,6 +60,11 @@ final class PartialFragment implements Transform
         $maxTrim = (int)($totalLines * 0.4); // Don't trim more than 40% total.
         $headTrim = min($headTrim, $maxTrim);
 
+        // Constrain head_trim to structural boundaries.
+        if ($headTrim > 0) {
+            $headTrim = $this->constrainHeadTrimToStructuralBoundary($in->text(), $headTrim);
+        }
+
         // Constrain tail_trim to structural boundaries.
         if ($tailTrim > 0) {
             $tailTrim = $this->constrainTailTrimToStructuralBoundary($in->text(), $tailTrim);
@@ -67,6 +75,59 @@ final class PartialFragment implements Transform
         $outMap = array_slice($in->lineMap, $headTrim, $totalLines - $headTrim - $tailTrim);
 
         return new TransformResult($outLines, $outMap);
+    }
+
+    /**
+     * Constrain head_trim to respect PHP structural boundaries.
+     *
+     * The safe trim distance is the number of lines between the function's
+     * start line and the function body's first statement line. The opening {
+     * is 1 line before the first statement. Trimming beyond this would cut
+     * through the function's opening { brace or remove the function signature,
+     * leaving orphaned statements at class level and causing PHP syntax errors.
+     *
+     * @return int The constrained head_trim value
+     */
+    private function constrainHeadTrimToStructuralBoundary(string $fragment, int $headTrim): int
+    {
+        $parser = (new \PhpParser\ParserFactory())->createForNewestSupportedVersion();
+        $wrapped = '<?php class GenWrap { ' . $fragment . ' }';
+        $ast = $parser->parse($wrapped);
+        if ($ast === null || $ast === []) {
+            return 0;
+        }
+
+        $finder = new NodeFinder();
+        $fn = $finder->findFirstInstanceOf($ast, Node\FunctionLike::class);
+        if ($fn === null) {
+            return 0;
+        }
+
+        $functionStartLine = $fn->getStartLine();
+
+        // Get the first statement's start line to determine where the body begins.
+        // The { is 1 line before the first statement.
+        $stmts = $fn->getStmts();
+        if ($stmts === [] || $stmts === null) {
+            // Empty body (abstract/interface) — no trim safe.
+            return 0;
+        }
+
+        $firstStmtStartLine = $stmts[0]->getStartLine();
+
+        // Safe distance = lines between function start and first statement start.
+        // We need to keep the { which is 1 line before first statement.
+        // Example: function starts at line 1, first statement at line 3
+        // { is on line 2, so safeHeadTrim = 3 - 1 - 1 = 1
+        $safeDistance = $firstStmtStartLine - $functionStartLine;
+
+        if ($safeDistance <= 1) {
+            // First statement is on same line as { or no gap — no trim safe.
+            return 0;
+        }
+
+        // Subtract 1 to exclude the { line itself from trim range.
+        return min($headTrim, $safeDistance - 1);
     }
 
     /**
