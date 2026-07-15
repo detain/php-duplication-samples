@@ -15,31 +15,31 @@
             "path": "src/AccessServiceA.php",
             "role": "carrier",
             "duplicate_group": "A",
-            "sloc": 33
+            "sloc": 38
         },
         {
             "path": "src/AccessServiceB.php",
             "role": "carrier",
             "duplicate_group": "A",
-            "sloc": 39
+            "sloc": 46
         },
         {
             "path": "src/AccessServiceC.php",
             "role": "carrier",
             "duplicate_group": "A",
-            "sloc": 38
+            "sloc": 44
         },
         {
             "path": "src/RateLimiter.php",
             "role": "distractor",
             "duplicate_group": null,
-            "sloc": 29
+            "sloc": 33
         },
         {
             "path": "src/AuthProvider.php",
             "role": "clean",
             "duplicate_group": null,
-            "sloc": 27
+            "sloc": 32
         }
     ],
     "duplication": {
@@ -82,12 +82,5 @@
         "recipe": "gen/recipes/L10/adv_large_files.json",
         "version": "1.0.0",
         "rng_seed": 110805
-    },
-    "progression": {
-        "bridge_pair": {
-            "lower": "L10-adv_large_files-005",
-            "upper": "L11-rn_scope_nesting-001",
-            "delta_axis": "RN"
-        }
     }
 }

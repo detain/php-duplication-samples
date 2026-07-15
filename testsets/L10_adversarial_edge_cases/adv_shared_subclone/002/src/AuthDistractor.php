@@ -2,43 +2,32 @@
 
 declare(strict_types=1);
 
-namespace Acme\Auth\Roles;
+namespace Acme\Security\Audit;
 
+/**
+ * Computes a numeric trust score for a user against a resource.
+ */
 final class AuthDistractor
 {
-    public function checkRoleAccess(string $role, string $permission): bool
+    public function trustScore(array $user, array $resource): int
     {
-        $roleHierarchy = $this->buildRoleHierarchy();
-        $effectivePermissions = $this->resolveEffectivePermissions($role, $roleHierarchy);
-        $hasPermission = in_array($permission, $effectivePermissions, true);
-        if (!$hasPermission) {
-            $this->recordAccessFailure($role, $permission);
+        $score = 0;
+        if (isset($user['id'])) {
+            $score += 10;
         }
-        return $hasPermission;
+        if (($user['status'] ?? '') === 'active') {
+            $score += 20;
+        }
+        $score += 5 * count($user['roles'] ?? []);
+        $score += 2 * count($user['grants'] ?? []);
+        if (($resource['ownerId'] ?? null) === ($user['id'] ?? -1)) {
+            $score += 40;
+        }
+        return min(100, $score);
     }
 
-    private function buildRoleHierarchy(): array
+    public function tier(int $score): string
     {
-        return [
-            'admin' => ['read', 'write', 'delete', 'manage'],
-            'moderator' => ['read', 'write'],
-            'user' => ['read'],
-        ];
-    }
-
-    private function resolveEffectivePermissions(string $role, array $hierarchy): array
-    {
-        $perms = $hierarchy[$role] ?? [];
-        return $perms;
-    }
-
-    private function recordAccessFailure(string $role, string $permission): void
-    {
-        // record failure
-    }
-
-    public function getRoleDisplayName(string $role): string
-    {
-        return ucfirst($role);
+        return $score >= 60 ? 'high' : 'low';
     }
 }

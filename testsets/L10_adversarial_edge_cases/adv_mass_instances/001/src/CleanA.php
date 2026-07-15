@@ -2,60 +2,33 @@
 
 declare(strict_types=1);
 
-namespace Acme\Mass;
+namespace Acme\Billing\Clean;
 
+/**
+ * Tax-rate lookup repository keyed by region code.
+ */
 final class CleanA
 {
-    private string $id = '';
-    private string $name = '';
-    private int $value = 0;
+    /** @var array<string,float> */
+    private array $rates = [
+        'US-CA' => 0.0725,
+        'US-NY' => 0.04,
+        'DE' => 0.19,
+        'GB' => 0.20,
+    ];
 
-    public function __construct(string $id = '', string $name = '') { }
-
-    public function getId(): string
+    public function rateFor(string $region): float
     {
-        return $this->id;
+        return $this->rates[$region] ?? 0.0;
     }
 
-    public function setId(string $id): void
+    public function regions(): array
     {
-        $this->id = $id;
+        return array_keys($this->rates);
     }
 
-    public function getName(): string
+    public function register(string $region, float $rate): void
     {
-        return $this->name;
-    }
-
-    public function setName(string $name): void
-    {
-        $this->name = $name;
-    }
-
-    public function getValue(): int
-    {
-        return $this->value;
-    }
-
-    public function setValue(int $value): void
-    {
-        $this->value = $value;
-    }
-
-    public function toArray(): array
-    {
-        return ['id' => $this->id, 'name' => $this->name, 'value' => $this->value];
-    }
-
-    public function fromArray(array $data): void
-    {
-        $this->id = $data['id'] ?? '';
-        $this->name = $data['name'] ?? '';
-        $this->value = $data['value'] ?? 0;
-    }
-
-    public function label(): string
-    {
-        return strtolower(str_replace('\\', '.', static::class));
+        $this->rates[$region] = $rate;
     }
 }

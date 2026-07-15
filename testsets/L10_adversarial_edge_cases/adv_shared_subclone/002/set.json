@@ -5,7 +5,7 @@
     "level_name": "adversarial_edge_cases",
     "family": "adv_shared_subclone",
     "title": "Clone Marriage variant with access_guard seed",
-    "description": "Clone Marriage pattern variant [O Idea 4]: Cluster A and Cluster B share a middle SharedCode block that appears IDENTICAL in BOTH clusters, using access_guard seed. Cluster A = region1_A + middle_block + region3_A; Cluster B = region1_B + middle_block + region3_B. The middle_block is byte-for-byte identical (shared sub-clone), while surrounding regions differ. Tests shared sub-clone detection with auth/permission context.",
+    "description": "Clone Marriage pattern variant using access_guard seed. Same topology: Cluster A and Cluster B share a middle SharedCode block. Cluster A = region1 + middle + region3, Cluster B = region2 + middle + region4. Shared sub-clone handling tested with different seed.",
     "language": "php",
     "min_php": "8.1",
     "seed": "access_guard",
@@ -15,49 +15,49 @@
             "path": "src/AccessSharedA1.php",
             "role": "carrier",
             "duplicate_group": "A",
-            "sloc": 44
+            "sloc": 33
         },
         {
             "path": "src/AccessSharedA2.php",
             "role": "carrier",
             "duplicate_group": "A",
-            "sloc": 40
+            "sloc": 36
         },
         {
             "path": "src/AccessSharedA3.php",
             "role": "carrier",
             "duplicate_group": "A",
-            "sloc": 41
+            "sloc": 37
         },
         {
             "path": "src/AccessSharedB1.php",
             "role": "carrier",
             "duplicate_group": "B",
-            "sloc": 45
+            "sloc": 33
         },
         {
             "path": "src/AccessSharedB2.php",
             "role": "carrier",
             "duplicate_group": "B",
-            "sloc": 40
+            "sloc": 36
         },
         {
             "path": "src/AccessSharedB3.php",
             "role": "carrier",
             "duplicate_group": "B",
-            "sloc": 41
+            "sloc": 37
         },
         {
             "path": "src/AuthDistractor.php",
             "role": "distractor",
             "duplicate_group": null,
-            "sloc": 35
+            "sloc": 29
         },
         {
             "path": "src/AuthClean.php",
             "role": "clean",
             "duplicate_group": null,
-            "sloc": 34
+            "sloc": 27
         }
     ],
     "duplication": {

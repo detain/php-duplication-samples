@@ -11,147 +11,147 @@
                 "whitespace",
                 "comments"
             ],
-            "token_hash": "e8227f461f632b55",
-            "normalized_hash": "60249e71c7d762e5",
+            "token_hash": "f1e5708cf467f899",
+            "normalized_hash": "73a3247b26011bdd",
             "members": [
                 {
-                    "file": "src/CloneA01.php",
-                    "start_line": 7,
-                    "end_line": 16,
-                    "symbol": "filterNonEmpty",
-                    "pristine": true
-                },
-                {
-                    "file": "src/CloneA02.php",
-                    "start_line": 17,
-                    "end_line": 26,
-                    "symbol": "filterNonEmpty",
-                    "pristine": true
-                },
-                {
-                    "file": "src/CloneA03.php",
-                    "start_line": 24,
+                    "file": "src/InvoiceCalcA01.php",
+                    "start_line": 9,
                     "end_line": 33,
-                    "symbol": "filterNonEmpty",
+                    "symbol": "computeTotals",
                     "pristine": true
                 },
                 {
-                    "file": "src/CloneA04.php",
-                    "start_line": 44,
-                    "end_line": 53,
-                    "symbol": "filterNonEmpty",
-                    "pristine": true
-                },
-                {
-                    "file": "src/CloneA05.php",
-                    "start_line": 50,
-                    "end_line": 59,
-                    "symbol": "filterNonEmpty",
-                    "pristine": true
-                },
-                {
-                    "file": "src/CloneA06.php",
-                    "start_line": 84,
-                    "end_line": 93,
-                    "symbol": "filterNonEmpty",
-                    "pristine": true
-                },
-                {
-                    "file": "src/CloneA07.php",
-                    "start_line": 100,
-                    "end_line": 109,
-                    "symbol": "filterNonEmpty",
-                    "pristine": true
-                },
-                {
-                    "file": "src/CloneA08.php",
-                    "start_line": 120,
-                    "end_line": 129,
-                    "symbol": "filterNonEmpty",
-                    "pristine": true
-                },
-                {
-                    "file": "src/CloneA09.php",
-                    "start_line": 150,
-                    "end_line": 159,
-                    "symbol": "filterNonEmpty",
-                    "pristine": true
-                },
-                {
-                    "file": "src/CloneA10.php",
-                    "start_line": 170,
-                    "end_line": 179,
-                    "symbol": "filterNonEmpty",
-                    "pristine": true
-                },
-                {
-                    "file": "src/CloneB01.php",
-                    "start_line": 7,
-                    "end_line": 16,
-                    "symbol": "filterNonEmpty",
-                    "pristine": true
-                },
-                {
-                    "file": "src/CloneB02.php",
+                    "file": "src/InvoiceCalcA02.php",
                     "start_line": 18,
-                    "end_line": 27,
-                    "symbol": "filterNonEmpty",
+                    "end_line": 42,
+                    "symbol": "computeTotals",
                     "pristine": true
                 },
                 {
-                    "file": "src/CloneB03.php",
+                    "file": "src/InvoiceCalcA03.php",
                     "start_line": 24,
+                    "end_line": 48,
+                    "symbol": "computeTotals",
+                    "pristine": true
+                },
+                {
+                    "file": "src/InvoiceCalcA04.php",
+                    "start_line": 9,
                     "end_line": 33,
-                    "symbol": "filterNonEmpty",
+                    "symbol": "computeTotals",
                     "pristine": true
                 },
                 {
-                    "file": "src/CloneB04.php",
-                    "start_line": 44,
-                    "end_line": 53,
-                    "symbol": "filterNonEmpty",
+                    "file": "src/InvoiceCalcA05.php",
+                    "start_line": 18,
+                    "end_line": 42,
+                    "symbol": "computeTotals",
                     "pristine": true
                 },
                 {
-                    "file": "src/CloneB05.php",
-                    "start_line": 50,
-                    "end_line": 59,
-                    "symbol": "filterNonEmpty",
+                    "file": "src/InvoiceCalcA06.php",
+                    "start_line": 24,
+                    "end_line": 48,
+                    "symbol": "computeTotals",
                     "pristine": true
                 },
                 {
-                    "file": "src/CloneB06.php",
-                    "start_line": 84,
-                    "end_line": 93,
-                    "symbol": "filterNonEmpty",
+                    "file": "src/InvoiceCalcA07.php",
+                    "start_line": 9,
+                    "end_line": 33,
+                    "symbol": "computeTotals",
                     "pristine": true
                 },
                 {
-                    "file": "src/CloneB07.php",
-                    "start_line": 100,
-                    "end_line": 109,
-                    "symbol": "filterNonEmpty",
+                    "file": "src/InvoiceCalcA08.php",
+                    "start_line": 18,
+                    "end_line": 42,
+                    "symbol": "computeTotals",
                     "pristine": true
                 },
                 {
-                    "file": "src/CloneB08.php",
-                    "start_line": 120,
-                    "end_line": 129,
-                    "symbol": "filterNonEmpty",
+                    "file": "src/InvoiceCalcA09.php",
+                    "start_line": 24,
+                    "end_line": 48,
+                    "symbol": "computeTotals",
                     "pristine": true
                 },
                 {
-                    "file": "src/CloneB09.php",
-                    "start_line": 150,
-                    "end_line": 159,
-                    "symbol": "filterNonEmpty",
+                    "file": "src/InvoiceCalcA10.php",
+                    "start_line": 9,
+                    "end_line": 33,
+                    "symbol": "computeTotals",
                     "pristine": true
                 },
                 {
-                    "file": "src/CloneB10.php",
-                    "start_line": 185,
-                    "end_line": 194,
-                    "symbol": "filterNonEmpty",
+                    "file": "src/InvoiceCalcB01.php",
+                    "start_line": 18,
+                    "end_line": 42,
+                    "symbol": "computeTotals",
+                    "pristine": true
+                },
+                {
+                    "file": "src/InvoiceCalcB02.php",
+                    "start_line": 24,
+                    "end_line": 48,
+                    "symbol": "computeTotals",
+                    "pristine": true
+                },
+                {
+                    "file": "src/InvoiceCalcB03.php",
+                    "start_line": 9,
+                    "end_line": 33,
+                    "symbol": "computeTotals",
+                    "pristine": true
+                },
+                {
+                    "file": "src/InvoiceCalcB04.php",
+                    "start_line": 18,
+                    "end_line": 42,
+                    "symbol": "computeTotals",
+                    "pristine": true
+                },
+                {
+                    "file": "src/InvoiceCalcB05.php",
+                    "start_line": 24,
+                    "end_line": 48,
+                    "symbol": "computeTotals",
+                    "pristine": true
+                },
+                {
+                    "file": "src/InvoiceCalcB06.php",
+                    "start_line": 9,
+                    "end_line": 33,
+                    "symbol": "computeTotals",
+                    "pristine": true
+                },
+                {
+                    "file": "src/InvoiceCalcB07.php",
+                    "start_line": 18,
+                    "end_line": 42,
+                    "symbol": "computeTotals",
+                    "pristine": true
+                },
+                {
+                    "file": "src/InvoiceCalcB08.php",
+                    "start_line": 24,
+                    "end_line": 48,
+                    "symbol": "computeTotals",
+                    "pristine": true
+                },
+                {
+                    "file": "src/InvoiceCalcB09.php",
+                    "start_line": 9,
+                    "end_line": 33,
+                    "symbol": "computeTotals",
+                    "pristine": true
+                },
+                {
+                    "file": "src/InvoiceCalcB10.php",
+                    "start_line": 18,
+                    "end_line": 42,
+                    "symbol": "computeTotals",
                     "pristine": true
                 }
             ],
@@ -162,15 +162,15 @@
                 "metric_based": true,
                 "semantic": true
             },
-            "notes": "F-2 multi-cluster (many carriers per cluster). K-32: scaling curves - tests whether detectors handle 20+ clone instances correctly and report all members. Clone positions vary across line 5-200 range using different scaffold depths."
+            "notes": "F-2 multi-cluster (many carriers per cluster). F-9 size inflation NOT yet implemented - uses multi-carrier approach. K-32: scaling curves - tests whether detectors handle 20+ clone instances correctly. Clone positions vary via scaffold types (method_alpha/beta/gamma) and line padding. Uses invoice_totals seed trimmed to 10 lines (subset of 24-line original)."
         }
     ],
     "non_duplicates": [
         {
             "file": "src/DistractorA.php",
-            "start_line": 9,
-            "end_line": 78,
-            "reason": "Near-miss: similar array processing vocabulary but different filtering logic",
+            "start_line": 12,
+            "end_line": 28,
+            "reason": "Near-miss: similar invoice vocabulary but different computation logic",
             "trap": true
         }
     ],

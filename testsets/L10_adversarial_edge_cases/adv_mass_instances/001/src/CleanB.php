@@ -2,67 +2,31 @@
 
 declare(strict_types=1);
 
-namespace Acme\Mass;
+namespace Acme\Billing\Clean;
 
+/**
+ * Resolves the inherited role set for a role.
+ */
 final class CleanB
 {
-    private array $data = [];
-    private bool $locked = false;
+    /** @var array<string,list<string>> */
+    private array $inherits = [
+        'admin' => ['editor', 'viewer'],
+        'editor' => ['viewer'],
+        'viewer' => [],
+    ];
 
-    public function __construct() { }
-
-    public function set(string $key, mixed $value): void
+    public function expand(string $role): array
     {
-        $this->data[$key] = $value;
+        $seen = [$role => true];
+        foreach ($this->inherits[$role] ?? [] as $child) {
+            $seen[$child] = true;
+        }
+        return array_keys($seen);
     }
 
-    public function get(string $key): mixed
+    public function isKnown(string $role): bool
     {
-        return $this->data[$key] ?? null;
-    }
-
-    public function has(string $key): bool
-    {
-        return isset($this->data[$key]);
-    }
-
-    public function delete(string $key): void
-    {
-        unset($this->data[$key]);
-    }
-
-    public function clear(): void
-    {
-        $this->data = [];
-    }
-
-    public function lock(): void
-    {
-        $this->locked = true;
-    }
-
-    public function unlock(): void
-    {
-        $this->locked = false;
-    }
-
-    public function isLocked(): bool
-    {
-        return $this->locked;
-    }
-
-    public function toArray(): array
-    {
-        return $this->data;
-    }
-
-    public function fromArray(array $data): void
-    {
-        $this->data = $data;
-    }
-
-    public function label(): string
-    {
-        return strtolower(str_replace('\\', '.', static::class));
+        return isset($this->inherits[$role]);
     }
 }

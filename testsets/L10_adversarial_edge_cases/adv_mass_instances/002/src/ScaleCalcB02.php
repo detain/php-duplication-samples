@@ -2,17 +2,23 @@
 
 declare(strict_types=1);
 
-namespace Acme\Billing\Shared;
+namespace Acme\Scale\CalcB;
 
-use RuntimeException;
-
-final class SharedCloneA2
+final class ScaleCalcB02
 {
-    private array $auditTrail = [];
-
-    public function remember(string $event): void
+    private static function betaCurrencySymbol(string $code): string
     {
-        $this->auditTrail[] = sprintf('%d:%s', count($this->auditTrail), $event);
+        return match (strtoupper($code)) {
+            'USD' => '$',
+            'EUR' => '€',
+            'GBP' => '£',
+            default => $code . ' ',
+        };
+    }
+
+    private static function betaFormatMoney(float $amount, string $code): string
+    {
+        return self::betaCurrencySymbol($code) . number_format($amount, 2);
     }
 
     public function computeTotals(array $lineItems, float $taxRate, float $discountRate): array
@@ -41,11 +47,13 @@ final class SharedCloneA2
         ];
     }
 
-    public function lastEvent(): string
+    public function label(): string
     {
-        if ($this->auditTrail === []) {
-            throw new RuntimeException('no events recorded yet');
-        }
-        return (string) end($this->auditTrail);
+        return strtolower(str_replace('\\', '.', static::class));
+    }
+
+    private function withinBounds(int $value, int $floor, int $ceiling): bool
+    {
+        return $value >= $floor && $value <= $ceiling;
     }
 }

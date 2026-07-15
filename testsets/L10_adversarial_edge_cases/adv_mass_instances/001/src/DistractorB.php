@@ -2,62 +2,33 @@
 
 declare(strict_types=1);
 
-namespace Acme\Mass;
+namespace Acme\Billing\Distract;
 
+/**
+ * Tax-rate lookup repository keyed by region code.
+ */
 final class DistractorB
 {
-    private array $records = [];
+    /** @var array<string,float> */
+    private array $rates = [
+        'US-CA' => 0.0725,
+        'US-NY' => 0.04,
+        'DE' => 0.19,
+        'GB' => 0.20,
+    ];
 
-    public function __construct() { }
-
-    public function addRecord(string $key, mixed $value): void
+    public function rateFor(string $region): float
     {
-        $this->records[$key] = $value;
+        return $this->rates[$region] ?? 0.0;
     }
 
-    public function getRecord(string $key): mixed
+    public function regions(): array
     {
-        return $this->records[$key] ?? null;
+        return array_keys($this->rates);
     }
 
-    public function hasRecord(string $key): bool
+    public function register(string $region, float $rate): void
     {
-        return isset($this->records[$key]);
-    }
-
-    public function removeRecord(string $key): void
-    {
-        unset($this->records[$key]);
-    }
-
-    public function clearRecords(): void
-    {
-        $this->records = [];
-    }
-
-    public function getRecordCount(): int
-    {
-        return count($this->records);
-    }
-
-    public function getRecordKeys(): array
-    {
-        return array_keys($this->records);
-    }
-
-    public function getRecordValues(): array
-    {
-        return array_values($this->records);
-    }
-
-    public function filterRecords(array $records): array
-    {
-        $result = [];
-        foreach ($records as $key => $value) {
-            if ($value !== null && $value !== '') {
-                $result[$key] = $value;
-            }
-        }
-        return $result;
+        $this->rates[$region] = $rate;
     }
 }

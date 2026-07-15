@@ -51,8 +51,8 @@
     },
     "interference": [
         {
-            "code": "CM-03",
-            "name": "docblock",
+            "code": "WS-03",
+            "name": "blank_inside",
             "params": {},
             "applied_to": [
                 "src/CompiledAccessB.php",
@@ -61,8 +61,8 @@
             "intensity": 1
         },
         {
-            "code": "WS-03",
-            "name": "blank_inside",
+            "code": "CM-03",
+            "name": "docblock",
             "params": {},
             "applied_to": [
                 "src/CompiledAccessB.php",
@@ -83,8 +83,8 @@
     "difficulty": {
         "score": 94,
         "requires": [
-            "comment_stripping",
             "whitespace_normalization",
+            "comment_stripping",
             "literal_abstraction"
         ]
     },

@@ -2,37 +2,31 @@
 
 declare(strict_types=1);
 
-namespace Acme\Auth\Config;
+namespace Acme\Security\Config;
 
+/**
+ * Resolves the inherited role set for a role.
+ */
 final class AuthClean
 {
-    /** @var array<string,bool> */
-    private array $enabledProviders = [
-        'local' => true,
-        'oauth' => false,
-        'saml' => false,
+    /** @var array<string,list<string>> */
+    private array $inherits = [
+        'admin' => ['editor', 'viewer'],
+        'editor' => ['viewer'],
+        'viewer' => [],
     ];
 
-    public function isProviderEnabled(string $provider): bool
+    public function expand(string $role): array
     {
-        return $this->enabledProviders[$provider] ?? false;
-    }
-
-    public function enableProvider(string $provider): void
-    {
-        if ($provider === '') {
-            return;
+        $seen = [$role => true];
+        foreach ($this->inherits[$role] ?? [] as $child) {
+            $seen[$child] = true;
         }
-        $this->enabledProviders[$provider] = true;
+        return array_keys($seen);
     }
 
-    public function disableProvider(string $provider): void
+    public function isKnown(string $role): bool
     {
-        unset($this->enabledProviders[$provider]);
-    }
-
-    public function listEnabledProviders(): array
-    {
-        return array_keys(array_filter($this->enabledProviders, fn($v) => $v));
+        return isset($this->inherits[$role]);
     }
 }

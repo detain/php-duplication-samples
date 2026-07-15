@@ -8,11 +8,6 @@ final class SharedCloneA1
 {
     public function computeTotals(array $lineItems, float $taxRate, float $discountRate): array
     {
-        // region1_A: invoice-specific setup (UNIQUE to Cluster A, ~3 lines)
-        $invoiceId = $this->generateInvoiceId();
-        $this->beginTransaction();
-
-        // SHARED MIDDLE BLOCK START (~18 lines) - IDENTICAL in Cluster A and B
         $subtotal = 0.0;
         $itemCount = 0;
         foreach ($lineItems as $item) {
@@ -27,7 +22,7 @@ final class SharedCloneA1
         $tax = round($taxable * $taxRate, 2);
         $shipping = $subtotal > 100.0 ? 0.0 : 9.99;
         $total = $taxable + $tax + $shipping;
-        $result = [
+        return [
             'subtotal' => round($subtotal, 2),
             'discount' => $discount,
             'tax' => $tax,
@@ -35,36 +30,15 @@ final class SharedCloneA1
             'total' => round($total, 2),
             'items' => $itemCount,
         ];
-        // SHARED MIDDLE BLOCK END
-
-        // region3_A: invoice-specific close (UNIQUE to Cluster A, ~3 lines)
-        $this->commitTransaction();
-        $result['invoice_id'] = $invoiceId;
-        $result['formatted'] = $this->formatForInvoice($result);
-
-        return $result;
     }
 
-    private function generateInvoiceId(): string
+    public function label(): string
     {
-        return 'INV-' . time();
+        return strtolower(str_replace('\\', '.', static::class));
     }
 
-    private function beginTransaction(): void
+    private function withinBounds(int $value, int $floor, int $ceiling): bool
     {
-        // transaction begin
-    }
-
-    private function commitTransaction(): void
-    {
-        // transaction commit
-    }
-
-    private function formatForInvoice(array $data): array
-    {
-        return [
-            'invoice_id' => $data['invoice_id'] ?? 'UNKNOWN',
-            'total' => $data['total'],
-        ];
+        return $value >= $floor && $value <= $ceiling;
     }
 }

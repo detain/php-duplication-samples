@@ -2,88 +2,44 @@
 
 declare(strict_types=1);
 
-namespace Acme\Auth\Shared;
+namespace Acme\Security\Shared;
+
+use RuntimeException;
 
 final class AccessSharedA2
 {
-    public function authorize(string $action, array $context): bool
+    private array $auditTrail = [];
+
+    public function remember(string $event): void
     {
-        // SHARED MIDDLE BLOCK START (~17 lines) - IDENTICAL in Cluster A and B
-        $identity = $this->normalizeIdentity($userId);
-        $requiredLevel = $this->computeRequiredLevel($action);
-        $grantedCount = 0;
-        $deniedCount = 0;
-        while ($requiredLevel > 0) {
-            $currentRequired = $requiredLevel & 0xF;
-            if ($this->identityHasLevel($identity, $currentRequired)) {
-                $grantedCount++;
-            } else {
-                $deniedCount++;
-            }
-            $requiredLevel >>= 4;
+        $this->auditTrail[] = sprintf('%d:%s', count($this->auditTrail), $event);
+    }
+
+    public function authorize(array $user, array $resource): bool
+    {
+        if (!isset($user['id'])) {
+            return false;
         }
-        $allGranted = $deniedCount === 0;
-        $anyGranted = $grantedCount > 0;
-        $result = $allGranted || ($anyGranted && $this->allowPartialMatch());
-        if (!$result) {
-            $this->logAccessDenied($identity, $action, $deniedCount);
+        if (($user['status'] ?? '') !== 'active') {
+            return false;
         }
-        // SHARED MIDDLE BLOCK END
-
-        // region3_A: admin audit trail (UNIQUE to Cluster A, ~3 lines)
-        $this->auditLogger->info('admin_access_check', [
-            'user_id' => $userId,
-            'action' => $action,
-            'result' => $result,
-        ]);
-
-        return $result;
-    }
-
-    private function validateAdminSession(?int $userId): ?string
-    {
-        return $userId !== null ? 'session_' . $userId : null;
-    }
-
-    private function requireAdminRole(?int $userId): void
-    {
-        if ($userId === null) {
-            throw new \RuntimeException('Admin session required');
+        if (in_array('admin', $user['roles'] ?? [], true)) {
+            return true;
         }
-    }
-
-    private function normalizeIdentity(?int $userId): string
-    {
-        return $userId !== null ? 'user:' . $userId : 'anonymous';
-    }
-
-    private function computeRequiredLevel(string $action): int
-    {
-        return match ($action) {
-            'delete' => 0x40,
-            'write' => 0x20,
-            'read' => 0x10,
-            default => 0x01,
-        };
-    }
-
-    private function identityHasLevel(string $identity, int $level): bool
-    {
-        return match ($level) {
-            0x4 => str_starts_with($identity, 'user:'),
-            0x2 => str_starts_with($identity, 'user:') || str_starts_with($identity, 'key:'),
-            0x1 => true,
-            default => false,
-        };
-    }
-
-    private function allowPartialMatch(): bool
-    {
+        if (($resource['ownerId'] ?? null) === $user['id']) {
+            return true;
+        }
+        if (in_array($resource['id'] ?? '', $user['grants'] ?? [], true)) {
+            return true;
+        }
         return false;
     }
 
-    private function logAccessDenied(string $identity, string $action, int $deniedCount): void
+    public function lastEvent(): string
     {
-        // log denial
+        if ($this->auditTrail === []) {
+            throw new RuntimeException('no events recorded yet');
+        }
+        return (string) end($this->auditTrail);
     }
 }

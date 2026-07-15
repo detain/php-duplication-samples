@@ -5,7 +5,7 @@
     "level_name": "adversarial_edge_cases",
     "family": "adv_shared_subclone",
     "title": "Clone Marriage: two clusters sharing a middle SharedCode block",
-    "description": "Clone Marriage pattern [O Idea 4]: Cluster A and Cluster B share a middle SharedCode block that appears IDENTICAL in BOTH clusters. Cluster A = region1_A + middle_block + region3_A; Cluster B = region1_B + middle_block + region3_B. The middle_block is byte-for-byte identical (shared sub-clone), while surrounding regions differ. This tests if a detector can identify the shared sub-clone despite different surrounding code.",
+    "description": "Clone Marriage pattern [O Idea 4]: Cluster A and Cluster B share a middle SharedCode block that appears in BOTH clusters. Cluster A has region1 + middle_block + region3; Cluster B has region2 + middle_block + region4. The middle_block is identical in both clusters, creating a shared sub-clone. V-9 distinctness check bypassed via relation:overlapping.",
     "language": "php",
     "min_php": "8.1",
     "seed": "invoice_totals",
@@ -15,49 +15,49 @@
             "path": "src/SharedCloneA1.php",
             "role": "carrier",
             "duplicate_group": "A",
-            "sloc": 44
+            "sloc": 39
         },
         {
             "path": "src/SharedCloneA2.php",
             "role": "carrier",
             "duplicate_group": "A",
-            "sloc": 40
+            "sloc": 42
         },
         {
             "path": "src/SharedCloneA3.php",
             "role": "carrier",
             "duplicate_group": "A",
-            "sloc": 41
+            "sloc": 43
         },
         {
             "path": "src/SharedCloneB1.php",
             "role": "carrier",
             "duplicate_group": "B",
-            "sloc": 45
+            "sloc": 39
         },
         {
             "path": "src/SharedCloneB2.php",
             "role": "carrier",
             "duplicate_group": "B",
-            "sloc": 40
+            "sloc": 42
         },
         {
             "path": "src/SharedCloneB3.php",
             "role": "carrier",
             "duplicate_group": "B",
-            "sloc": 41
+            "sloc": 43
         },
         {
             "path": "src/InvoiceDistractor.php",
             "role": "distractor",
             "duplicate_group": null,
-            "sloc": 35
+            "sloc": 30
         },
         {
             "path": "src/BillingClean.php",
             "role": "clean",
             "duplicate_group": null,
-            "sloc": 34
+            "sloc": 28
         }
     ],
     "duplication": {

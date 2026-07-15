@@ -11,40 +11,29 @@
                 "controlflow",
                 "identifiers"
             ],
-            "token_hash": "b2c3d4e5f6a78901",
-            "normalized_hash": "123456789abcdef0",
+            "token_hash": "5cd8e7841ecf7c41",
+            "normalized_hash": "89e09fba7eb77dcb",
             "members": [
                 {
                     "file": "src/AccessSharedA1.php",
                     "start_line": 9,
-                    "end_line": 33,
+                    "end_line": 27,
                     "symbol": "authorize",
-                    "pristine": true,
-                    "region1_lines": "10-13",
-                    "middle_block_lines": "14-31",
-                    "region3_lines": "32-34"
+                    "pristine": true
                 },
                 {
                     "file": "src/AccessSharedA2.php",
-                    "start_line": 12,
-                    "end_line": 31,
+                    "start_line": 18,
+                    "end_line": 34,
                     "symbol": "authorize",
-                    "pristine": false,
-                    "head_trim": 2,
-                    "region1_lines": "10-11 (trimmed)",
-                    "middle_block_lines": "12-29",
-                    "region3_lines": "30-32"
+                    "pristine": false
                 },
                 {
                     "file": "src/AccessSharedA3.php",
-                    "start_line": 9,
-                    "end_line": 31,
+                    "start_line": 24,
+                    "end_line": 42,
                     "symbol": "authorize",
-                    "pristine": false,
-                    "tail_trim": 2,
-                    "region1_lines": "10-13",
-                    "middle_block_lines": "14-31",
-                    "region3_lines": "32 (trimmed to 32)"
+                    "pristine": false
                 }
             ],
             "detection_expectation": {
@@ -54,7 +43,7 @@
                 "metric_based": false,
                 "semantic": true
             },
-            "notes": "Clone Marriage [O Idea 4]: Cluster A and B share IDENTICAL middle_block (lines 14-31 in A1, lines 15-32 in B1). Cluster A has region1_A (admin permission setup) and region3_A (admin audit trail). Cluster B has region1_B (api key setup) and region3_B (api key validation). The surrounding regions are DIFFERENT between A and B, but middle_block is byte-for-byte identical - the shared sub-clone."
+            "notes": "O Idea 4 Clone Marriage variant. Uses access_guard seed to test shared sub-clone topology in auth code context."
         },
         {
             "id": "B",
@@ -65,40 +54,29 @@
                 "controlflow",
                 "identifiers"
             ],
-            "token_hash": "b2c3d4e5f6a78901",
-            "normalized_hash": "123456789abcdef0",
+            "token_hash": "5cd8e7841ecf7c41",
+            "normalized_hash": "89e09fba7eb77dcb",
             "members": [
                 {
                     "file": "src/AccessSharedB1.php",
                     "start_line": 9,
-                    "end_line": 34,
+                    "end_line": 27,
                     "symbol": "authorize",
-                    "pristine": true,
-                    "region1_lines": "10-14",
-                    "middle_block_lines": "15-32",
-                    "region3_lines": "33-36"
+                    "pristine": true
                 },
                 {
                     "file": "src/AccessSharedB2.php",
-                    "start_line": 15,
-                    "end_line": 32,
+                    "start_line": 18,
+                    "end_line": 34,
                     "symbol": "authorize",
-                    "pristine": false,
-                    "head_trim": 2,
-                    "region1_lines": "10-14 (trimmed)",
-                    "middle_block_lines": "15-32 (same lines as B1)",
-                    "region3_lines": "33-35"
+                    "pristine": false
                 },
                 {
                     "file": "src/AccessSharedB3.php",
-                    "start_line": 9,
-                    "end_line": 32,
+                    "start_line": 24,
+                    "end_line": 42,
                     "symbol": "authorize",
-                    "pristine": false,
-                    "tail_trim": 2,
-                    "region1_lines": "10-14",
-                    "middle_block_lines": "15-32",
-                    "region3_lines": "33-34 (trimmed)"
+                    "pristine": false
                 }
             ],
             "detection_expectation": {
@@ -108,15 +86,15 @@
                 "metric_based": false,
                 "semantic": true
             },
-            "notes": "Clone Marriage [O Idea 4]: Cluster B shares IDENTICAL middle_block with Cluster A (lines 15-32 in B1 = lines 14-31 in A1). region1_B (api key setup) and region3_B (api key validation) differ from Cluster A's regions. The shared middle_block is the key test case for detecting shared sub-clones."
+            "notes": "O Idea 4 Clone Marriage variant. Uses access_guard seed to test shared sub-clone topology in auth code context."
         }
     ],
     "non_duplicates": [
         {
             "file": "src/AuthDistractor.php",
             "start_line": 12,
-            "end_line": 29,
-            "reason": "Near-miss: similar authorization vocabulary (permission, role, check) but different permission model (RBAC vs ABAC) and different algorithm structure.",
+            "end_line": 27,
+            "reason": "Near-miss: similar authorization vocabulary but different permission model",
             "trap": true
         }
     ],
@@ -124,15 +102,5 @@
         "line_tolerance": 2,
         "member_jaccard_min": 0.6,
         "min_members_for_credit": 2
-    },
-    "shared_subclone_verification": {
-        "middle_block_identical": true,
-        "middle_block_start_line_A1": 14,
-        "middle_block_end_line_A1": 31,
-        "middle_block_start_line_B1": 15,
-        "middle_block_end_line_B1": 32,
-        "middle_block_line_count": 18,
-        "region1_differs": true,
-        "region3_differs": true
     }
 }

@@ -4,76 +4,31 @@ declare(strict_types=1);
 
 namespace Acme\Scale\Distract;
 
+/**
+ * Summarises revenue, cost and margin for a set of invoice line items.
+ */
 final class DistractorX
 {
-    public function process(string $content, array $config = []): array
+    public function summarizeMargins(array $lineItems, float $costRate): array
     {
-        $delimiter = $config['delimiter'] ?? ',';
-        $hasHeader = $config['has_header'] ?? true;
-        $trim = $config['trim'] ?? true;
-
-        $lines = explode("\n", trim($content));
-        if (empty($lines)) {
-            return [];
+        $revenue = 0.0;
+        $cost = 0.0;
+        foreach ($lineItems as $item) {
+            $line = (float) $item['qty'] * (float) $item['unitPrice'];
+            $revenue += $line;
+            $cost += $line * $costRate;
         }
-
-        $header = null;
-        $rows = [];
-
-        foreach ($lines as $index => $line) {
-            if ($trim) {
-                $line = trim($line);
-            }
-            if ($line === '') {
-                continue;
-            }
-
-            $columns = str_getcsv($line, $delimiter);
-            if ($trim) {
-                $columns = array_map('trim', $columns);
-            }
-
-            if ($hasHeader && $index === 0) {
-                $header = $columns;
-                continue;
-            }
-
-            if ($header !== null) {
-                $row = [];
-                foreach ($header as $i => $colName) {
-                    $row[$colName] = $columns[$i] ?? null;
-                }
-                $rows[] = $row;
-            } else {
-                $rows[] = $columns;
-            }
-        }
-
-        return $rows;
+        $margin = $revenue - $cost;
+        $ratio = $revenue > 0.0 ? $margin / $revenue : 0.0;
+        return [
+            'revenue' => round($revenue, 2),
+            'margin' => round($margin, 2),
+            'ratio' => round($ratio, 4),
+        ];
     }
 
-    public function toCsv(array $data, array $config = []): string
+    public function currencyCode(): string
     {
-        $delimiter = $config['delimiter'] ?? ',';
-        $includeHeader = $config['include_header'] ?? true;
-
-        if (empty($data)) {
-            return '';
-        }
-
-        $lines = [];
-        $firstRow = $data[0];
-        $columns = is_array($firstRow) ? array_keys($firstRow) : range(0, count($firstRow) - 1);
-
-        if ($includeHeader && is_array($firstRow)) {
-            $lines[] = implode($delimiter, array_map(fn($c) => '"' . str_replace('"', '""', $c) . '"', $columns));
-        }
-
-        foreach ($data as $row) {
-            $values = is_array($row) ? array_values($row) : $row;
-            $lines[] = implode($delimiter, array_map(fn($v) => '"' . str_replace('"', '""', (string) $v) . '"', $values));
-        }
-
-        return implode("\n", $lines);
+        return 'USD';
     }
 }
