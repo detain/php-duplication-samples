@@ -6,6 +6,7 @@ A comprehensive reference corpus and benchmark suite for PHP code duplication pa
 
 - [Overview](#overview)
 - [Features](#features)
+- [Corpus Explorer (Web UI)](#corpus-explorer-web-ui)
 - [Directory Structure](#directory-structure)
 - [Duplication Categories](#duplication-categories)
 - [Benchmark Tools](#benchmark-tools)
@@ -37,6 +38,36 @@ The corpus contains **54 distinct categories** of duplication patterns, ranging 
 - **Multiple Detection Tools** - Support for phpcpd, jscpd, PMD-CPD, Simian, and phpdup
 - **Ground Truth Scoring** - Synthetic corpus with known duplication topology for precise measurement
 - **PHP 8.1+ Ready** - Modern PHP patterns and strict typing throughout
+- **Corpus Explorer** - Browser-based UI for browsing and filtering the test corpus
+
+---
+
+## Corpus Explorer (Web UI)
+
+A browser-based explorer for viewing and filtering the test corpus.
+
+### Quick Start
+```bash
+# Open directly in browser (no server needed)
+open public_html/index.html
+
+# Or serve locally
+python3 -m http.server 8000 -d public_html
+# Then visit http://localhost:8000
+```
+
+### Features
+- Filter by level, family, clone type, difficulty
+- Full-text search across titles, descriptions, seeds
+- Syntax-highlighted code snippets
+- Deep linking via URL (shareable filter views)
+
+### Rebuilding Data
+If you modify test sets, regenerate the data file:
+```bash
+php scripts/generate-corpus-data.php
+php scripts/extract-snippets.php
+```
 
 ---
 

@@ -1,0 +1,1344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PHP Duplication Corpus Explorer</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #1a1a2e;
+      --bg-secondary: #16213e;
+      --bg-tertiary: #0f3460;
+      --border-color: #0f3460;
+      --text-primary: #eaeaea;
+      --text-secondary: #a0a0a0;
+      --accent: #e94560;
+      --accent-hover: #ff6b6b;
+      --success: #4ecca3;
+      --warning: #ffc107;
+      --info: #17a2b8;
+      --shadow: rgba(0, 0, 0, 0.3);
+      --transition: 0.2s ease;
+      --sidebar-width: 280px;
+      --header-height: 140px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    body.modal-open {
+      overflow: hidden;
+    }
+
+    /* Header */
+    .header {
+      background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+      padding: 1.5rem 2rem;
+      border-bottom: 1px solid var(--border-color);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header h1 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      background: linear-gradient(90deg, var(--accent), #ff8a80);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .header-controls {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .search-input {
+      flex: 1;
+      padding: 0.75rem 1rem;
+      background: var(--bg-primary);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      color: var(--text-primary);
+      font-size: 1rem;
+      transition: var(--transition);
+    }
+
+    .search-input:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(233, 69, 96, 0.2);
+    }
+
+    .search-input::placeholder {
+      color: var(--text-secondary);
+    }
+
+    .reset-btn {
+      padding: 0.75rem 1.5rem;
+      background: transparent;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: var(--transition);
+      white-space: nowrap;
+    }
+
+    .reset-btn:hover {
+      background: var(--accent);
+      color: var(--text-primary);
+    }
+
+    /* Layout */
+    .layout {
+      display: flex;
+      min-height: calc(100vh - var(--header-height));
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: var(--sidebar-width);
+      background: var(--bg-secondary);
+      border-right: 1px solid var(--border-color);
+      padding: 1.5rem;
+      position: sticky;
+      top: var(--header-height);
+      height: calc(100vh - var(--header-height));
+      overflow-y: auto;
+      flex-shrink: 0;
+    }
+
+    .sidebar-section {
+      margin-bottom: 1.5rem;
+    }
+
+    .sidebar-section h3 {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-secondary);
+      margin-bottom: 0.75rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .filter-count {
+      background: var(--accent);
+      color: white;
+      font-size: 0.7rem;
+      padding: 0.15rem 0.5rem;
+      border-radius: 10px;
+      font-weight: 600;
+    }
+
+    .checkbox-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .checkbox-label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      padding: 0.35rem 0;
+      font-size: 0.9rem;
+      transition: var(--transition);
+    }
+
+    .checkbox-label:hover {
+      color: var(--accent);
+    }
+
+    .checkbox-label input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      accent-color: var(--accent);
+      cursor: pointer;
+    }
+
+    .family-filter {
+      margin-top: 0.5rem;
+    }
+
+    .family-search {
+      width: 100%;
+      padding: 0.5rem;
+      background: var(--bg-primary);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      color: var(--text-primary);
+      font-size: 0.85rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .family-search:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    .family-list {
+      max-height: 200px;
+      overflow-y: auto;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 0.5rem;
+      background: var(--bg-primary);
+    }
+
+    /* Difficulty Range */
+    .difficulty-range {
+      width: 100%;
+      margin-top: 0.5rem;
+    }
+
+    .difficulty-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      margin-bottom: 0.25rem;
+    }
+
+    .difficulty-values {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      margin-bottom: 0.5rem;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      height: 6px;
+      -webkit-appearance: none;
+      background: var(--bg-primary);
+      border-radius: 3px;
+      cursor: pointer;
+    }
+
+    .difficulty-inputs {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .difficulty-input {
+      width: 50px;
+      padding: 0.35rem;
+      background: var(--bg-primary);
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      color: var(--text-primary);
+      font-size: 0.85rem;
+      text-align: center;
+    }
+
+    .difficulty-input:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 16px;
+      height: 16px;
+      background: var(--accent);
+      border-radius: 50%;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    input[type="range"]::-webkit-slider-thumb:hover {
+      transform: scale(1.2);
+    }
+
+    input[type="range"]::-moz-range-thumb {
+      -moz-appearance: none;
+      width: 16px;
+      height: 16px;
+      background: var(--accent);
+      border-radius: 50%;
+      cursor: pointer;
+      border: none;
+    }
+
+    input[type="range"]::-moz-range-track {
+      height: 6px;
+      background: var(--bg-primary);
+      border-radius: 3px;
+    }
+
+    /* Main Content */
+    .main-content {
+      flex: 1;
+      padding: 1.5rem 2rem;
+      min-width: 0;
+    }
+
+    .results-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .results-count {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+    }
+
+    .results-count span {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    /* Card Grid */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+
+    /* Card */
+    .card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 1.25rem;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px var(--shadow);
+      border-color: var(--accent);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 0.75rem;
+    }
+
+    .level-badge {
+      display: inline-block;
+      padding: 0.25rem 0.6rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .level-badge.baseline { background: #4a4a6a; color: #e0e0e0; }
+    .level-badge.trivial { background: #2d5a3d; color: #7fff7f; }
+    .level-badge.easy { background: #1e5f5f; color: #7fdfff; }
+    .level-badge.medium { background: #5f4f1e; color: #ffdf7f; }
+    .level-badge.hard { background: #5f1e1e; color: #ff7f7f; }
+    .level-badge.very_hard { background: #4a1e5f; color: #df7fff; }
+
+    .clone-badge {
+      font-size: 0.7rem;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-weight: 500;
+      text-transform: uppercase;
+    }
+
+    .clone-badge.type-1 { background: #1e3a5f; color: #7fb8ff; }
+    .clone-badge.type-2 { background: #3a1e5f; color: #bf7fff; }
+    .clone-badge.type-3 { background: #5f1e3a; color: #ff7fbf; }
+    .clone-badge.none { background: #3a3a3a; color: #a0a0a0; }
+
+    .family-name {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      margin-bottom: 0.25rem;
+    }
+
+    .card-title {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      line-height: 1.4;
+    }
+
+    .difficulty-section {
+      margin-bottom: 0.75rem;
+    }
+
+    .difficulty-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      margin-bottom: 0.25rem;
+    }
+
+    .difficulty-bar {
+      height: 6px;
+      background: var(--bg-primary);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .difficulty-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--success), var(--warning), var(--accent));
+      border-radius: 3px;
+      transition: width 0.3s ease;
+    }
+
+    .code-preview {
+      background: #2d2d44;
+      border-radius: 6px;
+      padding: 0.75rem;
+      margin-bottom: 0.75rem;
+      overflow: hidden;
+      font-size: 0.75rem;
+      line-height: 1.5;
+      max-height: 120px;
+    }
+
+    .code-preview pre {
+      margin: 0;
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+
+    .code-preview code {
+      font-family: 'Fira Code', 'Consolas', monospace;
+    }
+
+    .file-counts {
+      display: flex;
+      gap: 1rem;
+      font-size: 0.8rem;
+    }
+
+    .file-count {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .file-count-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+
+    .file-count-dot.carrier { background: var(--accent); }
+    .file-count-dot.distractor { background: var(--warning); }
+    .file-count-dot.clean { background: var(--success); }
+
+    /* Loading Skeleton */
+    .skeleton {
+      background: linear-gradient(90deg, var(--bg-secondary) 25%, var(--bg-tertiary) 50%, var(--bg-secondary) 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.5s infinite;
+      border-radius: 4px;
+    }
+
+    .skeleton-card {
+      height: 320px;
+      border-radius: 8px;
+    }
+
+    @keyframes shimmer {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    /* Modal */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.8);
+      z-index: 1000;
+      overflow-y: auto;
+      padding: 2rem;
+      backdrop-filter: blur(4px);
+    }
+
+    .modal-overlay.active {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+    }
+
+    .modal {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      width: 100%;
+      max-width: 800px;
+      margin: 2rem auto;
+      position: relative;
+      animation: modalSlideIn 0.3s ease;
+    }
+
+    @keyframes modalSlideIn {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: transparent;
+      border: none;
+      color: var(--text-secondary);
+      font-size: 1.5rem;
+      cursor: pointer;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      transition: var(--transition);
+      z-index: 10;
+    }
+
+    .modal-close:hover {
+      background: var(--bg-tertiary);
+      color: var(--accent);
+    }
+
+    .modal-header {
+      padding: 1.5rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .modal-badges {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .modal-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .modal-description {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    .modal-meta {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1rem;
+      padding: 1rem 1.5rem;
+      background: var(--bg-primary);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .meta-item {
+      text-align: center;
+    }
+
+    .meta-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-secondary);
+      margin-bottom: 0.25rem;
+    }
+
+    .meta-value {
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .modal-code {
+      padding: 1.5rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .modal-code h4 {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-secondary);
+      margin-bottom: 0.75rem;
+    }
+
+    .modal-code pre {
+      background: #2d2d44;
+      border-radius: 8px;
+      padding: 1rem;
+      overflow-x: auto;
+      max-height: 300px;
+    }
+
+    .modal-code code {
+      font-family: 'Fira Code', 'Consolas', monospace;
+      font-size: 0.85rem;
+      line-height: 1.6;
+    }
+
+    .modal-files {
+      padding: 1.5rem;
+    }
+
+    .modal-files h4 {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-secondary);
+      margin-bottom: 0.75rem;
+    }
+
+    .file-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .file-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.6rem 0.8rem;
+      background: var(--bg-primary);
+      border-radius: 6px;
+      font-size: 0.85rem;
+    }
+
+    .file-path {
+      font-family: 'Fira Code', monospace;
+      color: var(--text-primary);
+    }
+
+    .file-role {
+      font-size: 0.7rem;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-weight: 500;
+      text-transform: uppercase;
+    }
+
+    .file-role.carrier { background: var(--accent); color: white; }
+    .file-role.distractor { background: var(--warning); color: #333; }
+    .file-role.clean { background: var(--success); color: #1a1a2e; }
+
+    /* Error State */
+    .error-message {
+      text-align: center;
+      padding: 3rem;
+      color: var(--accent);
+    }
+
+    .error-message h2 {
+      margin-bottom: 1rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .layout {
+        flex-direction: column;
+      }
+
+      .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+        top: 0;
+        border-right: none;
+        border-bottom: 1px solid var(--border-color);
+      }
+
+      .header {
+        padding: 1rem;
+      }
+
+      .header h1 {
+        font-size: 1.25rem;
+      }
+
+      .header-controls {
+        flex-direction: column;
+      }
+
+      .search-input {
+        width: 100%;
+      }
+
+      .main-content {
+        padding: 1rem;
+      }
+
+      .card-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .modal {
+        margin: 1rem;
+        max-height: calc(100vh - 2rem);
+        overflow-y: auto;
+      }
+
+      .modal-overlay {
+        padding: 0.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <h1>PHP Duplication Corpus Explorer</h1>
+    <div class="header-controls">
+      <input type="text" class="search-input" id="searchInput" placeholder="Search sets...">
+      <button class="reset-btn" id="resetBtn">Reset Filters</button>
+    </div>
+  </header>
+
+  <div class="layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <!-- Level Filter -->
+      <div class="sidebar-section">
+        <h3>
+          Level
+          <span class="filter-count" id="levelFilterCount">0</span>
+        </h3>
+        <div class="checkbox-group" id="levelFilters"></div>
+      </div>
+
+      <!-- Family Filter -->
+      <div class="sidebar-section">
+        <h3>
+          Family
+          <span class="filter-count" id="familyFilterCount">0</span>
+        </h3>
+        <div class="family-filter">
+          <input type="text" class="family-search" id="familySearch" placeholder="Search families...">
+          <div class="family-list" id="familyFilters"></div>
+        </div>
+      </div>
+
+      <!-- Clone Type Filter -->
+      <div class="sidebar-section">
+        <h3>
+          Clone Type
+          <span class="filter-count" id="cloneFilterCount">0</span>
+        </h3>
+        <div class="checkbox-group" id="cloneFilters"></div>
+      </div>
+
+      <!-- Difficulty Filter -->
+      <div class="sidebar-section">
+        <h3>
+          Difficulty
+          <span class="filter-count" id="difficultyFilterCount">0</span>
+        </h3>
+        <div class="difficulty-range">
+          <div class="difficulty-labels">
+            <span>0</span>
+            <span>100</span>
+          </div>
+          <div class="difficulty-inputs">
+            <input type="number" id="difficultyMin" min="0" max="100" value="0" class="difficulty-input">
+            <input type="range" id="difficultySlider" min="0" max="100" value="100">
+            <input type="number" id="difficultyMax" min="0" max="100" value="100" class="difficulty-input">
+          </div>
+          <div class="difficulty-values">
+            <span id="difficultyMinValue">0</span>
+            <span id="difficultyMaxValue">100</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <div class="results-header">
+        <div class="results-count" id="resultsCount">Showing <span>0</span> of <span>0</span> sets</div>
+      </div>
+      <div class="card-grid" id="cardGrid">
+        <!-- Loading skeletons -->
+        <div class="skeleton skeleton-card"></div>
+        <div class="skeleton skeleton-card"></div>
+        <div class="skeleton skeleton-card"></div>
+        <div class="skeleton skeleton-card"></div>
+        <div class="skeleton skeleton-card"></div>
+        <div class="skeleton skeleton-card"></div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal-overlay" id="modalOverlay" role="presentation">
+    <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button class="modal-close" onclick="closeModal()" aria-label="Close modal">&times;</button>
+      <div class="modal-header">
+        <div class="modal-badges" id="modalBadges"></div>
+        <h2 class="modal-title" id="modalTitle"></h2>
+        <p class="modal-description" id="modalDescription"></p>
+      </div>
+      <div class="modal-meta" id="modalMeta"></div>
+      <div class="modal-code">
+        <h4>Code Snippet</h4>
+        <pre><code class="language-php" id="modalCode"></code></pre>
+      </div>
+      <div class="modal-files">
+        <h4>Files (<span id="fileCount">0</span>)</h4>
+        <div class="file-list" id="fileList"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-php.min.js"></script>
+  <script>
+    // State
+    let allSets = [];
+    let filteredSets = [];
+    let filterState = {
+      search: "",
+      levels: new Set(),
+      families: new Set(),
+      cloneTypes: new Set(),
+      difficultyRange: [0, 100],
+      seeds: new Set()
+    };
+
+    // DOM Elements
+    const searchInput = document.getElementById('searchInput');
+    const resetBtn = document.getElementById('resetBtn');
+    const levelFilters = document.getElementById('levelFilters');
+    const familyFilters = document.getElementById('familyFilters');
+    const cloneFilters = document.getElementById('cloneFilters');
+    const difficultySlider = document.getElementById('difficultySlider');
+    const difficultyMin = document.getElementById('difficultyMin');
+    const difficultyMax = document.getElementById('difficultyMax');
+    const difficultyMinValue = document.getElementById('difficultyMinValue');
+    const difficultyMaxValue = document.getElementById('difficultyMaxValue');
+    const cardGrid = document.getElementById('cardGrid');
+    const resultsCount = document.getElementById('resultsCount');
+    const modalOverlay = document.getElementById('modalOverlay');
+    const modal = document.getElementById('modal');
+    const modalClose = document.getElementById('modalClose');
+    const familySearch = document.getElementById('familySearch');
+
+    // Initialize
+    async function init() {
+      try {
+        const response = await fetch('corpus-data.json');
+        if (!response.ok) throw new Error('Failed to load corpus data');
+        const data = await response.json();
+        allSets = data.sets;
+        filteredSets = [...allSets];
+        initializeFilters();
+        restoreFiltersFromUrl();
+        applyFilters();
+      } catch (error) {
+        console.error('Error loading corpus data:', error);
+        cardGrid.innerHTML = `
+          <div class="error-message">
+            <h2>Failed to Load Data</h2>
+            <p>${error.message}</p>
+          </div>
+        `;
+      }
+    }
+
+    // Initialize filters
+    function initializeFilters() {
+      // Get unique values
+      const levels = [...new Set(allSets.map(s => s.level))].sort((a, b) => a - b);
+      const families = [...new Set(allSets.map(s => s.family))].sort();
+      const cloneTypes = [...new Set(allSets.map(s => s.clone_type))].sort();
+
+      // Level checkboxes
+      levelFilters.innerHTML = levels.map(level => `
+        <label class="checkbox-label">
+          <input type="checkbox" value="${level}" data-filter="level">
+          <span>L${level.toString().padStart(2, '0')}</span>
+        </label>
+      `).join('');
+
+      // Family checkboxes
+      familyFilters.innerHTML = families.map(family => `
+        <label class="checkbox-label">
+          <input type="checkbox" value="${escapeHtml(family)}" data-filter="family">
+          <span>${escapeHtml(family)}</span>
+        </label>
+      `).join('');
+
+      // Clone type checkboxes
+      cloneFilters.innerHTML = cloneTypes.map(type => `
+        <label class="checkbox-label">
+          <input type="checkbox" value="${escapeHtml(type)}" data-filter="cloneType">
+          <span>${type === 'none' ? 'None' : type.replace('type-', 'Type ')}</span>
+        </label>
+      `).join('');
+
+      // Add event listeners
+      document.querySelectorAll('#levelFilters input, #familyFilters input, #cloneFilters input').forEach(cb => {
+        cb.addEventListener('change', handleFilterChange);
+      });
+
+      difficultySlider.addEventListener('input', (e) => {
+        difficultyMax.value = e.target.value;
+        handleDifficultyChange(e);
+      });
+      difficultyMin.addEventListener('input', handleDifficultyChange);
+      difficultyMax.addEventListener('input', handleDifficultyChange);
+      searchInput.addEventListener('input', debounce(handleSearchChange, 300));
+      familySearch.addEventListener('input', debounce(handleFamilySearch, 200));
+      resetBtn.addEventListener('click', resetFilters);
+      modalOverlay.addEventListener('click', (e) => {
+        if (e.target === modalOverlay) closeModal();
+      });
+      cardGrid.addEventListener('click', (e) => {
+        const card = e.target.closest('.card');
+        if (card) {
+          openModal(card.dataset.setId);
+        }
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modalOverlay.classList.contains('active')) {
+          closeModal();
+        }
+      });
+    }
+
+    // Filter handling
+    function handleFilterChange(e) {
+      const { value, dataset, checked } = e.target;
+      const filterType = dataset.filter;
+
+      if (filterType === 'level') {
+        if (checked) filterState.levels.add(parseInt(value));
+        else filterState.levels.delete(parseInt(value));
+      } else if (filterType === 'family') {
+        if (checked) filterState.families.add(value);
+        else filterState.families.delete(value);
+      } else if (filterType === 'cloneType') {
+        if (checked) filterState.cloneTypes.add(value);
+        else filterState.cloneTypes.delete(value);
+      }
+
+      applyFilters();
+    }
+
+    function handleDifficultyChange(e) {
+      const min = parseInt(difficultyMin.value);
+      const max = parseInt(difficultyMax.value);
+      filterState.difficultyRange = [min, max];
+      difficultyMinValue.textContent = min;
+      difficultyMaxValue.textContent = max;
+      applyFilters();
+    }
+
+    function handleSearchChange(e) {
+      filterState.search = e.target.value.toLowerCase();
+      applyFilters();
+    }
+
+    function handleFamilySearch(e) {
+      const search = e.target.value.toLowerCase();
+      const checkboxes = familyFilters.querySelectorAll('.checkbox-label');
+      checkboxes.forEach(label => {
+        const text = label.textContent.toLowerCase();
+        label.style.display = text.includes(search) ? 'flex' : 'none';
+      });
+    }
+
+    function applyFilters() {
+      filteredSets = allSets.filter(set => {
+        // Search: match against title + description + seed + family
+        if (filterState.search) {
+          const q = filterState.search.toLowerCase();
+          if (!set.title.toLowerCase().includes(q) &&
+              !set.description.toLowerCase().includes(q) &&
+              !set.seed.toLowerCase().includes(q) &&
+              !set.family.toLowerCase().includes(q)) {
+            return false;
+          }
+        }
+
+        // Level filter
+        if (filterState.levels.size > 0 && !filterState.levels.has(set.level)) {
+          return false;
+        }
+
+        // Family filter
+        if (filterState.families.size > 0 && !filterState.families.has(set.family)) {
+          return false;
+        }
+
+        // Clone type filter
+        if (filterState.cloneTypes.size > 0 && !filterState.cloneTypes.has(set.clone_type)) {
+          return false;
+        }
+
+        // Difficulty range
+        if (set.difficulty_score < filterState.difficultyRange[0] ||
+            set.difficulty_score > filterState.difficultyRange[1]) {
+          return false;
+        }
+
+        return true;
+      });
+
+      updateFilterCounts();
+      renderCards();
+      serializeFiltersToUrl();
+    }
+
+    function serializeFiltersToUrl() {
+      const params = new URLSearchParams();
+
+      if (filterState.search) {
+        params.set('q', filterState.search);
+      }
+      if (filterState.levels.size > 0) {
+        params.set('levels', [...filterState.levels].join(','));
+      }
+      if (filterState.families.size > 0) {
+        params.set('families', [...filterState.families].join(','));
+      }
+      if (filterState.cloneTypes.size > 0) {
+        params.set('types', [...filterState.cloneTypes].join(','));
+      }
+      if (filterState.difficultyRange[0] > 0 || filterState.difficultyRange[1] < 100) {
+        params.set('diff', `${filterState.difficultyRange[0]}-${filterState.difficultyRange[1]}`);
+      }
+
+      const newUrl = params.toString() ? `?${params.toString()}` : window.location.pathname;
+      history.replaceState(null, '', newUrl);
+    }
+
+    function updateFilterCounts() {
+      document.getElementById('levelFilterCount').textContent = filterState.levels.size;
+      document.getElementById('familyFilterCount').textContent = filterState.families.size;
+      document.getElementById('cloneFilterCount').textContent = filterState.cloneTypes.size;
+      const [min, max] = filterState.difficultyRange;
+      document.getElementById('difficultyFilterCount').textContent =
+        (min > 0 || max < 100) ? '1' : '0';
+    }
+
+    function restoreFiltersFromUrl() {
+      const params = new URLSearchParams(window.location.search);
+
+      const q = params.get('q');
+      if (q) {
+        filterState.search = q;
+        searchInput.value = q;
+      }
+
+      const levels = params.get('levels');
+      if (levels) {
+        levels.split(',').forEach(l => filterState.levels.add(parseInt(l)));
+      }
+
+      const families = params.get('families');
+      if (families) {
+        families.split(',').forEach(f => filterState.families.add(f));
+      }
+
+      const types = params.get('types');
+      if (types) {
+        types.split(',').forEach(t => filterState.cloneTypes.add(t));
+      }
+
+      const diff = params.get('diff');
+      if (diff) {
+        const [min, max] = diff.split('-').map(Number);
+        filterState.difficultyRange = [min, max];
+        difficultyMin.value = min;
+        difficultyMax.value = max;
+        difficultyMinValue.textContent = min;
+        difficultyMaxValue.textContent = max;
+        difficultySlider.value = max;
+      }
+
+      updateFilterCheckboxesFromState();
+    }
+
+    function updateFilterCheckboxesFromState() {
+      // Update level checkboxes
+      document.querySelectorAll('#levelFilters input[data-filter="level"]').forEach(cb => {
+        cb.checked = filterState.levels.has(parseInt(cb.value));
+      });
+
+      // Update family checkboxes
+      document.querySelectorAll('#familyFilters input[data-filter="family"]').forEach(cb => {
+        cb.checked = filterState.families.has(cb.value);
+      });
+
+      // Update clone type checkboxes
+      document.querySelectorAll('#cloneFilters input[data-filter="cloneType"]').forEach(cb => {
+        cb.checked = filterState.cloneTypes.has(cb.value);
+      });
+    }
+
+    function resetFilters() {
+      filterState.search = "";
+      filterState.levels.clear();
+      filterState.families.clear();
+      filterState.cloneTypes.clear();
+      filterState.difficultyRange = [0, 100];
+      filterState.seeds.clear();
+
+      // Reset UI elements
+      searchInput.value = "";
+      difficultyMin.value = 0;
+      difficultyMax.value = 100;
+      difficultySlider.value = 100;
+      difficultyMinValue.textContent = "0";
+      difficultyMaxValue.textContent = "100";
+      familySearch.value = "";
+
+      document.querySelectorAll('#levelFilters input, #familyFilters input, #cloneFilters input').forEach(cb => cb.checked = false);
+
+      // Reset family search display
+      const checkboxes = familyFilters.querySelectorAll('.checkbox-label');
+      checkboxes.forEach(label => label.style.display = 'flex');
+
+      applyFilters();
+    }
+
+    // Render cards
+    function renderCards() {
+      const countSpan = resultsCount.querySelectorAll('span');
+      countSpan[0].textContent = filteredSets.length;
+      countSpan[1].textContent = allSets.length;
+
+      if (filteredSets.length === 0) {
+        cardGrid.innerHTML = `
+          <div class="error-message">
+            <h2>No Sets Found</h2>
+            <p>Try adjusting your filters</p>
+          </div>
+        `;
+        return;
+      }
+
+      cardGrid.innerHTML = filteredSets.map(set => `
+        <div class="card" data-set-id="${set.set_id}">
+          <div class="card-header">
+            <span class="level-badge ${escapeHtml(set.difficulty_band)}">L${set.level.toString().padStart(2, '0')}</span>
+            <span class="clone-badge ${escapeHtml(set.clone_type)}">${set.clone_type === 'none' ? 'None' : set.clone_type.replace('type-', 'Type ')}</span>
+          </div>
+          <div class="family-name">${escapeHtml(set.family)}</div>
+          <div class="card-title">${escapeHtml(set.title)}</div>
+          <div class="difficulty-section">
+            <div class="difficulty-label">
+              <span>Difficulty</span>
+              <span>${set.difficulty_score}</span>
+            </div>
+            <div class="difficulty-bar">
+              <div class="difficulty-fill" style="width: ${set.difficulty_score}%"></div>
+            </div>
+          </div>
+          <div class="code-preview">
+            <pre><code class="language-php">${getSnippetPreview(set)}</code></pre>
+          </div>
+          <div class="file-counts">
+            ${set.num_carriers > 0 ? `
+              <div class="file-count">
+                <span class="file-count-dot carrier"></span>
+                <span>${set.num_carriers} carrier${set.num_carriers > 1 ? 's' : ''}</span>
+              </div>
+            ` : ''}
+            ${set.num_distractors > 0 ? `
+              <div class="file-count">
+                <span class="file-count-dot distractor"></span>
+                <span>${set.num_distractors} distractor${set.num_distractors > 1 ? 's' : ''}</span>
+              </div>
+            ` : ''}
+            ${set.num_clean > 0 ? `
+              <div class="file-count">
+                <span class="file-count-dot clean"></span>
+                <span>${set.num_clean} clean</span>
+              </div>
+            ` : ''}
+          </div>
+        </div>
+      `).join('');
+
+      // Highlight code
+      Prism.highlightAll();
+    }
+
+    // Get snippet preview (placeholder for demo)
+    function getSnippetPreview(set) {
+      // Generate a realistic PHP code preview based on the set info
+      const snippets = {
+        'none': `<?php
+// No duplication example
+class Example {
+    public function process() {
+        $data = $this->fetchData();
+        return $this->transform($data);
+    }
+}`,
+        'type-1': `<?php
+// Type-1 clone (exact copy)
+class Calculator {
+    public function calculate($amount) {
+        return $amount * 1.15;
+    }
+    public function compute($value) {
+        return $value * 1.15;
+    }
+}`,
+        'type-2': `<?php
+// Type-2 clone (syntactic)
+class Pricing {
+    public function getPrice() {
+        return $this->price * 1.15;
+    }
+    public function getCost() {
+        return $this->cost * 1.18;
+    }
+}`,
+        'type-3': `<?php
+// Type-3 clone (modified)
+class DataProcessor {
+    public function process(array $data) {
+        foreach ($data as $item) {
+            if ($item->isValid()) {
+                $this->save($item);
+            }
+        }
+    }
+}`
+      };
+      return escapeHtml(snippets[set.clone_type] || snippets['none']);
+    }
+
+    // Modal
+    function openModal(setId) {
+      const set = allSets.find(s => s.set_id === setId);
+      if (!set) return;
+
+      document.getElementById('modalBadges').innerHTML = `
+        <span class="level-badge ${escapeHtml(set.difficulty_band)}">L${set.level.toString().padStart(2, '0')}</span>
+        <span class="clone-badge ${escapeHtml(set.clone_type)}">${set.clone_type === 'none' ? 'None' : set.clone_type.replace('type-', 'Type ')}</span>
+      `;
+      document.getElementById('modalTitle').textContent = set.title;
+      document.getElementById('modalDescription').textContent = set.description;
+
+      document.getElementById('modalMeta').innerHTML = `
+        <div class="meta-item">
+          <div class="meta-label">Set ID</div>
+          <div class="meta-value">${set.set_id}</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Level</div>
+          <div class="meta-value">${set.level}</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Family</div>
+          <div class="meta-value">${escapeHtml(set.family)}</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Difficulty</div>
+          <div class="meta-value">${set.difficulty_score}</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Granularity</div>
+          <div class="meta-value">${set.granularity || 'N/A'}</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Seed</div>
+          <div class="meta-value">${set.seed || 'N/A'}</div>
+        </div>
+      `;
+
+      document.getElementById('modalCode').textContent = getSnippetPreview(set);
+      document.getElementById('fileCount').textContent = set.files.length;
+
+      document.getElementById('fileList').innerHTML = set.files.map(file => `
+        <div class="file-item">
+          <span class="file-path">${escapeHtml(file.path)}</span>
+          <span class="file-role ${escapeHtml(file.role)}">${escapeHtml(file.role)}</span>
+        </div>
+      `).join('');
+
+      modalOverlay.classList.add('active');
+      document.body.classList.add('modal-open');
+
+      document.querySelector('.modal-close').focus();
+
+      Prism.highlightAll();
+    }
+
+    function closeModal() {
+      modalOverlay.classList.remove('active');
+      document.body.classList.remove('modal-open');
+    }
+
+    // Utility functions
+    function debounce(func, wait) {
+      let timeout;
+      return function executedFunction(...args) {
+        const later = () => {
+          clearTimeout(timeout);
+          func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+      };
+    }
+
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    // Start
+    init();
+  </script>
+</body>
+</html>
