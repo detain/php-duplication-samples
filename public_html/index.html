@@ -416,27 +416,6 @@
       transition: width 0.3s ease;
     }
 
-    .code-preview {
-      background: #2d2d44;
-      border-radius: 6px;
-      padding: 0.75rem;
-      margin-bottom: 0.75rem;
-      overflow: hidden;
-      font-size: 0.75rem;
-      line-height: 1.5;
-      max-height: 120px;
-    }
-
-    .code-preview pre {
-      margin: 0;
-      white-space: pre-wrap;
-      word-break: break-all;
-    }
-
-    .code-preview code {
-      font-family: 'Fira Code', 'Consolas', monospace;
-    }
-
     .file-counts {
       display: flex;
       gap: 1rem;
@@ -1175,9 +1154,6 @@
             <div class="difficulty-bar">
               <div class="difficulty-fill" style="width: ${set.difficulty_score}%"></div>
             </div>
-          </div>
-          <div class="code-preview">
-            <pre><code>${escapeHtml(getSnippetPreview(set))}</code></pre>
           </div>
           <div class="file-counts">
             ${set.num_carriers > 0 ? `
