@@ -56,27 +56,27 @@
                 "comments",
                 "identifiers"
             ],
-            "token_hash": "14ef9f81e7aa1cf4",
-            "normalized_hash": "f376687ac87fa12f",
+            "token_hash": "16b17dad1df9a1d0",
+            "normalized_hash": "16b17dad1df9a1d0",
             "members": [
                 {
                     "file": "src/SubtotalCollectorA.php",
                     "start_line": 9,
-                    "end_line": 44,
+                    "end_line": 37,
                     "symbol": "calculateTotal",
-                    "pristine": true
+                    "pristine": false
                 },
                 {
                     "file": "src/SubtotalCollectorB.php",
                     "start_line": 18,
-                    "end_line": 53,
+                    "end_line": 46,
                     "symbol": "calculateTotal",
                     "pristine": false
                 },
                 {
                     "file": "src/SubtotalCollectorC.php",
                     "start_line": 25,
-                    "end_line": 60,
+                    "end_line": 53,
                     "symbol": "calculateTotal",
                     "pristine": false
                 }

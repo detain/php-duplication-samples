@@ -24,7 +24,7 @@
                 {
                     "file": "src/SharedCloneA2.php",
                     "start_line": 18,
-                    "end_line": 40,
+                    "end_line": 42,
                     "symbol": "computeTotals",
                     "pristine": false
                 },
@@ -67,7 +67,7 @@
                 {
                     "file": "src/SharedCloneB2.php",
                     "start_line": 18,
-                    "end_line": 40,
+                    "end_line": 42,
                     "symbol": "computeTotals",
                     "pristine": false
                 },

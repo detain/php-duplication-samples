@@ -33,19 +33,19 @@
             "path": "src/ReceiptTotalerA.php",
             "role": "carrier",
             "duplicate_group": "B",
-            "sloc": 39
+            "sloc": 32
         },
         {
             "path": "src/ReceiptTotalerB.php",
             "role": "carrier",
             "duplicate_group": "B",
-            "sloc": 44
+            "sloc": 37
         },
         {
             "path": "src/ReceiptTotalerC.php",
             "role": "carrier",
             "duplicate_group": "B",
-            "sloc": 44
+            "sloc": 37
         },
         {
             "path": "src/TrustScorer.php",
@@ -89,13 +89,29 @@
                 "src/ReceiptTotalerC.php"
             ],
             "intensity": 1
+        },
+        {
+            "code": "ST-07",
+            "name": "partial_fragment",
+            "params": {
+                "head_trim": 7,
+                "tail_trim": 8
+            },
+            "applied_to": [
+                "src/ReceiptTotalerA.php",
+                "src/ReceiptTotalerB.php",
+                "src/ReceiptTotalerC.php"
+            ],
+            "intensity": 3
         }
     ],
     "difficulty": {
-        "score": 91,
+        "score": 100,
         "requires": [
             "literal_abstraction",
-            "comment_stripping"
+            "comment_stripping",
+            "ast_canonicalization",
+            "deadcode_elimination"
         ]
     },
     "generator": {

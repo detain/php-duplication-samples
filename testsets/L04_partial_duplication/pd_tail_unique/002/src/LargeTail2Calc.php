@@ -39,4 +39,11 @@ final class LargeTail2Calc
         $total = $taxable + $tax + $shipping;
         return [
             'subtotal' => round($subtotal, 2),
+            'discount' => $discount,
+            'tax' => $tax,
+            'shipping' => $shipping,
+            'total' => round($total, 2),
+            'items' => $itemCount,
+        ];
+    }
 }

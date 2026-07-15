@@ -36,6 +36,10 @@ final class TailUniqueCalc
             'discount' => $discount,
             'tax' => $tax,
             'shipping' => $shipping,
+            'total' => round($total, 2),
+            'items' => $itemCount,
+        ];
+    }
 
     public function lastEvent(): string
     {

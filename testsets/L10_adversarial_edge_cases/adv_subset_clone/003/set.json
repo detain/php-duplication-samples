@@ -33,19 +33,19 @@
             "path": "src/PermissionVerifierA.php",
             "role": "carrier",
             "duplicate_group": "B",
-            "sloc": 33
+            "sloc": 26
         },
         {
             "path": "src/PermissionVerifierB.php",
             "role": "carrier",
             "duplicate_group": "B",
-            "sloc": 38
+            "sloc": 31
         },
         {
             "path": "src/PermissionVerifierC.php",
             "role": "carrier",
             "duplicate_group": "B",
-            "sloc": 38
+            "sloc": 31
         },
         {
             "path": "src/RateLimiter.php",
@@ -89,13 +89,29 @@
                 "src/PermissionVerifierC.php"
             ],
             "intensity": 1
+        },
+        {
+            "code": "ST-07",
+            "name": "partial_fragment",
+            "params": {
+                "head_trim": 7,
+                "tail_trim": 8
+            },
+            "applied_to": [
+                "src/PermissionVerifierA.php",
+                "src/PermissionVerifierB.php",
+                "src/PermissionVerifierC.php"
+            ],
+            "intensity": 3
         }
     ],
     "difficulty": {
-        "score": 91,
+        "score": 100,
         "requires": [
             "literal_abstraction",
-            "comment_stripping"
+            "comment_stripping",
+            "ast_canonicalization",
+            "deadcode_elimination"
         ]
     },
     "generator": {

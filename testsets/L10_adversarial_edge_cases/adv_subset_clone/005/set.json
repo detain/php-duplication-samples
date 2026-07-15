@@ -81,18 +81,6 @@
             "intensity": 2
         },
         {
-            "code": "RN-05",
-            "name": "case_convention",
-            "params": {},
-            "applied_to": [
-                "src/InvoiceCalculatorB.php",
-                "src/InvoiceCalculatorC.php",
-                "src/ReceiptTotalerB.php",
-                "src/ReceiptTotalerC.php"
-            ],
-            "intensity": 2
-        },
-        {
             "code": "CM-03",
             "name": "docblock",
             "params": {},
@@ -103,6 +91,18 @@
                 "src/ReceiptTotalerC.php"
             ],
             "intensity": 1
+        },
+        {
+            "code": "RN-05",
+            "name": "case_convention",
+            "params": {},
+            "applied_to": [
+                "src/InvoiceCalculatorB.php",
+                "src/InvoiceCalculatorC.php",
+                "src/ReceiptTotalerB.php",
+                "src/ReceiptTotalerC.php"
+            ],
+            "intensity": 2
         },
         {
             "code": "WS-03",
@@ -119,8 +119,8 @@
         "score": 100,
         "requires": [
             "literal_abstraction",
-            "identifier_canonicalization",
             "comment_stripping",
+            "identifier_canonicalization",
             "whitespace_normalization"
         ]
     },

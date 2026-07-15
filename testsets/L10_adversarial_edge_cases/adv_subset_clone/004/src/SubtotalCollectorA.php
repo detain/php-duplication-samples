@@ -6,13 +6,6 @@ namespace Acme\Commerce\SubA;
 
 final class SubtotalCollectorA
 {
-    public function calculateTotal(array $items, float $taxRate, string $discountCode): array
-    {
-        $subtotal = 0.0;
-        $itemCount = 0;
-        foreach ($items as $item) {
-            $qty = (int) ($item['quantity'] ?? 1);
-            $price = (float) ($item['price'] ?? 0.0);
             $linePrice = $qty * $price;
             if ($qty >= 10) {
                 $linePrice *= 0.90;

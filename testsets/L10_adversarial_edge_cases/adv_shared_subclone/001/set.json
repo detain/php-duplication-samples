@@ -21,7 +21,7 @@
             "path": "src/SharedCloneA2.php",
             "role": "carrier",
             "duplicate_group": "A",
-            "sloc": 42
+            "sloc": 44
         },
         {
             "path": "src/SharedCloneA3.php",
@@ -39,7 +39,7 @@
             "path": "src/SharedCloneB2.php",
             "role": "carrier",
             "duplicate_group": "B",
-            "sloc": 42
+            "sloc": 44
         },
         {
             "path": "src/SharedCloneB3.php",

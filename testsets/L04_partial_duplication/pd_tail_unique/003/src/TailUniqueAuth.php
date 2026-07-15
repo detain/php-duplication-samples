@@ -31,6 +31,9 @@ final class TailUniqueAuth
         }
         if (in_array($resource['id'] ?? '', $user['grants'] ?? [], true)) {
             return true;
+        }
+        return false;
+    }
 
     public function lastEvent(): string
     {

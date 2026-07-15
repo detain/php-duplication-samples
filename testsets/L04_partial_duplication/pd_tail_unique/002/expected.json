@@ -28,7 +28,7 @@
                 {
                     "file": "src/LargeTailCalc.php",
                     "start_line": 18,
-                    "end_line": 36,
+                    "end_line": 42,
                     "symbol": "computeTotals",
                     "pristine": false,
                     "group": "A",
@@ -37,7 +37,7 @@
                 {
                     "file": "src/LargeTail2Calc.php",
                     "start_line": 24,
-                    "end_line": 41,
+                    "end_line": 48,
                     "symbol": "computeTotals",
                     "pristine": false,
                     "group": "A",

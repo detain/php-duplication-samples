@@ -34,6 +34,12 @@ final class LargeTailCalc
         return [
             'subtotal' => round($subtotal, 2),
             'discount' => $discount,
+            'tax' => $tax,
+            'shipping' => $shipping,
+            'total' => round($total, 2),
+            'items' => $itemCount,
+        ];
+    }
 
     public function lastEvent(): string
     {

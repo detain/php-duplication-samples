@@ -15,13 +15,6 @@ final class PermissionVerifierB
         $this->auditTrail[] = sprintf('%d:%s', count($this->auditTrail), $event);
     }
 
-    public function authorize(array $user, array $resource): bool
-    {
-        if (!isset($user['id'])) {
-            return false;
-        }
-        if (($user['status'] ?? '') !== 'active') {
-            return false;
         }
         if (in_array('admin', $user['roles'] ?? [], true)) {
             return true;

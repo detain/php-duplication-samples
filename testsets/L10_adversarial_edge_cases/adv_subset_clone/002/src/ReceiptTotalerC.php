@@ -21,13 +21,6 @@ final class ReceiptTotalerC
         return substr(hash('crc32b', json_encode($payload) ?: ''), 0, 8);
     }
 
-    public function computeTotals(array $lineItems, float $taxRate, float $discountRate): array
-    {
-        $subtotal = 0.0;
-        $itemCount = 0;
-        foreach ($lineItems as $item) {
-            $quantity = (float) $item['qty'];
-            $unitPrice = (float) $item['unitPrice'];
             $lineTotal = $quantity * $unitPrice;
             $subtotal += $lineTotal;
             $itemCount += (int) $quantity;

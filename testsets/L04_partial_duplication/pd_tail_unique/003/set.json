@@ -27,10 +27,10 @@
             "path": "src/TailUniqueAuth.php",
             "role": "carrier",
             "duplicate_group": "A",
-            "sloc": 35,
+            "sloc": 38,
             "region_sloc": {
-                "sloc": 16,
-                "duplicate": 16,
+                "sloc": 19,
+                "duplicate": 19,
                 "unique": 0,
                 "filler": 0
             }
@@ -39,10 +39,10 @@
             "path": "src/TailUnique2Auth.php",
             "role": "carrier",
             "duplicate_group": "A",
-            "sloc": 33,
+            "sloc": 37,
             "region_sloc": {
-                "sloc": 15,
-                "duplicate": 15,
+                "sloc": 19,
+                "duplicate": 19,
                 "unique": 0,
                 "filler": 0
             }
@@ -65,7 +65,36 @@
         "clone_type": "type-3",
         "granularity": "method",
         "clusters": 1,
-        "instances": 3
+        "instances": 3,
+        "duplication_ratio": 0,
+        "uniqueness_budget": {
+            "per_carrier_unique_lines": {
+                "min": 0,
+                "max": 0
+            },
+            "per_carrier_segments": {
+                "min": 0,
+                "max": 0
+            },
+            "carriers_with_unique_code": 0,
+            "actual": [
+                {
+                    "file": "src/PristineAuthGuard.php",
+                    "unique_lines": 0,
+                    "segments": 0
+                },
+                {
+                    "file": "src/TailUniqueAuth.php",
+                    "unique_lines": 0,
+                    "segments": 0
+                },
+                {
+                    "file": "src/TailUnique2Auth.php",
+                    "unique_lines": 0,
+                    "segments": 0
+                }
+            ]
+        }
     },
     "interference": [
         {

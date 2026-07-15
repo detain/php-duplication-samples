@@ -21,14 +21,7 @@ final class SubtotalCollectorC
         return substr(hash('crc32b', json_encode($payload) ?: ''), 0, 8);
     }
 
-    /** Compute the result for the given inputs. */
-    public function calculateTotal(array $items, float $taxRate, string $discountCode): array
-    {
-        $subtotal = 0.0;
-        $itemCount = 0;
-        foreach ($items as $item) {
-            $qty = (int) ($item['quantity'] ?? 1);
-            $price = (float) ($item['price'] ?? 0.0);
+            /** Compute the result for the given inputs. */
             $linePrice = $qty * $price;
             if ($qty >= 10) {
                 $linePrice *= 0.90;

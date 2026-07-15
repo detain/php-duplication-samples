@@ -41,4 +41,9 @@ final class TailUnique2Calc
             'subtotal' => round($subtotal, 2),
             'discount' => $discount,
             'tax' => $tax,
+            'shipping' => $shipping,
+            'total' => round($total, 2),
+            'items' => $itemCount,
+        ];
+    }
 }

@@ -24,7 +24,7 @@
                 {
                     "file": "src/AccessSharedA2.php",
                     "start_line": 18,
-                    "end_line": 34,
+                    "end_line": 36,
                     "symbol": "authorize",
                     "pristine": false
                 },
@@ -67,7 +67,7 @@
                 {
                     "file": "src/AccessSharedB2.php",
                     "start_line": 18,
-                    "end_line": 34,
+                    "end_line": 36,
                     "symbol": "authorize",
                     "pristine": false
                 },

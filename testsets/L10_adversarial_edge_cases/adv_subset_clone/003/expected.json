@@ -56,27 +56,27 @@
                 "comments",
                 "identifiers"
             ],
-            "token_hash": "5cd8e7841ecf7c41",
-            "normalized_hash": "89e09fba7eb77dcb",
+            "token_hash": "4a2dbd905287e75a",
+            "normalized_hash": "4a2dbd905287e75a",
             "members": [
                 {
                     "file": "src/PermissionVerifierA.php",
                     "start_line": 9,
-                    "end_line": 27,
+                    "end_line": 20,
                     "symbol": "authorize",
-                    "pristine": true
+                    "pristine": false
                 },
                 {
                     "file": "src/PermissionVerifierB.php",
                     "start_line": 18,
-                    "end_line": 36,
+                    "end_line": 29,
                     "symbol": "authorize",
                     "pristine": false
                 },
                 {
                     "file": "src/PermissionVerifierC.php",
                     "start_line": 25,
-                    "end_line": 43,
+                    "end_line": 36,
                     "symbol": "authorize",
                     "pristine": false
                 }

@@ -6,13 +6,6 @@ namespace Acme\Billing\ReceiptA;
 
 final class ReceiptTotalerA
 {
-    public function computeTotals(array $lineItems, float $taxRate, float $discountRate): array
-    {
-        $subtotal = 0.0;
-        $itemCount = 0;
-        foreach ($lineItems as $item) {
-            $quantity = (float) $item['qty'];
-            $unitPrice = (float) $item['unitPrice'];
             $lineTotal = $quantity * $unitPrice;
             $subtotal += $lineTotal;
             $itemCount += (int) $quantity;

@@ -21,7 +21,7 @@
             "path": "src/AccessSharedA2.php",
             "role": "carrier",
             "duplicate_group": "A",
-            "sloc": 36
+            "sloc": 38
         },
         {
             "path": "src/AccessSharedA3.php",
@@ -39,7 +39,7 @@
             "path": "src/AccessSharedB2.php",
             "role": "carrier",
             "duplicate_group": "B",
-            "sloc": 36
+            "sloc": 38
         },
         {
             "path": "src/AccessSharedB3.php",

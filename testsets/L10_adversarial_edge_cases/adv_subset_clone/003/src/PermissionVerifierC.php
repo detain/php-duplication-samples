@@ -21,14 +21,7 @@ final class PermissionVerifierC
         return substr(hash('crc32b', json_encode($payload) ?: ''), 0, 8);
     }
 
-    /** Compute the result for the given inputs. */
-    public function authorize(array $user, array $resource): bool
-    {
-        if (!isset($user['id'])) {
-            return false;
-        }
-        if (($user['status'] ?? '') !== 'active') {
-            return false;
+        /** Compute the result for the given inputs. */
         }
         if (in_array('admin', $user['roles'] ?? [], true)) {
             return true;

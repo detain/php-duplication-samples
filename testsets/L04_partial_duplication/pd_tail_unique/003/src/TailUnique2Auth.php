@@ -36,4 +36,8 @@ final class TailUnique2Auth
             return true;
         }
         if (in_array($resource['id'] ?? '', $user['grants'] ?? [], true)) {
+            return true;
+        }
+        return false;
+    }
 }

@@ -12,148 +12,148 @@
     "difficulty_band": "expert",
     "files": [
         {
-            "path": "src/CloneA01.php",
+            "path": "src/InvoiceCalcA01.php",
             "role": "carrier",
             "duplicate_group": "A",
-            "sloc": 29
+            "sloc": 39
         },
         {
-            "path": "src/CloneA02.php",
-            "role": "carrier",
-            "duplicate_group": "A",
-            "sloc": 38
-        },
-        {
-            "path": "src/CloneA03.php",
-            "role": "carrier",
-            "duplicate_group": "A",
-            "sloc": 40
-        },
-        {
-            "path": "src/CloneA04.php",
-            "role": "carrier",
-            "duplicate_group": "A",
-            "sloc": 61
-        },
-        {
-            "path": "src/CloneA05.php",
-            "role": "carrier",
-            "duplicate_group": "A",
-            "sloc": 66
-        },
-        {
-            "path": "src/CloneA06.php",
-            "role": "carrier",
-            "duplicate_group": "A",
-            "sloc": 113
-        },
-        {
-            "path": "src/CloneA07.php",
-            "role": "carrier",
-            "duplicate_group": "A",
-            "sloc": 124
-        },
-        {
-            "path": "src/CloneA08.php",
-            "role": "carrier",
-            "duplicate_group": "A",
-            "sloc": 150
-        },
-        {
-            "path": "src/CloneA09.php",
-            "role": "carrier",
-            "duplicate_group": "A",
-            "sloc": 199
-        },
-        {
-            "path": "src/CloneA10.php",
-            "role": "carrier",
-            "duplicate_group": "A",
-            "sloc": 198
-        },
-        {
-            "path": "src/CloneB01.php",
-            "role": "carrier",
-            "duplicate_group": "A",
-            "sloc": 29
-        },
-        {
-            "path": "src/CloneB02.php",
+            "path": "src/InvoiceCalcA02.php",
             "role": "carrier",
             "duplicate_group": "A",
             "sloc": 44
         },
         {
-            "path": "src/CloneB03.php",
+            "path": "src/InvoiceCalcA03.php",
             "role": "carrier",
             "duplicate_group": "A",
-            "sloc": 52
+            "sloc": 43
         },
         {
-            "path": "src/CloneB04.php",
+            "path": "src/InvoiceCalcA04.php",
             "role": "carrier",
             "duplicate_group": "A",
-            "sloc": 79
+            "sloc": 39
         },
         {
-            "path": "src/CloneB05.php",
+            "path": "src/InvoiceCalcA05.php",
             "role": "carrier",
             "duplicate_group": "A",
-            "sloc": 85
+            "sloc": 44
         },
         {
-            "path": "src/CloneB06.php",
+            "path": "src/InvoiceCalcA06.php",
             "role": "carrier",
             "duplicate_group": "A",
-            "sloc": 142
+            "sloc": 43
         },
         {
-            "path": "src/CloneB07.php",
+            "path": "src/InvoiceCalcA07.php",
             "role": "carrier",
             "duplicate_group": "A",
-            "sloc": 131
+            "sloc": 39
         },
         {
-            "path": "src/CloneB08.php",
+            "path": "src/InvoiceCalcA08.php",
             "role": "carrier",
             "duplicate_group": "A",
-            "sloc": 149
+            "sloc": 44
         },
         {
-            "path": "src/CloneB09.php",
+            "path": "src/InvoiceCalcA09.php",
             "role": "carrier",
             "duplicate_group": "A",
-            "sloc": 188
+            "sloc": 43
         },
         {
-            "path": "src/CloneB10.php",
+            "path": "src/InvoiceCalcA10.php",
             "role": "carrier",
             "duplicate_group": "A",
-            "sloc": 200
+            "sloc": 39
         },
         {
-            "path": "src/CleanA.php",
-            "role": "clean",
-            "duplicate_group": null,
-            "sloc": 34
+            "path": "src/InvoiceCalcB01.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 44
         },
         {
-            "path": "src/CleanB.php",
-            "role": "clean",
-            "duplicate_group": null,
-            "sloc": 32
+            "path": "src/InvoiceCalcB02.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 43
+        },
+        {
+            "path": "src/InvoiceCalcB03.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 39
+        },
+        {
+            "path": "src/InvoiceCalcB04.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 44
+        },
+        {
+            "path": "src/InvoiceCalcB05.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 43
+        },
+        {
+            "path": "src/InvoiceCalcB06.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 39
+        },
+        {
+            "path": "src/InvoiceCalcB07.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 44
+        },
+        {
+            "path": "src/InvoiceCalcB08.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 43
+        },
+        {
+            "path": "src/InvoiceCalcB09.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 39
+        },
+        {
+            "path": "src/InvoiceCalcB10.php",
+            "role": "carrier",
+            "duplicate_group": "A",
+            "sloc": 44
         },
         {
             "path": "src/DistractorA.php",
             "role": "distractor",
             "duplicate_group": null,
-            "sloc": 34
+            "sloc": 30
         },
         {
             "path": "src/DistractorB.php",
             "role": "distractor",
             "duplicate_group": null,
-            "sloc": 34
+            "sloc": 28
+        },
+        {
+            "path": "src/CleanA.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 28
+        },
+        {
+            "path": "src/CleanB.php",
+            "role": "clean",
+            "duplicate_group": null,
+            "sloc": 27
         }
     ],
     "duplication": {
