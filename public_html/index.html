@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PHP Duplication Corpus Explorer</title>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
   <style>
     :root {
       --bg-primary: #1a1a2e;
@@ -824,7 +823,7 @@
       <div class="modal-meta" id="modalMeta"></div>
       <div class="modal-code">
         <h4>Code Snippet</h4>
-        <pre><code class="language-php" id="modalCode"></code></pre>
+        <pre><code id="modalCode"></code></pre>
       </div>
       <div class="modal-files">
         <h4>Files (<span id="fileCount">0</span>)</h4>
@@ -833,9 +832,6 @@
     </div>
   </div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup-templating.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-php.min.js"></script>
   <script>
     // State
     let allSets = [];
@@ -1181,7 +1177,7 @@
             </div>
           </div>
           <div class="code-preview">
-            <pre><code class="language-php">${getSnippetPreview(set)}</code></pre>
+            <pre><code>${escapeHtml(getSnippetPreview(set))}</code></pre>
           </div>
           <div class="file-counts">
             ${set.num_carriers > 0 ? `
@@ -1205,12 +1201,9 @@
           </div>
         </div>
       `).join('');
-
-      // Highlight code
-      Prism.highlightAll();
     }
 
-    // Get snippet preview (placeholder for demo)
+    // Get snippet preview
     function getSnippetPreview(set) {
       // Generate a realistic PHP code preview based on the set info
       const snippets = {
@@ -1310,8 +1303,6 @@ class DataProcessor {
       document.body.classList.add('modal-open');
 
       document.querySelector('.modal-close').focus();
-
-      Prism.highlightAll();
     }
 
     function closeModal() {
