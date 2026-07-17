@@ -176,6 +176,37 @@
       cursor: pointer;
     }
 
+    .level-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 0.3rem 0.6rem;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: var(--transition);
+      font-family: inherit;
+    }
+
+    .level-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .level-btn.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+      font-weight: 600;
+    }
+
+    #levelFilters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
     .family-filter {
       margin-top: 0.5rem;
     }
@@ -871,12 +902,9 @@
       const families = [...new Set(allSets.map(s => s.family))].sort();
       const cloneTypes = [...new Set(allSets.map(s => s.clone_type))].sort();
 
-      // Level checkboxes
+      // Level buttons
       levelFilters.innerHTML = levels.map(level => `
-        <label class="checkbox-label">
-          <input type="checkbox" value="${level}" data-filter="level">
-          <span>L${level.toString().padStart(2, '0')}</span>
-        </label>
+        <button class="level-btn" data-level="${level}">L${level.toString().padStart(2, '0')}</button>
       `).join('');
 
       // Family checkboxes
@@ -896,8 +924,13 @@
       `).join('');
 
       // Add event listeners
-      document.querySelectorAll('#levelFilters input, #familyFilters input, #cloneFilters input').forEach(cb => {
+      document.querySelectorAll('#familyFilters input, #cloneFilters input').forEach(cb => {
         cb.addEventListener('change', handleFilterChange);
+      });
+
+      // Level buttons (toggle on click)
+      document.querySelectorAll('#levelFilters .level-btn').forEach(btn => {
+        btn.addEventListener('click', handleLevelBtnClick);
       });
 
       difficultySlider.addEventListener('input', (e) => {
@@ -926,14 +959,24 @@
     }
 
     // Filter handling
+    function handleLevelBtnClick(e) {
+      const btn = e.target.closest('.level-btn');
+      if (!btn) return;
+      const level = parseInt(btn.dataset.level);
+      btn.classList.toggle('active');
+      if (btn.classList.contains('active')) {
+        filterState.levels.add(level);
+      } else {
+        filterState.levels.delete(level);
+      }
+      applyFilters();
+    }
+
     function handleFilterChange(e) {
       const { value, dataset, checked } = e.target;
       const filterType = dataset.filter;
 
-      if (filterType === 'level') {
-        if (checked) filterState.levels.add(parseInt(value));
-        else filterState.levels.delete(parseInt(value));
-      } else if (filterType === 'family') {
+      if (filterType === 'family') {
         if (checked) filterState.families.add(value);
         else filterState.families.delete(value);
       } else if (filterType === 'cloneType') {
@@ -1053,6 +1096,12 @@
       const levels = params.get('levels');
       if (levels) {
         levels.split(',').forEach(l => filterState.levels.add(parseInt(l)));
+        // Also activate the corresponding level buttons
+        document.querySelectorAll('#levelFilters .level-btn').forEach(btn => {
+          if (filterState.levels.has(parseInt(btn.dataset.level))) {
+            btn.classList.add('active');
+          }
+        });
       }
 
       const families = params.get('families');
@@ -1113,7 +1162,8 @@
       difficultyMaxValue.textContent = "100";
       familySearch.value = "";
 
-      document.querySelectorAll('#levelFilters input, #familyFilters input, #cloneFilters input').forEach(cb => cb.checked = false);
+      document.querySelectorAll('#familyFilters input, #cloneFilters input').forEach(cb => cb.checked = false);
+      document.querySelectorAll('#levelFilters .level-btn').forEach(btn => btn.classList.remove('active'));
 
       // Reset family search display
       const checkboxes = familyFilters.querySelectorAll('.checkbox-label');
